@@ -5,6 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/common/welcome.css">
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/common/welcome.js"></script>
+
 </head>
 <body>
 Welcome Page

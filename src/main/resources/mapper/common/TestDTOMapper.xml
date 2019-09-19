@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="common">
-  <resultMap type="com.rhymes.app.member.model.RhymesMember" id="memberMap">
+  <resultMap type="com.rhymes.app.member.model.MemberDTO" id="memberMap">
     <id property="userid" column="userid"/>
     <result property="userid" column="userid"/>
     <result property="userpw" column="userpw"/>
@@ -11,7 +11,7 @@
     </collection> 
   </resultMap>
   
-  <resultMap type="com.rhymes.app.member.model.RhymesMember" id="authMap">
+  <resultMap type="com.rhymes.app.member.model.MemberDTO" id="authMap">
     <result property="userid" column="userid"/>
     <result property="auth" column="auth"/>
   </resultMap>
