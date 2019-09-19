@@ -12,8 +12,14 @@ public class TilesConfiguration {
 	@Bean
     public TilesConfigurer tilesConfigurer() {
         final TilesConfigurer configurer = new TilesConfigurer();
+        
+        String[] xmls = {"/WEB-INF/tiles/common/CommonTiles.xml"
+        				, "/WEB-INF/tiles/member/MemberTiles.xml"
+        				
+        				};
+        
         //해당 경로에 tiles.xml 파일을 넣음
-        configurer.setDefinitions(new String[]{"/WEB-INF/tiles/tiles.xml"});
+        configurer.setDefinitions(xmls);
         configurer.setCheckRefresh(true);
         return configurer;
     }
