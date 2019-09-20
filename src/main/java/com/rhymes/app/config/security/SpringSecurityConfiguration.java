@@ -1,16 +1,30 @@
 package com.rhymes.app.config.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
+
+import com.rhymes.app.security.CustomLoginSuccessHandler;
+import com.rhymes.app.security.CustomLogoutSuccessHandler;
+import com.rhymes.app.security.CustomUserDetailsService;
 
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	/**유저 정보를 가져올 곳과 비밀번호 암호화 알고리즘 설정
+	 *
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
 		super.configure(auth);
+		auth.userDetailsService(customUserService()).passwordEncoder(bCryptPasswordEncoder());
 	}
 
 	@Override
@@ -23,6 +37,59 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 		super.configure(http);
+
+		//URI패턴 별 권한 설정
+		http
+			.authorizeRequests()
+				.antMatchers("/").permitAll()
+				.antMatchers("/member", "/member/*").permitAll()
+				.antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')");
+		
+		//로그인페이지 설정
+		http
+			.formLogin()
+				.loginPage("/member/login")
+				.loginProcessingUrl("/login")
+				.successHandler( loginSuccessHandler() );
 	}
 
+	/**로그인에 성공한 경우 후속 작업을 설정한 핸들러를 리턴
+	 * @return
+	 */
+	@Bean
+	public AuthenticationSuccessHandler loginSuccessHandler() {
+		return new CustomLoginSuccessHandler();
+	}
+
+	/**로그아웃에 성공한 경우 후속 작업을 설정한 핸들러를 리턴
+	 * @return
+	 */
+	@Bean
+	public LogoutSuccessHandler logoutSuccessHandler() {
+		return new CustomLogoutSuccessHandler();
+	}
+
+	/**http session event publisher 리턴
+	 * @return
+	 */
+	@Bean
+	public HttpSessionEventPublisher httpSessionEventPublisher() {
+		return new HttpSessionEventPublisher();
+	}
+	
+	/**비밀번호를 암호화하기 위한 인코더 리턴
+	 * @return
+	 */
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	/**DB에 저장된 사용자 정보를 가져오기 위함
+	 * @return
+	 */
+	@Bean
+	public UserDetailsService customUserService() {
+		return new CustomUserDetailsService();
+	}
 }
