@@ -9,4 +9,10 @@ public class CommonController {
 	public String welcome() {
 		return "welcome";
 	}
+	
+	
+	@RequestMapping("/welcome/main")
+	public String welcomeMain() {
+		return "welcome/main";
+	}
 }
