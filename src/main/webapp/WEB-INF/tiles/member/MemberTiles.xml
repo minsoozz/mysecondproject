@@ -8,6 +8,7 @@
    <definition name="welcome" template="/WEB-INF/views/welcome.jsp">
    </definition>
 
+	<!-- login -->
 
 </tiles-definitions>
 
