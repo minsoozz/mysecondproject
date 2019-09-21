@@ -11,7 +11,7 @@ import com.rhymes.app.member.model.MemberDTO;
 
 @SuppressWarnings("serial")
 public class CustomUser extends User{
-	
+		
 	@SuppressWarnings("unused")
 	private MemberDTO dto;	
 

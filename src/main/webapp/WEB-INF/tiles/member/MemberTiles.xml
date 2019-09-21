@@ -5,8 +5,7 @@
 <tiles-definitions>
 
 	<!-- main -->
-	<definition name="welcome"
-		template="/WEB-INF/views/welcome.jsp">
+	<definition name="welcome" template="/WEB-INF/views/welcome.jsp">
 	</definition>
 
 	<!-- login -->

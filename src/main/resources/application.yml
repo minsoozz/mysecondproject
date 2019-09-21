@@ -9,7 +9,7 @@ server:
 #custume error page
   error:
     whitelabel:
-      enabled: false
+      enabled: true
  
 #db config
 spring:

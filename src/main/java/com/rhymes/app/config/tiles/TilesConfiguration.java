@@ -14,6 +14,7 @@ public class TilesConfiguration {
         final TilesConfigurer configurer = new TilesConfigurer();
         
         String[] xmls = {"/WEB-INF/tiles/common/CommonTiles.xml"
+        				, "/WEB-INF/tiles/common/ErrorTiles.xml"
         				, "/WEB-INF/tiles/member/MemberTiles.xml"
         				
         				};

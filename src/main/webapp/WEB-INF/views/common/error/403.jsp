@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-For Seller
-<form action="/logout" method='post'>
-<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
-<input type="submit" value="로그아웃">
+접근 권한이 없습니다.
 </body>
 </html>

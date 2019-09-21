@@ -40,7 +40,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			return;
 		}
 
-		resp.sendRedirect("/exam/all");
+		resp.sendRedirect("/welcome");
 		return;
 	}
 

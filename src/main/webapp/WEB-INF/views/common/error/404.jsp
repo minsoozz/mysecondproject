@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-For Seller
-<form action="/logout" method='post'>
-<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
-<input type="submit" value="로그아웃">
+페이지를 찾을 수 없습니다.
 </body>
 </html>

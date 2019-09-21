@@ -19,6 +19,14 @@ public class MemberController {
 		return "rhylogin";
 	}
 	
+	@GetMapping("/logout")
+	public String logout() {
+		
+		log.info("do logout");
+		
+		return "welcome";
+	}
+	
 	
 	@GetMapping("/admin")
 	public String adminMain() {

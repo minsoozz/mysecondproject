@@ -1,9 +1,11 @@
 package com.rhymes.app.config.security;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +17,11 @@ import com.rhymes.app.security.CustomLoginSuccessHandler;
 import com.rhymes.app.security.CustomLogoutSuccessHandler;
 import com.rhymes.app.security.CustomUserDetailsService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Configuration
+@EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	/**유저 정보를 가져올 곳과 비밀번호 암호화 알고리즘 설정
@@ -22,35 +29,46 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(auth);
 		auth.userDetailsService(customUserService()).passwordEncoder(bCryptPasswordEncoder());
 	}
 
+	/**security를 무시하는 패턴 설정.
+	 *
+	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(web);
+		web.ignoring().antMatchers("/favicon.ico", "/css/**", "/image/**", "/js/**", "/webjars/**");
 	}
 
+	/**URI 별 접근권한, 로그인 페이지, 로그아웃 등 전체적인 설정
+	 *
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(http);
+		log.info("HttpSecurity");
 
 		//URI패턴 별 권한 설정
 		http
 			.authorizeRequests()
-				.antMatchers("/").permitAll()
-				.antMatchers("/member", "/member/*").permitAll()
-				.antMatchers("/member/admin").access("hasRole('ROLE_ADMIN')");
+				.antMatchers("/welcome").permitAll()
+				.antMatchers("/member/admin", "/member/admin/**").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/member/member", "/member/member/**").access("hasRole('ROLE_MEMBER')");
 		
 		//로그인페이지 설정
 		http
 			.formLogin()
-				.loginPage("/member/login")
+				.loginPage("/member/login").permitAll()
 				.loginProcessingUrl("/login")
 				.successHandler( loginSuccessHandler() );
+		
+		//로그아웃 관련 설정
+		http
+			.logout()
+				.logoutUrl("/logout")
+				.invalidateHttpSession(true)
+				.deleteCookies("remember-me", "JSESSION_ID")
+				.logoutSuccessHandler(logoutSuccessHandler());
+		
 	}
 
 	/**로그인에 성공한 경우 후속 작업을 설정한 핸들러를 리턴

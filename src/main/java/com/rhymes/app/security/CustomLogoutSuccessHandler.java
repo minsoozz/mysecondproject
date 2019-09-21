@@ -22,7 +22,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
             }
         } 
         response.setStatus(HttpServletResponse.SC_OK);
-        response.sendRedirect("/main");
+        response.sendRedirect("/member/login");
 	}
 
 }
