@@ -13,13 +13,8 @@ public class TilesConfiguration {
     public TilesConfigurer tilesConfigurer() {
         final TilesConfigurer configurer = new TilesConfigurer();
         
-        String[] xmls = {"/WEB-INF/tiles/common/CommonTiles.xml"
-        				, "/WEB-INF/tiles/member/MemberTiles.xml"
-        				
-        				};
-        
         //해당 경로에 tiles.xml 파일을 넣음
-        configurer.setDefinitions(xmls);
+        configurer.setDefinitions("/WEB-INF/tiles/*/*");
         configurer.setCheckRefresh(true);
         return configurer;
     }
