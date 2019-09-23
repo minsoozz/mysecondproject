@@ -4,8 +4,12 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-   <definition name="UsedPopup" template="/WEB-INF/views/used/Popup.jsp">
-   
+   <definition name="test" template="/WEB-INF/views/used/test.jsp">
    </definition>
+	
+	<!-- 팝업창  -->
+   <definition name="SellerPopup" template="/WEB-INF/views/used/SellerPopup.jsp">
+   </definition>
+	   
 
 </tiles-definitions>

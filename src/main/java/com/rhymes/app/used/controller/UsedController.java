@@ -6,13 +6,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/used")
 public class UsedController {
-	
 
-		@RequestMapping("/used")
-		public String popup(Model model) {
-		System.out.println("public String popup");
+	@RequestMapping("/hello")
+	public String test(Model model) {
+
+		return "test";
+	}
+	
+	@RequestMapping("/SellerPopup")
+	public String popup(Model model) {
+		System.out.println("도착");
 		
-		return "UsedPopup";
+		
+		return "SellerPopup";
 	}
 }
