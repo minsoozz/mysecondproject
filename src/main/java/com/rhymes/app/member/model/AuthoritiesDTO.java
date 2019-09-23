@@ -14,24 +14,24 @@ import lombok.ToString;
 public class AuthoritiesDTO implements Serializable {
 
 	private int seq;
-	private String id;
+	private String userid;
 	private String authority;
 	
 	@Builder
 	public AuthoritiesDTO() {}
 
 	@Builder
-	public AuthoritiesDTO(String id, String authority) {
+	public AuthoritiesDTO(String userid, String authority) {
 		super();
-		this.id = id;
+		this.userid = userid;
 		this.authority = authority;
 	}
 	
 	@Builder
-	public AuthoritiesDTO(int seq, String id, String authority) {
+	public AuthoritiesDTO(int seq, String userid, String authority) {
 		super();
 		this.seq = seq;
-		this.id = id;
+		this.userid = userid;
 		this.authority = authority;
 	}
 }
