@@ -9,11 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping(value = "/member/*")
-public class MemberController {
-	
+public class AuthTestController {
+
 	@GetMapping("/login")
 	public String login() {
-		
 		log.info("show login view");
 		
 		return "rhylogin";

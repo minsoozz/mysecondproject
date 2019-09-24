@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.mypage_main_content_body{  /*찜 목록 타이틀*/
+    margin-top: -45px;
+}
+
+/*찜 목록 테이블 부분*/
+.tbl_freqorder_head{
+    border-top: 3px solid #d7fd75;
+    text-align: center;
+}
+
+.tbl_freqorder_head{
+
+}

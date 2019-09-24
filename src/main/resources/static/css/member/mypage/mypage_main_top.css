@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+/* 영역 배치 */
+.mypage_wrap {	/* Body부분 전체 크기 및 배치 */
+	z-index: 1;
+	position: absolute;
+	margin: 0 0 0 -1500px;
+	
+	width: 3000px !important;
+	min-width: 3000px !important;
+	height: 300px;
+
+	top: 10%;
+	left: 50%;
+
+	background-color: white;
+}
+
+.mypage_top {	/* TOP부분 배경화면 */
+	z-index: 2;
+	position: absolute;
+	margin: 0 0 0 -1500px;
+	
+	width: 3000px !important;
+	min-width: 3000px !important;
+	height: 275px;
+
+	top: 4%;
+	left: 50%;
+
+	background-color: #F7F7F7;
+}
+
+.mypage_top_user {	/* TOP부분 전체 크기 및 배치. 등급 적립금 등 */
+	z-index: 3;
+	position: absolute;
+	margin: 0 0 0 -500px;
+	
+	width: 1000px;
+	height: 225px;
+	
+	top: 10%;
+	left: 50%;
+	
+	/* background-color: yellow; */
+}
+/* top메뉴 영역 분배 끝 */
+
+/* top메뉴 가로 리스트 설정 */
+.mypage_top_list {	/* TOP메뉴 ul */
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.mypage_top_list_item {
+	height: 200px;
+	margin: 5px 0 0 5px;
+    padding: 0 0 0 0;
+    border : 0;
+    float: left;
+    background-color: white;
+}
+.grade_user {
+	width: 38%;	
+}
+.points_user {
+	width: 20%;
+}
+.coupon_user {
+	width: 20%;
+}
+.membership_user {
+	width: 20%;
+}
