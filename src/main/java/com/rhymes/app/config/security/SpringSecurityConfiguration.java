@@ -29,7 +29,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(customUserService()).passwordEncoder(bCryptPasswordEncoder());
+		auth.userDetailsService( customUserService() ).passwordEncoder( bCryptPasswordEncoder() );
 	}
 
 	/**security를 무시하는 패턴 설정.
@@ -37,7 +37,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/favicon.ico", "/css/**", "/image/**", "/js/**", "/webjars/**", "vendor/**");
+		web.ignoring().antMatchers("/favicon.ico", "/css/**", "/image/**", "/js/**", "/webjars/**", "/vendor/**");
 	}
 
 	/**URI 별 접근권한, 로그인 페이지, 로그아웃 등 전체적인 설정
@@ -67,7 +67,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.logoutUrl("/logout")
 				.invalidateHttpSession(true)
 				.deleteCookies("remember-me", "JSESSION_ID")
-				.logoutSuccessHandler(logoutSuccessHandler());
+				.logoutSuccessHandler( logoutSuccessHandler() );
 		
 	}
 
