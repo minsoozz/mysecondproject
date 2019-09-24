@@ -4,8 +4,10 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
-    <title>ㅎㅎㅎㅎ</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
+    <title>RHYMESb</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">   
   </head>
    <body>
     <section class="content">
