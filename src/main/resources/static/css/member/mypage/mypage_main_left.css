@@ -8,12 +8,14 @@
 }
 
 .btn-group-vertical{
-	width: 280px;	
+	width: 220px;	
 	position: absolute;
 	top:50px;
 	left: 10px;
 }
 .btn-group-vertical .btn{
+	background-color: #fbfbfb;
+	margin: 3px;
 	height: 70px;
 }
 .btn_inner_title{

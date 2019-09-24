@@ -13,27 +13,27 @@
 
 
 <div class="btn-group-vertical" align="left">
-	<button type="button" class="btn btn-default btn_inner">
+	<button type="button" class="btn btn-default btn_inner" onclick="location.href='<%=ctx%>/mypage/orderlog';">
 		<div align="left" class="btn_inner_title">주문 내역</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
 	</button>
-	<button type="button" class="btn btn-default">
+	<button type="button" class="btn btn-default" onclick="location.href='<%=ctx%>/mypage/wishlist';">
 		<div align="left" class="btn_inner_title">늘 사는 것</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
 	</button>
-	<button type="button" class="btn btn-default">
+	<button type="button" class="btn btn-default" onclick="location.href='<%=ctx%>/mypage/review';">
 		<div align="left" class="btn_inner_title">상품후기</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
 	</button>
-	<button type="button" class="btn btn-default">
+	<button type="button" class="btn btn-default" onclick="location.href='<%=ctx%>/mypage/points';">
 		<div align="left" class="btn_inner_title">적립금</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
 	</button>
-	<button type="button" class="btn btn-default">
+	<button type="button" class="btn btn-default" onclick="location.href='<%=ctx%>/mypage/coupon';">
 		<div align="left" class="btn_inner_title">쿠폰</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
 	</button>
-	<button type="button" class="btn btn-default">
+	<button type="button" class="btn btn-default" onclick="location.href='<%=ctx%>/mypage/personal';">
 		<div align="left" class="btn_inner_title">개인 정보 수정</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
 	</button>	

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+/* 마이페이지 본문 공통 레이아웃 설정 */
+.mypage_main_content_top{
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+
+.mypage_main_content_body{
+	position: absolute;
+	top: 100px;
+	width: 100%;
+}
