@@ -26,7 +26,7 @@ public class MypageController {
 	@GetMapping(value = "/wishlist")
 	public String showWishList() {
 		log.info("show wishlist");
-		return "member/mypage/wishlistwishlist";
+		return "member/mypage/wishlist";
 	}
 	
 	@GetMapping(value = "/review")
