@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.rhymes.app.config.security.SpringSecurityConfiguration;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +14,6 @@ import lombok.ToString;
 @SuppressWarnings("serial")
 @Getter
 @Setter
-@ToString
 public class MemberDTO implements Serializable {
 	
 	private int seq;
@@ -26,8 +27,10 @@ public class MemberDTO implements Serializable {
 	private List<AuthoritiesDTO> authList;
 	private Date rdate;
 	
+	
 	public MemberDTO() {}
 
+	
 	@Builder
 	public MemberDTO(String userid, String userpw) {
 		super();
@@ -57,6 +60,29 @@ public class MemberDTO implements Serializable {
 		this.authList = authList;
 		this.rdate = rdate;
 	}
+	
+	@Builder
+	public MemberDTO(int seq, String userid, String userpw, boolean isAccountNonExpired, boolean isAccountNonLock,
+			boolean isCredentialsIsNonExpired, boolean enabled, Date rdate) {
+		super();
+		this.seq = seq;
+		this.userid = userid;
+		this.userpw = userpw;
+		this.isAccountNonExpired = isAccountNonExpired;
+		this.isAccountNonLock = isAccountNonLock;
+		this.isCredentialsIsNonExpired = isCredentialsIsNonExpired;
+		this.enabled = enabled;
+		this.rdate = rdate;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberDTO [seq=" + seq + ", userid=" + userid + ", userpw=" + userpw + ", isAccountNonExpired="
+				+ isAccountNonExpired + ", isAccountNonLock=" + isAccountNonLock + ", isCredentialsIsNonExpired="
+				+ isCredentialsIsNonExpired + ", enabled=" + enabled + ", authList=" + authList + ", rdate=" + rdate
+				+ "]";
+	}
+	
 
 }
 /*
