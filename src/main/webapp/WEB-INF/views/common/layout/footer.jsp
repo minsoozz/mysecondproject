@@ -15,6 +15,7 @@
     <!-- Responsive CSS -->
     <link href="css/responsive/responsive.css" rel="stylesheet">
 </head>
+<body>
 
     <!-- ****** Footer Menu Area Start ****** -->
     <footer class="footer_area"style="align-content: center;">
@@ -81,3 +82,7 @@
     <script src="js/others/plugins.js"></script>
     <!-- Active JS -->
     <script src="js/active.js"></script>
+
+</body>
+</html>
+
