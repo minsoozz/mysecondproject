@@ -28,7 +28,7 @@
 				</thead>
 				<tbody class="tbl_wishlist_body">
 					<tr>
-						<td><input type="checkbox"></td>
+						<th class="td_chk" align="center"><input type="checkbox"></th>
 						<td>
 							<div class="wishlist_body_details">
 								<div class="detail_thumbnail">
@@ -43,7 +43,9 @@
 							</div>					
 						</td>
 						<td>
-							<div class="wishlist_body_btns">
+							<div class="wishlist_body_btns" align="center">
+								<input type="button" class="btn btn-default btn_order_body btn_write_review" value="장바구니 담기"><br>
+								<input type="button" class="btn btn-default btn_order_body" value="삭제">
 							</div>
 						</td>
 					</tr>
