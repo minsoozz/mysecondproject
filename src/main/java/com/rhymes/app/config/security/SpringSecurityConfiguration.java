@@ -52,7 +52,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers("/welcome").permitAll()
 				.antMatchers("/member/admin", "/member/admin/**").access("hasRole('ROLE_ADMIN')")
-				.antMatchers("/member/member", "/member/member/**").access("hasRole('ROLE_MEMBER')");
+				.antMatchers("/member/member", "/member/member/**").access("hasRole('ROLE_MEMBER')")
+				.antMatchers("/mypage/**").access("hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')");				
 		
 		//로그인페이지 설정
 		http
