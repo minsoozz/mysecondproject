@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.mypage_main_left_title{
+	top: 0px;
+	left: 20px;
+	position: absolute;
+	
+}
+
+.btn-group-vertical{
+	width: 280px;	
+	position: absolute;
+	top:50px;
+	left: 10px;
+}
+.btn-group-vertical .btn{
+	height: 70px;
+}
+.btn_inner_title{
+	float: left;
+}
+
+.btn_inner_ico{
+	float: right;
+}

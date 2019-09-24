@@ -5,27 +5,12 @@
 <tiles-definitions>
 
 	<!-- main -->
-	<definition name="welcome" template="/WEB-INF/views/welcome.jsp">
-	</definition>
-
-	<!-- login -->
-	<definition name="rhylogin"	template="/WEB-INF/views/member/login.jsp">
-	</definition>
-
-	<!-- registration -->
-	<definition name="rhyregi" template="/WEB-INF/views/member/regi.jsp">
-	</definition>
-
-	<!-- admin test -->
-	<definition name="memtest/admin" template="/WEB-INF/views/member/tmp/admin.jsp">
-	</definition>
-
-	<!-- member test -->
-	<definition name="memtest/member" template="/WEB-INF/views/member/tmp/member.jsp">
-	</definition>
-
-	<!-- seller test -->
-	<definition name="memtest/seller" template="/WEB-INF/views/member/tmp/seller.jsp">
+	<definition name="member/mypage/main" template="/WEB-INF/views/member/layout/mypage_template.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
+		<put-attribute name="mypage_top" value="/WEB-INF/views/member/mypage/mypage_main_top.jsp" />
+		<put-attribute name="mypage_left" value="/WEB-INF/views/member/mypage/mypage_main_left.jsp" />
+		<put-attribute name="mypage_content" value="/WEB-INF/views/member/mypage/mypage_main_content.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
 	</definition>
 
 </tiles-definitions>
