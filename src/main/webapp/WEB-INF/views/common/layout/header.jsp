@@ -110,16 +110,7 @@
                                     <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                                 </li> -->
                                 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="rhymesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">dropdown</a>
-                                    <div class="dropdown-menu" aria-labelledby="rhymesDropdown">
-                                        <a class="dropdown-item" href="index.html">TOP</a>
-                                        <a class="dropdown-item" href="archive.html">OUTER</a>
-                                        <a class="dropdown-item" href="single.html">BOTTOM</a>
-                                        <a class="dropdown-item" href="static.html">SHOES</a>
-                                        <a class="dropdown-item" href="contact.html">ACC</a>
-                                    </div>
-                                </li>
+                               
                                 <li class="nav-item">
                                     <a class="nav-link" href="women.jsp">WOMEN</a>
                                 </li>
