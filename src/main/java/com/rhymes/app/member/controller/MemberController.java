@@ -2,7 +2,6 @@ package com.rhymes.app.member.controller;
 
 import java.util.HashMap;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,8 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.common.service.KakaoAPI;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.member.model.SellerBean;
+import com.rhymes.app.member.model.SellerCRnumDTO;
+import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.member.service.MemberService;
 import com.rhymes.app.member.util.Coolsms;
+import com.rhymes.app.member.util.RhymesMailling;
 
 
 @Controller
@@ -89,20 +92,75 @@ public class MemberController {
 	
 	// 사업자회원가입(공통)
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addseller")
-	public String addseller(HttpServletRequest req, MemberDTO mem) {
+	public String addseller(HttpServletRequest req, MemberDTO mem, Model model) {
 		System.out.println("mem toString: "+ mem.toString());
 		
 		req.getSession().setAttribute("mem", mem);
 		
+		model.addAttribute("userid", mem.getUserid());
+		
 		return "rhyregisellerdetail";
 	}
+	
 	// 사업자회원가입(사업자 추가정보)
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addsellerdetail")
-	public String addsellerdetail(HttpServletRequest req) {
+	public String addsellerdetail(HttpServletRequest req, SellerBean sellerbean) {
 		MemberDTO mem = (MemberDTO)req.getSession().getAttribute("mem");
-		
 		System.out.println("mem: " + mem);
+		
+		memService.getAddSeller(sellerbean);			// 사업자 회원가입
+		
+		
 		return "rhyregisuc";
+	}
+
+	
+	// 사업자번호 체크
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck")
+	public String getCRCheck(HttpServletRequest req, SellerCRnumDTO crdto) {
+		
+		int crnum1 = Integer.parseInt(req.getParameter("_c_num1"));
+		int crnum2 = Integer.parseInt(req.getParameter("_c_num2"));
+		int crnum3 = Integer.parseInt(req.getParameter("_c_num3"));
+		
+		crdto.setCrnum1(crnum1);
+		crdto.setCrnum2(crnum2);
+		crdto.setCrnum3(crnum3);
+		
+		String crname = memService.getCRCheck(crdto);
+		System.out.println("crname: " + crname);
+
+		String msg = "";
+		if (crname == "" || crname == null) {
+			msg = "NO";
+		} else {
+			msg = crname;
+		}
+
+		return msg;
+	}
+	
+	// 이메일 체크
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getEmailCheck")
+	public String getEmailCheck(HttpServletRequest req) {
+		
+		String e1 = (String)req.getParameter("e1");
+		String e2 = (String)req.getParameter("e2");
+		String userEmail = e1+"@"+e2;
+		System.out.println("userEmail: " + userEmail);
+		
+//		System.out.println("RhymesMailling.getAuthorizationCode() === " + RhymesMailling.getAuthorizationCode());
+		
+		String code = "";
+		code = (String)req.getParameter("code");
+		System.out.println("code: " + code);
+		RhymesMailling.sendMail(RhymesMailling.getAuthorizationCode(code), userEmail);
+		
+		String msg = code;
+		
+		return msg;
 	}
 
 	// 전화번호 인증
@@ -129,8 +187,7 @@ public class MemberController {
        
        JSONObject result = coolsms.send(set); // 보내기&전송결과받기
        
-       
-       
+
        if ((boolean)result.get("status") == true) {
          // 메시지 보내기 성공 및 전송결과 출력
          System.out.println("성공");
@@ -148,6 +205,7 @@ public class MemberController {
       
        return "suc";
      }
+	
 	   
 	   
 	// 카카오 로그인

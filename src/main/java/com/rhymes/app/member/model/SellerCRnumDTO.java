@@ -1,0 +1,35 @@
+package com.rhymes.app.member.model;
+
+import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@SuppressWarnings("serial")
+@Getter
+@Setter
+public class SellerCRnumDTO implements Serializable{
+
+	private int crnum1;
+	private int crnum2;
+	private int crnum3;
+	private String crname;
+	
+	public SellerCRnumDTO() {}
+
+	public SellerCRnumDTO(int crnum1, int crnum2, int crnum3, String crname) {
+		super();
+		this.crnum1 = crnum1;
+		this.crnum2 = crnum2;
+		this.crnum3 = crnum3;
+		this.crname = crname;
+	}
+
+	@Override
+	public String toString() {
+		return "SellerCRnumDTO [crnum1=" + crnum1 + ", crnum2=" + crnum2 + ", crnum3=" + crnum3 + ", crname=" + crname
+				+ "]";
+	}
+	
+	
+}

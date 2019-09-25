@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.User;
 
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.member.model.SellerBean;
+import com.rhymes.app.member.model.SellerCRnumDTO;
 
 public interface MemberService{
 	
@@ -18,7 +20,11 @@ public interface MemberService{
 	// 일반회원가입 insert
 	public void getAddmem(MemBean bean);
 	
+	// 사업자번호 체크
+	public String getCRCheck(SellerCRnumDTO crnum);
+	
 	// 사업자 회원가입 insert
-	public void getAddseller(MemBean bean);
+	public void getAddSeller(SellerBean sellerbean);
+	
 	
 }

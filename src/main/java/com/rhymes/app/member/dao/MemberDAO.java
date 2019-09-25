@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerCRnumDTO;
 
 public interface MemberDAO {
 	
@@ -18,5 +19,6 @@ public interface MemberDAO {
 	public void getPAddmem(P_MemberDTO pmem);		// 추가
 	public void getAuthAddmem(AuthoritiesDTO amem);	// 권한
 	
-	
+	// 사업자번호 체크
+	public String getCRCheck(SellerCRnumDTO crnum);
 }

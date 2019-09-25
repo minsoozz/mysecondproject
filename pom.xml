@@ -195,6 +195,7 @@
 		</dependency>
 		<!-- Tiles 관련 디펜던시 끝 -->
 	
+		<!-- 전화번호 인증 -->
 		<dependency>
 		    <groupId>net.nurigo</groupId>
 		    <artifactId>javaSDK</artifactId>
@@ -206,6 +207,16 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
 		  </dependency>
+		  
+		  	<!-- Mail -->
+	        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+			<dependency>
+			    <groupId>javax.mail</groupId>
+			    <artifactId>mail</artifactId>
+			    <version>1.4.7</version>
+			</dependency>
+
+
 
 	<!-- kakao login api JSON객체 파싱에 유용한 Gson외부 라이브러리 dependency추가 -->
  		<dependency>

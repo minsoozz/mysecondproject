@@ -8,12 +8,18 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style type="text/css">
-table {table-layout: fixed; border-collapse: collapse; padding: 0; border-style: solid; border-width: 1px 1px 0 1px; border-color: #bbb;}
-th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; background:#ddd;}
-td {text-align:left; border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; padding: 3px;}
+table {table-layout: fixed; border-collapse: collapse; padding: 0; border-style: solid; border-width: 1px 1px 0 1px; border-color: #bbb; align-content: center; margin: auto;}
+th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; background:#d7fd75;}
+td {text-align:left; border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; padding: 15px;}
 input {font-family: Tahoma, Dotum, "����"; font-size:1em;}
 .text100{
 	width: 100px;
+}
+#footer{
+	    margin-left: 500px;
+}
+button{
+	background-color: white;
 }
 
 </style>
@@ -51,7 +57,7 @@ function checkIt() {
 		$("#_ic_email1").focus();
 		return false;
 	}
-	if(!userinput.ic_email2.value) {
+	if(!userinput.hiddenCode.value) {
 		alert("담당이메일을 입력하세요");
 		$("#_email2").focus();
 		return false;
@@ -78,6 +84,7 @@ function checkIt() {
 		$("#textresult").focus();
 		return false;
 	}
+
 	
 }
 </script>
@@ -91,48 +98,53 @@ function checkIt() {
 <div id="body">
 	<table border="1">
 	<tr>
-		<td>
-			<p>아이디: ${seller.id }</p>
-		</td>
+		<th>
+			<p>아이디</p>
+		</th>
+		<td>${userid}</td>
 	</tr>
 	<tr>
+		<th>사업자 등록번호</th>
 		<td>
-		사업자 등록번호 : <input type="number" name="c_num1" class="text100" id="_c_num1" minlength="3" maxlength="3">
-						- <input type="number" name="c_num2" class="text100" minlength="2" maxlength="2">
-						- <input type="number" name="c_num3" class="text100" minlength="5" maxlength="5">
+			<input type="text" name="crnum1" class="text100" id="_c_num1" minlength="3" maxlength="3">
+			- <input type="text" name="crnum2" class="text100" id="_c_num2" minlength="2" maxlength="2">
+			- <input type="text" name="crnum3" class="text100" id="_c_num3" minlength="5" maxlength="5">
+			<input type="button" value="사업자 번호 인증" id="_r_numBtn">
 		</td>
-		<td>
-			<input type="button" value="사업자 번호 인증">
-		</td>
+		
 	</tr>
 	<tr>
+		<th>상호명</th>
 		<td>
-			상호명 : <input type="text" name="c_name">
+			<input type="text" name="c_name" id="_c_name" readonly>
 		</td>
 		</tr>
 	<tr>
+		<th>대표자명</th>
 		<td>
-		대표자명 : <input type="text" name="p_name" id="_p_name">
+			<input type="text" name="p_name" id="_p_name">
 		</td>
 	</tr>
 	<tr>
+		<th>업태</th>
 		<td>
-			업태 : <input type="text" name="c_cond" id="_c_cond">
+			<input type="text" name="c_cond" id="_c_cond">
 		</td>
 	</tr>
 	<tr>
+		<th>종목</th>
 		<td>
-			종목 : <input type="text" name="c_type" id="_c_type">
+			<input type="text" name="c_type" id="_c_type">
 		</td>
 	</tr>
 	<tr>
+		<th>담당자이름</th>
 		<td>
-			담당자이름 : <input type="text" name="ic_name" id="_ic_name">
+			<input type="text" name="ic_name" id="_ic_name">
 		</td>
 	</tr>
 	<tr>
-		<td>
-			담당자번호 : <!-- <select name="ic_phone1" class="text100">
+		<th>담당자번호</th><!-- <select name="ic_phone1" class="text100">
 							<option value="xx" id="_ic_phone1">선택</option>
 							<option value="02">02</option>
 							<option value="010">010</option>
@@ -142,31 +154,36 @@ function checkIt() {
 						<input type="number" name="ic_phone2" class="text100">
 						-
 						<input type="number" name="ic_phone3" class="text100"> -->
-						<input type="number" id="to" name="to" minlength="11" maxlength="11"/>   <!-- 인증번호 받을사람 휴대폰 번호 -->
-    					<input type="button" id="send" value="전송"/><br> <!-- 문자보내는 전송버튼 -->
-    					인증번호 :    <input type="number" id="userNum" class="text100">   <!-- 인증번호 입력창 -->
-  									<input type="button" id="enterBtn" value="확인">   <!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
-  									<input type="hidden" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-  									<input type="hidden" id="textresult" name="textresult">
-  									
+		<td>
+			<input type="number" id="to" name="to" minlength="11" maxlength="11"/>   <!-- 인증번호 받을사람 휴대폰 번호 -->
+ 					<input type="button" id="send" value="전송"/><br><br> <!-- 문자보내는 전송버튼 -->
+ 					인증번호 :    <input type="number" id="userNum" class="text100">   <!-- 인증번호 입력창 -->
+								<input type="button" id="enterBtn" value="확인">   <!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
+								<input type="hidden" name="text" id="text" placeholder="확인용">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+								<input type="hidden" id="textresult" name="textresult" placeholder="textresult">
 		</td>
 	</tr>
 	<tr>
+		<th>담당자메일</th>
 		<td>
-			담당자메일 :  <input type="text" name="ic_email1" class="text100" id="_ic_email1">
-						@
-						<input type="text" name="ic_email2" class="text100" id="_email2">
-						<select name="ic_email3" class="text100" id="_emailSelect" onchange="changeEmail()">
-							<option value="x">직접입력</option>
-							<option value="n">naver.com</option>
-							<option value="h">hanmail.net</option>
-							<option value="g">gmail.com</option>
-						</select>
+			<input type="text" name="ic_email1" class="text100" id="_ic_email1">
+			@
+			<input type="text" name="ic_email2" class="text100" id="_email2">
+			<select name="ic_email3" class="text100" id="_emailSelect" onchange="changeEmail()">
+				<option value="x">직접입력</option>
+				<option value="naver.com">naver.com</option>
+				<option value="hanmail.net">hanmail.net</option>
+				<option value="gmail.com">gmail.com</option>
+			</select>
+			<input type="button" id="_emailBtn" value="이메일 인증"><br><br>
+			인증번호<input type="text" id="_emailText" class="text100" minlength="6" maxlength="6">
+			<input type="button" id="_emailNumBtn" value="인증번호 확인">
+						<input type="text" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
 		</td>
 	</tr>
 	<tr>
+		<th>회사주소</th>
 		<td>
-			회사주소 :
 			<div class="wrap-input100 bg1 rs1-wrap-input100">
 				<input type="text" id="_postcode" name="c_postcode" placeholder="우편번호">
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -177,8 +194,8 @@ function checkIt() {
 		</td>
 	</tr>
 	<tr>
-		<td>
-			출고지주소 : 
+		<th>출고지주소</th>
+		<td> 
 			<div class="wrap-input100 bg1 rs1-wrap-input100">
 				<input type="text" id="S_postcode" name="s_postcode" placeholder="우편번호">
 				<input type="button" onclick="S_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -189,8 +206,8 @@ function checkIt() {
 		</td>
 	</tr>
 	<tr>
+		<th>반품/교환지주소</th>
 		<td>
-			반품/교환지주소 :
 			<div class="wrap-input100 bg1 rs1-wrap-input100">
 				<input type="text" id="R_postcode" name="r_postcode" placeholder="우편번호">
 				<input type="button" onclick="R_execDaumPostcode()" value="우편번호 찾기"><br>
@@ -200,15 +217,128 @@ function checkIt() {
 			</div>
 		</td>
 	</tr>
-	
+	<tr>
+		<td colspan="2">
+		<div id="footer">
+			<input type="submit" value="확인">
+			<input type="button" value="취소" onclick="javascript:window.location.href='login'">
+		</div>
+		</td>
+	</tr>
 	</table>
 </div>
-<div id="footer">
-	<input type="submit" value="확인">
-	<input type="button" value="취소" onclick="javascript:window.location.href='login'">
-</div>
+
 </form>
 </body>
+
+
+<!-- 사업자번호인증 -->
+<script type="text/javascript">
+$(document).ready(function() {
+
+   $("#_r_numBtn").click(function() {
+	  alert("사업자 번호 인증 클릭"); 
+	  alert($("#_c_num1").val());
+		$.ajax({
+		    url:"/member/getCRCheck",
+		    type:"get",
+		    data:{_c_num1: $("#_c_num1").val(),
+		    	_c_num2: $("#_c_num2").val(),
+		    	_c_num3: $("#_c_num3").val()
+		         },
+		  success:function(msg){
+			  if(msg=="NO"){
+			    alert("등록되어있지 않은 사업자번호 입니다.");
+			  }
+			  else{
+				  $("#_c_name").val(msg);
+				  alert("확인되었습니다. : " + msg);
+			  }
+
+		    },
+		    error(){}
+		    
+		 });
+   })
+   
+});
+
+</script>
+
+
+<!-- 이메일 인증 -->
+<script type="text/javascript">
+$(document).ready(function() {
+
+   $("#_emailBtn").click(function() {
+	   
+	   var number = Math.floor(Math.random() * 100000) + 100000;
+       if(number>100000){
+          number = number - 10000;
+       }
+
+//        $("#_hiddenCode").val(number);      /* hidden으로 인증번호를 넣어놓는다. */
+    
+//	   alert("이메일 인증 클릭"); 
+	   var e1 = $("#_ic_email1").val();
+	   var e2 = $("#_email2").val();
+//		  alert(e1+e2);
+			$.ajax({
+			    url:"/member/getEmailCheck",
+			    type:"get",
+			    data:{e1: e1,
+			    		e2: e2,
+			    		code: number		
+			    },
+			  	success:function(code){
+				  
+					alert("[" + e1+"@"+e2+ "]" + " 이메일로 인증번호를 보냈습니다.");
+//					alert("code: " + code);  
+					$("#_hiddenCode").val(code);
+			  	},
+			    	error(){
+				  		alert("err");
+			  		}
+			});
+	   
+   })
+   
+});
+</script>
+
+<!-- 이메일 번호 일치확인 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#_emailNumBtn").click(function(){
+		
+		var usercode = $("#_emailText").val();	// 유저가 입력한 인증번호
+		var emailcode = $("#_hiddenCode").val();	// 이메일로 발송된 인증번호
+		
+		if(usercode=="" || usercode==null){
+			alert("인증번호를 입력해 주세요");
+			$("#_emailText").focus();
+		}
+		if(emailcode=="" || emailcode==null){
+			alert("이메일 인증번호를 발급받으세요");			
+		}
+		
+		if(usercode == emailcode){
+			alert("확인되었습니다.");
+			$("#_emailText").attr({"background-color":"lightgray"});
+		}else{
+			alert("인증번호가 틀렸습니다. 다시 확인해주세요");
+			$("#_emailText").focus();
+		}
+
+		
+	})
+});
+</script>
+
+
+
+<!-- 전화번호 인증 -->
 <script>
 var count = 0; /* 문자 중복을 막기 위한 인증번호 */
 
@@ -289,7 +419,7 @@ $(document).ready(function() {
 
 
 
-
+<!-- 이메일 SELECT박스 -->
 <script>
 function changeEmail(){
     var langSelect = document.getElementById("_emailSelect");

@@ -17,6 +17,8 @@ import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerBean;
+import com.rhymes.app.member.model.SellerCRnumDTO;
 import com.rhymes.app.member.service.MemberService;
 
 @Service
@@ -73,19 +75,20 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
-	@Override
-	public void getAddseller(MemBean bean) {
 
-		MemberDTO mem = new MemberDTO( 
-									bean.getUserid().trim(), 
-									passwordEncoder.encode(bean.getUserpw()));
-								
-		System.out.println("MemberDTO: " + mem.toString());
-		
-		boolean b = memberdao.getAddmem(mem);
-		
-		// 사업자 정보
-		
+	// 사업자번호 체크
+	@Override
+	public String getCRCheck(SellerCRnumDTO crnum) {
+		return memberdao.getCRCheck(crnum);
+	}
+
+	@Override
+	public void getAddSeller(SellerBean sellerbean) {
+
+		// 공통
+		MemberDTO mem = new MemberDTO(sellerbean.getUserid(), 
+										passwordEncoder.encode(sellerbean.getUserpw()));
+		System.out.println("mem: " + mem);
 		
 	}
 

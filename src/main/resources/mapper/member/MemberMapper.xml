@@ -48,5 +48,12 @@
     	INSERT INTO AUTHORITIES(ID, AUTHORITY)
     	VALUES(#{userid}, 'ROLE_MEMBER')
     </insert>
+    
+    <!-- 사업자번호체크 -->
+    <select id="getCRCheck" parameterType="com.rhymes.app.member.model.SellerCRnumDTO" resultType="java.lang.String">  
+    	SELECT CRNAME
+    	FROM RHY_CR_NUMBER
+    	WHERE CRNUM1=#{crnum1} AND CRNUM2=#{crnum2} AND CRNUM3=#{crnum3}
+    </select>
 
 </mapper>
