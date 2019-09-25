@@ -28,6 +28,5 @@ public class ProductsDto implements Serializable {
 	private String photo_4;
 	private String photo_5;
 	private String division;
-	private String method;
 	private int likes;
 }

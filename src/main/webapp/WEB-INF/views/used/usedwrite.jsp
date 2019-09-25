@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-${login.userid }
+
 <div id="_main">
 
 <div id="_left">
@@ -24,7 +25,9 @@ ${login.userid }
 </div>
 
 <div id="_right">
-<form action="used/usedwriteAf" id="_wform" enctype="multipart/form-data" method="post">
+<form action="/used/usedwriteAf" id="_wform" enctype="multipart/form-data" method="post">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<input type="hidden" name="s_id" value="${login.userid }">
 <table>
 <tr>
 <td><label>카테고리 :</label></td>
@@ -41,7 +44,7 @@ ${login.userid }
 
 <tr>
 <td><label>거래 지역 :</label></td>
-<td><input type="text" id="sample6_address" readonly="readonly" style="background: #e5e5e5" size="48">
+<td><input type="text" id="sample6_address" name="place" readonly="readonly" style="background: #e5e5e5" size="48">
 &nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색"></td>
 </tr>
 
@@ -57,7 +60,7 @@ ${login.userid }
 
 <tr>
 <td><label>설명:</label></td>
-<td><textarea rows="10" cols="50"></textarea></td>
+<td><textarea rows="10" cols="50" id="_content" name="content"></textarea></td>
 </tr>
 
 
@@ -93,10 +96,36 @@ $(document).ready(function() {
 			return;
 		} 
 		
+		if( $("#sample6_address").val() == "" || $("#sample6_address").val() == null ){
+			alert("지역을 선택해주세요");
+			return;
+		}
+		
 		if( $("#_title").val() == "" || $("#_title").val() == null ){
 			alert("제목을 입력해주세요");
 			return;
 		}
+		
+		if( $("#_price").val() == "" || $("#_price").val() == null ){
+			alert("가격을 입력해주세요");
+			return;
+		}
+		
+		if( $("#_content").val() == "" || $("#_content").val() == null ){
+			alert("설명을 입력해주세요");
+			return;
+		}
+		
+		if( $("#_quantity").val() == "" || $("#_quantity").val() == null ){
+			alert("수량을 입력해주세요");
+			return;
+		}
+		
+		if( $("#_image").val() == "" || $("#_image").val() == null ){
+			alert("사진을 등록해주세요");
+			return;
+		}
+		
 		$("#_wform").submit();
 	});
 	

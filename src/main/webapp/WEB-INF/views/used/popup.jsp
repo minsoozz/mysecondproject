@@ -14,7 +14,8 @@
 	
 <h1 id="_h1">판매자 회원등록</h1>
 	
-<form action="#" method="post" id="_">
+<form action="/popupAf" method="post" id="_form">
+	  <input type="hidden" name="s_id" value="${login.userid }">
       <input type="text" id="to" name="to" placeholder="휴대폰 번호"/>	<!-- 인증번호 받을사람 휴대폰 번호 -->
       <input type="button" id="send" value="전송" class="btn"><br> <!-- 문자보내는 전송버튼 -->
       <input type="text" id="userNum" placeholder="인증번호를 입력해주세요">	<!-- 인증번호 입력창 -->
@@ -23,11 +24,11 @@
   
   <input type="hidden" name="text" id="text">	<!-- 인증번호를 히든으로 저장해서 보낸다 -->
   	<hr color="gray">
-	<input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly"  style="background: #e5e5e5">
+	<input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly"  style="background: #e5e5e5" size="15">
 		 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 검색" class="btn"><br>
-		 <input type="text" id="sample6_address" placeholder="주소" readonly="readonly" style="background: #e5e5e5"><br>
-		 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-		 <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+		 <input type="text" id="sample6_address" placeholder="주소" readonly="readonly" style="background: #e5e5e5" size="40"><br>
+		 <input type="text" id="sample6_detailAddress" placeholder="상세주소" size="40">
+		 
 </form>  
 
 
@@ -161,9 +162,7 @@ var ctx = $("#_ctx").val();
                     if(extraAddr !== ''){
                         extraAddr = ' (' + extraAddr + ')';
                     }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-                
+                        
                 } else {
                     document.getElementById("sample6_extraAddress").value = '';
                 }

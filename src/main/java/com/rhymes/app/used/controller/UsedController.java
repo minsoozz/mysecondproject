@@ -1,10 +1,9 @@
 package com.rhymes.app.used.controller;
 
 
+import java.security.Principal;
 import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,17 +13,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.used.model.ProductsDto;
 import com.rhymes.app.used.util.Coolsms;
 
-import lombok.extern.slf4j.Slf4j;
 
-@RequestMapping("/used")
+@RequestMapping("/used/*")
 @Controller
 public class UsedController {
 
 	@GetMapping("/hello") 
-	public String test() {
-		return "test";
+	public String test(HttpServletRequest req) {
+		
+		MemberDTO Mdto = new MemberDTO("mhj", "mhj");
+		
+		req.getSession().setAttribute("login", Mdto);
+		
+		return "used/test";
 	}
 	
 	@GetMapping("usedlist")
@@ -33,7 +37,11 @@ public class UsedController {
 	}
 	
 	@GetMapping("popup")
-	public String popup() {
+	public String popup(Principal prc) {
+		prc.getName();
+		
+		
+		
 		return "popup";
 	}
 	
@@ -47,10 +55,11 @@ public class UsedController {
 		return "usedwrite.tiles";
 	}
 	
-	@RequestMapping(value="used/usedwriteAf", method = RequestMethod.POST)
-	public String usedwriteAf() {
+	@RequestMapping(value="usedwriteAf", method = RequestMethod.POST)
+	public String usedwriteAf(ProductsDto Pdto) {
 		
-		System.out.println("도착!!!");
+		System.out.println(Pdto.toString());
+		
 		
 		return "redirect:/used/hello";
 	}
@@ -69,8 +78,8 @@ public class UsedController {
 	    
 	    HashMap<String, String> set = new HashMap<String, String>();
 
-	    set.put("to", (String)request.getParameter("to")); // 받는 사람
-	    set.put("from", "01024943936"); // 발신번호
+	    set.put("to", (String)request.getParameter("to")); // 받는사람
+	    set.put("from", "01024943936"); // 보내는사람
 	    set.put("text", "안녕하세요 인증번호는 ["+(String)request.getParameter("text")+"]입니다"); // 문자내용
 	    set.put("type", "sms"); // 문자 타입
 

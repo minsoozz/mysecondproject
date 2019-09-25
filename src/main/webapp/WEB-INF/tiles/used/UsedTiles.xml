@@ -4,7 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-   <definition name="test" template="/WEB-INF/views/used/test.jsp">
+   <definition name="used/test" template="/WEB-INF/views/used/test.jsp">
    </definition>
 
 	<!-- 팝업창  -->
