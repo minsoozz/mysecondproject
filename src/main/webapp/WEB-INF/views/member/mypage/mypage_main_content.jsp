@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<div id="_temp_footer">푸터임</div>
-
+본문
 </body>
 </html>
