@@ -43,7 +43,7 @@ public class MypageController {
 	@GetMapping(value = "/points")
 	public String showPoints() {
 		log.info("show points");
-		return "member/mypage/points";
+		return "member/mypage/points"; 
 	}
 	
 	@GetMapping(value = "/coupon")

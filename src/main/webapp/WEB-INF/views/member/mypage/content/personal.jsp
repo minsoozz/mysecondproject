@@ -37,6 +37,7 @@
 		</div>
 	</div>
 	<form action="<%=ctx %>/mypage/reconfirmpw" method="post">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<div class="form-row form_reconfirm box-rhy-gray">
 		<div class="col-md-12" align="center">
 			<div class="form-row">
