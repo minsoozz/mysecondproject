@@ -15,14 +15,10 @@ public interface MemberService{
 	// 아이디 체크
 	public int getIDCheck(MemberDTO mem);
 	
-	// 회원가입 insert
+	// 일반회원가입 insert
 	public void getAddmem(MemBean bean);
 	
-	/*
-	Collection<GrantedAuthority> getAuthorities(String username);
-    public User readUser(String username);
-    public void createUser(User user);
-    public void deleteUser(String username);
-	*/
+	// 사업자 회원가입 insert
+	public void getAddseller(MemBean bean);
 	
 }

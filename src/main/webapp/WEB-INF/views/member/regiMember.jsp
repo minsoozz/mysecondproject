@@ -312,7 +312,7 @@ function idCheck(focusYN) {
  					<tr>
 						<th>휴대폰</th>
 						<td>
-							<input type="text" name="phone" maxlength="11" minlength="11"/>
+							<input type="number" name="phone" maxlength="11" minlength="11"/>
 						</td>
 					</tr>
 					<tr>
@@ -339,7 +339,7 @@ function idCheck(focusYN) {
 					<tr>
 						<th>생년월일</th>
 						<td>
-							<input type="text" name="birth" placeholder="YYYYMMDD" maxlength="8" minlength="8">
+							<input type="number" name="birth" placeholder="YYYYMMDD" maxlength="8" minlength="8">
 						</td>
 					</tr>					
 				</table>

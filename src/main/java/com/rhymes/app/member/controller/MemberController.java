@@ -2,8 +2,11 @@ package com.rhymes.app.member.controller;
 
 import java.util.HashMap;
 
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import com.rhymes.app.common.service.KakaoAPI;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.service.MemberService;
+import com.rhymes.app.member.util.Coolsms;
 
 
 @Controller
@@ -28,6 +32,8 @@ public class MemberController {
 	@Autowired
 	private KakaoAPI kakao;
 
+	HttpSession session;
+
 	// 회원가입 선택 창
 	@GetMapping("/regiMain")
 	public String regimain() {
@@ -36,9 +42,21 @@ public class MemberController {
 
 	// 일반회원 회원가입 창
 	@GetMapping("/regimember")
-	public String regi2() {
+	public String regimember() {
 		return "rhyregimember";
 	}
+	// 사업자 회원가입 창
+	@GetMapping("/regiseller")
+	public String regiseller() {
+		return "rhyregiseller";
+	}
+	/*
+	// 사업자 회원가입 창 detail
+	@GetMapping("/regiSellerDetail")
+	public String regiSellerDetail() {
+		return "rhyregiSellerDetail";
+	}
+	*/
 
 	// id체크
 	@ResponseBody
@@ -59,15 +77,79 @@ public class MemberController {
 		return msg;
 	}
 
-	// 회원가입
+	// 일반회원가입
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addmem")
 	public String addmem(MemBean bean) {
 		System.out.println("addmem mem: " + bean.toString());
+		
 		memService.getAddmem(bean);
 
 		return "rhyregisuc";
 	}
+	
+	// 사업자회원가입(공통)
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addseller")
+	public String addseller(HttpServletRequest req, MemberDTO mem) {
+		System.out.println("mem toString: "+ mem.toString());
+		
+		req.getSession().setAttribute("mem", mem);
+		
+		return "rhyregisellerdetail";
+	}
+	// 사업자회원가입(사업자 추가정보)
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addsellerdetail")
+	public String addsellerdetail(HttpServletRequest req) {
+		MemberDTO mem = (MemberDTO)req.getSession().getAttribute("mem");
+		
+		System.out.println("mem: " + mem);
+		return "rhyregisuc";
+	}
 
+	// 전화번호 인증
+	@ResponseBody
+	@RequestMapping(value = "/sendSms.do", method = RequestMethod.GET)
+     public String sendSms(HttpServletRequest request) throws Exception {
+
+       String api_key = "NCSIOIHJHNMGEUH7";
+       String api_secret = "5DYGAAUIVWUIWA4RNHYIKIUQRF1MBM10";
+     
+       
+       Coolsms coolsms = new Coolsms(api_key, api_secret);
+       
+       HashMap<String, String> set = new HashMap<String, String>();
+
+       set.put("to", (String)request.getParameter("to")); // 받는 사람
+       set.put("from", "01092557316"); // 발신번호
+       set.put("text", "비마켓 인증번호 ["+(String)request.getParameter("text")+"]"); // 문자내용
+       set.put("type", "sms"); // 문자 타입
+
+       System.out.println(set);
+       
+       
+       
+       JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+       
+       
+       
+       if ((boolean)result.get("status") == true) {
+         // 메시지 보내기 성공 및 전송결과 출력
+         System.out.println("성공");
+         System.out.println(result.get("group_id")); // 그룹아이디
+         System.out.println(result.get("result_code")); // 결과코드
+         System.out.println(result.get("result_message")); // 결과 메시지
+         System.out.println(result.get("success_count")); // 메시지아이디
+         System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
+       } else {
+         // 메시지 보내기 실패
+         System.out.println("실패");
+         System.out.println(result.get("code")); // REST API 에러코드
+         System.out.println(result.get("message")); // 에러메시지
+       }
+      
+       return "suc";
+     }
+	   
+	   
 	// 카카오 로그인
 	@GetMapping("/kakaoLogin")
 	public String kakaoLogin(@RequestParam("code") String code, HttpSession session, Model model) {

@@ -73,6 +73,22 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public void getAddseller(MemBean bean) {
+
+		MemberDTO mem = new MemberDTO( 
+									bean.getUserid().trim(), 
+									passwordEncoder.encode(bean.getUserpw()));
+								
+		System.out.println("MemberDTO: " + mem.toString());
+		
+		boolean b = memberdao.getAddmem(mem);
+		
+		// 사업자 정보
+		
+		
+	}
+
 
 
 	

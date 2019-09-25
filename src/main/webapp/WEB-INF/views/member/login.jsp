@@ -24,7 +24,7 @@ Login page
 			</tr>
 			<tr>
 				<td>
-					비밀번호<input type="password" class="form-control" name="password" id="txtPw" placeholder="PW">
+					비밀번호<input type="password" class="form-control" name="password" id="txtPw" placeholder="PW" onkeydown="onKeyDown()">
 				</td>
 			</tr>
 			<tr>
@@ -70,4 +70,15 @@ Login page
 </div>
 
 </body>
+<script type="text/javascript">
+
+function onKeyDown()
+{
+     if(event.keyCode == 13)
+     {
+          location.href="/login".submit();
+     }
+}
+
+</script>
 </html>

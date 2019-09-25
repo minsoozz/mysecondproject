@@ -18,6 +18,11 @@
 	
 	<definition name="rhyregimember" template="/WEB-INF/views/member/regiMember.jsp">
 	</definition>
+	<definition name="rhyregiseller" template="/WEB-INF/views/member/regiSeller.jsp">
+	</definition>
+	
+	<definition name="rhyregisellerdetail" template="/WEB-INF/views/member/regiSellerDetail.jsp">
+	</definition>
 	
 	<definition name="rhyregisuc" template="/WEB-INF/views/member/regisuc.jsp">
 	</definition>
