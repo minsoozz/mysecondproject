@@ -22,3 +22,7 @@
     padding-bottom: 20px;
     border-bottom: 1px solid #c0c0c0;
 }
+
+.points_paging{
+	margin: auto;
+}

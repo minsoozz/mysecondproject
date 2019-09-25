@@ -26,7 +26,6 @@
 </head> 
 
 <body>
-
     <!-- ****** Top Header Area Start ****** -->
     
     <div class="top_header_area">

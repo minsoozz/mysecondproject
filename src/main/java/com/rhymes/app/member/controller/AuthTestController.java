@@ -1,5 +1,7 @@
 package com.rhymes.app.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = "/member/*")
 public class AuthTestController {
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request) {
 		log.info("show login view");
 		
 		return "rhylogin";

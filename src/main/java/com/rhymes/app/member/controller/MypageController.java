@@ -1,10 +1,15 @@
 package com.rhymes.app.member.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.rhymes.app.member.model.MemberDTO;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 @Slf4j
 @Controller
@@ -50,6 +55,13 @@ public class MypageController {
 	@GetMapping(value = "/personal")
 	public String showPersonal() {
 		log.info("show personal information");
+		return "member/mypage/personal";
+	}
+	
+	@RequestMapping(value = "/reconfirmpw" , method = RequestMethod.POST )
+	public String confirmPw(Model model, MemberDTO dto) {
+		log.info("show personal information confirm pw"); 
+		log.info("membdr : " + dto);
 		return "member/mypage/personal";
 	}
 }

@@ -18,7 +18,7 @@
 /* 템플릿 뷰 영역 배치 */
 .mypage_middle_left_template{
 	position: absolute;
-	width: 300px;
+	width: 160px;
 	height: 1000px;
 	background-color: white;
 	
@@ -33,7 +33,7 @@
 
 .mypage_middle_content_template{
 	position: absolute;
-	width: 700px;
+	width: 800px;
 	height: 1000px;
 	background-color: white;
 	
@@ -42,6 +42,6 @@
 	margin: 0 0 0 -198px;
 	
 	top: 0px;
-	left: 50%;
+	left: 46.5%;
 }
 

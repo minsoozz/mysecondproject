@@ -19,12 +19,12 @@
 				<li id="_grade_user" class="grade_user mypage_top_list_item">
 					<div id="_grade_user_summary" class="grade_user_summary">
 						<p>첫구매우대</p>
-						<p>김컬리님</p>
+						<p>김라임님</p>
 						<p>5%적립+무료배송 (2만원 이상 주문 시)</p>
 					</div>
 					<div id="_grade_user_detail" class="grade_user_detail">
-						<input type="button" value="전체등급 보기">
-						<input type="button" value="다음 달 예상등급 보기">
+						<input type="button" class="btn btn-primary" value="전체등급 보기">
+						<input type="button" class="btn btn-primary" value="다음 달 예상등급 보기">
 					</div>
 				</li>
 				<li id="_points_user" class="points_user mypage_top_list_item">
@@ -37,7 +37,7 @@
 					<a>2개 > </a>
 				</li>
 				<li id="_membership_user" class="membership_user mypage_top_list_item">
-					<a>컬리패스</a>
+					<a>R패스</a>
 					<a>알아보기 > </a>
 				</li>			
 			</ul>	
