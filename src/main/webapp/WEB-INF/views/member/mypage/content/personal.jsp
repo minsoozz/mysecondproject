@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,13 @@
 	<hr class="hr-rhy-title">
 </div>
 
+<sec:authentication property="principal" var="prc"/>
+${prc.username }
+<c:choose>
+	<c:when test="${not empty prc.username }">
+	</c:when>
+
+</c:choose>
 <!-- 비밀번호 재확인 전 (세션정보 조회) -->
 <div class="form-group">
 	<div class="form_head_info">
@@ -43,7 +51,7 @@
 			<div class="form-row">
 				<div class="col-md-3" align="center">
 					<p>아이디</p>
-					<p name="userid">mhj</p>
+					<p name="userid">${prc.username }</p>
 				</div>
 			</div>
 			<div class="form-row">
