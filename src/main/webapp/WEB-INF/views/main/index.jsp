@@ -7,6 +7,7 @@
 
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
  <!-- 모바일버전XXXXXXXXXX
  
  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
@@ -19,13 +20,9 @@
 </head> 
 
 
-
+ 
 <body>
-    <!-- 로딩화면 -->
-    <div id="preloader">
-        <div class="rhy-load"></div>
-    </div>
-    
+
     <!-- main area start -->
     <!-- 메인 이미지....style.css에서 변경하세용 75번째줄 -->    
         <section id="banner"></section>

@@ -49,10 +49,10 @@
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
                             <div class="login">
-                                <a href="register.html">Sing in</a>
+                                <a href="login.jsp">Sing in</a>
                             </div>
                             <div class="register">
-                                <a href="register.html">Sing up</a>
+                                <a href="regi.jsp">Sing up</a>
                             </div>
                         </div>
                         
@@ -87,7 +87,7 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
-				<a href="index.jsp" id="logo"><img src="img/core-img/banner.png" style="width: 150px" ></img></a>
+				<a href="#" id="logo"><img src="img/core-img/banner.png" style="width: 150px" ></img></a>
                         
                     </div>
                 </div>
@@ -112,13 +112,13 @@
                                 
                                
                                 <li class="nav-item">
-                                    <a class="nav-link" href="women.jsp">WOMEN</a>
+                                    <a class="nav-link" href="../body/women.jsp">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="men.jsp">MEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="archive.html">MARKET</a>
+                                    <a class="nav-link" href="market.jsp">MARKET</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="event.jsp">EVENT</a>

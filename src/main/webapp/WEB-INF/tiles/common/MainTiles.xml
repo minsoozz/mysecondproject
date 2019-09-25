@@ -11,5 +11,9 @@
        <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
    </definition>
    
+   <definition name="main/women" extends="main-layout">
+       <put-attribute name="body" value="/WEB-INF/views/main/body/women.jsp" />
+   </definition>
+   
 </tiles-definitions>
 

@@ -82,7 +82,8 @@ p {
 		background-size: cover;
 		height: 50em;
 		text-align: center;
-		position: relative;
+
++		position: relative;
 	}
 	
 	#mainpick {
@@ -307,21 +308,7 @@ li {
     z-index: 999999;
 }
 
-.rhy-load {
-    -webkit-animation: 2000ms linear 0s normal none infinite running rhy-load;
-    animation: 2000ms linear 0s normal none infinite running rhy-load;
-    background: transparent none repeat scroll 0 0;
-    border-color: #dddddd #dddddd #d7fd75;
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 3px;
-    height: 40px;
-    left: calc(50% - 20px);
-    position: relative;
-    top: calc(50% - 20px);
-    width: 40px;
-    z-index: 9;
-}
+
 
 @-webkit-keyframes rhy-load {
     0% {
