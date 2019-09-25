@@ -17,14 +17,14 @@ $('#btn').click(function(event){  //버튼을 클릭 했을시 popupOpen 함수 
 });
 
 function popupOpen(){
-	var url= "SellerPopup";    //팝업창 페이지 URL
+	var url= "popup";    //팝업창 페이지 URL
 	var winWidth = 600;
     var winHeight = 600;
     
-    var popupX = (window.screen.width / 2) - (450 / 2);
+    var popupX = (window.screen.width / 2) - (580 / 2);
  	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
 
- 	var popupY= (window.screen.height / 2) - (500 / 2);
+ 	var popupY= (window.screen.height / 2) - (700 / 2);
  	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
     
     

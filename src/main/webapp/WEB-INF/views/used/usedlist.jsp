@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-민수의 헤더 !
+
+리스트 창
+
 </body>
 </html>

@@ -6,10 +6,18 @@
 
    <definition name="test" template="/WEB-INF/views/used/test.jsp">
    </definition>
-	
-	<!-- 팝업창  -->
-   <definition name="SellerPopup" template="/WEB-INF/views/used/SellerPopup.jsp">
-   </definition>
-	   
 
+	<!-- 팝업창  -->
+   <definition name="popup" template="/WEB-INF/views/used/popup.jsp">
+   </definition>
+	
+	<!-- 리스트 -->
+	<definition name="usedlist.tiles" extends="main-layout">
+		<put-attribute name="body" value="/WEB-INF/views/used/usedlist.jsp"/>
+   </definition>
+
+	<!-- 리스트 -->
+	<definition name="usedwrite.tiles" extends="main-layout">
+		<put-attribute name="body" value="/WEB-INF/views/used/usedwrite.jsp"/>
+   </definition>
 </tiles-definitions>

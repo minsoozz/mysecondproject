@@ -3,29 +3,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="/css/used/popup.css">
 <meta charset="UTF-8">
 <title>login</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-
-<div id="contents"> 
+<input type="hidden" id="_ctx" value="<%=request.getContextPath()%>">
+<div id="contents" align="center">
+	
+<h1 id="_h1">판매자 회원등록</h1>
+	
 <form action="#" method="post" id="_">
-      받는사람 : <input type="text" id="to" name="to"/>	<!-- 인증번호 받을사람 휴대폰 번호 -->
-    <input type="button" id="send" value="전송"/><br> <!-- 문자보내는 전송버튼 -->
-  	인증번호 : 	<input type="text" id="userNum">	<!-- 인증번호 입력창 -->
-  <input type="button" id="enterBtn" value="확인"><br>	<!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
+      <input type="text" id="to" name="to" placeholder="휴대폰 번호"/>	<!-- 인증번호 받을사람 휴대폰 번호 -->
+      <input type="button" id="send" value="전송" class="btn"><br> <!-- 문자보내는 전송버튼 -->
+      <input type="text" id="userNum" placeholder="인증번호를 입력해주세요">	<!-- 인증번호 입력창 -->
+  <input type="button" id="enterBtn" value="확인" class="btn"><br>	<!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
   
   
   <input type="hidden" name="text" id="text">	<!-- 인증번호를 히든으로 저장해서 보낸다 -->
-
+  	<hr color="gray">
+	<input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly"  style="background: #e5e5e5">
+		 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 검색" class="btn"><br>
+		 <input type="text" id="sample6_address" placeholder="주소" readonly="readonly" style="background: #e5e5e5"><br>
+		 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+		 <input type="text" id="sample6_extraAddress" placeholder="참고항목">
 </form>  
+
+
+	<button type="button" id="_cancel" class="btn">취소</button>
+	<button type="button" id="_submit" class="btn">회원가입</button>
     </div>
   <script>
   var count = 0; /* 문자 중복을 막기 위한 인증번호 */
  
 
-	
+var ctx = $("#_ctx").val();
  $(document).ready(function() {
 	 
 
@@ -49,24 +62,23 @@
 		 var con_test = confirm("해당번호로 인증문자를 발송하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
 			 
 			 if(con_test == true){
-					
+
 				 if(count < 3){		/* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
-					 
-				 
 					$.ajax({
-				 		url:"sendSms.do",
-				 		type:"post",
+				 		url: ctx +"/used/SendSms",
+				 		type:"get",
 				 		data:{to: $("#to").val(),
 				 			  text: $("#text").val()
 				 			  },
-				 	 success:function(){
-				 		alert("해당 휴대폰으로 인증번호를 발송했습니다");
+				 	 success:function(data){
+				 		alert("해당 휴대폰으로 인증번호를 발송했습니다 " + data);
 				 		count++;
-				 		
 				 		alert(count);
+				 		
 				 		},
-				 		error(){
-				 			
+				 		error(xhr, ajaxOptioins,thrownError){
+				 		alert(xhr + ajaxOptioins + thrownError);
+				 		
 				 		}
 				 		
 				 	});
@@ -85,10 +97,6 @@
 
 	 	
 	 })
-	 
-	 
-	 
-	 
  	$("#enterBtn").click(function() {	/* 내가 작성한 번호와 인증번호를 비교한다 */
  		alert($("#text").val());
  		var userNum = $("#userNum").val();
@@ -110,16 +118,14 @@
  		}
 
  	});
- 	
+ 	$("#_cancel").click(function() {
+ 		window.close();
+ 	});
+	 
  
  });
   </script>
   
-<input type="text" id="sample6_postcode" placeholder="우편번호">
-<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" id="sample6_address" placeholder="주소"><br>
-<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
