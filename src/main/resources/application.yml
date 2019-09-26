@@ -12,7 +12,7 @@ server:
   error:
     whitelabel:
       enabled: true
- 
+
 #db config
 spring:
   datasource:

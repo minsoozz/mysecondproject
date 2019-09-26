@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-인덱스
+<h1>회원가입이 완료되었습니다.</h1>
+<input type="button" onclick="location.href='/member/login'" value="로그인하러 가기">
 </body>
 </html>

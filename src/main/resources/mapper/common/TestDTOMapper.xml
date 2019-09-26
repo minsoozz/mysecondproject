@@ -17,11 +17,11 @@
   </resultMap>
   
   <select id="read" resultMap="memberMap" parameterType="java.lang.String">
-SELECT 
-  mem.id as userid, pw as userpw, enabled, auth
-FROM 
-  MEMBER_TEST mem LEFT OUTER JOIN AUTH_TEST auth on mem.id = auth.id 
-WHERE mem.id = #{userid} 
+	SELECT 
+ 	mem.id as userid, pw as userpw, enabled, auth
+	FROM 
+  	MEMBER_TEST mem LEFT OUTER JOIN AUTH_TEST auth on mem.id = auth.id 
+	WHERE mem.id = #{userid} 
   </select>
 
 </mapper>
