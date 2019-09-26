@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/points.css">
 </head>
-<div class="mypage_main_content_title" align="left">
+<div class="mypage_main_content_title" id="_point_title" align="left">
 	<h3>적립금</h3>
 </div>
 
@@ -50,13 +50,6 @@
 		</div>
 	</div>
 </div>
-
-<p>
-model.addAttribute("totalPoints", totalPoints);
-model.addAttribute("expPoints", expPoints);
-model.addAttribute("pointsList", lst);
-model.addAttribute("pDto", pDto);
-</p>
 
 <div class="form-group user_point_detail">
 	<div class="form-row user_point_info_title">
@@ -86,7 +79,7 @@ model.addAttribute("pDto", pDto);
 						${p.rdate }
 					</div>
 					<div class="col-md-6">
-						[구매적립] 주문(1568601875323) 5% 적립 
+						${p.comment } 
 					</div>
 					<div class="col-md-2">
 						${p.edate }			
@@ -97,22 +90,7 @@ model.addAttribute("pDto", pDto);
 				</div>				
 			</c:forEach>			
 		</c:otherwise>
-	</c:choose>	
-		
-	<div class="form-row user_point_info_content">
-		<div class="col-md-2">
-			19.09.17			
-		</div>
-		<div class="col-md-6">
-			[구매적립] 주문(1568601875323) 5% 적립 
-		</div>
-		<div class="col-md-2">
-			20.09.30			
-		</div>
-		<div class="col-md-2">
-			+ 695 원
-		</div>
-	</div>
+	</c:choose>		
 </div>
 
 <div class="points_paging" align="center">
@@ -124,9 +102,14 @@ model.addAttribute("pDto", pDto);
 	        <span class="sr-only">Previous</span>
 	      </a>
 	    </li>
-	    <li class="page-item"><a class="page-link" href="#">1</a></li>
-	    <li class="page-item"><a class="page-link" href="#">2</a></li>
-	    <li class="page-item"><a class="page-link" href="#">3</a></li>
+	    
+	    <c:forEach begin="${pDto.firstNavIndex }" end="${pDto.lastNavIndex }" step="1" var="i">
+	    	<li class="page-item"><a class="page-link" href="<%=ctx %>/mypage/points?pageNum=${i}#_mypage_top">${i }</a></li>
+	    </c:forEach>
+	    
+	    
+	    <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+	    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
 	    <li class="page-item">
 	      <a class="page-link" href="#" aria-label="Next">
 	        <span aria-hidden="true">&raquo;</span>
