@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coupon">	
+
+	<!-- 검색조건에 맞는 유효한 쿠폰의 총 개수 리턴 -->
+	<select id="getCountOnConditions" resultType="java.lang.Integer" parameterType="java.lang.String">
+		<include refid="getCountOnConditionsReal"/>
+	</select>
+	
+	<!-- 검색조건에 맞는 쿠폰 디테일 정보 리턴 -->
+	<select id="getDetailsOnConditions" resultType="com.rhymes.app.member.model.mypage.MemberCouponDTO"
+	 parameterType="com.rhymes.app.member.model.PointsPagingDTO">
+		<include refid="getDetailsOnConditionsReal"/>
+	</select>
+	
+ 	
+ 	
+ 	<!-- 실제 쿼리 작성 영역 -->
+ 	
+ 	<!-- 검색조건에 맞는 유효한 쿠폰의 총 개수 리턴 -->
+ 	<sql id="getCountOnConditionsReal">
+ 		<![CDATA[		
+		SELECT COUNT(*) AS CNT
+		FROM RHY_MEM_COUPON_DETAIL
+		WHERE USERID='mhj' AND DATE_FORMAT(EXPDATE,'%Y-%m-%d') < CURDATE()
+		GROUP BY USERID;
+		]]>
+ 	</sql>
+ 	
+ 	<!-- 검색조건에 맞는 적립금 디테일 정보 리턴 -->
+ 	<sql id="getDetailsOnConditionsReal">
+ 		<![CDATA[
+ 		SELECT * 
+		FROM (
+			SELECT @ROWNUM := @ROWNUM +1 AS RNUM, TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, USERID, 
+			DATE_FORMAT(GDATE,'%Y-%m-%d') AS GDATE, 
+			DATE_FORMAT(EXPDATE,'%Y-%m-%d') AS EXPDATE, 
+			COUP_CODE,
+			(SELECT IF( DATE_FORMAT(B.EXPDATE,'%Y-%m-%d') < CURDATE(), '만료', ISUSED) ) AS ISUSED
+			FROM RHY_MEM_COUPON A, RHY_MEM_COUPON_DETAIL B, (SELECT @ROWNUM :=0) C
+			WHERE USERID = #{userid }
+			) RESULT
+		LIMIT #{startSeq }, #{recordCountPerPage}
+		]]>
+ 	</sql>
+
+</mapper>

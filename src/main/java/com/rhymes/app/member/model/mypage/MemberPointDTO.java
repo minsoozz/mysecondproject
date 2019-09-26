@@ -1,4 +1,4 @@
-package com.rhymes.app.member.model;
+package com.rhymes.app.member.model.mypage;
 
 import java.io.Serializable;
 

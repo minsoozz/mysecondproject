@@ -2,8 +2,8 @@ package com.rhymes.app.member.service;
 
 import java.util.List;
 
-import com.rhymes.app.member.model.MemberPointDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
 public interface MypagePointsService {
 

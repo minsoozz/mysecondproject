@@ -42,3 +42,11 @@ div {
 .coupon_table_body{
 	font-size: 13px;
 }
+
+#_txt_coupon_input{
+	width: 350px;
+	position: absolute;
+	left: 0px;
+	margin: auto;
+	padding: 10px;
+}

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rhymes.app.member.dao.MypagePointsDAO;
-import com.rhymes.app.member.model.MemberPointDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
 import com.rhymes.app.member.service.MypagePointsService;
 
 @Service
