@@ -1,4 +1,4 @@
-package com.rhymes;
+package com.rhymes; 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

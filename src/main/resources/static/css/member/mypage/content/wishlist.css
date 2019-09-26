@@ -5,11 +5,71 @@
 }
 
 /*찜 목록 테이블 부분*/
-.tbl_freqorder_head{
+.tbl_wishlist_head{
     border-top: 3px solid #d7fd75;
     text-align: center;
 }
 
-.tbl_freqorder_head{
+.tbl_wishlist_head th{
+	padding: 20px;
+}
 
+.tbl_wishlist_body th {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.tbl_wishlist tr{
+	border-bottom: 1px solid #B7B7B7;
+}
+
+.wishlist_body_details{
+	padding: 10px;
+	position: relative;
+	top: 50%;
+	vertical-align: middle;
+}
+
+.detail_thumbnail {
+	position: relative;
+	top: 50%;
+	width: 100px;
+}
+
+.detail_thumbnail img {
+	width: 100px;
+}
+
+.detail_text {
+	position: relative;
+	top: -95px;
+	left: 130px;
+	width: 250px;
+}
+
+.detail_text dl,dd{
+	width: 250px;
+}
+
+.wishlist_body_btns{
+	position: relative;
+	height: 100px;
+	margin-bottom: 0px;
+	top: 50%;
+	left: 0px;
+}
+
+.wishlist_body_btns input{
+	margin: 5px;
+	width: 130px;
+	border-color: #d7fd75;
+}
+
+.btn_write_review{
+	color: #400000;
+	background-color: #d7fd75;
+}
+
+.order_body_content table tr th{	/* 주문 상세내용 */
+	padding: 4px;
 }

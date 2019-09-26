@@ -63,13 +63,13 @@
 	left: 500px;
 }
 
-.order_body_btns input{
+.order_body_btns input{	/* 라임색테두리버튼 */
 	margin: 5px;
 	width: 100px;
 	border-color: #d7fd75;
 }
 
-.btn_write_review{
+.btn_write_review{	/* 라임색버튼 */
 	color: #400000;
 	background-color: #d7fd75;
 }
