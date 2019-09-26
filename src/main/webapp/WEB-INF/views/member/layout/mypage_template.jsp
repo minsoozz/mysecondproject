@@ -16,9 +16,11 @@
 	<tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
 	</div>
 	
+	<div id="mypage_header">
 	<section class="mypage_top_template">
 		<tiles:insertAttribute name="mypage_top"/> <!-- 마이페이지 상단 메뉴 -->
 	</section>
+	</div>
 	
 	<div id="body_wrap">
 	<div class="mypage_middle_template" align="center">
@@ -31,6 +33,7 @@
 		</section>
 	</div>
 	</div>
+	
 	<div id="footer_wrap">
 	<tiles:insertAttribute name="footer"/> <!-- /WEB-INF/views/common/layout/footer.jsp -->
 	</div>
