@@ -87,11 +87,8 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
-<<<<<<< HEAD
-				<a href="#" id="logo"><img src="img/core-img/banner.png" style="width: 150px" ></img></a>
-=======
 				<a href="<%=ctx%>/main" id="logo"><img src="../img/core-img/banner.png" style="width: 150px" ></img></a>
->>>>>>> mhj
+
                         
                     </div>
                 </div>
