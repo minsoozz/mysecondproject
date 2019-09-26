@@ -68,15 +68,14 @@ function checkIt() {
 	if(!userinput.username.value){
 		return true;
 	}else{
-	    
 	    var userName = userinput.name.value;
 	    var deny_char = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\*]+$/;
     	if (deny_char.test(userName)) {
     		alert("영문자 또는 한글 입력을 입력해주세요");
     		$("#_name").focus();
-    		return true;
+    		return false;
     	}
-    	return false;
+    	return true;
 	}
 	
 	// 이메일 검증
@@ -116,11 +115,11 @@ function checkIt() {
 	// 비밀번호 검증
     var password = userinput.userpw.value;
 	var id = userinput.userid.value;
-    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(userinput.userpw.value)){            
+    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
         alert('숫자+영문자 조합으로 8~25자까지 사용가능합니다.');
         $('#_pwd').val('').focus();
         return false;
-    }    
+    }
     var checkNumber = password.search(/[0-9]/g);
     var checkEnglish = password.search(/[a-z]/ig);
     if(checkNumber <0 || checkEnglish <0){
@@ -142,6 +141,7 @@ function checkIt() {
     return true;
     
 }
+</script>
 <script type="text/javascript">
 //아이디 검증
 var saveId;
@@ -151,14 +151,14 @@ $('[name=userid]').on('focus',function(){
 });
 </script>
 <script type="text/javascript">
-// 아이디 - 숫자와 영문자 조합으로 6~10자
+// 아이디 - 숫자와 영문자 조합으로 6~16자
 function idCheck(focusYN) {
     var isTrue = $("input:text[idNumberEngOnly]").attr("idNumberEngOnly");
     var thisVal = $("input:text[idNumberEngOnly]").val();
  
     if(isTrue == "true") {
-      if(!/^[a-zA-Z0-9]{6,10}$/.test(thisVal)) {
-        alert("[아이디]는 숫자와 영문자 조합으로 6~10자까지 사용 가능합니다.");
+      if(!/^[a-zA-Z0-9]{6,16}$/.test(thisVal)) {
+        alert("[아이디]는 숫자와 영문자 조합으로 6~16자까지 사용 가능합니다.");
  
         if(focusYN == "Y") {
           $("input:text[idNumberEngOnly]").focus();

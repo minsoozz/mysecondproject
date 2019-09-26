@@ -19,6 +19,7 @@ import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
+import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.member.service.MemberService;
 
 @Service
@@ -78,19 +79,75 @@ public class MemberServiceImpl implements MemberService {
 
 	// 사업자번호 체크
 	@Override
-	public String getCRCheck(SellerCRnumDTO crnum) {
-		return memberdao.getCRCheck(crnum);
+	public String getCRCheck(SellerCRnumDTO crdto) {
+		return memberdao.getCRCheck(crdto);
+	}
+	// 라임즈에 사업자번호가 등록되어있는지 확인
+	@Override
+	public int getCRCYN(SellerCRnumDTO crnum) {
+		
+		String cnum = crnum.getCrnum1()+"-"+crnum.getCrnum2()+"-"+crnum.getCrnum3();
+		SellerDTO sdto = new SellerDTO();
+		sdto.setC_num(cnum);
+		return memberdao.getCRCYN(sdto);
 	}
 
+	// 사업자 회원가입
 	@Override
-	public void getAddSeller(SellerBean sellerbean) {
+	public void getAddSeller(SellerBean sellerbean, MemberDTO memdto) {
+		System.out.println("getAddSeller Service도착");
 
 		// 공통
-		MemberDTO mem = new MemberDTO(sellerbean.getUserid(), 
-										passwordEncoder.encode(sellerbean.getUserpw()));
-		System.out.println("mem: " + mem);
+		MemberDTO mem = new MemberDTO(memdto.getUserid(), 
+										passwordEncoder.encode(memdto.getUserpw()));
+		System.out.println("getAddSeller mem: " + mem.toString());
 		
+		// 사업자 추가정보
+		
+		// 사업자번호
+		String c_num = sellerbean.getCrnum1()+"-"+sellerbean.getCrnum2()+"-"+sellerbean.getCrnum3();
+		// 담당자이메일
+		String ic_email = sellerbean.getIc_email1()+"@"+sellerbean.getIc_email2();
+		
+		SellerDTO sel = new SellerDTO(
+										memdto.getUserid(),
+										sellerbean.getC_name(),
+										c_num,
+										sellerbean.getP_name(),
+										sellerbean.getC_postcode(),
+										sellerbean.getC_address(),
+										sellerbean.getC_detailAddress(),
+										sellerbean.getC_cond(),
+										sellerbean.getC_type(),
+										sellerbean.getIc_name(),
+										sellerbean.getTo(),
+										ic_email,
+										sellerbean.getS_postcode(),
+										sellerbean.getS_address(),
+										sellerbean.getS_detailAddress(),
+										sellerbean.getR_postcode(),
+										sellerbean.getR_address(),
+										sellerbean.getR_detailAddress(),
+										sellerbean.getC_code());
+	System.out.println("getAddSeller sel: " + sel.toString());
+	
+	// 권한
+	AuthoritiesDTO amem = new AuthoritiesDTO(memdto.getUserid(), sellerbean.getAuthority());
+	System.out.println("getAddSeller amem: " + amem.toString());
+	
+	boolean b = memberdao.getAddmem(mem);
+	
+	if(b) {
+		memberdao.getAddSeller_C(sel);
+		memberdao.getAuthAddmem(amem);
 	}
+	
+	
+	
+	
+	}
+
+
 
 
 

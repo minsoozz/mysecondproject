@@ -26,6 +26,10 @@
 	
 	<definition name="rhyregisuc" template="/WEB-INF/views/member/regisuc.jsp">
 	</definition>
+	
+	<!-- id찾기 -->
+	<definition name="rhyfindid" template="/WEB-INF/views/member/Find_ID.jsp">
+	</definition>
 
 	<!-- admin test -->
 	<definition name="memtest/admin" template="/WEB-INF/views/member/tmp/admin.jsp">

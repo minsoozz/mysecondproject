@@ -43,10 +43,10 @@
     	VALUES(#{userid}, #{username}, #{postcode}, #{address}, #{detailAddress}, #{phone}, #{useremail}, #{usergender}, #{userbirth}, #{count})
     </insert>
     
-    <!-- 권한정보 ROLE_MEMBER -->
+    <!-- 권한정보 ROLE_MEMBER.. 등 -->
     <insert id="getAuthAddmem" parameterType="com.rhymes.app.member.model.AuthoritiesDTO">
     	INSERT INTO AUTHORITIES(ID, AUTHORITY)
-    	VALUES(#{userid}, 'ROLE_MEMBER')
+    	VALUES(#{userid}, #{authority})
     </insert>
     
     <!-- 사업자번호체크 -->
@@ -55,5 +55,30 @@
     	FROM RHY_CR_NUMBER
     	WHERE CRNUM1=#{crnum1} AND CRNUM2=#{crnum2} AND CRNUM3=#{crnum3}
     </select>
-
+    
+    <!-- 사이트에 등록된 사업자번호인지 확인 -->
+    <select id="getCRCYN" parameterType="com.rhymes.app.member.model.SellerDTO" resultType="java.lang.Integer">  
+    	SELECT COUNT(*)
+    	FROM RHY_MEM_C
+    	WHERE C_NUM=#{c_num}
+    </select>
+    
+    <!-- 사업자 추가정보 -->
+	<insert id="getAddSeller_C" parameterType="com.rhymes.app.member.model.SellerDTO">
+		INSERT INTO RHY_MEM_C(ID, C_NAME, C_NUM, P_NAME, C_COND, C_TYPE,
+								IC_NAME, IC_PHONE, IC_EMAIL,
+								C_POSTCODE, C_ADDRESS, C_DETAILADDRESS, 
+								S_POSTCODE, S_ADDRESS, S_DETAILADDRESS, 
+								R_POSTCODE, R_ADDRESS, R_DETAILADDRESS
+								)
+		VALUES(#{id}, #{c_name}, #{c_num}, #{p_name}, #{c_cond}, #{c_type},
+							#{ic_name}, #{ic_phone}, #{ic_email},
+							#{c_postcode}, #{c_address}, #{c_detailaddress},
+							#{s_postcode}, #{s_address}, #{s_detailaddress}, 
+							#{r_postcode}, #{r_address}, #{r_detailaddress})
+	</insert>
+	
+	
+	
+	
 </mapper>

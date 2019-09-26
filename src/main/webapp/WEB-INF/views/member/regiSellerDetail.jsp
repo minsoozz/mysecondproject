@@ -95,6 +95,7 @@ function checkIt() {
 <h3>rhymes 사업자샐러회원 정보입력</h3>
 
 <form action="/member/addsellerdetail" name="userinput" onsubmit="return checkIt()" method="get">
+<input type="hidden" name="authority" value="ROLE_SELLER">
 <div id="body">
 	<table border="1">
 	<tr>
@@ -110,6 +111,7 @@ function checkIt() {
 			- <input type="text" name="crnum2" class="text100" id="_c_num2" minlength="2" maxlength="2">
 			- <input type="text" name="crnum3" class="text100" id="_c_num3" minlength="5" maxlength="5">
 			<input type="button" value="사업자 번호 인증" id="_r_numBtn">
+			<p id="_crText"></p>
 		</td>
 		
 	</tr>
@@ -178,7 +180,8 @@ function checkIt() {
 			<input type="button" id="_emailBtn" value="이메일 인증"><br><br>
 			인증번호<input type="text" id="_emailText" class="text100" minlength="6" maxlength="6">
 			<input type="button" id="_emailNumBtn" value="인증번호 확인">
-						<input type="text" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
+						<input type="hidden" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
+			<p id="emailNumText"></p>
 		</td>
 	</tr>
 	<tr>
@@ -237,8 +240,8 @@ function checkIt() {
 $(document).ready(function() {
 
    $("#_r_numBtn").click(function() {
-	  alert("사업자 번호 인증 클릭"); 
-	  alert($("#_c_num1").val());
+	//  alert("사업자 번호 인증 클릭"); 
+	//  alert($("#_c_num1").val());
 		$.ajax({
 		    url:"/member/getCRCheck",
 		    type:"get",
@@ -247,12 +250,29 @@ $(document).ready(function() {
 		    	_c_num3: $("#_c_num3").val()
 		         },
 		  success:function(msg){
-			  if(msg=="NO"){
-			    alert("등록되어있지 않은 사업자번호 입니다.");
+			  if(msg=="1"){
+		//	    alert("RHYMES에 등록되어있는 사업자번호입니다.");
+			    $("#_crText").text("RHYMES에 등록되어있는 사업자번호입니다.");
+			    $("#_crText").css("color", "red");
+			  }
+			  else if(msg=="NO"){
+		//		alert("등록되지 않은 사업자번호입니다.");
+			    $("#_crText").text("등록되지 않은 사업자번호입니다.");
+			    $("#_crText").css("color", "red");
 			  }
 			  else{
-				  $("#_c_name").val(msg);
-				  alert("확인되었습니다. : " + msg);
+			//	  alert("확인되었습니다. : " + msg);
+				  $("#_crText").text("확인되었습니다.");
+				  $("#_crText").css("color", "green");
+				  
+				  $("#_c_name").val(msg);	// 상호명
+				  
+				  $("#_c_num1").css("background-color","#f1f1f1");
+				  $("#_c_num1").attr("readonly","readonly");
+				  $("#_c_num2").css("background-color","#f1f1f1");
+				  $("#_c_num2").attr("readonly","readonly");
+				  $("#_c_num3").css("background-color","#f1f1f1");
+				  $("#_c_num3").attr("readonly","readonly");
 			  }
 
 		    },
@@ -324,10 +344,15 @@ $(document).ready(function(){
 		}
 		
 		if(usercode == emailcode){
-			alert("확인되었습니다.");
-			$("#_emailText").attr({"background-color":"lightgray"});
+		//	alert("확인되었습니다.");
+			$("#_emailText").css("background-color","f1f1f1");
+			$("#emailNumText").text("이메일 인증 완료");
+			$("#emailNumText").css("color","green");
+			
 		}else{
-			alert("인증번호가 틀렸습니다. 다시 확인해주세요");
+		//	alert("인증번호가 틀렸습니다. 다시 확인해주세요");
+			$("#emailNumText").text("인증번호가 틀렸습니다. 다시 확인해주세요");
+			$("#emailNumText").css("color","red");
 			$("#_emailText").focus();
 		}
 
@@ -356,7 +381,8 @@ $(document).ready(function() {
       var to = $("#to").val();
       
       if(to == "" || to == null){
-         alert("빈칸이나 공백을 채워주세요");
+         alert("번호를 입력해 주세요");
+         $("#to").focus();
       }
       
       else {

@@ -142,6 +142,7 @@ function checkIt() {
     return true;
     
 }
+</script>
 <script type="text/javascript">
 //아이디 검증
 var saveId;

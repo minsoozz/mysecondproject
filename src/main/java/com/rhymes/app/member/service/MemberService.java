@@ -21,10 +21,13 @@ public interface MemberService{
 	public void getAddmem(MemBean bean);
 	
 	// 사업자번호 체크
-	public String getCRCheck(SellerCRnumDTO crnum);
+	public String getCRCheck(SellerCRnumDTO crdto);
+	
+	// 라임즈에 사업자번호 등록되어있는지 확인
+	public int getCRCYN(SellerCRnumDTO crnum);
 	
 	// 사업자 회원가입 insert
-	public void getAddSeller(SellerBean sellerbean);
+	public void getAddSeller(SellerBean sellerbean, MemberDTO mem);
 	
 	
 }

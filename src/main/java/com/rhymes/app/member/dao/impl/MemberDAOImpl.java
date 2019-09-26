@@ -9,6 +9,7 @@ import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerCRnumDTO;
+import com.rhymes.app.member.model.SellerDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -48,8 +49,19 @@ public class MemberDAOImpl implements MemberDAO {
 
 		// 사업자번호 체크
 		@Override
-		public String getCRCheck(SellerCRnumDTO crnum) {
-			return sqlSession.selectOne(ns+"getCRCheck", crnum);
+		public String getCRCheck(SellerCRnumDTO crdto) {
+			return sqlSession.selectOne(ns+"getCRCheck", crdto);
+		}
+
+		// 사업자 추가 회원가입
+		@Override
+		public void getAddSeller_C(SellerDTO sel) {
+			sqlSession.insert(ns+"getAddSeller_C", sel);
+		}
+
+		@Override
+		public int getCRCYN(SellerDTO sdto) {
+			return sqlSession.selectOne(ns+"getCRCYN", sdto);
 		}
 	
 }

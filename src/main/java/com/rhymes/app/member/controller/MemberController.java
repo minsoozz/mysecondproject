@@ -1,5 +1,9 @@
 package com.rhymes.app.member.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,19 +109,62 @@ public class MemberController {
 	// 사업자회원가입(사업자 추가정보)
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addsellerdetail")
 	public String addsellerdetail(HttpServletRequest req, SellerBean sellerbean) {
-		MemberDTO mem = (MemberDTO)req.getSession().getAttribute("mem");
-		System.out.println("mem: " + mem);
+		MemberDTO mem = (MemberDTO)req.getSession().getAttribute("mem");	// session 잘 넘어왔는지 확인용
+		System.out.println("addsellerdetail Controller mem: " + mem);
 		
-		memService.getAddSeller(sellerbean);			// 사업자 회원가입
 		
+		
+		System.out.println("addsellerdetail Controller sellerbean: " + sellerbean);
+		
+		memService.getAddSeller(sellerbean, mem);			// 사업자 회원가입
 		
 		return "rhyregisuc";
+	}
+	
+	// 사업자 번호조회 api
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck")
+	public String getCRCheckAPI(HttpServletRequest req, SellerCRnumDTO crdto) {
+		
+		int crnum1 = Integer.parseInt(req.getParameter("_c_num1"));
+		int crnum2 = Integer.parseInt(req.getParameter("_c_num2"));
+		int crnum3 = Integer.parseInt(req.getParameter("_c_num3"));
+		 BufferedReader br = null;
+		 String result = "";
+		 String msg = "";
+	        try{
+	            String urlstr = "http://apis.data.go.kr/B552015/NpsBplcInfoInqireService/getBassInfoSearch?ldong_addr_mgpl_dg_cd=41&ldong_addr_mgpl_sggu_cd=117&ldong_addr_mgpl_sggu_emd_cd=101&wkpl_nm=삼성전자&bzowr_rgst_no=124815&pageNo=10&startPage=10&numOfRows=1&pageSize=1&serviceKey=vDwpNyDDSgPT9K58OQdG1rHmcKsy7tI%2BTDCcS6vdn1lOvzUZsoAETPrlBcpCdVmIlGH51ZtyvZxjtnMl8SNbDA%3D%3D";
+	            URL url = new URL(urlstr);
+	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	            urlconnection.setRequestMethod("GET");
+	            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	            
+	            String line;
+	            while((line = br.readLine()) != null) {
+	                result = result + line + "\n";
+	            }
+	            System.out.println("result : " + result);
+	        }catch(Exception e){
+	            System.out.println("@@e.getMessage() : " + e.getMessage());
+	        }
+	        
+	    if(result=="<OpenAPI_ServiceResponse>" + 
+	    		"<cmmMsgHeader>" + 
+	    		"<errMsg>SERVICE ERROR</errMsg>" + 
+	    		"<returnAuthMsg>SERVICE_ACCESS_DENIED_ERROR</returnAuthMsg>" + 
+	    		"<returnReasonCode>20</returnReasonCode>" + 
+	    		"</cmmMsgHeader>" + 
+	    		"</OpenAPI_ServiceResponse>") {
+	    	msg = "NO";
+	    }
+
+		return result;
 	}
 
 	
 	// 사업자번호 체크
 	@ResponseBody
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck")
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck9999999999")
 	public String getCRCheck(HttpServletRequest req, SellerCRnumDTO crdto) {
 		
 		int crnum1 = Integer.parseInt(req.getParameter("_c_num1"));
@@ -128,14 +175,27 @@ public class MemberController {
 		crdto.setCrnum2(crnum2);
 		crdto.setCrnum3(crnum3);
 		
-		String crname = memService.getCRCheck(crdto);
-		System.out.println("crname: " + crname);
+		// 사업자테이블에 있는지, 우리사이트에 등록된 사업자인지 확인
+		int count = memService.getCRCYN(crdto);	// 이미 등록되어있는지 확인
+		System.out.println("count: " + count);
 
+		
+		String crname = "";
 		String msg = "";
-		if (crname == "" || crname == null) {
-			msg = "NO";
-		} else {
-			msg = crname;
+
+		if(count!=0) {	// 라임즈에 등록되어있는 사업자번호
+			msg = "1";
+		}else {
+			
+			crname = memService.getCRCheck(crdto);	// 사업자번호명단에 있는지 확인
+			System.out.println("crname: " + crname);
+			
+			if (crname == "" || crname == null) {
+				msg = "NO";
+			} else {
+				msg = crname;
+			}
+			
 		}
 
 		return msg;
@@ -206,7 +266,23 @@ public class MemberController {
        return "suc";
      }
 	
-	   
+	
+	// 사업자회원가입(사업자 추가정보)
+	@GetMapping("/findid")
+	public String findid() {
+		return "rhyfindid";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	   
 	// 카카오 로그인
 	@GetMapping("/kakaoLogin")
