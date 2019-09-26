@@ -5,4 +5,6 @@
     <select id="getList" resultType="com.rhymes.app.member.model.MemberDTO">
         SELECT * FROM MEMBER_TEST
     </select>
+    
+
 </mapper>

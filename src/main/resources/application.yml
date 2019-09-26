@@ -10,7 +10,7 @@ server:
   error:
     whitelabel:
       enabled: true
- 
+
 #db config
 spring:
   datasource:
@@ -22,3 +22,4 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: mhj
       password: mhj
+      

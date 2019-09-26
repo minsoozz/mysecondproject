@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-로그인페이지입니다.
+페이지를 찾을 수 없습니다.
 </body>
 </html>

@@ -5,7 +5,7 @@
 <tiles-definitions>
 
 	<!-- main -->
-	<definition name="welcome" template="/WEB-INF/views/welcome.jsp">
+	<definition name="main" template="/WEB-INF/views/welcome.jsp">
 	</definition>
 
 	<!-- login -->
@@ -13,7 +13,13 @@
 	</definition>
 
 	<!-- registration -->
-	<definition name="rhyregi" template="/WEB-INF/views/member/regi.jsp">
+	<definition name="rhyregimain" template="/WEB-INF/views/member/regiChoice.jsp">
+	</definition>
+	
+	<definition name="rhyregimember" template="/WEB-INF/views/member/regiMember.jsp">
+	</definition>
+	
+	<definition name="rhyregisuc" template="/WEB-INF/views/member/regisuc.jsp">
 	</definition>
 
 	<!-- admin test -->

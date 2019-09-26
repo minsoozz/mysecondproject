@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<input type="button" value="마이페이지" onclick="location.href='<%=request.getContextPath()%>/mypage/orderlog';">
 <%
 	Object prc = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	UserDetails ud = (UserDetails)prc;
