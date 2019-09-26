@@ -5,7 +5,6 @@
 <tiles-definitions>
 
 	<!-- main -->
-<<<<<<< HEAD
 	<definition name="welcome" template="/WEB-INF/views/welcome.jsp">
 	</definition>
 
@@ -28,11 +27,6 @@
 	<!-- seller test -->
 	<definition name="memtest/seller" template="/WEB-INF/views/member/tmp/seller.jsp">
 	</definition>
-=======
-   <definition name="welcome" template="/WEB-INF/views/welcome.jsp">
-   </definition>
-
->>>>>>> master
 
 </tiles-definitions>
 
