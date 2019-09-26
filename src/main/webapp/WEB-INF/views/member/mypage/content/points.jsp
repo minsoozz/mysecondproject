@@ -1,3 +1,4 @@
+<%@page import="java.util.logging.SimpleFormatter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -33,7 +34,7 @@
 					현재 적립금 : 
 				</div>			
 				<div class="col-md-6">
-					4,000원
+					${totalPoints }원
 				</div> 
 			</div>
 		</div>					
@@ -43,12 +44,19 @@
 					소멸 예정 적립금 : 
 				</div>			
 				<div class="col-md-6">
-					0원
+					${expPoints }원
 				</div> 
 			</div>
 		</div>
 	</div>
 </div>
+
+<p>
+model.addAttribute("totalPoints", totalPoints);
+model.addAttribute("expPoints", expPoints);
+model.addAttribute("pointsList", lst);
+model.addAttribute("pDto", pDto);
+</p>
 
 <div class="form-group user_point_detail">
 	<div class="form-row user_point_info_title">
@@ -65,6 +73,32 @@
 			금액			
 		</div>
 	</div>
+	<c:choose>
+		<c:when test="${empty pointsList }">
+			<div class="form-row user_point_info_content">
+				<div class="col-md-12">적립금 내역이 없습니다.</div>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<c:forEach items="${pointsList }" var="p">
+				<div class="form-row user_point_info_content">
+					<div class="col-md-2">
+						${p.rdate }
+					</div>
+					<div class="col-md-6">
+						[구매적립] 주문(1568601875323) 5% 적립 
+					</div>
+					<div class="col-md-2">
+						${p.edate }			
+					</div>
+					<div class="col-md-2">
+						${p.amountStr } 원
+					</div>
+				</div>				
+			</c:forEach>			
+		</c:otherwise>
+	</c:choose>	
+		
 	<div class="form-row user_point_info_content">
 		<div class="col-md-2">
 			19.09.17			

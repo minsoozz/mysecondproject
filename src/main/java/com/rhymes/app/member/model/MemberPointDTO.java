@@ -18,9 +18,23 @@ public class MemberPointDTO implements Serializable {
 	private String userid;
 	private String comment;
 	private int amount;
+	private String amountStr;
 	private String rdate;
 	private String edate;
 	private String isExpired;
+	
+	public String getAmountStr() {
+		String s = "";
+		try {
+			if( this.amount >= 0 ) {
+				s += "+";
+			}
+			s += amount;
+		}catch (Exception e) {
+			s = "0";
+		}
+		return s;
+	}
 	
 	@Builder
 	public MemberPointDTO () { }

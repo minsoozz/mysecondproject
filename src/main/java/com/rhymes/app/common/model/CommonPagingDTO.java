@@ -60,7 +60,8 @@ public class CommonPagingDTO implements Serializable {
     public CommonPagingDTO(int pageNum, int totalSize) {
         this.pageNum = pageNum;
         this.setRecordCountPerPage(10);
-        this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) + 1;
+        //this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) + 1;
+        this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) ;
         this.endSeq = startSeq + this.getRecordCountPerPage() - 1;
         this.totalSize = totalSize;
         //페이지 네비게이션의 최대 사이즈
@@ -72,7 +73,8 @@ public class CommonPagingDTO implements Serializable {
     public CommonPagingDTO(int cond, String keyword, int pageNum, int totalSize) {
         this.pageNum = pageNum;
         this.setRecordCountPerPage(10);
-        this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) + 1;
+        //this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) + 1;
+        this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) ;
         this.endSeq = startSeq + this.getRecordCountPerPage() - 1;        
         this.totalSize = totalSize;
         //페이지 네비게이션의 최대 사이즈
