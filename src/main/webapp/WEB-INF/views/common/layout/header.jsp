@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="en">
 <head> 
@@ -8,12 +9,6 @@
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-
-<!-- 부트스트랩 -->
-<link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
-<script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
-<script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
-<script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
 
 <!-- Core Stylesheet -->
 <link href="../css/common/style.css" rel="stylesheet">
@@ -92,7 +87,7 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
-				<a href="index.jsp" id="logo"><img src="../img/core-img/banner.png" style="width: 150px" ></img></a>
+				<a href="<%=ctx%>/main" id="logo"><img src="../img/core-img/banner.png" style="width: 150px" ></img></a>
                         
                     </div>
                 </div>
@@ -141,17 +136,16 @@
     
     <!-- ****** Header Area End ****** -->
 
-    <!-- Jquery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>    
+        <!-- Jquery-2.2.4 js -->
+    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="../js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap-4 js -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
     <!-- All Plugins JS -->
-    <script src="js/others/plugins.js"></script>
+    <script src="../js/others/plugins.js"></script>
     <!-- Active JS -->
-    <script src="js/active.js"></script>
-    
+    <script src="../js/active.js"></script>
     
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->
