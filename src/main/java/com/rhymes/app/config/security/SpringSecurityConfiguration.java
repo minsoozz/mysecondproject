@@ -1,4 +1,4 @@
-package com.rhymes.app.config.security;
+ package com.rhymes.app.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

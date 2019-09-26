@@ -87,10 +87,8 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
-
 				<a href="<%=ctx%>/main" id="logo"><img src="/css/main/img/core-img/banner.png" style="width: 150px" ></img></a>
 
-                        
                     </div>
                 </div>
             </div>
@@ -122,7 +120,7 @@
                                     <a class="nav-link" href="event.jsp">EVENT</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="custcen.jsp">CUSTOMER CENTER</a>
+                                    <a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a>
                                 </li>
                             </ul>
                         </div>
