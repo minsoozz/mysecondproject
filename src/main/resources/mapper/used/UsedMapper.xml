@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Used">
+	<insert id="write" parameterType="com.rhymes.app.used.model.ProductsDto">
+	INSERT INTO rhy_used_products(s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes)
+	VALUES (#{s_id},#{category},#{title},#{content},#{price},#{quantity},#{place},#{photo},#{photo_sys},'판매중',0)
+	</insert>
+</mapper>

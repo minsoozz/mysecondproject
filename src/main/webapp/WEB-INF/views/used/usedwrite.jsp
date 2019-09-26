@@ -29,6 +29,7 @@
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <input type="hidden" name="s_id" value="${login.userid }">
 <table>
+<tbody id="mybody">
 <tr>
 <td><label>카테고리 :</label></td>
 <td><select id="_category" name="category">
@@ -66,14 +67,22 @@
 
 <tr>
 <td><label>수량:</label></td>
-<td><input type="number" id="_quantity" name="quantity"></td>
+<td><input type="number" id="_quantity" name="quantity" maxlength="2" oninput="maxLengthCheck(this)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label>수량은 최대 99개 입니다</label></td>
 </tr>
 
 <tr>
 <td><label>사진:</label>
 </td>
-<td><input type="file" multiple="multiple" name="files[]" id="_image"></td>
+<td><button type="button" id="_add" class="add">사진 추가</button></td>
 </tr>
+
+<tr>
+<td></td>
+<td><input type="file" name="files" id="_image" class="image"><button type="button" id="_del">삭제</button>
+</td>
+</tr>
+</tbody>
 </table>
 
 	<div id="_bdiv">
@@ -87,6 +96,8 @@
 
 <script type="text/javascript">
 var sel_files = [];
+
+var count = 0;
 
 $(document).ready(function() {
 	$("#_wbtn").click(function() {
@@ -130,7 +141,23 @@ $(document).ready(function() {
 	});
 	
 	
-   $("#_image").on("change", handleImgsFilesSelect);
+   $(document).on("change", ".image", handleImgsFilesSelect);
+   
+
+   $("#_add").click(function() {
+	   
+	   if(count >= 4){
+		   alert("사진은 최대 5장까지 추가 할 수 있습니다");
+		   return;
+	   } 
+	   else {
+		   var table = document.getElementById("tb");
+		   $('#mybody').append("<tr><td></td><td><input type='file' name='files' id='_image' class='image'><button type='button' id='_del' class='del'>삭제</button></td></tr>");	  
+		   count++;
+	   }
+	   
+   });
+
 });
 
 $(document).on("mouseover",".img", function(e) {
@@ -141,22 +168,26 @@ $(document).on("mouseout",".img", function(e) {
 	$("#preview").remove();
 });
 
-
 function handleImgsFilesSelect(e) {
    var files = e.target.files;
    var filesArr = Array.prototype.slice.call(files);
 
+   var maxSize = 10485760;
+   
+   var fileSize = 0;
+   
+   
    filesArr.forEach(function(f) {
       if (!f.type.match("image.*")) {
          alert("확장자는 이미지 확장자만 가능합니다.");
-         $("#image").val("");
+         $("#_image").val("");
 
          return;
 
       }
-
+             
       sel_files.push(f);
-
+      
       var reader = new FileReader();
       reader.onload = function(e) {
 
@@ -166,6 +197,19 @@ function handleImgsFilesSelect(e) {
       reader.readAsDataURL(f);
    });
 }
+
+function maxLengthCheck(object){
+    if (object.value.length > object.maxLength){
+      object.value = object.value.slice(0, object.maxLength);
+    }    
+  }
+
+$(document).on("click",".del", function() {
+	$(this).parent().remove();
+	count--;
+})
+
+
 </script>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

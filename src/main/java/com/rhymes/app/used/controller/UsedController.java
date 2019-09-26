@@ -1,18 +1,29 @@
 package com.rhymes.app.used.controller;
 
 
+import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.used.Service.UsedService;
+import com.rhymes.app.used.dao.UsedDao;
 import com.rhymes.app.used.model.ProductsDto;
 import com.rhymes.app.used.util.Coolsms;
 
@@ -21,6 +32,9 @@ import com.rhymes.app.used.util.Coolsms;
 @Controller
 public class UsedController {
 
+	@Autowired UsedService usedService;
+	
+	
 	@GetMapping("/hello") 
 	public String test(HttpServletRequest req) {
 		
@@ -38,9 +52,9 @@ public class UsedController {
 	
 	@GetMapping("popup")
 	public String popup(Principal prc) {
-		prc.getName();
 		
-		
+//		String name = prc.getName();
+//		System.out.println(name);
 		
 		return "popup";
 	}
@@ -48,20 +62,70 @@ public class UsedController {
 	@GetMapping("usedwrite")
 	public String usedwrite(HttpServletRequest req, Model model) {
 		
-		MemberDTO dto = new MemberDTO("minsoo", "");
-		
-		req.getSession().setAttribute("login", dto);
-		
 		return "usedwrite.tiles";
 	}
 	
 	@RequestMapping(value="usedwriteAf", method = RequestMethod.POST)
-	public String usedwriteAf(ProductsDto Pdto) {
+	public String usedwriteAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
+			HttpServletRequest req) throws Exception {
 		
-		System.out.println(Pdto.toString());
+		ProductsDto dto = new ProductsDto(0,
+				Pdto.getS_id(),
+				Pdto.getCategory(),
+				Pdto.getTitle(),
+				Pdto.getContent(),
+				Pdto.getPrice(),
+				Pdto.getQuantity(),
+				Pdto.getPlace(),
+				Pdto.getPhoto(),
+				Pdto.getPhoto_sys(),
+				Pdto.getDivision(),
+				Pdto.getLikes());
+
+		List<MultipartFile> list = mfreq.getFiles("files");
+
+		int size = list.size();
+		
+		Iterator<String> files = mfreq.getFileNames();
+		
+		MultipartFile mpf = mfreq.getFile(files.next());
+		
+		String path = req.getServletContext().getRealPath("/upload");
 		
 		
-		return "redirect:/used/hello";
+		String photo = "";
+		String photo_sys = "";
+         
+		if(list != null && size > 0) {
+			for(MultipartFile mf : list) {
+				String originFileName = mf.getOriginalFilename();
+	            String systemFileName = System.currentTimeMillis() + originFileName;	            
+   
+	            photo += originFileName + ",";
+	            photo_sys += systemFileName + ",";
+	            
+	            long fileSize = mf.getSize();
+      
+				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
+				
+				fs.write(mf.getBytes());
+				fs.close();
+
+			}
+		}
+		dto.setPhoto(photo);
+		dto.setPhoto_sys(photo_sys);
+		
+		boolean b = usedService.UsedWrite(dto);
+		
+		if(b) {
+			System.out.println("성공~~");
+		} else {
+			System.out.println("공부하자..");
+		}
+		
+		return "redirect:/used/hello";		
+
 	}
 	
 	@GetMapping(value = "/SendSms")

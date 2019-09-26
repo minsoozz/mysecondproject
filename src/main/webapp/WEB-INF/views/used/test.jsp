@@ -10,7 +10,21 @@
 <body>
 <button type="button" id="btn">클릭해보세요</button>
 
+<button type="button" id="btn2">상품등록 창</button>
+
+<button type="button" id="btn3">상품 리스트 창</button>
+
 <script type="text/javascript">
+
+$("#btn2").click(function() {
+	location.href="usedwrite";
+});
+
+$("#btn3").click(function() {
+	location.href="usedlist";
+});
+
+
 $('#btn').click(function(event){  //버튼을 클릭 했을시 popupOpen 함수 출력 
     console.log('click');
     popupOpen();	//Popup Open 함수
