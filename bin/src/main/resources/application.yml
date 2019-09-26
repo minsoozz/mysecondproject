@@ -9,7 +9,11 @@ server:
 #custume error page
   error:
     whitelabel:
+<<<<<<< HEAD
       enabled: true
+=======
+      enabled: false
+>>>>>>> master
  
 #db config
 spring:
