@@ -10,9 +10,13 @@
 
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
-<script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
-<script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
-<script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+<script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script> 
+<script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script> 
+<script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script> 
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap/popper.min.js"></script>
+
 
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="/css/member/mypage/content/orderlog.css">

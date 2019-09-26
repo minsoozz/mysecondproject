@@ -9,14 +9,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!--   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
    
+   
+   <!-- 부트스트랩 -->
+<link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
+<script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
+<script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
+<script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+
+
     <!-- Core Stylesheet -->
-    <link href="css/common/style.css" rel="stylesheet">
+    <link href="../css/common/style.css" rel="stylesheet">
 
     <!-- Responsive CSS -->
-    <link href="css/responsive/responsive.css" rel="stylesheet">
+    <link href="../css/responsive/responsive.css" rel="stylesheet">
 </head>
-<body>
 
+<body>
     <!-- ****** Footer Menu Area Start ****** -->
     <footer class="footer_area"style="align-content: center;">
         <div class="container"style="align-content: center;">
@@ -68,7 +76,7 @@
             </div>
         </div>
     </footer>
-
+</div>
     <!-- ****** Footer Menu Area End ****** -->
     
     

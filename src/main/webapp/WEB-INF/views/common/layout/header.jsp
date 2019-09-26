@@ -9,11 +9,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
+<script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
+<script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
+<script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+
 <!-- Core Stylesheet -->
-<link href="css/common/style.css" rel="stylesheet">
+<link href="../css/common/style.css" rel="stylesheet">
 
 <!-- Responsive CSS -->
-<link href="css/responsive/responsive.css" rel="stylesheet">
+<link href="../css/responsive/responsive.css" rel="stylesheet">
 
 <!-- 아이콘 활용을 위한 font-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
@@ -86,7 +92,7 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
-				<a href="index.jsp" id="logo"><img src="img/core-img/banner.png" style="width: 150px" ></img></a>
+				<a href="index.jsp" id="logo"><img src="../img/core-img/banner.png" style="width: 150px" ></img></a>
                         
                     </div>
                 </div>
@@ -99,17 +105,13 @@
             <div class="row" >
                 <div class="col-12">
                     <nav class="navbar navbar-expand-lg">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#rhymesfood-nav" aria-controls="rhymesfood-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#rhymesshop-nav" aria-controls="rhymesshop-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
                         
                         <!-- Menu Area Start -->
-                        <div class="collapse navbar-collapse justify-content-center" id="rhymesfood-nav">
+                        <div class="collapse navbar-collapse justify-content-center" id="rhymesshop-nav">
                             <ul class="navbar-nav" id="rhymes-nav">
                             
-                                <!-- <li class="nav-item active">
-                                    <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
-                                </li> -->
-                                
-                               
+                 
                                 <li class="nav-item">
                                     <a class="nav-link" href="women.jsp">WOMEN</a>
                                 </li>
