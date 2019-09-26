@@ -6,7 +6,7 @@ server:
     jsp:
       init-parameters:
         development: true
-#custume error page ~!~
+#custume error page
   error:
     whitelabel:
 <<<<<<< HEAD
