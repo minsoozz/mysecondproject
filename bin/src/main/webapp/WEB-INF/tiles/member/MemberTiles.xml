@@ -5,7 +5,6 @@
 <tiles-definitions>
 
 	<!-- main -->
-<<<<<<< HEAD
 	<definition name="welcome" template="/WEB-INF/views/welcome.jsp">
 	</definition>
 
@@ -32,11 +31,7 @@
    <definition name="welcome" template="/WEB-INF/views/welcome.jsp">
    </definition>
 
-<<<<<<< HEAD
 	<!-- login -->
-=======
->>>>>>> master
->>>>>>> master
 
 </tiles-definitions>
 
