@@ -19,6 +19,9 @@
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="/css/member/mypage/content/orderlog.css">
 </head>
+
+
+<div class="body_wrap">
 <div class="mypage_main_content_top">
 	<div class="top_title" align="left">
 		<h3>주문 내역</h3>
@@ -155,6 +158,7 @@
 			</div>
 		</div>
 	</div>	
+</div>
 </div>
 
 </html>

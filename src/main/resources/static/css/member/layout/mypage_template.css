@@ -4,7 +4,7 @@
 .mypage_middle_template{
 	z-index: 0;
 	position: absolute;
-	margin: 0 0 0 -1500px;
+	margin: 150px 0 0 -1500px;
 	
 	width: 3000px !important;
 	min-width: 3000px !important;

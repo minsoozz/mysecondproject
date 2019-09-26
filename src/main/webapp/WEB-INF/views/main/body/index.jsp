@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="en">
 <head> 
@@ -9,14 +10,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
  <!-- 모바일버전XXXXXXXXXX
- 
  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
     <!-- Core Stylesheet -->
-    <link href="css/common/style.css" rel="stylesheet">
+    <link href="/css/main/common/style.css" rel="stylesheet">
 
     <!-- Responsive CSS -->
-    <link href="css/responsive/responsive.css" rel="stylesheet">
+    <link href="/css/main/responsive/responsive.css" rel="stylesheet">
 </head> 
 
 
@@ -36,7 +36,7 @@
                <div class="col-12 col-xs-6 col-lg-4">
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
                         <a href="women.jsp">
-                       <img src="img/catagory-img/1.png" alt="">                        
+                       <img src="css/main/img/catagory-img/1.png" alt="">                        
                        </a>                       
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="col-12 col-xs-6 col-lg-4">
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
                         <a href="women.jsp">
-                       <img src="img/catagory-img/2.png" alt="">                        
+                       <img src="css/main/img/catagory-img/2.png" alt="">                        
                        </a>                       
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="col-12 col-xs-6 col-lg-4">
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
                         <a href="women.jsp">
-                       <img src="img/catagory-img/3.png" alt="">                        
+                       <img src="css/main/img/catagory-img/3.png" alt="">                        
                        </a>                       
                     </div>
                 </div>
@@ -369,15 +369,15 @@
 
 
     <!-- Jquery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+   <script src="./js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap-4 js -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+   <script src="./js/bootstrap/popper.min.js"></script>
+       <!-- Bootstrap-4 js -->
+   <script src="./js/bootstrap/bootstrap.min.js"></script> -->
     <!-- All Plugins JS -->
-    <script src="js/others/plugins.js"></script>
+    <script src="./js/others/plugins.js"></script>
     <!-- Active JS -->
-    <script src="js/active.js"></script>
+    <script src="./js/active.js"></script>
     
     </body>
    
