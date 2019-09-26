@@ -11,3 +11,36 @@
 	top: 100px;
 	width: 100%;
 }
+
+.btn-rhy-border {	/* 라임색테두리버튼 */
+	margin: 5px;
+	width: 100px;
+	border-color: #d7fd75;
+}
+
+.btn-rhy-full {	/* 라임색버튼 */
+	color: #400000;
+	background-color: #d7fd75;
+}
+
+.tbl-rhy-head {	/* 테이블 헤드 스타일 */
+	padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 3px solid #d7fd75;
+    border-bottom: 2px solid #c0c0c0;
+}
+
+.tbl-rhy-body {	/* 테이블 바디 스타일 */
+	padding-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 0.03px solid #e0e0e0;    
+}
+
+.hr-rhy-title {	/* 타이틀 아래 수평선 */
+	border: 1.5px solid #d7fd75;
+}
+
+.box-rhy-gray {	/* 회색 테두리 박스 */
+	border: 1px solid;
+	border-color: #dbdbdb;	
+}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,17 +48,25 @@ Login page
 	<table>
 		<tr>
 			<td>
-				<button type="button" class="btn btn-light" onclick="location.href='/regi?memberType=2'">교수자 회원가입</button>
+				<button type="button" class="btn btn-light" onclick="location.href='/member/regiMain'">회원가입</button>
 			</td>
-			<td>
-				<button type="button" class="btn btn-light" onclick="location.href='/regi?memberType=3'">학생 회원가입</button>
-			</td>
-		</tr>	
+		</tr>
 	</table>
 	<div class="text-center">
       <a class="d-block small mt-3" href="login.html">Login Page</a>
       <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
     </div>
+    <br>
+    <div class="text-center">
+    <c:if test="${userId eq null}">
+        <a href="https://kauth.kakao.com/oauth/authorize?client_id=7941c0b534b8b053634f144ea1b326ea&redirect_uri=http://localhost:18080/member/login&response_type=code">
+            <img src="/image/kakao_login_btn_medium.png">
+        </a>
+    </c:if>
+    <c:if test="${userId ne null}">
+        <h1>로그인 성공입니다</h1>
+    </c:if>
+</div>
 </div>
 
 </body>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="en">
 <head> 
@@ -10,10 +11,10 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
 <!-- Core Stylesheet -->
-<link href="css/common/style.css" rel="stylesheet">
+<link href="../css/common/style.css" rel="stylesheet">
 
 <!-- Responsive CSS -->
-<link href="css/responsive/responsive.css" rel="stylesheet">
+<link href="../css/responsive/responsive.css" rel="stylesheet">
 
 <!-- 아이콘 활용을 위한 font-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
@@ -26,7 +27,6 @@
 </head> 
 
 <body>
-
     <!-- ****** Top Header Area Start ****** -->
     
     <div class="top_header_area">
@@ -87,7 +87,11 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
+<<<<<<< HEAD
 				<a href="#" id="logo"><img src="img/core-img/banner.png" style="width: 150px" ></img></a>
+=======
+				<a href="<%=ctx%>/main" id="logo"><img src="../img/core-img/banner.png" style="width: 150px" ></img></a>
+>>>>>>> mhj
                         
                     </div>
                 </div>
@@ -100,17 +104,13 @@
             <div class="row" >
                 <div class="col-12">
                     <nav class="navbar navbar-expand-lg">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#rhymesfood-nav" aria-controls="rhymesfood-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#rhymesshop-nav" aria-controls="rhymesshop-nav" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars" aria-hidden="true"></i> Menu</button>
                         
                         <!-- Menu Area Start -->
-                        <div class="collapse navbar-collapse justify-content-center" id="rhymesfood-nav">
+                        <div class="collapse navbar-collapse justify-content-center" id="rhymesshop-nav">
                             <ul class="navbar-nav" id="rhymes-nav">
                             
-                                <!-- <li class="nav-item active">
-                                    <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
-                                </li> -->
-                                
-                               
+                 
                                 <li class="nav-item">
                                     <a class="nav-link" href="../body/women.jsp">WOMEN</a>
                                 </li>
@@ -140,17 +140,16 @@
     
     <!-- ****** Header Area End ****** -->
 
-    <!-- Jquery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>    
+        <!-- Jquery-2.2.4 js -->
+    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="../js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap-4 js -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
     <!-- All Plugins JS -->
-    <script src="js/others/plugins.js"></script>
+    <script src="../js/others/plugins.js"></script>
     <!-- Active JS -->
-    <script src="js/active.js"></script>
-    
+    <script src="../js/active.js"></script>
     
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->

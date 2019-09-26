@@ -9,8 +9,13 @@ server:
 #custume error page
   error:
     whitelabel:
+<<<<<<< HEAD
       enabled: false
  
+=======
+      enabled: true
+
+>>>>>>> master
 #db config
 spring:
   datasource:
@@ -22,3 +27,4 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: mhj
       password: mhj
+      

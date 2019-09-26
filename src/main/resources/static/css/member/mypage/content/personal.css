@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.form_head_info{
+	margin: 50px;
+}
+
+.form_reconfirm {
+    margin: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;    
+}
+
+.form_reconfirm div {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btn_reconfirm_submit {
+    width: 200px;
+}

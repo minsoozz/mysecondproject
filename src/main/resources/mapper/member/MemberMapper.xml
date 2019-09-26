@@ -23,4 +23,30 @@
 		  RHY_MEM mem LEFT OUTER JOIN AUTHORITIES auth on mem.id = auth.id 
 		WHERE mem.id = #{userid} 
  	</select>
+ 	
+ 	<!-- id중복확인 -->
+ 	<select id="getIDCheck" parameterType="com.rhymes.app.member.model.MemberDTO" resultType="java.lang.Integer">
+    	SELECT COUNT(*)
+    	FROM RHY_MEM
+    	WHERE ID=#{userid}
+    </select>
+    
+    <!-- 공통정보 -->
+    <insert id="getAddmem" parameterType="com.rhymes.app.member.model.MemberDTO">
+    	INSERT INTO RHY_MEM(ID, PW)
+    	VALUES(#{userid}, #{userpw})
+    </insert>
+    
+    <!-- 추가정보 -->
+    <insert id="getPAddmem" parameterType="com.rhymes.app.member.model.P_MemberDTO">
+    	INSERT INTO RHY_MEM_P(ID, NAME, POSTCODE, ADDRESS, DETAILADDRESS, PHONE, EMAIL, GENDER, BIRTH, COUNT)
+    	VALUES(#{userid}, #{username}, #{postcode}, #{address}, #{detailAddress}, #{phone}, #{useremail}, #{usergender}, #{userbirth}, #{count})
+    </insert>
+    
+    <!-- 권한정보 ROLE_MEMBER -->
+    <insert id="getAuthAddmem" parameterType="com.rhymes.app.member.model.AuthoritiesDTO">
+    	INSERT INTO AUTHORITIES(ID, AUTHORITY)
+    	VALUES(#{userid}, 'ROLE_MEMBER')
+    </insert>
+
 </mapper>
