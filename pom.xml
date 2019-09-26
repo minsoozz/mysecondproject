@@ -199,7 +199,6 @@
 			<version>1.0.6</version>
 		</dependency>
 		<!-- Tiles 관련 디펜던시 끝 -->
-<<<<<<< HEAD
 	
 		<!-- 전화번호 인증 -->
 		<dependency>
@@ -231,17 +230,6 @@
 		    <version>2.8.0</version>
 		</dependency>
 		
-=======
-
-		<!-- kakao login api JSON객체 파싱에 유용한 Gson외부 라이브러리 dependency추가 -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.0</version>
-		</dependency>
-
-
->>>>>>> master
 	</dependencies>
 
 	<build>
