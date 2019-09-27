@@ -9,23 +9,21 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/inputText.css">
-
-
+<link href="style.css" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
 * {padding:0; margin:0;}
 html {font-family: Tahoma, Dotum, "����"; font-size: 0.75em;}
 body {font-size: 1em; text-align:center;}
-#wrap {width:1500px; margin:0 auto; text-align:left;}
+#wrap {width:500px; margin:0 auto; text-align:left;}
 #footer {text-align:center; padding:10px 0;}
 #footer input {vertical-align:middle;}
 fieldset {border:none;}
 legend {display:none; visibility:hidden;}
-
-th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; }
-td {text-align:left; border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; padding: 15px;}
-
+table {table-layout: fixed; border-collapse: collapse; padding: 0; border-style: solid; border-width: 1px 1px 0 1px; border-color: #bbb;}
+th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; background:#ddd;}
+td {text-align:left; border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; padding: 3px;}
+input {font-family: Tahoma, Dotum, "����"; font-size:1em;}
 td span {font-size:.9em; color:#cc0000;}
 h1 {font-size:1.4em; text-align:center; padding:10px 0;}
 .w300 {width:300px;}
@@ -35,6 +33,7 @@ th.subTitle {color:#339900; background:#fff !important; padding:8px 0 8px 5px;}
 .inputBtn {border:1px solid #ccc; padding:3px 5px; line-height:1em; font-size:.9em;}
 #footer .inputBtn {font-size:1.2em; font-weight:bold;}
 </style>
+
 
 
 <script type="text/javascript">
@@ -69,27 +68,26 @@ function checkIt() {
 	if(!userinput.username.value){
 		return true;
 	}else{
-	    var userName = userinput.username.value;
+	    
+	    var userName = userinput.name.value;
 	    var deny_char = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\*]+$/;
-    	if (!deny_char.test(userName)) {
+    	if (deny_char.test(userName)) {
     		alert("영문자 또는 한글 입력을 입력해주세요");
     		$("#_name").focus();
-    		return false;
+    		return true;
     	}
-    	return true;
+    	return false;
 	}
 	
 	// 이메일 검증
 	if(!userinput.useremail.value){
 		return true;
 	}else{
-	    var userEmail = userinput.useremail.value;
+	    var userEmail = userinput.username.value;
     	var pattern = /^([\w]{1,})+[\w\.\-\_]+([\w]{1,})+@(?:[\w\-]{2,}\.)+[a-zA-Z]{2,}$/;
     	var bChecked = pattern.test(userEmail);
-    	if(!pattern.test(userEmail)){
-	    	$("#_email").focus();
-		    	return false;
-    		}
+    	$("#_email").focus();
+	    	return false;
     	}
     	return true;
 	// 아이디 검증
@@ -118,11 +116,11 @@ function checkIt() {
 	// 비밀번호 검증
     var password = userinput.userpw.value;
 	var id = userinput.userid.value;
-    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(userinput.userpw.value)){            
         alert('숫자+영문자 조합으로 8~25자까지 사용가능합니다.');
         $('#_pwd').val('').focus();
         return false;
-    }
+    }    
     var checkNumber = password.search(/[0-9]/g);
     var checkEnglish = password.search(/[a-z]/ig);
     if(checkNumber <0 || checkEnglish <0){
@@ -154,14 +152,14 @@ $('[name=userid]').on('focus',function(){
 });
 </script>
 <script type="text/javascript">
-// 아이디 - 숫자와 영문자 조합으로 6~16자
+// 아이디 - 숫자와 영문자 조합으로 6~10자
 function idCheck(focusYN) {
     var isTrue = $("input:text[idNumberEngOnly]").attr("idNumberEngOnly");
     var thisVal = $("input:text[idNumberEngOnly]").val();
  
     if(isTrue == "true") {
-      if(!/^[a-zA-Z0-9]{6,16}$/.test(thisVal)) {
-        alert("[아이디]는 숫자와 영문자 조합으로 6~16자까지 사용 가능합니다.");
+      if(!/^[a-zA-Z0-9]{6,10}$/.test(thisVal)) {
+        alert("[아이디]는 숫자와 영문자 조합으로 6~10자까지 사용 가능합니다.");
  
         if(focusYN == "Y") {
           $("input:text[idNumberEngOnly]").focus();
@@ -208,52 +206,94 @@ function idCheck(focusYN) {
     return true;
 }
 </script>
+<script type="text/javascript">
+/* $("#inputBtn").click(function(){
+	
+	alert("_idCheck");
+	alert($("#_id").val());
+	$.ajax({
+		url:"getIDCheck",
+		type:"post",
+		data:{id:$("#_id").val()},
+		success:function(msg){
+// 			alert("suc");
+			if(msg == 'YES'){
+	 		//	alert("msg == YES");	// id있음	
+	 		$("#_rgetid").html("사용할 수 없는 아이디입니다.");
+	 		$("#_rgetid").css("color", "red");
+	 		$("#_id").val("");
+	 		$("#_userid").val("");
+	 		$("#_id").focus();
+	 		
+			}else{
+	 		//	alert("msg == NO");		// 없음
+	 		$("#_rgetid").text("사용 가능한 아이디입니다.");
+	 		$("#_rgetid").css("color", "blue");
+	 //		$("#_userid").val($("#_id").val());
+	 		$("#_pwd").focus();
+	 		
+			}
+		},
+		error:function(){
+			alert("err");
+		}
+	});
+	
+}); */
 
+/* $("#addmemBtn").click(function(){
+	
+	if(idcheck){
+		location.herf="/member/addmem".submit();
+	}else{
+		alert("id중복확인을 해주세요");
+		#("_#id").focus();
+	}
+	
+}); */
+</script>
 </head>
 <body>
-<h1>regi1</h1>
+<h1>seller</h1>
 <div id="wrap">
-	<form action="/member/addmem" name="userinput" onsubmit="return checkIt()" method="get">
+	<form action="/member/addseller" name="userinput" onsubmit="return checkIt()" method="get">
 	<input type="hidden" name="authority" value="ROLE_MEMBER">
 		<div id="body">
-				<table width="500px;" class="regi_table">
+				<table width="500px;">
 					<colgroup>
 						<col width="20%" />
 						<col width="*" />
 					</colgroup>
 					<tr>
-						<th colspan="2" class="subTitle">*기본정보 입력</th>
+						<th colspan="2" class="subTitle">*아이디 입력</th>
 					</tr>
 					<tr>
-						<th>
-							<span class="txt_point">*</span>
-							<span class="th_title">아이디</span>
-						</th>
+						<th>아이디*</th>
 						<td>
-							<input type="text" id="_id" name="userid" class="inputtext_s" maxlength="12" minlength="6" idnumberengonly="true" onclick="idOn()"/>
+							<input type="text" id="_id" name="userid" maxlength="12" minlength="6" idnumberengonly="true" onclick="idOn()"/>
 							<input type="button" name="confirm_id" value="ID 중복확인" 
-							class="regibutton" id="inputBtn" onclick="idCheck()" />
+							class="inputBtn" id="inputBtn" onclick="idCheck()" />
 							<!-- 
 							<p class="txt_guide" style="display: block;">
 								<span class="txt txt_case1 bad">6자 이상의 영문 혹은 영문과 숫자를 조합</span>
 								<span class="txt txt_case2">아이디 중복확인</span>
 							</p>
 							 -->
-							 <span class="txt">6자 이상의 영문 혹은 영문과 숫자를 조합</span>
+							 <p class="Mix">6자 이상의 영문 혹은 영문과 숫자를 조합</p>
 							<p id="_rgetid"></p>
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호*</th>
 						<td>
-							<input type="password" name="userpw" maxlength="25" minlength="8" class="inputtext_s" id="_pwd" onclick="idOn()" />
-							<span class="txt">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</span>
+							<input type="password" name="userpw" maxlength="25" minlength="8" class="passwd" id="_pwd" onclick="idOn()" />
+							<p class="Mix">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</p>
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인*</th>
 						<td>
-							<input type="password" name="userpw2" class="inputtext_s" maxlength="25" id="_pwd2"/>
+							<input type="password" name="userpw2" maxlength="25" id="_pwd2"/>
 						</td>
 					</tr>
 					<tr>
@@ -262,29 +302,29 @@ function idCheck(focusYN) {
 					<tr>
 						<th>사용자 이름</th>
 						<td>
-							<input type="text" class="inputtext_s" name="username" maxlength="10" id="_name" maxlength="10"/>
-							<span class="txt">영문자 또는 한글 입력</span>
+							<input type="text" name="username" maxlength="10" id="_name" maxlength="10"/>
+							<p class="Mix">영문자 또는 한글 입력</p>
 						</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="text" name="useremail" class="inputtext_b" id="_email" maxlength="30" /></td>
+						<td><input type="text" name="useremail" class="w300" id="_email" maxlength="30" /></td>
 					</tr>
  					<tr>
 						<th>휴대폰</th>
 						<td>
-							<input type="number" class="inputtext_s" name="phone" maxlength="11" minlength="11"/>
+							<input type="number" name="phone" maxlength="11" minlength="11"/>
 						</td>
 					</tr>
 					<tr>
 						<th>주소</th>
 						<td>
 							<div class="wrap-input100 bg1 rs1-wrap-input100">
-							<input type="text" id="_postcode" class="inputtext_s" name="postcode" placeholder="우편번호">
-							<input type="button" onclick="sample6_execDaumPostcode()" class="regibutton" value="우편번호 찾기"><br>
-							<input type="text" id="_address" name="address" class="inputtext_long" placeholder="주소"><br>
-							<input type="text" id="_detailAddress" name="detailAddress" class="inputtext_b" placeholder="상세주소">
-							<input type="hidden" id="_extraAddress" name="extraAddress" placeholder="참고항목">
+							<input type="text" id="_postcode" name="postcode" placeholder="우편번호">
+							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+							<input type="text" id="_address" name="address" placeholder="주소"><br>
+							<input type="text" id="_detailAddress" name="detailAddress" placeholder="상세주소">
+							<input type="text" id="_extraAddress" name="extraAddress" placeholder="참고항목">
 							</div>
 							
 						</td>
@@ -300,18 +340,18 @@ function idCheck(focusYN) {
 					<tr>
 						<th>생년월일</th>
 						<td>
-							<input type="number" name="birth" class="inputtext_s" placeholder="YYYYMMDD" maxlength="8" minlength="8">
+							<input type="number" name="birth" placeholder="YYYYMMDD" maxlength="8" minlength="8">
 						</td>
 					</tr>					
 				</table>
 		</div>
 
 		<div id="footer">
-<!-- 			<div id="avoidDbl"> -->
-				<input type="submit" name="confirm" class="regibutton" value="등 록" />
-<!-- 			</div> -->
-			<input type="reset" name="reset" class="regibutton" value="다시입력" />
-			<input type="button" value="취 소" class="regibutton" onclick="javascript:window.location='login'" />
+			<div id="avoidDbl">
+				<input type="submit" name="confirm" class="inputBtn" value="다 음" />
+			</div>
+			<input type="reset" name="reset" class="inputBtn" value="다시입력" />
+			<input type="button" value="취 소" class="inputBtn" onclick="javascript:window.location='login'" />
 		</div>
 	</form>
 

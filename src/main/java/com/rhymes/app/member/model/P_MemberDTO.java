@@ -51,6 +51,12 @@ public class P_MemberDTO implements Serializable {
 	}
 
 
+	public P_MemberDTO(String useremail) {
+		super();
+		this.useremail = useremail;
+	}
+
+
 
 
 

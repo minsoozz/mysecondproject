@@ -7,22 +7,171 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/inputText.css">
 <style type="text/css">
-table {table-layout: fixed; border-collapse: collapse; padding: 0; border-style: solid; border-width: 1px 1px 0 1px; border-color: #bbb; align-content: center; margin: auto;}
-th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; background:#d7fd75;}
+/* table {table-layout: fixed; border-collapse: collapse; padding: 0; border-style: none; border-width: 1px 1px 0 1px; background:#f5f5f578;  align-content: center; margin: auto;} */
+th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; }
 td {text-align:left; border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; padding: 15px;}
-input {font-family: Tahoma, Dotum, "����"; font-size:1em;}
-.text100{
-	width: 100px;
-}
-#footer{
-	    margin-left: 500px;
-}
-button{
-	background-color: white;
-}
+/* input {font-family: Tahoma, Dotum, "����"; font-size:1em;} */
+
+
 
 </style>
+
+<script type="text/javascript">
+// 아이디 - 숫자와 영문자 조합으로 6~10자
+function idCheck(focusYN) {
+    var isTrue = $("input:text[idNumberEngOnly]").attr("idNumberEngOnly");
+    var thisVal = $("input:text[idNumberEngOnly]").val();
+ 
+    if(isTrue == "true") {
+      if(!/^[a-zA-Z0-9]{6,10}$/.test(thisVal)) {
+        alert("[아이디]는 숫자와 영문자 조합으로 6~10자까지 사용 가능합니다.");
+ 
+        if(focusYN == "Y") {
+          $("input:text[idNumberEngOnly]").focus();
+        }
+ 
+        return false;
+      }
+    }
+    
+ //   boolean idcheck = false;
+    
+    alert("ok");
+    alert($("#_id").val());
+    $.ajax({
+		url:"/member/getIDCheck",
+		type:"get",
+		data:{id:$("#_id").val()},
+		success:function(msg){
+ 			alert("suc");
+			if(msg == 'YES'){
+	 			alert("msg == YES");	// id있음	
+	 		$("#_rgetid").html("사용할 수 없는 아이디입니다.");
+	 		$("#_rgetid").css("color", "#b3130b");
+	 		$("#_id").val("");
+	 //		$("#_userid").val("");
+	 		$("#_id").focus();
+	 		
+			}else{
+	 //		alert("msg == NO");			// 없음
+	 		$("#_rgetid").text("사용 가능한 아이디입니다.");
+	 		$("#_rgetid").css("color", "#0b0fb3");
+	 //		$("#_userid").val($("#_id").val());
+	 		$("#_pwd").focus();
+ 	// 		idcheck = true;
+			}
+		},
+		error:function(request,status,error){
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+
+		}
+	});
+  	
+    return true;
+}
+</script>
+
+<script type="text/javascript">
+function checkIt() {
+	var userinput = eval("document.userinput");
+	if(!userinput.userid.value) {
+		alert("아이디를 입력하세요");
+		$("#_id").focus();
+		return false;
+	}
+	if(!userinput.userpw.value) {
+		alert("비밀번호를 입력하세요!");
+		$("#_pwd").focus();
+		return false;
+	}
+	if(userinput.userpw.value != userinput.userpw2.value) {
+		alert("비밀번호가 일치하지 않습니다.");
+		$("#_pwd2").focus();
+		return false;
+	}
+	
+	// 이름검증
+	if(!userinput.username.value){
+		return true;
+	}else{
+	    
+	    var userName = userinput.name.value;
+	    var deny_char = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\*]+$/;
+    	if (deny_char.test(userName)) {
+    		alert("영문자 또는 한글 입력을 입력해주세요");
+    		$("#_name").focus();
+    		return true;
+    	}
+    	return false;
+	}
+	
+	// 이메일 검증
+	if(!userinput.useremail.value){
+		return true;
+	}else{
+	    var userEmail = userinput.username.value;
+    	var pattern = /^([\w]{1,})+[\w\.\-\_]+([\w]{1,})+@(?:[\w\-]{2,}\.)+[a-zA-Z]{2,}$/;
+    	var bChecked = pattern.test(userEmail);
+    	$("#_email").focus();
+	    	return false;
+    	}
+    	return true;
+	// 아이디 검증
+	var saveId;
+	$('[name=userid]').on('focus',function(){
+	    saveId = $(this).val();
+	    $(this).parent().find('.txt_guide').show();
+	});
+	// 아이디 - 숫자와 영문자 조합으로 6~12자
+    var isTrue = $("input:text[idNumberEngOnly]").attr("idNumberEngOnly");
+    var thisVal = $("input:text[idNumberEngOnly]").val();
+ 
+    if(isTrue == "true") {
+      if(!/^[a-zA-Z0-9]{6,12}$/.test(thisVal)) {
+        alert("[아이디]는 숫자와 영문자 조합으로 6~12자까지 사용 가능합니다.");
+ 
+        if(focusYN == "Y") {
+          $("input:text[idNumberEngOnly]").focus();
+        }
+        return false;
+        
+      }
+    }
+    return true;
+  
+	// 비밀번호 검증
+    var password = userinput.userpw.value;
+	var id = userinput.userid.value;
+    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(userinput.userpw.value)){            
+        alert('숫자+영문자 조합으로 8~25자까지 사용가능합니다.');
+        $('#_pwd').val('').focus();
+        return false;
+    }    
+    var checkNumber = password.search(/[0-9]/g);
+    var checkEnglish = password.search(/[a-z]/ig);
+    if(checkNumber <0 || checkEnglish <0){
+        alert("숫자와 영문자를 혼용하여야 합니다.");
+        $('#_pwd').val('').focus();
+        return false;
+    }
+    if(/(\w)\1\1\1/.test(password)){
+        alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
+        $('#_pwd').val('').focus();
+        return false;
+    }
+        
+    if(password.search(id) > -1){
+        alert("비밀번호에 아이디가 포함되었습니다.");
+        $('#_pwd').val('').focus();
+        return false;
+    }
+    return true;
+    
+}
+</script>
 <script type="text/javascript">
 function checkIt() {
 	var userinput = eval("document.userinput");
@@ -32,27 +181,7 @@ function checkIt() {
 		$("#_c_num1").focus();
 		return false;
 	}
- 	if(!userinput.p_name.value) {
-		alert("대표자명을 입력하세요");
-		$("#_p_name").focus();
-		return false;
-	}
-	if(!userinput.c_cond.value) {
-		alert("업태명을 입력하세요");
-		$("#_c_cond").focus();
-		return false;
-	}
-	if(!userinput.c_type.value) {
-		alert("종목명을 입력하세요");
-		$("#_c_type").focus();
-		return false;
-	}
-	if(!userinput.ic_name.value) {
-		alert("담당자명을 입력하세요");
-		$("#_ic_name").focus();
-		return false;
-	}
-	if(!userinput.ic_email1.value) {
+	if(!userinput.checkCode.value) {
 		alert("담당이메일을 입력하세요");
 		$("#_ic_email1").focus();
 		return false;
@@ -77,8 +206,6 @@ function checkIt() {
 		$("#R_address").focus();
 		return false;
 	}
-	
-	// 전화번호
 	if(!userinput.textresult.value){
 		alert("담당자 번호를 입력하세요");
 		$("#textresult").focus();
@@ -97,137 +224,180 @@ function checkIt() {
 <form action="/member/addsellerdetail" name="userinput" onsubmit="return checkIt()" method="get">
 <input type="hidden" name="authority" value="ROLE_SELLER">
 <div id="body">
-	<table border="1">
-	<tr>
-		<th>
-			<p>아이디</p>
-		</th>
-		<td>${userid}</td>
-	</tr>
-	<tr>
-		<th>사업자 등록번호</th>
-		<td>
-			<input type="text" name="crnum1" class="text100" id="_c_num1" minlength="3" maxlength="3">
-			- <input type="text" name="crnum2" class="text100" id="_c_num2" minlength="2" maxlength="2">
-			- <input type="text" name="crnum3" class="text100" id="_c_num3" minlength="5" maxlength="5">
-			<input type="button" value="사업자 번호 인증" id="_r_numBtn">
-			<p id="_crText"></p>
-		</td>
-		
-	</tr>
-	<tr>
-		<th>상호명</th>
-		<td>
-			<input type="text" name="c_name" id="_c_name" readonly>
-		</td>
+	<table class="regi_table">
+		<tr>
+			<th>
+			<span class="th_title">상호 명</span>
+			</th>
+			<td>
+				<span class="c_name">${crdto.crname}</span>
+				<input type="hidden" name="c_name" value="${crdto.crname }">
+				
+				<span class="c_num">사업자등록번호</span>
+
+				<span class="c_num">${crdto.crnum1 }-${crdto.crnum2 }-${crdto.crnum3 }</span>
+				<input type="hidden" name="crnum1" value="${crdto.crnum1 }">
+				<input type="hidden" name="crnum2" value="${crdto.crnum2 }">
+				<input type="hidden" name="crnum3" value="${crdto.crnum3 }">
+				
+			</td>
 		</tr>
-	<tr>
-		<th>대표자명</th>
-		<td>
-			<input type="text" name="p_name" id="_p_name">
-		</td>
-	</tr>
-	<tr>
-		<th>업태</th>
-		<td>
-			<input type="text" name="c_cond" id="_c_cond">
-		</td>
-	</tr>
-	<tr>
-		<th>종목</th>
-		<td>
-			<input type="text" name="c_type" id="_c_type">
-		</td>
-	</tr>
-	<tr>
-		<th>담당자이름</th>
-		<td>
-			<input type="text" name="ic_name" id="_ic_name">
-		</td>
-	</tr>
-	<tr>
-		<th>담당자번호</th><!-- <select name="ic_phone1" class="text100">
-							<option value="xx" id="_ic_phone1">선택</option>
-							<option value="02">02</option>
-							<option value="010">010</option>
-							<option value="070">070</option>
-						</select>
-						-
-						<input type="number" name="ic_phone2" class="text100">
-						-
-						<input type="number" name="ic_phone3" class="text100"> -->
-		<td>
-			<input type="number" id="to" name="to" minlength="11" maxlength="11"/>   <!-- 인증번호 받을사람 휴대폰 번호 -->
- 					<input type="button" id="send" value="전송"/><br><br> <!-- 문자보내는 전송버튼 -->
- 					인증번호 :    <input type="number" id="userNum" class="text100">   <!-- 인증번호 입력창 -->
-								<input type="button" id="enterBtn" value="확인">   <!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
-								<input type="hidden" name="text" id="text" placeholder="확인용">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-								<input type="hidden" id="textresult" name="textresult" placeholder="textresult">
-		</td>
-	</tr>
-	<tr>
-		<th>담당자메일</th>
-		<td>
-			<input type="text" name="ic_email1" class="text100" id="_ic_email1">
-			@
-			<input type="text" name="ic_email2" class="text100" id="_email2">
-			<select name="ic_email3" class="text100" id="_emailSelect" onchange="changeEmail()">
-				<option value="x">직접입력</option>
-				<option value="naver.com">naver.com</option>
-				<option value="hanmail.net">hanmail.net</option>
-				<option value="gmail.com">gmail.com</option>
-			</select>
-			<input type="button" id="_emailBtn" value="이메일 인증"><br><br>
-			인증번호<input type="text" id="_emailText" class="text100" minlength="6" maxlength="6">
-			<input type="button" id="_emailNumBtn" value="인증번호 확인">
-						<input type="hidden" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
-			<p id="emailNumText"></p>
-		</td>
-	</tr>
-	<tr>
-		<th>회사주소</th>
-		<td>
-			<div class="wrap-input100 bg1 rs1-wrap-input100">
-				<input type="text" id="_postcode" name="c_postcode" placeholder="우편번호">
-				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="_address" name="c_address" placeholder="주소"><br>
-				<input type="text" id="_detailAddress" name="c_detailAddress" placeholder="상세주소">
-				<input type="text" id="_extraAddress" name="c_extraAddress" placeholder="참고항목">
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">아이디</span>
+			</th>
+			<td>
+				<input type="text" id="_id" name="userid" maxlength="12" minlength="6" idnumberengonly="true" onclick="idOn()" class="inputtext_s" required/>
+				<input type="button" name="confirm_id" value="중복확인" 
+				class="regibutton" id="inputBtn" onclick="idCheck()" />
+				<span id="_rgetid" class="txt">6자 이상의 영문 혹은 영문과 숫자를 조합</span>
+			</td>
+		</tr>
+		<tr>
+			<th>
+			<span class="txt_point">*</span>
+			<span class="th_title">비밀번호</span>
+			</th>
+			<td>
+				<input type="password" name="userpw" maxlength="25" minlength="8" class="inputtext_s" id="_pwd" onclick="idOn()" required>
+				<span class="txt">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</span>
+			</td>
+		</tr>
+		<tr>
+			<th>
+			<span class="txt_point">*</span>
+			<span class="th_title">비밀번호 확인</span>
+			<td>
+				<input type="password" name="userpw2" maxlength="25" id="_pwd2" class="inputtext_s" required/>
+			</td>
+		</tr>	
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">대표자명</span>
+			</th>
+			<td>
+				<input type="text" name="p_name" id="_p_name" class="inputtext_b" required>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">업태</span>
+			</th>
+			<td>
+				<input type="text" name="c_cond" id="_c_cond" class="inputtext_b" required>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">종목</span>
+			</th>
+			<td>
+				<input type="text" name="c_type" id="_c_type" class="inputtext_b" required>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">담당자이름</span>
+			</th>
+			<td>
+				<input type="text" name="ic_name" id="_ic_name" class="inputtext_b" required>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">담당자번호</span>
+			</th>
+			<td>
+				<input type="number" id="to" name="to" minlength="11" maxlength="11" class="inputtext_b">   <!-- 인증번호 받을사람 휴대폰 번호 -->
+	 					<input type="button" id="send" value="전송" class="regibutton"><br><br> <!-- 문자보내는 전송버튼 -->
+	 					인증번호   <input type="number" id="userNum" class="inputtext_s">   <!-- 인증번호 입력창 -->
+									<input type="button" id="enterBtn" value="확인" class="regibutton">   <!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
+									<input type="hidden" name="text" id="text" placeholder="확인용">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+									<input type="hidden" id="textresult" name="textresult" placeholder="textresult">
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">담당자메일</span>
+			</th>
+			<td>
+				<input type="text" name="ic_email1" class="inputtext_s" id="_ic_email1">
+				@
+				<input type="text" name="ic_email2" class="inputtext_s" id="_email2">
+				<select name="ic_email3" class="inputtext_s" id="_emailSelect" onchange="changeEmail()">
+					<option value="x">직접입력</option>
+					<option value="naver.com">naver.com</option>
+					<option value="hanmail.net">hanmail.net</option>
+					<option value="gmail.com">gmail.com</option>
+				</select>
+				<input type="button" id="_emailBtn" value="이메일 인증" class="regibutton"><br><br>
+				인증번호<input type="text" id="_emailText" class="inputtext_s" minlength="6" maxlength="6">
+				<input type="button" id="_emailNumBtn" value="인증번호 확인" class="regibutton">
+							<input type="hidden" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
+							<input type="hidden" id="_checkCode" name="checkCode" placeholder="이메일 인증했는지 체크">
+				<p id="emailNumText"></p>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">회사주소</span>
+			</th>
+			<td>
+				<div class="wrap-input100 bg1 rs1-wrap-input100">
+					<input type="text" id="_postcode" name="c_postcode" class="inputtext_s" placeholder="우편번호" required>
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="regibutton"><br>
+					<input type="text" id="_address" name="c_address" class="inputtext_long" placeholder="주소" required><br>
+					<input type="text" id="_detailAddress" name="c_detailAddress" class="inputtext_b" placeholder="상세주소" required>
+					<input type="hidden" id="_extraAddress" name="c_extraAddress" placeholder="참고항목">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">출고지주소</span>
+			</th>
+			<td> 
+				<div class="wrap-input100 bg1 rs1-wrap-input100">
+					<input type="text" id="S_postcode" name="s_postcode" class="inputtext_s" placeholder="우편번호" required>
+					<input type="button" onclick="S_execDaumPostcode()" value="우편번호 찾기" class="regibutton"><br>
+					<input type="text" id="S_address" name="s_address" class="inputtext_long" placeholder="주소" required><br>
+					<input type="text" id="S_detailAddress" name="s_detailAddress" class="inputtext_b" placeholder="상세주소" required>
+					<input type="hidden" id="S_extraAddress" name="s_extraAddress" placeholder="참고항목">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				<span class="txt_point">*</span>
+				<span class="th_title">반품/교환지주소</span>
+			</th>
+			<td>
+				<div class="wrap-input100 bg1 rs1-wrap-input100">
+					<input type="text" id="R_postcode" name="r_postcode" class="inputtext_s" placeholder="우편번호" required>
+					<input type="button" onclick="R_execDaumPostcode()" value="우편번호 찾기" class="regibutton"><br>
+					<input type="text" id="R_address" name="r_address" class="inputtext_long" placeholder="주소" required><br>
+					<input type="text" id="R_detailAddress" name="r_detailAddress" class="inputtext_b" placeholder="상세주소" required>
+					<input type="hidden" id="R_extraAddress" name="r_extraAddress" placeholder="참고항목">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<div id="footer">
+				<input type="submit" value="확인" class="regibutton">
+				<input type="button" value="취소" onclick="javascript:window.location.href='login'" class="regibutton">
 			</div>
-		</td>
-	</tr>
-	<tr>
-		<th>출고지주소</th>
-		<td> 
-			<div class="wrap-input100 bg1 rs1-wrap-input100">
-				<input type="text" id="S_postcode" name="s_postcode" placeholder="우편번호">
-				<input type="button" onclick="S_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="S_address" name="s_address" placeholder="주소"><br>
-				<input type="text" id="S_detailAddress" name="s_detailAddress" placeholder="상세주소">
-				<input type="text" id="S_extraAddress" name="s_extraAddress" placeholder="참고항목">
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<th>반품/교환지주소</th>
-		<td>
-			<div class="wrap-input100 bg1 rs1-wrap-input100">
-				<input type="text" id="R_postcode" name="r_postcode" placeholder="우편번호">
-				<input type="button" onclick="R_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="R_address" name="r_address" placeholder="주소"><br>
-				<input type="text" id="R_detailAddress" name="r_detailAddress" placeholder="상세주소">
-				<input type="text" id="R_extraAddress" name="r_extraAddress" placeholder="참고항목">
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-		<div id="footer">
-			<input type="submit" value="확인">
-			<input type="button" value="취소" onclick="javascript:window.location.href='login'">
-		</div>
-		</td>
-	</tr>
+			</td>
+		</tr>
 	</table>
 </div>
 
@@ -348,6 +518,7 @@ $(document).ready(function(){
 			$("#_emailText").css("background-color","f1f1f1");
 			$("#emailNumText").text("이메일 인증 완료");
 			$("#emailNumText").css("color","green");
+			$("#_checkCode").val(emailcode);
 			
 		}else{
 		//	alert("인증번호가 틀렸습니다. 다시 확인해주세요");

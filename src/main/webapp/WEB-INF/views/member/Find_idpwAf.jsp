@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>pw찾기</h3>
+<h3>${foundId }</h3>
+
+dd
+
 </body>
 </html>

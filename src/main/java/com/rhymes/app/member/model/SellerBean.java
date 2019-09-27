@@ -47,7 +47,7 @@ public class SellerBean implements Serializable {
 	// AuthoritiesDto
 	private String authority;	// 권한
 	
-	// 사업자 번호 합치기
+	// 사업자 번호
 	private String crnum1;
 	private String crnum2;
 	private String crnum3;

@@ -78,6 +78,19 @@
 							#{r_postcode}, #{r_address}, #{r_detailaddress})
 	</insert>
 	
+	<!-- id찾기 -->
+	<select id="getFindID_E" parameterType="com.rhymes.app.member.model.P_MemberDTO" resultType="java.lang.String">
+		SELECT ID
+		FROM RHY_MEM_P
+		WHERE EMAIL=#{useremail}
+	</select>
+	
+	<select id="getFindID_P" parameterType="com.rhymes.app.member.model.MemberDTO" resultType="java.lang.String">
+		SELECT PW
+		FROM RHY_MEM
+		WHERE ID=#{userid}
+	</select>
+
 	
 	
 	

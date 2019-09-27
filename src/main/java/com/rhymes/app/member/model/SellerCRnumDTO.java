@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 public class SellerCRnumDTO implements Serializable{
 
-	private int crnum1;
+	private int crnum1;	// 사업자등록번호
 	private int crnum2;
 	private int crnum3;
-	private String crname;
+	private String crname;	// 상호명
 	
 	private String cnum;
 	

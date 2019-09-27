@@ -10,7 +10,7 @@ import lombok.Setter;
 public class SellerDTO implements Serializable {
 
 	private String id;				// 아이디
-	private String c_name;			// 상호
+	private String c_name;			// 상호명
 	private String c_num;			// 사업자등록번호
 	private String p_name;			// 대표자명
 	private String c_postcode;		// 회사우편번호

@@ -1,6 +1,7 @@
 package com.rhymes.app.member.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +29,10 @@ public interface MemberService{
 	
 	// 사업자 회원가입 insert
 	public void getAddSeller(SellerBean sellerbean, MemberDTO mem);
+	
+	// id찾기
+	public String getFindID(MemBean mbean);
+//	public List<MemberDTO> getFindID_P(MemBean mbean);
 	
 	
 }

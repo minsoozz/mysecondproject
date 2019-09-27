@@ -1,6 +1,7 @@
 package com.rhymes.app.member.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
@@ -129,22 +130,43 @@ public class MemberServiceImpl implements MemberService {
 										sellerbean.getR_address(),
 										sellerbean.getR_detailAddress(),
 										sellerbean.getC_code());
-	System.out.println("getAddSeller sel: " + sel.toString());
-	
-	// 권한
-	AuthoritiesDTO amem = new AuthoritiesDTO(memdto.getUserid(), sellerbean.getAuthority());
-	System.out.println("getAddSeller amem: " + amem.toString());
-	
-	boolean b = memberdao.getAddmem(mem);
-	
-	if(b) {
-		memberdao.getAddSeller_C(sel);
-		memberdao.getAuthAddmem(amem);
+		System.out.println("getAddSeller sel: " + sel.toString());
+		
+		// 권한
+		AuthoritiesDTO amem = new AuthoritiesDTO(memdto.getUserid(), sellerbean.getAuthority());
+		System.out.println("getAddSeller amem: " + amem.toString());
+		
+		boolean b = memberdao.getAddmem(mem);
+		
+		if(b) {
+			memberdao.getAddSeller_C(sel);
+			memberdao.getAuthAddmem(amem);
+		}
+
 	}
-	
-	
-	
-	
+
+	// id찾기
+	@Override
+	public String getFindID(MemBean mbean) {
+		
+		String foundId = "";	
+		
+		String eID = memberdao.getFindID_E(mbean);		// email를 넣어서 id를 뽑아냄
+		MemberDTO mem = new MemberDTO(eID, null);
+		System.out.println("memberservice 아이디찾기 mem:  " + mem.toString());
+		
+		String getuserpw = memberdao.getFindID_P(mem);	// db에 저장되어있는 pw를 뽑아냄
+		
+		System.out.println("memberservice 아이디찾기 getuserpw:  " + getuserpw);
+		
+		boolean b = passwordEncoder.matches(mbean.getUserpw(), getuserpw);
+		if(b) {
+			foundId = eID;
+		}else {
+			foundId = "N";
+		}		
+
+		return foundId;
 	}
 
 

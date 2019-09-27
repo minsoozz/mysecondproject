@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.common.service.KakaoAPI;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
 import com.rhymes.app.member.model.SellerDTO;
@@ -96,23 +97,21 @@ public class MemberController {
 	
 	// 사업자회원가입(공통)
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addseller")
-	public String addseller(HttpServletRequest req, MemberDTO mem, Model model) {
-		System.out.println("mem toString: "+ mem.toString());
+	public String addseller(HttpServletRequest req, SellerCRnumDTO crdto, Model model) {
+		System.out.println("crdto toString: "+ crdto.toString());
 		
-		req.getSession().setAttribute("mem", mem);
+		req.getSession().setAttribute("crdto", crdto);
 		
-		model.addAttribute("userid", mem.getUserid());
+		model.addAttribute("crdto", crdto);
 		
 		return "rhyregisellerdetail";
 	}
 	
 	// 사업자회원가입(사업자 추가정보)
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addsellerdetail")
-	public String addsellerdetail(HttpServletRequest req, SellerBean sellerbean) {
-		MemberDTO mem = (MemberDTO)req.getSession().getAttribute("mem");	// session 잘 넘어왔는지 확인용
-		System.out.println("addsellerdetail Controller mem: " + mem);
-		
-		
+	public String addsellerdetail(HttpServletRequest req,MemberDTO mem, SellerBean sellerbean) {
+//		SellerCRnumDTO crdto = (SellerCRnumDTO)req.getSession().getAttribute("crdto");	// session 잘 넘어왔는지 확인용
+		//System.out.println("addsellerdetail Controller crdto: " + crdto);
 		
 		System.out.println("addsellerdetail Controller sellerbean: " + sellerbean);
 		
@@ -123,7 +122,7 @@ public class MemberController {
 	
 	// 사업자 번호조회 api
 	@ResponseBody
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck")
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck99999999")
 	public String getCRCheckAPI(HttpServletRequest req, SellerCRnumDTO crdto) {
 		
 		int crnum1 = Integer.parseInt(req.getParameter("_c_num1"));
@@ -164,7 +163,7 @@ public class MemberController {
 	
 	// 사업자번호 체크
 	@ResponseBody
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck9999999999")
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck")
 	public String getCRCheck(HttpServletRequest req, SellerCRnumDTO crdto) {
 		
 		int crnum1 = Integer.parseInt(req.getParameter("_c_num1"));
@@ -273,7 +272,32 @@ public class MemberController {
 		return "rhyfindid";
 	}
 	
-	
+	// id찾기
+	@GetMapping("/getFindID")
+	public String getFindID(MemBean mbean, Model model) {
+		System.out.println("아이디찾기 mbean: " + mbean);
+		
+		String foundId = memService.getFindID(mbean);
+		
+		System.out.println("id찾기 foundId : " + foundId);
+		
+		
+		
+		String msg = "";
+		if(foundId.equals("N")) {	// 일치하는 아이디 없음
+			msg = "N";
+		}
+		else {
+			msg = foundId;
+		}
+		System.out.println("msg: " + msg);
+		
+		model.addAttribute("foundId", foundId);
+		
+		foundId.substring(-3, 3);
+		
+		return "rhyfindAf";
+	}
 	
 	
 	

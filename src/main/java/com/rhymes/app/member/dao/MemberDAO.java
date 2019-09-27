@@ -1,8 +1,11 @@
 package com.rhymes.app.member.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.rhymes.app.member.model.AuthoritiesDTO;
+import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerCRnumDTO;
@@ -28,4 +31,12 @@ public interface MemberDAO {
 	
 	// 사업자 회원가입
 	public void getAddSeller_C(SellerDTO sel);	// 사업자 추가
+	
+	// id찾기
+	public String getFindID_E(MemBean mbean);
+	
+	// 비밀번호 불러오기
+	public String getFindID_P(MemberDTO mem);
+	
+	
 }

@@ -31,6 +31,10 @@
 	<definition name="rhyfindid" template="/WEB-INF/views/member/Find_ID.jsp">
 	</definition>
 
+	<!-- id찾기AF -->
+	<definition name="rhyfindAf" template="/WEB-INF/views/member/Find_idpwAf.jsp">
+	</definition>
+
 	<!-- admin test -->
 	<definition name="memtest/admin" template="/WEB-INF/views/member/tmp/admin.jsp">
 	</definition>
