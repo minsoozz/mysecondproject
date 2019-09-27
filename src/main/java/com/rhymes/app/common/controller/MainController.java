@@ -8,13 +8,27 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/main")
+@RequestMapping(value = "")
 public class MainController {
 	
-	@GetMapping(value = "")
+	@GetMapping(value = "/main")
 	public String mainPage() {
-		//log.info("ddddddddddddddd");
+		log.info("mainpage");
 		
 		return "main";
 	}
 }
+
+
+/*
+@RequestMapping(value = "/main")
+public class MainController {
+	
+	@GetMapping(value = "/main")
+	public String mainPage() {
+		log.info("mainpage");
+		
+		return "main";
+	}
+}
+*/

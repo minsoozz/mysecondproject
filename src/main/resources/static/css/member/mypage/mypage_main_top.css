@@ -2,15 +2,15 @@
 
 /* 영역 배치 */
 .mypage_wrap {	/* Body부분 전체 크기 및 배치 */
-	z-index: 1;
+	
 	position: absolute;
 	margin: 0 0 0 -1500px;
 	
 	width: 3000px !important;
 	min-width: 3000px !important;
-	height: 300px;
+	height: 100px;
 
-	top: 10%;
+	top: 50%;
 	left: 50%;
 
 	background-color: white;
@@ -25,7 +25,7 @@
 	min-width: 3000px !important;
 	height: 275px;
 
-	top: 4%;
+	top: 50%;
 	left: 50%;
 
 	background-color: #F7F7F7;

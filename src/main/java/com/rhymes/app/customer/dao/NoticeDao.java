@@ -7,28 +7,28 @@ import com.rhymes.app.customer.model.NoticeDto;
 
 public interface NoticeDao {
 
-	//notice ¸®½ºÆ® °¡Á®¿À±â
+	//notice listê°€ì ¸ì˜¤ê¸°
 	public List<NoticeDto> getNoticeList(CustomerParam param);
 	
 	//notice count
 	public int getNoticeCount(CustomerParam param);
 	
-	//notice µğÅ×ÀÏ °¡Á®¿À±â
+	//notice ë””í…Œì¼ ê°€ì ¸ì˜¤ê¸°
 	public NoticeDto getNoticeDetail(int seq);
 	
-	//readcount Áõ°¡
+	//readcount ì¦ê°€
 	public boolean NoticeUpRead(int seq);
 	
-	//notice ¿Ã¸®±â
+	//notice ì—…ë¡œë“œ
 	public boolean NoticeUpload(NoticeDto dto);
 	
-	//notice ¼öÁ¤
+	//notice ìˆ˜ì •
 	public boolean NoticeUpdateAf(NoticeDto dto);
 
-	//notice ÆÄÀÏÀÌ¸§ °¡Á®¿À±â
+	//notice íŒŒì¼ì´ë¦„ê°€ì ¸ì˜¤ê¸°
 	public String getfilename(int seq);
 	
-	//notice »èÁ¦
+	//notice ì‚­ì œ
 	public boolean NoticeDelete(int seq);
 	
 }

@@ -4,45 +4,57 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-
-
 <div id="button.wrap">
 	<span class="button blue">
-		<button type="button" id="_btnWrite">공지사항쓰기</button>
+		<button type="button" id="_btnWrite">자주하는질문쓰기</button>
 	</span>
 </div>
-
+        
+<table style="width:85%" >
+<colgroup>
+	<col width="50"><col width="100"><col width="600">
+</colgroup>
+<tr>
+<th>
+	<select id="_s_category" name="s_category">
+	  <option value="" selected="selected">선택</option>
+	  <option value="memberq" <c:out value="${s_category == 'memverq'? 'selected':'' }"/>>회원문의</option>
+      <option value="orderq"<c:out value="${s_category == 'orderq'? 'selected':'' }"/>>주문/결제</option>
+      <option value="cancleq"<c:out value="${s_category == 'cancleq'? 'selected':'' }"/>>취소/교환/반품</option>
+      <option value="deliveryq"<c:out value="${s_category == 'deliveryq'? 'selected':'' }"/>>배송문의</option>
+      <option value="cuponq"<c:out value="${s_category == 'cuponq'? 'selected':'' }"/>>쿠폰/적립금</option>
+      <option value="serviceq"<c:out value="${s_category == 'serviceq'? 'selected':'' }"/>>서비스 이용 및 기타</option>
+	</select>
+</th>
+</tr>
+</table>    
+    
 <table class="list_table" style="width:85%" >
 <colgroup>
-	<col width="50"><col width="300"><col width="100"><col width="100"><col width="50">
+	<col width="50"><col width="100"><col width="600">
 </colgroup>
-
 <thead>
 <tr>
-	<th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th>
+	<th>번호</th><th>카테고리</th><th>제목</th>
 </tr>
 </thead>
 
 <tbody>
-<c:forEach var="notice" items="${noticelist }" varStatus="vs">
+<c:forEach var="faq" items="${faqlist }" varStatus="vs">
 <tr class="_hover_tr">
 	<td>${vs.count }</td>
+	<td>${faq.category }</td>
 	<td style="text-align: left;">
-		<a href="noticedetail?seq=${notice.seq}">
-			${notice.title }
+		<a href="noticedetail?seq=${faq.seq}">
+			${faq.title }
 		</a>
 	</td>
-	<td>${notice.id }</td>
-	<td>
-		<font size="1">${notice.wdate }</font>
-	</td>
-	<td>${notice.readcount }</td>
 	
 </tr>
 </c:forEach>
 
 <tr>
-<th colspan="5">
+<th colspan="3">
 <!-- 페이징 -->
 <div id="paging_wrap"> 
 	<jsp:include page="/WEB-INF/views/customer/paging.jsp" flush="false">
@@ -66,14 +78,6 @@
 <tr>
 	<td>검색:</td>
 	<td style="padding-left: 0px">
-		<select id="_s_category" name="s_category">
-			<option value="" selected="selected">선택</option>
-		  <option value="title" <c:out value="${s_category == 'title'? 'selected':'' }"/>>제목</option>
-	      <option value="content"<c:out value="${s_category == 'content'? 'selected':'' }"/>>내용</option>
-	      <option value="writer"<c:out value="${s_category == 'writer'? 'selected':'' }"/>>작성자</option>
-		</select>
-	</td>
-	<td style="padding-left: 0px">
 		<input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword }">
 	</td>
 	<td style="padding-left: 0px">
@@ -93,32 +97,24 @@
 </tr>
 </tbody>
 </table>
- 
-
- 
-
 
 
 <script type="text/javascript">
 
 $("#_btnWrite").click(function () { 
-	location.href = "noticewrite";
+	location.href = "faqwrite";
 });
-
-</script>    
-
-<script type="text/javascript">
 
 function goPage( pageNumber ) {
 	
 	$("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
-	$("#_frmFormSearch").attr("action", "noticelist").submit(); //
+	$("#_frmFormSearch").attr("action", "faqlist").submit(); //
 	
 }
 
 $("#_btnSearch").click(function () {
 	//alert("클릭");
-	$("#_frmFormSearch").attr("action", "noticelist").submit(); //
+	$("#_frmFormSearch").attr("action", "faqlist").submit(); //
 });
 
 </script>
