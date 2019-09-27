@@ -38,7 +38,7 @@
                     <div class="top_social_bar">
                         <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
 
 
                     </div>
@@ -106,7 +106,6 @@
                         <div class="collapse navbar-collapse justify-content-center" id="rhymesshop-nav">
                             <ul class="navbar-nav" id="rhymes-nav">
                             
-                 
                                 <li class="nav-item">
                                     <a class="nav-link" href="../body/women.jsp">WOMEN</a>
                                 </li>
@@ -120,8 +119,9 @@
                                     <a class="nav-link" href="event.jsp">EVENT</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a>
-                                </li>
+                           			<a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a>
+                           		</li>
+                           		
                             </ul>
                         </div>
                     </nav>

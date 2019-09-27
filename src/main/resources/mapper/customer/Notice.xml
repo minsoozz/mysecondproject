@@ -24,7 +24,7 @@
 				</if>
 				)A
 		WHERE RNUM BETWEEN ${start} AND ${end}		
-      
+      	ORDER BY SEQ ASC
     </select>
     
     

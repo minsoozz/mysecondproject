@@ -8,9 +8,6 @@
 
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
- <!-- 모바일버전XXXXXXXXXX
- 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
     <!-- Core Stylesheet -->
     <link href="/css/main/common/style.css" rel="stylesheet">
@@ -76,13 +73,15 @@
    <br><br><br><br>
    
     <div align="center">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/sVq9GHum-8Y?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+   <iframe width="1800" height="700" src="https://www.youtube.com/embed/k2LhNhZVE3I?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    
      <br><br>
-     <h1>콜드브루와 더치커피</h1>
+     <h1 style="color: red">HARIBO</h1>
      <br>
-     <p>콜드브루, 더치커피, 콜드브루, 더치커피.</p>
-     <p>콜드브루, 더치커피, 콜드브루, 더치커피. 더치더치</p>
-     
+     <p>Haribo macht Kinder froh und Erwachsene ebenso!</p>
+	<p>"하리보는 아이들을 즐겁게 합니다. 그리고 어른들도요."</p>
+    
+     <br>
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br>
@@ -100,13 +99,16 @@
    <br><br><br><br>
    
     <div align="center">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/sVq9GHum-8Y?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-     <br><br>
-     <h1>콜드브루와 더치커피</h1>
+    <iframe width="1800" height="700" src="https://www.youtube.com/embed/k2LhNhZVE3I?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <br><br>
+    <h1 style="color: red">HARIBO</h1>
      <br>
-     <p>콜드브루, 더치커피, 콜드브루, 더치커피.</p>
-     <p>콜드브루, 더치커피, 콜드브루, 더치커피. 더치더치</p>
-     
+     <p>하리보의 대표제품인 하리보 골드베렌은 씹는맛이 매우 질기다. 어느 정도 먹다 보면 턱이 아프다. </p>
+      <p>물론 질기지 않은 제품들도 많다. 이 질김 때문에 좋아하는 사람들도 꽤나 있는 편.  </p>
+      <p>전자레인지로 잠깐 돌려 먹으면 약간은 부드러워진다고 하니 부드럽게 먹고 싶은 사람들은 한 번 해 보자. </p>
+      <p>30초 이상 돌리면 다 녹으니까 5~10초정도만.</p>
+    
+     <br>
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br>
@@ -368,16 +370,6 @@
 
 
 
-    <!-- Jquery-2.2.4 js -->
-   <script src="./js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-   <script src="./js/bootstrap/popper.min.js"></script>
-       <!-- Bootstrap-4 js -->
-   <script src="./js/bootstrap/bootstrap.min.js"></script> -->
-    <!-- All Plugins JS -->
-    <script src="./js/others/plugins.js"></script>
-    <!-- Active JS -->
-    <script src="./js/active.js"></script>
     
     </body>
    
