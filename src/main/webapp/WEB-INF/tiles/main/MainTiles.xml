@@ -5,15 +5,15 @@
 <tiles-definitions>
 
    <!-- main -->
-   <definition name="main" template="/WEB-INF/views/common/layout/base-main.jsp">
+   <definition name="main" template="/WEB-INF/views/main/layout/base-main.jsp">
        <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
-       <put-attribute name="body" value="/WEB-INF/views/main/body/index.jsp" />
+       <put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
        <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
    </definition>
    
-   <definition name="main/women" extends="main-layout">
+  <!--  <definition name="main/women" extends="main">
        <put-attribute name="body" value="/WEB-INF/views/main/content/women.jsp" />
-   </definition>
+   </definition> -->
    
 </tiles-definitions>
 
