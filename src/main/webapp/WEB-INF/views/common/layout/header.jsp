@@ -44,24 +44,31 @@
                     </div>
                 </div>
                 
+               
+                
                 <!--  Login Register Area  -->
                 <div class="col-7 col-xs-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
+                            
                             <div class="login">
-                                <a href="login.jsp">Sing in</a>
+                                <a href="a.jsp">Login</a>
                             </div>
-                            <div class="register">
-                                <a href="regi.jsp">Sing up</a>
+                            <div class="join">
+                                <a href="a.jsp">Join</a>
+                            </div>
+                            <div class="mypage">
+                                <a href="a.jsp">Mypage</a>
                             </div>
                         </div>
                         
-                        <!-- Search Button Area -->
+                        <!-- 
+                         Search Button Area
                         <div class="search_button">
                             <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
                         </div>
                         
-                        <!-- Search Form -->
+                        Search Form
                         <div class="search-hidden-form">
                             <form action="#" method="get">
                                 <input type="search" name="search" id="search-anything" placeholder="검색어를 입력하세요...">
@@ -69,6 +76,7 @@
                                 <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
                             </form>
                         </div>
+                         -->
                     </div>
                 </div>
             </div>
@@ -87,12 +95,11 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
-				<a href="<%=ctx%>/main" id="logo"><img src="/css/main/img/core-img/banner.png" style="width: 150px" ></img></a>
+				<a href="<%=ctx%>/main" id="logo"><img src="/img/main-img/core-img/banner.png" style="width: 150px" ></img></a>
 
                     </div>
                 </div>
             </div>
-            
             
              
 <div class="menuWrap">
@@ -107,16 +114,16 @@
                             <ul class="navbar-nav" id="rhymes-nav">
                             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../body/women.jsp">WOMEN</a>
+                                    <a class="nav-link" href="#">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="men.jsp">MEN</a>
+                                    <a class="nav-link" href="#">MEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="market.jsp">MARKET</a>
+                                    <a class="nav-link" href="#">MARKET</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="event.jsp">EVENT</a>
+                                    <a class="nav-link" href="#">EVENT</a>
                                 </li>
                                 <li class="nav-item">
                            			<a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a>
