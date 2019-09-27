@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<div id="_mypage_wrap" class="mypage_wrap" align="center">
+<!-- <div id="_mypage_wrap" class="mypage_wrap" align="center"> -->
 	<div id="_mypage_top" class="mypage_top" align="center"><!-- 배경화면 -->
 		<div id="_mypage_top_user" class="mypage_top_user" align="center"><!-- ul영역설정 -->
 			<ul id="_mypage_top_list" class="mypage_top_list">
@@ -47,7 +47,7 @@
 	<div>
 	
 	</div>
-</div>
+<!-- </div> -->
 
 </body>
 </html>
