@@ -11,10 +11,10 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
 <!-- Core Stylesheet -->
-<link href="../css/common/style.css" rel="stylesheet">
+<link href="/css/main/common/style.css" rel="stylesheet">
 
 <!-- Responsive CSS -->
-<link href="../css/responsive/responsive.css" rel="stylesheet">
+<link href="/css/main/responsive/responsive.css" rel="stylesheet">
 
 <!-- 아이콘 활용을 위한 font-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
@@ -38,30 +38,37 @@
                     <div class="top_social_bar">
                         <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
 
 
                     </div>
                 </div>
                 
+               
+                
                 <!--  Login Register Area  -->
                 <div class="col-7 col-xs-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
+                            
                             <div class="login">
-                                <a href="login.jsp">Sing in</a>
+                                <a href="a.jsp">Login</a>
                             </div>
-                            <div class="register">
-                                <a href="regi.jsp">Sing up</a>
+                            <div class="join">
+                                <a href="a.jsp">Join</a>
+                            </div>
+                            <div class="mypage">
+                                <a href="a.jsp">Mypage</a>
                             </div>
                         </div>
                         
-                        <!-- Search Button Area -->
+                        <!-- 
+                         Search Button Area
                         <div class="search_button">
                             <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
                         </div>
                         
-                        <!-- Search Form -->
+                        Search Form
                         <div class="search-hidden-form">
                             <form action="#" method="get">
                                 <input type="search" name="search" id="search-anything" placeholder="검색어를 입력하세요...">
@@ -69,6 +76,7 @@
                                 <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
                             </form>
                         </div>
+                         -->
                     </div>
                 </div>
             </div>
@@ -87,13 +95,11 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
-				<a href="<%=ctx%>/main" id="logo"><img src="../img/core-img/banner.png" style="width: 150px" ></img></a>
+				<a href="<%=ctx%>/main" id="logo"><img src="/img/main-img/core-img/banner.png" style="width: 150px" ></img></a>
 
-                        
                     </div>
                 </div>
             </div>
-            
             
              
 <div class="menuWrap">
@@ -107,22 +113,22 @@
                         <div class="collapse navbar-collapse justify-content-center" id="rhymesshop-nav">
                             <ul class="navbar-nav" id="rhymes-nav">
                             
-                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../body/women.jsp">WOMEN</a>
+                                    <a class="nav-link" href="#">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="men.jsp">MEN</a>
+                                    <a class="nav-link" href="#">MEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="market.jsp">MARKET</a>
+                                    <a class="nav-link" href="#">MARKET</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="event.jsp">EVENT</a>
+                                    <a class="nav-link" href="#">EVENT</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a>
-                                </li>
+                           			<a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a>
+                           		</li>
+                           		
                             </ul>
                         </div>
                     </nav>
@@ -137,16 +143,7 @@
     
     <!-- ****** Header Area End ****** -->
 
-        <!-- Jquery-2.2.4 js -->
-    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="../js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap-4 js -->
-    <script src="../js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins JS -->
-    <script src="../js/others/plugins.js"></script>
-    <!-- Active JS -->
-    <script src="../js/active.js"></script>
+
     
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->

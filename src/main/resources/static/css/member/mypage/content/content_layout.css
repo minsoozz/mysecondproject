@@ -44,3 +44,16 @@
 	border: 1px solid;
 	border-color: #dbdbdb;	
 }
+
+.mypage_paging {	/* 페이징 위치 설정 */
+	width: 500px;
+	margin: 0px 0px 0px -70px;
+	position: absolute;
+	left: 50%;
+}
+
+#footer_wrap {
+	z-index: -1;
+	position: relative;
+	top: 450px;
+}

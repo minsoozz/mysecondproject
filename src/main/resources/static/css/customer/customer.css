@@ -5,7 +5,7 @@
 #body_wrap { width:1600px; margin-left:auto; margin-right:auto; padding:0px;}	
 
 #middle_wrap { display:inline-block; width:100%; padding:0px; margin:0px; text-align:center; border:solid 1px #EFEFEF;}
-#footer_wrap { width:100%; border:solid 0px navy; clear:both; background-color:#f1eff0; text-align:center; }
+#footer_wrap { width:100%; border:solid 0px navy; clear:both;}
 	
 
 #sidebar_wrap { float:left; width:250px; margin:0px; padding:3px;}
@@ -19,18 +19,18 @@
 
 
 /* 좌측 메뉴 */
-.menu_table { width:80%; padding:0; margin:0; color:#000000; text-align:left; font-size: 12px;}
-.menu_table ul { list-style:none; }	 
-.menu_table li.title { font-weight:bold; height:25px;  background-color:#E1FF36; color:#000000; border:1px solid #F6F6F6; line-height:2em; padding: 16px 0px 16px 19px;}
-.menu_table li.subtitle { border:solid 1px #919191; background-color:#ffffff;line-height: 1.8em; text-align:left; padding: 16px 0px 16px 19px; }
-.menu_table li.menu_item { line-height: 1.8em; } 
-.menu_table li.menu_item a { display:block; border:solid 1px #F6F6F6; background-color:#ffffff; padding: 16px 0px 16px 19px; text-decoration:none; color:#000000;}
-.menu_table li.menu_item a:hover {background-repeat:no-repeat; background-position:5px 7px; background-color:#E1FF36; }
+.cmenu_table { width:80%; padding:0; margin:0; color:#000000; text-align:left; font-size: 12px;}
+.cmenu_table ul { list-style:none; }	 
+.cmenu_table li.ctitle { font-weight:bold; height:25px;  background-color:#E1FF36; color:#000000; border:1px solid #F6F6F6;padding: 16px 0px 16px 19px;}
+.cmenu_table li.csubtitle { border:solid 1px #919191; background-color:#ffffff;line-height: 1.8em; text-align:left; padding: 16px 0px 16px 19px; }
+.cmenu_table li.cmenu_item { line-height: 1.8em; } 
+.cmenu_table li.cmenu_item a { display:block; border:solid 1px #F6F6F6; background-color:#ffffff; padding: 16px 0px 16px 19px; text-decoration:none; color:#000000;}
+.cmenu_table li.cmenu_item a:hover {background-repeat:no-repeat; background-position:5px 7px; background-color:#E1FF36; }
 	
 
-a			{text-decoration:none; color:#333333;}
-a:hover		{text-decoration:none; color:#333333;}
-
+.list_table a		{text-decoration:none; color:black;}
+.list_table a:hover	{text-decoration:none; color:black;}
+ 
 
 /* 리스트테이블 */
 .list_table { width:98%;}

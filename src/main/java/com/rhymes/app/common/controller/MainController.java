@@ -13,8 +13,25 @@ public class MainController {
 	
 	@GetMapping(value = "")
 	public String mainPage() {
-		//log.info("ddddddddddddddd");
+		log.info("mainpage");
+		
+		return "main";
+	}
+	
+}
+
+
+
+
+/*
+@RequestMapping(value = "/main")
+public class MainController {
+	
+	@GetMapping(value = "/main")
+	public String mainPage() {
+		log.info("mainpage");
 		
 		return "main";
 	}
 }
+*/

@@ -61,6 +61,7 @@
 <!-- 검색 -->
 <div class="box_border" style="margin-top: 5px; margin-bottom: 10px">
 <form action="" name="frmForm1" id="_frmFormSearch" method="POST">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <table style="margin-left: auto; margin-right: auto; margin-top: 3px; margin-bottom: 3px">
 <tr>
 	<td>검색:</td>

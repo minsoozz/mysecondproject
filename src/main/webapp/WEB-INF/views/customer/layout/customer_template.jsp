@@ -7,23 +7,19 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
-    <title>Rhymes</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
- 
-    
-	<tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
-	
- 
- 
- 
- 
+    <title>RHYMESb</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">        
+   <!-- Favicon -->
+    <link rel="icon" href="/css/img/main-img/core-img/favicon.ico">  
  <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath() %>/css/customer/customer.css">
  
  
   </head>
    <body>
-  
+   
+  <tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
+	
    <div id="body_wrap">
 	   
 	    <div id="middle_wrap">

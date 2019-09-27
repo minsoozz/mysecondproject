@@ -18,15 +18,17 @@
 
 
     <!-- Core Stylesheet -->
-    <link href="../css/common/style.css" rel="stylesheet">
+    <link href="/css/main/common/style.css" rel="stylesheet">
 
     <!-- Responsive CSS -->
-    <link href="../css/responsive/responsive.css" rel="stylesheet">
+    <link href="/css/main/responsive/responsive.css" rel="stylesheet">
 </head>
 
 <body>
+
     <!-- ****** Footer Menu Area Start ****** -->
-    <footer class="footer_area"style="align-content: center;">
+    <div id="footer_wrap">
+    <footer id="footer_wrap"style="align-content: center;">
         <div class="container"style="align-content: center;">
             <div class="row "style="align-content: center;">
                 <div class="col-12" style="align-content: center;">
@@ -77,20 +79,21 @@
         </div>
     </footer>
 </div>
+
+
     <!-- ****** Footer Menu Area End ****** -->
     
-    
-        <!-- Jquery-2.2.4 js -->
-    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Jquery-2.2.4 js -->
+   <script src="../js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
-    <script src="../js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap-4 js -->
-    <script src="../js/bootstrap/bootstrap.min.js"></script>
+   <script src="../js/bootstrap/popper.min.js"></script>
+       <!-- Bootstrap-4 js -->
+   <script src="../js/bootstrap/bootstrap.min.js"></script>
     <!-- All Plugins JS -->
     <script src="../js/others/plugins.js"></script>
     <!-- Active JS -->
     <script src="../js/active.js"></script>
-
+    
 </body>
 </html>
 

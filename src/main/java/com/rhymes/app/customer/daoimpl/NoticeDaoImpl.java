@@ -13,12 +13,12 @@ import com.rhymes.app.customer.model.NoticeDto;
 
 @Repository
 public class NoticeDaoImpl implements NoticeDao {
-
+ 
 	@Autowired
 	SqlSession sqlSession;
 	String ns = "Notice.";
 	
-	//¸®½ºÆ®°¡Á®¿À±â
+	//notice list ê°€ì ¸ì˜¤ê¸°
 	@Override
 	public List<NoticeDto> getNoticeList(CustomerParam param) {
 		
@@ -52,7 +52,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	
-	//readcount Áõ°¡
+	//readcount ì¦ê°€
 	@Override
 	public boolean NoticeUpRead(int seq) {
 		int n = sqlSession.update(ns + "NoticeUpRead", seq);
@@ -60,7 +60,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 
-	//notice ¿Ã¸®±â
+	//notice ì—…ë¡œë“œ
 	@Override
 	public boolean NoticeUpload(NoticeDto dto) {
 		
@@ -69,7 +69,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		return n>0?true:false;
 	}
 
-	//¼öÁ¤
+	//notice ìˆ˜ì •
 	@Override
 	public boolean NoticeUpdateAf(NoticeDto dto) {
 		
@@ -79,7 +79,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	
-	//ÆÄÀÏÀÌ¸§ °¡Á®¿À±â
+	//notice íŒŒì¼ëª…ê°€ì ¸ì˜¤ê¸°
 	@Override
 	public String getfilename(int seq) {
 	
@@ -87,7 +87,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 
-	//»èÁ¦
+	//notice ì‚­ì œ
 	@Override
 	public boolean NoticeDelete(int seq) {
 		int n = sqlSession.delete(ns+"NoticeDelete", seq);

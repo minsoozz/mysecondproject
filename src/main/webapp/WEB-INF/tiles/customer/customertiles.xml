@@ -6,7 +6,7 @@
 <tiles-definitions>
  
 
-   <!-- main --> 
+   <!-- notice --> 
    <!-- 리스트 -->
    <definition name="noticelist.tiles" template="/WEB-INF/views/customer/layout/customer_template.jsp">
       <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
@@ -29,6 +29,22 @@
    <definition name="noticeupdate.tiles" extends="noticelist.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/noticeupdate.jsp" />
    </definition>
+   
+   
+   <!-- faq -->
+   <!-- faq리스트 -->
+   <definition name="faqlist.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/faqlist.jsp" />
+   </definition>
+   <!-- 글작성 -->
+   <definition name="faqwrite.tiles" extends="noticewrite.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/faqwrite.jsp" />
+   </definition>
+    <!-- 글수정 -->
+   <definition name="faqupdate.tiles" extends="noticewrite.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/faqupdate.jsp" />
+   </definition>
+   
    
    
 </tiles-definitions>
