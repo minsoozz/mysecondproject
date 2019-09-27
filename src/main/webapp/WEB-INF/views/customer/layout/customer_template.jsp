@@ -8,15 +8,9 @@
   <head>
     <meta charset="UTF-8">
     <title>RHYMESb</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
-    
-    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">        
    <!-- Favicon -->
-    <link rel="icon" href="/css/main/img/core-img/favicon.ico">   
-    
-	
-
- 
+    <link rel="icon" href="/css/img/main-img/core-img/favicon.ico">  
  <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath() %>/css/customer/customer.css">
  

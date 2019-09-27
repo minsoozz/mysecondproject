@@ -1,13 +1,18 @@
 package com.rhymes.app.member.dao.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.member.dao.MemberDAO;
 import com.rhymes.app.member.model.AuthoritiesDTO;
+import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerCRnumDTO;
+import com.rhymes.app.member.model.SellerDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -44,5 +49,34 @@ public class MemberDAOImpl implements MemberDAO {
 		public void getAuthAddmem(AuthoritiesDTO amem) {
 			sqlSession.insert(ns+"getAuthAddmem", amem);			
 		}
+
+		// 사업자번호 체크
+		@Override
+		public String getCRCheck(SellerCRnumDTO crdto) {
+			return sqlSession.selectOne(ns+"getCRCheck", crdto);
+		}
+
+		// 사업자 추가 회원가입
+		@Override
+		public void getAddSeller_C(SellerDTO sel) {
+			sqlSession.insert(ns+"getAddSeller_C", sel);
+		}
+
+		@Override
+		public int getCRCYN(SellerDTO sdto) {
+			return sqlSession.selectOne(ns+"getCRCYN", sdto);
+		}
+		
+		@Override
+		public String getFindID_E(MemBean mbean) {
+			return sqlSession.selectOne(ns+"getFindID_E", mbean);
+		}
+
+		@Override
+		public String getFindID_P(MemberDTO mem) {
+			return sqlSession.selectOne(ns+"getFindID_P", mem);
+		}
+
+
 	
 }

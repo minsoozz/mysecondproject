@@ -18,8 +18,21 @@
 	
 	<definition name="rhyregimember" template="/WEB-INF/views/member/regiMember.jsp">
 	</definition>
+	<definition name="rhyregiseller" template="/WEB-INF/views/member/regiSeller.jsp">
+	</definition>
+	
+	<definition name="rhyregisellerdetail" template="/WEB-INF/views/member/regiSellerDetail.jsp">
+	</definition>
 	
 	<definition name="rhyregisuc" template="/WEB-INF/views/member/regisuc.jsp">
+	</definition>
+	
+	<!-- id찾기 -->
+	<definition name="rhyfindid" template="/WEB-INF/views/member/Find_ID.jsp">
+	</definition>
+
+	<!-- id찾기AF -->
+	<definition name="rhyfindAf" template="/WEB-INF/views/member/Find_idpwAf.jsp">
 	</definition>
 
 	<!-- admin test -->

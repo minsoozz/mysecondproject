@@ -13,7 +13,16 @@ public interface FaqDao {
 	//faq count
 	public int getFaqCount(CustomerParam param);
 	
+	//faq 디테일
+	public FaqDto getFaqDetail(int seq);
+	
 	//faq 업로드
 	public boolean FaqUpload(FaqDto dto);
+	
+	//faq 수정
+	public boolean FaqUpdateAf(FaqDto dto);
+	
+	//faq 삭제
+	public boolean FaqDelete(int seq);
 	
 }

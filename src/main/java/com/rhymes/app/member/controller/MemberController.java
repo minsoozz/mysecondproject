@@ -1,9 +1,15 @@
 package com.rhymes.app.member.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.common.service.KakaoAPI;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerBean;
+import com.rhymes.app.member.model.SellerCRnumDTO;
+import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.member.service.MemberService;
+import com.rhymes.app.member.util.Coolsms;
+import com.rhymes.app.member.util.RhymesMailling;
 
 
 @Controller
@@ -28,6 +40,8 @@ public class MemberController {
 	@Autowired
 	private KakaoAPI kakao;
 
+	HttpSession session;
+
 	// 회원가입 선택 창
 	@GetMapping("/regiMain")
 	public String regimain() {
@@ -36,9 +50,21 @@ public class MemberController {
 
 	// 일반회원 회원가입 창
 	@GetMapping("/regimember")
-	public String regi2() {
+	public String regimember() {
 		return "rhyregimember";
 	}
+	// 사업자 회원가입 창
+	@GetMapping("/regiseller")
+	public String regiseller() {
+		return "rhyregiseller";
+	}
+	/*
+	// 사업자 회원가입 창 detail
+	@GetMapping("/regiSellerDetail")
+	public String regiSellerDetail() {
+		return "rhyregiSellerDetail";
+	}
+	*/
 
 	// id체크
 	@ResponseBody
@@ -59,15 +85,229 @@ public class MemberController {
 		return msg;
 	}
 
-	// 회원가입
+	// 일반회원가입
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addmem")
 	public String addmem(MemBean bean) {
 		System.out.println("addmem mem: " + bean.toString());
+		
 		memService.getAddmem(bean);
 
 		return "rhyregisuc";
 	}
+	
+	// 사업자회원가입(공통)
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addseller")
+	public String addseller(HttpServletRequest req, SellerCRnumDTO crdto, Model model) {
+		System.out.println("crdto toString: "+ crdto.toString());
+		
+		req.getSession().setAttribute("crdto", crdto);
+		
+		model.addAttribute("crdto", crdto);
+		
+		return "rhyregisellerdetail";
+	}
+	
+	// 사업자회원가입(사업자 추가정보)
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addsellerdetail")
+	public String addsellerdetail(HttpServletRequest req,MemberDTO mem, SellerBean sellerbean) {
+//		SellerCRnumDTO crdto = (SellerCRnumDTO)req.getSession().getAttribute("crdto");	// session 잘 넘어왔는지 확인용
+		//System.out.println("addsellerdetail Controller crdto: " + crdto);
+		
+		System.out.println("addsellerdetail Controller sellerbean: " + sellerbean);
+		
+		memService.getAddSeller(sellerbean, mem);			// 사업자 회원가입
+		
+		return "rhyregisuc";
+	}
+	
+	// 사업자 번호조회 api
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck99999999")
+	public String getCRCheckAPI(HttpServletRequest req, SellerCRnumDTO crdto) {
+		
+		int crnum1 = Integer.parseInt(req.getParameter("_c_num1"));
+		int crnum2 = Integer.parseInt(req.getParameter("_c_num2"));
+		int crnum3 = Integer.parseInt(req.getParameter("_c_num3"));
+		 BufferedReader br = null;
+		 String result = "";
+		 String msg = "";
+	        try{
+	            String urlstr = "http://apis.data.go.kr/B552015/NpsBplcInfoInqireService/getBassInfoSearch?ldong_addr_mgpl_dg_cd=41&ldong_addr_mgpl_sggu_cd=117&ldong_addr_mgpl_sggu_emd_cd=101&wkpl_nm=삼성전자&bzowr_rgst_no=124815&pageNo=10&startPage=10&numOfRows=1&pageSize=1&serviceKey=vDwpNyDDSgPT9K58OQdG1rHmcKsy7tI%2BTDCcS6vdn1lOvzUZsoAETPrlBcpCdVmIlGH51ZtyvZxjtnMl8SNbDA%3D%3D";
+	            URL url = new URL(urlstr);
+	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	            urlconnection.setRequestMethod("GET");
+	            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	            
+	            String line;
+	            while((line = br.readLine()) != null) {
+	                result = result + line + "\n";
+	            }
+	            System.out.println("result : " + result);
+	        }catch(Exception e){
+	            System.out.println("@@e.getMessage() : " + e.getMessage());
+	        }
+	        
+	    if(result=="<OpenAPI_ServiceResponse>" + 
+	    		"<cmmMsgHeader>" + 
+	    		"<errMsg>SERVICE ERROR</errMsg>" + 
+	    		"<returnAuthMsg>SERVICE_ACCESS_DENIED_ERROR</returnAuthMsg>" + 
+	    		"<returnReasonCode>20</returnReasonCode>" + 
+	    		"</cmmMsgHeader>" + 
+	    		"</OpenAPI_ServiceResponse>") {
+	    	msg = "NO";
+	    }
 
+		return result;
+	}
+
+	
+	// 사업자번호 체크
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getCRCheck")
+	public String getCRCheck(HttpServletRequest req, SellerCRnumDTO crdto) {
+		
+		int crnum1 = Integer.parseInt(req.getParameter("_c_num1"));
+		int crnum2 = Integer.parseInt(req.getParameter("_c_num2"));
+		int crnum3 = Integer.parseInt(req.getParameter("_c_num3"));
+		
+		crdto.setCrnum1(crnum1);
+		crdto.setCrnum2(crnum2);
+		crdto.setCrnum3(crnum3);
+		
+		// 사업자테이블에 있는지, 우리사이트에 등록된 사업자인지 확인
+		int count = memService.getCRCYN(crdto);	// 이미 등록되어있는지 확인
+		System.out.println("count: " + count);
+
+		
+		String crname = "";
+		String msg = "";
+
+		if(count!=0) {	// 라임즈에 등록되어있는 사업자번호
+			msg = "1";
+		}else {
+			
+			crname = memService.getCRCheck(crdto);	// 사업자번호명단에 있는지 확인
+			System.out.println("crname: " + crname);
+			
+			if (crname == "" || crname == null) {
+				msg = "NO";
+			} else {
+				msg = crname;
+			}
+			
+		}
+
+		return msg;
+	}
+	
+	// 이메일 체크
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getEmailCheck")
+	public String getEmailCheck(HttpServletRequest req) {
+		
+		String e1 = (String)req.getParameter("e1");
+		String e2 = (String)req.getParameter("e2");
+		String userEmail = e1+"@"+e2;
+		System.out.println("userEmail: " + userEmail);
+		
+//		System.out.println("RhymesMailling.getAuthorizationCode() === " + RhymesMailling.getAuthorizationCode());
+		
+		String code = "";
+		code = (String)req.getParameter("code");
+		System.out.println("code: " + code);
+		RhymesMailling.sendMail(RhymesMailling.getAuthorizationCode(code), userEmail);
+		
+		String msg = code;
+		
+		return msg;
+	}
+
+	// 전화번호 인증
+	@ResponseBody
+	@RequestMapping(value = "/sendSms.do", method = RequestMethod.GET)
+     public String sendSms(HttpServletRequest request) throws Exception {
+
+       String api_key = "NCSIOIHJHNMGEUH7";
+       String api_secret = "5DYGAAUIVWUIWA4RNHYIKIUQRF1MBM10";
+     
+       
+       Coolsms coolsms = new Coolsms(api_key, api_secret);
+       
+       HashMap<String, String> set = new HashMap<String, String>();
+
+       set.put("to", (String)request.getParameter("to")); // 받는 사람
+       set.put("from", "01092557316"); // 발신번호
+       set.put("text", "비마켓 인증번호 ["+(String)request.getParameter("text")+"]"); // 문자내용
+       set.put("type", "sms"); // 문자 타입
+
+       System.out.println(set);
+       
+       
+       
+       JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+       
+
+       if ((boolean)result.get("status") == true) {
+         // 메시지 보내기 성공 및 전송결과 출력
+         System.out.println("성공");
+         System.out.println(result.get("group_id")); // 그룹아이디
+         System.out.println(result.get("result_code")); // 결과코드
+         System.out.println(result.get("result_message")); // 결과 메시지
+         System.out.println(result.get("success_count")); // 메시지아이디
+         System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
+       } else {
+         // 메시지 보내기 실패
+         System.out.println("실패");
+         System.out.println(result.get("code")); // REST API 에러코드
+         System.out.println(result.get("message")); // 에러메시지
+       }
+      
+       return "suc";
+     }
+	
+	
+	// 사업자회원가입(사업자 추가정보)
+	@GetMapping("/findid")
+	public String findid() {
+		return "rhyfindid";
+	}
+	
+	// id찾기
+	@GetMapping("/getFindID")
+	public String getFindID(MemBean mbean, Model model) {
+		System.out.println("아이디찾기 mbean: " + mbean);
+		
+		String foundId = memService.getFindID(mbean);
+		
+		System.out.println("id찾기 foundId : " + foundId);
+		
+		
+		
+		String msg = "";
+		if(foundId.equals("N")) {	// 일치하는 아이디 없음
+			msg = "N";
+		}
+		else {
+			msg = foundId;
+		}
+		System.out.println("msg: " + msg);
+		
+		model.addAttribute("foundId", foundId);
+		
+		foundId.substring(-3, 3);
+		
+		return "rhyfindAf";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	   
 	// 카카오 로그인
 	@GetMapping("/kakaoLogin")
 	public String kakaoLogin(@RequestParam("code") String code, HttpSession session, Model model) {
