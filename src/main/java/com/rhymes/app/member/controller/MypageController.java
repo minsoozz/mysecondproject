@@ -65,6 +65,12 @@ public class MypageController {
 		return "member/mypage/review";
 	}
 	
+	/**적립금 현황 뷰를 보여주는 메소드
+	 * @param model
+	 * @param pcp
+	 * @param pageNum
+	 * @return
+	 */
 	@GetMapping(value = "/points")
 	public String showPoints(Model model, Principal pcp, @RequestParam(defaultValue = "1") int pageNum) {
 		log.info("show points");		
@@ -96,6 +102,12 @@ public class MypageController {
 		return "member/mypage/points"; 
 	}
 		
+	/**쿠폰 현황 뷰를 보여주는 메소드
+	 * @param model
+	 * @param pcp
+	 * @param pageNum
+	 * @return
+	 */
 	@GetMapping(value = "/coupon")
 	public String showCoupon(Model model, Principal pcp, @RequestParam(defaultValue = "1") int pageNum) {
 		log.info("show coupon");
@@ -194,10 +206,17 @@ public class MypageController {
 		return "member/mypage/personal";
 	}
 	
-	@RequestMapping(value = "/reconfirmpw" , method = RequestMethod.POST )
-	public String confirmPw(Model model, MemberDTO dto) {
+	/**Ajax 통신을 통해 비밀번호 확인 후 성공하면 1 리턴
+	 * @param model
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/personal/confirmpw" , method = RequestMethod.POST )
+	public String confirmPw(Model model, @RequestBody String json, Principal pcp) {
 		log.info("show personal information confirm pw"); 
-		log.info("membdr : " + dto);
-		return "member/mypage/personal";
+		log.info( json.split("&")[1].split("=")[1] );
+		model.addAttribute("confirmed", "confirmed");
+		return "1";
 	}
 }

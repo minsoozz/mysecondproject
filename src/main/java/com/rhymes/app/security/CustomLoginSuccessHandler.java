@@ -40,6 +40,10 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			resp.sendRedirect("/member/member");
 			return;
 		}
+		if (roleNames.contains("ROLE_SELLER")) {
+			resp.sendRedirect("/mypage/personal");
+			return;
+		}
 
 		resp.sendRedirect("/welcome");
 		return;
