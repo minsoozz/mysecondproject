@@ -102,6 +102,9 @@
 							</div>
 							<div class="col-md-1" align="center">
 								${cpn.isused }
+								<c:if test="${cpn.isused == '만료' || cpn.isused == '사용'}">
+									<input type="button" value="삭제" class="btn-delete-item">
+								</c:if>
 							</div>
 						</div>
 					</c:forEach>

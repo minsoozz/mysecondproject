@@ -65,7 +65,7 @@ public class MypageController {
 	}
 	
 	@GetMapping(value = "/points")
-	public String showPoints(Model model, Principal pcp, @RequestParam(defaultValue = "1") int pageNum) throws Exception {
+	public String showPoints(Model model, Principal pcp, @RequestParam(defaultValue = "1") int pageNum) {
 		log.info("show points");		
 
 		/* 선언부 */
@@ -79,7 +79,7 @@ public class MypageController {
 		try {
 			/* DB통신 */
 			detailCount = mypagePointsService.getCountOnConditions(userid);
-			pDto = new PointsPagingDTO(pageNum, detailCount);
+			pDto = new PointsPagingDTO(pageNum, detailCount, userid);
 			lst = mypagePointsService.getDetailsOnConditions(pDto);
 			totalPoints = String.format("%,d", mypagePointsService.getAmountOfPointById(userid));
 			expPoints = String.format("%,d", mypagePointsService.getAmountOfExpiredPointById(userid) );
@@ -110,6 +110,7 @@ public class MypageController {
 			validCoupons = mypageCouponService.getCountOnConditions(userid);
 			pDto = new PointsPagingDTO(pageNum, validCoupons, userid);
 			couponDetailList = mypageCouponService.getDetailsOnConditions(pDto);
+			System.out.println(couponDetailList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -130,7 +131,7 @@ public class MypageController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/coupon/usecoupon", method = RequestMethod.POST)
+	@RequestMapping(value = "/coupon/regicoupon", method = RequestMethod.POST)
 	public String doLogin(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
 		/* 선언부 */
 		String coup_code = jsMap.get("coup_code") + "";
@@ -148,19 +149,22 @@ public class MypageController {
 			return "0";//올바르지 않은 쿠폰 정보입니다.
 		}
 		log.info("결과1 : " + cDDto);
-		if( cDDto == null ) return "0";
+		//찾지못했으면 0리턴, 등록된ID(userid)가 있는 쿠폰이면 0리턴
+		if( cDDto == null || cDDto.getUserid() != null ) return "0";
 		
 				
 		//적립인지 할인인지 판단하고 처리 후 return 1
 		//적립 : RHY_MEM_COUPON_DETAIL에 정보 등록하고 RHY_MEM_POINT에도 등록
 		//할인 : RHY_MEM_COUPON_DETAIL에만 등록
 		cDto = ss.selectOne("coupon.getCoupInfoByCSeq", cDDto.getC_seq() );
+		cDto.setCoup_code(coup_code);
+		cDto.setUserid(userid);
 		log.info("결과2 : " + cDto);
 		
 		if( "적립".equals( cDto.getFunc() ) ) {
-			
+			ss.update("coupon.regiNewCoupon", cDto);
 		}else if( "할인".equals( cDto.getFunc() )) {
-			
+			ss.update("coupon.regiNewCoupon", cDto);
 		}else {
 			
 		}

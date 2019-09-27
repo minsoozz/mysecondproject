@@ -27,6 +27,8 @@ public class MemberCouponDTO implements Serializable {
 	private String expdate;	//쿠폰 만료일 expire date
 	private String coup_code;	//쿠폰 고유 코드번호
 	private String isused;	//쿠폰 사용 또는 만료여부 (미사용/사용/만료)
+
+	private int func_time_limit;	//만료기간
 	
 	@Builder
 	public MemberCouponDTO() { }

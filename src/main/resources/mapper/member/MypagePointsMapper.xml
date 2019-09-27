@@ -23,7 +23,8 @@
 			DATE_FORMAT(DATE_ADD(RDATE, INTERVAL 12 MONTH),'%Y-%m-%d') AS EDATE,
 			(SELECT IF( DATE_FORMAT(DATE_ADD(RDATE, INTERVAL 12 MONTH),'%Y-%m-%d') < CURDATE(), 'true', 'false') ) AS ISEXPIRED
 			FROM RHY_MEM_POINT, (SELECT @ROWNUM :=0) A
-			ORDER BY RDATE DESC
+			WHERE ID=#{userid}
+			ORDER BY RDATE DESC			
 			) RESULT
 		LIMIT #{startSeq }, #{recordCountPerPage}
 		]]>

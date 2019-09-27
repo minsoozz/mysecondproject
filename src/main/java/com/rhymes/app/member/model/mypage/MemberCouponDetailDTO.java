@@ -24,7 +24,7 @@ public class MemberCouponDetailDTO implements Serializable {
 	private String isused;	//사용여부
 	private String used_id;	//사용한id
 	private String used_date;	//사용일
-		
+			
 	@Builder
 	public MemberCouponDetailDTO() { }
 

@@ -25,7 +25,7 @@ $(function() {
 		$.ajax({
 			contentType : 'application/json',
 			dataType : 'json',
-			url : ctx + '/coupon/usecoupon',
+			url : ctx + '/coupon/regicoupon',
 			type : 'post',
 			async : false,
 			data : JSON.stringify(viewData),

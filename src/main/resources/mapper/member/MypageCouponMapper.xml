@@ -25,6 +25,10 @@
 		<include refid="getCoupInfoByCSeqSql"/>
 	</select>
 	
+	<!-- 쿠폰 등록 프로세스. 등록사용자id, 등록일, 만료일 등록 -->
+	<update id="regiNewCoupon" parameterType="com.rhymes.app.member.model.mypage.MemberCouponDTO">
+		<include refid="regiNewCouponSql"/>
+	</update>
  	
  	
  	<!-- 실제 쿼리 작성 영역 -->
@@ -34,7 +38,7 @@
  		<![CDATA[		
 		SELECT COUNT(*) AS CNT
 		FROM RHY_MEM_COUPON_DETAIL
-		WHERE USERID='mhj' AND DATE_FORMAT(EXPDATE,'%Y-%m-%d') < CURDATE()
+		WHERE USERID=#{userid} AND DATE_FORMAT(EXPDATE,'%Y-%m-%d') > CURDATE()
 		GROUP BY USERID;
 		]]>
  	</sql>
@@ -50,7 +54,7 @@
 			COUP_CODE,
 			(SELECT IF( DATE_FORMAT(B.EXPDATE,'%Y-%m-%d') < CURDATE(), '만료', ISUSED) ) AS ISUSED
 			FROM RHY_MEM_COUPON A, RHY_MEM_COUPON_DETAIL B, (SELECT @ROWNUM :=0) C
-			WHERE USERID = #{userid }
+			WHERE A.SEQ = B.C_SEQ AND USERID = #{userid }
 			) RESULT
 		LIMIT #{startSeq }, #{recordCountPerPage}
 		]]>
@@ -71,11 +75,16 @@
 	
 	<!-- 쿠폰상세정보의 c_seq와 일치하는 쿠폰내용 리턴 -->
 	<sql id="getCoupInfoByCSeqSql">
-		SELECT
-			TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, RDATE
-		FROM 
-			RHY_MEM_COUPON
+		SELECT TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, FUNC_TIME_LIMIT, RDATE
+		FROM RHY_MEM_COUPON
 		WHERE SEQ=#{seq}
+	</sql>
+	
+	<!-- 쿠폰 등록 프로세스. 등록사용자id, 등록일, 만료일 등록 -->
+	<sql id="regiNewCouponSql">
+		UPDATE RHY_MEM_COUPON_DETAIL
+		SET USERID=#{userid}, GDATE=NOW(), EXPDATE=DATE_ADD(NOW(), INTERVAL #{func_time_limit} MONTH)
+		WHERE COUP_CODE=#{coup_code}
 	</sql>
 
 </mapper>
