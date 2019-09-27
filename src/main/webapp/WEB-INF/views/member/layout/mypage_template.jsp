@@ -6,10 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mypage Template</title>
+<title>RHYMESb</title>
 <link rel="stylesheet" href="<%=ctx%>/css/member/layout/mypage_template.css">
-<!-- Favicon -->
-    <link rel="icon" href="../img/core-img/favicon.ico">   
+ <!-- Favicon -->
+    <link rel="icon" href="/css/main/img/core-img/favicon.ico">   
+    
 </head>
 <body>
 	<div id="header_wrap">
