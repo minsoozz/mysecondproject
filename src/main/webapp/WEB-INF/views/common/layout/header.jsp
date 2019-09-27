@@ -121,7 +121,7 @@
                                     <a class="nav-link" href="event.jsp">EVENT</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a>
+                                    <a class="nav-link" href="noticelist">CUSTOMER CENTER</a>
                                 </li>
                             </ul>
                         </div>
