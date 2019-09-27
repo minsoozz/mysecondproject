@@ -17,7 +17,7 @@ public class NoticeServiceImpl implements NoticeService {
 	private NoticeDao NoticeDao;
 	
 	
-	//∏ÆΩ∫∆Æ ∞°¡Æø¿±‚
+	//notice list
 	@Override
 	public List<NoticeDto> getNoticeList(CustomerParam param){
 		
@@ -34,7 +34,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 
 
-	//µ≈◊¿œ ∞°¡Æø¿±‚
+	//notice detail
 	@Override
 	public NoticeDto getNoticeDetail(int seq) {
 		
@@ -45,7 +45,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	
 	
-	//readcount ¡ı∞°
+	//readcount Ï¶ùÍ∞Ä
 	@Override
 	public boolean NoticeUpRead(int seq) {
 		
@@ -53,7 +53,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
-	//notice ø√∏Æ±‚
+	//notice Í∏ÄÏì∞Í∏∞
 	@Override
 	public boolean NoticeUpload(NoticeDto dto) {
 		
@@ -62,7 +62,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
-	//notice ºˆ¡§
+	//notice ÏàòÏ†ï
 	@Override
 	public boolean NoticeUpdateAf(NoticeDto dto) {
 		
@@ -71,7 +71,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 
 	
-	//∆ƒ¿œ∏Ì∞°¡Æø¿±‚
+	//ÌååÏùºÎ™Ö Í∞ÄÏ†∏Ïò§Í∏∞
 	@Override
 	public String getfilename(int seq) {
 		
@@ -79,7 +79,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 
-	//ªË¡¶
+	//notice ÏÇ≠Ï†ú
 	@Override
 	public boolean NoticeDelete(int seq) {
 	
