@@ -30,6 +30,7 @@
        <put-attribute name="body" value="/WEB-INF/views/customer/noticeupdate.jsp" />
    </definition>
    
+   
    <!-- faq -->
    <!-- faq리스트 -->
    <definition name="faqlist.tiles" extends="noticelist.tiles">
@@ -39,7 +40,10 @@
    <definition name="faqwrite.tiles" extends="noticewrite.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/faqwrite.jsp" />
    </definition>
-   
+    <!-- 글수정 -->
+   <definition name="faqupdate.tiles" extends="noticewrite.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/faqupdate.jsp" />
+   </definition>
    
    
    
