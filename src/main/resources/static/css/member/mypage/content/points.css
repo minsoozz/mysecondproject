@@ -22,10 +22,3 @@
     padding-bottom: 20px;
     border-bottom: 1px solid #c0c0c0;
 }
-
-.points_paging{
-	width: 500px;
-	margin: 0px 0px 0px -70px;
-	position: absolute;
-	left: 50%;
-}

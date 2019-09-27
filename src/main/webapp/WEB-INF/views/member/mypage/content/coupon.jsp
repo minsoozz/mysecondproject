@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
+<!-- ajax 통신을 위한 meta tag -->
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
+
 <% String ctx = request.getContextPath(); %>
 <!-- 아이콘 활용을 위한 font-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
@@ -17,6 +23,7 @@
 
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="/css/member/mypage/content/coupon.css">
+<script type="text/javascript" src="<%=ctx%>/js/member/mypage/content/coupon.js"></script>
 </head>
 <div class="mypage_main_content_title" align="left">
 	<h3>쿠폰</h3>
@@ -27,7 +34,7 @@
 		<div class="col-md-12" align="center">
 			<div class="form-row">
 				<div class="col-md-6" align="center">
-					<input type="text" class="form-control coupon_input" placeholder="쿠폰 번호를 입력해 주세요.">
+					<input type="text" class="txt coupon_input" id="_txt_coupon_input" placeholder="쿠폰 번호를 입력해 주세요.">
 				</div>
 				<div class="col-md-3" align="center">
 					<input type="button" class="btn btn-default coupon_input" id="_btn_regi_new_coupon" value="쿠폰 등록">
@@ -50,7 +57,7 @@
 					<small id="_coupon_list_info">쿠폰에 적용 대상 상품이 명시되어 있는 경우, 해당 상품 구매 시에만 사용이 가능합니다.</small>
 				</div>
 				<div class="col-md-3" align="right">
-					<small id="_coupon_list_amount">사용가능 쿠폰 : 1장</small>
+					<small id="_coupon_list_amount">사용가능 쿠폰 : ${validCoupons }장</small>
 				</div>
 			</div>
 			<div class="form-row coupon_table_head tbl-rhy-head">
@@ -70,28 +77,77 @@
 					사용여부
 				</div>
 			</div>
-			<div class="form-row coupon_table_body tbl-rhy-body">
-				<div class="col-md-7" align="center">
-					<!-- <small class="txt_coupon_info">고객감사 7% 할인쿠폰(최대 1만원 할인, ~9/30)</small> -->
-					<p class="txt_coupon_info">고객감사 7% 할인쿠폰(최대 1만원 할인, ~9/30)</p>
-					<small class="txt_coupon_info_sub form-text text-muted">최대 1만원 할인, 컬리패스 상품 제외</small>
-				</div>
-				<div class="col-md-1" align="center">
-					할인
-				</div>
-				<div class="col-md-1" align="center">
-					7%
-				</div>
-				<div class="col-md-2" align="center">
-					19-09-02 ~ 19-09-30
-				</div>
-				<div class="col-md-1" align="center">
-					미사용
-				</div>
-			</div>
+			<c:choose>
+				<c:when test="${empty couponDetailList }">
+					<div class="form-row coupon_table_body tbl-rhy-body">
+						<div class="col-md-12" align="center">							
+							<p class="txt_coupon_info">보유 중인 쿠폰이 없습니다.</p>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${couponDetailList }" var="cpn">
+						<div class="form-row coupon_table_body tbl-rhy-body">
+							<div class="col-md-7" align="center">
+								<p class="txt_coupon_info">${cpn.title }</p>
+								<small class="txt_coupon_info_sub form-text text-muted">${cpn.sub_title }</small>
+							</div>
+							<div class="col-md-1" align="center">
+								${cpn.func }
+							</div>
+							<div class="col-md-1" align="center">
+								<c:choose>
+									<c:when test="${cpn.func_measure == '원' }">
+										<fmt:formatNumber value="${cpn.func_num}" type="number" />${cpn.func_measure }
+									</c:when>
+									<c:otherwise>
+										${cpn.func_num }${cpn.func_measure }	
+									</c:otherwise>
+								</c:choose>								
+							</div>
+							<div class="col-md-2" align="center">
+								${fn:substring(cpn.gdate,2,11) } ~ ${fn:substring(cpn.expdate,2,11) } 
+							</div>
+							<div class="col-md-1" align="center">
+								${cpn.isused }
+								<c:if test="${cpn.isused == '만료' || cpn.isused == '사용'}">
+									<input type="button" value="삭제" class="btn-delete-item" onclick="deleteCouponInList(${cpn.seq});">									
+								</c:if>
+							</div>
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			
 		</div>
 	</div>
 </div>
 
+<div class="mypage_paging coupon_paging" align="center">
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination">
+	    <li class="page-item">
+	      <a class="page-link" href="#" aria-label="Previous">
+	        <span aria-hidden="true">&laquo;</span>
+	        <span class="sr-only">Previous</span>
+	      </a>
+	    </li>
+	    
+	    <c:forEach begin="${pDto.firstNavIndex }" end="${pDto.lastNavIndex }" step="1" var="i">
+	    	<li class="page-item"><a class="page-link" href="<%=ctx %>/mypage/coupon?pageNum=${i}#_mypage_top">${i }</a></li>
+	    </c:forEach>
+	    
+	    
+	    <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+	    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+	    <li class="page-item">
+	      <a class="page-link" href="#" aria-label="Next">
+	        <span aria-hidden="true">&raquo;</span>
+	        <span class="sr-only">Next</span>
+	      </a>
+	    </li>
+	  </ul>
+	</nav>
+</div>
 
 </html>

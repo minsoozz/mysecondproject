@@ -9,7 +9,7 @@
 <col width="100"><col width="200"><col width="100"><col width="300">
 
 <tr>
-	<th>키테고리</th>
+	<th>카테고리</th>
 	<td colspan="3">
 		<select id="category" name="category">
 		  <option value="" selected="selected">선택</option>
