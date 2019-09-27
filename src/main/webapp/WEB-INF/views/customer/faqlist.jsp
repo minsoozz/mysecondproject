@@ -16,7 +16,7 @@
 </colgroup>
 <tr>
 <th>
-	<select id="_s_category" name="s_category">
+	<select name="s_category" onchange="categorychange(this)">
 	  <option value="" selected="selected">선택</option>
 	  <option value="memberq" <c:out value="${s_category == 'memverq'? 'selected':'' }"/>>회원문의</option>
       <option value="orderq"<c:out value="${s_category == 'orderq'? 'selected':'' }"/>>주문/결제</option>
@@ -44,12 +44,22 @@
 <tr class="_hover_tr">
 	<td>${vs.count }</td>
 	<td>${faq.category }</td>
-	<td style="text-align: left;">
-		<a href="noticedetail?seq=${faq.seq}">
+	<td style="text-align: left;" onclick="faqdetail(${faq.seq})">
 			${faq.title }
-		</a>
 	</td>
-	
+</tr>
+<tr class="detail" id='detail${faq.seq}'>
+	<td colspan="2">${faq.content }</td>
+	<td>
+	<div>
+	<span class="button blue">
+		<button type="button" class="btn" onclick="FaqUpdate('${faq.seq }')">수정</button>
+	</span>
+	<span class="button blue">
+		<button type="button" class="btn" onclick="FaqDelete('${faq.seq }')">삭제</button>
+	</span>
+	</div>
+	</td>
 </tr>
 </c:forEach>
 
@@ -100,6 +110,36 @@
 
 
 <script type="text/javascript">
+
+
+/* 클릭시 내용보이기 */
+$(".detail").hide();
+function faqdetail(seq){
+	//alert("seq"+seq);
+	$(".detail").hide();
+	$("#detail"+seq).show();
+	
+}
+
+
+/* 버튼 */
+function FaqDelete( seq ) {
+	location.href = "faqdelete?seq=" + seq;
+}
+function FaqUpdate( seq ) {
+	location.href = "faqupdate?seq=" + seq;
+}
+
+
+
+function categorychange( me ){
+	
+	var select_category=me.option[me.selectedIndex].value;
+	alert("select_category"+select_category);
+	
+}
+
+
 
 $("#_btnWrite").click(function () { 
 	location.href = "faqwrite";

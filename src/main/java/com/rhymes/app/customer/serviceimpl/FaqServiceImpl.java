@@ -31,11 +31,32 @@ public class FaqServiceImpl implements FaqService {
 		return FaqDao.getFaqCount(param);
 	}
 
+	//faq detail 가져오기
+	@Override
+	public FaqDto getFaqDetail(int seq) {
+		
+		return FaqDao.getFaqDetail(seq);
+	}
+
 	//faq upload
 	@Override
 	public boolean FaqUpload(FaqDto dto) {
 		
 		return FaqDao.FaqUpload(dto);
+	}
+
+	//faq 수정
+	@Override
+	public boolean FaqUpdateAf(FaqDto dto) {
+		
+		return FaqDao.FaqUpdateAf(dto);
+	}
+
+	//faq 삭제
+	@Override
+	public boolean FaqDelete(int seq) {
+		
+		return FaqDao.FaqDelete(seq);
 	}
 	
 	
