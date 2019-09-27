@@ -1,5 +1,6 @@
 package com.rhymes.app.used.ServiceImpl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,12 @@ public class UsedServiceImpl implements UsedService {
 	public boolean UsedWrite(ProductsDto dto) {
 		// TODO Auto-generated method stub
 		return usedDao.UsedWrite(dto);
+	}
+
+	@Override
+	public List<ProductsDto> getUsedList() {
+		// TODO Auto-generated method stub
+		return usedDao.getUsedList();
 	}
 	
 	

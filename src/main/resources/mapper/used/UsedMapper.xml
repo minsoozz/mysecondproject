@@ -7,4 +7,10 @@
 	INSERT INTO rhy_used_products(s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes)
 	VALUES (#{s_id},#{category},#{title},#{content},#{price},#{quantity},#{place},#{photo},#{photo_sys},'판매중',0)
 	</insert>
+	
+	
+<select id="getUsedList" resultType="com.rhymes.app.used.model.ProductsDto">
+	SELECT * FROM
+	rhy_used_products
+</select>
 </mapper>

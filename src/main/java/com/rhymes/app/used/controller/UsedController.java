@@ -46,7 +46,12 @@ public class UsedController {
 	}
 	
 	@GetMapping("usedlist")
-	public String usedlist() {
+	public String usedlist(Model model) {
+		
+		List<ProductsDto> list = usedService.getUsedList();
+		
+		model.addAttribute("list", list);
+		
 		return "usedlist.tiles";
 	}
 	
@@ -107,6 +112,8 @@ public class UsedController {
 	            long fileSize = mf.getSize();
       
 				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
+				
+				System.out.println(path); // 업로드 경로
 				
 				fs.write(mf.getBytes());
 				fs.close();

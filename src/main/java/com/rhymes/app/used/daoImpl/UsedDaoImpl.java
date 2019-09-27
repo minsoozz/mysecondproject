@@ -1,5 +1,6 @@
 package com.rhymes.app.used.daoImpl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,7 +16,7 @@ public class UsedDaoImpl implements UsedDao {
 	@Autowired
 	SqlSession sqlSession;
 	
-	String namespace = "Used.";
+	String ns = "Used.";
 	
 	
 	@Override
@@ -25,11 +26,21 @@ public class UsedDaoImpl implements UsedDao {
 
 		
 		
-		int n = sqlSession.insert("write", dto);
+		int n = sqlSession.insert(ns + "write", dto);
 		
 		System.out.println("n : " + n);
 		
 		return	n > 0 ? true : false;
+	}
+
+
+	@Override
+	public List<ProductsDto> getUsedList() {
+		// TODO Auto-generated method stub
+		
+		List<ProductsDto> list = sqlSession.selectList(ns + "getUsedList");
+		
+		return list;
 	}
 	
 	
