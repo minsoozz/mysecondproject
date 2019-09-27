@@ -206,6 +206,8 @@ public class MypageController {
 		return "member/mypage/personal";
 	}
 	
+	
+	
 	/**Ajax 통신을 통해 비밀번호 확인 후 성공하면 1 리턴
 	 * @param model
 	 * @param dto
