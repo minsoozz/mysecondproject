@@ -51,3 +51,9 @@
 	position: absolute;
 	left: 50%;
 }
+
+#footer_wrap {
+	z-index: -1;
+	position: relative;
+	top: 550px;
+}
