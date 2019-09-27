@@ -1,12 +1,12 @@
 @charset "UTF-8";
 #_main{
-	width: 1500px;
+	width: 1337px;
 	height: 1000px;
 	background-color: #EEEEEE;
 }
 
 #_left{
-	width: 700px;
+	width: 600px;
 	height: 700px;
 	background-color: white;
 	float: left;
@@ -15,7 +15,7 @@
 	text-align: center;
 }
 #_right{
-	width: 700px;
+	width: 600px;
 	height: 700px;
 	background-color: white;
 	float: left;
@@ -24,13 +24,13 @@
 }
 #_img{
 	background-color : #EEEEEE;
-	width: 600px;
+	width: 500px;
 	height: 400px;
 	margin: 2.5cm 1cm 1cm 1cm;
 }
 #_imglist{
 	background-color : #EEEEEE;
-	width: 600px;
+	width: 500px;
 	height: 100px;
 	margin:1cm 1cm 1cm 1cm;	
 }
@@ -56,4 +56,7 @@
 }
 label{
 	color: #676A6C;
+}
+td{
+ 	text-align: left;	
 }

@@ -29,9 +29,11 @@
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <input type="hidden" name="s_id" value="${login.userid }">
 <table>
+<col width="20%">
+<col width="80%">
 <tbody id="mybody">
 <tr>
-<td><label>카테고리 :</label></td>
+<td><label>카테고리:</label></td>
 <td><select id="_category" name="category">
 	<option value="">카테고리를 선택해주세요</option>
 	<option value="남성의류" >남성의류</option>
@@ -44,19 +46,19 @@
 </tr>
 
 <tr>
-<td><label>거래 지역 :</label></td>
-<td><input type="text" id="sample6_address" name="place" readonly="readonly" style="background: #e5e5e5" size="48">
+<td><label>거래지역:</label></td>
+<td><input type="text" id="sample6_address" name="place" readonly="readonly" style="background: #e5e5e5" size="30">
 &nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색"></td>
 </tr>
 
 <tr>
 <td><label>제목:</label></td>
-<td><input type="text" id="_title" name="title" size="48"></td>
+<td><input type="text" id="_title" name="title" size="30"></td>
 </tr>
 
 <tr>
 <td><label>가격:</label></td>
-<td><input type="text" id="_price" name="price" size="48"></td>
+<td><input type="text" id="_price" name="price" size="30"></td>
 </tr>
 
 <tr>

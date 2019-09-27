@@ -13,4 +13,12 @@
 	SELECT * FROM
 	rhy_used_products
 </select>
+
+<select id="getUsedDetail" resultType="com.rhymes.app.used.model.ProductsDto" parameterType="java.lang.Integer">
+	SELECT * FROM
+	rhy_used_products
+	where seq=#{seq}
+</select>
+
+
 </mapper>

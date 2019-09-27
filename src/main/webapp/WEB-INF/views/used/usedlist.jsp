@@ -19,6 +19,20 @@
 <link rel="stylesheet" href="/css/member/mypage/content/orderlog.css">
 </head>
 <body>
+	<div>
+	카테고리별 상품
+	<button ></button>
+	</div>
+	<div>
+	<form>검색 : <input type="text" name="keyword" id="_keyword">
+					<select id="s_select">
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+						<option value="id">작성자</option>
+					</select>
+			</form>
+	</div>
+
 <div class="container">
 <c:forEach items="${list }" var="var" varStatus="i">
 <c:set var="img" value="${var.photo_sys }"/>
@@ -28,12 +42,23 @@
 	 	int idx = str.indexOf(",");
 		
 	 	String img = str.substring(0, idx);
-		
-	 	System.out.println(img);
-		
+
 %>			
 <div>	
-		<img alt="" src="../upload/<%=img%>">
+		<div id="product_main" align="center">
+			<div id="product_img">
+				<a href="/used/useddetail?seq=${var.seq }"><img id="img" alt="" src="../upload/<%=img%>"></a>		
+			</div>
+			<div id="product_title">
+				<label>${var.title }</label>
+			</div>
+			<div id="product_price">
+				<label><a>${var.price }원</a></label>
+			</div>
+			<div id="product_place">
+				${var.place }
+			</div>
+		</div>
 </div>
 </c:forEach>
 </div>

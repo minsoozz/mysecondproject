@@ -11,16 +11,21 @@
    <definition name="popup" template="/WEB-INF/views/used/popup.jsp">
    </definition>
 	
-	<!-- 리스트 -->
+	<!-- 기본 틀 -->
 	<definition name="usedlist.tiles" template="/WEB-INF/views/used/layout/used_template.jsp">
   	   <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp"/> 
+      <put-attribute name="body" value="/WEB-INF/views/used/usedlist.jsp"/>
        <put-attribute name="left_menu" value="/WEB-INF/views/used/left_used.jsp"/> 
-	   <put-attribute name="body" value="/WEB-INF/views/used/usedlist.jsp"/>
   	   <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp"/>
    </definition>
 
-	<!-- 글쓰기 -->
-	<definition name="usedwrite.tiles" extends="main-layout">
+	<!-- 상품 등록 -->
+	<definition name="usedwrite.tiles" extends="usedlist.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/used/usedwrite.jsp"/>       
+   </definition>
+   
+	<!-- 디테일 -->
+	<definition name="useddetail.tiles" extends="usedlist.tiles">
+		<put-attribute name="body" value="/WEB-INF/views/used/useddetail.jsp"/>       
    </definition>
 </tiles-definitions>

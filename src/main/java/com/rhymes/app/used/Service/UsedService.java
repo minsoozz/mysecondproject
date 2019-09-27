@@ -12,4 +12,6 @@ public interface UsedService {
 
 	public List<ProductsDto> getUsedList();
 
+	public ProductsDto getUsedDetail(int seq);
+
 }

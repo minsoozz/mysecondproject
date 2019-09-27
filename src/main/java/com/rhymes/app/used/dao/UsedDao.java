@@ -10,5 +10,7 @@ public interface UsedDao {
 	boolean UsedWrite(ProductsDto dto);
 
 	List<ProductsDto> getUsedList();
+
+	ProductsDto getUsedDetail(int seq);
 	
 }

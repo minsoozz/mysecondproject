@@ -12,3 +12,24 @@
 
 a			{text-decoration:none; color:#333333;}
 a:hover		{text-decoration:none; color:#333333;}
+
+
+#product_main{
+	width:20%;
+	height:20%;
+	float: left;
+}
+
+#product_img{
+	height: 200px;
+	width: 200px;
+}
+
+#img{
+	height: 200px;
+	width: 200px;
+}
+
+#_hr{
+	border: solid 0.5px black;
+}

@@ -55,6 +55,26 @@ public class UsedController {
 		return "usedlist.tiles";
 	}
 	
+	@GetMapping("useddetail")
+	public String useddetail(Model model,int seq) {
+		
+		ProductsDto dto = usedService.getUsedDetail(seq);
+		
+		String str = dto.getPhoto_sys();
+		
+		System.out.println(str);
+		
+		String arr[] = str.split(",");
+		
+		dto.setPhoto_list(arr);
+
+		System.out.println(dto.toString());
+		
+		model.addAttribute("dto", dto);
+		
+		return "useddetail.tiles";
+	}
+	
 	@GetMapping("popup")
 	public String popup(Principal prc) {
 		

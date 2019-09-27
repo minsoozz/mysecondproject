@@ -25,6 +25,12 @@ public class UsedServiceImpl implements UsedService {
 		// TODO Auto-generated method stub
 		return usedDao.getUsedList();
 	}
+
+	@Override
+	public ProductsDto getUsedDetail(int seq) {
+		// TODO Auto-generated method stub
+		return usedDao.getUsedDetail(seq);
+	}
 	
 	
 }
