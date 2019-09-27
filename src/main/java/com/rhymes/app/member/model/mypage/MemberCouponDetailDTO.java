@@ -24,13 +24,17 @@ public class MemberCouponDetailDTO implements Serializable {
 	private String isused;	//사용여부
 	private String used_id;	//사용한id
 	private String used_date;	//사용일
+	
+	private int func_time_limit;	//만료기한(월)
+	
+	private int coup_type;	//쿠폰타입. 1=적립, null=할인
 			
 	@Builder
 	public MemberCouponDetailDTO() { }
 
 	@Builder
 	public MemberCouponDetailDTO(int seq, int c_seq, String userid, String gdate, String expdate, String coup_code,
-			String isused, String used_id, String used_date) {
+			String isused, String used_id, String used_date, int func_time_limit) {
 		super();
 		this.seq = seq;
 		this.c_seq = c_seq;
@@ -41,5 +45,6 @@ public class MemberCouponDetailDTO implements Serializable {
 		this.isused = isused;
 		this.used_id = used_id;
 		this.used_date = used_date;
+		this.func_time_limit = func_time_limit;
 	}
 }

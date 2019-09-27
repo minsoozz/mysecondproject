@@ -16,6 +16,15 @@ public class MypagePointsServiceImpl implements MypagePointsService {
 	@Autowired
 	private MypagePointsDAO mypagePointsDAO;
 	
+	/**새 적립금 등록
+	 * @param mPDto
+	 * @return
+	 */
+	@Override
+	public int addNewPoint(MemberPointDTO mPDto) {
+		return mypagePointsDAO.addNewPoint(mPDto);
+	}
+	
 	/**검색조건에 맞는 적립금 디테일의 총 개수 리턴 
 	 * @param userid
 	 * @return

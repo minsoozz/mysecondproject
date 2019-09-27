@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -104,16 +105,20 @@ public class MypageController {
 		List<MemberCouponDTO> couponDetailList = new ArrayList<MemberCouponDTO>();	//쿠폰 정보 리스트
 		String userid = pcp.getName();	//현재 로그인한 사용자 아이디
 		PointsPagingDTO pDto = null;	//페이징 dto
-				
+		
+		
 		try {
 			/* 변수에 알맞은 값 저장 */
 			validCoupons = mypageCouponService.getCountOnConditions(userid);
 			pDto = new PointsPagingDTO(pageNum, validCoupons, userid);
+			//pDto = new PointsPagingDTO(pageNum, validCoupons, 2, userid);
 			couponDetailList = mypageCouponService.getDetailsOnConditions(pDto);
-			System.out.println(couponDetailList);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}		
+		
+		System.out.println(pDto);
+		System.out.println("리스트 길이 : " + couponDetailList.size() );
 		
 		/* 저장된 값들을 뷰로 전송 */
 		model.addAttribute("validCoupons", validCoupons);
@@ -123,57 +128,65 @@ public class MypageController {
 		return "member/mypage/coupon";
 	}
 	
-	@Autowired
-	SqlSession ss;
-	
-	/**Ajax 통신을 통해 로그인 가능 여부를 검사하고 가능한 경우 로그인 수행
-	 * @param mem
+	/**Ajax 통신을 통해 신규 쿠폰 등록
+	 * @param model
+	 * @param jsMap
+	 * @param pcp
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/coupon/regicoupon", method = RequestMethod.POST)
-	public String doLogin(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
+	public String regiNewCoupon(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
 		/* 선언부 */
 		String coup_code = jsMap.get("coup_code") + "";
-		MemberCouponDetailDTO cDDto = null;	
-		MemberCouponDTO cDto = null;
+		MemberCouponDetailDTO couponDetailDto = null;	
+		MemberCouponDTO couponDto = null;
 		String userid = pcp.getName();
 		
-		log.info("쿠폰코드 : " + coup_code);
-		
+		/* 수행부 */
 		//만료일(만료여부), 사용여부 확인. 사용불가하면 return 0
 		try {
-			cDDto = ss.selectOne("coupon.getCoupInfoByCoupCode", coup_code);
+			couponDetailDto = mypageCouponService.getCoupInfoByCoupCode(coup_code);		//	couponDetailDto = ss.selectOne("coupon.getCoupInfoByCoupCode", coup_code);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return "0";//올바르지 않은 쿠폰 정보입니다.
 		}
-		log.info("결과1 : " + cDDto);
 		//찾지못했으면 0리턴, 등록된ID(userid)가 있는 쿠폰이면 0리턴
-		if( cDDto == null || cDDto.getUserid() != null ) return "0";
+		if( couponDetailDto == null || couponDetailDto.getUserid() != null ) return "0";
 		
-				
 		//적립인지 할인인지 판단하고 처리 후 return 1
-		//적립 : RHY_MEM_COUPON_DETAIL에 정보 등록하고 RHY_MEM_POINT에도 등록
+		//적립 : RHY_MEM_COUPON_DETAIL에 사용처리, 정보 등록 RHY_MEM_POINT에도 등록
 		//할인 : RHY_MEM_COUPON_DETAIL에만 등록
-		cDto = ss.selectOne("coupon.getCoupInfoByCSeq", cDDto.getC_seq() );
-		cDto.setCoup_code(coup_code);
-		cDto.setUserid(userid);
-		log.info("결과2 : " + cDto);
+		couponDto = mypageCouponService.getCoupInfoByCSeq( couponDetailDto.getC_seq() );	//		couponDto = ss.selectOne("coupon.getCoupInfoByCSeq", couponDetailDto.getC_seq() );
+		couponDetailDto.setCoup_code(coup_code);
+		couponDetailDto.setUserid(userid);
+		couponDetailDto.setFunc_time_limit(couponDto.getFunc_time_limit());
 		
-		if( "적립".equals( cDto.getFunc() ) ) {
-			ss.update("coupon.regiNewCoupon", cDto);
-		}else if( "할인".equals( cDto.getFunc() )) {
-			ss.update("coupon.regiNewCoupon", cDto);
+		if( "적립".equals( couponDto.getFunc() ) ) {	//적립금 추가, 사용처리
+			mypagePointsService.addNewPoint(new MemberPointDTO(userid, couponDto.getTitle(), couponDto.getFunc_num()));
+			couponDetailDto.setCoup_type(1);
+			mypageCouponService.regiNewCoupon(couponDetailDto);	//	ss.update("coupon.regiNewCoupon", couponDetailDto);
+		}else if( "할인".equals( couponDto.getFunc() )) {	//쿠폰 등록자 정보 insert
+			mypageCouponService.regiNewCoupon(couponDetailDto);	//	ss.update("coupon.regiNewCoupon", couponDetailDto);
 		}else {
 			
-		}
-		
-		
+		}		
 		
 		return "1";
 	}
 	
+	/**Ajax 통신을 통해 리스트에서 특정 쿠폰이 안보이도록 설정
+	 * @param model
+	 * @param jsMap
+	 * @param pcp
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/coupon/deleteone", method = RequestMethod.POST)
+	public String deleteCouponInUserList(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
+		int seq = Integer.parseInt( jsMap.get("seq") + "" );				
+		return mypageCouponService.deleteCouponInList(seq) + "";		
+	}
 	
 	@GetMapping(value = "/personal")
 	public String showPersonal() {

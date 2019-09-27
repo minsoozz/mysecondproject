@@ -50,3 +50,11 @@ div {
 	margin: auto;
 	padding: 10px;
 }
+
+
+.btn-delete-item{
+	width: 40px;
+	border: 1px solid #d7fd75;
+	background-color: #d7fd75;
+	margin-top : 5px;
+}

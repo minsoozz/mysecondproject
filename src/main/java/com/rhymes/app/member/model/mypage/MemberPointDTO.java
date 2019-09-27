@@ -38,6 +38,18 @@ public class MemberPointDTO implements Serializable {
 	
 	@Builder
 	public MemberPointDTO () { }
+	
+	/**for insert new point
+	 * @param userid
+	 * @param comment
+	 * @param amount
+	 */
+	@Builder
+	public MemberPointDTO(String userid, String comment, int amount) {
+		this.userid = userid;
+		this.comment = comment;
+		this.amount = amount;
+	}
 
 	@Builder
 	public MemberPointDTO(int rnum, int seq, String userid, String comment, int amount, String rdate, String edate,
@@ -52,5 +64,7 @@ public class MemberPointDTO implements Serializable {
 		this.edate = edate;
 		this.isExpired = isExpired;
 	}
+
+	
 	
 }

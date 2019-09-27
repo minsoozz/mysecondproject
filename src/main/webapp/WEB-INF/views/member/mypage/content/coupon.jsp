@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,7 +96,14 @@
 								${cpn.func }
 							</div>
 							<div class="col-md-1" align="center">
-								${cpn.func_num }${cpn.func_measure }
+								<c:choose>
+									<c:when test="${cpn.func_measure == '원' }">
+										<fmt:formatNumber value="${cpn.func_num}" type="number" />${cpn.func_measure }
+									</c:when>
+									<c:otherwise>
+										${cpn.func_num }${cpn.func_measure }	
+									</c:otherwise>
+								</c:choose>								
 							</div>
 							<div class="col-md-2" align="center">
 								${fn:substring(cpn.gdate,2,11) } ~ ${fn:substring(cpn.expdate,2,11) } 
@@ -103,7 +111,7 @@
 							<div class="col-md-1" align="center">
 								${cpn.isused }
 								<c:if test="${cpn.isused == '만료' || cpn.isused == '사용'}">
-									<input type="button" value="삭제" class="btn-delete-item">
+									<input type="button" value="삭제" class="btn-delete-item" onclick="deleteCouponInList(${cpn.seq});">									
 								</c:if>
 							</div>
 						</div>
@@ -115,5 +123,31 @@
 	</div>
 </div>
 
+<div class="mypage_paging coupon_paging" align="center">
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination">
+	    <li class="page-item">
+	      <a class="page-link" href="#" aria-label="Previous">
+	        <span aria-hidden="true">&laquo;</span>
+	        <span class="sr-only">Previous</span>
+	      </a>
+	    </li>
+	    
+	    <c:forEach begin="${pDto.firstNavIndex }" end="${pDto.lastNavIndex }" step="1" var="i">
+	    	<li class="page-item"><a class="page-link" href="<%=ctx %>/mypage/coupon?pageNum=${i}#_mypage_top">${i }</a></li>
+	    </c:forEach>
+	    
+	    
+	    <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+	    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+	    <li class="page-item">
+	      <a class="page-link" href="#" aria-label="Next">
+	        <span aria-hidden="true">&raquo;</span>
+	        <span class="sr-only">Next</span>
+	      </a>
+	    </li>
+	  </ul>
+	</nav>
+</div>
 
 </html>

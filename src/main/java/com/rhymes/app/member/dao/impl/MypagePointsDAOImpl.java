@@ -18,6 +18,14 @@ public class MypagePointsDAOImpl implements MypagePointsDAO {
 	
 	private String ns = "points.";
 	
+	/**새 적립금 등록
+	 * @param mPDto
+	 * @return
+	 */
+	@Override
+	public int addNewPoint(MemberPointDTO mPDto) {
+		return sqlSession.insert(ns + "addNewPoint", mPDto);
+	}
 	
 	/**검색조건에 맞는 적립금 디테일의 총 개수 리턴 
 	 * @param userid
