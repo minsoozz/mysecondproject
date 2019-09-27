@@ -11,10 +11,10 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
 <!-- Core Stylesheet -->
-<link href="../css/common/style.css" rel="stylesheet">
+<link href="/css/main/common/style.css" rel="stylesheet">
 
 <!-- Responsive CSS -->
-<link href="../css/responsive/responsive.css" rel="stylesheet">
+<link href="/css/main/responsive/responsive.css" rel="stylesheet">
 
 <!-- 아이콘 활용을 위한 font-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
@@ -87,9 +87,8 @@
                 <div class="col-12" >
                     <div class="logo_area text-center">
 
-				<a href="<%=ctx%>/main" id="logo"><img src="../img/core-img/banner.png" style="width: 150px" ></img></a>
+				<a href="<%=ctx%>/main" id="logo"><img src="/css/main/img/core-img/banner.png" style="width: 150px" ></img></a>
 
-                        
                     </div>
                 </div>
             </div>
@@ -121,7 +120,10 @@
                                     <a class="nav-link" href="event.jsp">EVENT</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="noticelist">CUSTOMER CENTER</a>
+
+                           <a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a> 
+                                  
+
                                 </li>
                             </ul>
                         </div>
@@ -137,16 +139,7 @@
     
     <!-- ****** Header Area End ****** -->
 
-        <!-- Jquery-2.2.4 js -->
-    <script src="../js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="../js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap-4 js -->
-    <script src="../js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins JS -->
-    <script src="../js/others/plugins.js"></script>
-    <!-- Active JS -->
-    <script src="../js/active.js"></script>
+
     
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->

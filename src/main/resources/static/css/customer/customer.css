@@ -5,7 +5,7 @@
 #body_wrap { width:1600px; margin-left:auto; margin-right:auto; padding:0px;}	
 
 #middle_wrap { display:inline-block; width:100%; padding:0px; margin:0px; text-align:center; border:solid 1px #EFEFEF;}
-#footer_wrap { width:100%; border:solid 0px navy; clear:both; background-color:#f1eff0; text-align:center; }
+#footer_wrap { width:100%; border:solid 0px navy; clear:both;}
 	
 
 #sidebar_wrap { float:left; width:250px; margin:0px; padding:3px;}
