@@ -71,5 +71,34 @@ public class FaqController {
 		return "redirect:/Rhymes/faqlist";
 	}
 	
+	//글수정가기
+	@GetMapping("/faqupdate")
+	public String faqupdate(int seq, Model model) {
+		model.addAttribute("doc_title", "자주하는 질문");
+		model.addAttribute("doc_sub", "고객님들께서 가장 자주하시는 질문을 모두 모았습니다.");
 		
+		FaqDto faqdto = FaqService.getFaqDetail(seq);
+		model.addAttribute("faqdto",faqdto);
+		
+		return "faqupdate.tiles";
+	}
+	
+	//글수정하기
+	@GetMapping("/faqupdateAf")
+	public String faqupdateAf(FaqDto faqdto) {
+		
+		FaqService.FaqUpdateAf(faqdto);
+		
+		return "redirect:/Rhymes/faqlist";
+	}
+	
+	//삭제하기
+	@GetMapping("/faqdelete")
+	public String faqdelete(int seq) {
+		FaqService.FaqDelete(seq);
+		
+		return "redirect:/Rhymes/faqlist";
+	}
+	
+	
 }

@@ -42,8 +42,7 @@
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div class="tab-pane active" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">		
-			
+		<div class="tab-pane active" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">				
 			<div class="order_id" align="left">
 				<a class="order_id_detail">주문번호 1568601875323</a>
 			</div>
