@@ -7,9 +7,12 @@
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/mypage_main_left.css">
 </head>
 
+
+
 <div class="mypage_main_left_title" align="left">
-	<h3>마이페이지</h3>
+	<h3>마이페이지</h3>	
 </div>
+
 
 
 <div class="btn-group-vertical" align="left">
@@ -36,7 +39,10 @@
 	<button type="button" class="btn btn-default" onclick="location.href='<%=ctx%>/mypage/personal';">
 		<div align="left" class="btn_inner_title">개인 정보 수정</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
-	</button>	
+	</button>
 </div>
-
+<form action="/logout" method="post" style="margin-top: 100px;">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	<input type="submit" value="로그아웃" class="btn btn-rhy-full">
+</form>
 </html>

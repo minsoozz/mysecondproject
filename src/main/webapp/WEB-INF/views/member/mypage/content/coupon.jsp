@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
+<!-- ajax 통신을 위한 meta tag -->
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
+
 <% String ctx = request.getContextPath(); %>
 <!-- 아이콘 활용을 위한 font-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
@@ -17,6 +22,7 @@
 
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="/css/member/mypage/content/coupon.css">
+<script type="text/javascript" src="<%=ctx%>/js/member/mypage/content/coupon.js"></script>
 </head>
 <div class="mypage_main_content_title" align="left">
 	<h3>쿠폰</h3>
@@ -89,39 +95,19 @@
 								${cpn.func }
 							</div>
 							<div class="col-md-1" align="center">
-								7%
+								${cpn.func_num }${cpn.func_measure }
 							</div>
 							<div class="col-md-2" align="center">
-								19-09-02 ~ 19-09-30
+								${fn:substring(cpn.gdate,2,11) } ~ ${fn:substring(cpn.expdate,2,11) } 
 							</div>
 							<div class="col-md-1" align="center">
-								미사용
+								${cpn.isused }
 							</div>
 						</div>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			
-			
-			<div class="form-row coupon_table_body tbl-rhy-body">
-				<div class="col-md-7" align="center">
-					<!-- <small class="txt_coupon_info">고객감사 7% 할인쿠폰(최대 1만원 할인, ~9/30)</small> -->
-					<p class="txt_coupon_info">고객감사 7% 할인쿠폰(최대 1만원 할인, ~9/30)</p>
-					<small class="txt_coupon_info_sub form-text text-muted">최대 1만원 할인, 컬리패스 상품 제외</small>
-				</div>
-				<div class="col-md-1" align="center">
-					할인
-				</div>
-				<div class="col-md-1" align="center">
-					7%
-				</div>
-				<div class="col-md-2" align="center">
-					19-09-02 ~ 19-09-30
-				</div>
-				<div class="col-md-1" align="center">
-					미사용
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

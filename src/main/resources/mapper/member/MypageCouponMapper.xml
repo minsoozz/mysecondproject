@@ -6,13 +6,23 @@
 
 	<!-- 검색조건에 맞는 유효한 쿠폰의 총 개수 리턴 -->
 	<select id="getCountOnConditions" resultType="java.lang.Integer" parameterType="java.lang.String">
-		<include refid="getCountOnConditionsReal"/>
+		<include refid="getCountOnConditionsSql"/>
 	</select>
 	
 	<!-- 검색조건에 맞는 쿠폰 디테일 정보 리턴 -->
 	<select id="getDetailsOnConditions" resultType="com.rhymes.app.member.model.mypage.MemberCouponDTO"
 	 parameterType="com.rhymes.app.member.model.PointsPagingDTO">
-		<include refid="getDetailsOnConditionsReal"/>
+		<include refid="getDetailsOnConditionsSql"/>
+	</select>
+	
+	<!-- 쿠폰번호에 맞는 쿠폰상세정보 리턴 -->
+	<select id="getCoupInfoByCoupCode" resultType="com.rhymes.app.member.model.mypage.MemberCouponDetailDTO" parameterType="java.lang.String">
+		<include refid="getCoupInfoByCoupCodeSql"/>
+	</select>
+	
+	<!-- 쿠폰상세정보의 c_seq와 일치하는 쿠폰내용 리턴 -->
+	<select id="getCoupInfoByCSeq" parameterType="java.lang.Integer" resultType="com.rhymes.app.member.model.mypage.MemberCouponDTO">
+		<include refid="getCoupInfoByCSeqSql"/>
 	</select>
 	
  	
@@ -20,7 +30,7 @@
  	<!-- 실제 쿼리 작성 영역 -->
  	
  	<!-- 검색조건에 맞는 유효한 쿠폰의 총 개수 리턴 -->
- 	<sql id="getCountOnConditionsReal">
+ 	<sql id="getCountOnConditionsSql">
  		<![CDATA[		
 		SELECT COUNT(*) AS CNT
 		FROM RHY_MEM_COUPON_DETAIL
@@ -29,8 +39,8 @@
 		]]>
  	</sql>
  	
- 	<!-- 검색조건에 맞는 적립금 디테일 정보 리턴 -->
- 	<sql id="getDetailsOnConditionsReal">
+ 	<!-- 검색조건에 맞는 쿠폰 디테일 정보 리턴 -->
+ 	<sql id="getDetailsOnConditionsSql">
  		<![CDATA[
  		SELECT * 
 		FROM (
@@ -45,5 +55,27 @@
 		LIMIT #{startSeq }, #{recordCountPerPage}
 		]]>
  	</sql>
+ 	
+ 	<!-- 쿠폰번호가 존재하는지 여부 판단 -->
+	<sql id="getCoupInfoByCoupCodeSql"> <![CDATA[	
+		SELECT 
+			SEQ, C_SEQ, USERID,
+			DATE_FORMAT(GDATE,'%Y-%m-%d') AS GDATE, 
+			DATE_FORMAT(EXPDATE,'%Y-%m-%d') AS EXPDATE, 
+			COUP_CODE,
+			IF( DATE_FORMAT(EXPDATE,'%Y-%m-%d') < CURDATE(), '만료', ISUSED) AS ISUSED,
+			USED_ID, USED_DATE
+		FROM RHY_MEM_COUPON_DETAIL
+		WHERE COUP_CODE = #{coup_code};	]]>	
+	</sql>
+	
+	<!-- 쿠폰상세정보의 c_seq와 일치하는 쿠폰내용 리턴 -->
+	<sql id="getCoupInfoByCSeqSql">
+		SELECT
+			TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, RDATE
+		FROM 
+			RHY_MEM_COUPON
+		WHERE SEQ=#{seq}
+	</sql>
 
 </mapper>

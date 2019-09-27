@@ -16,7 +16,7 @@ public class MypagePointsDAOImpl implements MypagePointsDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private String ns = "mypage.";
+	private String ns = "points.";
 	
 	
 	/**검색조건에 맞는 적립금 디테일의 총 개수 리턴 

@@ -1,5 +1,7 @@
 package com.rhymes.db;
 
+import java.util.Random;
+
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,5 +30,9 @@ public class QueryExecuteTest {
 		
 		int dd = mypageCouponService.getCountOnConditions("mhj");
 		System.out.println(dd);
+		
+		
+		
+		
 	}
 }
