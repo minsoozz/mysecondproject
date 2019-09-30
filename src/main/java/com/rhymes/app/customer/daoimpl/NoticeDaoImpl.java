@@ -36,8 +36,6 @@ public class NoticeDaoImpl implements NoticeDao {
 	@Override
 	public int getNoticeCount(CustomerParam param) {
 		
-		
-		
 		return sqlSession.selectOne(ns+"getNoticeCount", param);
 	}
 
@@ -75,7 +73,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		
 		int n = sqlSession.update(ns+"NoticeUpdateAf", dto);
 		
-		return n>0?true:false;
+		return n>0?true:false; 
 	}
 
 	
