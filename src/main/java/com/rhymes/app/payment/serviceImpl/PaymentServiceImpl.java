@@ -1,5 +1,10 @@
 package com.rhymes.app.payment.serviceImpl;
 
-public class PaymentServiceImpl {
+import org.springframework.stereotype.Service;
+
+import com.rhymes.app.payment.service.PaymentService;
+
+@Service
+public class PaymentServiceImpl implements PaymentService {
 
 }
