@@ -50,6 +50,18 @@
    <definition name="qnalist.tiles" extends="noticelist.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/qnalist.jsp" />
    </definition>
+   <!-- qna detail -->
+   <definition name="qnadetail.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/qnadetail.jsp" />
+   </definition>
+   <!-- qna 글쓰기 -->
+   <definition name="qnawrite.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/qnawrite.jsp" />
+   </definition>
    
+   <!-- 글수정 -->
+   <definition name="qnaupdate.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/qnaupdate.jsp" />
+   </definition>
    
 </tiles-definitions>

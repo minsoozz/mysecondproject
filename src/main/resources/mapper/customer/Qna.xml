@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Qna">
+	<!-- qnalist -->
 	<select id="getQnaList" parameterType="com.rhymes.app.customer.model.CustomerParam"  resultType="com.rhymes.app.customer.model.QnaDto">
        SELECT SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME
       FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC)AS RNUM,
@@ -18,4 +19,30 @@
 		FROM QNA
 	</select>
 
+	<!-- qna detail -->
+    <select id="getQnaDetail" parameterType="java.lang.Integer" resultType="com.rhymes.app.customer.model.QnaDto">
+       SELECT * 
+       FROM QNA
+       WHERE SEQ = #{seq}
+    </select>
+    
+    <!-- qna 올리기 -->
+    <insert id="QnaUpload" parameterType="com.rhymes.app.customer.model.QnaDto">
+	INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME)
+	VALUES(#{id}, #{category},(SELECT IFNULL(MAX(REF), 0)+1 FROM QNA ALIAS_FOR_SUBQUERY),0,0, #{title}, #{content}, NOW(), #{orderno}, #{filename})
+	</insert>
+	
+	<!-- qna 수정 -->
+    <update id="QnaUpdateAf" parameterType="com.rhymes.app.customer.model.QnaDto">
+	UPDATE QNA
+	SET CATEGORY=#{category}, TITLE=#{title}, CONTENT=#{content}, FILENAME=#{filename}
+	WHERE SEQ=#{seq}
+	</update>
+	
+	<!-- qna 삭제 -->
+	<delete id="QnaDelete" parameterType="java.lang.Integer">
+	DELETE FROM QNA
+	WHERE SEQ=#{seq}
+	</delete>
+	
 </mapper>

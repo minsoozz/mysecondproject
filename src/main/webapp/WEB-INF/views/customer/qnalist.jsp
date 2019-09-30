@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- arrow 생성 -->
 
 <div id="button.wrap">
 	<span class="button blue">
@@ -11,8 +12,9 @@
 </div>
 <form action="qnalist" name="frmForm1" id="_frmFormSearch" method="POST">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
+ 
+<jsp:useBean id="uqna" class="com.rhymes.app.customer.util.QnaArrow" scope="page"/>    
 
-    
 <table class="list_table" style="width:85%" >
 <colgroup>
 	<col width="50"><col width="100"><col width="500"><col width="100"><col width="100">
@@ -33,24 +35,16 @@
 <tr class="_hover_tr">
 	<td>${vs.count }</td>
 	<td>${qna.category }</td>
-	<td style="text-align: left;" onclick="qnadetail(${qna.seq})">
-			${qna.title }
+	<td style="text-align: left;">
+	
+	<jsp:setProperty property="depth" name="uqna" value="${qna.depth }"/>
+	<jsp:getProperty property="arrow" name="uqna"/> <!-- getArrow 호출 -->
+		<a href="qnadetail?seq=${qna.seq}">
+			${qna.title}
+		</a>
 	</td>
 	<td>${qna.id }</td>
 	<td>${qna.wdate }</td>
-</tr>
-<tr class="detail" id='detail${qna.seq}'>
-	<td colspan="4">${qna.content }</td>
-	<td>
-	<div>
-	<span class="button blue">
-		<button type="button" class="btn" onclick="QnaUpdate('${qna.seq }')">수정</button>
-	</span>
-	<span class="button blue">
-		<button type="button" class="btn" onclick="QnaDelete('${qna.seq }')">삭제</button>
-	</span>
-	</div>
-	</td>
 </tr>
 </c:forEach>
 
@@ -75,29 +69,6 @@
 </form>
 
 <script type="text/javascript">
-/* 클릭시 내용보이기 */
-$(".detail").hide();
-function qnadetail(seq){
-	
-	if($("#detail"+seq).css("display")=="none"){
-		$(".detail").hide();
-		$("#detail"+seq).show();
-	
-	}else{
-		$("#detail"+seq).hide();
-	}
-}
-
-
-/* 버튼 */
-function QnaDelete( seq ) {
-	location.href = "qnadelete?seq=" + seq;
-}
-function QnaUpdate( seq ) {
-	location.href = "qnaupdate?seq=" + seq;
-}
-
-
 
 $("#_btnWrite").click(function () { 
 	location.href = "qnawrite";

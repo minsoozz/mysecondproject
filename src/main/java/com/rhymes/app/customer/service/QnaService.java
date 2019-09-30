@@ -7,9 +7,24 @@ import com.rhymes.app.customer.model.QnaDto;
 
 public interface QnaService {
 
-	//faq list가져오기
+	//qna list가져오기
 	public List<QnaDto> getQnaList(CustomerParam param);
 	
-	//faq count
+	//qna count
 	public int getQnaCount(CustomerParam param);
+	
+	//qna 디테일 가져오기
+	public QnaDto getQnaDetail(int seq);
+	
+	//qna 업로드
+	public boolean QnaUpload(QnaDto dto);
+	
+	//qna 수정
+	public boolean QnaUpdateAf(QnaDto dto);
+
+	//qna 파일이름가져오기
+	public String getfilename(int seq);
+	
+	//qna 삭제
+	public boolean QnaDelete(int seq);
 }
