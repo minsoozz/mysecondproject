@@ -27,7 +27,7 @@ public class ExcelController {
 	}
 
 	// 엑셀 다운로드
-	@GetMapping("/exceldownload")
+	@GetMapping("/exceldownloadDown")
 	public View exceldownload(Model model) throws Exception {
 		
 	    List<DtestDTO> list = excelService.listExcelDownload();

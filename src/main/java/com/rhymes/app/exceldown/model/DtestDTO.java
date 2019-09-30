@@ -16,6 +16,12 @@ import lombok.ToString;
 public class DtestDTO implements Serializable {
 	
 	private String id;
-	private String pwd;
+	private String name;
+	private String address;
+	private String email;
+	private String phone;
+	private String gender;
+	private String birth;
+	private String count;
 
 }

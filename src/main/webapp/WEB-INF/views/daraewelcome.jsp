@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>aaa</title>
 
 </head>
 <body>
-Welcome Page<br><br>
+한글<br><br>
 
-<a href="/payment/payment">payment</a><br>
-<a href="/exceldownload/exceldownload">exceldownload</a>
+<a href="/Rhymes/payment">payment</a><br>
+<a href="/Rhymes/excel">exceldownload</a>
 
 <br><br>
 </body>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
@@ -6,7 +6,7 @@
 <tiles-definitions>
 
 	<!-- main -->
-	<definition name="main-layout" template="/WEB-INF/views/payment/layout/payment_template.jsp">
+	<definition name="payment.tiles" template="/WEB-INF/views/payment/layout/payment_template.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
@@ -14,22 +14,22 @@
 	
 
 	<!-- daraewelcome -->
-   <definition name="daraewelcome" extends="main-layout">
+   <definition name="/payment/welcome" extends="payment.tiles">
        <put-attribute name="body" value="/WEB-INF/views/daraewelcome.jsp" />
    </definition>
 
 
 
-	<!-- 결제 -->
-	<!-- <definition name="payment" extends="main-layout">
+	 <!--결제 -->
+	<definition name="/payment/payment" extends="payment.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/payment/payment.jsp" />
 	</definition>
 
-	<definition name="paymentAf" extends="main-layout">
+	<definition name="/payment/paymentAf" extends="payment.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/payment/paymentAf.jsp" />
 	</definition>
 
-	<definition name="nomembership" extends="main-layout">
+	<definition name="/payment/nomembership" extends="payment.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/payment/nomembership.jsp" />
 	</definition>
 	
@@ -37,7 +37,7 @@
 		<put-attribute name="header" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/payment/addresssearch/jusoPopup.jsp" />
 		<put-attribute name="footer" value="" />
-	</definition> -->
+	</definition>
 
 
 

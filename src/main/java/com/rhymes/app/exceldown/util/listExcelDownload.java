@@ -28,7 +28,7 @@ public class listExcelDownload extends AbstractXlsxView {
 		String sCurTime = null;
         sCurTime = new SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(new Date());
      
-        String excelName = sCurTime + "_샘플엑셀다운로드.xlsx";
+        String excelName = sCurTime + "회원정보_엑셀다운로드.xlsx";
         Sheet worksheet = null;
         Row row = null;
         CellStyle style = workbook.createCellStyle(); // 셀 스타일을 위한 변수
@@ -44,11 +44,23 @@ public class listExcelDownload extends AbstractXlsxView {
          
         // 칼럼 길이 설정
         int columnIndex = 0;
-        while (columnIndex < 2) {
+        while (columnIndex < 8) {
              
             if(columnIndex == 0) {
-                worksheet.setColumnWidth(columnIndex, 3000);
-            } else if (columnIndex == 1) {
+                worksheet.setColumnWidth(columnIndex, 4000);
+            }else if (columnIndex == 1) {
+                worksheet.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 2) {
+                worksheet.setColumnWidth(columnIndex, 10000);
+            }else if (columnIndex == 3) {
+                worksheet.setColumnWidth(columnIndex, 90000);
+            }else if (columnIndex == 4) {
+                worksheet.setColumnWidth(columnIndex, 4000);
+            }else if (columnIndex == 5) {
+                worksheet.setColumnWidth(columnIndex, 4000);
+            }else if (columnIndex == 6) {
+                worksheet.setColumnWidth(columnIndex, 4000);
+            }else if (columnIndex == 7) {
                 worksheet.setColumnWidth(columnIndex, 4000);
             }
             columnIndex++;
@@ -58,7 +70,13 @@ public class listExcelDownload extends AbstractXlsxView {
         // 헤더 설정
         row = worksheet.createRow(0);
         row.createCell(0).setCellValue("ID");
-        row.createCell(1).setCellValue("PWD");
+        row.createCell(1).setCellValue("NAME");
+        row.createCell(2).setCellValue("ADDRESS");
+        row.createCell(3).setCellValue("EMAIL");
+        row.createCell(4).setCellValue("PHONE");
+        row.createCell(5).setCellValue("GENDER");
+        row.createCell(6).setCellValue("BIRTH");
+        row.createCell(7).setCellValue("COUNT");
          
         int rowIndex = 1;
         
@@ -66,7 +84,13 @@ public class listExcelDownload extends AbstractXlsxView {
         for(DtestDTO excel : listExcel) {
             row = worksheet.createRow(rowIndex);
             row.createCell(0).setCellValue(excel.getId());
-            row.createCell(1).setCellValue(excel.getPwd());
+            row.createCell(1).setCellValue(excel.getName());
+            row.createCell(2).setCellValue(excel.getAddress());
+            row.createCell(3).setCellValue(excel.getEmail());
+            row.createCell(4).setCellValue(excel.getPhone());
+            row.createCell(5).setCellValue(excel.getGender());
+            row.createCell(6).setCellValue(excel.getBirth());
+            row.createCell(7).setCellValue(excel.getCount());
              
             rowIndex++;
         }

@@ -4,6 +4,6 @@
 
 <mapper namespace="excelDown">
     <select id="getAllExcel" resultType="com.rhymes.app.exceldown.model.DtestDTO">
-        SELECT * FROM DTEST
+        SELECT * FROM RHY_MEM_P
     </select>
 </mapper>

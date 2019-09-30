@@ -22,7 +22,7 @@ public class PaymentController {
 	public String welcome() {
 		System.out.println("daraewelcome");
 		
-		return "daraewelcome";
+		return "/payment/welcome";
 	}
 	
 	// 결제페이지로 이동
@@ -32,10 +32,10 @@ public class PaymentController {
 		
 		if(true) {
 			// 로그인 되어있으면 결제 페이지로 이동
-			return "payment";
+			return "/payment/payment";
 		}else {
 			// 로그인 안되어있으면 로그인창으로 이동
-			return "nomembership";
+			return "/payment/nomembership";
 		}
 		
 	}
@@ -45,7 +45,7 @@ public class PaymentController {
 	public String paymentAf(Model model) {
 		System.out.println("daraepaymentAf");
 
-		return "paymentAf";
+		return "/payment/paymentAf";
 	}
 
 	// 주소찾기 팝업창 띄우기
@@ -53,7 +53,7 @@ public class PaymentController {
 	public String addresssearch(Model model) {
 		System.out.println("daraeaddresssearch");
 		
-		return "addresssearch";
+		return "/payment/addresssearch";
 	}
 	
 	// 본인인증

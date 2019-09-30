@@ -15,7 +15,7 @@
 function ExcelDownload() {
 	//alert("함수");
 
-    location.href = "/exceldownload/exceldownloadDown";
+    location.href = "/Rhymes/exceldownloadDown";
 };
 </script>
 
