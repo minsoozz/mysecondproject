@@ -5,8 +5,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- arrow 생성 -->
 
-
-
 <div id="button.wrap">
 	<span class="button blue">
 		<button type="button" id="_btnWrite">1:1문의</button>
@@ -16,6 +14,7 @@
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
  
 <jsp:useBean id="uqna" class="com.rhymes.app.customer.util.QnaArrow" scope="page"/>    
+
 <table class="list_table" style="width:85%" >
 <colgroup>
 	<col width="50"><col width="100"><col width="500"><col width="100"><col width="100">
