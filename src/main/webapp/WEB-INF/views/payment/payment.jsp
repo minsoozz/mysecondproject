@@ -12,43 +12,6 @@
 <title>Insert title here</title>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<style type="text/css">
-.tb{
-	font-family: monospace;
-	width: 100%;
-}
-td{
-	/* background-color: blue; */
-	padding: 10px 10px 10px 10px;
-}
-th{
-	/* background-color: #d7fd75; */
-	padding-left : 10px;
-	width: 25%;
-}
-h4{
-	border-bottom: 5px solid #d7fd75;
-	padding-bottom: 20px;
-}
-h1{
-	border-bottom: 5px solid #d7fd75;
-	padding-bottom: 20px;
-}
-.divback{
-	/* background-color: #fafafa; */
-	/* border-top: 5px solid #d7fd75; */
-	border-bottom: 1px solid #dbdbdb;
-	padding-top: 10px;
-}
-.divfirst{
-	/* background-color: green; */
-	width: 50%;
-	margin: auto;
-}
-#paymentBtn{
-	background-color: #d7fd75;
-}
-</style>
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -63,7 +26,7 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 </c:forEach> --%>
 <br><br>
 
-<div class="divfirst">
+<div class="divfirst" align="left">
 <div class="divback">
 <h1>주문서</h1>
 <h6 style="padding: 10px 10px 10px 10px;">주문하실 상품명 및 수량을 정확하게 확인해 주세요</h6>
@@ -75,7 +38,7 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 
 <div class="divback">
 <h4>상품 정보</h4>
-<table class="tb">
+<table>
 <tr style="border-bottom: 1px solid #dbdbdb;">
 	<td colspan="2" align="center" width="50%">상품 정보</td>
 	<td width="20%" align="center">상품 금액</td>
@@ -97,7 +60,7 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 
 <div class="divback">
 <h4>주문자 정보</h4>
-<table class="tb">
+<table>
 <!--
 -->
 <tr>
@@ -139,7 +102,7 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 
 <div class="divback">
 <h4>배송 정보</h4>
-<table class="tb">
+<table>
 <tr>
 	<th>주소 *</th>
 	<td>새 배송지 추가 <input type="radio" onclick="sample4_execDaumPostcode()">
@@ -180,7 +143,7 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 <!-- 로그인 했을때만 보이기 -->
 <div class="divback">
 <h4>쿠폰 적립금</h4>
-<table class="tb">
+<table>
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td>
@@ -207,7 +170,7 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 
 <div class="divback">
 <h4>결제 수단</h4>
-<table class="tb">
+<table>
 <tr style="background-color: #fafafa">
 	<th>결제 수단 선택</th>
 	<td>

@@ -21,8 +21,8 @@ th{ padding-left : 10px; width: 25%; }
 h4{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 .tb{ font-family: monospace; width: 100%; }
-.divback{ border-bottom: 1px solid #dbdbdb; padding-top: 10px; }
-.divfirst{ width: 100%; margin: auto; }
+.divback{ border-bottom: 1px solid #dbdbdb; padding-top: 10px; width: 100%; }
+.divfirst{ width: 90%; margin: auto; }
 #paymentBtn{ background-color: #d7fd75; }
 
 
