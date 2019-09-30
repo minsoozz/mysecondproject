@@ -35,6 +35,10 @@
 	<definition name="rhyfindAf" template="/WEB-INF/views/member/Find_idpwAf.jsp">
 	</definition>
 
+	<!-- 비밀번호 재설정 -->
+	<definition name="rhypwreset" template="/WEB-INF/views/member/Find_pw_reset.jsp">
+	</definition>
+
 	<!-- admin test -->
 	<definition name="memtest/admin" template="/WEB-INF/views/member/tmp/admin.jsp">
 	</definition>

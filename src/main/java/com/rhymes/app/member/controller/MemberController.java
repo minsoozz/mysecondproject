@@ -69,9 +69,14 @@ public class MemberController {
 	// id체크
 	@ResponseBody
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getIDCheck")
-	public String getIDCheck(MemberDTO mem) {
+	public String getIDCheck(MemberDTO mem, HttpServletRequest req) {
 		System.out.println("getIDCheck mem toString: " + mem.toString());
-
+		
+		String userid = (String)req.getParameter("id");
+		System.out.println("userid: " + userid);
+		
+		mem.setUserid(userid);
+		
 		int count = memService.getIDCheck(mem);
 		System.out.println("count: " + count);
 
@@ -278,25 +283,69 @@ public class MemberController {
 		System.out.println("아이디찾기 mbean: " + mbean);
 		
 		String foundId = memService.getFindID(mbean);
+		String userid = foundId;	// 이메일로 아이디를 보낼 때 사용
 		
 		System.out.println("id찾기 foundId : " + foundId);
 		
-		
-		
 		String msg = "";
+		String founduserid = "";
 		if(foundId.equals("N")) {	// 일치하는 아이디 없음
 			msg = "N";
 		}
 		else {
-			msg = foundId;
+			msg = foundId.substring(0,foundId.length()-3);
+			founduserid = msg+"***";
 		}
-		System.out.println("msg: " + msg);
+		System.out.println("founduserid: " + founduserid);
 		
-		model.addAttribute("foundId", foundId);
-		
-		foundId.substring(-3, 3);
+
+		model.addAttribute("founduserid", founduserid);
+		model.addAttribute("userid", userid);
+		model.addAttribute("useremail", mbean.getUseremail());
 		
 		return "rhyfindAf";
+	}
+	// id이메일로 보내기
+	@GetMapping("/getFindIDEmail")
+	public String getFindIDEmail(P_MemberDTO pmem) {
+		
+		String useremail = pmem.getUseremail();
+		String userid = pmem.getUserid();
+		
+		System.out.println("useremail: " + useremail);
+		RhymesMailling.sendMailId(RhymesMailling.getAuthorizationid(userid), useremail);
+		
+		return "redirect:/member/login";
+	}
+	
+	// 비밀번호 찾기
+	@GetMapping("/getFindPWtel")
+	public String getFindPWtel(P_MemberDTO pmem, Model model) {
+		
+		
+		String userid = memService.getusertel(pmem);
+		System.out.println("userid: " + userid);
+		System.out.println("dbuserid: " + pmem.getUserid());
+		if(!userid.equals(pmem.getUserid())) {
+			return "rhyfindid";
+		}else {
+			model.addAttribute("userid", userid);
+			return "rhypwreset";
+		}
+		
+		
+	}	
+	
+	// 비밀번호 찾기
+	@GetMapping("/userpwreset")
+	public String userpwreset(MemberDTO mem, HttpServletRequest req) {
+		
+		memService.getuserpwreset(mem);
+		
+		
+		return"rhylogin";
+		
+		
 	}
 	
 	
@@ -304,10 +353,8 @@ public class MemberController {
 	
 	
 	
-	
-	
-	
-	   
+
+
 	// 카카오 로그인
 	@GetMapping("/kakaoLogin")
 	public String kakaoLogin(@RequestParam("code") String code, HttpSession session, Model model) {

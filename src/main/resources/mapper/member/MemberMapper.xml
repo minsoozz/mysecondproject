@@ -91,7 +91,19 @@
 		WHERE ID=#{userid}
 	</select>
 
+	<!-- 비밀번호찾기 -->
+	<select id="getusertel" parameterType="com.rhymes.app.member.model.P_MemberDTO" resultType="java.lang.String">
+		SELECT ID
+		FROM RHY_MEM_P
+		WHERE PHONE=#{phone}
+	</select>
 	
+	<!-- 비밀번호 재설정 -->
+	<update id="getuserpwreset">
+		UPDATE RHY_MEM
+		SET PW=#{userpw}
+		WHERE ID=#{userid}
+	</update>
 	
 	
 </mapper>

@@ -77,6 +77,17 @@ public class MemberDAOImpl implements MemberDAO {
 			return sqlSession.selectOne(ns+"getFindID_P", mem);
 		}
 
+		@Override
+		public String getusertel(P_MemberDTO pmem) {
+			return sqlSession.selectOne(ns+"getusertel", pmem);
+		}
+
+		@Override
+		public void getuserpwreset(MemberDTO mem) {
+			sqlSession.update(ns+"getuserpwreset", mem);
+			
+		}
+
 
 	
 }

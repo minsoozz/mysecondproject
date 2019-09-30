@@ -34,9 +34,13 @@ public interface MemberDAO {
 	
 	// id찾기
 	public String getFindID_E(MemBean mbean);
-	
 	// 비밀번호 불러오기
 	public String getFindID_P(MemberDTO mem);
 	
+	// 비밀번호 찾기
+	public String getusertel(P_MemberDTO pmem);
+	
+	// 비밀번호 재설정
+	public void getuserpwreset(MemberDTO mem);
 	
 }

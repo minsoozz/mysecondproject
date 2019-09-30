@@ -26,6 +26,8 @@ import com.rhymes.app.member.service.MemberService;
 @Service
 public class MemberServiceImpl implements MemberService {
 	
+
+
 	@Autowired
 	private MemberDAO memberdao;
 	
@@ -170,9 +172,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
+	public String getusertel(P_MemberDTO pmem) {
+		return memberdao.getusertel(pmem);
+	}
 
-
-
+	@Override
+	public void getuserpwreset(MemberDTO mem) {
+		mem.setUserpw(passwordEncoder.encode(mem.getUserpw()));
+		memberdao.getuserpwreset(mem);
+	}
 	
 
 

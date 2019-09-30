@@ -118,7 +118,7 @@ function checkIt() {
 	// 비밀번호 검증
     var password = userinput.userpw.value;
 	var id = userinput.userid.value;
-    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){
         alert('숫자+영문자 조합으로 8~25자까지 사용가능합니다.');
         $('#_pwd').val('').focus();
         return false;
