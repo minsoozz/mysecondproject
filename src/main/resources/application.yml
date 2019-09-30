@@ -22,3 +22,13 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: mhj
       password: mhj
+#jsp
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+        
