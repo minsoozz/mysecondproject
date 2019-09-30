@@ -18,11 +18,11 @@ import com.rhymes.app.payment.util.Coolsms;
 public class PaymentController {
 	
 	// 처음
-	@GetMapping("/welcome")
+	@GetMapping("/daraewelcome")
 	public String welcome() {
 		System.out.println("welcome");
 		
-		return "welcome";
+		return "daraewelcome";
 	}
 	
 	// 결제페이지로 이동

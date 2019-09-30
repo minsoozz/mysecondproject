@@ -15,8 +15,8 @@
 
 
 	<!-- welcome -->
-	<definition name="welcome" extends="main-layout">
-		<put-attribute name="body" value="/WEB-INF/views/welcome.jsp" />
+	<definition name="daraewelcome" extends="main-layout">
+		<put-attribute name="body" value="/WEB-INF/views/daraewelcome.jsp" />
 	</definition>
 	
 
