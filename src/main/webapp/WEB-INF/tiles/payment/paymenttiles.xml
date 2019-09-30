@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
@@ -13,32 +13,31 @@
 	</definition>
 	
 
-
-	<!-- welcome -->
-	<definition name="daraewelcome" extends="main-layout">
-		<put-attribute name="body" value="/WEB-INF/views/daraewelcome.jsp" />
-	</definition>
+	<!-- daraewelcome -->
+   <definition name="daraewelcome" extends="main-layout">
+       <put-attribute name="body" value="/WEB-INF/views/daraewelcome.jsp" />
+   </definition>
 
 
 
 	<!-- 결제 -->
-	<definition name="payment/payment" extends="main-layout">
+	<!-- <definition name="payment" extends="main-layout">
 		<put-attribute name="body" value="/WEB-INF/views/payment/payment.jsp" />
 	</definition>
 
-	<definition name="payment/paymentAf" extends="main-layout">
+	<definition name="paymentAf" extends="main-layout">
 		<put-attribute name="body" value="/WEB-INF/views/payment/paymentAf.jsp" />
 	</definition>
 
-	<definition name="payment/nomembership" extends="main-layout">
+	<definition name="nomembership" extends="main-layout">
 		<put-attribute name="body" value="/WEB-INF/views/payment/nomembership.jsp" />
 	</definition>
 	
-	<definition name="payment/addresssearch" template="/WEB-INF/views/common/layout/template.jsp">
+	<definition name="addresssearch" template="/WEB-INF/views/common/layout/template.jsp">
 		<put-attribute name="header" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/payment/addresssearch/jusoPopup.jsp" />
 		<put-attribute name="footer" value="" />
-	</definition>
+	</definition> -->
 
 
 

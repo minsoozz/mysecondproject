@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.payment.util.Coolsms;
 
 @Controller
-@RequestMapping("/payment")
+@RequestMapping("/Rhymes")
 public class PaymentController {
 	
 	// 처음
@@ -28,14 +28,14 @@ public class PaymentController {
 	// 결제페이지로 이동
 	@GetMapping("/payment")
 	public String payment(Model model) {
-		System.out.println("payment");
+		System.out.println("daraepayment");
 		
 		if(true) {
 			// 로그인 되어있으면 결제 페이지로 이동
-			return "payment/payment";
+			return "payment";
 		}else {
 			// 로그인 안되어있으면 로그인창으로 이동
-			return "payment/nomembership";
+			return "nomembership";
 		}
 		
 	}
@@ -43,24 +43,24 @@ public class PaymentController {
 	// 결제 완료
 	@GetMapping("/paymentAf")
 	public String paymentAf(Model model) {
-		System.out.println("paymentAf");
+		System.out.println("daraepaymentAf");
 
-		return "payment/paymentAf";
+		return "paymentAf";
 	}
 
 	// 주소찾기 팝업창 띄우기
 	@GetMapping("/addresssearch")
 	public String addresssearch(Model model) {
-		System.out.println("addresssearch");
+		System.out.println("daraeaddresssearch");
 		
-		return "payment/addresssearch";
+		return "addresssearch";
 	}
 	
 	// 본인인증
 	@ResponseBody
 	@RequestMapping(value = "/sendsms", method = RequestMethod.POST)
 	public String sendSms(HttpServletRequest request) throws Exception {		
-		System.out.println("본인인증");
+		System.out.println("darae본인인증");
 		System.out.println("받는번호 : " + (String) request.getParameter("to"));
 		System.out.println("인증번호 : " + (String) request.getParameter("text"));
 

@@ -14,20 +14,20 @@ import com.rhymes.app.exceldown.service.ExcelService;
 import com.rhymes.app.exceldown.util.listExcelDownload;
 
 @Controller
-@RequestMapping("/exceldownload")
+@RequestMapping("/Rhymes")
 public class ExcelController {
 	
 	@Autowired
 	ExcelService excelService;
 	
 	// 엑셀 다운로드 페이지로 이동
-	@GetMapping("/exceldownload")
+	@GetMapping("/excel")
 	public String exceldownload() throws Exception {
 		return "exceldownload";
 	}
 
 	// 엑셀 다운로드
-	@GetMapping("/exceldownloadDown")
+	@GetMapping("/exceldownload")
 	public View exceldownload(Model model) throws Exception {
 		
 	    List<DtestDTO> list = excelService.listExcelDownload();
