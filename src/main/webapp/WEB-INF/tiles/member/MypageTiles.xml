@@ -16,7 +16,12 @@
 	<!-- sub pages(orderlog,  -->
 	<definition name="member/mypage/*" extends="member/mypage">
        <put-attribute name="mypage_content" value="/WEB-INF/views/member/mypage/content/{1}.jsp" />
-   </definition>
+   	</definition>
+   
+   	<!-- patial pages(frm_personalform...) -->
+
+   	<definition name="member/mypagepartial/personalform" template="/WEB-INF/views/member/mypage/content/personalform.jsp">
+	</definition>
 
 </tiles-definitions>
 

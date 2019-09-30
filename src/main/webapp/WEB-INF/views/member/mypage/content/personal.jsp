@@ -28,10 +28,11 @@
 </div>
 
 <sec:authentication property="principal" var="prc"/>
+<div class="confirm_wrap">
 <c:choose>
 	<c:when test="${empty confirmed }">
 		<!-- 비밀번호 재확인 전 (세션정보 조회) -->
-		<div class="form-group">
+		<div class="form-group confirm_frm_wrap">
 			<div class="form_head_info">
 				<div class="form-row">
 					<div class="col-md-12" align="center">
@@ -44,7 +45,7 @@
 					</div>
 				</div>
 			</div>
-			<form action="<%=ctx %>/mypage/reconfirmpw" method="post" name="frm_confirm_mem">
+			<form method="post" name="frm_confirm_mem" onsubmit="return false;">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<div class="form-row form_reconfirm box-rhy-gray">
 				<div class="col-md-12" align="center">
@@ -57,7 +58,10 @@
 					<div class="form-row">
 						<div class="col-md-3" align="center">
 							<p>비밀번호</p>
-							<input type="password" class="form-control" name="userpw">
+							<input type="password" id="_input_pw" class="form-control" name="userpw" onkeydown="frm_ent(event)">
+							<div class="invalid-feedback">
+						    	비밀번호를 확인해 주세요.
+						    </div>
 						</div>
 					</div>			
 				</div>
@@ -78,8 +82,7 @@
 		</div>
 	</c:otherwise>
 </c:choose>
-
-
+</div>
 
 
 

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
@@ -206,7 +203,11 @@ public class MypageController {
 		return "member/mypage/personal";
 	}
 	
+	@Autowired
+	SqlSession ss;
 	
+	@Autowired
+	BCryptPasswordEncoder bc;
 	
 	/**Ajax 통신을 통해 비밀번호 확인 후 성공하면 1 리턴
 	 * @param model
@@ -217,8 +218,25 @@ public class MypageController {
 	@RequestMapping(value = "/personal/confirmpw" , method = RequestMethod.POST )
 	public String confirmPw(Model model, @RequestBody String json, Principal pcp) {
 		log.info("show personal information confirm pw"); 
-		log.info( json.split("&")[1].split("=")[1] );
-		model.addAttribute("confirmed", "confirmed");
-		return "1";
+		
+		String formPw = json.split("&")[1].split("=")[1];
+		String pw = null;
+		boolean ok = false;
+		log.info( formPw );		
+		
+		try {
+			pw = ss.selectOne("member.getFindID_P", pcp.getName());
+			ok = bc.matches(formPw, pw);
+			log.info("pw: " + pw + ", ok : " + ok);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+		return (ok == true)?"1":"0";
+	}
+	
+	@GetMapping(value = "/personalform")
+	public String showPersonalForm() {
+		return "member/mypagepartial/personalform";
 	}
 }
