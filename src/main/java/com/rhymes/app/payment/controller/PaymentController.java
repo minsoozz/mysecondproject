@@ -20,7 +20,7 @@ public class PaymentController {
 	// 처음
 	@GetMapping("/daraewelcome")
 	public String welcome() {
-		System.out.println("welcome");
+		System.out.println("daraewelcome");
 		
 		return "daraewelcome";
 	}
