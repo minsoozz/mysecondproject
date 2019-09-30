@@ -72,7 +72,7 @@
    </div>
    <br><br><br><br>
    
-    <div align="center">
+    <div align="center" id="haribo">
    <iframe width="1800" height="700" src="https://www.youtube.com/embed/k2LhNhZVE3I?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     
      <br><br>
@@ -109,7 +109,8 @@
 
     
      <br>
-     <a href="#" class="mainbuybtn">구매하기</a>
+     <a href="#haribo" class="mainbuybtn">구매하기</a>
+     <!-- a href에 #넣고 아이디적으면 글루 이동한다!~ 디테일에서 써먹기 ~! -->
    </div>
    <br><br>
     <!-- 추천 상품 끝 -->
