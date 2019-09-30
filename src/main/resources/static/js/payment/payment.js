@@ -1,3 +1,6 @@
+$(function(){
+	
+
 $("#checkorder").click(function () {
 	//alert("주문자와 동일");
 	
@@ -198,3 +201,5 @@ function sample4_execDaumPostcode() {
         }
     }).open();
 }
+
+});

@@ -13,10 +13,10 @@
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- payment.js -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/payment/payment.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<!-- js -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/payment/payment.js"></script>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
