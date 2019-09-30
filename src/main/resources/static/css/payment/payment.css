@@ -13,4 +13,17 @@
 
 #content_title_wrap { height:90px; width:100%;  text-align:left; font-weight:normal; line-height:2.5em; _line-height:2.7em; margin-bottom:10px; }
 #content_title_wrap div.title { padding-left:25px; background-repeat:no-repeat; background-position:10px 9px; font-weight:bold; }
-	
+
+
+/* payment.jsp - table */
+td{ padding: 10px 10px 10px 10px; }
+th{ padding-left : 10px; width: 25%; }
+h4{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
+h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
+.tb{ font-family: monospace; width: 100%; }
+.divback{ border-bottom: 1px solid #dbdbdb; padding-top: 10px; }
+.divfirst{ width: 100%; margin: auto; }
+#paymentBtn{ background-color: #d7fd75; }
+
+
+

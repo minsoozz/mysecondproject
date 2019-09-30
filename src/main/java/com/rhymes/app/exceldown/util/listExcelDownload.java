@@ -60,8 +60,8 @@ public class listExcelDownload extends AbstractXlsxView {
                 worksheet.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 6) {
                 worksheet.setColumnWidth(columnIndex, 5000);
-            }else if (columnIndex == 1) {
-                worksheet.setColumnWidth(columnIndex, 4000);
+            }else if (columnIndex == 7) {
+                worksheet.setColumnWidth(columnIndex, 3000);
             }
             columnIndex++;
         }
