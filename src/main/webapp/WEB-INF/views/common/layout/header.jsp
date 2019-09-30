@@ -126,7 +126,7 @@
                                     <a class="nav-link" href="#">EVENT</a>
                                 </li>
                                 <li class="nav-item">
-                           			<a class="nav-link" href="Rhymes/noticelist">CUSTOMER CENTER</a>
+                           			<a class="nav-link" href="/Rhymes/noticelist">CUSTOMER CENTER</a>
                            		</li>
                            		
                             </ul>
