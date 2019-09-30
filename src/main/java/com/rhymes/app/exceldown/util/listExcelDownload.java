@@ -47,20 +47,20 @@ public class listExcelDownload extends AbstractXlsxView {
         while (columnIndex < 8) {
              
             if(columnIndex == 0) {
-                worksheet.setColumnWidth(columnIndex, 4000);
+                worksheet.setColumnWidth(columnIndex, 3000);
             }else if (columnIndex == 1) {
-                worksheet.setColumnWidth(columnIndex, 5000);
+                worksheet.setColumnWidth(columnIndex, 4000);
             }else if (columnIndex == 2) {
                 worksheet.setColumnWidth(columnIndex, 10000);
             }else if (columnIndex == 3) {
-                worksheet.setColumnWidth(columnIndex, 90000);
+                worksheet.setColumnWidth(columnIndex, 8000);
             }else if (columnIndex == 4) {
-                worksheet.setColumnWidth(columnIndex, 4000);
+                worksheet.setColumnWidth(columnIndex, 6000);
             }else if (columnIndex == 5) {
-                worksheet.setColumnWidth(columnIndex, 4000);
+                worksheet.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 6) {
-                worksheet.setColumnWidth(columnIndex, 4000);
-            }else if (columnIndex == 7) {
+                worksheet.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 1) {
                 worksheet.setColumnWidth(columnIndex, 4000);
             }
             columnIndex++;
