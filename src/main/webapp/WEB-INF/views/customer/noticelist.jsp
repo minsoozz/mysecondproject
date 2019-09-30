@@ -24,6 +24,11 @@
 </thead>
 
 <tbody>
+<c:if test="${empty noticelist}">
+	<tr>
+		<td colspan="4">검색결과가 없습니다. 다시 검색하여 주세요.</td>
+	</tr>
+</c:if>
 <c:forEach var="notice" items="${noticelist }" varStatus="vs">
 <tr class="_hover_tr">
 	<td>${vs.count }</td>

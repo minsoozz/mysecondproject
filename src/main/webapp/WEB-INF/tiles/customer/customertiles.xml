@@ -37,14 +37,19 @@
        <put-attribute name="body" value="/WEB-INF/views/customer/faqlist.jsp" />
    </definition>
    <!-- 글작성 -->
-   <definition name="faqwrite.tiles" extends="noticewrite.tiles">
+   <definition name="faqwrite.tiles" extends="noticelist.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/faqwrite.jsp" />
    </definition>
     <!-- 글수정 -->
-   <definition name="faqupdate.tiles" extends="noticewrite.tiles">
+   <definition name="faqupdate.tiles" extends="noticelist.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/faqupdate.jsp" />
    </definition>
    
+   <!-- qna -->
+   <!-- qna리스트 -->
+   <definition name="qnalist.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/qnalist.jsp" />
+   </definition>
    
    
 </tiles-definitions>

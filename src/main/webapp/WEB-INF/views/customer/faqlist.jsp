@@ -9,21 +9,22 @@
 		<button type="button" id="_btnWrite">자주하는질문쓰기</button>
 	</span>
 </div>
-        
+<form action="faqlist" name="frmForm1" id="_frmFormSearch" method="POST">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 <table style="width:85%" >
 <colgroup>
 	<col width="50"><col width="100"><col width="600">
 </colgroup>
 <tr>
 <th>
-	<select name="s_category" onchange="categorychange(this)">
+	<select id="_s_category" name="s_category" onchange="categorychange()">
 	  <option value="" selected="selected">선택</option>
-	  <option value="memberq" <c:out value="${s_category == 'memverq'? 'selected':'' }"/>>회원문의</option>
-      <option value="orderq"<c:out value="${s_category == 'orderq'? 'selected':'' }"/>>주문/결제</option>
-      <option value="cancleq"<c:out value="${s_category == 'cancleq'? 'selected':'' }"/>>취소/교환/반품</option>
-      <option value="deliveryq"<c:out value="${s_category == 'deliveryq'? 'selected':'' }"/>>배송문의</option>
-      <option value="cuponq"<c:out value="${s_category == 'cuponq'? 'selected':'' }"/>>쿠폰/적립금</option>
-      <option value="serviceq"<c:out value="${s_category == 'serviceq'? 'selected':'' }"/>>서비스 이용 및 기타</option>
+	  <option value="01" <c:out value="${s_category == '01'? 'selected':'' }"/>>회원문의</option>
+      <option value="02"<c:out value="${s_category == '02'? 'selected':'' }"/>>주문/결제</option>
+      <option value="03"<c:out value="${s_category == '03'? 'selected':'' }"/>>취소/교환/반품</option>
+      <option value="04"<c:out value="${s_category == '04'? 'selected':'' }"/>>배송문의</option>
+      <option value="05"<c:out value="${s_category == '05'? 'selected':'' }"/>>쿠폰/적립금</option>
+      <option value="06"<c:out value="${s_category == '06'? 'selected':'' }"/>>서비스 이용 및 기타</option>
 	</select>
 </th>
 </tr>
@@ -31,25 +32,30 @@
     
 <table class="list_table" style="width:85%" >
 <colgroup>
-	<col width="50"><col width="100"><col width="600">
+	<col width="50"><col width="100"><col width="600"><col width="150">
 </colgroup>
 <thead>
 <tr>
-	<th>번호</th><th>카테고리</th><th>제목</th>
+	<th>번호</th><th>카테고리</th><th colspan="2">제목</th>
 </tr>
 </thead>
 
 <tbody>
+<c:if test="${empty faqlist }">
+	<tr>
+		<td colspan="4">검색결과가 없습니다. 다시 검색하여 주세요.</td>
+	</tr>
+</c:if>
 <c:forEach var="faq" items="${faqlist }" varStatus="vs">
 <tr class="_hover_tr">
 	<td>${vs.count }</td>
 	<td>${faq.category }</td>
-	<td style="text-align: left;" onclick="faqdetail(${faq.seq})">
+	<td colspan="2" style="text-align: left;" onclick="faqdetail(${faq.seq})">
 			${faq.title }
 	</td>
 </tr>
 <tr class="detail" id='detail${faq.seq}'>
-	<td colspan="2">${faq.content }</td>
+	<td colspan="3">${faq.content }</td>
 	<td>
 	<div>
 	<span class="button blue">
@@ -82,13 +88,12 @@
 <th colspan="5">
 <!-- 검색 -->
 <div class="box_border" style="margin-top: 5px; margin-bottom: 10px">
-<form action="" name="frmForm1" id="_frmFormSearch" method="POST">
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
 <table style="margin-left: auto; margin-right: auto; margin-top: 3px; margin-bottom: 3px">
 <tr>
 	<td>검색:</td>
 	<td style="padding-left: 0px">
-		<input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword }">
+		<input type="text" id="_s_keyword" name="s_keyword" value="">
 	</td>
 	<td style="padding-left: 0px">
 		<span class="buttonsearch">
@@ -108,17 +113,21 @@
 </tbody>
 </table>
 
+</form>
 
 <script type="text/javascript">
-
-
 /* 클릭시 내용보이기 */
 $(".detail").hide();
+
 function faqdetail(seq){
-	//alert("seq"+seq);
-	$(".detail").hide();
-	$("#detail"+seq).show();
 	
+	if($("#detail"+seq).css("display")=="none"){
+		$(".detail").hide();
+		$("#detail"+seq).show();
+	
+	}else{
+		$("#detail"+seq).hide();
+	}
 }
 
 
@@ -132,10 +141,9 @@ function FaqUpdate( seq ) {
 
 
 
-function categorychange( me ){
+function categorychange(  ){
 	
-	var select_category=me.option[me.selectedIndex].value;
-	alert("select_category"+select_category);
+	document.frmForm1.submit();
 	
 }
 
