@@ -83,7 +83,8 @@ p {
 /* Banner */
 
 	#banner {
-		background-image: url("/css/main/img/bg-img/lime.png");
+	
+		background-image: url("/img/main-img/bg-img/lime.png");
 		background-position: center center;
 		background-size: cover;
 		height: 50em;
@@ -93,7 +94,7 @@ p {
 	}
 	
 	#mainpick {
-		background-image: url("/css/main/img/bg-img/lime.png");
+		background-image: url("/img/main-img/bg-img/lime.png");
 		background-position: center center;
 		background-size: cover;
 		height: 40em;
@@ -385,6 +386,11 @@ li {
 }
 
 .top_header_area .signup-search-area .login a {
+    margin-right: 13px;
+    border-right: 2px solid #c2c2c2;
+    padding-right: 13px;
+}
+.top_header_area .signup-search-area .join a {
     margin-right: 13px;
     border-right: 2px solid #c2c2c2;
     padding-right: 13px;

@@ -33,7 +33,7 @@
                <div class="col-12 col-xs-6 col-lg-4">
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
                         <a href="women.jsp">
-                       <img src="css/main/img/catagory-img/1.png" alt="">                        
+                       <img src="/img/main-img/catagory-img/1.png" alt="">                        
                        </a>                       
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="col-12 col-xs-6 col-lg-4">
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
                         <a href="women.jsp">
-                       <img src="css/main/img/catagory-img/2.png" alt="">                        
+                       <img src="/img/main-img/catagory-img/2.png" alt="">                        
                        </a>                       
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="col-12 col-xs-6 col-lg-4">
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
                         <a href="women.jsp">
-                       <img src="css/main/img/catagory-img/3.png" alt="">                        
+                       <img src="/img/main-img/catagory-img/3.png" alt="">                        
                        </a>                       
                     </div>
                 </div>
@@ -99,26 +99,20 @@
    <br><br><br><br>
    
     <div align="center">
-    <iframe width="1800" height="700" src="https://www.youtube.com/embed/k2LhNhZVE3I?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe width="1800" height="700" src="https://www.youtube.com/embed/J4oepdgxul8?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <br><br>
-    <h1 style="color: red">HARIBO</h1>
+    <h1 style="color: pink">MACARON</h1>
      <br>
-     <p>하리보의 대표제품인 하리보 골드베렌은 씹는맛이 매우 질기다. 어느 정도 먹다 보면 턱이 아프다. </p>
-      <p>물론 질기지 않은 제품들도 많다. 이 질김 때문에 좋아하는 사람들도 꽤나 있는 편.  </p>
-      <p>전자레인지로 잠깐 돌려 먹으면 약간은 부드러워진다고 하니 부드럽게 먹고 싶은 사람들은 한 번 해 보자. </p>
-      <p>30초 이상 돌리면 다 녹으니까 5~10초정도만.</p>
+     <p>짱구 영상 질려서 바꿨다</p>
+      <p>하리보도 두개나 되길래 걍 바꿈 귀여운 마카롱으로</p>
+      <p>데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴</p>
+
     
      <br>
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br>
     <!-- 추천 상품 끝 -->
-    
-    
-    
-    
-    
-    
     
     
     

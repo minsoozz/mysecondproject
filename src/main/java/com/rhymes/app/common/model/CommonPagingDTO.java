@@ -58,6 +58,26 @@ public class CommonPagingDTO implements Serializable {
      */
     @Builder
     public CommonPagingDTO(int pageNum, int totalSize) {
+    	this.pageNum = pageNum;
+        this.setRecordCountPerPage(10);
+        //this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) + 1;
+        this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) ;
+        this.endSeq = startSeq + this.getRecordCountPerPage() - 1;
+        this.totalSize = totalSize;
+        //페이지 네비게이션의 최대 사이즈
+        this.maxNavSize = (totalSize % recordCountPerPage == 0) ? (totalSize / recordCountPerPage) : (totalSize / recordCountPerPage) + 1;
+        this.setNav(totalSize);
+    }
+
+    /**현재 페이지 번호와 총 게시글의 수를 매개변수로 받아서 페이징 객체 생성
+     * 페이지 당 글 개수 설정 가능
+     * @param pageNum
+     * @param totalSize
+     * @param recordCountPerPage
+     */
+    @Builder
+    public CommonPagingDTO(int pageNum, int totalSize, int recordCountPerPage) {
+    	this.recordCountPerPage = recordCountPerPage;
         this.pageNum = pageNum;
         this.setRecordCountPerPage(10);
         //this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) + 1;
@@ -137,4 +157,6 @@ public class CommonPagingDTO implements Serializable {
         int temp = this.firstNavIndex + pageNavSize - 1 ;
         this.lastNavIndex = (temp > maxNavSize) ? maxNavSize : temp ;
     }
+    
+    
 }
