@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+
+
+#body_wrap { width:1600px; margin-left:auto; margin-right:auto; padding:0px;}	
+
+#middle_wrap { display:inline-block; width:100%; padding:0px; margin:0px; text-align:center; border:solid 1px #EFEFEF;}
+#footer_wrap { width:100%; border:solid 0px navy; clear:both;}
+	
+
+#sidebar_wrap { float:left; width:250px; margin:0px; padding:3px;}
+#content_wrap { float:left; width:1250px;  border-left:solid 1px #EFEFEF; padding: 5px; }
+
+#content_title_wrap { height:90px; width:100%;  text-align:left; font-weight:normal; line-height:2.5em; _line-height:2.7em; margin-bottom:10px; }
+#content_title_wrap div.title { padding-left:25px; background-repeat:no-repeat; background-position:10px 9px; font-weight:bold; }
+
+
+
+
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- main -->
+	<definition name="ordercheck.tiles" template="/WEB-INF/views/ordercheck/layout/ordercheck_template.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
+	</definition>
+	
+	<definition name="order" extends="ordercheck.tiles">
+		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck.jsp" />
+	</definition>
+
+</tiles-definitions>
