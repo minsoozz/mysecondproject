@@ -5,6 +5,7 @@ import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
+import com.rhymes.app.member.model.SellerDTO;
 
 public interface MemberService{
 	
@@ -32,5 +33,10 @@ public interface MemberService{
 	// 비밀번호 재설정
 	public void getuserpwreset(MemberDTO mem);
 	
+	// 사업자 id찾기
+	public SellerDTO getfindid_seller(SellerBean sbean);
+	
+	// 사업자 pw찾기
+	public boolean getfindpw_seller(SellerBean sbean);
 	
 }

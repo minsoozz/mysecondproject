@@ -1,15 +1,17 @@
 @charset "UTF-8";
-.inputtext_b{
+
+/* 개인회원 */
+.inputtext_b_long12{
 	word-break: break-all;
 	box-sizing: border-box;
 	font: inherit;
-	margin: 5px 5px 5px 5px;
+	margin: 5px 5px 3px 5px;
 	letter-spacing: -0.05em;
 	max-width: 100%;
 	font-family: 'Noto Sans';
 	color: #333;
-	width: 200px;
-	height: 34px;
+	width: 498px;
+	height: 54px;
 	padding: 0 19px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -18,7 +20,24 @@
 	line-height: 20px;
 	outline: none;
 }
-.inputtext_long{
+.regibutton_long{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #525252;
+    font-weight: bolder;
+    height: 54px;
+    padding: 0px 30px 0px 30px;
+    width: 498px;
+    margin: 10px 5px 5px 5px;
+}
+
+
+
+
+
+
+.inputtext_b_long_ch{
 	word-break: break-all;
 	box-sizing: border-box;
 	font: inherit;
@@ -27,8 +46,8 @@
 	max-width: 100%;
 	font-family: 'Noto Sans';
 	color: #333;
-	width: 300px;
-	height: 34px;
+	width: 320px;
+	height: 54px;
 	padding: 0 19px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -47,7 +66,7 @@
 	font-family: 'Noto Sans';
 	color: #333;
 	width: 150px;
-	height: 34px;
+	height: 54px;
 	padding: 0 19px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -60,12 +79,12 @@
 	word-break: break-all;
 	box-sizing: border-box;
 	font: inherit;
-	margin: 5px 5px 30px 5px;
+	margin: 5px 5px 5px 5px;
 	letter-spacing: -0.05em;
 	max-width: 100%;
 	font-family: 'Noto Sans';
 	color: #333;
-	width: 320px;
+	width: 498px;
 	height: 54px;
 	padding: 0 19px;
 	border: 1px solid #ccc;
@@ -75,6 +94,71 @@
 	line-height: 20px;
 	outline: none;
 }
+
+
+/* button:hover{
+	border: 1px solid #d7fd75;
+} */
+.regibutton_b{
+    border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #545454;
+    font-weight: bolder;
+    height: 41px;
+    padding: 0px 30px 0px 30px;
+    margin: 5px 5px 30px 5px;
+    position: relative;
+    top: -82.5px;
+    left: 106.5px;
+}
+.regibutton_b:hover, .sendbutton_b:hover, .regibutton_b_long:hover, .regibutton_long:hover{
+/* 	color: #dfff8c; */
+/* 	border-color:#dfff8c;  */
+	color: #c2fb2d;
+	border-color: #c2fb2d;
+}
+.sendbutton_b{
+    border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #545454;
+    font-weight: bolder;
+    height: 41px;
+    padding: 0px 30px 0px 30px;
+    margin: 5px 5px 30px 5px;
+    position: relative;
+    top: -82.5px;
+    left: 124.5px;
+}
+.findNum{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #000000;
+/*     font-weight: bolder; */
+	font-size: 14px;
+    height: 54px;
+    width:184px;
+    padding: 0px 30px 0px 30px;
+    margin: 5px 5px 30px 5px;
+/*     position: relative; */
+/*     top: -224px; */
+/*     left: -68px; */
+}
+.regibutton_b_long{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #525252;
+    font-weight: bolder;
+    height: 54px;
+    padding: 0px 30px 0px 30px;
+    width: 498px;
+    margin: 5px 5px 5px 5px;
+    
+}
+
 .selectbox{
 	word-break: break-all;
 	box-sizing: border-box;
@@ -94,123 +178,38 @@
 	line-height: 20px;
 	outline: none;
 }
-.regibutton{
+.idpwbtn{
 	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 33px;
-    padding: 0px 30px 0px 30px;
-}
-.regibutton_login{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 33px;
-    width: 300px;
-    padding: 0px 30px 0px 30px;
-}
-.regibutton_b{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
+    border: solid 3px #e6e6e6;
     background-color: #ffffff;
     color: #545454;
     font-weight: bolder;
     height: 54px;
     padding: 0px 30px 0px 30px;
-    margin: 5px 5px 30px 5px;
+    margin: 5px 0px 30px 0px;
+    border-bottom: white;
 }
-.regibutton_long{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 54px;
-    padding: 0px 30px 0px 30px;
-    width: 320px;
-    margin: 5px 5px 5px 5px;
-}
-.txt_title{
- 	margin: 0px 5px 0px 5px;
- 	color: #545454;
-}
-.txt {
-/*     display: block; */
-    font-size: 12px;
-    color: #666;
-    line-height: 20px;
-    margin-left: 10px;
-}
-.txt_point{
-	margin: 0px 0px 0px 10px;
-	color: #759ffd;
-}
-.regibutton_b_long{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 54px;
-    padding: 0px 30px 0px 30px;
-    width: 424px;
-    margin: 5px 5px 5px 5px;
-}
-.c_name{
-	margin-right: 180px;
-/* 	font-size: 12px; */
-    color: #666;
-}
-.c_num{
-	margin: 10px;
-/* 	font-size: 12px; */
-    color: #666;
-}
-.regi_table{
-	table-layout: fixed; border-collapse: collapse; padding: 0; border-style: none; border-width: 1px 1px 0 1px; background:#f5f5f578;  align-content: center; margin: auto;
-}
-#_crText{
-	padding: 10px 0px 10px 0px;
-}
-.findNum{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 54px;
-    width:184px;
-    padding: 0px 30px 0px 30px;
-    margin: 5px 5px 30px 5px;
-    
+#footer_wrap {
+	z-index: -1;
+	position: relative;
+	top: 350px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+input{
+	border: 1px solid #d7fd75;
+}
+.findidtext {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: larger;
+    color: #505050;
+    /* margin-bottom: 10px; */
+    padding-bottom: 16px;
+}
+.text{
+	color: #b3b3b3;
+	
+}
+.textdiv{
+	margin-bottom: 17px;
+}

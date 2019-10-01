@@ -182,6 +182,28 @@ public class MemberServiceImpl implements MemberService {
 		mem.setUserpw(passwordEncoder.encode(mem.getUserpw()));
 		memberdao.getuserpwreset(mem);
 	}
+
+	@Override
+	public SellerDTO getfindid_seller(SellerBean sbean) {
+		
+		String c_num = sbean.getCrnum1()+"-"+sbean.getCrnum2()+"-"+sbean.getCrnum3();
+		
+		SellerDTO sdto = new SellerDTO(null,sbean.getC_name(), c_num);
+		
+		return memberdao.getfindid_seller(sdto);
+	}
+
+	@Override
+	public boolean getfindpw_seller(SellerBean sbean) {
+		
+		String c_num = sbean.getCrnum1()+"-"+sbean.getCrnum2()+"-"+sbean.getCrnum3();
+		
+		SellerDTO sdto = new SellerDTO(sbean.getUserid(),sbean.getC_name(), c_num);
+		
+		return memberdao.getfindpw_seller(sdto);	// 사업자 id,상호명,email이 일치하다면 비밀번호 수정하기
+
+		
+	}
 	
 
 

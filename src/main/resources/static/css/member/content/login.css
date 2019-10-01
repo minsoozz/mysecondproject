@@ -1,0 +1,73 @@
+@charset "UTF-8";
+.inputtext_long{
+	word-break: break-all;
+	box-sizing: border-box;
+	font: inherit;
+	margin: 5px 5px 5px 5px;
+	letter-spacing: -0.05em;
+	max-width: 100%;
+	font-family: 'Noto Sans';
+	color: #333;
+	width: 300px;
+	height: 54px;
+	padding: 0 19px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	font-size: 14px;
+	line-height: 20px;
+	outline: none;
+}
+.regibutton_login{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #525252;
+    font-weight: bolder;
+    height: 54px;
+    width: 300px;
+    margin: 5px 5px 5px 5px;
+    padding: 0px 30px 0px 30px;
+}
+.regibutton_login:hover{
+	color: #c2fb2d;
+	border-color:#c2fb2d; 
+}
+a{
+	text-decoration: none;
+}
+a:visited {
+	color: black;
+/* 	한 번 이상 방문했을 때 */
+}
+
+a:active {
+	color: gray;
+/* 	링크를 클릭한 순간 */
+}
+#footer_wrap {
+	z-index: -1;
+	position: relative;
+	top: 300px;
+}
+.rememberCheck{
+    /* padding-left: 1.25rem; */
+    margin-bottom: 0;
+    position: relative;
+    left: 6px;
+    top: 2px;
+}
+.findidpw{
+	padding: 0px;
+	position: relative;
+	left: 11px;
+	color: #212529;
+}
+.logintext{
+	font-family: sans-serif;
+	font-weight: bold;
+    font-size: larger;
+    color: #505050;
+    /* margin-bottom: 10px; */
+    padding-bottom: 16px;
+}

@@ -1,0 +1,96 @@
+@charset "UTF-8";
+.regibutton{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: white;
+    color: #525252;
+    font-weight: bolder;
+    height: 54px;
+    width: 300px;
+    margin: 5px 5px 5px 5px;
+/*     padding: 0px 30px 0px 30px; */
+    position: relative;
+    top: 250px;
+/*     left: 123px; */
+}
+/* .regibutton1{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: white;
+    color: #000000;
+    font-weight: bolder;
+    height: 54px;
+    width: 300px;
+    margin: 5px 5px 5px 5px;
+    padding: 0px 30px 0px 30px;
+    position: relative;
+    top: -171px;
+    left: 242px;
+}  */
+
+.regibutton:hover, .regibutton1:hover{
+	color: #c2fb2d;
+	border-color:#c2fb2d; 
+}
+img{
+	opacity: 10;
+}
+.selletext{
+	font-size: x-large;
+	margin-right: 37px;
+	color: white;
+	font-weight: lighter;
+/* 	position: relative; */
+/* 	left: 1px */
+}
+.regiintroduce{
+
+	font-size: xx-large;
+}
+/* .regiintroducediv{
+	position: relative;
+	top: 178px;
+	color: white;
+} */
+.regiintroducediv2{
+	position: relative;
+	top: -151px;
+	left: -109px;
+}
+#footer_wrap {
+	z-index: -1;
+	position: relative;
+	top: 115px;
+}
+.regiintroducediv123{
+	position: relative;
+	top: 40px;
+}
+.findidtext{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: larger;
+    color: #505050;
+    /* margin-bottom: 10px; */
+    padding-bottom: 16px;
+}
+
+.imgclass{
+	padding: 10px;
+}
+.btndiv{
+	position: relative;
+	top: -50px;
+}
+.backcolor{
+/* 	background-color: #f2f2f28c; */
+	border: solid 1px #c2fb2d;
+    position: absolute;
+    left: 503px;
+    z-index: -1;
+    height: 500px;
+    width: 700px;
+    /* padding-top: 6px; */
+    margin-top: -29px;
+	
+}

@@ -44,18 +44,16 @@
                     </div>
                 </div>
                 
-               
-                
                 <!--  Login Register Area  -->
                 <div class="col-7 col-xs-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
                             
                             <div class="login">
-                                <a href="a.jsp">Login</a>
+                                <a href="/member/login">Login</a>
                             </div>
                             <div class="join">
-                                <a href="a.jsp">Join</a>
+                                <a href="/member/regiMain">Join</a>
                             </div>
                             <div class="mypage">
                                 <a href="a.jsp">Mypage</a>

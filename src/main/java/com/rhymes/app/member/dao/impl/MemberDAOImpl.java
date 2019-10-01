@@ -11,6 +11,7 @@ import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
 import com.rhymes.app.member.model.SellerDTO;
 
@@ -86,6 +87,19 @@ public class MemberDAOImpl implements MemberDAO {
 		public void getuserpwreset(MemberDTO mem) {
 			sqlSession.update(ns+"getuserpwreset", mem);
 			
+		}
+
+		// 사업자 id찾기
+		@Override
+		public SellerDTO getfindid_seller(SellerDTO sdto) {
+			return sqlSession.selectOne(ns+"getfindid_seller", sdto);
+		}
+
+		// 사업자pw찾기
+		@Override
+		public boolean getfindpw_seller(SellerDTO sdto) {
+			int n = sqlSession.selectOne(ns+"getfindpw_seller", sdto);
+			return n>0?true:false;	
 		}
 
 

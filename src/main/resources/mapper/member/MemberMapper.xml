@@ -105,5 +105,19 @@
 		WHERE ID=#{userid}
 	</update>
 	
+	<!-- 사업자 id찾기 -->
+	<select id="getfindid_seller" parameterType="com.rhymes.app.member.model.SellerDTO" resultType="com.rhymes.app.member.model.SellerDTO">
+		SELECT ID, IC_EMAIL
+		FROM RHY_MEM_C
+		WHERE C_NAME=#{c_name} AND C_NUM=#{c_num}
+	</select>
+	
+	<!-- 사업자pw찾기 -->
+	<select id="getfindpw_seller" parameterType="com.rhymes.app.member.model.SellerDTO" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM RHY_MEM_C
+		WHERE C_NAME=#{c_name} AND C_NUM=#{c_num} AND ID=#{id}
+	</select>
+	
 	
 </mapper>

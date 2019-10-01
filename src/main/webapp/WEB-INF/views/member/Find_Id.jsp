@@ -6,12 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/inputText.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/findid.css">
 
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/findid.css">
-<!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- 
 <style type="text/css">
 .section_login{
@@ -52,9 +48,54 @@ function chkForm() {
 </script>
 
 <script>
-  $( function() {
+/*   $( function() {
     $( "#tabs" ).tabs();
-  } );
+  } ); */
+  
+$(document).ready(function(){
+	$("#tabs-1").hide();
+	$("#12").css("border-color", "rgb(223, 255, 140)");
+});
+  </script>
+  <script>
+  $(document).ready(function(){
+	  $("#34").click(function() {
+		 
+		  $("#tabs-1").show();		// 비밀번호찾기 
+		  $("#tabs-2").hide();		// 아이디찾기
+	  
+	  });
+  });
+  </script>
+  <script>
+  $(document).ready(function(){
+	  $("#12").click(function() {
+		  $("#tabs-1").hide();
+		  $("#tabs-2").show();
+	  });
+  });
+ </script>
+ 
+ <!-- text박스 테두리 -->
+
+ 
+ <script type="text/javascript">
+ $(document).ready(function(){
+	 $("#34").mouseover(function () {
+			$(this).css("cursor", "pointer");	// 커서가 화살표 모양이 아닌 손가락 모양으로 바뀐다.
+	});
+	 $("#34").mousedown(function () {
+			$(this).css("border-color", "rgb(223, 255, 140)");
+			$("#12").css("border-color", "#e6e6e6");
+	});
+	 
+	 
+	 $("#12").mouseover(function () {
+			$(this).css("cursor", "pointer");	// 커서가 화살표 모양이 아닌 손가락 모양으로 바뀐다.
+			$(this).css("border-color", "rgb(223, 255, 140)");
+			$("#34").css("border-color", "#e6e6e6");
+		});
+ });
  </script>
  
  
@@ -96,64 +137,72 @@ function checkIt() {
 <body>
 
 <div id="tabs">
-  <ul>
+<!--   <ul>
     <li><a href="#tabs-2">아이디 찾기</a></li>
     <li><a href="#tabs-1">비밀번호 찾기</a></li>
-  </ul>
+  </ul> -->
+<div align="center">
+
+	<div class="findidtext">
+		아이디 찾기
+	</div>
+
+	<div class="">
+		<button id="12" class="idpwbtn" >개인회원</button>
+	
+		<button id="34" class="idpwbtn">사업자회원</button>
+	</div>
+
+  </div>
   
   
-  
-  <!-- 아이디찾기 -->
+  <!-- 개인회원 -->
   <div id="tabs-2">
     <div class="section_login">
-		<div class="section_login_email" >
+		<div class="section_login_email" align="center">
 			<form action="/member/getFindID" name="userinput" method="get" onsubmit="return checkIt()">
-	
-				<input type="text" class="inputtext_b_long" name="useremail" size="29" tabindex="5" required="required" placeholder="이메일"><br>
-	
-				<input type="password" class="inputtext_b_long" name="userpw" size="29" required="required" placeholder="비밀번호"><br>
-	
-				<button type="submit" class="regibutton_long"><span style="color: #545454;">확인</span></button><br>
-				<button type="button" class="regibutton_long" onclick="javascript:window.location.href='login'"><span style="color: #545454;">돌아가기</span></button>
 				
+				<div class="textdiv">
+					<span class="text">등록된 내 회원정보로 찾을 수 있습니다.</span>
+				</div>
+				
+				<input type="text" class="inputtext_b_long12" name="useremail" size="29"  required placeholder="이메일"><br>
+	
+				<input type="password" class="inputtext_b_long12" name="userpw" size="29" required placeholder="비밀번호"><br>
+				<br>
+				<div class="findidbtn">
+					<button type="submit" class="regibutton_long"><span>확인</span></button><br>
+					<button type="button" class="regibutton_long" onclick="javascript:window.location.href='login'"><span >돌아가기</span></button>
+				</div>		
 			</form>
 		</div>
 	</div>
   </div>
   
   
-  <!-- 비밀번호 찾기 -->
+  <!-- 사업자회원 상호명+사업자번호 -->
   <div id="tabs-1">
     <div class="section_login">
-		<div class="section_login_email" >
-			<form action="/member/getFindPWtel" name="userinput" method="get" onsubmit="return checkIt()">
-				<input type="hidden" name="pwcode1" id="pwcode1">
-				<input type="hidden" name="pwcode2" id="pwcode2">
-				<input type="hidden" name="pwcode3" id="pwcode3">
-				<input type="hidden" name="pwcode4" id="pwcode4">
+		<div class="section_login_email" align="center">
+			<form action="/member/getFindID_seller" name="userinput" method="get" onsubmit="return checkIt()">			
+			
+			<div class="textdiv">
+				<span class="text">가입 시 입력한 상호명, 사업자번호로 아이디를 찾을 수 있습니다.</span>
+			</div>
+				<div class="sendnum">
+					<input type="text" class="inputtext_b_long" name="c_name" placeholder="상호명" required><br>
+				</div>		
 				
-<!-- 				<strong class="txt_title"><input type="radio">휴대폰으로 찾기</strong><br><br> -->
+				<input type="text" name="crnum1" class="inputtext_s" id="_c_num1" minlength="3" maxlength="3" required>
+				- <input type="text" name="crnum2" class="inputtext_s" id="_c_num2" minlength="2" maxlength="2" required>
+				- <input type="text" name="crnum3" class="inputtext_s" id="_c_num3" minlength="5" maxlength="5" required>
+				<br><br>
 				
-				<input type="text" class="inputtext_b_long" id="_userid" size="29" tabindex="5" required="required" placeholder="아이디">
-				<input type="button" value="확인" class="regibutton_b" id="_idbtn">
-				<input type="hidden" id="IdText" name="userid" value="아이디인증확인용">
-				<br>
-	
-				<select class="selectbox" id="telSelect">
-					<option value="010">010</option>
-					<option value="011">011</option>
-					<option value="070">070</option>
-				</select>
-				<input type="text" class="inputtext_b_long" id="to" size="29" required="required" placeholder="- 없이 입력" maxlength="8"><br>
-				<input type="button" value="인증번호 전송" id="send" class="regibutton_b">
+				<div class="findBtn">
+					<button type="submit" class="regibutton_b_long"><span>확인</span></button><br>
+					<button type="button" class="regibutton_b_long" onclick="javascript:window.location.href='login'"><span>돌아가기</span></button>
+				</div>
 				
-				<br>
-				<input type="text" value="" placeholder="인증번호" class="findNum">
-				<input type="hidden" id="frontto" name="phone" placeholder="010합치기">
-				<input type="hidden" id="text" placeholder="확인용">
-				<br>
-				<button type="submit" class="regibutton_b_long"><span style="color:#545454;">확인</span></button><br>
-				<button type="button" class="regibutton_b_long" onclick="javascript:window.location.href='login'"><span style="color: #545454;">돌아가기</span></button>
 			</form>
 		</div>
 	</div>

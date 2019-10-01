@@ -7,16 +7,111 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/inputText.css">
-<style type="text/css">
-/* table {table-layout: fixed; border-collapse: collapse; padding: 0; border-style: none; border-width: 1px 1px 0 1px; background:#f5f5f578;  align-content: center; margin: auto;} */
-th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; }
-td {text-align:left; border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; padding: 15px;}
-/* input {font-family: Tahoma, Dotum, "����"; font-size:1em;} */
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/regisellerdetail.css">
+
+<!-- 키보드 비밀번호 검증 -->
+<script type="text/javascript">
+function isPostNum(obj) {
+	
+	var str = obj.value;
+	var userinput = eval("document.userinput");
+	var password = userinput.userpw.value;
+	var id = userinput.userid.value;
+	var checkNumber = str.search(/[0-9]/g);
+	var checkEnglish = str.search(/[a-z]/ig);
+	
+	if(!/^[a-zA-Z0-9]{8,25}$/.test(str)){
+	    $(".txt2").text("숫자+영문자 조합으로 8~25자까지 사용가능합니다.");
+	    $(".txt2").css("color","red");
+	}
+	else if(checkNumber <0 || checkEnglish <0){
+	    $(".txt2").text("숫자와 영문자를 혼용하여야 합니다.");
+	    $(".txt2").css("color","red");
+	}
+	else if(/(\w)\1\1\1/.test(str)){
+	    $(".txt2").text("같은 문자를 4번 이상 사용하실 수 없습니다.");
+	    $(".txt2").css("color","red");
+	}
+	else if(str.search(id) > -1){
+	    $(".txt2").text("비밀번호에 아이디가 포함되었습니다.");
+	}
+	else{
+		$(".txt2").text("사용가능한 비밀번호입니다.");
+	    $(".txt2").css("color","blue");
+	}
+	
+}
+</script>
+
+<!-- 키보드 비밀번호 재확인 -->
+<script type="text/javascript">
+function isPostNum2(obj) {
+	var userinput = eval("document.userinput");
+	var pw = obj.value;
+	if(userinput.userpw.value != pw) {
+// 		alert("cc");
+		$(".txt2_1").text("비밀번호가 일치하지 않습니다.");
+	    $(".txt2_1").css("color","red");
+	}else{
+		$(".txt2_1").text("확인");
+	    $(".txt2_1").css("color","blue");
+	}
+}
+</script>
 
 
 
-</style>
+<!-- 키보드 아이디 검증 -->
+<script type="text/javascript">
+function isCheckKeybord(obj) {
+	
+	var inputid = obj.value;
+	var userinput = eval("document.userinput");
+	
+	if(!/^[a-zA-Z0-9]{6,16}$/.test(inputid)) {
+        /* alert("[아이디]는 숫자와 영문자 조합으로 6~16자까지 사용 가능합니다."); */
+		$(".txt1").text("숫자와 영문자 조합으로 6~16자까지 사용 가능합니다.");
+	    $(".txt1").css("color","red");
+	}
+}
+</script>
+
+<!-- 키보드 이름 검증 -->
+<script type="text/javascript">
+function isCheckKeybordName(obj) {
+	
+	var inputname = obj.value;
+	var deny_char = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\*]+$/;
+	
+ 	if (!deny_char.test(inputname)) {
+//  		alert("dd");
+ 		$(".txt3").text("영문자 또는 한글 입력을 입력해주세요");
+	    $(".txt3").css("color","red");
+ 	}
+ 	else{
+ 		$(".txt3").text("");
+ 	}
+ 	
+}
+</script>
+
+<!-- 키보드 이메일 검증 -->
+<script type="text/javascript">
+function isCheckKeybordEmail(obj) {
+	
+	var inputemail = obj.value;
+	var pattern = /^([\w]{1,})+[\w\.\-\_]+([\w]{1,})+@(?:[\w\-]{2,}\.)+[a-zA-Z]{2,}$/;
+	var bChecked = pattern.test(inputemail);
+	if(!pattern.test(inputemail)){
+		$(".txt4").text("이메일 형식에 맞춰주세요");
+	    $(".txt4").css("color","red");
+	    	
+	}else{
+		$(".txt4").text("");
+	}
+ 	
+}
+</script>
 
 <script type="text/javascript">
 // 아이디 - 숫자와 영문자 조합으로 6~10자
@@ -219,15 +314,16 @@ function checkIt() {
 
 
 <body>
-<h3>rhymes 사업자샐러회원 정보입력</h3>
+
 
 <form action="/member/addsellerdetail" name="userinput" onsubmit="return checkIt()" method="get">
 <input type="hidden" name="authority" value="ROLE_SELLER">
-<div id="body">
+<div id="body" align="center">
 	<table class="regi_table">
+	
 		<tr>
 			<th>
-			<span class="th_title">상호 명</span>
+			<span class="th_title fname">상호 명</span>
 			</th>
 			<td>
 				<span class="c_name">${crdto.crname}</span>
@@ -248,7 +344,7 @@ function checkIt() {
 				<span class="th_title">아이디</span>
 			</th>
 			<td>
-				<input type="text" id="_id" name="userid" maxlength="12" minlength="6" idnumberengonly="true" onclick="idOn()" class="inputtext_s" required/>
+				<input type="text" id="_id" name="userid" maxlength="12" minlength="6" idnumberengonly="true" onclick="idOn()" class="inputtext_s" placeholder="아이디" required/>
 				<input type="button" name="confirm_id" value="중복확인" 
 				class="regibutton" id="inputBtn" onclick="idCheck()" />
 				<span id="_rgetid" class="txt">6자 이상의 영문 혹은 영문과 숫자를 조합</span>
@@ -260,8 +356,9 @@ function checkIt() {
 			<span class="th_title">비밀번호</span>
 			</th>
 			<td>
-				<input type="password" name="userpw" maxlength="25" minlength="8" class="inputtext_s" id="_pwd" onclick="idOn()" required>
-				<span class="txt">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</span>
+				<input type="password" name="userpw" maxlength="25" minlength="8" class="inputtext_s" 
+				id="_pwd" onchange="isPostNum(this)" required placeholder="비밀번호">
+				<span class="txt txt2">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</span>
 			</td>
 		</tr>
 		<tr>
@@ -269,16 +366,18 @@ function checkIt() {
 			<span class="txt_point">*</span>
 			<span class="th_title">비밀번호 확인</span>
 			<td>
-				<input type="password" name="userpw2" maxlength="25" id="_pwd2" class="inputtext_s" required/>
+				<input type="password" name="userpw2" maxlength="25" id="_pwd2" 
+				onchange="isPostNum2(this)" class="inputtext_s" required placeholder="비밀번호 확인"/>
+				<span class="txt txt2_1">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</span>
 			</td>
 		</tr>	
 		<tr>
 			<th>
 				<span class="txt_point">*</span>
-				<span class="th_title">대표자명</span>
+				<span class="th_title">대표자 명</span>
 			</th>
 			<td>
-				<input type="text" name="p_name" id="_p_name" class="inputtext_b" required>
+				<input type="text" name="p_name" id="_p_name" class="inputtext_b" required placeholder="대표자 명">
 			</td>
 		</tr>
 		<tr>
@@ -287,7 +386,7 @@ function checkIt() {
 				<span class="th_title">업태</span>
 			</th>
 			<td>
-				<input type="text" name="c_cond" id="_c_cond" class="inputtext_b" required>
+				<input type="text" name="c_cond" id="_c_cond" class="inputtext_b" required placeholder="업태">
 			</td>
 		</tr>
 		<tr>
@@ -296,30 +395,30 @@ function checkIt() {
 				<span class="th_title">종목</span>
 			</th>
 			<td>
-				<input type="text" name="c_type" id="_c_type" class="inputtext_b" required>
+				<input type="text" name="c_type" id="_c_type" class="inputtext_b" required placeholder="종목">
 			</td>
 		</tr>
 		<tr>
 			<th>
 				<span class="txt_point">*</span>
-				<span class="th_title">담당자이름</span>
+				<span class="th_title">담당자 이름</span>
 			</th>
 			<td>
-				<input type="text" name="ic_name" id="_ic_name" class="inputtext_b" required>
+				<input type="text" name="ic_name" id="_ic_name" class="inputtext_b" required placeholder="담당자 이름">
 			</td>
 		</tr>
 		<tr>
 			<th>
 				<span class="txt_point">*</span>
-				<span class="th_title">담당자번호</span>
+				<span class="th_title">담당자 번호</span>
 			</th>
 			<td>
-				<input type="number" id="to" name="to" minlength="11" maxlength="11" class="inputtext_b">   <!-- 인증번호 받을사람 휴대폰 번호 -->
-	 					<input type="button" id="send" value="전송" class="regibutton"><br><br> <!-- 문자보내는 전송버튼 -->
-	 					인증번호   <input type="number" id="userNum" class="inputtext_s">   <!-- 인증번호 입력창 -->
-									<input type="button" id="enterBtn" value="확인" class="regibutton">   <!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
-									<input type="hidden" name="text" id="text" placeholder="확인용">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-									<input type="hidden" id="textresult" name="textresult" placeholder="textresult">
+				<input type="number" id="to" name="to" minlength="11" maxlength="11" class="inputtext_b" placeholder="- 없이(ex 01012345678)">   <!-- 인증번호 받을사람 휴대폰 번호 -->
+	 					<input type="button" id="send" value="전송" class="regibutton"> <!-- 문자보내는 전송버튼 -->
+	 					<input type="number" id="userNum" class="inputtext_s" placeholder="인증번호 입력">   <!-- 인증번호 입력창 -->
+						<input type="button" id="enterBtn" value="확인" class="regibutton">   <!-- 인증번호와 내가 입력창에 입력한 인증번호 비교하는 창 -->
+						<input type="hidden" name="text" id="text" placeholder="확인용">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+						<input type="hidden" id="textresult" name="textresult" placeholder="textresult">
 			</td>
 		</tr>
 		<tr>
@@ -328,17 +427,17 @@ function checkIt() {
 				<span class="th_title">담당자메일</span>
 			</th>
 			<td>
-				<input type="text" name="ic_email1" class="inputtext_s" id="_ic_email1">
+				<input type="text" name="ic_email1" class="inputtext_email" id="_ic_email1">
 				@
-				<input type="text" name="ic_email2" class="inputtext_s" id="_email2">
-				<select name="ic_email3" class="inputtext_s" id="_emailSelect" onchange="changeEmail()">
+				<input type="text" name="ic_email2" class="inputtext_email" id="_email2">
+				<select name="ic_email3" class="inputtext_email eposition" id="_emailSelect" onchange="changeEmail()">
 					<option value="x">직접입력</option>
 					<option value="naver.com">naver.com</option>
 					<option value="hanmail.net">hanmail.net</option>
 					<option value="gmail.com">gmail.com</option>
 				</select>
-				<input type="button" id="_emailBtn" value="이메일 인증" class="regibutton"><br><br>
-				인증번호<input type="text" id="_emailText" class="inputtext_s" minlength="6" maxlength="6">
+				<input type="button" id="_emailBtn" value="이메일 인증" class="regibutton eposition epbtn">
+				<input type="text" id="_emailText" class="inputtext_s" minlength="6" maxlength="6" placeholder="인증번호 입력">
 				<input type="button" id="_emailNumBtn" value="인증번호 확인" class="regibutton">
 							<input type="hidden" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
 							<input type="hidden" id="_checkCode" name="checkCode" placeholder="이메일 인증했는지 체크">
@@ -392,9 +491,9 @@ function checkIt() {
 		</tr>
 		<tr>
 			<td colspan="2">
-			<div id="footer">
-				<input type="submit" value="확인" class="regibutton">
-				<input type="button" value="취소" onclick="javascript:window.location.href='login'" class="regibutton">
+			<div class="regibtn" align="center">
+				<input type="submit" value="확인" class="inputregibtn">
+				<input type="button" value="취소" onclick="javascript:window.location.href='login'" class="inputregibtn">
 			</div>
 			</td>
 		</tr>

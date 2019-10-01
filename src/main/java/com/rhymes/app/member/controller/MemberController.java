@@ -246,11 +246,8 @@ public class MemberController {
        set.put("type", "sms"); // 문자 타입
 
        System.out.println(set);
-       
-       
-       
+
        JSONObject result = coolsms.send(set); // 보내기&전송결과받기
-       
 
        if ((boolean)result.get("status") == true) {
          // 메시지 보내기 성공 및 전송결과 출력
@@ -271,8 +268,8 @@ public class MemberController {
      }
 	
 	
-	// 사업자회원가입(사업자 추가정보)
-	@GetMapping("/findid")
+	// id찾기 view이동
+	@GetMapping("/getfindid")
 	public String findid() {
 		return "rhyfindid";
 	}
@@ -318,7 +315,68 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 	
+	// 사업자 아이디 찾기
+	@GetMapping("/getFindID_seller")
+	public String getfindid_seller(SellerBean sbean, Model model) {
+		
+		SellerDTO sdto= memService.getfindid_seller(sbean);
+		
+		String msg = "";
+		String sellerid = "";
+		
+		if(sdto.getId() == "" || sdto.getId()==null) {
+			return "rhyfindid";
+		}else {
+			
+			msg = sdto.getId().substring(0,sdto.getId().length()-3);
+			sellerid = msg+"***";
+			System.out.println("sellerid: " +sellerid );
+			
+			model.addAttribute("foundsellerid", sellerid);	// id***
+			model.addAttribute("sellerid", sdto.getId());		// 사업자 아이디
+			model.addAttribute("selleremail", sdto.getIc_email());	// 사업자 이메일
+			return "rhyfindAf";
+			
+		}
+		
+	}
+	// 사업자 id 이메일로 보내기
+	@GetMapping("/getFindIDEmail_seller")
+	public String getFindIDEmail_seller(SellerDTO sdto, Model model) {
+		
+		String ic_email = sdto.getIc_email();
+		String id = sdto.getId();
+		
+		System.out.println("ic_email: " + ic_email);
+		RhymesMailling.sendMailId(RhymesMailling.getAuthorizationid(id), ic_email);
+		
+		model.addAttribute("text", "회원님의 이메일로 id를 보냈습니다.");
+		
+		return "rhyfindsuc";
+	}
+	
+	// 사업자 비밀번호 찾기
+	@GetMapping("/getFindPw_seller")
+	public String getFindPw_seller(SellerBean sbean, Model model) {
+		
+		boolean b= memService.getfindpw_seller(sbean);
+		
+		if(b) {
+			model.addAttribute("userid", sbean.getUserid());
+			return"rhypwreset";
+		}else {			
+			return "rhyfindpw";
+		}
+		
+		
+	}
+	
 	// 비밀번호 찾기
+	@GetMapping("/getfindpw")
+	public String getfindpw() {
+		return "rhyfindpw";
+	}
+
 	@GetMapping("/getFindPWtel")
 	public String getFindPWtel(P_MemberDTO pmem, Model model) {
 		
@@ -336,14 +394,14 @@ public class MemberController {
 		
 	}	
 	
-	// 비밀번호 찾기
+	// 비밀번호 수정
 	@GetMapping("/userpwreset")
-	public String userpwreset(MemberDTO mem, HttpServletRequest req) {
+	public String userpwreset(MemberDTO mem, HttpServletRequest req, Model model) {
 		
 		memService.getuserpwreset(mem);
+		model.addAttribute("text", "비밀번호가 성공적으로 변경되었습니다.");
 		
-		
-		return"rhylogin";
+		return"rhyfindsuc";
 		
 		
 	}

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/inputText.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/inputText.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
@@ -50,15 +50,19 @@ function checkIt() {
 </script>
 
 <body>
-
-비밀번호 재설정
-
+	<div align="center">
+		<span class="findidtext">
+			비밀번호 재설정
+		</span>
+	</div>
+	<br>
+<div align="center">
 <form action="/member/userpwreset" name="userinput" onsubmit="return checkIt()" method="get">
 <input type="hidden" value="${userid }" name="userid">
 	<input type="text" name="userpw" class="inputtext_b_long" required placeholder="비밀번호"><br>
 	<input type="text" name="userpw2" id="_pwd2" class="inputtext_b_long" required placeholder="비밀번호 재확인"><br>
-	<button type="submit" class="regibutton_long"><span style="color:#545454;">확인</span></button>
+	<br><button type="submit" class="regibutton_long"><span style="color:#545454;">확인</span></button>
 </form>
-
+</div>
 </body>
 </html>
