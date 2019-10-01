@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/css/member/mypage/content/orderlog.css">
 </head>
 <body>
+<div>
 	<div>
 	카테고리별 상품
 	<button ></button>
@@ -32,8 +33,6 @@
 					</select>
 			</form>
 	</div>
-
-<div class="container">
 <c:forEach items="${list }" var="var" varStatus="i">
 <c:set var="img" value="${var.photo_sys }"/>
 		<%

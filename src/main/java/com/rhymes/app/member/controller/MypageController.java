@@ -1,19 +1,26 @@
 package com.rhymes.app.member.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.member.model.MemberDTO;
-import com.rhymes.app.member.model.MemberPointDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
+import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
+import com.rhymes.app.member.service.MypageCouponService;
 import com.rhymes.app.member.service.MypagePointsService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -98,3 +105,4 @@ public class MypageController {
       return "member/mypage/personal";
    }
 }
+	

@@ -15,13 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.Service.UsedService;
 import com.rhymes.app.used.dao.UsedDao;
 import com.rhymes.app.used.model.ProductsDto;
@@ -37,11 +40,12 @@ public class UsedController {
 	
 	@GetMapping("/hello") 
 	public String test(HttpServletRequest req) {
-		
-		MemberDTO Mdto = new MemberDTO("mhj", "mhj");
+		// 아직 구축이 제대로 안되서 임의로 로그인 아이디 설정해 놓음
+		P_MemberDTO Mdto = usedService.getMemberDto("ysujin17");
+		Mdto.setUserid("ysujin17");
+		System.out.println(Mdto.toString());
 		
 		req.getSession().setAttribute("login", Mdto);
-		
 		return "used/test";
 	}
 	
@@ -82,6 +86,37 @@ public class UsedController {
 //		System.out.println(name);
 		
 		return "popup";
+	}
+	
+	@PostMapping("popupAf")
+	public void popupAf(String s_id, @RequestParam(required = false, defaultValue="") String postcode,
+			@RequestParam(required = false, defaultValue="") String address, @RequestParam(required = false, defaultValue="") String detailaddress,
+			HttpServletRequest req) {
+		
+		if(postcode.equals("") || postcode == null || address.equals("") || address == null || 
+				detailaddress.equals("") || detailaddress == null) {
+			boolean b  = usedService.setSellerMember(s_id);
+			if(b) {
+				System.out.println("등록 완료");
+			} else {
+				System.out.println("등록 실패");
+			}
+		
+		} else {
+			
+			((P_MemberDTO)req.getSession().getAttribute("login")).setPostcode(postcode);
+			((P_MemberDTO)req.getSession().getAttribute("login")).setAddress(address);
+			((P_MemberDTO)req.getSession().getAttribute("login")).setDetailAddress(detailaddress);		// 세션에 담겨있는 정보를 수정해 줌..(일단 작업하기위해서)
+			
+			boolean b = usedService.setSellerMember((P_MemberDTO)req.getSession().getAttribute("login"));		// 오버라이딩해서 매개변수를 다르게 설정해주었다 (복습)
+			
+			if(b) {
+				System.out.println("등록 완료");
+			} else {
+				System.out.println("등록 실패");
+			}
+		}
+		
 	}
 	
 	@GetMapping("usedwrite")
@@ -158,9 +193,12 @@ public class UsedController {
 	@GetMapping(value = "/SendSms")
 	@ResponseBody
 	  public String sendSms(HttpServletRequest request) throws Exception {
+	
+		int count = usedService.getSellerCount( (String)request.getParameter("id") );
+		System.out.println("id : " + (String)request.getParameter("id") +" count : " +count );
 		
-		System.out.println("sendSms 도착");
-		
+		if(count <= 3) {
+
 	    String api_key = "NCSVKDEE4KHSNBFN";
 	    String api_secret = "KDPVGPJQJMGFBVB4BQPRZFSAHLQF9DLM";
 	  
@@ -175,9 +213,7 @@ public class UsedController {
 	    set.put("type", "sms"); // 문자 타입
 
 	    System.out.println(set);
-	    
-	    
-	    
+
 	    JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 	    
 	    
@@ -196,8 +232,17 @@ public class UsedController {
 	      System.out.println(result.get("code")); // REST API 에러코드
 	      System.out.println(result.get("message")); // 에러메시지
 	    }
+	    
+	    return "해당 번호로 문자를 발송하였습니다 인증횟수("+count+"/3)회";
+	    
+	}
+	    
+	    
+	    else {
+			return "인증한도 3회를 초과하였습니다 고객센터에 문의하세요";
+		}
 		
-	    return "suc";
+	    
 	  }
 }
 

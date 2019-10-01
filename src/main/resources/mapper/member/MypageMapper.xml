@@ -13,7 +13,7 @@
 	</select>
 	
 	<!-- 검색조건에 맞는 적립금 디테일 정보 리턴 -->
-	<select id="getDetailsOnConditions" resultType="com.rhymes.app.member.model.MemberPointDTO"
+	<select id="getDetailsOnConditions" resultType="com.rhymes.app.member.model.mypage.MemberPointDTO"
 	 parameterType="com.rhymes.app.common.model.CommonPagingDTO">
 		<![CDATA[
 		SELECT RNUM, SEQ, USERID, COMMENT, AMOUNT, RDATE, EDATE, ISEXPIRED
@@ -30,7 +30,7 @@
 	</select>
 	
 	<!-- id에 맞는 디테일 정보 리턴 -->
-	<select id="getDetailsById" resultType="com.rhymes.app.member.model.MemberPointDTO" parameterType="java.lang.String">
+	<select id="getDetailsById" resultType="com.rhymes.app.member.model.mypage.MemberPointDTO" parameterType="java.lang.String">
 		<![CDATA[
 		SELECT 
 			SEQ, ID AS USERID, COMMENT, AMOUNT, 

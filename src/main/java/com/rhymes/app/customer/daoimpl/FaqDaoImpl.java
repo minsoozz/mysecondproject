@@ -28,17 +28,40 @@ public class FaqDaoImpl implements FaqDao {
 		return list;
 	}
 	
-	//faq count
+	//faq count가져오기
 	@Override
 	public int getFaqCount(CustomerParam param) {
 		
 		return sqlSession.selectOne(ns+"getFaqCount", param);
 	}
 
-	//faq upload
+	//faq detail가져오기
+	@Override
+	public FaqDto getFaqDetail(int seq) {
+		
+		return sqlSession.selectOne(ns+"getFaqDetail", seq);
+	}
+
+	//faq upload올리기
 	@Override
 	public boolean FaqUpload(FaqDto dto) {
 		int n = sqlSession.insert(ns+"FaqUpload", dto);
+		return n>0?true:false;
+	}
+
+	//faq 수정
+	@Override
+	public boolean FaqUpdateAf(FaqDto dto) {
+		int n = sqlSession.update(ns+"FaqUpdateAf", dto);
+		
+		return n>0?true:false;
+	}
+
+	//faq 삭제
+	@Override
+	public boolean FaqDelete(int seq) {
+		int n = sqlSession.delete(ns+"FaqDelete", seq);
+		
 		return n>0?true:false;
 	}
 	

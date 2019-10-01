@@ -1,6 +1,7 @@
 package com.rhymes.app.used.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,8 @@ public class ProductsDto implements Serializable {
 	private String photo_sys;
 	private String division;
 	private int likes;
+	private int readcount;
+	private Date rdate;
 	
 	private String photo_list[];
 	

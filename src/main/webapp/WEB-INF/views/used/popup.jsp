@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>login</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 <body>
 <input type="hidden" id="_ctx" value="<%=request.getContextPath()%>">
@@ -14,8 +15,9 @@
 	
 <h1 id="_h1">판매자 회원등록</h1>
 	
-<form action="/popupAf" method="post" id="_form">
-	  <input type="hidden" name="s_id" value="${login.userid }">
+<form action="popupAf" method="post" id="_form">
+	  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	  <input type="hidden" id="_s_id" name="s_id" value="${login.userid }">
       <input type="text" id="to" name="to" placeholder="휴대폰 번호"/>	<!-- 인증번호 받을사람 휴대폰 번호 -->
       <input type="button" id="send" value="전송" class="btn"><br> <!-- 문자보내는 전송버튼 -->
       <input type="text" id="userNum" placeholder="인증번호를 입력해주세요">	<!-- 인증번호 입력창 -->
@@ -24,11 +26,16 @@
   
   <input type="hidden" name="text" id="text">	<!-- 인증번호를 히든으로 저장해서 보낸다 -->
   	<hr color="gray">
-	<input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly"  style="background: #e5e5e5" size="15">
+  	
+  	<c:if test="${empty login.address }">
+	<input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" readonly="readonly"  style="background: #e5e5e5" size="15">
 		 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 검색" class="btn"><br>
-		 <input type="text" id="sample6_address" placeholder="주소" readonly="readonly" style="background: #e5e5e5" size="40"><br>
-		 <input type="text" id="sample6_detailAddress" placeholder="상세주소" size="40">
+		 <input type="text" name="address" id="sample6_address" placeholder="주소" readonly="readonly" style="background: #e5e5e5" size="40"><br>
+		 <input type="text" name="detailaddress" id="sample6_detailAddress" placeholder="상세주소" size="40">
 		 
+		 <input type="hidden" id="emptycount" value="1">	<!-- 기존에 주소를 입력했는지 여부를 확인 할 수 있는 변수 -->
+  	</c:if>
+  	
 </form>  
 
 
@@ -36,14 +43,11 @@
 	<button type="button" id="_submit" class="btn">회원가입</button>
     </div>
   <script>
-  var count = 0; /* 문자 중복을 막기 위한 인증번호 */
- 
-
 var ctx = $("#_ctx").val();
+var count = 0;
  $(document).ready(function() {
-	 
 
-	 
+	 	
 	 $("#send").click(function() {
 		 
 		 var number = Math.floor(Math.random() * 100000) + 100000;
@@ -64,17 +68,16 @@ var ctx = $("#_ctx").val();
 			 
 			 if(con_test == true){
 
-				 if(count < 3){		/* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
+				 		/* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
 					$.ajax({
 				 		url: ctx +"/used/SendSms",
 				 		type:"get",
 				 		data:{to: $("#to").val(),
-				 			  text: $("#text").val()
+				 			  text: $("#text").val(),
+				 			  id: $("#_s_id").val()
 				 			  },
 				 	 success:function(data){
-				 		alert("해당 휴대폰으로 인증번호를 발송했습니다 " + data);
-				 		count++;
-				 		alert(count);
+				 		alert(data);
 				 		
 				 		},
 				 		error(xhr, ajaxOptioins,thrownError){
@@ -83,13 +86,11 @@ var ctx = $("#_ctx").val();
 				 		}
 				 		
 				 	});
-				 } else {
-					 alert("휴대폰 인증 그만하세요")
-				 }
+				  
 			 
 			 }
 				 else if(con_test == false){
-					 
+					 alert("취소하였습니다");
 				 }
 			 
 
@@ -99,9 +100,8 @@ var ctx = $("#_ctx").val();
 	 	
 	 })
  	$("#enterBtn").click(function() {	/* 내가 작성한 번호와 인증번호를 비교한다 */
- 		alert($("#text").val());
- 		var userNum = $("#userNum").val();
- 		
+		
+ 		var userNum = $("#userNum").val(); 
  		var sysNum = $("#text").val();			
  		
  		if(userNum == null || userNum == ""){
@@ -111,10 +111,15 @@ var ctx = $("#_ctx").val();
  		else{
  	 		
  	 		if(userNum.trim() == sysNum.trim()){
- 	 			alert("성공");
+ 	 			alert("인증에 성공하였습니다");
+ 	 			$('#to').css("background-color","#e5e5e5");
+ 	 			$('#to').prop('readonly', true);
+ 	 			$('#userNum').css("background-color","#e5e5e5");
+ 	 			$('#userNum').prop('readonly', true);
+ 	 			count++;
  	 		}
  	 		else {
- 	 			alert("실패");
+ 	 			alert("인증번호를 확인하세요");
  	 		} 			
  		}
 
@@ -122,8 +127,35 @@ var ctx = $("#_ctx").val();
  	$("#_cancel").click(function() {
  		window.close();
  	});
-	 
- 
+ 	$("#_submit").click(function() {
+ 		var emptycount = $("#emptycount").val();
+ 		var postcode = $("#sample6_postcode").val();
+ 		var address = $("#sample6_address").val();
+ 		var detailaddress =  $("#sample6_detailAddress").val();
+ 		alert(count);
+ 		if(count > 0){
+			if(emptycount == 1){ /* emptycount가 1이라면 기존에 주소를 입력하지 않았다  */
+				
+	 			if(postcode == "" || postcode == null || address == "" || address == null || detailaddress == ""
+	 				|| detailaddress == null) {
+	 						alert("빈칸을 채워주세요");
+	 		
+	 			} else {	
+	 				$("#_form").submit();
+	 	 			window.close();		
+	 			} 					
+				
+				
+			} else {	/* 기존에 주소를 입력하였기 때문에 회원가입을 검증이 필요없다 */
+ 				$("#_form").submit();
+ 	 			window.close();		
+			}
+
+			
+ 		} else {
+ 			alert("휴대폰 인증을 먼저 해주세요");
+ 		}
+ 	});
  });
   </script>
   

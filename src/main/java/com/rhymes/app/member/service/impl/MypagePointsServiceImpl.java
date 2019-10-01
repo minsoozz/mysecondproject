@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rhymes.app.member.dao.MypagePointsDAO;
-import com.rhymes.app.member.model.MemberPointDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
 import com.rhymes.app.member.service.MypagePointsService;
 
 @Service
@@ -15,6 +15,15 @@ public class MypagePointsServiceImpl implements MypagePointsService {
 	
 	@Autowired
 	private MypagePointsDAO mypagePointsDAO;
+	
+	/**새 적립금 등록
+	 * @param mPDto
+	 * @return
+	 */
+	@Override
+	public int addNewPoint(MemberPointDTO mPDto) {
+		return mypagePointsDAO.addNewPoint(mPDto);
+	}
 	
 	/**검색조건에 맞는 적립금 디테일의 총 개수 리턴 
 	 * @param userid

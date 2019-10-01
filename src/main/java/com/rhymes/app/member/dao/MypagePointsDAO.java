@@ -2,10 +2,16 @@ package com.rhymes.app.member.dao;
 
 import java.util.List;
 
-import com.rhymes.app.member.model.MemberPointDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
 public interface MypagePointsDAO {
+	
+	/**새 적립금 등록
+	 * @param mPDto
+	 * @return
+	 */
+	public int addNewPoint(MemberPointDTO mPDto);	
 	
 	/**검색조건에 맞는 적립금 디테일의 총 개수 리턴 
 	 * @param userid
@@ -38,5 +44,4 @@ public interface MypagePointsDAO {
 	 * @return
 	 */
 	public int getAmountOfExpiredPointById(String userid);
-	
 }
