@@ -12,7 +12,7 @@
 		<put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
 	</definition>
 	
-	<definition name="order" extends="ordercheck.tiles">
+	<definition name="/order" extends="ordercheck.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck.jsp" />
 	</definition>
 
