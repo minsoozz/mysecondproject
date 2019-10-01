@@ -19,7 +19,7 @@
 	      <option value="배송문의">배송문의</option>
 	      <option value="쿠폰/적립금">쿠폰/적립금</option>
 	      <option value="서비스 이용 및 기타">서비스 이용 및 기타</option>
-	</select>
+		</select>
 	</td>
 </tr>
 

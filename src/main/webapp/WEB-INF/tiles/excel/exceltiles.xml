@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- main -->
+	<definition name="excel.tiles" template="/WEB-INF/views/exceldownload/layout/excel_template.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
+	</definition>
+
+
+
+	<!-- 액셀 다운로드 -->
+	<definition name="exceldownload" extends="excel.tiles">
+		<put-attribute name="body" value="/WEB-INF/views/exceldownload/exceldownload.jsp" />
+	</definition>
+
+
+
+</tiles-definitions>

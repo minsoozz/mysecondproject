@@ -15,7 +15,7 @@ server:
 
 #db config
 spring:
-  datasource:
+  datasource: 
     hikari:
       jdbc-url: jdbc:mysql://112.169.197.59:23306/rhymes?characterEncoding=UTF-8&serverTimezone=UTC
       pool-name: hikari-cp
@@ -24,11 +24,16 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: mhj
       password: mhj
-#file max-size
+ 
+
+#jsp
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
       enabled: true
       file-size-threshold: 10MB
-      
