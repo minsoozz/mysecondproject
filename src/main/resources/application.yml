@@ -13,7 +13,7 @@ server:
 
 #db config
 spring:
-  datasource:
+  datasource: 
     hikari:
       jdbc-url: jdbc:mysql://192.168.0.14:3306/rhymes?characterEncoding=UTF-8&serverTimezone=UTC
       pool-name: hikari-cp
