@@ -37,6 +37,15 @@
 	</td>
 </tr>
 
+<tr>
+	<td>
+		<form action="qnaanswer" method="get">
+				<input type="hidden" name="seq" value="${qna.seq }">
+				<input type="submit" class="btn" value="댓글">
+			</form>
+	</td>
+</tr>
+
 </table>
 
 
