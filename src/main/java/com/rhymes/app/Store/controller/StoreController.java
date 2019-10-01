@@ -200,7 +200,7 @@ public class StoreController {
 	}
 	
 	@GetMapping("/store/productOrder")
-	public String productOrder(Model model, int stock_seq, int p_quantity  ) {
+	public String productOrder(Model model, int stock_seq, int p_quantity) {
 		
 		System.out.println("!!!!!!!!!!!!!@@");
 		System.out.println("stock_seq : " + stock_seq);

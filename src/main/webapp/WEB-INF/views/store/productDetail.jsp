@@ -124,21 +124,21 @@ body{
 /* 장바구니 클릭 */
 $(document).on('click', '.basketBtn', function(){	
 	//재고번호get
-	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2");
+	/* var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2");
 	alert("stock_seq : " + stock_seq);	
 	var cnt = Number($("#pqCnt").html());
-	alert("수량 : " + cnt);
+	alert("수량 : " + cnt); */
 
 });
 
 /* 구매버튼 클릭 */
 function buying(){
-	/* var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
+	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
 	$("#stock_seq").val(stock_seq);
 	
 	var cnt = Number($("#pqCnt").html());
 	$("#p_quantity").val(cnt);
-	$("#orderFrm").submit(); */
+	$("#orderFrm").submit();
 }
 
 /* 구매 수량 */
