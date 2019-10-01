@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>RHYMESb</title>
+<title>RHYMES</title>
 <link rel="stylesheet" href="<%=ctx%>/css/member/layout/mypage_template.css">
  <!-- Favicon -->
-    <link rel="icon" href="/css/main/img/core-img/favicon.ico">   
+    <link rel="icon" href="/main/img/core-img/favicon.ico">   
     
 </head>
 <body>

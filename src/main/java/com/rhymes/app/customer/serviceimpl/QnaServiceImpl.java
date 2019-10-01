@@ -29,6 +29,48 @@ public class QnaServiceImpl implements QnaService {
 		
 		return QnaDao.getQnaCount(param);
 	}
+
+	//qna detail
+	@Override
+	public QnaDto getQnaDetail(int seq) {
+		
+		return QnaDao.getQnaDetail(seq);
+	}
+
+	//qna 글쓰기
+	@Override
+	public boolean QnaUpload(QnaDto dto) {
+		
+		return QnaDao.QnaUpload(dto);
+	}
+
+	//qna 수정
+	@Override
+	public boolean QnaUpdateAf(QnaDto dto) {
+		
+		return QnaDao.QnaUpdateAf(dto);
+	}
+
+	//qna 파일명가져오기
+	@Override
+	public String getfilename(int seq) {
+		
+		return QnaDao.getfilename(seq);
+	}
+
+	//qna 삭제
+	@Override
+	public boolean QnaDelete(int seq) {
+		
+		return QnaDao.QnaDelete(seq);
+	}
+
+	//qna 답글
+	@Override
+	public boolean QnaAnswer(int seq, QnaDto dto) throws Exception {
+		
+		return QnaDao.QnaAnswer(seq, dto);
+	}
 	
 	
 	

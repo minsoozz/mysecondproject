@@ -7,17 +7,17 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
-    <title>RHYMESb</title>
+    <title>RHYMES</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">        
    <!-- Favicon -->
-    <link rel="icon" href="/css/img/main-img/core-img/favicon.ico">  
+    <link rel="icon" href="/img/main-img/core-img/favicon.ico">  
  <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath() %>/css/customer/customer.css">
  
  
-  </head>
-   <body>
-   
+</head>
+<body>
+ 
   <tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
 	
    <div id="body_wrap">

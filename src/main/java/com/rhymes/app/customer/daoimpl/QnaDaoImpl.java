@@ -34,6 +34,57 @@ public class QnaDaoImpl implements QnaDao {
 		
 		return sqlSession.selectOne(ns+"getQnaCount", param);
 	}
+
+	//qna detail
+	@Override
+	public QnaDto getQnaDetail(int seq) {
+		
+		return sqlSession.selectOne(ns+"getQnaDetail", seq);
+	}
+
+	//qna 업로드
+	@Override
+	public boolean QnaUpload(QnaDto dto) {
+		
+		int n = sqlSession.insert(ns+"QnaUpload", dto);
+		
+		return n>0?true:false;
+	}
+
+	//qna 수정
+	@Override
+	public boolean QnaUpdateAf(QnaDto dto) {
+
+		int n = sqlSession.update(ns+"QnaUpdateAf", dto);
+		
+		return n>0?true:false;
+	}
+
+	//qna 파일명 가져오기
+	@Override
+	public String getfilename(int seq) {
+		
+		return sqlSession.selectOne(ns+"QnaFilename", seq);
+	}
+
+	//qna 삭제
+	@Override
+	public boolean QnaDelete(int seq) {
+		
+		int n = sqlSession.delete(ns+"QnaDelete", seq);
+		
+		return n>0?true:false;
+	}
+
+	//답글 작성
+	@Override
+	public boolean QnaAnswer(int seq, QnaDto dto) throws Exception {
+		sqlSession.update(ns+"QnaAnswer", seq);
+		int n = sqlSession.insert(ns+"QnaAnswerAf", seq);
+		
+		return n>0?true:false;
+	}
+	
 	
 	
 }
