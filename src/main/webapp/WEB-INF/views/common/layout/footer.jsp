@@ -39,8 +39,8 @@
                         <div>
 						<h6>ABOUT US</h6>
 						<p>
-						<br>© 2019 RHYMESb - ALL RIGHTS RESERVED.
-						<br>ALL IMAGES HAVE BEEN TAKEN BY RHYMESb.
+						<br>© 2019 <a style="color: #B7DC57">RHYMES</a> - ALL RIGHTS RESERVED.
+						<br>ALL IMAGES HAVE BEEN TAKEN BY RHYMES.
 						<br>RHYMESb | TEL. +82-2-3486-9600
 						<br>459, GANGNAM-DAERO, SEOCHO-GU, SEOUL, KOREA.
 						<br>MAIL-ORDER LICENCE 2019-SEOULGANGNAM-0920
@@ -52,19 +52,19 @@
                   <div style="float:left; padding-left: 200px">
 					<h4>STORES</h4>
 						<div>
-							<h6><a href="지도넣을거임">RHYMESb</a></h6>
+							<h6 style="color: #B7DC57">RHYMES</a></h6>
 							<p>TEL. +82-2-3486-9600<br/>
 							459, GANGNAM-DAERO, SEOCHO-GU, SEOUL, KOREA.<br/></p>
 							
-							<h6><a href="지도넣을거임">RHYMESb OUTLET</a></h6>
+							<h6 style="color: #B7DC57">RHYMES OUTLET</a></h6>
 							<p>TEL. +82-2-3486-9600<br/>
-							459, GANGNAM-DAERO, SEOCHO-GU, YEDANG BLD B1,<br/>
+							459, GANGNAM-DAERO, SEOCHO-GU, BAEKAM BLD 5F,<br/>
 							SEOUL, KOREA.<br/></p>							
 						</div>
 					</div>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
 <br><br>
         <div class="container">
@@ -72,7 +72,7 @@
                 <div class="col-12">
                     <!-- Copywrite Text -->
                     <div class="copy_right_text text-center">
-                        <p>Copyright @2018 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                        <p>Copyright @2019 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
                     </div>
                 </div>
             </div>

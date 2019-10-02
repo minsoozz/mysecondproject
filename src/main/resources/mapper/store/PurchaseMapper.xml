@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <mapper namespace="com.mde.app.common.dao"> -->
+
+<mapper namespace="purchase">
+
+ <select id="getProductList" parameterType="com.rhymes.app.Store.model.ProductDto" resultType="com.rhymes.app.Store.model.ProductDto">
+ 	SELECT P_SEQ, P_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE 		
+ 	FROM rhy_store_product 	 
+ </select>
+ <select id="getProductDetail" parameterType="Integer" resultType="com.rhymes.app.Store.model.ProductDto">
+ 	SELECT C_NAME, P_NAME, P_TITLE, P_PRICE, P_COLOR, NATION, MDATE, DETAIL, PHOTO1_FILE, PHOTO2_FILE, PHOTO3_FILE, PHOTO4_FILE, PHOTO5_FILE 
+ 	FROM rhy_store_product
+ 	WHERE P_SEQ = #{p_seq}
+ </select>
+ <select id="getSizeList" parameterType="Integer" resultType="com.rhymes.app.Store.model.StockDto">
+ 	SELECT STOCK_SEQ, SIZE, QUANTITY
+ 	FROM rhy_store_stock
+ 	WHERE P_SEQ = #{p_seq}
+ </select>
+ <insert id="insertBakset" parameterType="com.rhymes.app.Store.model.BasketDto">
+ 	INSERT INTO rhy_store_basket
+ 	VALUES(NULL, #{id}, #{stock_seq}, #{p_quantity}, NOW())
+ </insert>
+</mapper>

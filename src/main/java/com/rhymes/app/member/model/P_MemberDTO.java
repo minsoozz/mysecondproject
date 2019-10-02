@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
+
+@SuppressWarnings("serial")
 @Getter
 @Setter
 public class P_MemberDTO implements Serializable {
@@ -26,6 +27,10 @@ public class P_MemberDTO implements Serializable {
 	
 	public P_MemberDTO() {}
 
+	public P_MemberDTO(String useremail) {
+		super();
+		this.useremail = useremail;
+	}
 
 	public P_MemberDTO(String userid, String username, String postcode, String address, String detailAddress,
 			String phone, String useremail, String usergender, String userbirth, int count) {
@@ -49,21 +54,13 @@ public class P_MemberDTO implements Serializable {
 				+ address + ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail=" + useremail
 				+ ", usergender=" + usergender + ", userbirth=" + userbirth + ", count=" + count + "]";
 	}
-
-
-	public P_MemberDTO(String useremail) {
-		super();
-		this.useremail = useremail;
-	}
-
+	
 	public String toJSONString() {
 		return "userid=" + userid + ", username=" + username + ", postcode=" + postcode + ", address="
 				+ address + ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail=" + useremail
 				+ ", usergender=" + usergender + ", userbirth=" + userbirth + ", count=" + count;
 	}
-
-	
-	
-	
-	
 }
+	
+	
+	
