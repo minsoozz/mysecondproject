@@ -75,8 +75,7 @@
 		</div>
 	</c:when>
 	<c:otherwise>
-		<!-- 비밀번호 재확인 후 -->
-		비밀번호확인했다
+		<!-- 비밀번호 재확인 후 jquery를 통해 jsp파일 load -->		
 		<div>
 			
 		</div>

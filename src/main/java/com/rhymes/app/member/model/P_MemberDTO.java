@@ -56,17 +56,11 @@ public class P_MemberDTO implements Serializable {
 		this.useremail = useremail;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
+	public String toJSONString() {
+		return "userid=" + userid + ", username=" + username + ", postcode=" + postcode + ", address="
+				+ address + ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail=" + useremail
+				+ ", usergender=" + usergender + ", userbirth=" + userbirth + ", count=" + count;
+	}
 
 	
 	

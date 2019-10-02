@@ -2,6 +2,7 @@ package com.rhymes.app.member.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
 import com.rhymes.app.member.service.MypageCouponService;
+import com.rhymes.app.member.service.MypagePersonalService;
 import com.rhymes.app.member.service.MypagePointsService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +40,12 @@ public class MypageController {
 	
 	@Autowired
 	private MypageCouponService mypageCouponService;
+	
+	@Autowired
+	private MypagePersonalService mypagePersonalService;
+	
+	@Autowired
+	BCryptPasswordEncoder bc;
 	
 	@GetMapping(value = "/main")
 	public String mypageMain() {
@@ -203,11 +212,7 @@ public class MypageController {
 		return "member/mypage/personal";
 	}
 	
-	@Autowired
-	SqlSession ss;
 	
-	@Autowired
-	BCryptPasswordEncoder bc;
 	
 	/**Ajax 통신을 통해 비밀번호 확인 후 성공하면 1 리턴
 	 * @param model
@@ -216,23 +221,57 @@ public class MypageController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/personal/confirmpw" , method = RequestMethod.POST )
-	public String confirmPw(Model model, @RequestBody String json, Principal pcp) {
+	public Map<String, String> confirmPw(Model model, @RequestBody String json, Principal pcp) {
 		log.info("show personal information confirm pw"); 
 		
+		Map<String, String> hm = new HashMap<String, String>();
+		
+		String userid = "anonymous";
 		String formPw = json.split("&")[1].split("=")[1];
 		String pw = null;
 		boolean ok = false;
 		log.info( formPw );		
 		
 		try {
-			pw = ss.selectOne("member.getFindID_P", pcp.getName());
+			userid = pcp.getName();
+			pw = mypagePersonalService.getOnePwById(userid);
+			//pw = ss.selectOne("member.getFindID_P", pcp.getName());
 			ok = bc.matches(formPw, pw);
 			log.info("pw: " + pw + ", ok : " + ok);
+			if( ok == false ) {
+				hm.put("result", "0");
+				return hm;
+			}
+			hm.put("result", "1");
+			
+			//비밀번호 확인이 완료되면 상세회원정보를 map타입으로 리턴 
+			List<String> authorities = mypagePersonalService.getAuthorities(userid);
+			for(String auth : authorities) {
+				log.info("auth : " + auth);
+			}
+			if(authorities.contains("ROLE_MEMBER")) {
+				//개인회원인 경우
+				hm.put("role","member");
+				//개인회원 상세정보 get
+				P_MemberDTO pMem = mypagePersonalService.getOnePersonalMemberById(userid);
+				log.info("pMem: " + pMem.toJSONString());
+				String[] memDetails = pMem.toJSONString().split(",");
+				for(String detail : memDetails) {
+					log.info("param." + detail.split("=")[0] + " , v: " + detail.split("=")[1] );
+					hm.put(detail.split("=")[0].trim(), detail.split("=")[1]);
+				}
+			} else if(authorities.contains("ROLE_SELLER")) {
+				//기업회원인 경우
+				hm.put("role", "seller");
+			}
 		}catch (Exception e) {
+			hm.put("result", "0");
 			e.printStackTrace();
 		}		
 		
-		return (ok == true)?"1":"0";
+		
+		
+		return hm;
 	}
 	
 	@GetMapping(value = "/personalform")

@@ -16,7 +16,9 @@ $(function() {
 	// 확인버튼 클릭 이벤트
 	$("#_btn_confirm_mem").click(function() {
 		pwChk();
-	});	
+	});
+
+	
 });
 
 function frm_ent(e){
@@ -61,7 +63,7 @@ function pwChk(){
 				
 			}else{
 				$("#_input_pw").addClass("is-invalid");
-			}			
+			}
 		},
 		error : function() {
 			console.log('실패');

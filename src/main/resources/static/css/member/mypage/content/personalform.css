@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.mem_p_wrap {
+	border: 1px solid #d0d0d0;
+}
+
+.form-row{
+	margin-top: 20px;
+}
+
+.form-row label{
+	margin-left: 5px;
+	font-size: 14px;
+}
+
+.form-row hr{
+	border: 1px solid #d0d0d0;
+}
+
+._form_phone_wrap input{
+	width: 100px;
+	float: left;
+}
+._form_phone_wrap a{
+	float: left;
+	margin: 8px;
+}
+.row_address{
+	margin-top: 2px
+}
+
+#form_birth_wrap{
+	border: 1px solid #d0d0d0;
+	width: 300px;
+	height: 65px;
+	padding-top: 10px;
+	padding-left: 5px;
+}
+
+#form_birth_wrap input{
+	margin:auto;
+	width:100px !important;
+	float: left;
+	border: 0px;
+	margin-left: -5px;
+	text-align:center;
+	outline: none !important;
+}
+
+#footer_wrap{
+	top:550px !important;
+}
