@@ -15,8 +15,8 @@ import lombok.ToString;
 @Getter
 public class LikesDto implements Serializable {
 	private int seq;
-	private int p_no;
-	private int m_no;
+	private int bno;
+	private String mname;
 }
 
 /*

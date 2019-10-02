@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 
 public interface UsedDao {
@@ -22,5 +23,15 @@ public interface UsedDao {
 	boolean setSellerMember(String s_id);
 	
 	boolean setSellerMember(P_MemberDTO p_MemberDTO);
+
+	boolean addlikes(Map<String,Object> map);
+
+	boolean getlikes(Map<String, Object> map);
+
+	int getboardlikes(int seq);
+
+	boolean deletelikes(Map<String, Object> map);
+
+	List<CommentsDto> getComments(int seq);
 	
 }

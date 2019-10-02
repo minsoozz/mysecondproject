@@ -3,6 +3,7 @@ package com.rhymes.app.used.controller;
 
 import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.Service.UsedService;
-import com.rhymes.app.used.dao.UsedDao;
+import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 import com.rhymes.app.used.util.Coolsms;
 
@@ -41,8 +45,8 @@ public class UsedController {
 	@GetMapping("/hello") 
 	public String test(HttpServletRequest req) {
 		// 아직 구축이 제대로 안되서 임의로 로그인 아이디 설정해 놓음
-		P_MemberDTO Mdto = usedService.getMemberDto("ysujin17");
-		Mdto.setUserid("ysujin17");
+		P_MemberDTO Mdto = usedService.getMemberDto("sujin123");
+		Mdto.setUserid("sujin123");
 		System.out.println(Mdto.toString());
 		
 		req.getSession().setAttribute("login", Mdto);
@@ -60,30 +64,75 @@ public class UsedController {
 	}
 	
 	@GetMapping("useddetail")
-	public String useddetail(Model model,int seq) {
+	public String useddetail(Model model,int seq, HttpServletRequest req) {
 		
-		ProductsDto dto = usedService.getUsedDetail(seq);
+		ProductsDto dto = usedService.getUsedDetail(seq);	// 게시글 정보 받아오기
+		dto.setLikes( usedService.getboardlikes(seq));		// 게시글의 좋아요 개수 설정
 		
+		String id = "";
+		
+		 if( ((P_MemberDTO)req.getSession().getAttribute("login"))  == null	) {
+			 id = "";
+		 }  
+		 else {		// 세션에 로그인 정보가 있을 때 
+			 
+		    id = ((P_MemberDTO)req.getSession().getAttribute("login")).getUserid();
+			 
+			Map<String,Object> map = new HashMap<String, Object>();
+			 
+			map.put("bno", dto.getSeq());
+			map.put("mname", id);
+			 
+			 boolean b = usedService.getlikes(map);
+
+			 if(b) {	// 회원의 좋아요 여부 확인
+				 ((P_MemberDTO)req.getSession().getAttribute("login")).setIslike(true);
+			 } else {
+				 ((P_MemberDTO)req.getSession().getAttribute("login")).setIslike(false);
+			 }
+		 }
+
 		String str = dto.getPhoto_sys();
-		
-		System.out.println(str);
-		
 		String arr[] = str.split(",");
-		
 		dto.setPhoto_list(arr);
 
-		System.out.println(dto.toString());
-		
 		model.addAttribute("dto", dto);
 		
 		return "useddetail.tiles";
+	
+		
 	}
+	
+	@GetMapping(value="/getCommentsList",produces = "application/json; charset=utf8")
+	@ResponseBody
+	public ResponseEntity getCommentsList(int seq) throws Exception{
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
+		
+		List<CommentsDto> clist = usedService.getComments(seq);
+		
+		if(clist.size() > 0) {
+			for(int i = 0 ; i < clist.size() ; i++) {
+				HashMap hm = new HashMap();
+				hm.put("seq", clist.get(i).getSeq());
+				hm.put("comments", clist.get(i).getComments());
+				hm.put("id", clist.get(i).getId());
+				hm.put("date", clist.get(i).getDate());
+				
+				hmlist.add(hm);
+			}
+		}
+		
+		JSONArray json = new JSONArray(hmlist);
+		
+		
+		
+		return new ResponseEntity(json.toString(), responseHeaders , HttpStatus.CREATED);
+	};
 	
 	@GetMapping("popup")
 	public String popup(Principal prc) {
-		
-//		String name = prc.getName();
-//		System.out.println(name);
 		
 		return "popup";
 	}
@@ -190,13 +239,42 @@ public class UsedController {
 
 	}
 	
+	@GetMapping(value="/addlikes")
+	@ResponseBody
+		public String addlikes(int bno, String mname) {
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("bno", bno);
+		map.put("mname", mname);
+		
+		 boolean b = usedService.getlikes(map);
+		 int num;	// ajax 리턴 변수
+		 if(b) {	// 회원의 좋아요 여부 확인
+			 usedService.deletelikes(map);
+			 num = 0;
+		 } else {
+			 usedService.addlikes(map);
+			 num = 1;
+		 }
+
+		return num+"";
+	}
+		
+	@GetMapping(value="/likeCount")
+	@ResponseBody
+		public String likeCount(int bno) {
+		
+		int count = usedService.getboardlikes(bno);
+		return count+"";
+	}
+	
 	@GetMapping(value = "/SendSms")
 	@ResponseBody
 	  public String sendSms(HttpServletRequest request) throws Exception {
 	
 		int count = usedService.getSellerCount( (String)request.getParameter("id") );
-		System.out.println("id : " + (String)request.getParameter("id") +" count : " +count );
-		
+
 		if(count <= 3) {
 
 	    String api_key = "NCSVKDEE4KHSNBFN";

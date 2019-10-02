@@ -147,7 +147,7 @@
     
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->
-    <script type=text/javascript>
+     <script type=text/javascript>
 	$(document).ready(function(){
 		
 	    var nav = $('.menuWrap');
@@ -159,7 +159,7 @@
 	        }
 	    });
 	});
-	</script>
+	</script> 
 	</body>
 
 
