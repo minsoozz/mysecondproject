@@ -58,6 +58,10 @@
 		<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }"/>
 		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }"/>
 	</jsp:include>
+	
+<!-- hidden 을 통해서 값을 넘겨주기 -->
+<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
+<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 </div>
 <!-- 페이징끝 --> 
 </th>

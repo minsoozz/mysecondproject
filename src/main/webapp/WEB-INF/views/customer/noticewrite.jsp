@@ -18,7 +18,7 @@
 <tr>
 	<th>제목</th>
 	<td colspan="3">
-		<input type="text" name="title">
+		<input type="text" name="title" id="title" style="width: 95%;">
 	</td>
 </tr>
 
@@ -32,9 +32,11 @@
 
 <tr>
 	<th>내용</th>
+	
 	<td colspan="3">
-		<textarea rows="" cols="" name="content"></textarea>
+		<textarea style="height: 268px;width: 1025px;" name="content" id="content"></textarea>
 	</td>
+	
 </tr>
 
 <tr>
@@ -74,4 +76,19 @@ $("#_btnBack").click(function () {
 	location.href = "noticelist";
 });
 
-</script>    
+
+$(function () {
+	//""없게
+	$("#_btnWrite").mousedown(function() {
+		if($("#title").val()==""){
+			alert("제목을 입력해주세요");
+			return;
+		}else if($("#content").val()==""){
+			alert("내용을 입력해주세요");
+			return;
+		}
+	});
+});	
+
+
+</script> 

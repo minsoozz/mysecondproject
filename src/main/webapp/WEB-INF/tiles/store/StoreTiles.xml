@@ -4,24 +4,40 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	<!-- main -->
-<!--    <definition name="register.tiles" template="/WEB-INF/views/main/layout/base-main.jsp">
-       <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
-       <put-attribute name="body" value="/WEB-INF/views/sell/register.jsp" />
-       <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
-   </definition> -->
 
-	<!-- login -->
-	
-	<definition name="register.tiles" template="/WEB-INF/views/store/register.jsp">
+<!-- 리스트뷰 -->
+     <definition name="productList.tiles" template="/WEB-INF/views/store/layout/store_template.jsp">
+       <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
+       <put-attribute name="body" value="/WEB-INF/views/store/productList.jsp" />
+       <put-attribute name="left_menu" value="/WEB-INF/views/store/layout/left_store.jsp"/>
+       <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
+   </definition>
+
+	<definition name="productDetail.tiles" template="productList.tiles">
+        <put-attribute name="body" value="/WEB-INF/views/store/productDetail.jsp"/>      
     </definition>
     
+    
+    
+   <definition name="register.tiles" template="/WEB-INF/views/store/layout/store_template.jsp">       
+   <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
+   <put-attribute name="body" value="/WEB-INF/views/store/register.jsp"/>      
+   <put-attribute name="left_menu" value="/WEB-INF/views/store/layout/left_store.jsp"/>
+   <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
+   </definition>
+   
+
+
     <definition name="productList.tiles" template="/WEB-INF/views/store/productList.jsp">
     </definition>
     
     <definition name="productDetail.tiles" template="/WEB-INF/views/store/productDetail.jsp">
-        
     </definition>
+    
+    <definition name="basket.tiles" template="/WEB-INF/views/store/basket.jsp">
+    </definition>
+
 
 </tiles-definitions>
 
+ 

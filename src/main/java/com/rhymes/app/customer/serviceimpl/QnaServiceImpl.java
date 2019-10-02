@@ -67,9 +67,9 @@ public class QnaServiceImpl implements QnaService {
 
 	//qna 답글
 	@Override
-	public boolean QnaAnswer(int seq, QnaDto dto) throws Exception {
+	public boolean QnaAnswer(QnaDto dto) throws Exception {
 		
-		return QnaDao.QnaAnswer(seq, dto);
+		return QnaDao.QnaAnswer(dto);
 	}
 	
 	

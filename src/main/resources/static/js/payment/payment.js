@@ -1,5 +1,6 @@
 $(function(){
 	
+	alert("결제");
 
 $("#checkorder").click(function () {
 	//alert("주문자와 동일");
@@ -22,52 +23,6 @@ $("#oldaddress").click(function () {
 	$("#receivephone3").val( $("#sendphone3").val() );
 });
 
-
-
-
-
-function paymens(){
-	var radioVal = $('input[name="payment"]:checked').val();
-	//alert(radioVal);
-	
-	var IMP = window.IMP; // 생략가능
-	IMP.init('imp50599923');  // 가맹점 식별 코드
-
-	IMP.request_pay({
-	    pg : 'html5_inicis',
-	    pay_method : radioVal,
-	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : '주문명:결제테스트',
-	    amount : 150,
-	    buyer_email : 'onep577@naver.com',
-	    buyer_name : '구매자이름',
-	    buyer_tel : '010-1234-5678',
-	    buyer_addr : '서울특별시 강남대로 비트캠프',
-	    buyer_postcode : '123-456'
-	}, function(rsp) {
-	    if ( rsp.success ) {
-	        var msg = '결제가 완료되었습니다.';
-	        msg += '\n고유ID : ' + rsp.imp_uid;
-	        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '\n결제 금액 : ' + rsp.paid_amount + '원';
-	        msg += '\n카드 승인번호 : ' + rsp.apply_num;
-	        msg += '\n결제상황 : ' + rsp.status;
-	        msg += '\n결제수단 : ' + rsp.pay_method;
-	        msg += '\n가상계좌 : ' + rsp.vbank_num;
-
-	        location.href = '/payment/paymentAf?paid_amount='+rsp.paid_amount+'&imp_uid='+rsp.imp_uid
-	        		+'&status='+rsp.status+'&pay_method='+rsp.pay_method+'&receipt_url='+rsp.receipt_url
-	        		+'&vbank_num='+rsp.vbank_num+'&vbank_name='+rsp.vbank_name
-	        		+'&vbank_date='+rsp.vbank_date+'&vbank_holder='+rsp.vbank_holder; //완료페이지로 이동
-
-	    } else {
-	        var msg = '결제에 실패하였습니다.';
-	        msg += '\n에러내용 : ' + rsp.error_msg;
-	    }
-
-	    alert(msg);
-	});
-}
 
 
 
@@ -144,6 +99,9 @@ $("#enterBtn").click(function() {
 
 
 
+});
+
+
 
 function sample4_execDaumPostcode() {
 	alert("주소찾기");
@@ -202,4 +160,52 @@ function sample4_execDaumPostcode() {
     }).open();
 }
 
-});
+
+
+function paymens(){
+	var radioVal = $('input[name="payment"]:checked').val();
+	//alert(radioVal);
+	
+	if(radioVal == null){
+		alert("결제수단을 선택해주세요");
+		return;
+	}
+	
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp50599923');  // 가맹점 식별 코드
+
+	IMP.request_pay({
+	    pg : 'html5_inicis',
+	    pay_method : radioVal,
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : '주문명:결제테스트',
+	    amount : 150,
+	    buyer_email : 'onep577@naver.com',
+	    buyer_name : '구매자이름',
+	    buyer_tel : '010-1234-5678',
+	    buyer_addr : '서울특별시 강남대로 비트캠프',
+	    buyer_postcode : '123-456'
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        var msg = '결제가 완료되었습니다.';
+	        msg += '\n고유ID : ' + rsp.imp_uid;
+	        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '\n결제 금액 : ' + rsp.paid_amount + '원';
+	        msg += '\n카드 승인번호 : ' + rsp.apply_num;
+	        msg += '\n결제상황 : ' + rsp.status;
+	        msg += '\n결제수단 : ' + rsp.pay_method;
+	        msg += '\n가상계좌 : ' + rsp.vbank_num;
+
+	        location.href = '/payment/paymentAf?paid_amount='+rsp.paid_amount+'&imp_uid='+rsp.imp_uid
+	        		+'&status='+rsp.status+'&pay_method='+rsp.pay_method+'&receipt_url='+rsp.receipt_url
+	        		+'&vbank_num='+rsp.vbank_num+'&vbank_name='+rsp.vbank_name
+	        		+'&vbank_date='+rsp.vbank_date+'&vbank_holder='+rsp.vbank_holder; //완료페이지로 이동
+
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '\n에러내용 : ' + rsp.error_msg;
+	    }
+
+	    alert(msg);
+	});
+}

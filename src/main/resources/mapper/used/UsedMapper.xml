@@ -18,8 +18,8 @@
 
 <!-- 물품 디테일 -->
 <select id="getUsedDetail" resultType="com.rhymes.app.used.model.ProductsDto" parameterType="java.lang.Integer">
-	SELECT * FROM
-	rhy_used_products
+	SELECT *	
+	FROM rhy_used_products
 	where seq=#{seq}
 </select>
 
@@ -62,4 +62,36 @@
 	INSERT INTO rhy_used_seller(s_id,rdate)
 	VALUES(#{userid},SYSDATE())
 </insert>
+
+<!-- 게시글 클릭시 좋아요 여부 조회 -->
+<select id="getlikes" parameterType="hashmap" resultType="java.lang.Integer">
+	SELECT count(*)
+	FROM rhy_used_likes
+	WHERE mname=#{mname} AND bno=#{bno}
+</select>
+
+<!-- 게시글의 좋아요 개수 조회 -->
+<select id="getboardlikes" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT count(*)
+	FROM rhy_used_likes
+	WHERE bno=#{seq}
+</select>
+
+<!-- 좋아요 삭제  -->
+<delete id="deletelikes" parameterType="hashmap">
+	DELETE FROM rhy_used_likes
+	WHERE mname=#{mname} AND bno=#{bno}
+</delete>
+<!-- 좋아요 추가 -->
+<insert id="addlikes" parameterType="hashmap">
+	INSERT INTO rhy_used_likes (mname,bno)
+	VALUES(#{mname},#{bno})
+</insert>
+
+<!-- 댓글 불러오기 -->
+<select id="getComments" parameterType="java.lang.Integer" resultType="com.rhymes.app.used.model.CommentsDto">
+	SELECT *
+	FROM rhy_used_Comments
+	where parent=#{seq}
+</select>
 </mapper>

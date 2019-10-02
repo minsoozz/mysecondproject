@@ -30,21 +30,21 @@ public class P_MemberDTO implements Serializable {
 	public P_MemberDTO() {}
 
 
-	public P_MemberDTO(String userid, String username, String postcode, String address, String detailAddress,
-	         String phone, String useremail, String usergender, String userbirth, int count, boolean islike) {
-	      super();
-	      this.userid = userid;
-	      this.username = username;
-	      this.postcode = postcode;
-	      this.address = address;
-	      this.detailAddress = detailAddress;
-	      this.phone = phone;
-	      this.useremail = useremail;
-	      this.usergender = usergender;
-	      this.userbirth = userbirth;
-	      this.count = count;
-	      this.islike = islike;
-	   }
+   public P_MemberDTO(String userid, String username, String postcode, String address, String detailAddress,
+         String phone, String useremail, String usergender, String userbirth, int count, boolean islike) {
+      super();
+      this.userid = userid;
+      this.username = username;
+      this.postcode = postcode;
+      this.address = address;
+      this.detailAddress = detailAddress;
+      this.phone = phone;
+      this.useremail = useremail;
+      this.usergender = usergender;
+      this.userbirth = userbirth;
+      this.count = count;
+      this.islike = islike;
+   }
 
 	   public P_MemberDTO(String userid, String username, String postcode, String address, String detailAddress,
 	            String phone, String useremail, String usergender, String userbirth, int count) {
@@ -87,6 +87,7 @@ public class P_MemberDTO implements Serializable {
 		         + ", usergender=" + usergender + ", userbirth=" + userbirth + ", count=" + count + ", islike=" + islike
 		         + "]";
 		}
+
 
 
 

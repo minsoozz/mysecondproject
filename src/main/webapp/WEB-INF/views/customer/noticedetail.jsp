@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
 
 
 <table class="detail_table">
@@ -30,9 +23,11 @@
 </tr>
 <tr>
 	<td colspan="4">
+	<div style="white-space:pre-line;">
 	<img alt="" src="../upload/${noticedto.filename }" style="height: 30%">
 	${noticedto.content }
 	</td>
+	</div>
 </tr>
 
 </table>
@@ -50,9 +45,20 @@
 	</span>
 
 </div>
-</body>
-</html>
+<br><br><br>
+<table class="before_table">
+<col width="50"><col width="650">
+<tr style="border-top: 3px solid #E0FF8B;">
+	<td style="border-right: 1px solid #EFEFEF;">이전글<img alt="" src="../img/customer-img/up.png" height="18px;" width="18px;" align="right" style="padding-right: 5px"> </td>
+	<td><a href="noticedetail?seq=${beforedto.seq}">${beforedto.title }</a></td>
+</tr>
+<tr style="border-bottom: 3px solid #E0FF8B;">
+	<td style="border-right: 1px solid #EFEFEF;">다음글<img alt="" src="../img/customer-img/down.png" height="18px;" width="18px;" align="right" style="padding-right: 5px"></td>
+	<td><a href="noticedetail?seq=${afterdto.seq}">${afterdto.title }</a></td>
+<tr> 
 
+</tr>
+</table>
 
 
 <script type="text/javascript">

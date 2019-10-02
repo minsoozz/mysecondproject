@@ -12,7 +12,7 @@
 
 <a href="/Rhymes/payment">payment</a><br>
 <a href="/Rhymes/excel">exceldownload</a><br>
-<a href="/Rhymes/ordercheck">ordercheck</a><br>
+<a href="/Rhymes/ordercheck_confirm">ordercheck</a><br>
 
 <br><br>
 </body>

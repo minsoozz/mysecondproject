@@ -1,35 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- jar 파일 두개 추가, 링크 추가 -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<style type="text/css">
+.ordercheck_wrap{
+	/* background-color: red; */
+}
+.ordercheck_tb{
+	border: 1px solid #dbdbdb;
+}
+th{
+	text-align: center;
+}
+</style>
 
 </head>
 <body>
 
-<div class="ordercheck_confirm_wrap" align="center">
-<div class="ordercheck_confirm_title" align="center">
-<b class="ordercheck_confirm_title_font">비회원 주문내역 및 배송조회</b>
-</div>
-<div class="ordercheck_confirm_content" align="center">
-<table>
+<div class="ordercheck_wrap">
+<table class="ordercheck_tb" border="1" style="width: 100%; background-color: red;">
+<col width="5%"><col width="20%"><col width="20%"><col width="10%">
+<col width="20%"><col width="10%"><col width="15%">
 <tr>
-	<td><input type="text" placeholder="주문번호" style="width: 400px; height: 70px; padding-left: 15px;"></td>
+	<th>번호</th>
+	<th>주문일시</th>
+	<th>주문번호</th>
+	<th>결제방법</th>
+	<th>상품금액</th>
+	<th>주문상태</th>
+	<th>상세보기</th>
 </tr>
+<%-- <c:if test="${empty ordercheck_list }">
 <tr>
-	<td><input type="text" placeholder="주문자 이름" style="width: 400px; height: 70px; padding-left: 15px;"></td>
+	<td>주문 내역이 없습니다</td>
 </tr>
+</c:if> --%>
+<%-- <c:if test="${not empty ordercheck_list }"> --%>
+<%-- <c:forEach begin="0" end="${fn:lengh(ordercheck_list) -1 }" step="1" varStatus="i"> --%>
 <tr>
-	<td style="padding-top: 20px;">
-	<input type="button" value="조회하기" style="width: 400px; height: 70px; background-color: #d7fd75; border: #d7fd75;">
+	<td>1</td>
+	<td>2019-09-24 11:00:47</td>
+	<td>
+	<b id="ordercheck_b">1569290395807</b>
+	<a id="ordercheck_a">1569290395807</a>
 	</td>
+	<td>핸드폰</td>
+	<td>42,000</td>
+	<td>입금확인</td>
+	<td><input type="button" value="상세보기" id="product_detail"></td>
 </tr>
+<%-- </c:forEach> --%>
+<%-- </c:if> --%>
 </table>
 </div>
-</div>
+
+
+
+<script type="text/javascript">
+$(function () {
+	//alert("주문조회 페이지");
+	$("#ordercheck_a").hide();
+	
+	$("#product_detail").click(function () {
+		alert("상세보기");
+	});
+	
+	$("#ordercheck_b").mouseover(function() {
+		alert("오버");
+
+		$("#ordercheck_a").show();
+		$("#ordercheck_b").hide();
+	});
+});
+</script>
+
 
 </body>
 </html>
