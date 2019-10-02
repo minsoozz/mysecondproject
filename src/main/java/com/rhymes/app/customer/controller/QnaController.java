@@ -48,6 +48,7 @@ public class QnaController {
 		
 		//글의 총수
 		int totalRecordCount = QnaService.getQnaCount(param);
+
 		model.addAttribute("qnalist", qnalist);
 		
 		
@@ -207,6 +208,7 @@ public class QnaController {
 	//답글 가기 
 	@GetMapping(value = "/qnaanswer")
 	public String bbwrite(int seq, Model model) {			
+		model.addAttribute("doc_title", "1:1 문의");
 		
 		model.addAttribute("seq", seq);
 		
@@ -214,10 +216,9 @@ public class QnaController {
 	}
 	//답글작성
 	@RequestMapping(value = "/qnaanswerAf", method= RequestMethod.POST)
-	public String qnaanswerAf(int seq ,QnaDto dto,
+	public String qnaanswerAf(QnaDto dto,
 			@RequestParam(value = "fileload", required = false)MultipartFile fileload,
 			HttpServletRequest req){		
-		
 		
 		String filename = fileload.getOriginalFilename();	//mydata
 		dto.setFilename(filename);
@@ -239,7 +240,7 @@ public class QnaController {
 		File file = new File(fupload + "/" + newfilename);
 		
 		try {
-			//
+			
 			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
 			
 		} catch (IOException e) {
@@ -249,7 +250,7 @@ public class QnaController {
 		
 		// db 
 		try {
-			boolean b = QnaService.QnaAnswer(seq, dto);
+			boolean b = QnaService.QnaAnswer(dto);
 			if(b) {
 				
 				return "redirect:/Rhymes/qnalist";
@@ -258,7 +259,6 @@ public class QnaController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 		return "redirect:/Rhymes/qnalist";
 		

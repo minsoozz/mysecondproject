@@ -6,8 +6,7 @@
 <head> 
 <meta charset="UTF-8">
 
-<meta name="description" content="">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
 <!-- Core Stylesheet -->
@@ -114,10 +113,10 @@
                             <ul class="navbar-nav" id="rhymes-nav">
                             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">WOMEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">MEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList">MEN</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">MARKET</a>

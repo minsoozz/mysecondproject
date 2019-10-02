@@ -6,33 +6,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<style type="text/css">
-.ordercheck_wrap{
-	/* background-color: #d7fd75; */
-	margin-left: 350px;
-}
-.ordercheck_title{
-	/* background-color: red; */
-	border-bottom: 1px solid #dbdbdb;
-	margin-bottom: 50px;
-	margin-top: 50px;
-}
-.ordercheck_content{
-	/* background-color: blue; */
-}
-.ordercheck_title_font{
-	font-size: 35px;
-}
-</style>
 
 </head>
 <body>
 
-<div class="ordercheck_wrap" align="center">
-<div class="ordercheck_title" align="center">
-<b class="ordercheck_title_font">비회원 주문내역 및 배송조회</b>
+<div class="ordercheck_confirm_wrap" align="center">
+<div class="ordercheck_confirm_title" align="center">
+<b class="ordercheck_confirm_title_font">비회원 주문내역 및 배송조회</b>
 </div>
-<div class="ordercheck_content" align="center">
+<div class="ordercheck_confirm_content" align="center">
 <table>
 <tr>
 	<td><input type="text" placeholder="주문번호" style="width: 400px; height: 70px; padding-left: 15px;"></td>

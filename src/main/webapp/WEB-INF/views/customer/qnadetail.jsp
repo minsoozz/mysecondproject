@@ -32,22 +32,19 @@
 </tr>
 <tr>
 	<td colspan="4">
+	<div style="white-space:pre-line;">
 	<img alt="" src="../upload/${qna.filename }" style="height: 30%">
 	${qna.content }
+	</div>
 	</td>
 </tr>
-
-<tr>
-	<td>
+</table>
+<div>
 		<form action="qnaanswer" method="get">
 				<input type="hidden" name="seq" value="${qna.seq }">
 				<input type="submit" class="btn" value="댓글">
 			</form>
-	</td>
-</tr>
-
-</table>
-
+</div>
 
 <!-- 수정삭제버튼 -->
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.Store.dao.PurchaseDao;
 import com.rhymes.app.Store.model.BasketDto;
+import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.StockDto;
 
@@ -39,6 +40,24 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		int n = sqlSession.insert(ns + "insertBakset", basket);
 		return n>0?true:false;
 	}
+
+	@Override
+	public boolean chkBasket(BasketDto basket) throws Exception {
+		int n = sqlSession.selectOne(ns + "chkBasket", basket);
+		return n>0?true:false;
+	}
+
+	@Override
+	public List<BasketListDto> getBasketList(String id) throws Exception {
+		return sqlSession.selectList(ns + "getBasketList", id);
+	}
+
+	@Override
+	public void deleteBasket(int b_seq) throws Exception {
+		sqlSession.delete(ns + "deleteBasket", b_seq);
+	}
+
+	
 	
 	
 	

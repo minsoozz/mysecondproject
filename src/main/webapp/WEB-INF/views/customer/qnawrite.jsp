@@ -23,7 +23,7 @@
 	</td>
 </tr>
 <tr>
-	<td colspan="3"><input type="text" name="title"></td>
+	<td colspan="3"><input type="text" name="title" id="title" style="width: 95%;"></td>
 </tr>
 
 <tr>
@@ -42,7 +42,7 @@
 <tr>
 	<th>내용</th>
 	<td colspan="3">
-		<textarea rows="" cols="" name="content"></textarea>
+		<textarea style="height:268px;width:1025px;" id="content" name="content"></textarea>
 	</td>
 </tr>
 
@@ -77,5 +77,17 @@ $("#_btnBack").click(function () {
 	location.href = "qnalist";
 });
 
+$("#_btnWrite").mousedown(function() {
+	if($("#category").val()==""){
+		alert("카테고리를 선택해주세요");
+		return;
+	}else if($("#content").val()==""){
+		alert("내용을 입력해주세요");
+		return;
+	}else if($("#title").val()==""){
+		alert("제목을 입력해주세요");
+		return;
+	}
+});
 </script>
     
