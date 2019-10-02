@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 물품 등록 -->
+<mapper namespace="Used">
+	<insert id="write" parameterType="com.rhymes.app.used.model.ProductsDto">
+	INSERT INTO rhy_used_products(s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes,readcount,rdate)
+	VALUES (#{s_id},#{category},#{title},#{content},#{price},#{quantity},#{place},#{photo},#{photo_sys},'판매중',0,0,SYSDATE())
+	</insert>
+	
+<!-- 물품 리스트  -->	
+<select id="getUsedList" resultType="com.rhymes.app.used.model.ProductsDto">
+	SELECT * FROM
+	rhy_used_products
+</select>
+
+<!-- 물품 디테일 -->
+<select id="getUsedDetail" resultType="com.rhymes.app.used.model.ProductsDto" parameterType="java.lang.Integer">
+	SELECT * FROM
+	rhy_used_products
+	where seq=#{seq}
+</select>
+
+<!-- 셀러 인증 카운트 증가 -->
+<update id="updateSellerCount" parameterType="java.lang.String">
+	UPDATE rhy_mem_p  
+	SET COUNT=COUNT+1
+	where id=#{parameter}
+</update>
+
+<!-- 셀러 인증 카운트 조회 -->
+<select id="getSellerCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+	SELECT COUNT
+	FROM rhy_mem_p
+	where id=#{parameter}
+</select>
+
+<!-- 멤버 정보 불러오기 -->
+<select id="getMember" resultType="com.rhymes.app.member.model.P_MemberDTO" parameterType="java.lang.String">
+	SELECT id,name,postcode,address,detailaddress,phone,gender,birth,count
+	FROM rhy_mem_p
+	where id=#{userid}
+</select>
+
+<!-- 기본주소가 등록된 회원 판매자 등록 -->
+<insert id="setSellerMember" parameterType="java.lang.String">
+	INSERT INTO rhy_used_seller(s_id,rdate)
+	VALUES(#{s_id},SYSDATE())
+</insert>
+
+<!-- 기본주소가 없는 회원 주소추가 -->
+<update id="setSelleraddress" parameterType="com.rhymes.app.member.model.P_MemberDTO">
+	UPDATE rhy_mem_p
+	SET postcode=#{postcode}, address=#{address}, detailaddress=#{detailAddress}
+	WHERE ID=#{userid}
+</update>
+
+<!-- 기본주소가 없는 회원 판매자 등록 -->
+<insert id="setSellerMember2" parameterType="com.rhymes.app.member.model.P_MemberDTO">
+	INSERT INTO rhy_used_seller(s_id,rdate)
+	VALUES(#{userid},SYSDATE())
+</insert>
+</mapper>

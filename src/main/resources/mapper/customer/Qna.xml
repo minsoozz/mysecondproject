@@ -45,4 +45,21 @@
 	WHERE SEQ=#{seq}
 	</delete>
 	
+	<!-- qna 답글 -->
+	<update id="QnaAnswer" parameterType="java.lang.Integer">
+	UPDATE QNA
+		SET STEP = (STEP+1)
+		WHERE REF= (SELECT REF FROM QNA WHERE SEQ=#{seq})
+		AND STEP> (SELECT STEP FROM QNA WHERE SEQ=#{seq})
+	</update>
+	<insert id="QnaAnswerAf" parameterType="com.rhymes.app.customer.model.QnaDto">
+	     INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,
+	     				TITLE,CONTENT, WDATE, ORDERNO, FILENAME)
+	     VALUES(#{id},#{category}, 
+	     				(SELECT REF FROM QNA ALIAS_FOR_SUBQUERY WHERE SEQ=#{seq}),
+	     				(SELECT STEP FROM QNA ALIAS_FOR_SUBQUERY WHERE SEQ=#{seq})+1, 
+	     				(SELECT DEPTH FROM QNA ALIAS_FOR_SUBQUERY WHERE SEQ=#{seq})+1, 
+	     				#{title},#{content},NOW(), #{orderno}, #{filename})
+	</insert>
+	
 </mapper>

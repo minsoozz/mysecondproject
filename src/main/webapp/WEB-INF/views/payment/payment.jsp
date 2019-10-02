@@ -10,13 +10,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- payment.js -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/payment/payment.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </head>
 <body>
@@ -197,7 +199,7 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $("#checkorder").click(function () {
 	//alert("주문자와 동일");
 	
@@ -273,7 +275,7 @@ var count = 0; /* 문자 중복을 막기 위한 인증번호 */
 $("#oneselfConfirmBtn").click(function() {
 	alert("본인인증1");
 	
-	var number = Math.floor(Math.random() * 100000) + 100000;	
+	var number = Math.floor(Math.random() * 100000) + 100000;
 	if(number>100000){
 		number = number - 10000;
 	}
@@ -293,8 +295,8 @@ $("#oneselfConfirmBtn").click(function() {
 				alert("text : " + text + ", to : " + to);
 				
 				$.ajax({
-					url:"/payment/sendsms",
-					type:"post",
+					url:"/Rhymes/sendsms",
+					type:"get",
 					data:{
 						to: to,
 						text: text
@@ -308,6 +310,7 @@ $("#oneselfConfirmBtn").click(function() {
 					alert("발송실패");
 				}
 			});
+			
 			} else {
 				alert("휴대폰 인증 그만하세요");
 			}
@@ -400,7 +403,7 @@ function sample4_execDaumPostcode() {
 
 
 
-</script>
+</script> -->
 
 
 
