@@ -18,8 +18,25 @@
  	FROM rhy_store_stock
  	WHERE P_SEQ = #{p_seq}
  </select>
+ <!-- 장바구니 -->
  <insert id="insertBakset" parameterType="com.rhymes.app.Store.model.BasketDto">
  	INSERT INTO rhy_store_basket
  	VALUES(NULL, #{id}, #{stock_seq}, #{p_quantity}, NOW())
  </insert>
+ <select id="chkBasket" parameterType="com.rhymes.app.Store.model.BasketDto" resultType="Integer">
+ 	SELECT COUNT(*) FROM rhy_store_basket
+	WHERE ID = #{id} AND STOCK_SEQ=#{stock_seq}
+ </select>
+ <select id="getBasketList" parameterType="java.lang.String" resultType="com.rhymes.app.Store.model.BasketListDto">
+ 	SELECT a.PHOTO1_FILE, a.C_NAME, a.P_NAME, a.P_PRICE, b.SIZE, b.STOCK_SEQ, c.P_QUANTITY, c.RDATE, c.B_SEQ
+ 	FROM rhy_store_stock b INNER JOIN rhy_store_basket c ON b.STOCK_SEQ = c.STOCK_SEQ
+ 		INNER JOIN rhy_store_product a ON a.P_SEQ = b.P_SEQ
+ 	WHERE ID=#{id}
+ 	ORDER BY c.rdate
+ </select>
+ <delete id="deleteBasket" parameterType="Integer">
+ 	DELETE FROM rhy_store_basket
+ 	WHERE B_SEQ = #{b_seq}
+ </delete>
+ 
 </mapper>

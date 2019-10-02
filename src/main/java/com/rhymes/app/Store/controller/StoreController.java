@@ -5,6 +5,7 @@ package com.rhymes.app.Store.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -24,9 +25,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.rhymes.app.Store.model.BasketDto;
+import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.SizeunitDto;
 import com.rhymes.app.Store.model.StockDto;
+import com.rhymes.app.Store.model.category.BasketOrderDto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.PurchaseService;
@@ -75,9 +78,7 @@ public class StoreController {
 		int c2_seq2 = Integer.parseInt(c2_seq);
 		
 		  String[] sizeUnits = register.getSizeunit(c2_seq2).split("/");
-		  
 		  List<String> list = Arrays.asList(sizeUnits);
-		  
 		  System.out.println("-----------" + list);
 		
 		return list;
@@ -169,7 +170,7 @@ public class StoreController {
 			e.printStackTrace();
 		}
       
-      return "productList.tiles";
+      return "redirect:/Rhymes/store/productList";
    }
 	
 	@GetMapping("/store/productList")
@@ -211,22 +212,125 @@ public class StoreController {
 	
 	@ResponseBody
 	@GetMapping("/store/insertBasket")
-	public String insertBasket(BasketDto basket)throws Exception{
+	public List<BasketListDto> insertBasket(BasketDto basket)throws Exception{
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!");
 		basket.setId("sujin123");
 		
 		String str = "";
-		boolean bool = purchase.insertBasket(basket);
-		if(bool) {
-			//System.out.println("장바구니 등록 완료");
-			str = "장바구니에 담았습니다.";
+		boolean bool1 = purchase.chkBasket(basket);
+		if(bool1) {
+			//str="이미 장바구니에 등록된 상품입니다.";
+			
 		}else {
-			str = "ㅠㅠ";
+			try {
+				boolean bool2 = purchase.insertBasket(basket);
+				if(bool2) {
+					//str = "장바구니에 담았습니다.";
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
+		List<BasketListDto> blist= purchase.getBasketList("sujin123");
 		
-		return str;
+		int unitPrice = 0;
+		int basketPcnt = 0;
+		int total_price = 0;
+		for (int i = 0; i < blist.size(); i++) {
+			int price = blist.get(i).getP_price();
+			blist.get(i).setP_price2(formatter.format(price));
+			// 총액 결제 금액 계산
+			unitPrice = blist.get(i).getP_price();
+			basketPcnt = blist.get(i).getP_quantity();
+			//제품 단가 * 재고번호 수량
+			total_price += (unitPrice * basketPcnt);
+		}
+		blist.get(0).setTotal_price(formatter.format(total_price));
+		
+		return blist;
 	}
 	
+	@PostMapping("/store/basketOrder")
+	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity) throws Exception{
+		System.out.println(blist_stockseq);
+		System.out.println(blist_pQuantity);
+		
+		String[] _sqArr = blist_stockseq.split("/");
+		int[] sqArr = Arrays.stream(_sqArr).mapToInt(Integer::parseInt).toArray();
+		String[] _pqArr = blist_pQuantity.split("/");
+		int[] pqArr = Arrays.stream(_pqArr).mapToInt(Integer::parseInt).toArray();
+		
+		List<BasketOrderDto> bOlist = new ArrayList<BasketOrderDto>();
+		
+		for (int i = 0; i < sqArr.length; i++) {
+			BasketOrderDto basket = new BasketOrderDto();
+			System.out.println(sqArr[i]);
+			System.out.println(pqArr[i]);
+			
+			basket.setStock_seq(sqArr[i]);
+			basket.setP_quantity(pqArr[i]);
+			bOlist.add(basket);
+		}
+		
+		for (BasketOrderDto b : bOlist) {
+			//System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
+			System.out.println(b);
+		}
+		
+		return "null";
+	}
 	
+	@PostMapping("/store/basket")
+	public String basket(Model model)throws Exception {
+		System.out.println("장바구니 이동 컨트롤ㄹㄹ러");
+		BasketDto basket = new BasketDto();
+		//Session ID SET
+		basket.setId("sujin123");
+				
+		List<BasketListDto> blist= purchase.getBasketList("sujin123");
+		
+		int unitPrice = 0;
+		int basketPcnt = 0;
+		int total_price = 0;
+		for (int i = 0; i < blist.size(); i++) {
+			int price = blist.get(i).getP_price();
+			blist.get(i).setP_price2(formatter.format(price));
+			// 총액 결제 금액 계산
+			unitPrice = blist.get(i).getP_price();
+			basketPcnt = blist.get(i).getP_quantity();
+			//제품 단가 * 재고번호 수량
+			total_price += (unitPrice * basketPcnt);
+		}
+		blist.get(0).setTotal_price(formatter.format(total_price));
+		blist.get(0).setTotal_price2(total_price);
+		model.addAttribute("blist", blist);
+		return "basket.tiles";
+	}
+	
+	@ResponseBody
+	@GetMapping("/store/deleteBasket")
+	public int deleteBasket(int b_seq) throws Exception{		
+		
+		int unitPrice = 0;
+		int basketPcnt = 0;
+		int total_price = 0;
+		String updatedTotal = "";	
+		
+		try {
+			purchase.deleteBasket(b_seq);
+			
+			List<BasketListDto> blist= purchase.getBasketList("sujin123");
+			for (int i = 0; i < blist.size(); i++) {
+				int price = blist.get(i).getP_price();
+				blist.get(i).setP_price2(formatter.format(price));
+				unitPrice = blist.get(i).getP_price();
+				basketPcnt = blist.get(i).getP_quantity();
+				total_price += (unitPrice * basketPcnt);				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return total_price;
+	}
 }
 

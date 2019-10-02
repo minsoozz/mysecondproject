@@ -3,7 +3,7 @@
 
 <mapper namespace="Notice">
     <select id="getNoticeList" parameterType="com.rhymes.app.customer.model.CustomerParam"  resultType="com.rhymes.app.customer.model.NoticeDto">
-       SELECT SEQ, ID, TITLE,CONTENT, WDATE, READCOUNT, FILENAME
+       SELECT SEQ, ID, TITLE,CONTENT, WDATE , READCOUNT, FILENAME
        FROM (SELECT ROW_NUMBER()OVER(ORDER BY SEQ DESC)AS RNUM,
 				SEQ, ID, TITLE,CONTENT, WDATE, READCOUNT, FILENAME
 				FROM NOTICE
@@ -26,8 +26,6 @@
 		WHERE RNUM BETWEEN ${start} AND ${end}		
       	ORDER BY SEQ DESC
     </select>
-    
-    
     
   <select id="getNoticeCount" parameterType="com.rhymes.app.customer.model.CustomerParam"
 		resultType="java.lang.Integer">
@@ -93,5 +91,6 @@
 	SET READCOUNT= READCOUNT+1
 	WHERE SEQ=#{seq}
 	</update> 
+
     
 </mapper>
