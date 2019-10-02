@@ -32,8 +32,10 @@
 </tr>
 <tr>
 	<td colspan="4">
+	<div style="white-space:pre-line;">
 	<img alt="" src="../upload/${qna.filename }" style="height: 30%">
 	${qna.content }
+	</div>
 	</td>
 </tr>
 </table>

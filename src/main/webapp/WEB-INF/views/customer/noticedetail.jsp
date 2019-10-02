@@ -23,9 +23,11 @@
 </tr>
 <tr>
 	<td colspan="4">
+	<div style="white-space:pre-line;">
 	<img alt="" src="../upload/${noticedto.filename }" style="height: 30%">
 	${noticedto.content }
 	</td>
+	</div>
 </tr>
 
 </table>
