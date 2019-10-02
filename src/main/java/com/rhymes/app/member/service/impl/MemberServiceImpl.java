@@ -204,6 +204,20 @@ public class MemberServiceImpl implements MemberService {
 
 		
 	}
+
+	@Override
+	public void getkakaoregi(MemBean mbean) {
+		
+		MemBean mb = new MemBean(mbean.getUseremail(), passwordEncoder.encode(mbean.getUserpw()), 
+				mbean.getUsername(), mbean.getUseremail(), "ROLE_MEMBER", "KAKAO");
+		
+		memberdao.getkakaoregi(mb);
+		
+		AuthoritiesDTO amem = new AuthoritiesDTO(mbean.getUseremail(), "ROLE_MEMBER");
+		memberdao.getAuthAddmem(amem);
+		
+	}
+
 	
 
 

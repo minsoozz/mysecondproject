@@ -61,18 +61,41 @@
 	<definition name="rhypwreset" extends="rhylogin">
 		<put-attribute name="mypage_content" value="/WEB-INF/views/member/Find_Pw_Reset.jsp"/>
 	</definition>
+	
+	<!-- 카카오톡 추가정보 -->
+	<definition name="kakaoLoginadd" extends="rhylogin">
+		<put-attribute name="mypage_content" value="/WEB-INF/views/member/KakaoAddInfo.jsp"/>
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	<!-- admin test -->
-	<definition name="memtest/admin" template="/WEB-INF/views/member/tmp/admin.jsp">
-	</definition>
+<!-- 	<definition name="memtest/admin" template="/WEB-INF/views/member/tmp/admin.jsp">
+	</definition> -->
 
 	<!-- member test -->
-	<definition name="memtest/member" template="/WEB-INF/views/member/tmp/member.jsp">
-	</definition>
+<!-- 	<definition name="memtest/member" template="/WEB-INF/views/member/tmp/member.jsp">
+	</definition> -->
 
 	<!-- seller test -->
-	<definition name="memtest/seller" template="/WEB-INF/views/member/tmp/seller.jsp">
-	</definition>
+<!-- 	<definition name="memtest/seller" template="/WEB-INF/views/member/tmp/seller.jsp">
+	</definition> -->
 
 </tiles-definitions>
 

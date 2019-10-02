@@ -50,4 +50,8 @@ public interface MemberDAO {
 	// 사업자 pw찾기
 	public boolean getfindpw_seller(SellerDTO sdto);
 	
+	// 카카오 regi 공통정보
+	public void getkakaoregi(MemBean mb);
+	
+	
 }

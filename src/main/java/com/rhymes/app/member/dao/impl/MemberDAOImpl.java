@@ -99,7 +99,14 @@ public class MemberDAOImpl implements MemberDAO {
 		@Override
 		public boolean getfindpw_seller(SellerDTO sdto) {
 			int n = sqlSession.selectOne(ns+"getfindpw_seller", sdto);
-			return n>0?true:false;	
+			return n>0?true:false;
+		}
+		
+		@Override
+		public void getkakaoregi(MemBean mb) {
+			sqlSession.insert(ns+"getkakaoregi", mb);
+			sqlSession.insert(ns+"getkakaoregi_p", mb);
+			
 		}
 
 

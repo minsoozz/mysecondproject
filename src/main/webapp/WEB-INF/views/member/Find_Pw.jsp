@@ -12,37 +12,13 @@
 <%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/findid.css"> --%>
 <!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!-- 
-<style type="text/css">
-.section_login{
-	width: 400px;
-	height: 500px;
-/* 	background-color: orange; */
-	float: left;
-}
-.section_login_email{
-	width: 350px;
-    height: 200px;
-/* 	background-color: blue; */
-	margin: 400px;	
-}
-.section_login_pw{
-	width: 350px;
-	height: 200px;
-/* 	background-color: olive; */
-}
-.tit_label{
-	paddin:1px;
-}
 
-</style>
- -->
 
 <script type="text/javascript">
 
 function chkForm() {
 	var userinput = eval("document.userinput");
-	if(!userinput.userid.value) {
+	if(!userinput.useridcheck.value) {
 		alert("아이디를 입력하세요");
 		$("#_id").focus();
 		return false;
@@ -210,9 +186,9 @@ function checkIt() {
 <!-- 				<strong class="txt_title"><input type="radio">휴대폰으로 찾기</strong><br><br> -->
 			<div class="findpwfull">
 				<div class="inputtext_id">
-				<input type="text" class="inputtext_b_long_ch" id="_userid" size="29" tabindex="5" required="required" placeholder="아이디">
+				<input type="text" class="inputtext_b_long_ch" name="userid" id="_userid" size="29" tabindex="5" required="required" placeholder="아이디">
 				<br><input type="button" value="확인" class="regibutton_b" id="_idbtn">
-				<input type="hidden" id="IdText" name="userid" value="아이디인증확인용">
+				<input type="hidden" id="IdText" name="useridcheck" value="아이디인증확인용">
 				</div>
 				<br>
 	
@@ -228,7 +204,7 @@ function checkIt() {
 				
 				<br>
 				<input type="text" value="" placeholder="인증번호" class="findNum">
-				<input type="hidden" id="frontto" name="phone" placeholder="010합치기">
+				<input type="hidden" id="_frontto" name="phone" placeholder="010합치기">
 				<input type="hidden" id="text" placeholder="확인용">
 				<br>
 				
@@ -299,11 +275,6 @@ var count = 0; /* 문자 중복을 막기 위한 인증번호 */
 $(document).ready(function() {
 
    $("#send").click(function() {
-      
-	  /*  if($("#IdText").text() == "" || $("#IdText").text()==null){
-		   alert("아이디 확인을 해주세요");
-		   $("#_userid").focus();
-	   }else{ */
 		   
 	       var number = Math.floor(Math.random() * 100000) + 100000;
 	       if(number>100000){
@@ -314,9 +285,17 @@ $(document).ready(function() {
 	      
 	       var to = $("#to").val();
 	       var frontnum = $("#telSelect").val();
+	       
+// 	       alert("to:" + to);
 // 	       alert("frontnum:" + frontnum);
-	       $("#frontto").val(frontnum+to);
-// 	       alert($("#frontto").text(frontnum+to));
+// 	       alert(frontnum+to);
+		   var usernum = frontnum + to;
+		   alert("usernum: " + usernum);
+ 	       $("#_frontto").val(usernum);
+ 	      
+// 	       alert("usernum " + usernum);
+	       
+	       
 	       if(to == "" || to == null){
 	           alert("번호를 입력해 주세요");
 	           $("#to").focus();
@@ -328,18 +307,16 @@ $(document).ready(function() {
 	           if(con_test == true){
 	        	   
 	               if(count < 3){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
-	            	   dd
-	 
-		              $.ajax({
+	            	   
+		               $.ajax({
 		                  url:"sendSms.do",
 		                  type:"get",
-		                  data:{to: $("#frontto").val(),
+		                  data:{to: usernum,
 		                       text: $("#text").val()
 		                       },
 		                success:function(){
 		                  alert("해당 휴대폰으로 인증번호를 발송했습니다");
 		                  count++;
-		                  
 		                  alert(count);
 		                  },
 		                  error(){}

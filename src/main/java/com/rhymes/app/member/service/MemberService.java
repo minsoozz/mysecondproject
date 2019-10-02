@@ -39,4 +39,7 @@ public interface MemberService{
 	// 사업자 pw찾기
 	public boolean getfindpw_seller(SellerBean sbean);
 	
+	// 카카오 회원가입
+	public void getkakaoregi(MemBean mbean);
+	
 }
