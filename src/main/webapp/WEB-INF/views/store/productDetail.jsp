@@ -80,8 +80,8 @@ $(document).ajaxSend(function(e, xhr, options) {
 	<input type='hidden' name="p_quantity" id="p_quantity" >
 </form>	
 
-<<<<<<< HEAD
-=======
+
+
 <!-- 장바구니 구매하기 form -->
 <form action="/Rhymes/store/basketOrder" method="post" id="bOrderFrm">
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
@@ -95,7 +95,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 </form>
 
 
->>>>>>> 735b5584a2580d447d382b159556c937f4d4cd9e
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->	
 
@@ -127,13 +126,13 @@ $(document).on('click', '.sizeLabel', function(){
 
 // 장바구니 클릭
 $(document).on('click', '.basketBtn', function(){	
-<<<<<<< HEAD
+
 	//재고번호get
 	/* var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2");
 	alert("stock_seq : " + stock_seq);	
 	var cnt = Number($("#pqCnt").html());
 	alert("수량 : " + cnt); */
-=======
+	
 	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
 	var cnt = Number($("#pqCnt").html());
 	if(isNaN(stock_seq)){
@@ -198,7 +197,6 @@ function showBasketList(arrLen, arr){
 $(document).on('click', '._basketOrderBtn', function(){
 	$("#bOrderFrm").submit();		
 });
->>>>>>> 735b5584a2580d447d382b159556c937f4d4cd9e
 
 /* 장바구니 페이지 이동버튼 클릭 */
 $(document).on('click', '.moveBasketBtn', function(){
@@ -216,7 +214,7 @@ $(document).on('click', '._bDeleteBtn', function(){
 /* 구매버튼 클릭 */
 function buying(){
 	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-<<<<<<< HEAD
+
 	$("#stock_seq").val(stock_seq);
 	
 	var cnt = Number($("#pqCnt").html());
@@ -229,12 +227,11 @@ function plusQ(){
 	var cnt = Number($("#pqCnt").html());
 	if(cnt<9){
 		$("#pqCnt").html(cnt+1);	
-=======
+
 	alert(stock_seq);
 	
 	if(isNaN(stock_seq)){
 		alert("사이즈를 선택해주세요.");	
->>>>>>> 735b5584a2580d447d382b159556c937f4d4cd9e
 	}else{
 		
 		$("#stock_seq").val(stock_seq);
