@@ -10,6 +10,7 @@ import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.Service.UsedService;
 import com.rhymes.app.used.dao.UsedDao;
+import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 
 @Service
@@ -57,5 +58,36 @@ public class UsedServiceImpl implements UsedService {
 		// TODO Auto-generated method stub
 		return usedDao.setSellerMember(p_MemberDTO);
 	}
+
+	@Override
+	public boolean addlikes(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return usedDao.addlikes(map);
+	}
+
+	@Override
+	public boolean getlikes(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return usedDao.getlikes(map);
+	}
+
+	@Override
+	public int getboardlikes(int seq) {
+		// TODO Auto-generated method stub
+		return usedDao.getboardlikes(seq);
+	}
+
+	@Override
+	public boolean deletelikes(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return usedDao.deletelikes(map);
+	}
+
+	@Override
+	public List<CommentsDto> getComments(int seq) {
+		// TODO Auto-generated method stub
+		return usedDao.getComments(seq);
+	}
+	
 	
 }
