@@ -52,11 +52,11 @@
                   <div style="float:left; padding-left: 200px">
 					<h4>STORES</h4>
 						<div>
-							<h6 style="color: #B7DC57">RHYMES</a></h6>
+							<h6 style="color: #B7DC57">RHYMES</h6>
 							<p>TEL. +82-2-3486-9600<br/>
 							459, GANGNAM-DAERO, SEOCHO-GU, SEOUL, KOREA.<br/></p>
 							
-							<h6 style="color: #B7DC57">RHYMES OUTLET</a></h6>
+							<h6 style="color: #B7DC57">RHYMES OUTLET</h6>
 							<p>TEL. +82-2-3486-9600<br/>
 							459, GANGNAM-DAERO, SEOCHO-GU, BAEKAM BLD 5F,<br/>
 							SEOUL, KOREA.<br/></p>							

@@ -1,79 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+
+
 <!DOCTYPE html>
 <html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <head>
+
 <meta charset="UTF-8">
 <!-- security ajax -->
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
+<% String ctx = request.getContextPath(); %>
+
 
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
- 
-<!-- Core Stylesheet -->
-<link href="/css/common/style.css" rel="stylesheet">
 
-<!-- Responsive CSS -->
-<link href="/css/main/responsive/responsive.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/store/productList.css">
 
-<!-- 아이콘 활용을 위한 font-awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 
-<!-- 부트스트랩 -->
-<link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css">
-<script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
-<script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
-<script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
-</head> 
-
-<style>
-
-body{
-
-	font: Open Sans;
-	min-height: 100%;
-	box-sizing: border-box;	
-}
-
-.mainDiv{
-	border: 1px solid red;
-	width:80%;
-	height:auto;
-	background-color: blue;
-	margin:0 auto;
-	position: fixed;
-}
-
-.subDiv{
-	margin:0 auto;
-	display:table;
-	background-color: yellow;
-	width:90%;
-	height:auto;
-	text-align: center;
-	vertical-align: middle;
-	left:50%;
-	margin-top:5px;
-	align:center;
-}
-
-.eachDiv{
-	display:inline-block;
-	border: 1px solid black;
-	width: auto;
-	float:left;
-	margin-bottom: 3%;
-	margin-top: 1px;
-	margin-left:2%;
-	margin-right:1%;
-	text-align: center;
-	background-color: orange;
-}
-
-</style>
 </head>
 <body>
 
@@ -120,22 +67,6 @@ function detail(seq){
 	 //alert(money);
  });
  
-</script>
-
-<!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->
-    <script type=text/javascript>
-	$(document).ready(function(){
-		
-	    var nav = $('.menuWrap');
-	    $(window).scroll(function () {
-	        if ($(this).scrollTop() > 312) {
-	            nav.addClass("float-menu");
-	        }else {
-	            nav.removeClass("float-menu");
-	        }
-	    });
-	});
-	</script>
 	
 </body>
 </html>

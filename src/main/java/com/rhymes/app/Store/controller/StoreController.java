@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Log4j
 
-@RequestMapping("/Rhymes")
+@RequestMapping("/Rhymes/*")
 public class StoreController {
 	
 	@Autowired
@@ -49,8 +49,10 @@ public class StoreController {
 	
 	DecimalFormat formatter = new DecimalFormat("###,###");
 	
-	@GetMapping("/store/register")
-	public String register()throws Exception{
+	
+	
+	@GetMapping(value = "/store/register")
+	public String register() {
 		return "register.tiles";
 	}  
 	
@@ -172,7 +174,7 @@ public class StoreController {
       return "productList.tiles";
    }
 	
-	@GetMapping("/store/productList")
+	@GetMapping(value="/store/productList")
 	public String productList(Model model) throws Exception{
 
 		List<ProductDto> plist = purchase.getProductList();

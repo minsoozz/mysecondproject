@@ -4,11 +4,20 @@
     
 <!DOCTYPE html>
 <html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <head>
+
 <meta charset="UTF-8">
 <!-- security ajax -->
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
+<% String ctx = request.getContextPath(); %>
+
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<link rel="stylesheet" href="/css/store/productDetail.css">
+
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -17,69 +26,6 @@ $(document).ajaxSend(function(e, xhr, options) {
     xhr.setRequestHeader(header, token);
 });
 </script>
-
-<style>
-body{
-	font: Open Sans;
-	min-height: 100%;
-	padding: 30px;
-	box-sizing: border-box;
-}
-.pqSelect{
-	border-radius: 10px;
-	width:100px;
-	border: 1px solid #DADCE0;
-	display:inline-block;
-	text-align: center;
-	
-}
-._sizeSelect{
-	border-radius: 10px;
-	width:100px;
-	height:20px;
-	border: 1px solid #DADCE0;
-	text-align: center;
-}
-#buyBtn{
-	border-radius: 13px;
-	margin-top:5px;
-	width:230px;
-	height:35px;
-	background: black;
-	font: Open Sans 30px;
-	color: white; 
-}
-
-#buyBtn:hover{
-	opacity: 0.5;
-}
-.basketBtn{
-	border-radius: 13px;
-	margin-top:5px;
-	width:230px;
-	height:35px;
-	background: white;
-	font: Open Sans 30px;
-	color: blakc; 
-}
-.basketBtn:hover{
-	opacity:0.5;
-}
-#_sizeChoo{
-	font: 100 14px Open Sans;
-	font-style: inherit;
-	border-radius: 10px;
-	width: 50px;
-	height:30px;
-	display : inline-block;
-	text-align: center;
-	border: 1px solid #DADCE0;
-	/* padding-top: 5px;
-	margin-top: 5px; */
-}
-</style>
-<title>상품 상세정보</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 </head>
 <body>
@@ -119,7 +65,10 @@ body{
 	<input type='hidden' name="p_quantity" id="p_quantity" >
 </form>	
 
+
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->	
+
+
 <script>
 /* 장바구니 클릭 */
 $(document).on('click', '.basketBtn', function(){	
