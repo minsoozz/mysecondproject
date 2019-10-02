@@ -18,6 +18,7 @@
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+
 <link rel="stylesheet" href="/css/store/productList.css">
 
 
@@ -56,6 +57,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 
 function detail(seq){
+	alert("dd");
 	$("#p_seq").val(seq); 
 	$("#moveFrm").submit();
 	
