@@ -25,7 +25,6 @@
 <body>
 
 <div class='mainDiv'>
-	<!-- ★ csrf 예방을 위한 코드추가 -->
 	<div class='subDiv' align='center' ">
 	<c:forEach items="${plist }" var="pro" varStatus="vs">
 	<div class='eachDiv' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 

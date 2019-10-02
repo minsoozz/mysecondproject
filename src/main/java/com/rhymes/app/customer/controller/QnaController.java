@@ -48,6 +48,7 @@ public class QnaController {
 		
 		//글의 총수
 		int totalRecordCount = QnaService.getQnaCount(param);
+
 		model.addAttribute("qnalist", qnalist);
 		
 		
@@ -87,23 +88,19 @@ public class QnaController {
 			@RequestParam(value = "fileload", required = false)MultipartFile fileload,
 			HttpServletRequest req) {
 		
-		
 		String filename = fileload.getOriginalFilename();	//mydata
 		qnadto.setFilename(filename);
 		
 		// upload 
-		
 		String fupload = req.getServletContext().getRealPath("/upload");
 		
-		// �뤃�뜑
-		// String fupload = "d:\\tmp";
 		
-		System.out.println("_fupload:" + fupload);	//�뾽濡쒕뱶 �쐞移�
+		// String fupload = "d:\\tmp";
+		System.out.println("_fupload:" + fupload);	
 		
 		// file
 		String f = qnadto.getFilename();
 		String newfilename = FUpUtil.getNewFileName(f);
-		
 		
 		//	
 		qnadto.setFilename(newfilename);
@@ -206,6 +203,65 @@ public class QnaController {
 		}
 		
 		return "redirect:/Rhymes/qnalist";
+	}
+	
+	//답글 가기 
+	@GetMapping(value = "/qnaanswer")
+	public String bbwrite(int seq, Model model) {			
+		model.addAttribute("doc_title", "1:1 문의");
+		
+		model.addAttribute("seq", seq);
+		
+		return "qnaanswer.tiles";
+	}
+	//답글작성
+	@RequestMapping(value = "/qnaanswerAf", method= RequestMethod.POST)
+	public String qnaanswerAf(QnaDto dto,
+			@RequestParam(value = "fileload", required = false)MultipartFile fileload,
+			HttpServletRequest req){		
+		
+		String filename = fileload.getOriginalFilename();	//mydata
+		dto.setFilename(filename);
+		
+		// upload 
+		String fupload = req.getServletContext().getRealPath("/upload");
+		
+		
+		// String fupload = "d:\\tmp";
+		System.out.println("_fupload:" + fupload);	
+		
+		// file
+		String f = dto.getFilename();
+		String newfilename = FUpUtil.getNewFileName(f);
+		
+		//	
+		dto.setFilename(newfilename);
+		
+		File file = new File(fupload + "/" + newfilename);
+		
+		try {
+			
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		// db 
+		try {
+			boolean b = QnaService.QnaAnswer(dto);
+			if(b) {
+				
+				return "redirect:/Rhymes/qnalist";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/Rhymes/qnalist";
+		
 	}
 	
 	

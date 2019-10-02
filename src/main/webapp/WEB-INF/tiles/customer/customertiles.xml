@@ -60,10 +60,17 @@
        <put-attribute name="body" value="/WEB-INF/views/customer/qnawrite.jsp" />
    </definition>
    
+
+ 
+   <!-- qna 글수정 -->
    
-   <!-- 글수정 -->
    <definition name="qnaupdate.tiles" extends="noticelist.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/qnaupdate.jsp" />
+   </definition>
+   
+   <!-- qna 답글 -->
+   <definition name="qnaanswer.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/qnaanswer.jsp" />
    </definition>
    
 </tiles-definitions>

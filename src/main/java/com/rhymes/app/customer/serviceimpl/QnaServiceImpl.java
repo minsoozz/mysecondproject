@@ -58,10 +58,18 @@ public class QnaServiceImpl implements QnaService {
 		return QnaDao.getfilename(seq);
 	}
 
+	//qna 삭제
 	@Override
 	public boolean QnaDelete(int seq) {
 		
 		return QnaDao.QnaDelete(seq);
+	}
+
+	//qna 답글
+	@Override
+	public boolean QnaAnswer(QnaDto dto) throws Exception {
+		
+		return QnaDao.QnaAnswer(dto);
 	}
 	
 	

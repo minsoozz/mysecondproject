@@ -27,4 +27,8 @@ public interface QnaDao {
 	
 	//qna 삭제
 	public boolean QnaDelete(int seq);
+	
+	//qna 답글
+	public boolean QnaAnswer(QnaDto dto)throws Exception;
+		
 }

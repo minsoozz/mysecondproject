@@ -17,6 +17,8 @@
         <put-attribute name="body" value="/WEB-INF/views/store/productDetail.jsp"/>      
     </definition>
     
+    
+    
    <definition name="register.tiles" template="/WEB-INF/views/store/layout/store_template.jsp">       
    <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
    <put-attribute name="body" value="/WEB-INF/views/store/register.jsp"/>      
@@ -24,10 +26,17 @@
    <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
    </definition>
    
+
+
+    <definition name="productList.tiles" template="/WEB-INF/views/store/productList.jsp">
+    </definition>
     
+    <definition name="productDetail.tiles" template="/WEB-INF/views/store/productDetail.jsp">
+    </definition>
     
-    
-     
+    <definition name="basket.tiles" template="/WEB-INF/views/store/basket.jsp">
+    </definition>
+
 
 </tiles-definitions>
 

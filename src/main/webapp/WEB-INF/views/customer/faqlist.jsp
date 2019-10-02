@@ -55,7 +55,12 @@
 	</td>
 </tr>
 <tr class="detail" id='detail${faq.seq}'>
-	<td colspan="3">${faq.content }</td>
+	<td><img alt="" src="../img/customer-img/answer.PNG" height="12px"; width="24px;" align="top"> </td>
+	<td colspan="2" align="left">
+	<div style="white-space:pre-line;">
+	${faq.content }
+	</div>
+	</td>
 	<td>
 	<div>
 	<span class="button blue">
@@ -70,7 +75,7 @@
 </c:forEach>
 
 <tr>
-<th colspan="3">
+<th colspan="4" align="center">
 <!-- 페이징 -->
 <div id="paging_wrap"> 
 	<jsp:include page="/WEB-INF/views/customer/paging.jsp" flush="false">
