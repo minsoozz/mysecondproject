@@ -41,7 +41,7 @@ public class AuthTestController {
 		
 		log.info("member");
 		
-		return "memtest/member";
+		return "main";
 	}
 	
 	@GetMapping("/seller")
