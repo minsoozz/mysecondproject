@@ -17,10 +17,13 @@
     </definition>
     
     <definition name="productList.tiles" template="/WEB-INF/views/store/productList.jsp">
+    	
     </definition>
     
     <definition name="productDetail.tiles" template="/WEB-INF/views/store/productDetail.jsp">
-        
+    </definition>
+    
+    <definition name="basket.tiles" template="/WEB-INF/views/store/basket.jsp">
     </definition>
 
 </tiles-definitions>
