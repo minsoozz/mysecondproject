@@ -39,7 +39,7 @@
 	</td>
 	<td>${notice.id }</td>
 	<td>
-		<font size="1">${notice.wdate }</font>
+		<font size="1">string.${notice.wdate }(0.10)</font>
 	</td>
 	<td>${notice.readcount }</td>
 	
@@ -47,7 +47,7 @@
 </c:forEach>
 
 <tr>
-<th colspan="5">
+<th colspan="5" align="center">
 <!-- 페이징 -->
 <div id="paging_wrap"> 
 	<jsp:include page="/WEB-INF/views/customer/paging.jsp" flush="false">
@@ -99,9 +99,6 @@
 </tbody>
 </table>
  
-
- 
-
 
 
 <script type="text/javascript">

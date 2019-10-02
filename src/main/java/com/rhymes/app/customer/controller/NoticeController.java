@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FileDeleteStrategy;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileDeleteStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +89,14 @@ public class NoticeController {
 		NoticeDto noticedto = NoticeService.getNoticeDetail(seq);
 		
 		model.addAttribute("noticedto", noticedto);
+		
+		//이전글
+		NoticeDto beforedto = NoticeService.getNoticeDetail(seq-1);
+		model.addAttribute("beforedto", beforedto);
+		
+		//다음글
+		NoticeDto afterdto = NoticeService.getNoticeDetail(seq+1);
+		model.addAttribute("afterdto", afterdto);
 
 		return "noticedetail.tiles";
 	}

@@ -29,8 +29,11 @@
 
 
 .list_table a,.cmenu_table a{text-decoration:none; color:black;}
+
+.before_table a {text-decoration:none; color:black;}
 .list_table a:hover{text-decoration:none; color:black;}
 .cmenu_table a:hober{text-decoration:none; color:black;} 
+.before_table a:hober{text-decoration:none; color:black;} 
 
 /* 리스트테이블 */
 .list_table { width:98%;}
@@ -43,3 +46,8 @@
 .detail_table th { text-align:center; background-color: #F6FFCC;}
 .detail_table td { padding:20px 0px 20px 10px; text-align: left;}
 .detail_table td,.detail_table th { font-size: 12px; border-bottom:1px solid #EFEFEF;}
+
+.before_table { width:98%;}
+.before_table th { text-align:center; padding:20px 0px; }
+.before_table td { border-top:1px solid #EFEFEF; text-align: left; padding:5px 0px 5px 10px;}
+.before_table td,.list_table th { font-size: 12px;}
