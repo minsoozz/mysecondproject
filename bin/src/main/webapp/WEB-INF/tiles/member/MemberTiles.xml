@@ -29,10 +29,9 @@
 	<definition name="memtest/seller" template="/WEB-INF/views/member/tmp/seller.jsp">
 	</definition>
 
+	<!-- login -->
    <definition name="welcome" template="/WEB-INF/views/welcome.jsp">
    </definition>
-
-
 
 </tiles-definitions>
 
