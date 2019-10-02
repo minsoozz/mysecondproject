@@ -4,11 +4,20 @@
     
 <!DOCTYPE html>
 <html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <head>
+
 <meta charset="UTF-8">
 <!-- security ajax -->
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
+<% String ctx = request.getContextPath(); %>
+
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<link rel="stylesheet" href="/css/store/productDetail.css">
+
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -18,123 +27,14 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 </script>
 
-<style>
-body{
-	font: Open Sans;
-	min-height: 100%;
-	padding: 30px;
-	box-sizing: border-box;
-}
-.pqSelect{
-	border-radius: 10px;
-	width:100px;
-	border: 1px solid #DADCE0;
-	display:inline-block;
-	text-align: center;
-	
-}
-._sizeSelect{
-	border-radius: 10px;
-	width:100px;
-	height:20px;
-	border: 1px solid #DADCE0;
-	text-align: center;
-}
-#buyBtn{
-	border-radius: 13px;
-	margin-top:5px;
-	width:230px;
-	height:35px;
-	background: black;
-	font: Open Sans 30px;
-	color: white; 
-}
-
-#buyBtn:hover{
-	opacity: 0.5;
-}
-.basketBtn{
-	border-radius: 13px;
-	margin-top:5px;
-	width:230px;
-	height:35px;
-	background: white;
-	font: Open Sans 30px;
-	color: blakc; 
-}
-.basketBtn:hover{
-	opacity:0.5;
-}
-#_sizeChoo{
-	font: 100 14px Open Sans;
-	font-style: inherit;
-	border-radius: 10px;
-	width: 50px;
-	height:30px;
-	display : inline-block;
-	text-align: center;
-	border: 1px solid #DADCE0;
-	/* padding-top: 5px;
-	margin-top: 5px; */
-}
-.basket{
-    display:none;
-    width:18%;
-    height:100%;
-    /* padding:10px; */
-    border-radius:7px;
-    position:fixed;
-    top:5px;
-    bottom:5px;
-    right:0px;
-    background-color:orange;
-    z-index: 100000;
-}
-
-.moveBasketBtn{
-margin-top:30px;
-background-color: white;
-font-weight: bold;
-color: black;
-width:150px;
-height:30px;
-display: inline-block;
-text-align: center;
-font-size: 15px;
-
-cursor:pointer;
-}
-.moveBasketBtn:hover{
-opacity: 0.9;
-}
-._basketOrderBtn{
-margin-top:10px;
-width:150px;
-height:30px;
-background: white;
-font: Open Sans 80px;
-color: orange;
-text-align: center;
-cursor:pointer;
-display: inline-block;
-font-weight: bold;
-}
-._basketOrderBtn:hover{
-opacity: 0.9;
-}
-
-
-
-</style>
-
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-
-<title>상품 상세정보</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-</style>
+
+
 <link href='/css/style.css' rel='stylesheet'/>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script src='js/swipe.js'></script>
+
 </head>
 <body>
 	
@@ -180,6 +80,8 @@ opacity: 0.9;
 	<input type='hidden' name="p_quantity" id="p_quantity" >
 </form>	
 
+<<<<<<< HEAD
+=======
 <!-- 장바구니 구매하기 form -->
 <form action="/Rhymes/store/basketOrder" method="post" id="bOrderFrm">
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
@@ -193,8 +95,11 @@ opacity: 0.9;
 </form>
 
 
+>>>>>>> 735b5584a2580d447d382b159556c937f4d4cd9e
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->	
+
+
 <script>
 var blist_stockseq = "";
 var blist_pQuantity = "";
@@ -222,6 +127,13 @@ $(document).on('click', '.sizeLabel', function(){
 
 // 장바구니 클릭
 $(document).on('click', '.basketBtn', function(){	
+<<<<<<< HEAD
+	//재고번호get
+	/* var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2");
+	alert("stock_seq : " + stock_seq);	
+	var cnt = Number($("#pqCnt").html());
+	alert("수량 : " + cnt); */
+=======
 	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
 	var cnt = Number($("#pqCnt").html());
 	if(isNaN(stock_seq)){
@@ -286,6 +198,7 @@ function showBasketList(arrLen, arr){
 $(document).on('click', '._basketOrderBtn', function(){
 	$("#bOrderFrm").submit();		
 });
+>>>>>>> 735b5584a2580d447d382b159556c937f4d4cd9e
 
 /* 장바구니 페이지 이동버튼 클릭 */
 $(document).on('click', '.moveBasketBtn', function(){
@@ -303,10 +216,25 @@ $(document).on('click', '._bDeleteBtn', function(){
 /* 구매버튼 클릭 */
 function buying(){
 	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
+<<<<<<< HEAD
+	$("#stock_seq").val(stock_seq);
+	
+	var cnt = Number($("#pqCnt").html());
+	$("#p_quantity").val(cnt);
+	$("#orderFrm").submit();
+}
+
+/* 구매 수량 */
+function plusQ(){
+	var cnt = Number($("#pqCnt").html());
+	if(cnt<9){
+		$("#pqCnt").html(cnt+1);	
+=======
 	alert(stock_seq);
 	
 	if(isNaN(stock_seq)){
 		alert("사이즈를 선택해주세요.");	
+>>>>>>> 735b5584a2580d447d382b159556c937f4d4cd9e
 	}else{
 		
 		$("#stock_seq").val(stock_seq);
