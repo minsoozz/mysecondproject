@@ -49,7 +49,10 @@ th{
 <tr>
 	<td>1</td>
 	<td>2019-09-24 11:00:47</td>
-	<td><b>1569290395807</b></td>
+	<td>
+	<b id="ordercheck_b">1569290395807</b>
+	<a id="ordercheck_a">1569290395807</a>
+	</td>
 	<td>핸드폰</td>
 	<td>42,000</td>
 	<td>입금확인</td>
@@ -64,10 +67,18 @@ th{
 
 <script type="text/javascript">
 $(function () {
-	alert("주문조회 페이지");
+	//alert("주문조회 페이지");
+	$("#ordercheck_a").hide();
 	
 	$("#product_detail").click(function () {
 		alert("상세보기");
+	});
+	
+	$("#ordercheck_b").mouseover(function() {
+		alert("오버");
+
+		$("#ordercheck_a").show();
+		$("#ordercheck_b").hide();
 	});
 });
 </script>
