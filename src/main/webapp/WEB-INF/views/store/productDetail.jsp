@@ -74,7 +74,7 @@ $(document).ajaxSend(function(e, xhr, options) {
  	</div>
 
 <!-- 구매하기 form -->
-<form action="/Rhymes/store/productOrder" id="orderFrm" method="get">
+<form action="/Rhymes/payment" id="orderFrm" method="get">
 	<input type='hidden' name="stock_seq" id="stock_seq">
 	<input type='hidden' name="p_size" id="p_size">
 	<input type='hidden' name="p_quantity" id="p_quantity" >
@@ -83,7 +83,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <<<<<<< HEAD
 =======
 <!-- 장바구니 구매하기 form -->
-<form action="/Rhymes/store/basketOrder" method="post" id="bOrderFrm">
+<form action="/Rhymes/payment/basketOrder" method="post" id="bOrderFrm">
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 	<input type='hidden' name="blist_stockseq" id="blist_stockseq" value="">	
 	<input type='hidden' name="blist_pQuantity" id="blist_pQuantity" value="">

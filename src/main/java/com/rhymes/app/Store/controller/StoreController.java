@@ -201,16 +201,16 @@ public class StoreController {
 		model.addAttribute("productDto", productDto);
 		return "productDetail.tiles";
 	}
-	
-	@GetMapping("/store/productOrder")
-	public String productOrder(Model model, int stock_seq, int p_quantity) {
-		
-		System.out.println("!!!!!!!!!!!!!@@");
-		System.out.println("stock_seq : " + stock_seq);
-		System.out.println("p_quantity : " + p_quantity);
-		
-		return "productList.tiles";
-	}
+//	
+//	@GetMapping("/store/productOrder")
+//	public String productOrder(Model model, int stock_seq, int p_quantity) {
+//		
+//		System.out.println("!!!!!!!!!!!!!@@");
+//		System.out.println("stock_seq : " + stock_seq);
+//		System.out.println("p_quantity : " + p_quantity);
+//		
+//		return "productList.tiles";
+//	}
 	
 	@ResponseBody
 	@GetMapping("/store/insertBasket")
@@ -251,36 +251,36 @@ public class StoreController {
 		
 		return blist;
 	}
-	
-	@PostMapping("/store/basketOrder")
-	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity) throws Exception{
-		System.out.println(blist_stockseq);
-		System.out.println(blist_pQuantity);
-		
-		String[] _sqArr = blist_stockseq.split("/");
-		int[] sqArr = Arrays.stream(_sqArr).mapToInt(Integer::parseInt).toArray();
-		String[] _pqArr = blist_pQuantity.split("/");
-		int[] pqArr = Arrays.stream(_pqArr).mapToInt(Integer::parseInt).toArray();
-		
-		List<BasketOrderDto> bOlist = new ArrayList<BasketOrderDto>();
-		
-		for (int i = 0; i < sqArr.length; i++) {
-			BasketOrderDto basket = new BasketOrderDto();
-			System.out.println(sqArr[i]);
-			System.out.println(pqArr[i]);
-			
-			basket.setStock_seq(sqArr[i]);
-			basket.setP_quantity(pqArr[i]);
-			bOlist.add(basket);
-		}
-		
-		for (BasketOrderDto b : bOlist) {
-			//System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
-			System.out.println(b);
-		}
-		
-		return "null";
-	}
+//	
+//	@PostMapping("/store/basketOrder")
+//	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity) throws Exception{
+//		System.out.println(blist_stockseq);
+//		System.out.println(blist_pQuantity);
+//		
+//		String[] _sqArr = blist_stockseq.split("/");
+//		int[] sqArr = Arrays.stream(_sqArr).mapToInt(Integer::parseInt).toArray();
+//		String[] _pqArr = blist_pQuantity.split("/");
+//		int[] pqArr = Arrays.stream(_pqArr).mapToInt(Integer::parseInt).toArray();
+//		
+//		List<BasketOrderDto> bOlist = new ArrayList<BasketOrderDto>();
+//		
+//		for (int i = 0; i < sqArr.length; i++) {
+//			BasketOrderDto basket = new BasketOrderDto();
+//			System.out.println(sqArr[i]);
+//			System.out.println(pqArr[i]);
+//			
+//			basket.setStock_seq(sqArr[i]);
+//			basket.setP_quantity(pqArr[i]);
+//			bOlist.add(basket);
+//		}
+//		
+//		for (BasketOrderDto b : bOlist) {
+//			//System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
+//			System.out.println(b);
+//		}
+//		
+//		return "null";
+//	}
 	
 	@PostMapping("/store/basket")
 	public String basket(Model model)throws Exception {
