@@ -2,6 +2,7 @@ package com.rhymes.app.member.service;
 
 import java.util.List;
 
+import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerDTO;
 
@@ -30,4 +31,22 @@ public interface MypagePersonalService {
 	 * @return
 	 */
 	public SellerDTO getOneSellerMemberById(String id);
+	
+	/**매개변수로 받은 아이디 삭제(enabled = false)
+	 * @param id
+	 * @return
+	 */
+	public int updateOneMemberToDisabled(String id);
+	
+	/**매개변수로 받은 회원정보에 맞게 비밀번호 업데이트
+	 * @param mem
+	 * @return
+	 */
+	public int updateMemberPassword(MemberDTO mem);
+	
+	/**매개변수로 받은 개인회원정보로 업데이트
+	 * @param pmdto
+	 * @return
+	 */
+	public int updateOnePMember(P_MemberDTO pmdto);
 }

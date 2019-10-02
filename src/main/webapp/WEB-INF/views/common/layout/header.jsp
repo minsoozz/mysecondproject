@@ -63,6 +63,9 @@
 		                            </div>                        			                        			                       			
                         		</c:when>
                         		<c:otherwise>
+                        			<div class="header_mypage_wrap">
+		                                <a href="<%=ctx%>/mypage/orderlog">MyPage</a>
+		                            </div>
                         			 <div class="logout">
 		                                <form action="<%=ctx%>/logout" method="post">
 		                                	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

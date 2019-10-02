@@ -1,10 +1,13 @@
 package com.rhymes.app.member.controller;
 
+import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
@@ -134,9 +138,6 @@ public class MypageController {
 			e.printStackTrace();
 		}		
 		
-		System.out.println(pDto);
-		System.out.println("리스트 길이 : " + couponDetailList.size() );
-		
 		/* 저장된 값들을 뷰로 전송 */
 		model.addAttribute("validCoupons", validCoupons);
 		model.addAttribute("pDto", pDto);
@@ -221,7 +222,7 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value = "/personal/confirmpw" , method = RequestMethod.POST )
 	public Map<String, String> confirmPw(Model model, @RequestBody String json, Principal pcp) {
-		log.info("show personal information confirm pw"); 
+		log.info("[ajax] personal information confirm pw"); 
 		
 		Map<String, String> hm = new HashMap<String, String>();
 		
@@ -229,14 +230,13 @@ public class MypageController {
 		String formPw = json.split("&")[1].split("=")[1];
 		String pw = null;
 		boolean ok = false;
-		log.info( formPw );		
 		
 		try {
 			userid = pcp.getName();
 			pw = mypagePersonalService.getOnePwById(userid);
 			//pw = ss.selectOne("member.getFindID_P", pcp.getName());
 			ok = bc.matches(formPw, pw);
-			log.info("pw: " + pw + ", ok : " + ok);
+
 			if( ok == false ) {
 				hm.put("result", "0");
 				return hm;
@@ -245,18 +245,14 @@ public class MypageController {
 			
 			//비밀번호 확인이 완료되면 상세회원정보를 map타입으로 리턴 
 			List<String> authorities = mypagePersonalService.getAuthorities(userid);
-			for(String auth : authorities) {
-				log.info("auth : " + auth);
-			}
+		
 			if(authorities.contains("ROLE_MEMBER")) {
 				//개인회원인 경우
 				hm.put("role","member");
 				//개인회원 상세정보 get
 				P_MemberDTO pMem = mypagePersonalService.getOnePersonalMemberById(userid);
-				log.info("pMem: " + pMem.toJSONString());
 				String[] memDetails = pMem.toJSONString().split(",");
 				for(String detail : memDetails) {
-					log.info("param." + detail.split("=")[0] + " , v: " + detail.split("=")[1] );
 					hm.put(detail.split("=")[0].trim(), detail.split("=")[1]);
 				}
 			} else if(authorities.contains("ROLE_SELLER")) {
@@ -267,8 +263,98 @@ public class MypageController {
 			hm.put("result", "0");
 			e.printStackTrace();
 		}		
+				
+		return hm;
+	}
+	
+	/**Ajax 통신을 통해 비밀번호 확인 후 회원정보 삭제 성공하면 1 리턴
+	 * @param model
+	 * @param dto
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/personal/leave/confirmpw" , method = RequestMethod.POST )
+	public Map<String, String> confirmPwWhenLeave(Model model, @RequestBody String json, Principal pcp) {
+		log.info("[ajax] personal information leave confirm pw" + json); 
 		
+		Map<String, String> hm = new HashMap<String, String>();
 		
+		String userid = "anonymous";
+		String formPw = json.split("&")[1].split("=")[1];
+		String pw = null;
+		boolean ok = false;
+		
+		try {
+			userid = pcp.getName();
+			pw = mypagePersonalService.getOnePwById(userid);
+			//pw = ss.selectOne("member.getFindID_P", pcp.getName());
+			ok = bc.matches(formPw, pw);
+
+			if( ok == false ) {
+				hm.put("result", "0");
+				return hm;
+			}else {
+				int isDone = mypagePersonalService.updateOneMemberToDisabled(userid);
+				log.info("isDone:" + isDone);
+				hm.put("result", "1");
+			}
+		}catch (Exception e) {
+			hm.put("result", "0");
+			e.printStackTrace();
+		}		
+				
+		return hm;
+	}
+		
+	/**Ajax 통신을 통해 개인회원 정보를 수정하는 메소드
+	 * @param model
+	 * @param json
+	 * @param pcp
+	 * @param req
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/personal/modinfo" , method = RequestMethod.POST )
+	public Map<String, String> modifyPersonalInfo(Model model, @RequestBody String json, Principal pcp, HttpServletRequest req) {
+		log.info("[ajax] modify personal information " + json); 
+		
+		String userid = pcp.getName();	//현재 세션의 사용자 아이디
+		String[] params = URLDecoder.decode(json).split("&");	//입력받은 폼 정보를 배열로 저장
+		Map<String, String> hm = new HashMap<String, String>();	//리턴데이터를 담을 map
+		
+//		log.info("decode: " + URLDecoder.decode(json));		
+//		for (int i = 0; i < params.length; i++) {
+//			String sss = (params[i].split("=").length == 1)?"":params[i].split("=")[1];
+//			log.info(params[i] + ", 길이:" + ((sss == null)?"":sss.length()) );
+//		}
+				
+		//세부정보 저장(rhy_mem_p)
+		P_MemberDTO pMDTO = new P_MemberDTO(userid
+										, ( (params[2].split("=").length == 1)?"":params[2].split("=")[1])
+										, ( (params[3].split("=").length == 1)?"":params[3].split("=")[1])
+										, ( (params[4].split("=").length == 1)?"":params[4].split("=")[1])
+										, ( (params[5].split("=").length == 1)?"":params[5].split("=")[1])
+										, ( (params[7].split("=").length == 1)?"":params[7].split("=")[1])
+										, ( (params[8].split("=").length == 1)?"":params[8].split("=")[1])
+										, ( (params[9].split("=").length == 1)?"none":params[9].split("=")[1])
+										, ( (params[10].split("=").length == 1)?"00000000":params[10].split("=")[1])
+										, 0);		
+//		log.info("dto : " + pMDTO);
+		mypagePersonalService.updateOnePMember(pMDTO);
+		
+		//기본정보 저장(비밀번호)
+		if( params[0].split("=").length == 2 && params[0].split("=").length == 2 ) {
+			String inputPw = params[0].split("=")[1];	//입력패스워드
+			String confirmPw = params[1].split("=")[1];	//확인패스워드
+			if(inputPw.equals(confirmPw)) {
+				mypagePersonalService.updateMemberPassword( new MemberDTO(userid, bc.encode(inputPw)) );				
+			}else {
+				hm.put("result", "0");
+				return hm;
+			}
+		}
+
+		hm.put("result", "1");
 		
 		return hm;
 	}

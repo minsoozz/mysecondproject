@@ -22,6 +22,17 @@
 		resultType="com.rhymes.app.member.model.SellerDTO">
 	<include refid="getOneSellerMemberByIdSql"/></select>
 	
+	<!-- 회원탈퇴기능. ENABLED를 false로 변경 -->
+	<update id="updateOneMemberToDisabled" parameterType="java.lang.String">
+		<include refid="updateOneMemberToDisabledSql"/></update>
+	
+	<!-- 회원 비밀번호 update -->
+	<update id="updateMemberPassword" parameterType="com.rhymes.app.member.model.MemberDTO">
+		<include refid="updateMemberPasswordSql"/></update>
+	
+	<!-- 개인회원정보 update -->
+	<update id="updateOnePMember" parameterType="com.rhymes.app.member.model.P_MemberDTO">
+		<include refid="updateOnePMemberSql"/></update>
 	
 	<!-- QUERY --> 	
  	<!-- 매개변수로 받은 ID의 암호화된 비밀번호를 리턴 -->
@@ -50,5 +61,25 @@
 		WHERE ID=#{id}
 	</sql>
 	
+	<!-- 회원탈퇴기능. ENABLED를 false로 변경 -->
+	<sql id="updateOneMemberToDisabledSql">
+		UPDATE RHY_MEM SET ENABLED='false'
+		WHERE ID=#{userid}
+	</sql>
+	
+	<!-- 회원 비밀번호 update -->
+	<sql id="updateMemberPasswordSql">
+		UPDATE RHY_MEM
+		SET PW=#{userpw}
+		WHERE ID=#{userid}
+	</sql>
+		
+	<!-- 개인회원정보 update -->
+	<sql id="updateOnePMemberSql">
+		UPDATE RHY_MEM_P
+		SET NAME=#{username}, POSTCODE=#{postcode}, ADDRESS=#{address}, DETAILADDRESS=#{detailAddress}
+			,EMAIL=#{useremail}, PHONE=#{phone}, GENDER=#{usergender}, BIRTH=#{userbirth}
+		WHERE ID=#{userid}
+	</sql>	
 	
 </mapper>
