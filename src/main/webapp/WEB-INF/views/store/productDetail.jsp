@@ -18,7 +18,6 @@
 
 <link rel="stylesheet" href="/css/store/productDetail.css">
 
-
 <script>
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
@@ -27,26 +26,26 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 </script>
 
-<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 
 <link href='/css/style.css' rel='stylesheet'/>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-<script src='js/swipe.js'></script>
 
 </head>
 <body>
-	
-	<div class="mainImg" style="border:2px solid">
-		<img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
+
+	<div>	
+		<div class="mainImg" style="border:2px solid">
+			<img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
+		</div>
+		<div style="border:2px solid red">
+			<img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
+			<img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
+			<img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
+			<img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
+		</div>
 	</div>
-	<div style="border:2px solid red">
-		<img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
-		<img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
-		<img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
-		<img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
-	</div>
+
 		
 	${ productDto.p_name}<br>
 	&#8361;${ productDto.p_price2}<br>
@@ -74,13 +73,11 @@ $(document).ajaxSend(function(e, xhr, options) {
  	</div>
 
 <!-- 구매하기 form -->
-<form action="/Rhymes/payment" id="orderFrm" method="get">
+<form action="/Rhymes/payment" id="orderFrm" method="post">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<input type='hidden' name="stock_seq" id="stock_seq">
-	<input type='hidden' name="p_size" id="p_size">
 	<input type='hidden' name="p_quantity" id="p_quantity" >
 </form>	
-
-
 
 <!-- 장바구니 구매하기 form -->
 <form action="/Rhymes/payment/basketOrder" method="post" id="bOrderFrm">
@@ -90,15 +87,11 @@ $(document).ajaxSend(function(e, xhr, options) {
 </form>
 
 <!-- 장바구니 페이지이동 form -->
-<form action="/Rhymes/store/basket" method="post" id="moveBasketFrm">
- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
+<form action="/Rhymes/store/basket" method="get" id="moveBasketFrm"></form>
 
 
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->	
-
-
 <script>
 var blist_stockseq = "";
 var blist_pQuantity = "";
@@ -126,34 +119,33 @@ $(document).on('click', '.sizeLabel', function(){
 
 // 장바구니 클릭
 $(document).on('click', '.basketBtn', function(){	
-
-	//재고번호get
-	/* var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2");
-	alert("stock_seq : " + stock_seq);	
-	var cnt = Number($("#pqCnt").html());
-	alert("수량 : " + cnt); */
-	
 	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-	var cnt = Number($("#pqCnt").html());
+	
 	if(isNaN(stock_seq)){
-		alert("사이즈를 선택해주세요.");
+		alert("사이즈를 선택해주세요.");	
 	}else{
-		$.ajax({
-	        type:"get",
-	        data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-	        url:"/Rhymes/store/insertBasket",
-	        success:function( data ){
-	        	//alert(data);
-	        	var obj = JSON.stringify(data);
-				var arr = JSON.parse(obj);
-				//alert(arr[0].total_price);
-				var arrLen = arr.length;
-	        	showBasketList(arrLen, arr);
-	        },
-	        error:function(){
-	           alert("error!!"); 
-	        }
-   		})
+		var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
+		var cnt = Number($("#pqCnt").html());
+		if(isNaN(stock_seq)){
+			alert("사이즈를 선택해주세요.");
+		}else{
+			$.ajax({
+		        type:"get",
+		        data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+		        url:"/Rhymes/store/insertBasket",
+		        success:function( data ){
+		        	//alert(data);
+		        	var obj = JSON.stringify(data);
+					var arr = JSON.parse(obj);
+					//alert(arr[0].total_price);
+					var arrLen = arr.length;
+		        	showBasketList(arrLen, arr);
+		        },
+		        error:function(){
+		           alert("error!!"); 
+		        }
+	   		})
+		}
 	}
 });
 /* 미니 장바구니 리스트 */
@@ -163,7 +155,7 @@ function showBasketList(arrLen, arr){
 	var str = "";
 	var str = "<div align='center' id='baskettitle'><h2>ㅋ장바구니ㅋ</h2></div>";
 	for (var i = 0; i < arrLen; i++) {
-		str += "<div style='margin-top:5%;' align='center' class='blist' >";
+		str += "<div stylesdf='margin-top:5%;' align='center' class='blist' >";
 		str += "<label><img src='/upload/"+ arr[i].photo1_file + "' style='width:100px; height:100px;'><br>";
 		str += "<label class='_bDeleteBtn' value='"+arr[i].stock_seq+"'>X</label><br>";
 		str += "<label>" + arr[i].p_name + "</label><br>";
@@ -214,31 +206,20 @@ $(document).on('click', '._bDeleteBtn', function(){
 /* 구매버튼 클릭 */
 function buying(){
 	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-
-	$("#stock_seq").val(stock_seq);
-	
-	var cnt = Number($("#pqCnt").html());
-	$("#p_quantity").val(cnt);
-	$("#orderFrm").submit();
-}
-
-/* 구매 수량 */
-function plusQ(){
-	var cnt = Number($("#pqCnt").html());
-	if(cnt<9){
-		$("#pqCnt").html(cnt+1);	
-
-	alert(stock_seq);
+	//alert(stock_seq);
 	
 	if(isNaN(stock_seq)){
 		alert("사이즈를 선택해주세요.");	
 	}else{
 		
-		$("#stock_seq").val(stock_seq);
+		$("#stock_seq").val(Number(stock_seq));
 		
 		var cnt = Number($("#pqCnt").html());
-		$("#p_quantity").val(cnt);
+		$("#p_quantity").val(Number(cnt));
 		$("#orderFrm").submit();
+				
+		alert(typeof $("#p_quantity").val());
+		alert(typeof $("#stock_seq").val());
 	}
 }
 

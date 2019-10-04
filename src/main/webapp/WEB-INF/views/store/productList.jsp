@@ -18,23 +18,21 @@
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-
 <link rel="stylesheet" href="/css/store/productList.css">
-
 
 </head>
 <body>
 
 <div class='mainDiv'>
 	<div class='subDiv' align='center' ">
-	<c:forEach items="${plist }" var="pro" varStatus="vs">
-	<div class='eachDiv' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
-		<img alt="사진없음" src="/upload/${pro.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"><br>
-		<font size="5px"><b>${pro.p_name }</b></font><br>
-		<font size="4px">&#8361;${pro.p_price2 }<br>
-		<font size="3px">(${pro.p_color })</font>
-	</div>	
-	</c:forEach>
+		<c:forEach items="${plist }" var="pro" varStatus="vs">
+		<div class='eachDiv' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
+			<img alt="사진없음" src="/upload/${pro.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"><br>
+			<font size="5px"><b>${pro.p_name }</b></font><br>
+			<font size="4px">&#8361;${pro.p_price2 }<br>
+			<font size="3px">(${pro.p_color })</font>
+		</div>	
+		</c:forEach>
 	</div>
 </div>               
 <form action="/Rhymes/store/productDetail" id="moveFrm" method="get">
@@ -42,7 +40,6 @@
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 	<input type="hidden" id="p_seq" name="p_seq" value="0">
 	<div align='center'>
-		<!-- <input type="submit" value="상품 등록" > -->
 	</div>
 </form>
 
@@ -56,18 +53,10 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 
 function detail(seq){
-	alert("dd");
 	$("#p_seq").val(seq); 
-	$("#moveFrm").submit();
-	
+	$("#moveFrm").submit();	
 }
-
-/* 가격 comma */
- $(document).ready(function(){
-	// var money = $(".commamoney").text();
-	 //alert(money);
- });
- 
+</script> 
 	
 </body>
 </html>

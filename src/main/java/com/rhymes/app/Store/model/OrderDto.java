@@ -1,22 +1,30 @@
 package com.rhymes.app.Store.model;
 
-import java.io.Serializable;
+public class OrderDto {
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Setter
-@Getter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-public class OrderDto implements Serializable {
-	
 	private String id;
-	private int stock_seq;
-	private int p_quantity;
-
+	private int stock_seq;	// 재고번호
+	private int p_quantity; // 수량
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public int getStock_seq() {
+		return stock_seq;
+	}
+	public void setStock_seq(int stock_seq) {
+		this.stock_seq = stock_seq;
+	}
+	public int getP_quantity() {
+		return p_quantity;
+	}
+	public void setP_quantity(int p_quantity) {
+		this.p_quantity = p_quantity;
+	}
+	
+	
+	
 }
