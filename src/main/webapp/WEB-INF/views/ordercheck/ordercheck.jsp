@@ -11,18 +11,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<style type="text/css">
-.ordercheck_wrap{
-	/* background-color: red; */
-}
-.ordercheck_tb{
-	border: 1px solid #dbdbdb;
-}
-th{
-	text-align: center;
-}
-</style>
-
 </head>
 <body>
 
@@ -39,27 +27,27 @@ th{
 	<th>주문상태</th>
 	<th>상세보기</th>
 </tr>
-<%-- <c:if test="${empty ordercheck_list }">
+<c:if test="${empty ordercheck_list }">
 <tr>
 	<td>주문 내역이 없습니다</td>
 </tr>
-</c:if> --%>
-<%-- <c:if test="${not empty ordercheck_list }"> --%>
-<%-- <c:forEach begin="0" end="${fn:lengh(ordercheck_list) -1 }" step="1" varStatus="i"> --%>
+</c:if>
+<c:if test="${not empty ordercheck_list }">
+<c:forEach begin="0" end="${fn:length(ordercheck_list) -1 }" step="1" varStatus="i">
 <tr>
-	<td>1</td>
-	<td>2019-09-24 11:00:47</td>
+	<td>${i.index + 1 }</td>
+	<td>${ordercheck_list[i.index].rdate }</td>
 	<td>
-	<b id="ordercheck_b">1569290395807</b>
-	<a id="ordercheck_a">1569290395807</a>
+	<b id="ordercheck_b">${ordercheck_list[i.index].payment_code }</b>
+	<%-- <a href="#" id="ordercheck_a">${ordercheck_list[i.index].payment_code }</a> --%>
 	</td>
-	<td>핸드폰</td>
-	<td>42,000</td>
-	<td>입금확인</td>
+	<td>${ordercheck_list[i.index].payment_method }</td>
+	<td>${ordercheck_list[i.index].totalprice }</td>
+	<td>${ordercheck_list[i.index].payment_status }</td>
 	<td><input type="button" value="상세보기" id="product_detail"></td>
 </tr>
-<%-- </c:forEach> --%>
-<%-- </c:if> --%>
+</c:forEach>
+</c:if>
 </table>
 </div>
 

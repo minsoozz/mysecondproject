@@ -27,3 +27,8 @@
 #ordercheck_btn{ width: 400px; height: 70px; background-color: #d7fd75; border: #d7fd75; font-size: 20px; }
 
 
+/* 주문내역 조회하기 페이지 */
+.ordercheck_wrap{ /* background-color: red; */ }
+.ordercheck_tb{ border: 1px solid #dbdbdb; }
+th{ text-align: center; }
+

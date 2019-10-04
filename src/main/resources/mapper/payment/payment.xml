@@ -3,4 +3,8 @@
 
 <mapper namespace="payment">
 
+<select id="getOrdercheck" resultType="com.rhymes.app.payment.model.PaymentDTO">
+SELECT * FROM RHY_PAYMENT
+</select>
+
 </mapper>
