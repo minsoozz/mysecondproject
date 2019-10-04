@@ -15,6 +15,13 @@ public class OrdercheckServiceImpl implements OrdercheckService {
 	@Autowired
 	OrdercheckDAO OrdercheckDao;
 
+	// 주문조회페이지에서 주문번호, 이름 인증
+	@Override
+	public boolean confirm(String code, String name) {
+		return OrdercheckDao.confirm(code, name);
+	}
+
+	// 주문조회페이지에서 주문내역 조회
 	@Override
 	public List<PaymentDTO> getOrdercheck() {
 		return OrdercheckDao.getOrdercheck();

@@ -10,7 +10,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 </head>
 <body>
 
@@ -38,8 +37,7 @@
 	<td>${i.index + 1 }</td>
 	<td>${ordercheck_list[i.index].rdate }</td>
 	<td>
-	<b id="ordercheck_b">${ordercheck_list[i.index].payment_code }</b>
-	<%-- <a href="#" id="ordercheck_a">${ordercheck_list[i.index].payment_code }</a> --%>
+	<a href="#" id="ordercheck_a">${ordercheck_list[i.index].payment_code }</a>
 	</td>
 	<td>${ordercheck_list[i.index].payment_method }</td>
 	<td>${ordercheck_list[i.index].totalprice }</td>
@@ -51,25 +49,6 @@
 </table>
 </div>
 
-
-
-<script type="text/javascript">
-$(function () {
-	//alert("주문조회 페이지");
-	$("#ordercheck_a").hide();
-	
-	$("#product_detail").click(function () {
-		alert("상세보기");
-	});
-	
-	$("#ordercheck_b").mouseover(function() {
-		alert("오버");
-
-		$("#ordercheck_a").show();
-		$("#ordercheck_b").hide();
-	});
-});
-</script>
 
 
 </body>

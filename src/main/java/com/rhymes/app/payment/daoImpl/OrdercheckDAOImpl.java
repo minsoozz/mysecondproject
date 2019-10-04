@@ -17,6 +17,24 @@ public class OrdercheckDAOImpl implements OrdercheckDAO {
 	
 	private String p = "payment.";
 
+	// 주문조회페이지에서 주문번호, 이름 인증
+	@Override
+	public boolean confirm(String code, String name) {
+		
+		PaymentDTO dto = new PaymentDTO();
+		dto.setSend_name(name);
+		dto.setPayment_code(code);
+		
+		String _name = sqlsession.selectOne(p + "not_member_confirm", dto);
+		
+		if(_name == null) {
+			return false;
+		}else {			
+			return true;
+		}
+	}
+	
+	// 주문조회페이지에서 주문내역 조회
 	@Override
 	public List<PaymentDTO> getOrdercheck() {
 		

@@ -22,9 +22,9 @@
 .ordercheck_confirm_title { /* background-color: red; */ border-bottom: 1px solid #dbdbdb; margin-bottom: 50px; margin-top: 50px; }
 .ordercheck_confirm_content { /* background-color: blue; */) }
 .ordercheck_confirm_title_font { font-size: 35px; }
-#ordercheck_number{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
-#ordercheck_name{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
-#ordercheck_btn{ width: 400px; height: 70px; background-color: #d7fd75; border: #d7fd75; font-size: 20px; }
+#ordercheck_confirm_payment_code{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
+#ordercheck_confirm_send_name{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
+#ordercheck_confirm_btn{ width: 400px; height: 70px; background-color: #d7fd75; border: #d7fd75; font-size: 20px; }
 
 
 /* 주문내역 조회하기 페이지 */
