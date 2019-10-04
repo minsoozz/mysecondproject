@@ -19,4 +19,8 @@ public interface PurchaseDao extends Serializable {
 	public boolean chkBasket(BasketDto basket) throws Exception;
 	public List<BasketListDto> getBasketList(String id) throws Exception;
 	public void deleteBasket(int b_seq) throws Exception;
+	public int updateBaksetQ(BasketDto basket)throws Exception;
+	public int deleteBasektAll(BasketDto basket)throws Exception;
+	
+	
 }
