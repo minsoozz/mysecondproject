@@ -23,8 +23,8 @@ public class OrdercheckController {
 	
 	// 비회원 주문조회 인증 페이지로 이동
 	@GetMapping("/ordercheck_confirm_move")
-	public String ordercheck_confim() {
-		System.out.println("daraeordercheck_confirm");
+	public String ordercheck_confirm_move() {
+		System.out.println("darae ordercheck_confirm_move");
 		
 		return "/order_confirm";
 	}
@@ -32,23 +32,35 @@ public class OrdercheckController {
 	// 주문조회 페이지로 이동
 	@ResponseBody
 	@GetMapping("/ordercheck_confirm")
-	public String ordercheck(Model model, String name, String code) {
-		System.out.println("daraeordercheck");
-		
-		List<PaymentDTO> ordercheck_list = new ArrayList<PaymentDTO>();
+	public String ordercheck_confirm(Model model, String name, String code) {
+		System.out.println("darae ordercheck_confirm");
 		
 		// 주문번호, 이름 맞는지 확인
 		boolean b = OrdercheckService.confirm(code, name);
-		
-		// 주문내역 가져오기
-		//ordercheck_list = OrdercheckService.getOrdercheck();
-		//model.addAttribute("ordercheck_list", ordercheck_list);
 		
 		if(b) {
 			return "true";
 		}else {
 			return "false";
 		}
+	}
+	
+	// 주문내역 확인 페이지로 이동
+	@GetMapping("/ordercheck_move")
+	public String ordercheck_move(Model model) {
+		System.out.println("darae ordercheck_move");
+		
+		List<PaymentDTO> ordercheck_list = new ArrayList<PaymentDTO>();
+		
+		// 주문내역 가져오기
+		ordercheck_list = OrdercheckService.getOrdercheck();
+		model.addAttribute("ordercheck_list", ordercheck_list);
+		
+		for(PaymentDTO p : ordercheck_list) {
+			//System.out.println("p : " + p);
+		}
+		
+		return "/order_move";
 	}
 
 }

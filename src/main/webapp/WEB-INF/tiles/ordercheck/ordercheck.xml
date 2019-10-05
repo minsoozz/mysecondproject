@@ -15,9 +15,11 @@
 	<definition name="/order_confirm" extends="ordercheck.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck_confirm.jsp" />
 	</definition>
-
-	<definition name="/order" extends="ordercheck.tiles">
+	
+	<definition name="/order_move" extends="ordercheck.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck.jsp" />
 	</definition>
+
+
 
 </tiles-definitions>

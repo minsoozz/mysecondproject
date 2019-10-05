@@ -13,40 +13,97 @@
 </head>
 <body>
 
-<div class="ordercheck_wrap">
-<table class="ordercheck_tb" border="1" style="width: 100%; background-color: red;">
+
+
+<div class="ordercheck_detail_wrap">
+
+<div class="ordercheck_detail_send_wrap">
+<b class="ordercheck_detail_title">주문자정보</b>
+<table class="ordercheck_detail_tb">
+<tr>
+	<td>주문자</td>
+	<td></td>
+	<td>주문일자</td>
+	<td></td>
+	<td>주문번호</td>
+	<td></td>
+</tr>
+</table>
+</div>
+
+<div class="ordercheck_detail_delivery_wrap">
+<b class="ordercheck_detail_title">배송지정보</b>
+<table class="ordercheck_detail_tb">
+<tr>
+	<td>수취인</td>
+	<td></td>
+	<td>연락처</td>
+	<td></td>
+	<td>배송번호</td>
+	<td></td>
+</tr>
+<tr>
+	<td>주소</td>
+	<td colspan="5"></td>
+</tr>
+<tr>
+	<td>배송메세지</td>
+	<td colspan="5"></td>
+</tr>
+</table>
+</div>
+
+<div class="ordercheck_detail_product_wrap">
+<b class="ordercheck_detail_title">주문상품정보</b>
+<table class="ordercheck_detail_tb">
 <col width="5%"><col width="20%"><col width="20%"><col width="10%">
 <col width="20%"><col width="10%"><col width="15%">
 <tr>
-	<th>번호</th>
-	<th>주문일시</th>
-	<th>주문번호</th>
-	<th>결제방법</th>
-	<th>상품금액</th>
-	<th>주문상태</th>
-	<th>상세보기</th>
+	<td>번호</td>
+	<td>상품이미지</td>
+	<td>주문상품정보</td>
+	<td>수량</td>
+	<td>가격</td>
+	<td>주문상태</td>
 </tr>
-<c:if test="${empty ordercheck_list }">
-<tr>
-	<td>주문 내역이 없습니다</td>
-</tr>
-</c:if>
-<c:if test="${not empty ordercheck_list }">
 <c:forEach begin="0" end="${fn:length(ordercheck_list) -1 }" step="1" varStatus="i">
 <tr>
 	<td>${i.index + 1 }</td>
-	<td>${ordercheck_list[i.index].rdate }</td>
-	<td>
-	<a href="#" id="ordercheck_a">${ordercheck_list[i.index].payment_code }</a>
-	</td>
-	<td>${ordercheck_list[i.index].payment_method }</td>
-	<td>${ordercheck_list[i.index].totalprice }</td>
-	<td>${ordercheck_list[i.index].payment_status }</td>
-	<td><input type="button" value="상세보기" id="product_detail"></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
 </tr>
 </c:forEach>
-</c:if>
+<tr>
+	<td colspan="6"></td>
+</tr>
 </table>
+</div>
+
+<div class="ordercheck_detail_payment_wrap">
+<b class="ordercheck_detail_title">결제정보</b>
+<table class="ordercheck_detail_tb">
+<tr>
+	<td>결제방법</td>
+	<td></td>
+	<td>결제금액</td>
+	<td></td>
+	<td>세부내역</td>
+	<td>
+	<input type="button" id="ordercheck_detail_print" value="내역확인">
+	</td>
+</tr>
+<tr>
+	<td>사용한 적립금</td>
+	<td></td>
+	<td>사용한 쿠폰</td>
+	<td rowspan="3"></td>
+</tr>
+</table>
+</div>
+
 </div>
 
 
