@@ -34,13 +34,22 @@ public class OrdercheckDAOImpl implements OrdercheckDAO {
 		}
 	}
 	
-	// 주문조회페이지에서 주문내역 조회
+	// 주문내역 조회
 	@Override
 	public List<PaymentDTO> getOrdercheck() {
 		
 		List<PaymentDTO> ordercheck_list = sqlsession.selectList(p + "getOrdercheck");
 		
 		return ordercheck_list;
+	}
+
+	// 주문상세내역 조회
+	@Override
+	public List<PaymentDTO> getOrdercheckDetail() {
+		
+		List<PaymentDTO> ordercheck_detail_list = sqlsession.selectList(p + "getOrdercheckDetail");
+		
+		return ordercheck_detail_list;
 	}
 
 }
