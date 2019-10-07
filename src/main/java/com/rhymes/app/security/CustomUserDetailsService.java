@@ -22,7 +22,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 	@Autowired
 	private MemberDAO memDAO;
 	
-	private BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+	@Autowired
+	private BCryptPasswordEncoder bc;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -30,9 +31,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		MemberDTO dto = memDAO.getOneMemberByMemberId(username);
 		
-		log.warn("queried by member mapper: " + dto);
-		
-		log.info("mhj == " + bc.encode("mhj"));
+		//log.warn("queried by member mapper: " + dto);
+		//log.info("minp == " + bc.encode("minp"));
 		
 		return dto == null ? null : new CustomUser(dto);
 	}	

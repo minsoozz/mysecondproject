@@ -42,7 +42,7 @@ function saveModifiedInformation(){
 				$("#_btn_save_modified_info").attr('disabled', 'disabled');
 				alert('저장되었습니다.');
 			}else{
-				
+				alert('저장 중 에러 발생. 다시 시도해 주세요.');
 			}
 		},
 		error : function() {

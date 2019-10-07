@@ -82,8 +82,8 @@ public class MypageController {
 	 */
 	@GetMapping(value = "/points")
 	public String showPoints(Model model, Principal pcp, @RequestParam(defaultValue = "1") int pageNum) {
-		log.info("show points");		
-
+		log.info("show points");
+		
 		/* 선언부 */
 		String userid = pcp.getName();	//세션에 로그인한 id정보
 		String totalPoints = "0";	//유효한 적립금 총 액
@@ -234,9 +234,7 @@ public class MypageController {
 		try {
 			userid = pcp.getName();
 			pw = mypagePersonalService.getOnePwById(userid);
-			//pw = ss.selectOne("member.getFindID_P", pcp.getName());
 			ok = bc.matches(formPw, pw);
-
 			if( ok == false ) {
 				hm.put("result", "0");
 				return hm;
@@ -321,13 +319,7 @@ public class MypageController {
 		String userid = pcp.getName();	//현재 세션의 사용자 아이디
 		String[] params = URLDecoder.decode(json).split("&");	//입력받은 폼 정보를 배열로 저장
 		Map<String, String> hm = new HashMap<String, String>();	//리턴데이터를 담을 map
-		
-//		log.info("decode: " + URLDecoder.decode(json));		
-//		for (int i = 0; i < params.length; i++) {
-//			String sss = (params[i].split("=").length == 1)?"":params[i].split("=")[1];
-//			log.info(params[i] + ", 길이:" + ((sss == null)?"":sss.length()) );
-//		}
-				
+			
 		//세부정보 저장(rhy_mem_p)
 		P_MemberDTO pMDTO = new P_MemberDTO(userid
 										, ( (params[2].split("=").length == 1)?"":params[2].split("=")[1])
@@ -339,7 +331,7 @@ public class MypageController {
 										, ( (params[9].split("=").length == 1)?"none":params[9].split("=")[1])
 										, ( (params[10].split("=").length == 1)?"00000000":params[10].split("=")[1])
 										, 0);		
-//		log.info("dto : " + pMDTO);
+
 		mypagePersonalService.updateOnePMember(pMDTO);
 		
 		//기본정보 저장(비밀번호)
