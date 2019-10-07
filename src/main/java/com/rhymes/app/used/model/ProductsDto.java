@@ -31,8 +31,7 @@ public class ProductsDto implements Serializable {
 	private Date rdate;
 	
 	private String photo_list[];
-	
-	
+
 	public ProductsDto(int seq, String s_id, String category, String title, String content, int price, int quantity,
 			String place, String photo, String photo_sys, String division, int likes) {
 		super();

@@ -13,25 +13,19 @@
     <link rel="icon" href="/img/main-img/core-img/favicon.ico">   
     
  <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/css/store/store.css">
+	href="<%=request.getContextPath() %>/css/store/store2.css">
  
  
 </head>
 <body>
  
- 
   <tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
 	
    <div id="body_wrap">
-   
 	   
 		 <div id="middle_wrap">
-	    	<div id="sidebar_wrap"> 
-		      <tiles:insertAttribute name="left_menu"/>
-		    </div>   
 			<div id="content_wrap"> 
-			  	
-		      <tiles:insertAttribute name="body"/> <!-- body -->
+			  	<tiles:insertAttribute name="body"/> <!-- body -->
 	    	</div>  
 	    </div>  
 	    

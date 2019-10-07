@@ -7,18 +7,16 @@ body, hmtl{background: #ecf0f1; font-family: 'Anton', sans-serif;}
 
 
 #wrapper{
-	top:380px;
-	left:40%;
     width:600px;
     margin:50px auto;
     height:400px;
-    position:absolute;
+    position:relative;
     color:#fff;
     text-shadow:rgba(0,0,0,0.1) 2px 2px 0px;    
 }
 
 #slider-wrap{
-    width:600px;
+    width:400px;
     height:400px;
     position:relative;
     right:310px;
@@ -37,7 +35,7 @@ body, hmtl{background: #ecf0f1; font-family: 'Anton', sans-serif;}
 #slider-wrap ul#slider li{
     float:left;
     position:relative;
-    width:600px;
+    width:400px;
     height:400px;   
 }
 

@@ -17,13 +17,43 @@
 
 
 
+
 /* 비회원 주문조회 인증 페이지 */
 .ordercheck_confirm_wrap { /* background-color: #d7fd75; */ margin-left: 350px; }
 .ordercheck_confirm_title { /* background-color: red; */ border-bottom: 1px solid #dbdbdb; margin-bottom: 50px; margin-top: 50px; }
 .ordercheck_confirm_content { /* background-color: blue; */) }
 .ordercheck_confirm_title_font { font-size: 35px; }
-#ordercheck_number{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
-#ordercheck_name{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
-#ordercheck_btn{ width: 400px; height: 70px; background-color: #d7fd75; border: #d7fd75; font-size: 20px; }
+#ordercheck_confirm_payment_code{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
+#ordercheck_confirm_send_name{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
+#ordercheck_confirm_btn{ width: 400px; height: 70px; background-color: #d7fd75; border: #d7fd75; font-size: 20px; }
+
+
+
+
+
+/* 주문내역 상세보기 페이지 */
+.ordercheck_detail_wrap{ /* background-color: red; */ }
+.ordercheck_detail_title{ font-family: sans-serif; font-size: 35px; }
+
+.ordercheck_detail_tb{ font-size: 15px; text-align: left; /* background-color: red; */ width: 100%; margin-bottom: 150px; margin-top: 20px; }
+.ordercheck_detail_tb th { padding: 10px 10px 10px 10px; text-align: center; background-color: #d7fd75; }
+.ordercheck_detail_tb td { padding: 10px 10px 10px 10px; text-align: center; }
+.ordercheck_detail_information { border-bottom: 1px solid #dbdbdb; margin-bottom: 150px; padding: 10px 10px 10px 10px; }
+
+
+
+
+
+.ordercheck_tb{ font-size: 15px; text-align: left;  /* background-color: red; */  width: 100%; margin-bottom: 150px; margin-top: 20px; }
+.ordercheck_tb th { padding: 10px 10px 10px 10px; text-align: center; background-color: #d7fd75; }
+.ordercheck_tb td { padding: 10px 10px 10px 10px; text-align: center; }
+
+
+
+
+
+
+
+
 
 

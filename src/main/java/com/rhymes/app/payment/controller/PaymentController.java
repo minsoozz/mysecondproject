@@ -14,16 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rhymes.app.Store.model.OrderDto;
 import com.rhymes.app.payment.util.Coolsms;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/Rhymes")
 public class PaymentController {
@@ -85,10 +81,16 @@ public class PaymentController {
          System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
          //System.out.println("-----" + b.getStock_seq());
       }
+
       
-      
-      
-      return "";
+      if(true) {
+         // 로그인 되어있으면 결제 페이지로 이동
+         return "/payment/payment";
+      }else {
+         // 로그인 안되어있으면 로그인창으로 이동
+         return "/payment/nomembership";
+      }
+
    }
    
    // 결제 완료
