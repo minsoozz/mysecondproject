@@ -35,4 +35,14 @@ public interface UsedService {
 
 	public List<CommentsDto> getComments(int seq);
 
+	public boolean addComments(Map<String, Object> map);
+
+	public boolean updateComment(Map<String,Object> map);
+
+	public boolean updateReadCount(int seq);
+
+	public boolean deleteComment(Map<String, Object> map);
+
+	public boolean insertanswer(Map<String, Object> map);
+
 }

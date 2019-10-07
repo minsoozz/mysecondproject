@@ -47,7 +47,7 @@ public class UsedController {
 		// 아직 구축이 제대로 안되서 임의로 로그인 아이디 설정해 놓음
 		P_MemberDTO Mdto = usedService.getMemberDto("sujin123");
 		Mdto.setUserid("sujin123");
-		System.out.println(Mdto.toString());
+		
 		
 		req.getSession().setAttribute("login", Mdto);
 		return "used/test";
@@ -66,8 +66,10 @@ public class UsedController {
 	@GetMapping("useddetail")
 	public String useddetail(Model model,int seq, HttpServletRequest req) {
 		
-		ProductsDto dto = usedService.getUsedDetail(seq);	// 게시글 정보 받아오기
-		dto.setLikes( usedService.getboardlikes(seq));		// 게시글의 좋아요 개수 설정
+		ProductsDto dto = usedService.getUsedDetail(seq);		// 게시글 정보 받아오기
+		dto.setLikes( usedService.getboardlikes(seq));			// 게시글의 좋아요 개수 설정
+		boolean c = usedService.updateReadCount(dto.getSeq());	// 조회수 증가
+		
 		
 		String id = "";
 		
@@ -103,6 +105,20 @@ public class UsedController {
 		
 	}
 	
+	@GetMapping(value="updateProduct")
+	public String updateProduct(int seq,Model model) {
+		
+		ProductsDto dto =  usedService.getUsedDetail(seq);
+		
+		String str = dto.getPhoto_sys();
+		String arr[] = str.split(",");
+		dto.setPhoto_list(arr);
+		
+		model.addAttribute("dto",dto);
+		
+		return "usedupdate.tiles";
+	}
+	
 	@GetMapping(value="/getCommentsList",produces = "application/json; charset=utf8")
 	@ResponseBody
 	public ResponseEntity getCommentsList(int seq) throws Exception{
@@ -118,7 +134,9 @@ public class UsedController {
 				hm.put("seq", clist.get(i).getSeq());
 				hm.put("comments", clist.get(i).getComments());
 				hm.put("id", clist.get(i).getId());
-				hm.put("date", clist.get(i).getDate());
+				hm.put("rdate", clist.get(i).getDate());
+				hm.put("ref", clist.get(i).getRef());
+				hm.put("depth", clist.get(i).getDepth());
 				
 				hmlist.add(hm);
 			}
@@ -130,6 +148,73 @@ public class UsedController {
 		
 		return new ResponseEntity(json.toString(), responseHeaders , HttpStatus.CREATED);
 	};
+	
+	@GetMapping("/addComments")
+	@ResponseBody
+	public String addComments(int parent,String comments,String userid) {
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("parent", parent);
+		map.put("comments", comments);
+		map.put("userid", userid);
+		
+		
+		boolean b = usedService.addComments(map);
+		
+		
+		return "suc";
+	}
+	
+	@GetMapping("/updateComment")
+	@ResponseBody
+	public String updateComment(int parent, int seq,String comments) {
+		
+	Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("parent", parent);
+		map.put("seq", seq);
+		map.put("comments", comments);
+			
+		boolean b = usedService.updateComment(map);
+		
+		
+		
+		return "suc";
+	}
+	
+	@GetMapping("/insertanswer")
+	@ResponseBody
+	public String insertanswer(int parent, int seq, String comments, String userid, int ref) {
+			
+	Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("parent", parent);
+		map.put("seq", seq);
+		map.put("comments", comments);
+		map.put("userid", userid);
+		map.put("ref", ref);
+		
+		boolean b = usedService.insertanswer(map);
+		
+		
+		
+		return "suc";
+	}
+	
+	@GetMapping("/deleteComment")
+	@ResponseBody
+	public String deleteComment(int parent,int seq) {
+		
+	Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("parent", parent);
+		map.put("seq", seq);
+		
+		boolean b = usedService.deleteComment(map);
+	
+		return "suc";
+	}
 	
 	@GetMapping("popup")
 	public String popup(Principal prc) {

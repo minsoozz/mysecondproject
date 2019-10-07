@@ -88,6 +88,36 @@ public class UsedServiceImpl implements UsedService {
 		// TODO Auto-generated method stub
 		return usedDao.getComments(seq);
 	}
+
+	@Override
+	public boolean addComments(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return usedDao.addComments(map);
+	}
+
+	@Override
+	public boolean updateComment(Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return usedDao.updateComment(map);
+	}
+
+	@Override
+	public boolean updateReadCount(int seq) {
+	
+		return usedDao.updateReadCount(seq);
+	}
+
+	@Override
+	public boolean deleteComment(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return usedDao.deleteComment(map);
+	}
+
+	@Override
+	public boolean insertanswer(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return usedDao.insertanswer(map);
+	}
 	
 	
 }
