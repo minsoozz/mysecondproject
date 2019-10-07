@@ -33,5 +33,15 @@ public interface UsedDao {
 	boolean deletelikes(Map<String, Object> map);
 
 	List<CommentsDto> getComments(int seq);
+
+	boolean addComments(Map<String, Object> map);
+
+	boolean updateComment(Map<String,Object> map);
+
+	boolean updateReadCount(int seq);
+
+	boolean deleteComment(Map<String, Object> map);
+
+	boolean insertanswer(Map<String, Object> map);
 	
 }

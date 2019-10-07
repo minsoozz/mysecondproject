@@ -112,8 +112,42 @@ public class UsedDaoImpl implements UsedDao {
 	@Override
 	public List<CommentsDto> getComments(int seq) {
 		List<CommentsDto> list = sqlSession.selectList(ns + "getComments", seq);
-		
+		System.out.println(list.toString());
 		return list;
+	}
+
+	@Override
+	public boolean addComments(Map<String, Object> map) {
+		int n = sqlSession.insert(ns + "addComments", map);
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean updateComment(Map<String,Object> map) {
+		int n = sqlSession.update(ns + "updateComment", map);
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean updateReadCount(int seq) {
+		int n = sqlSession.update(ns + "updateReadCount", seq);
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean deleteComment(Map<String, Object> map) {
+		int n = sqlSession.delete(ns + "deleteComment", map);
+		
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean insertanswer(Map<String, Object> map) {
+				sqlSession.update(ns + "updateanswer", map);
+		
+		int n = sqlSession.insert(ns + "insertanswer", map);
+		
+		return false;
 	}
 	
 	
