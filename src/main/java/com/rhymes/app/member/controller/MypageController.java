@@ -2,13 +2,16 @@ package com.rhymes.app.member.controller;
 
 import java.net.URLDecoder;
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,7 +54,7 @@ public class MypageController {
 	
 	@Autowired
 	BCryptPasswordEncoder bc;
-	
+		
 	@GetMapping(value = "/main")
 	public String mypageMain() {
 		log.info("show main");
@@ -59,8 +62,17 @@ public class MypageController {
 	}
 	
 	@GetMapping(value = "/orderlog")
-	public String showOrderLog() {
+	public String showOrderLog(Principal pcp, HttpSession session) {
 		log.info("show OrderLog");
+		//선언부
+		String userid = pcp.getName();
+		DecimalFormat dcFormat = new DecimalFormat("###,###,###");
+		
+		//마이페이지 상단 메뉴 정보 세션에 등록(적립금, 쿠폰) - EHCache 적용
+		session.setAttribute("totalPoints", dcFormat.format(mypagePointsService.getAmountOfPointById(userid)));
+		session.setAttribute("expPoints", dcFormat.format(mypagePointsService.getAmountOfExpiredPointById(userid)));
+		session.setAttribute("validCoupons", dcFormat.format(mypageCouponService.getCountOnConditions(userid)));
+		
 		return "member/mypage/orderlog";
 	}
 	

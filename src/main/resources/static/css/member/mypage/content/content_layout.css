@@ -52,8 +52,8 @@
 	left: 50%;
 }
 
-#footer_wrap {
+#footer_wrap_mypage {
 	z-index: -1;
 	position: relative;
-	top: 480px;
+	top: 600px;
 }

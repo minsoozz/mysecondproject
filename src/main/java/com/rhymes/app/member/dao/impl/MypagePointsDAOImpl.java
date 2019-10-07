@@ -24,7 +24,7 @@ public class MypagePointsDAOImpl implements MypagePointsDAO {
 	 * @param mPDto
 	 * @return
 	 */
-	@CacheEvict(value = "getAmountOfPointById", key = "#userid")
+	@CacheEvict(value = {"getAmountOfPointById", "getAmountOfExpiredPointById"}, key = "#userid")
 	@Override
 	public int addNewPoint(MemberPointDTO mPDto) {
 		return sqlSession.insert(ns + "addNewPoint", mPDto);
@@ -75,6 +75,7 @@ public class MypagePointsDAOImpl implements MypagePointsDAO {
 	 * @param userid
 	 * @return
 	 */
+	@Cacheable(key = "#userid", value = "getAmountOfExpiredPointById")
 	@Override
 	public int getAmountOfExpiredPointById(String userid) {
 		// TODO Auto-generated method stub

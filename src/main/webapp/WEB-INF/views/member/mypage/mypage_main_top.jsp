@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 <sec:authentication property="principal" var="prc"/>
 <% String ctx = request.getContextPath(); %>
@@ -33,12 +34,12 @@
 				</li>
 				<li id="_points_user" class="points_user mypage_top_list_item">
 					<a class="points_user_title">적립금</a>
-					<a class="points_user_curr_point" href="<%=ctx %>/mypage/points">695 원&nbsp;&nbsp; <i class="fas fa-chevron-right"></i></a>
-					<a class="points_user_exp_point">소멸 예정 0원</a>
+					<a class="points_user_curr_point" href="<%=ctx %>/mypage/points">${totalPoints } 원&nbsp;&nbsp; <i class="fas fa-chevron-right"></i></a>
+					<a class="points_user_exp_point">소멸 예정 ${expPoints }원</a>
 				</li>
 				<li id="_coupon_user" class="coupon_user mypage_top_list_item">
 					<a class="coupon_user_title">쿠폰</a>
-					<a class="coupon_user_content" href="<%=ctx %>/mypage/coupon">2개&nbsp;&nbsp; <i class="fas fa-chevron-right"></i></a>
+					<a class="coupon_user_content" href="<%=ctx %>/mypage/coupon">${validCoupons }개&nbsp;&nbsp; <i class="fas fa-chevron-right"></i></a>
 				</li>
 				<li id="_membership_user" class="membership_user mypage_top_list_item">
 					<a class="membership_user_title">R패스</a>
