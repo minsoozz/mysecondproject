@@ -90,11 +90,7 @@ public class AuthTestController {
 	public String memberMain() {
 
 		log.info("member");
-<<<<<<< HEAD
-		
-=======
 
->>>>>>> master
 		return "main";
 	}
 

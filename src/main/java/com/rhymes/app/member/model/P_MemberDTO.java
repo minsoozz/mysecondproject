@@ -1,14 +1,11 @@
 package com.rhymes.app.member.model;
 
-import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings("serial")
 @Getter
 @Setter
-public class P_MemberDTO implements Serializable {
+public class P_MemberDTO {
 
 	private String userid; // 아이디
 	private String username; // 이름

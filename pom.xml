@@ -145,16 +145,12 @@
 			<artifactId>javaSDK</artifactId>
 			<version>2.2</version>
 		</dependency>
-
-		<<<<<<< HEAD
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
 		</dependency>
-
-		=======
-		>>>>>>> master
+		
 		<!-- file io on web -->
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
@@ -228,28 +224,6 @@
 		</dependency>
 		<!-- Tiles 관련 디펜던시 끝 -->
 
-		<<<<<<< HEAD
-		=======
-
-		>>>>>>> master
-		<!-- 전화번호 인증 -->
-		<dependency>
-			<groupId>net.nurigo</groupId>
-			<artifactId>javaSDK</artifactId>
-			<version>2.2</version>
-		</dependency>
-		<<<<<<< HEAD
-
-		=======
-
-		>>>>>>> master
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<<<<<<< HEAD
 		<!-- Mail -->
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
@@ -264,6 +238,11 @@
 			<artifactId>javaSDK</artifactId>
 			<version>2.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
 
 		<!-- Ajax 사용 설정[jackson] -->
 		<dependency>
@@ -271,37 +250,19 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-		=======
-		<!-- Ajax 사용 설정[jackson] -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
 
-		>>>>>>> master
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-taglibs</artifactId>
-		</dependency>
-
-		<<<<<<< HEAD
-		=======
-
-		>>>>>>> master
+		
 		<!-- kakao login api JSON객체 파싱에 유용한 Gson외부 라이브러리 dependency추가 -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.0</version>
 		</dependency>
-
 
 		<!-- naver -->
 		<dependency>
@@ -310,19 +271,13 @@
 			<version>2.8.1</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
-
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20180130</version>
 		</dependency>
 
-
-
-
-		<<<<<<< HEAD
 		<!-- EHCache 관련 -->
 		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
 		<dependency>
@@ -331,16 +286,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId><!-- 캐시 관련 의존성(CacheManager 
-				등)을 직접 추가하지 않기 위한 디펜던시 -->
+			<artifactId>spring-boot-starter-cache</artifactId><!-- 캐시 관련 의존성(CacheManager 등)을 직접 추가하지 않기 위한 디펜던시 -->
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
 		</dependency>
 
-		=======
-		>>>>>>> master
 	</dependencies>
 
 	<build>

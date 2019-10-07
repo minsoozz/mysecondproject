@@ -1,6 +1,4 @@
-
-
-#Spring Security Exam Project With Book
+#Project RHYMES
 server:
   port: 18080
 #JSP config
