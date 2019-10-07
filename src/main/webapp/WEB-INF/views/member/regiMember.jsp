@@ -316,7 +316,7 @@ function idCheck(focusYN) {
 <div id="wrap">
 	<form action="/member/addmem" name="userinput" onsubmit="return checkIt()" method="get">
 	<input type="hidden" name="authority" value="ROLE_MEMBER">
-	<div class="backcolor" align="center"></div>
+<!-- 	<div class="backcolor" align="center"></div> -->
 		<div id="body" align="center">
 			<div align="center"><span class="findidtext">가입정보 입력</span></div>
 				<table width="500px;" class="regi_table">

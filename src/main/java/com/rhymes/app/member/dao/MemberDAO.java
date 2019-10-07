@@ -53,6 +53,9 @@ public interface MemberDAO {
 	// 카카오 regi 공통정보
 	public void getkakaoregi(MemBean mb);
 	
+	// 카카오이메일과 다른 이메일로 가입했을 경우
+//	public boolean getSnsUserName(MemBean mbean);
+	
 	// sns 유저확인
 	public boolean getsnsuser(MemBean mbean);
 	

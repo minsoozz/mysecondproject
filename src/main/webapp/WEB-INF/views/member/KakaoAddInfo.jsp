@@ -43,7 +43,7 @@ function isCheckKeybordEmail(obj) {
 	<div class="backcolor" align="center"></div>
 		<div id="body" align="center">
 		<br><br><br>
-			<div align="center"><span class="findidtext">가입정보 입력</span></div>
+			<div align="center"><span class="findidtext">추가정보 입력</span></div>
 			<div align="center"><span class="findidtextsub">*필수입력사항</span></div>
 				<table width="500px;" class="regi_table" >
 					<colgroup>
@@ -69,7 +69,7 @@ function isCheckKeybordEmail(obj) {
 							</th>
 							<td>
 								<input type="text" name="useremail" class="inputtext_s addinfo" required
-								onchange="isCheckKeybordEmail(this)" id="_email" placeholder="이메일">
+								onchange="isCheckKeybordEmail(this)" id="_email" placeholder="카카오 이메일을 입력해주세요">
 								<span class="txt addinfo txt4"></span>
 								<input type="button" id="_emailBtn" value="이메일 인증" class="emailBtn epbtn">
 								<input type="text" id="_emailText" class="inputtext_s" minlength="6" maxlength="6" placeholder="인증번호 입력">

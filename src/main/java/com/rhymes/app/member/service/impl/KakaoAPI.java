@@ -160,7 +160,9 @@ public class KakaoAPI {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        } catch (NullPointerException npe) {
+			userInfo.put("email", null);
+		}
         
         return userInfo;
     }

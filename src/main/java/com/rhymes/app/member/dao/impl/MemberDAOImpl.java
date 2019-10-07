@@ -102,12 +102,20 @@ public class MemberDAOImpl implements MemberDAO {
 			return n>0?true:false;
 		}
 		
+		// 카ㅣ카오 회원가입
 		@Override
 		public void getkakaoregi(MemBean mb) {
 			sqlSession.insert(ns+"getsnsregi", mb);
 			sqlSession.insert(ns+"getsnsregi_p", mb);
 			
 		}
+		
+	/*
+	 * //카카오이메일과 다른 이메일로 회원가입 했을 경우
+	 * 
+	 * @Override public boolean getSnsUserName(MemBean mbean) { return
+	 * sqlSession.selectOne(ns+"getSnsUserName", mbean); }
+	 */
 
 		// sns유저확인
 		@Override
@@ -122,6 +130,8 @@ public class MemberDAOImpl implements MemberDAO {
 			sqlSession.insert(ns+"getsnsregi_p", mb);
 			
 		}
+
+		
 
 
 
