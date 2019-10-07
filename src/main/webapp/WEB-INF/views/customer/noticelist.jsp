@@ -39,7 +39,7 @@
 	</td>
 	<td>${notice.id }</td>
 	<td>
-		<font size="1">string.${notice.wdate }(0.10)</font>
+		<font size="1">${notice.wdate }</font>
 	</td>
 	<td>${notice.readcount }</td>
 	
