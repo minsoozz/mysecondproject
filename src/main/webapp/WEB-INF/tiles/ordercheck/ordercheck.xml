@@ -23,7 +23,10 @@
 	<definition name="/order_move" extends="ordercheck.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck.jsp" />
 	</definition>
-	
+
+	<definition name="/order_delivery_popup">
+		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck_delivery_popup.jsp" />
+	</definition>
 
 
 

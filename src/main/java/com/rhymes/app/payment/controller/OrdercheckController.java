@@ -79,5 +79,17 @@ public class OrdercheckController {
 		
 		return "/order_move";
 	}
+	
+	// 주문내역 확인 페이지에서 배송현황보기 팝업창
+	@GetMapping("/ordercheck_delivery_popup")
+	public String ordercheck_delivery_popup(Model model) {
+		System.out.println("darae ordercheck_delivery_popup");
+		
+		return "/order_delivery_popup";
+	}
+
+
+
+
 
 }

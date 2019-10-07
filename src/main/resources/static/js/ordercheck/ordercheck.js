@@ -41,6 +41,7 @@ function ordercheck_detail(){
 
 function ordercheck_delivery(){
 	alert("배송현황보기");
+	window.open("/Rhymes/ordercheck_delivery_popup", "window팝업", "width=300, height=300, menubar=no, status=no, toolbar=no");
 }
 
 
