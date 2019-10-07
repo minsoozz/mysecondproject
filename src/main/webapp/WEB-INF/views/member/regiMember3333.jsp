@@ -316,141 +316,58 @@ function idCheck(focusYN) {
 <div id="wrap">
 	<form action="/member/addmem" name="userinput" onsubmit="return checkIt()" method="get">
 	<input type="hidden" name="authority" value="ROLE_MEMBER">
-	<div class="backcolor" align="center"></div>
-		<div id="body" align="center">
-			<div align="center"><span class="findidtext">가입정보 입력</span></div>
-				<table width="500px;" class="regi_table">
-					<colgroup>
-						<col width="20%" />
-						<col width="*" />
-					</colgroup>
-					<tr>
-						<th colspan="2" class="subTitle">
-						<span class="txt_point_b">*</span>
-						필수
-						
-						</th>
-					</tr>
-					<tr>
-						<th>
-							<span class="txt_point">*</span>
-							<span class="th_title">아이디</span>
-						</th>
-						<td>
-							<input type="button" name="confirm_id" value="ID 중복확인" 
-							class="regibutton1" id="inputBtn" onclick="idCheck()">
-							<input type="text" id="_id" name="userid" onchange="isCheckKeybord(this)" class="inputtext_s" maxlength="12" minlength="6" idnumberengonly="true" placeholder="아이디">
-							
-							<span class="txt txt1">6자 이상의 영문 혹은 영문과 숫자를 조합</span>
-							<p id="_rgetid"></p>
-						</td>
-					</tr>
-					<tr>
-						<th>
-							<span class="txt_point">*</span>
-							<span class="th_title">비밀번호</span>
-						</th>
-						<td>
-							<input type="password" onchange="isPostNum(this)" name="userpw" 
-								maxlength="25" minlength="8" class="inputtext_s" id="_pwd" placeholder="비밀번호">
-							<span class="txt txt2">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</span>
-						</td>
-					</tr>
-					<tr>
-						<th>
-							<span class="txt_point">*</span>
-							<span class="th_title">비밀번호 확인</span>
-						</th>
-						<td>
-							<input type="password" onchange="isPostNum2(this)" name="userpw2" class="inputtext_s" maxlength="25" id="_pwd2" placeholder="비밀번호 확인">
-							<span class="txt txt2_1"></span>
-						</td>
-					</tr>
-					
-					<div class="middleLine"></div>
-					
-						<tr class="addinfo">
-							<th colspan="2" class="subTitle addinfo">개인정보 입력</th>
-						</tr>
-						
-						<tr>
-							<th>
-								<span class="txt_point2 addinfo">*</span>
-								<span class="th_title addinfo">사용자 이름</span>
-							</th>
-							<td>
-								<input type="text" class="inputtext_s addinfo" onchange="isCheckKeybordName(this)" name="username" id="_name" placeholder="이름">
-								
-								<span class="txt addinfo txt3">영문자 또는 한글 입력</span>
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<span class="txt_point2 addinfo">*</span>
-								<span class="th_title addinfo">이메일</span>
-							</th>
-							<td>
-								<input type="text" name="useremail" class="inputtext_b addinfo" onchange="isCheckKeybordEmail(this)" id="_email" maxlength="30" placeholder="이메일">
-								<span class="txt addinfo txt4"></span>
-							</td>
-						</tr>
-	 					<tr>
-							<th>
-								<span class="txt_point2 addinfo">*</span>
-								<span class="th_title addinfo">휴대폰</span>
-							</th>
-							<td>
-								<input type="number" class="inputtext_s addinfo" name="phone" maxlength="11" minlength="11" placeholder="전화번호">
-							</td>
-						</tr>
-						<tr>
-							<th>
-								<span class="txt_point2 addinfo">*</span>
-								<span class="th_title addinfo">주소</span>
-							</th>
-							<td>
-								<div class="wrap-input100 bg1 rs1-wrap-input100 addinfo">
-								<input type="button" onclick="sample6_execDaumPostcode()" class="postBtn" value="우편번호 찾기"><br>
-								<input type="text" id="_postcode" class="inputtext_s" name="postcode" placeholder="우편번호">
-								<input type="text" id="_address" name="address" class="inputtext_s" placeholder="주소"><br>
-								<input type="text" id="_detailAddress" name="detailAddress" class="inputtext_b" placeholder="상세주소">
-								<input type="hidden" id="_extraAddress" name="extraAddress" placeholder="참고항목">
-								</div>
-								<br>
-							</td>
-						</tr>
 	
-						<tr>
-							<th>
-								<span class="txt_point2 addinfo">*</span>
-								<span class="th_title addinfo">성별</span>
-							</th>
-							<td>
-								<input type="radio" name="gender" value="female" class="addinfo radiobtn"><span class="addinfo radiobtn">여자</span>
-								<input type="radio" name="gender" value="male" class="addinfo radiobtn"><span class="addinfo radiobtn">남자</span>
-							</td>
-						</tr>
-						
-						<tr>
-							<th>
-								<span class="txt_point2 addinfo">*</span>
-								<span class="th_title addinfo">생년월일</span>
-							</th>
-							<td>
-								<input type="number" name="birth" class="inputtext_s addinfo" placeholder="YYYYMMDD" maxlength="8" minlength="8">
-							</td>
-						</tr>	
-								
-				</table>
+		<div id="body" align="center" class="bodyclass">
+			<div id="" align="center" class="bodyclass2">
+				<div id="" align="center" class="bodyclass3"> 
+			
+				<div class="bodyclass4">
+					<input type="text" class="test" value="아이디" readonly>
+					<input type="text" name="userid" class="inputtext"><br>
+					
+					<input type="button" class="Btn btnPosition" value="확인"><br>
+					
+					<input type="text" class="test" value="비밀번호" readonly>
+					<input type="text" name="" class="inputtext"><br>
+					
+					<input type="text" class="test" value="비밀번호 확인" readonly>
+					<input type="text" name="" class="inputtext"><br>
+				</div>
+				 
+				<div class="bodyclass5">
+					<input type="text" class="test" value="이메일" readonly>
+					<input type="text" name="" class="inputtext"><br>
+					
+					<input type="text" class="test" value="이름" readonly>
+					<input type="text" name="" class="inputtext"><br>
+					
+					<input type="text" class="test" value="전화번호" readonly>
+					<input type="text" name="" class="inputtext"><br>
+					
+					<input type="text" class="test" value="주소" readonly>
+					<input type="text" name="" class="inputtext"><br>
+					
+					<input type="text" class="test" value="성별" readonly>
+					<input type="text" name="" class="inputtext"><br>
+					
+					<input type="text" class="test" value="생년월일" readonly>
+					<input type="text" name="" class="inputtext"><br>
+				</div>
+				
+				<div class="bodyclass6" align="center">
+<!-- 			<div id="avoidDbl"> -->
+				<input type="submit" name="confirm" class="regibutton" value="등 록"><br>
+<!-- 			</div> -->
+			<input type="reset" name="reset" class="regibutton" value="다시입력"><br>
+			<input type="button" value="취 소" class="regibutton" onclick="javascript:window.location='login'">
+		</div>
+				
+				
+				</div>
+			</div>
 		</div>
 
-		<div class="regibtn" align="center">
-<!-- 			<div id="avoidDbl"> -->
-				<input type="submit" name="confirm" class="regibutton addinfo" value="등 록"><br>
-<!-- 			</div> -->
-			<input type="reset" name="reset" class="regibutton addinfo" value="다시입력"><br>
-			<input type="button" value="취 소" class="regibutton addinfo" onclick="javascript:window.location='login'">
-		</div>
+
 	</form>
 
 </div>

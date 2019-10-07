@@ -19,6 +19,7 @@ public class MemberDTO implements Serializable {
 	private int seq;
 	private String userid;
 	private String userpw;
+	private String social;
 	
 	private boolean isAccountNonExpired = true;
 	private boolean isAccountNonLock = true;

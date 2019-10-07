@@ -9,14 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.rhymes.app.member.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
+	@Autowired
+	MemberService memberService;
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp,
 			Authentication auth) throws IOException, ServletException {
@@ -33,10 +39,12 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		log.warn("ROLE NAMES : " + roleNames);
 
 		if (roleNames.contains("ROLE_ADMIN")) {
+			
 			resp.sendRedirect("/member/admin");
 			return;
 		}
 		if (roleNames.contains("ROLE_MEMBER")) {
+//			req.getSession().setAttribute("userloginid", value);
 			resp.sendRedirect("/member/member");
 			return;
 		}

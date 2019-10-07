@@ -1,4 +1,4 @@
-package com.rhymes.app.common.service;
+package com.rhymes.app.member.service.impl;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -8,16 +8,29 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
  
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.rhymes.app.member.dao.MemberDAO;
+import com.rhymes.app.member.model.AuthoritiesDTO;
+import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.member.model.P_MemberDTO;
  
 @Service
 public class KakaoAPI {
+	
+	@Autowired
+	private MemberDAO memberdao;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
     
     public String getAccessToken (String authorize_code) {
+    	System.out.println("kakaoLogin KakaoAPI 도착");
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -35,7 +48,7 @@ public class KakaoAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=7941c0b534b8b053634f144ea1b326ea");
-            sb.append("&redirect_uri=http://localhost:18080/member/login");
+            sb.append("&redirect_uri=http://localhost:18080/member/kakaoLogin");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -77,7 +90,7 @@ public class KakaoAPI {
     
 //    사용자 정보 가져오기
     public HashMap<String, Object> getUserInfo (String access_Token) {
-        
+        System.out.println("kakaoLogin KakaoAPI 사용자 정보 가져오기 도착");
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -107,13 +120,43 @@ public class KakaoAPI {
             
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+//            JsonObject id = element.getAsJsonObject().get("id").getAsJsonObject();
             
+//            int id = element.getAsInt();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+
+        	userInfo.put("nickname", nickname);
+        	userInfo.put("email", email);
+            	
             
-            userInfo.put("nickname", nickname);
-            userInfo.put("email", email);
             
+//            userInfo.put("id", id);
+            
+            /*
+            String userid = (String)userInfo.get("id");
+            String useremail = (String)userInfo.get("email");
+            String username = (String)userInfo.get("nickname");
+            String userbirth = (String)userInfo.get("birthday");
+            String usergender = (String)userInfo.get("gender");
+
+            P_MemberDTO pmem = new P_MemberDTO(userid, username, useremail, usergender, userbirth);
+            
+            System.out.println("pmem toString : "+pmem.toString());
+            
+            MemberDTO mem = new MemberDTO(userid, passwordEncoder.encode("testpw"));
+            
+            boolean b = memberdao.getkakaoregi(mem);	// 공통정보
+            
+            if(b) {
+            
+	            memberdao.getkakaoregi_p(pmem);	// 추가정보
+	            
+	            AuthoritiesDTO adto = new AuthoritiesDTO(userid, "ROLE_MEMBER");
+	            memberdao.getAuthAddmem(adto);	// 권한
+	            
+            }
+            */
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

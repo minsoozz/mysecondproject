@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% String ctx = request.getContextPath(); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head> 
@@ -43,19 +44,30 @@
                     </div>
                 </div>
                 
-               
-                
                 <!--  Login Register Area  -->
                 <div class="col-7 col-xs-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
                             
+                        <c:if test="${userloginid eq null}">    
                             <div class="login">
-                                <a href="a.jsp">Login</a>
+                                <a href="/member/login">Login</a>
                             </div>
                             <div class="join">
-                                <a href="a.jsp">Join</a>
+                                <a href="/member/regiMain">Join</a>
                             </div>
+                        </c:if>
+                        
+                        <c:if test="${userloginid ne null}">
+                        	<div class="">
+                        		<span>${userloginid } 님</span>
+                        	</div>
+                        	<div class="">
+                        		<a href="/member/logout">Logout</a>
+                        	</div>
+                        </c:if>
+                        
+                        
                             <div class="mypage">
                                 <a href="a.jsp">Mypage</a>
                             </div>
