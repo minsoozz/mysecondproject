@@ -16,7 +16,6 @@ $(function () {
 			data:"name="+name+"&code="+code,
 			success:function(data){
 				if(data == "true"){
-					alert("payment_code : " + code);
 					location.href="/Rhymes/ordercheck_detail_move?payment_code="+code;
 				}else{
 					alert("일치하는 주문이 없습니다.\n확인 후  다시 시도해 주십시오.");
@@ -34,8 +33,10 @@ $(function () {
 
 
 
-function ordercheck_detail(){
+function ordercheck_detail( payment_code ){
 	alert("주문상세보기");
+	
+	location.href="/Rhymes/ordercheck_detail_move?payment_code="+payment_code;
 }
 
 
