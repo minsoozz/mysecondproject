@@ -1,8 +1,6 @@
 package com.rhymes.app.security.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +23,7 @@ public class CustomUser extends User{
 	public CustomUser(MemberDTO dto) {
 		super(dto.getUserid(), dto.getUserpw(), dto.getAuthList().stream()
 				.map(auth -> new SimpleGrantedAuthority(auth.getAuthority())).collect(Collectors.toList()));
+		System.out.println("오케이로그인");
 		this.dto = dto;
 	}	
 }

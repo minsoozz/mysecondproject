@@ -5,7 +5,6 @@ import java.util.List;
 import com.rhymes.app.member.model.PointsPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
-import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
 public interface MypageCouponService {
 		

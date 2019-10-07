@@ -34,6 +34,7 @@
 				</div>			
 				<div class="col-md-6">
 					${totalPoints }원
+					<%-- <fmt:formatNumber value="${totalPoints }" type="number" />원 --%>
 				</div> 
 			</div>
 		</div>					
@@ -44,6 +45,7 @@
 				</div>			
 				<div class="col-md-6">
 					${expPoints }원
+					<%-- <fmt:formatNumber value="${expPoints }" type="number" />원 --%>
 				</div> 
 			</div>
 		</div>
