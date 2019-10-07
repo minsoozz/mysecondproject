@@ -4,12 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.rhymes.app.config.security.SpringSecurityConfiguration;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @SuppressWarnings("serial")
 @Getter

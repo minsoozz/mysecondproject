@@ -51,10 +51,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/welcome").permitAll()
+				.antMatchers("/main", "/main/**").permitAll()
 				.antMatchers("/used", "/used/**").permitAll()
 				.antMatchers("/member/admin", "/member/admin/**").access("hasRole('ROLE_ADMIN')")
 				.antMatchers("/member/member", "/member/member/**").access("hasRole('ROLE_MEMBER')")
-				.antMatchers("/mypage/**").access("hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')");				
+				.antMatchers("/mypage/**").access("hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_SELLER')");				
 		
 		//로그인페이지 설정
 		http

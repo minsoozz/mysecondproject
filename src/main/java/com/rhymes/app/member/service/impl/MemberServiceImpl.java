@@ -1,18 +1,10 @@
 package com.rhymes.app.member.service.impl;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.rhymes.app.common.dao.CommonDAO;
 import com.rhymes.app.member.dao.MemberDAO;
 import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemBean;

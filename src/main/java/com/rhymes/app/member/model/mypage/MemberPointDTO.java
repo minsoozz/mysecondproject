@@ -18,7 +18,6 @@ public class MemberPointDTO implements Serializable {
 	private String userid;
 	private String comment;
 	private int amount;
-	private String amountStr;
 	private String rdate;
 	private String edate;
 	private String isExpired;

@@ -19,3 +19,10 @@
 .btn_reconfirm_submit {
     width: 200px;
 }
+
+#_btn_confirm_mem{
+	background-color: #d7fd75;	
+	color: #370202;
+	font-size: 18px;
+	font-weight: 800
+}

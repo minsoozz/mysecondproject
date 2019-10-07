@@ -4,12 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">	
 
-	<!-- 검색조건에 맞는 적립금 디테일의 총 개수 리턴 -->
-	<select id="getCountOnConditions" resultType="java.lang.Integer" parameterType="java.lang.String">
-		SELECT COUNT(*)
-		FROM RHY_MEM_POINT
-		WHERE ID = #{userid}
-		GROUP BY ID
+	<!-- 매개변수 ID가 갖는 비밀번호 리턴 -->
+	<select id="getPwById" resultType="java.lang.String" parameterType="java.lang.String">
+		<include refid="getPwByIdSql"/>
 	</select>
 	
 	<!-- 검색조건에 맞는 적립금 디테일 정보 리턴 -->
@@ -72,4 +69,13 @@
 	 	GROUP BY ID
  	</select>
 
+
+	<!-- 실제 쿼리 부분 -->
+	<!-- 매개변수 ID가 갖는 비밀번호 리턴 -->
+	<sql id="getPwByIdSql">
+		SELECT PW
+		FROM RHY_MEM
+		WHERE ID = #{userid}
+	</sql>
+	
 </mapper>
