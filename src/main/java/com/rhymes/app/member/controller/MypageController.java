@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
+@EnableCaching
 @Controller
 @RequestMapping("/mypage/*")
 public class MypageController {
@@ -107,7 +109,7 @@ public class MypageController {
 		model.addAttribute("expPoints", expPoints);
 		model.addAttribute("pointsList", lst);
 		model.addAttribute("pDto", pDto);		
-		
+				
 		return "member/mypage/points"; 
 	}
 		
@@ -317,6 +319,7 @@ public class MypageController {
 		log.info("[ajax] modify personal information " + json); 
 		
 		String userid = pcp.getName();	//현재 세션의 사용자 아이디
+		@SuppressWarnings("deprecation")
 		String[] params = URLDecoder.decode(json).split("&");	//입력받은 폼 정보를 배열로 저장
 		Map<String, String> hm = new HashMap<String, String>();	//리턴데이터를 담을 map
 			

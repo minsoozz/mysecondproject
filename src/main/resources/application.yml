@@ -13,8 +13,8 @@ server:
     whitelabel:
       enabled: true
 
-#db config
 spring:
+  #db config
   datasource: 
     hikari:
       jdbc-url: jdbc:mysql://112.169.197.59:23306/rhymes?characterEncoding=UTF-8&serverTimezone=UTC
@@ -24,6 +24,9 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: mhj
       password: mhj
+  #ehcache config
+  cache:    ehcache:      config: classpath:/config/ehcache.xml
+      
  
 
 #jsp
@@ -37,3 +40,5 @@ spring:
       max-request-size: 10MB
       enabled: true
       file-size-threshold: 10MB
+      
+
