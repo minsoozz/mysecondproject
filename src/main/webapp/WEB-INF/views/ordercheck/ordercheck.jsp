@@ -46,9 +46,9 @@
 	<td>
 	<input type="button" value="주문상세보기" onclick="ordercheck_detail()">
 	</td>
-	<td>
+<!-- 	<td>
 	<input type="button" value="배송현황보기" onclick="ordercheck_delivery()">
-	</td>
+	</td> -->
 	<td>
 	<input type="button" value="상품후기쓰기" onclick="ordercheck_review()">
 	</td>
