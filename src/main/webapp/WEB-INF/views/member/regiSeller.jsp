@@ -9,29 +9,8 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/inputText.css">
-<style type="text/css">
-* {padding:0; margin:0;}
-html {font-family: Tahoma, Dotum, "����"; font-size: 0.75em;}
-body {font-size: 1em; text-align:center;}
-#wrap {width:1000px; margin:0 auto; text-align:left;}
-#footer {text-align:center; padding:10px 0;}
-#footer input {vertical-align:middle;}
-fieldset {border:none;}
-legend {display:none; visibility:hidden;}
-table {table-layout: fixed; border-collapse: collapse; padding: 0; border-style: solid; border-width: 1px 1px 0 1px; border-color: #bbb;}
-th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; background:#ddd;}
-td {text-align:left; border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; padding: 3px;}
-input {font-family: Tahoma, Dotum, "����"; font-size:1em;}
-td span {font-size:.9em; color:#cc0000;}
-h1 {font-size:1.4em; text-align:center; padding:10px 0;}
-.w300 {width:300px;}
-.w380 {width:380px;}
-.descB {padding:2px 0; display:block;}
-th.subTitle {color:#339900; background:#fff !important; padding:8px 0 8px 5px;}
-.inputBtn {border:1px solid #ccc; padding:3px 5px; line-height:1em; font-size:.9em;}
-#footer .inputBtn {font-size:1.2em; font-weight:bold;}
-</style>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/regiseller.css">
+
 
 <script type="text/javascript">
 function checkIt() {
@@ -49,7 +28,7 @@ function checkIt() {
 
 </head>
 <body>
-<h1>seller</h1>
+
 <div id="wrap">
 
 <!-- 	<form name="frm1">
@@ -59,29 +38,37 @@ function checkIt() {
 	
 	<form action="/member/addseller" name="userinput" onsubmit="return checkIt()" method="get">
 <!-- 	<input type="hidden" name="authority" value="ROLE_MEMBER"> -->
-		<div id="body">
+		<div id="body" align="center">
 		
-			<div>
-				사업자 등록번호
+			<div align="center">
+				<span class="findidtext">사업자 회원</span>
+			</div>
+		
+			<table border="1" class="bordertable">
+			<tr>
+			<td align="center">
+			<div class="regisellermargin">
+				<span>사업자 등록번호</span>
 				<input type="text" name="crnum1" class="inputtext_s" id="_c_num1" minlength="3" maxlength="3" required="required">
 				- <input type="text" name="crnum2" class="inputtext_s" id="_c_num2" minlength="2" maxlength="2" required="required">
 				- <input type="text" name="crnum3" class="inputtext_s" id="_c_num3" minlength="5" maxlength="5" required="required">
 				<input type="button" value="사업자 번호 인증" class="regibutton" id="_r_numBtn">
 
 				<p id="_crText"></p>
-			</div>
-			
-			<div>
-				상호명
-				<input type="inputtext" name="crname" id="_c_name" class="inputtext_s" readonly style="background-color: #f1f1f1">
+			<div class="cnamediv">
+				<span class="cnamespan">상호명</span>
+				<input type="inputtext" name="crname" id="_c_name" class="inputtext_bname" readonly style="background-color: #f1f1f1"><br><br><br>
 			</div>
 	
 			<div id="footer">
-				<input type="submit" name="confirm" class="regibutton" value="다 음" />
-				<input type="reset" name="reset" class="regibutton" value="다시입력" />
-				<input type="button" value="취 소" class="regibutton" onclick="javascript:window.location='login'" />
+				<input type="submit" name="confirm" class="regiBtn" value="다 음" />
+				<input type="reset" name="reset" class="regiBtn" value="다시입력" />
+				<input type="button" value="취 소" class="regiBtn" onclick="javascript:window.location='login'" />
 			</div>
-			
+			</div>
+			<td>
+			</tr>
+		</table>	
 		</div>
 	</form>
 

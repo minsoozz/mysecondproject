@@ -7,9 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.dao.UsedDao;
+import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 
 @Repository
@@ -25,8 +25,6 @@ public class UsedDaoImpl implements UsedDao {
 		// TODO Auto-generated method stub
 
 		int n = sqlSession.insert(ns + "write", dto);
-
-		System.out.println("n : " + n);
 
 		return n > 0 ? true : false;
 	}
@@ -77,12 +75,81 @@ public class UsedDaoImpl implements UsedDao {
 
 	@Override
 	public boolean setSellerMember(P_MemberDTO p_MemberDTO) {
-		
+
 		sqlSession.update(ns + "setSelleraddress", p_MemberDTO);
 
 		int n = sqlSession.insert(ns + "setSellerMember2", p_MemberDTO);
 
 		return n > 0 ? true : false;
 	}
+
+	@Override
+	public boolean addlikes(Map<String, Object> map) {
+		int count = sqlSession.delete(ns + "addlikes", map);
+		return count > 0 ? true : false;
+
+	}
+
+	@Override
+	public boolean getlikes(Map<String, Object> map) {
+		int count = sqlSession.selectOne(ns + "getlikes", map);
+		return count > 0 ? true : false;
+	}
+
+	@Override
+	public int getboardlikes(int seq) {
+		int count = sqlSession.selectOne(ns + "getboardlikes", seq);
+		return count;
+	}
+
+	@Override
+	public boolean deletelikes(Map<String, Object> map) {
+		int count = sqlSession.delete(ns + "deletelikes", map);
+
+		return count > 0 ? true : false;
+	}
+
+	@Override
+	public List<CommentsDto> getComments(int seq) {
+		List<CommentsDto> list = sqlSession.selectList(ns + "getComments", seq);
+		System.out.println(list.toString());
+		return list;
+	}
+
+	@Override
+	public boolean addComments(Map<String, Object> map) {
+		int n = sqlSession.insert(ns + "addComments", map);
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean updateComment(Map<String,Object> map) {
+		int n = sqlSession.update(ns + "updateComment", map);
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean updateReadCount(int seq) {
+		int n = sqlSession.update(ns + "updateReadCount", seq);
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean deleteComment(Map<String, Object> map) {
+		int n = sqlSession.delete(ns + "deleteComment", map);
+		
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean insertanswer(Map<String, Object> map) {
+				sqlSession.update(ns + "updateanswer", map);
+		
+		int n = sqlSession.insert(ns + "insertanswer", map);
+		
+		return false;
+	}
+	
+	
 
 }

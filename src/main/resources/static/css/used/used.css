@@ -84,8 +84,44 @@ a:hover {
 	border: solid 0.5px black;
 }
 
-#sub_wrap{
-	background-color:gray;
+#detail_wrap{
 	width: 1330px;
-	height: 300px;
+	height: 1000px;	
 }
+#sub_wrap{
+	background-color:yellow;
+	width: 1330px;
+	height: 680px;
+}
+
+#div_title_wrap{
+	position: absolute;
+	top: 430px;
+	left: 60%;
+	width: 500px;
+	height: 400px;
+	margin: 0px 0px 0px 0px;
+	z-index: 100;
+	background-color: white;
+	color: white;
+	font-folor: white;
+	padding: 0px;
+}
+#div_content{
+	position: absolute;
+	top:850px;
+	width: 700px;
+	height: 300px;
+	background-color: red;
+}
+#map{
+	position: absolute;
+	top:850px;
+	left:63%;
+}
+
+#div_btn{
+	position: absolute;
+	top:1200px;
+	left: 65%;
+ }

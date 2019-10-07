@@ -8,6 +8,7 @@ import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
 import com.rhymes.app.member.model.SellerDTO;
 
@@ -34,9 +35,28 @@ public interface MemberDAO {
 	
 	// id찾기
 	public String getFindID_E(MemBean mbean);
-	
 	// 비밀번호 불러오기
 	public String getFindID_P(MemberDTO mem);
 	
+	// 비밀번호 찾기
+	public String getusertel(P_MemberDTO pmem);
+	
+	// 비밀번호 재설정
+	public void getuserpwreset(MemberDTO mem);
+	
+	// 사업자 id찾기
+	public SellerDTO getfindid_seller(SellerDTO sdto);
+	
+	// 사업자 pw찾기
+	public boolean getfindpw_seller(SellerDTO sdto);
+	
+	// 카카오 regi 공통정보
+	public void getkakaoregi(MemBean mb);
+	
+	// sns 유저확인
+	public boolean getsnsuser(MemBean mbean);
+	
+	// 네이버 유저 회원가입
+	public void getNaverRegi(MemBean mbean);
 	
 }

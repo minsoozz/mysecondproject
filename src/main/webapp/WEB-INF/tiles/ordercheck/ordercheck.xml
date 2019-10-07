@@ -12,8 +12,22 @@
 		<put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
 	</definition>
 	
-	<definition name="/order" extends="ordercheck.tiles">
+	<definition name="/order_nomembership_confirm" extends="ordercheck.tiles">
+		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck_nomembership_confirm.jsp" />
+	</definition>
+	
+	<definition name="/order_detail_move" extends="ordercheck.tiles">
+		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck_detail.jsp" />
+	</definition>
+	
+	<definition name="/order_move" extends="ordercheck.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck.jsp" />
 	</definition>
+
+	<definition name="/order_delivery_popup">
+		<put-attribute name="body" value="/WEB-INF/views/ordercheck/ordercheck_delivery_popup.jsp" />
+	</definition>
+
+
 
 </tiles-definitions>

@@ -91,6 +91,59 @@
 		WHERE ID=#{userid}
 	</select>
 
+	<!-- 비밀번호찾기 -->
+	<select id="getusertel" parameterType="com.rhymes.app.member.model.P_MemberDTO" resultType="java.lang.String">
+		SELECT ID
+		FROM RHY_MEM_P
+		WHERE PHONE=#{phone}
+	</select>
+	
+	<!-- 비밀번호 재설정 -->
+	<update id="getuserpwreset">
+		UPDATE RHY_MEM
+		SET PW=#{userpw}
+		WHERE ID=#{userid}
+	</update>
+	
+	<!-- 사업자 id찾기 -->
+	<select id="getfindid_seller" parameterType="com.rhymes.app.member.model.SellerDTO" resultType="com.rhymes.app.member.model.SellerDTO">
+		SELECT ID, IC_EMAIL
+		FROM RHY_MEM_C
+		WHERE C_NAME=#{c_name} AND C_NUM=#{c_num}
+	</select>
+	
+	<!-- 사업자pw찾기 -->
+	<select id="getfindpw_seller" parameterType="com.rhymes.app.member.model.SellerDTO" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM RHY_MEM_C
+		WHERE C_NAME=#{c_name} AND C_NUM=#{c_num} AND ID=#{id}
+	</select>
+	
+	<!-- 카카오regi -->
+	<insert id="getsnsregi" parameterType="com.rhymes.app.member.model.MemBean">
+		INSERT INTO RHY_MEM(ID, PW, SOCIAL)
+		VALUES(#{useremail}, #{userpw}, #{social})
+	</insert>
+	
+	<!-- 카카오regi 추가정보 -->
+	<insert id="getsnsregi_p" parameterType="com.rhymes.app.member.model.MemBean">
+		INSERT INTO RHY_MEM_P(ID, NAME, EMAIL)
+		VALUES(#{useremail}, #{username}, #{useremail})
+	</insert>
+	
+	
+	<!-- sns로그인 디비확인 -->
+	<select id="getsnsuser" parameterType="com.rhymes.app.member.model.MemBean" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM RHY_MEM
+		WHERE ID=#{userid}
+	</select>
+	
+	
+	
+	
+	
+	
 	
 	
 	

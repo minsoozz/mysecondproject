@@ -2,8 +2,10 @@ package com.rhymes.app.member.service;
 
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
+import com.rhymes.app.member.model.SellerDTO;
 
 public interface MemberService{
 	
@@ -24,7 +26,31 @@ public interface MemberService{
 	
 	// id찾기
 	public String getFindID(MemBean mbean);
-//	public List<MemberDTO> getFindID_P(MemBean mbean);
+	
+	// 비밀번호 찾기
+	public String getusertel(P_MemberDTO pmem);
+	
+	// 비밀번호 재설정
+	public void getuserpwreset(MemberDTO mem);
+	
+	// 사업자 id찾기
+	public SellerDTO getfindid_seller(SellerBean sbean);
+	
+	// 사업자 pw찾기
+	public boolean getfindpw_seller(SellerBean sbean);
+	
+	// 카카오 회원가입
+	public void getkakaoregi(MemBean mbean);
+	
+	// 카카오 로그인
+	public boolean getkakaouser(MemBean mbean);
+	
+	// 네이버 유저확인
+	public boolean getNaveruser(MemBean mbean);
+	
+	// 네이버 유저 회원가입
+	public void getNaverRegi(MemBean mbean);
+	
 	
 	
 }

@@ -18,6 +18,8 @@ import com.rhymes.app.member.service.MemberService;
 @Service
 public class MemberServiceImpl implements MemberService {
 	
+
+
 	@Autowired
 	private MemberDAO memberdao;
 	
@@ -45,14 +47,14 @@ public class MemberServiceImpl implements MemberService {
 		// 추가
 		P_MemberDTO pmem = new P_MemberDTO(
 											bean.getUserid().trim(), 
-											bean.getUsername().trim(),
-											bean.getPostcode().trim(),
-											bean.getAddress().trim(),
-											bean.getDetailAddress().trim(),
-											bean.getPhone().trim(),
-											bean.getUseremail().trim(),
-											bean.getGender().trim(),
-											bean.getBirth().trim(),
+											bean.getUsername(),
+											bean.getPostcode(),
+											bean.getAddress(),
+											bean.getDetailAddress(),
+											bean.getPhone(),
+											bean.getUseremail(),
+											bean.getGender(),
+											bean.getBirth(),
 											bean.getCount());
 		
 		// 권한
@@ -162,8 +164,78 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
+	public String getusertel(P_MemberDTO pmem) {
+		return memberdao.getusertel(pmem);
+	}
 
+	@Override
+	public void getuserpwreset(MemberDTO mem) {
+		mem.setUserpw(passwordEncoder.encode(mem.getUserpw()));
+		memberdao.getuserpwreset(mem);
+	}
 
+	@Override
+	public SellerDTO getfindid_seller(SellerBean sbean) {
+		
+		String c_num = sbean.getCrnum1()+"-"+sbean.getCrnum2()+"-"+sbean.getCrnum3();
+		
+		SellerDTO sdto = new SellerDTO(null,sbean.getC_name(), c_num);
+		
+		return memberdao.getfindid_seller(sdto);
+	}
+
+	@Override
+	public boolean getfindpw_seller(SellerBean sbean) {
+		
+		String c_num = sbean.getCrnum1()+"-"+sbean.getCrnum2()+"-"+sbean.getCrnum3();
+		
+		SellerDTO sdto = new SellerDTO(sbean.getUserid(),sbean.getC_name(), c_num);
+		
+		return memberdao.getfindpw_seller(sdto);	// 사업자 id,상호명,email이 일치하다면 비밀번호 수정하기
+
+		
+	}
+
+	@Override
+	public void getkakaoregi(MemBean mbean) {
+		
+		MemBean mb = new MemBean(mbean.getUseremail(), passwordEncoder.encode(mbean.getUserpw()), 
+				mbean.getUsername(), mbean.getUseremail(), "ROLE_MEMBER", "KAKAO");
+		
+		memberdao.getkakaoregi(mb);
+		
+		AuthoritiesDTO amem = new AuthoritiesDTO(mbean.getUseremail(), "ROLE_MEMBER");
+		memberdao.getAuthAddmem(amem);
+		
+	}
+
+	// 카카오 유저 확인ㄴ
+	@Override
+	public boolean getkakaouser(MemBean mbean) {
+		return memberdao.getsnsuser(mbean);
+	}
+
+	// 네이버 유저확인
+	@Override
+	public boolean getNaveruser(MemBean mbean) {
+		mbean.setUserid(mbean.getUseremail());
+		
+		return memberdao.getsnsuser(mbean);
+	}
+
+	@Override
+	public void getNaverRegi(MemBean mbean) {
+		
+		MemBean mb = new MemBean(mbean.getUseremail(), passwordEncoder.encode(mbean.getUsername()), 
+					mbean.getUsername(), mbean.getUseremail(), "ROLE_MEMBER", "NAVER");
+		
+		memberdao.getNaverRegi(mb);
+		
+		AuthoritiesDTO amem = new AuthoritiesDTO(mbean.getUseremail(), "ROLE_MEMBER");
+		memberdao.getAuthAddmem(amem);
+		
+	}
 
 	
 

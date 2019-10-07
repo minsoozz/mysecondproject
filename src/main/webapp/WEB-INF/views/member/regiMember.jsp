@@ -9,43 +9,36 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/inputText.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/regimem.css">
 
 
-
-<style type="text/css">
-* {padding:0; margin:0;}
-html {font-family: Tahoma, Dotum, "����"; font-size: 0.75em;}
-body {font-size: 1em; text-align:center;}
-#wrap {width:1500px; margin:0 auto; text-align:left;}
-#footer {text-align:center; padding:10px 0;}
-#footer input {vertical-align:middle;}
-fieldset {border:none;}
-legend {display:none; visibility:hidden;}
-
-th {text-align:left; padding:3px;  border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; }
-td {text-align:left; border-collapse: 0; border-style: solid; border-width: 0 0 1px 0; border-color: #bbb; padding: 15px;}
-
-td span {font-size:.9em; color:#cc0000;}
-h1 {font-size:1.4em; text-align:center; padding:10px 0;}
-.w300 {width:300px;}
-.w380 {width:380px;}
-.descB {padding:2px 0; display:block;}
-th.subTitle {color:#339900; background:#fff !important; padding:8px 0 8px 5px;}
-.inputBtn {border:1px solid #ccc; padding:3px 5px; line-height:1em; font-size:.9em;}
-#footer .inputBtn {font-size:1.2em; font-weight:bold;}
-</style>
 
 
 <script type="text/javascript">
 $(document).ready(function () {
-	$(".Mix").hide();
+	$(".txt").hide();
 });
-function idOn() {
- 	$(".Mix").show();
-	//this.show();
-}
 </script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$("#_id").click(function(){
+		$(".txt1").show();
+	});
+	$("#_pwd").click(function(){
+		$(".txt2").show();
+	});
+	$("#_name").click(function(){
+		$(".txt3").show();
+	});
+	$("#_pwd2").click(function(){
+		$(".txt2_1").show();
+	});
+	$("#_email").click(function(){
+		$(".txt4").show();
+	});
+});
+</script>
+
 <script type="text/javascript">
 function checkIt() {
 	var userinput = eval("document.userinput");
@@ -118,7 +111,7 @@ function checkIt() {
 	// 비밀번호 검증
     var password = userinput.userpw.value;
 	var id = userinput.userid.value;
-    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(password)){            
+    if(!/^[a-zA-Z0-9]{8,25}$/.test(password)){
         alert('숫자+영문자 조합으로 8~25자까지 사용가능합니다.');
         $('#_pwd').val('').focus();
         return false;
@@ -145,20 +138,128 @@ function checkIt() {
     
 }
 </script>
+
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@키보드 검증@@@@@@@@@@@@@@@@@@ -->
+<!-- 키보드 비밀번호 검증 -->
 <script type="text/javascript">
-//아이디 검증
-var saveId;
-$('[name=userid]').on('focus',function(){
-    saveId = $(this).val();
-    $(this).parent().find('.txt_guide').show();
-});
+function isPostNum(obj) {
+	
+	var str = obj.value;
+	var userinput = eval("document.userinput");
+	var password = userinput.userpw.value;
+	var id = userinput.userid.value;
+	var checkNumber = str.search(/[0-9]/g);
+	var checkEnglish = str.search(/[a-z]/ig);
+	
+	if(!/^[a-zA-Z0-9]{8,25}$/.test(str)){
+	    $(".txt2").text("숫자+영문자 조합으로 8~25자까지 사용가능합니다.");
+	    $(".txt2").css("color","red");
+	}
+	else if(checkNumber <0 || checkEnglish <0){
+	    $(".txt2").text("숫자와 영문자를 혼용하여야 합니다.");
+	    $(".txt2").css("color","red");
+	}
+	else if(/(\w)\1\1\1/.test(str)){
+	    $(".txt2").text("같은 문자를 4번 이상 사용하실 수 없습니다.");
+	    $(".txt2").css("color","red");
+	}
+	else if(str.search(id) > -1){
+	    $(".txt2").text("비밀번호에 아이디가 포함되었습니다.");
+	}
+	else{
+		$(".txt2").text("사용가능한 비밀번호입니다.");
+	    $(".txt2").css("color","blue");
+	}
+	
+}
 </script>
+
+<!-- 키보드 비밀번호 재확인 -->
+<script type="text/javascript">
+function isPostNum2(obj) {
+	var userinput = eval("document.userinput");
+	var pw = obj.value;
+	if(userinput.userpw.value != pw) {
+// 		alert("cc");
+		$(".txt2_1").text("비밀번호가 일치하지 않습니다.");
+	    $(".txt2_1").css("color","red");
+	}else{
+		$(".txt2_1").text("확인");
+	    $(".txt2_1").css("color","blue");
+	}
+}
+</script>
+
+
+
+<!-- 키보드 아이디 검증 -->
+<script type="text/javascript">
+function isCheckKeybord(obj) {
+	
+	var inputid = obj.value;
+	var userinput = eval("document.userinput");
+	
+	if(!/^[a-zA-Z0-9]{6,16}$/.test(inputid)) {
+        /* alert("[아이디]는 숫자와 영문자 조합으로 6~16자까지 사용 가능합니다."); */
+		$(".txt1").text("숫자와 영문자 조합으로 6~16자까지 사용 가능합니다.");
+	    $(".txt1").css("color","red");
+	}
+}
+</script>
+
+<!-- 키보드 이름 검증 -->
+<script type="text/javascript">
+function isCheckKeybordName(obj) {
+	
+	var inputname = obj.value;
+	var deny_char = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\*]+$/;
+	
+ 	if (!deny_char.test(inputname)) {
+//  		alert("dd");
+ 		$(".txt3").text("영문자 또는 한글 입력을 입력해주세요");
+	    $(".txt3").css("color","red");
+ 	}
+ 	else{
+ 		$(".txt3").text("");
+ 	}
+ 	
+}
+</script>
+
+<!-- 키보드 이메일 검증 -->
+<script type="text/javascript">
+function isCheckKeybordEmail(obj) {
+	
+	var inputemail = obj.value;
+	var pattern = /^([\w]{1,})+[\w\.\-\_]+([\w]{1,})+@(?:[\w\-]{2,}\.)+[a-zA-Z]{2,}$/;
+	var bChecked = pattern.test(inputemail);
+	if(!pattern.test(inputemail)){
+		$(".txt4").text("이메일 형식에 맞춰주세요");
+	    $(".txt4").css("color","red");
+	    	
+	}else{
+		$(".txt4").text("");
+	}
+ 	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 // 아이디 - 숫자와 영문자 조합으로 6~16자
 function idCheck(focusYN) {
     var isTrue = $("input:text[idNumberEngOnly]").attr("idNumberEngOnly");
     var thisVal = $("input:text[idNumberEngOnly]").val();
- 
+ 	
     if(isTrue == "true") {
       if(!/^[a-zA-Z0-9]{6,16}$/.test(thisVal)) {
         alert("[아이디]는 숫자와 영문자 조합으로 6~16자까지 사용 가능합니다.");
@@ -191,8 +292,8 @@ function idCheck(focusYN) {
 	 		
 			}else{
 	 //		alert("msg == NO");			// 없음
-	 		$("#_rgetid").text("사용 가능한 아이디입니다.");
-	 		$("#_rgetid").css("color", "blue");
+	 		$(".txt1").text("사용 가능한 아이디입니다.");
+	 		$(".txt1").css("color", "blue");
 	 //		$("#_userid").val($("#_id").val());
 	 		$("#_pwd").focus();
  	// 		idcheck = true;
@@ -209,18 +310,24 @@ function idCheck(focusYN) {
 
 </head>
 <body>
-<h1>regi1</h1>
+
 <div id="wrap">
 	<form action="/member/addmem" name="userinput" onsubmit="return checkIt()" method="get">
 	<input type="hidden" name="authority" value="ROLE_MEMBER">
-		<div id="body">
+	<div class="backcolor" align="center"></div>
+		<div id="body" align="center">
+			<div align="center"><span class="findidtext">가입정보 입력</span></div>
 				<table width="500px;" class="regi_table">
 					<colgroup>
 						<col width="20%" />
 						<col width="*" />
 					</colgroup>
 					<tr>
-						<th colspan="2" class="subTitle">*기본정보 입력</th>
+						<th colspan="2" class="subTitle">
+						<span class="txt_point_b">*</span>
+						필수
+						
+						</th>
 					</tr>
 					<tr>
 						<th>
@@ -228,88 +335,119 @@ function idCheck(focusYN) {
 							<span class="th_title">아이디</span>
 						</th>
 						<td>
-							<input type="text" id="_id" name="userid" class="inputtext_s" maxlength="12" minlength="6" idnumberengonly="true" onclick="idOn()"/>
 							<input type="button" name="confirm_id" value="ID 중복확인" 
-							class="regibutton" id="inputBtn" onclick="idCheck()" />
-							<!-- 
-							<p class="txt_guide" style="display: block;">
-								<span class="txt txt_case1 bad">6자 이상의 영문 혹은 영문과 숫자를 조합</span>
-								<span class="txt txt_case2">아이디 중복확인</span>
-							</p>
-							 -->
-							 <span class="txt">6자 이상의 영문 혹은 영문과 숫자를 조합</span>
+							class="regibutton1" id="inputBtn" onclick="idCheck()">
+							<input type="text" id="_id" name="userid" onchange="isCheckKeybord(this)" class="inputtext_s" maxlength="12" minlength="6" idnumberengonly="true" placeholder="아이디">
+							
+							<span class="txt txt1">6자 이상의 영문 혹은 영문과 숫자를 조합</span>
 							<p id="_rgetid"></p>
 						</td>
 					</tr>
 					<tr>
-						<th>비밀번호*</th>
+						<th>
+							<span class="txt_point">*</span>
+							<span class="th_title">비밀번호</span>
+						</th>
 						<td>
-							<input type="password" name="userpw" maxlength="25" minlength="8" class="inputtext_s" id="_pwd" onclick="idOn()" />
-							<span class="txt">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</span>
+							<input type="password" onchange="isPostNum(this)" name="userpw" 
+								maxlength="25" minlength="8" class="inputtext_s" id="_pwd" placeholder="비밀번호">
+							<span class="txt txt2">숫자+영문자 조합으로 8~25자까지 사용가능합니다.</span>
 						</td>
 					</tr>
 					<tr>
-						<th>비밀번호 확인*</th>
+						<th>
+							<span class="txt_point">*</span>
+							<span class="th_title">비밀번호 확인</span>
+						</th>
 						<td>
-							<input type="password" name="userpw2" class="inputtext_s" maxlength="25" id="_pwd2"/>
+							<input type="password" onchange="isPostNum2(this)" name="userpw2" class="inputtext_s" maxlength="25" id="_pwd2" placeholder="비밀번호 확인">
+							<span class="txt txt2_1"></span>
 						</td>
 					</tr>
-					<tr>
-						<th colspan="2" class="subTitle">*개인정보 입력</th>
-					</tr>
-					<tr>
-						<th>사용자 이름</th>
-						<td>
-							<input type="text" class="inputtext_s" name="username" maxlength="10" id="_name" maxlength="10"/>
-							<span class="txt">영문자 또는 한글 입력</span>
-						</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td><input type="text" name="useremail" class="inputtext_b" id="_email" maxlength="30" /></td>
-					</tr>
- 					<tr>
-						<th>휴대폰</th>
-						<td>
-							<input type="number" class="inputtext_s" name="phone" maxlength="11" minlength="11"/>
-						</td>
-					</tr>
-					<tr>
-						<th>주소</th>
-						<td>
-							<div class="wrap-input100 bg1 rs1-wrap-input100">
-							<input type="text" id="_postcode" class="inputtext_s" name="postcode" placeholder="우편번호">
-							<input type="button" onclick="sample6_execDaumPostcode()" class="regibutton" value="우편번호 찾기"><br>
-							<input type="text" id="_address" name="address" class="inputtext_long" placeholder="주소"><br>
-							<input type="text" id="_detailAddress" name="detailAddress" class="inputtext_b" placeholder="상세주소">
-							<input type="hidden" id="_extraAddress" name="extraAddress" placeholder="참고항목">
-							</div>
-							
-						</td>
-					</tr>
-
-					<tr>
-						<th>성별</th>
-						<td>
-							<input type="radio" name="gender" value="man">&nbsp;남자
-							<input type="radio" name="gender" value="woman">&nbsp;여자
-						</td>
-					</tr>
-					<tr>
-						<th>생년월일</th>
-						<td>
-							<input type="number" name="birth" class="inputtext_s" placeholder="YYYYMMDD" maxlength="8" minlength="8">
-						</td>
-					</tr>					
+					
+					<div class="middleLine"></div>
+					
+						<tr class="addinfo">
+							<th colspan="2" class="subTitle addinfo">개인정보 입력</th>
+						</tr>
+						
+						<tr>
+							<th>
+								<span class="txt_point2 addinfo">*</span>
+								<span class="th_title addinfo">사용자 이름</span>
+							</th>
+							<td>
+								<input type="text" class="inputtext_s addinfo" onchange="isCheckKeybordName(this)" name="username" id="_name" placeholder="이름">
+								
+								<span class="txt addinfo txt3">영문자 또는 한글 입력</span>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<span class="txt_point2 addinfo">*</span>
+								<span class="th_title addinfo">이메일</span>
+							</th>
+							<td>
+								<input type="text" name="useremail" class="inputtext_b addinfo" onchange="isCheckKeybordEmail(this)" id="_email" maxlength="30" placeholder="이메일">
+								<span class="txt addinfo txt4"></span>
+							</td>
+						</tr>
+	 					<tr>
+							<th>
+								<span class="txt_point2 addinfo">*</span>
+								<span class="th_title addinfo">휴대폰</span>
+							</th>
+							<td>
+								<input type="number" class="inputtext_s addinfo" name="phone" maxlength="11" minlength="11" placeholder="전화번호">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<span class="txt_point2 addinfo">*</span>
+								<span class="th_title addinfo">주소</span>
+							</th>
+							<td>
+								<div class="wrap-input100 bg1 rs1-wrap-input100 addinfo">
+								<input type="button" onclick="sample6_execDaumPostcode()" class="postBtn" value="우편번호 찾기"><br>
+								<input type="text" id="_postcode" class="inputtext_s" name="postcode" placeholder="우편번호">
+								<input type="text" id="_address" name="address" class="inputtext_s" placeholder="주소"><br>
+								<input type="text" id="_detailAddress" name="detailAddress" class="inputtext_b" placeholder="상세주소">
+								<input type="hidden" id="_extraAddress" name="extraAddress" placeholder="참고항목">
+								</div>
+								<br>
+							</td>
+						</tr>
+	
+						<tr>
+							<th>
+								<span class="txt_point2 addinfo">*</span>
+								<span class="th_title addinfo">성별</span>
+							</th>
+							<td>
+								<input type="radio" name="gender" value="female" class="addinfo radiobtn"><span class="addinfo radiobtn">여자</span>
+								<input type="radio" name="gender" value="male" class="addinfo radiobtn"><span class="addinfo radiobtn">남자</span>
+							</td>
+						</tr>
+						
+						<tr>
+							<th>
+								<span class="txt_point2 addinfo">*</span>
+								<span class="th_title addinfo">생년월일</span>
+							</th>
+							<td>
+								<input type="number" name="birth" class="inputtext_s addinfo" placeholder="YYYYMMDD" maxlength="8" minlength="8">
+							</td>
+						</tr>	
+								
 				</table>
 		</div>
 
-		<div id="footer">
+		<div class="regibtn" align="center">
 <!-- 			<div id="avoidDbl"> -->
-				<input type="submit" name="confirm" class="regibutton" value="등 록" />
+				<input type="submit" name="confirm" class="regibutton addinfo" value="등 록"><br>
 <!-- 			</div> -->
-			<input type="reset" name="reset" class="regibutton" value="다시입력" />
-			<input type="button" value="취 소" class="regibutton" onclick="javascript:window.location='login'" />
+			<input type="reset" name="reset" class="regibutton addinfo" value="다시입력"><br>
+			<input type="button" value="취 소" class="regibutton addinfo" onclick="javascript:window.location='login'">
 		</div>
 	</form>
 

@@ -58,7 +58,7 @@
 
 <tr>
 <td><label>가격:</label></td>
-<td><input type="text" id="_price" name="price" size="30"></td>
+<td><input type="text" id="_price" name="price" size="30" ></td><!--onkeyup="inputNumberFormat(this)"  -->
 </tr>
 
 <tr>
@@ -69,7 +69,7 @@
 
 <tr>
 <td><label>수량:</label></td>
-<td><input type="number" id="_quantity" name="quantity" maxlength="2" oninput="maxLengthCheck(this)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<td><input type="number" id="_quantity" name="quantity" min="0" maxlength="2" oninput="maxLengthCheck(this)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <label>수량은 최대 99개 입니다</label></td>
 </tr>
 
@@ -148,6 +148,7 @@ $(document).ready(function() {
 
    $("#_add").click(function() {
 	   
+	   
 	   if(count >= 4){
 		   alert("사진은 최대 5장까지 추가 할 수 있습니다");
 		   return;
@@ -209,6 +210,12 @@ function maxLengthCheck(object){
 $(document).on("click",".del", function() {
 	$(this).parent().remove();
 	count--;
+})
+
+$("#_del").click(function() {
+	if(count == 0) {
+		alert("사진은 최소 1장 입니다");
+	}
 })
 
 

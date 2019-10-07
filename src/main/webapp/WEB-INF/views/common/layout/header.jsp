@@ -4,13 +4,13 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication property="principal" var="prc"/>
 <% String ctx = request.getContextPath(); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head> 
 <meta charset="UTF-8">
 
-<meta name="description" content="">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
 <!-- Core Stylesheet -->
@@ -47,33 +47,32 @@
                     </div>
                 </div>
                 
-               
-                
                 <!--  Login Register Area  -->
                 <div class="col-7 col-xs-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
-                        	<c:choose>
-                        		<c:when test="${prc eq 'anonymousUser' }">
-                        			<div class="login">
-		                                <a href="<%=ctx%>/member/login">Sign in</a>
-		                            </div>
-		                            <div class="register">
-		                                <a href="regi.jsp">Sign up</a>
-		                            </div>                        			                        			                       			
-                        		</c:when>
-                        		<c:otherwise>
-                        			<div class="header_mypage_wrap">
-		                                <a href="<%=ctx%>/mypage/orderlog">MyPage</a>
-		                            </div>
-                        			 <div class="logout">
-		                                <form action="<%=ctx%>/logout" method="post">
-		                                	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		                                	<input type="submit" value="logout" style="z-index: 100; margin-right:600px;">
-		                                </form>
-		                            </div>
-                        		</c:otherwise>
-                        	</c:choose>
+						<c:if test="${userloginid eq null}">    
+                            <div class="login">
+                                <a href="/member/login">Login</a>
+                            </div>
+                            <div class="join">
+                                <a href="/member/regiMain">Join</a>
+                            </div>
+                        </c:if>
+                        
+                        <c:if test="${userloginid ne null}">
+                        	<div class="">
+                        		<span>${userloginid } 님</span>
+                        	</div>
+                        	<div class="">
+                        		<a href="/member/logout">Logout</a>
+                        	</div>
+                        </c:if>
+                        
+                        
+                            <div class="mypage">
+                                <a href="a.jsp">Mypage</a>
+                            </div>
                         </div>
                         
                         <!-- 
@@ -128,10 +127,10 @@
                             <ul class="navbar-nav" id="rhymes-nav">
                             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">WOMEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">MEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList">MEN</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">MARKET</a>
@@ -161,7 +160,7 @@
     
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->
-    <script type=text/javascript>
+     <script type=text/javascript>
 	$(document).ready(function(){
 		
 	    var nav = $('.menuWrap');
@@ -173,7 +172,7 @@
 	        }
 	    });
 	});
-	</script>
+	</script> 
 	</body>
 
 

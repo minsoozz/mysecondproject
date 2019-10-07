@@ -67,6 +67,13 @@ public class SellerDTO implements Serializable {
 				+ ", r_detailaddress=" + r_detailaddress + ", c_code=" + c_code + "]";
 	}
 
+	public SellerDTO(String id, String c_name, String c_num) {
+		super();
+		this.id = id;
+		this.c_name = c_name;
+		this.c_num = c_num;
+	}
+
 
 
 	

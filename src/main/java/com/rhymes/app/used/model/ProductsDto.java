@@ -1,7 +1,7 @@
 package com.rhymes.app.used.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,8 +31,7 @@ public class ProductsDto implements Serializable {
 	private Date rdate;
 	
 	private String photo_list[];
-	
-	
+
 	public ProductsDto(int seq, String s_id, String category, String title, String content, int price, int quantity,
 			String place, String photo, String photo_sys, String division, int likes) {
 		super();
@@ -49,6 +48,24 @@ public class ProductsDto implements Serializable {
 		this.division = division;
 		this.likes = likes;
 	}
-	
-	
+
+
+	public ProductsDto(int seq, String s_id, String category, String title, String content, int price, int quantity,
+			String place, String photo, String photo_sys, String division, int likes, int readcount, Date rdate) {
+		super();
+		this.seq = seq;
+		this.s_id = s_id;
+		this.category = category;
+		this.title = title;
+		this.content = content;
+		this.price = price;
+		this.quantity = quantity;
+		this.place = place;
+		this.photo = photo;
+		this.photo_sys = photo_sys;
+		this.division = division;
+		this.likes = likes;
+		this.readcount = readcount;
+		this.rdate = rdate;
+	}
 }

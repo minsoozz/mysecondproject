@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품등록</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <!-- include libraries(jQuery, bootstrap) -->
@@ -25,157 +24,15 @@
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
 
+
+<link rel="stylesheet" href="/css/store/register.css">
 </head>
-<style>
-body{
-	font: Open Sans;
-	min-height: 100%;
-	padding: 30px;
-	box-sizing: border-box;
-}
-h1 {
-  font: 100 50px Open Sans;
-  text-align: center;
-  margin: 50px 0px 50px 0px;
-}
-th3 {
-  font: 100 22px Open Sans;
-  margin: 10px 0px 10px 0px;
-}
-label{
-	font: 100 17px Open Sans;
-	font-style: inherit;
-	border-radius: 10px;
-	width: 150px;
-	height : 30px;
-	display : inline-block;
-	text-align: center;
-	border: 1px solid #DADCE0;
-	padding-top: 5px;
-	margin-top: 5px;
-	
-}
-.each_size{
-	font: 100 14px Open Sans;
-	font-style: inherit;
-	border-radius: 10px;
-	width: 85px;
-	height : 40px;
-	display : inline-block;
-	text-align: center;
-	border: 1px solid #DADCE0;
-	/* padding-top: 5px;
-	margin-top: 5px; */
-	
-}
-input{
-    border: 1px solid #DADCE0;
-    padding: 15px;
-    border-radius: 4px;
-}
-table th{
-	text-align: center;
-}
-#cateTable{
-	text-align: center;
-	width: 70%;
-	height: auto;
-}
-.sml_size{
-	width: 50px;
-	height : 30px;
-	display : inline-block;
-}
-#colorSelect{
-	width: 190px;
-	height : 35px;
-	font: 100 22px Open Sans;
-	text-align: center;
-	padding-left: 30px;
-	border-radius: 9px;
-	
-}
-.addSQtable{
-	text-align: center;
-	border: 0px solid #DADCE0; 
-	border-collapse: collapse;
-}
-/* table.addSQtable th{
-    font-weight: normal;
-} */
-.addSQtable input{
-	border: 1px solid #DADCE0;
-    padding-left: 20px;
-    border-radius: 4px;
-    width: 80px;
-}
-.white_button {
-    border: 1px solid #bbb;
-    height: 30px;
-    font: 100 12px Open Sans;
-    border-radius
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    color: #000;
-    background-image: -moz-linear-gradient(top, #fff, #f1f1f1);
-    background-image: -o-linear-gradient(top, #fff, #f1f1f1);
-    background-image: -webkit-linear-gradient(top, #fff, #f1f1f1);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #f1f1f1));
-    filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr=#fff, EndColorStr=#f1f1f1)";
-    background-image: linear-gradient(top, #fff, #f1f1f1);
-    width: 150px;
-    /*box-shadow*/
-    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    cursor: pointer
-}
-#imgUp_table{
-	text-align: center;
-	border: 0px solid #DADCE0;
-}
-.f_button {
-    border: solid 1px #DADCE0;
-    height: 80px;
-    width: 250px;
-    font: 100 30px Open Sans;
-    /*border-radius*/
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 8px;
-    color: black;
-    background-image: -moz-linear-gradient(top, #d7fd75, #d7fd75);
-    background-image: -o-linear-gradient(top, #d7fd75, #d7fd75);
-    background-image: -ms-linear-gradient(top, #d7fd75, #d7fd75);
-    background-image: -webkit-linear-gradient(top, #d7fd75, #d7fd75);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #d7fd75), color-stop(1, #d7fd75));
-    filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr=#d7fd75, EndColorStr=#d7fd75)";
-    background-image: linear-gradient(top, #d7fd75, #d7fd75);
-    
-    background-color: #d7fd75;
-    /*box-shadow*/
-    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    cursor: pointer
-}
-.monthSelect{
-	width: 55px;
-	height : 35px;
-	font: 100 13px Open Sans;
-	padding-left:2%;
-	border-radius: 7px;
-	text-align: center;
-	margin-right: 4px;
-}
 
 
-</style>
 <body>
 <!-- 1.카테고리 -->
 <h1>카테고리 선택</h1>
-<div align="center">
+<div align="center" style="margin-top: 35px;">
 <table border='0' align="center" id="cateTable">
 <colgroup>
 	<col width="33%"><col width="33%"><col width="auto">
@@ -206,9 +63,9 @@ table th{
 
 <hr width = "100%" color = "#DADCE0">
 <!-- 2.상품 기본정보 -->
-<h1>상품 기본정보 입력</h1>
-<div style="padding-left: 34%;">
-<table style="width:800px; align:center;">
+<h1 style="margin-top: 20px;">상품 기본정보 입력</h1>
+<div style="padding-left: 25%; margin-top: 30px;">
+<table style="width:700px; align:center;">
 <colgroup>
 			<col width="25%"><col width="75%">
 </colgroup>
@@ -257,9 +114,9 @@ table th{
 <hr width = "100%" color = "#DADCE0">
 
 <!-- 3.상품 상세정보 -->
-<h1>상품 상세정보 선택</h1>
+<h1 style="margin-top: 20px;">상품 상세정보 선택</h1>
 <!-- 사이즈별 수량입력 테이블 -->
-<div align="center" class='sqTable'>
+<div align="center" class='sqTable' style="margin-top: 30px;">
 </div><br>
 
 <div align="center" class="sqDiv">
@@ -295,6 +152,7 @@ table th{
 	<td style="align:cetner; padding-top: 15px;">
 		<img src="https://julienbraida-van3kfw.netdna-ssl.com/wp-content/uploads/2014/01/Martz90-Circle-Addon1-Text-plus.ico"
 		style="width:30px; height:30px; cursor: pointer;" onclick="createSQtable2()">
+		                         　        　　　　　　　　　
 	</td>
 </tr>	
 </table>
@@ -302,8 +160,8 @@ table th{
 <br><br><br><br><br><br>
 <hr width = "100%" color = "#DADCE0">
 <!-- 4.상품 사진 -->
-<h1>상품 이미지 업로드</h1>
-<div align="center">
+<h1 style="margin-top: 20px;">상품 이미지 업로드</h1>
+<div align="center" style="margin-top: 30px;">
 <table style="align:center;" border='0' id="imgUp_table">
 <colgroup>
    <col width="300px"><col width="300px"><col width="300px"><col width="300px">
@@ -357,8 +215,8 @@ table th{
 <br><br><br><br>
 <hr width = "100%" color = "#DADCE0">
 <!-- 5.상품 상세정보 입력 -->
-<h1>상품 상세정보 입력</h1><br>
-<div align="center">
+<h1 style="margin-top: 20px;">상품 상세정보 입력</h1><br>
+<div align="center" style="margin-top: 30px;">
 <div style="width:70%;">
 	<textarea name="content" id="summernote" style="padding-left: 36%;"></textarea>
 </div>

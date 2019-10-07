@@ -29,5 +29,5 @@ public interface QnaService {
 	public boolean QnaDelete(int seq);
 	
 	//qna 답글
-	public boolean QnaAnswer(int seq,QnaDto dto)throws Exception;
+	public boolean QnaAnswer(QnaDto dto)throws Exception;
 }
