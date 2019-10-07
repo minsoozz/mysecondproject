@@ -11,6 +11,7 @@ public class BasketListDto {
 	private int p_quantity;
 	private String rdate;
 	private int b_seq;
+	private int p_seq;
 	
 	//가공 변수
 	private String p_price2;
@@ -20,6 +21,14 @@ public class BasketListDto {
 	
 	
 	
+	public int getP_seq() {
+		return p_seq;
+	}
+
+	public void setP_seq(int p_seq) {
+		this.p_seq = p_seq;
+	}
+
 	public int getTotal_price2() {
 		return total_price2;
 	}

@@ -1,9 +1,17 @@
-package com.rhymes.app.Store.model.category;
+package com.rhymes.app.Store.model;
 
-public class BasketOrderDto {
+public class OrderDto {
 
-	private int stock_seq;
-	private int p_quantity;
+	private String id;
+	private int stock_seq;	// 재고번호
+	private int p_quantity; // 수량
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int getStock_seq() {
 		return stock_seq;
 	}
@@ -16,10 +24,7 @@ public class BasketOrderDto {
 	public void setP_quantity(int p_quantity) {
 		this.p_quantity = p_quantity;
 	}
-	@Override
-	public String toString() {
-		return "BasketOrderDto [stock_seq=" + stock_seq + ", p_quantity=" + p_quantity + "]";
-	}
+	
 	
 	
 }

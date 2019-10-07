@@ -52,4 +52,15 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public void deleteBasket(int b_seq) throws Exception {
 		purchase.deleteBasket(b_seq);
 	}
+
+	@Override
+	public int updateBaksetQ(BasketDto basket) throws Exception {
+		return purchase.updateBaksetQ(basket);
+		
+	}
+
+	@Override
+	public int deleteBasektAll(BasketDto basket) throws Exception {
+		return purchase.deleteBasektAll(basket);
+	}
 }

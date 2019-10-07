@@ -32,7 +32,7 @@
 <body>
 <!-- 1.카테고리 -->
 <h1>카테고리 선택</h1>
-<div align="center">
+<div align="center" style="margin-top: 35px;">
 <table border='0' align="center" id="cateTable">
 <colgroup>
 	<col width="33%"><col width="33%"><col width="auto">
@@ -63,9 +63,9 @@
 
 <hr width = "100%" color = "#DADCE0">
 <!-- 2.상품 기본정보 -->
-<h1>상품 기본정보 입력</h1>
-<div style="padding-left: 34%;">
-<table style="width:800px; align:center;">
+<h1 style="margin-top: 20px;">상품 기본정보 입력</h1>
+<div style="padding-left: 25%; margin-top: 30px;">
+<table style="width:700px; align:center;">
 <colgroup>
 			<col width="25%"><col width="75%">
 </colgroup>
@@ -114,9 +114,9 @@
 <hr width = "100%" color = "#DADCE0">
 
 <!-- 3.상품 상세정보 -->
-<h1>상품 상세정보 선택</h1>
+<h1 style="margin-top: 20px;">상품 상세정보 선택</h1>
 <!-- 사이즈별 수량입력 테이블 -->
-<div align="center" class='sqTable'>
+<div align="center" class='sqTable' style="margin-top: 30px;">
 </div><br>
 
 <div align="center" class="sqDiv">
@@ -152,6 +152,7 @@
 	<td style="align:cetner; padding-top: 15px;">
 		<img src="https://julienbraida-van3kfw.netdna-ssl.com/wp-content/uploads/2014/01/Martz90-Circle-Addon1-Text-plus.ico"
 		style="width:30px; height:30px; cursor: pointer;" onclick="createSQtable2()">
+		                         　        　　　　　　　　　
 	</td>
 </tr>	
 </table>
@@ -159,8 +160,8 @@
 <br><br><br><br><br><br>
 <hr width = "100%" color = "#DADCE0">
 <!-- 4.상품 사진 -->
-<h1>상품 이미지 업로드</h1>
-<div align="center">
+<h1 style="margin-top: 20px;">상품 이미지 업로드</h1>
+<div align="center" style="margin-top: 30px;">
 <table style="align:center;" border='0' id="imgUp_table">
 <colgroup>
    <col width="300px"><col width="300px"><col width="300px"><col width="300px">
@@ -214,8 +215,8 @@
 <br><br><br><br>
 <hr width = "100%" color = "#DADCE0">
 <!-- 5.상품 상세정보 입력 -->
-<h1>상품 상세정보 입력</h1><br>
-<div align="center">
+<h1 style="margin-top: 20px;">상품 상세정보 입력</h1><br>
+<div align="center" style="margin-top: 30px;">
 <div style="width:70%;">
 	<textarea name="content" id="summernote" style="padding-left: 36%;"></textarea>
 </div>

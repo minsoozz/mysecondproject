@@ -78,7 +78,7 @@ if(pay_method.equals("card")){
 결제고유번호 : <%=imp_uid %><br>
 결제상태 : <%=status %><br>
 결제수단 : <%=pay_method %><br>
-<a href="${receipt_url }">매출전표</a><br><br>
+<a href="${receipt_url }">매출전표 확인하기</a><br><br>
 
 <c:if test="${fn:length(vbank_num) eq 14 }">
 가상계좌 은행명 : <%=vbank_name %><br>
@@ -86,8 +86,16 @@ if(pay_method.equals("card")){
 가상계좌 입금기한 : <%=vbank_date %><br>
 가상계좌 예금주 : <%=vbank_holder %>
 </c:if>
-
 <br><br>
+
+
+
+<input type="button" onclick="location.href='/main'" value="메인으로">
+<input type="button" onclick="location.href='/Rhymes/ordercheck'" value="주문내역확인">
+
+
 
 </body>
 </html>
+
+
