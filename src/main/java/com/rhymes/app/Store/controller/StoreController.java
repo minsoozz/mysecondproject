@@ -1,7 +1,5 @@
 package com.rhymes.app.Store.controller;
 
-
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
@@ -9,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
+import com.rhymes.app.Store.model.OrderDto;
 import com.rhymes.app.Store.model.ProductDto;
-import com.rhymes.app.Store.model.SizeunitDto;
 import com.rhymes.app.Store.model.StockDto;
-import com.rhymes.app.Store.model.category.BasketOrderDto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.PurchaseService;
@@ -42,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Log4j
 
-@RequestMapping("/Rhymes/*")
+@RequestMapping("/Rhymes")
 public class StoreController {
 	
 	@Autowired
@@ -52,10 +50,8 @@ public class StoreController {
 	
 	DecimalFormat formatter = new DecimalFormat("###,###");
 	
-	
-	
-	@GetMapping(value = "/store/register")
-	public String register() {
+	@GetMapping("/store/register")
+	public String register()throws Exception{
 		return "register.tiles";
 	}  
 	
@@ -175,7 +171,7 @@ public class StoreController {
       return "redirect:/Rhymes/store/productList";
    }
 	
-	@GetMapping(value="/store/productList")
+	@GetMapping("/store/productList")
 	public String productList(Model model) throws Exception{
 
 		List<ProductDto> plist = purchase.getProductList();
@@ -197,19 +193,50 @@ public class StoreController {
 		ProductDto productDto = purchase.getProductDetail(p_seq);
 		productDto.setP_price2(formatter.format(productDto.getP_price()));
 		
+		List<String> photolist = new ArrayList<String>();
+		photolist.add(productDto.getPhoto1_file());
+		photolist.add(productDto.getPhoto2_file());
+		photolist.add(productDto.getPhoto3_file());
+		photolist.add(productDto.getPhoto4_file());
+		photolist.add(productDto.getPhoto5_file());
+		
+		model.addAttribute("photolist", photolist);
 		model.addAttribute("sizelist", sizelist);
 		model.addAttribute("productDto", productDto);
+		
 		return "productDetail.tiles";
 	}
 	
 	@GetMapping("/store/productOrder")
-	public String productOrder(Model model, int stock_seq, int p_quantity) {
+	public String productOrder(Model model, String stock_seq, String p_quantity, RedirectAttributes redirect) {
+		/* int _stock_seq = order.getStock_seq(); */
 		
-		System.out.println("!!!!!!!!!!!!!@@");
-		System.out.println("stock_seq : " + stock_seq);
-		System.out.println("p_quantity : " + p_quantity);
+		System.out.println(stock_seq + "," + p_quantity);
+		int _stock_seq = Integer.parseInt(stock_seq);
+		int _p_quantity = Integer.parseInt(p_quantity);
 		
-		return "productList.tiles";
+		OrderDto order = new OrderDto();
+		order.setStock_seq(_stock_seq);
+		order.setP_quantity(_p_quantity);
+		order.setId("sujin123");
+		
+		List<OrderDto> oList = new ArrayList<OrderDto>();
+		oList.add(order);
+		
+		/*
+		 * System.out.println("stock_seq : " + stock_seq);
+		 * System.out.println("p_quantity : " + p_quantity);
+		 */
+		
+		//model.addAttribute(arg0, arg1);
+		//model.addAttribute(arg0, arg1);
+		//model.addAttribute("order", order);
+		
+		log.info("리스트 사이즈 : " + oList.size());
+		
+		 redirect.addAttribute("oList", oList);
+		
+		return "redirect:/Rhymes/payment";
 	}
 	
 	@ResponseBody
@@ -222,7 +249,14 @@ public class StoreController {
 		boolean bool1 = purchase.chkBasket(basket);
 		if(bool1) {
 			//str="이미 장바구니에 등록된 상품입니다.";
+			log.info("장바구니에 이미 들어있음ㅋ");
 			
+			int n = purchase.updateBaksetQ(basket);
+			log.info("수정된 수량 : " + basket.getP_quantity() + "");
+			log.info("수정대상 stock_seq : " + basket.getStock_seq() + "");
+			if(n==1) {
+				log.info("장바구니 수량 수정됨");
+			}
 		}else {
 			try {
 				boolean bool2 = purchase.insertBasket(basket);
@@ -252,37 +286,8 @@ public class StoreController {
 		return blist;
 	}
 	
-	@PostMapping("/store/basketOrder")
-	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity) throws Exception{
-		System.out.println(blist_stockseq);
-		System.out.println(blist_pQuantity);
-		
-		String[] _sqArr = blist_stockseq.split("/");
-		int[] sqArr = Arrays.stream(_sqArr).mapToInt(Integer::parseInt).toArray();
-		String[] _pqArr = blist_pQuantity.split("/");
-		int[] pqArr = Arrays.stream(_pqArr).mapToInt(Integer::parseInt).toArray();
-		
-		List<BasketOrderDto> bOlist = new ArrayList<BasketOrderDto>();
-		
-		for (int i = 0; i < sqArr.length; i++) {
-			BasketOrderDto basket = new BasketOrderDto();
-			System.out.println(sqArr[i]);
-			System.out.println(pqArr[i]);
-			
-			basket.setStock_seq(sqArr[i]);
-			basket.setP_quantity(pqArr[i]);
-			bOlist.add(basket);
-		}
-		
-		for (BasketOrderDto b : bOlist) {
-			//System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
-			System.out.println(b);
-		}
-		
-		return "null";
-	}
 	
-	@PostMapping("/store/basket")
+	@GetMapping("/store/basket")
 	public String basket(Model model)throws Exception {
 		System.out.println("장바구니 이동 컨트롤ㄹㄹ러");
 		BasketDto basket = new BasketDto();
@@ -328,6 +333,57 @@ public class StoreController {
 				unitPrice = blist.get(i).getP_price();
 				basketPcnt = blist.get(i).getP_quantity();
 				total_price += (unitPrice * basketPcnt);				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return total_price;
+	}
+	
+	@ResponseBody
+	@GetMapping("/store/deleteBasketAll")
+	public String deleteBasket() throws Exception{		
+		
+		BasketDto basket = new BasketDto();
+		basket.setId("sujin123");
+		
+		try {
+			int n = purchase.deleteBasektAll(basket);
+			if(n>1) {
+				log.info("장바구니전체삭제 성공");
+				/* String str = "삭제가 " */
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	@ResponseBody
+	@GetMapping("/store/updateBasketQ")
+	public int updateBasketQ(BasketDto basket) throws Exception{
+		
+		int unitPrice = 0;
+		int basketPcnt = 0;
+		int total_price = 0;
+		
+		basket.setId("sujin123");
+		
+		try {
+			int n = purchase.updateBaksetQ(basket);
+	
+			if(n==1) {
+				List<BasketListDto> blist= purchase.getBasketList("sujin123");
+				for (int i = 0; i < blist.size(); i++) {
+					int price = blist.get(i).getP_price();
+					blist.get(i).setP_price2(formatter.format(price));
+					unitPrice = blist.get(i).getP_price();
+					basketPcnt = blist.get(i).getP_quantity();
+					total_price += (unitPrice * basketPcnt);				
+				}
+			}else {
+				log.info("수량변경 실패");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

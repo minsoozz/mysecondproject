@@ -3,4 +3,16 @@
 
 <mapper namespace="payment">
 
+<select id="not_member_confirm" parameterType="com.rhymes.app.payment.model.PaymentDTO"
+resultType="java.lang.String">
+SELECT SEND_NAME
+FROM RHY_PAYMENT
+WHERE SEND_NAME=#{send_name } AND PAYMENT_CODE=#{payment_code }
+</select>
+
+<select id="getOrdercheck" resultType="com.rhymes.app.payment.model.PaymentDTO">
+SELECT * FROM RHY_PAYMENT
+ORDER BY RDATE DESC
+</select>
+
 </mapper>
