@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.payment.dao.OrdercheckDAO;
+import com.rhymes.app.payment.model.DeliveryDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
 @Repository
@@ -45,11 +46,20 @@ public class OrdercheckDAOImpl implements OrdercheckDAO {
 
 	// 주문상세내역 조회
 	@Override
-	public List<PaymentDTO> getOrdercheckDetail() {
+	public List<PaymentDTO> getOrdercheckDetail(String payment_code) {
 		
-		List<PaymentDTO> ordercheck_detail_list = sqlsession.selectList(p + "getOrdercheckDetail");
+		List<PaymentDTO> ordercheck_detail_list = sqlsession.selectList(p + "getOrdercheckDetail", payment_code);
 		
 		return ordercheck_detail_list;
+	}
+
+	// 배송현황 조회
+	@Override
+	public List<DeliveryDTO> getOrdercheckDelivery(String payment_code) {
+		
+		List<DeliveryDTO> ordercheck_delivery_list = sqlsession.selectList(p + "getOrdercheckDelivery", payment_code);
+
+		return ordercheck_delivery_list;
 	}
 
 }

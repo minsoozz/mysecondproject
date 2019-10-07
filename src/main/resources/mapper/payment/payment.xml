@@ -18,9 +18,16 @@ ORDER BY RDATE DESC
 </select>
 
 <!-- 주문상세내역 조회 -->
-<select id="getOrdercheckDetail" resultType="com.rhymes.app.payment.model.PaymentDTO">
+<select id="getOrdercheckDetail" parameterType="java.lang.String" resultType="com.rhymes.app.payment.model.PaymentDTO">
 SELECT * FROM RHY_PAYMENT
+WHERE PAYMENT_CODE=#{payment_code}
 ORDER BY RDATE DESC
+</select>
+
+<!-- 배송현황 조회 -->
+<select id="getOrdercheckDelivery" parameterType="java.lang.String" resultType="com.rhymes.app.payment.model.DeliveryDTO">
+SELECT * FROM RHY_DELIVERY
+WHERE payment_code=#{payment_code}
 </select>
 
 
