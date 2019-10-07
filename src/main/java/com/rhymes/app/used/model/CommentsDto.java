@@ -1,8 +1,7 @@
 package com.rhymes.app.used.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
+import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,5 +1,8 @@
+<%@page import="com.rhymes.app.used.model.ProductsDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -36,40 +39,40 @@
 <td><label>카테고리:</label></td>
 <td><select id="_category" name="category">
 	<option value="">카테고리를 선택해주세요</option>
-	<option value="남성의류" >남성의류</option>
-	<option value="여성의류" >여성의류</option>
-	<option value="패션잡화" >패션잡화</option>
-	<option value="뷰티/미용">뷰티/미용</option>
-	<option value="무료나눔">무료나눔</option>	
+	<option value='남성의류' <c:if test="${dto.category eq '남성의류'}">selected="selected"</c:if>>남성의류</option>
+	<option value='여성의류' <c:if test="${dto.category eq '여성의류'}">selected="selected"</c:if>>여성의류</option>
+	<option value='패션잡화' <c:if test="${dto.category eq '패션잡화'}">selected="selected"</c:if>>패션잡화</option>
+	<option value='뷰티/미용' <c:if test="${dto.category eq '뷰티/미용'}">selected="selected"</c:if>>뷰티/미용</option>
+	<option value='무료나눔' <c:if test="${dto.category eq '무료나눔'}">selected="selected"</c:if>>무료나눔</option>	
 </select>
 </td>
 </tr>
 
 <tr>
 <td><label>거래지역:</label></td>
-<td><input type="text" id="sample6_address" name="place" readonly="readonly" style="background: #e5e5e5" size="30">
+<td><input type="text" id="sample6_address" name="place" readonly="readonly" style="background: #e5e5e5" size="30" value="${dto.place }">
 &nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색"></td>
 </tr>
 
 <tr>
 <td><label>제목:</label></td>
-<td><input type="text" id="_title" name="title" size="30"></td>
+<td><input type="text" id="_title" name="title" size="30" value="${dto.title }"></td>
 </tr>
 
 <tr>
 <td><label>가격:</label></td>
-<td><input type="text" id="_price" name="price" size="30" ></td><!--onkeyup="inputNumberFormat(this)"  -->
+<td><input type="text" id="_price" name="price" size="30" value="${dto.price }"></td>
 </tr>
 
 <tr>
 <td><label>설명:</label></td>
-<td><textarea rows="10" cols="50" id="_content" name="content"></textarea></td>
+<td><textarea rows="10" cols="50" id="_content" name="content">${dto.content }</textarea></td>
 </tr>
 
 
 <tr>
 <td><label>수량:</label></td>
-<td><input type="number" id="_quantity" name="quantity" min="0" maxlength="2" oninput="maxLengthCheck(this)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<td><input type="number" id="_quantity" name="quantity" min="0" maxlength="2" oninput="maxLengthCheck(this)" value="${dto.quantity }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <label>수량은 최대 99개 입니다</label></td>
 </tr>
 
@@ -78,12 +81,18 @@
 </td>
 <td><button type="button" id="_add" class="add">사진 추가</button></td>
 </tr>
-
+<%
+ProductsDto dto = (ProductsDto)request.getAttribute("dto");
+String arr[] = dto.getPhoto_list();
+%>
+<c:set var="img" value="<%=arr %>"/>
+<c:forEach var="i" items="${img }" varStatus="status">
 <tr>
 <td></td>
-<td><input type="file" name="files" id="_image" class="image"><button type="button" id="_del">삭제</button>
+<td>${i }<input type="file" name="files" id="_image" class="image" value="${i }"><button type="button" id="_del">삭제</button>
 </td>
 </tr>
+</c:forEach>
 </tbody>
 </table>
 
@@ -97,6 +106,7 @@
 </div>
 
 <script type="text/javascript">
+
 var sel_files = [];
 
 var count = 0;

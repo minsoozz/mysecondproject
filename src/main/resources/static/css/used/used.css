@@ -102,7 +102,7 @@ a:hover {
 	height: 400px;
 	margin: 0px 0px 0px 0px;
 	z-index: 100;
-	background-color: black;
+	background-color: white;
 	color: white;
 	font-folor: white;
 	padding: 0px;
@@ -119,3 +119,9 @@ a:hover {
 	top:850px;
 	left:63%;
 }
+
+#div_btn{
+	position: absolute;
+	top:1200px;
+	left: 65%;
+ }

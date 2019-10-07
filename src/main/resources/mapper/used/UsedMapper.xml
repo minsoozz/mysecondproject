@@ -77,11 +77,19 @@
 	WHERE bno=#{seq}
 </select>
 
+<!-- 게시글 조회수 증가 -->
+<update id="updateReadCount" parameterType="java.lang.Integer">
+	UPDATE rhy_used_products
+	SET readcount = readcount + 1
+	WHERE seq=#{seq}
+</update>
+
 <!-- 좋아요 삭제  -->
 <delete id="deletelikes" parameterType="hashmap">
 	DELETE FROM rhy_used_likes
 	WHERE mname=#{mname} AND bno=#{bno}
 </delete>
+
 <!-- 좋아요 추가 -->
 <insert id="addlikes" parameterType="hashmap">
 	INSERT INTO rhy_used_likes (mname,bno)
@@ -90,8 +98,55 @@
 
 <!-- 댓글 불러오기 -->
 <select id="getComments" parameterType="java.lang.Integer" resultType="com.rhymes.app.used.model.CommentsDto">
-	SELECT *
+	SELECT seq,id,comments,wdate,parent,ref,step,depth
 	FROM rhy_used_Comments
 	where parent=#{seq}
+	order by ref desc, step asc
 </select>
+
+<!-- 댓글 작성 -->
+<insert id="addComments" parameterType="hashmap">
+	INSERT INTO rhy_used_Comments(id,comments,wdate,parent,ref,step,depth)
+	VALUES(#{userid},#{comments},SYSDATE(),#{parent},(SELECT IFNULL(MAX(REF), 0)+1 FROM rhy_used_Comments ALIAS_FOR_SUBQUERY),0,0)
+</insert><!-- (SELECT IFNULL(MAX(REF), 0)+1 FROM rhy_used_Comments ALIAS_FOR_SUBQUERY) -->
+
+<!-- 댓글 수정 -->
+<update id="updateComment" parameterType="hashmap">
+	UPDATE rhy_used_Comments
+	SET comments=#{comments}
+	WHERE parent=#{parent}
+	AND seq=#{seq}
+</update>
+
+<!-- 댓글 삭제 -->
+<delete id="deleteComment" parameterType="hashmap">
+	DELETE FROM rhy_used_Comments
+	WHERE parent=#{parent}
+	AND seq=#{seq}
+</delete>
+
+<!-- 답글 정렬을 위한 step 업데이트 -->
+<update id="updateanswer" parameterType="hashmap">
+update rhy_used_Comments 
+set step = step + 1
+where seq in ( select seq
+					from ( select seq
+							from rhy_used_Comments
+							where seq = #{seq}) tmp )
+</update>
+
+<!-- 답글 등록  -->
+<insert id="insertanswer" parameterType="hashmap">
+	INSERT INTO rhy_used_Comments(id,comments,wdate,parent,ref,step,depth)
+	VALUES(#{userid},#{comments},SYSDATE(),#{parent},(select ref 
+													 from ( select ref
+													 from  rhy_used_Comments
+													 			where seq = #{seq} ) m1 ),(select step 
+													 from ( select step
+													 from  rhy_used_Comments
+													 			where seq = #{seq} ) m2 ) + 1,(select depth 
+													 from ( select depth
+													 from  rhy_used_Comments
+													 			where seq = #{seq} ) m3 ) + 1)
+</insert>
 </mapper>
