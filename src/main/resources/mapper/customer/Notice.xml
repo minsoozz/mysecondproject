@@ -3,10 +3,11 @@
 
 <mapper namespace="Notice">
     <select id="getNoticeList" parameterType="com.rhymes.app.customer.model.CustomerParam"  resultType="com.rhymes.app.customer.model.NoticeDto">
-       SELECT SEQ, ID, TITLE,CONTENT, WDATE , READCOUNT, FILENAME
+       SELECT SEQ, ID, TITLE,WDATE, READCOUNT, FILENAME
        FROM (SELECT ROW_NUMBER()OVER(ORDER BY SEQ DESC)AS RNUM,
-				SEQ, ID, TITLE,CONTENT, WDATE, READCOUNT, FILENAME
-				FROM NOTICE
+				SEQ, ID, TITLE,CONTENT, WDATE, 
+				READCOUNT, FILENAME
+				FROM NOTICE 
 				WHERE 1=1 
 				<if test="s_category != null and s_category != ''
 					and s_keyword != null and s_keyword != ''">
