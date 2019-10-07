@@ -25,11 +25,7 @@
    <put-attribute name="left_menu" value="/WEB-INF/views/store/layout/left_store.jsp"/>
    <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
    </definition>
-   
 
-
-    <definition name="productList.tiles" template="/WEB-INF/views/store/productList.jsp">
-    </definition>
     
     <definition name="productDetail.tiles" template="/WEB-INF/views/store/productDetail.jsp">
     </definition>
