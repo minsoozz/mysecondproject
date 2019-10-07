@@ -3,6 +3,14 @@
 
 <mapper namespace="payment">
 
+<!-- 장바구니에서 주문한 상품정보 가져오기 -->
+<select id="getOrder" parameterType="com.rhymes.app.payment.model.OrderDTO"
+resultType="com.rhymes.app.payment.model.OrderDTO">
+SELECT P.C_NAME, P.P_NAME, P.PRICE, P.PHOTO1_FILE, S.STOCK_SEQ, S.QUANTITY
+FROM RHY_STORE_PRODUCT P, RHY_STORE_STOCK S
+WHERE P.P_SEQ = S.P_SEQ
+</select>
+
 <!-- 비회원으로 주문내역 있는지 확인 -->
 <select id="not_member_confirm" parameterType="com.rhymes.app.payment.model.PaymentDTO"
 resultType="java.lang.String">

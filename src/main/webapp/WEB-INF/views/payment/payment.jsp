@@ -22,11 +22,10 @@
 
 </head>
 <body>
-<%-- <c:forEach begin="0" end="${fn:length(list) -1 }" step="1" varStatus="i">
-ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
-<br>
-</c:forEach> --%>
-<br><br>
+
+
+
+
 
 <div class="divfirst" align="left">
 <div class="divback">
@@ -38,6 +37,8 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 
 
 
+
+<%-- 상품번호 : ${b.stock_seq }, 수량 : ${b.p_quantity } --%>
 <div class="divback">
 <h4>상품 정보</h4>
 <table>
@@ -45,6 +46,8 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 	<td colspan="2" align="center" width="50%">상품 정보</td>
 	<td width="20%" align="center">상품 금액</td>
 </tr>
+
+<c:forEach var="b" items="${bOlist }" varStatus="i">
 <tr>
 	<td rowspan="2">상품 이미지</td>
 	<td width="50%" align="left">[돌쇠]무항생제 한우사골 (고기)곰탕</td>
@@ -53,9 +56,12 @@ ID : ${list[i.index].id }, PWD : ${list[i.index].pwd }
 <tr>
 	<td align="left">1개/개 당 11,600원</td>
 </tr>
+</c:forEach>
+
 </table>
 </div>
 <br><br><br><br><br><br>
+
 
 
 

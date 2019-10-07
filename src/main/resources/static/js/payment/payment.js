@@ -2,6 +2,7 @@ $(function(){
 	
 	alert("결제");
 
+// 주문자와 동일한 정보로 보낼 때
 $("#checkorder").click(function () {
 	//alert("주문자와 동일");
 	
@@ -13,7 +14,7 @@ $("#checkorder").click(function () {
 });
 
 
-
+// 기존 배송지와 같은 장소로 전달할 때
 $("#oldaddress").click(function () {
 	//alert("기존 배송지");
 
@@ -25,9 +26,8 @@ $("#oldaddress").click(function () {
 
 
 
-
+// 비회원으로 결제할 때
 var count = 0; /* 문자 중복을 막기 위한 인증번호 */
-
 $("#oneselfConfirmBtn").click(function() {
 	alert("본인인증1");
 	
@@ -103,6 +103,7 @@ $("#enterBtn").click(function() {
 
 
 
+// 결제 페이지에서 배송할 주소 검색
 function sample4_execDaumPostcode() {
 	alert("주소찾기");
 	
@@ -162,6 +163,7 @@ function sample4_execDaumPostcode() {
 
 
 
+// 결제 API
 function paymens(){
 	var radioVal = $('input[name="payment"]:checked').val();
 	//alert(radioVal);

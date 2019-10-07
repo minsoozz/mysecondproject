@@ -15,7 +15,7 @@
 #content_title_wrap div.title { padding-left:25px; background-repeat:no-repeat; background-position:10px 9px; font-weight:bold; }
 
 
-/* payment.jsp - table */
+/* 결제 페이지 */
 td{ padding: 10px 10px 10px 10px; }
 th{ padding-left : 10px; width: 25%; }
 h4{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }

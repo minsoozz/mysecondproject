@@ -32,6 +32,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@SuppressWarnings("serial")
 @Getter
 @Setter
 @ToString
@@ -46,14 +47,11 @@ public class PaymentDTO implements Serializable {
 	private String receive_name;			// 받는 이 이름
 	private String receive_phone;			// 받는 이 번호
 	private String receive_address;			// 받는 이 주소
-	private String delivery_request;		// 배송요청사항
 	private String payment_method;			// 결제수단
-	private String payment_detail_method;	// 결제상세수단
 	private String payment_status;			// 결제상태
-	private int product_price;				// 상품금액
 	private int delivery_price;				// 배송비
-	private int coupon;						// 쿠폰
-	private int point_price;				// 적립금
-	private int totalprice;					// 총금액
-	private Date rdate;						// 주문날짜
+	private String coupon_code;				// 쿠폰
+	private int point_price;				// 적립금 차감액
+	private int totalprice;					// 결제 총 금액
+	private Date rdate;						// 결제일
 }

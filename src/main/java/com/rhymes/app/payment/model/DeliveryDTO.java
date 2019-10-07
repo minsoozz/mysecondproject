@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@SuppressWarnings("serial")
 @Setter
 @Getter
 @ToString
@@ -28,5 +29,6 @@ public class DeliveryDTO implements Serializable {
 	private String name;				// 주문자 이름
 	private String delivery_status;		// 배송상태
 	private String delivery_post_code;	// 운송장번호
+	private String delivery_request;	// 배송요청사항
 	private String edate;				// 배송완료일
 }

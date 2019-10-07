@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +19,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rhymes.app.Store.model.OrderDto;
+import com.rhymes.app.payment.model.OrderDTO;
+import com.rhymes.app.payment.service.PaymentService;
 import com.rhymes.app.payment.util.Coolsms;
 
 @Controller
 @RequestMapping("/Rhymes")
 public class PaymentController {
+	
+	@Autowired
+	private PaymentService PaymentService;
    
    // 처음
    @GetMapping("/daraewelcome")
@@ -31,6 +37,8 @@ public class PaymentController {
       
       return "/payment/welcome";
    }
+   
+
    
    // 결제페이지로 이동
 
@@ -76,12 +84,31 @@ public class PaymentController {
          order.setP_quantity(pqArr[i]);
          bOlist.add(order);
       }
+
+      List<OrderDTO> basketList = new ArrayList<OrderDTO>();
       
       for (OrderDto b : bOlist) {
+    	  OrderDTO dto = new OrderDTO();
+    	  dto.setStock_seq(b.getStock_seq());
+    	  dto.setP_quantity(b.getP_quantity());
+    	  
          System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
-         //System.out.println("-----" + b.getStock_seq());
-      }
 
+         // db 가져오기
+         basketList = PaymentService.getOrder(dto);
+      }
+      
+      for(OrderDTO o : basketList) {
+    	  System.out.println("basketList : " + o.getId());
+    	  System.out.println("basketList : " + o.getStock_seq());
+    	  System.out.println("basketList : " + o.getPhoto1_file());
+    	  System.out.println("basketList : " + o.getP_name());
+    	  System.out.println("basketList : " + o.getC_name());
+    	  System.out.println("basketList : " + o.getP_quantity());
+    	  System.out.println("basketList : " + o.getP_price());
+      }
+      
+      model.addAttribute("basketList", basketList);
       
       if(true) {
          // 로그인 되어있으면 결제 페이지로 이동
@@ -93,7 +120,7 @@ public class PaymentController {
 
    }
    
-   // 결제 완료
+   // 주문페이지에서 결제 후 결제완료창으로 이동
    @GetMapping("/paymentAf")
    public String paymentAf(Model model) {
       System.out.println("daraepaymentAf");
@@ -101,7 +128,7 @@ public class PaymentController {
       return "/payment/paymentAf";
    }
 
-   // 주소찾기 팝업창 띄우기
+   // 주문페이지에서 배송할 주소찾기 팝업창 띄우기
    @GetMapping("/addresssearch")
    public String addresssearch(Model model) {
       System.out.println("daraeaddresssearch");
@@ -109,7 +136,7 @@ public class PaymentController {
       return "/payment/addresssearch";
    }
    
-   // 본인인증
+   // 주문페이지에서 비회원으로 주문할때 본인인증
    @ResponseBody
    @RequestMapping(value = "/sendsms", method = RequestMethod.GET)
    public String sendSms(HttpServletRequest request) throws Exception {
