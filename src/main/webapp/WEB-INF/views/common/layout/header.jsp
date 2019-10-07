@@ -63,7 +63,7 @@
                         		<span>${userloginid } 님</span>
                         	</div>
                         	<div class="">
-                        		<a href="#">Logout</a>
+                        		<a href="/member/logout">Logout</a>
                         	</div>
                         </c:if>
                         
