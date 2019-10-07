@@ -8,7 +8,9 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/findidAf.css">
 </head>
 <body>
-<h1>회원가입이 완료되었습니다.</h1>
-<input type="button" onclick="location.href='/member/login'" value="로그인하러 가기">
+<div align="center">
+	<h1>회원가입이 완료되었습니다.</h1>
+	<input type="button" onclick="location.href='/member/login'" value="로그인하러 가기">
+</div>
 </body>
 </html>

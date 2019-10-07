@@ -104,10 +104,26 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		@Override
 		public void getkakaoregi(MemBean mb) {
-			sqlSession.insert(ns+"getkakaoregi", mb);
-			sqlSession.insert(ns+"getkakaoregi_p", mb);
+			sqlSession.insert(ns+"getsnsregi", mb);
+			sqlSession.insert(ns+"getsnsregi_p", mb);
 			
 		}
+
+		// sns유저확인
+		@Override
+		public boolean getsnsuser(MemBean mbean) {
+			int n = sqlSession.selectOne(ns+"getsnsuser", mbean);
+			return n>0?true:false;
+		}
+
+		@Override
+		public void getNaverRegi(MemBean mb) {
+			sqlSession.insert(ns+"getsnsregi", mb);
+			sqlSession.insert(ns+"getsnsregi_p", mb);
+			
+		}
+
+
 
 
 	

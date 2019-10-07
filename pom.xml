@@ -271,6 +271,14 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.0</version>
 		</dependency>
+			
+			
+		<!-- naver -->
+		<dependency>
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-core</artifactId>
+			<version>2.8.1</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 
@@ -279,6 +287,9 @@
 			<artifactId>json</artifactId>
 			<version>20180130</version>
 		</dependency>
+		
+		
+		
 
 	</dependencies>
 

@@ -53,5 +53,10 @@ public interface MemberDAO {
 	// 카카오 regi 공통정보
 	public void getkakaoregi(MemBean mb);
 	
+	// sns 유저확인
+	public boolean getsnsuser(MemBean mbean);
+	
+	// 네이버 유저 회원가입
+	public void getNaverRegi(MemBean mbean);
 	
 }

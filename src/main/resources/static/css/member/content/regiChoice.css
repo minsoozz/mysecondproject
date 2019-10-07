@@ -8,10 +8,10 @@
     height: 54px;
     width: 300px;
     margin: 5px 5px 5px 5px;
-/*     padding: 0px 30px 0px 30px; */
-    position: relative;
+  	padding: 0px 30px 0px 30px;
+	position: relative;
     top: 250px;
-/*     left: 123px; */
+
 }
 /* .regibutton1{
 	border-radius: 5px;
@@ -27,6 +27,12 @@
     top: -171px;
     left: 242px;
 }  */
+#choicetable{
+	border: solid 1px gray;
+}
+#choicetable td{
+	padding: 0px 61px;
+}
 
 .regibutton:hover, .regibutton1:hover{
 	color: #c2fb2d;
@@ -37,14 +43,9 @@ img{
 }
 .selletext{
 	font-size: x-large;
-	margin-right: 37px;
-	color: white;
-	font-weight: lighter;
-/* 	position: relative; */
-/* 	left: 1px */
+
 }
 .regiintroduce{
-
 	font-size: xx-large;
 }
 /* .regiintroducediv{
@@ -66,6 +67,7 @@ img{
 	position: relative;
 	top: 40px;
 }
+
 .findidtext{
     font-family: sans-serif;
     font-weight: bold;
@@ -93,4 +95,15 @@ img{
     /* padding-top: 6px; */
     margin-top: -29px;
 	
+}
+.txtposition{
+	position:relative;
+	top:300px;
+	left:147px;
+}
+.txtposition1{
+	font-size: x-large;
+    position: relative;
+    top: 274px;
+    left: 329px;
 }

@@ -67,6 +67,16 @@
 		<put-attribute name="mypage_content" value="/WEB-INF/views/member/KakaoAddInfo.jsp"/>
 	</definition>
 	
+	<!-- 카카오톡 jsp로 보내기 -->
+	<definition name="kakaologinsuc" extends="rhylogin">
+		<put-attribute name="mypage_content" value="/WEB-INF/views/member/kakaologin.jsp"/>
+	</definition>
+	
+	<!-- 카카오톡 jsp로 보내기 -->
+	<definition name="navercallback" extends="rhylogin">
+		<put-attribute name="mypage_content" value="/WEB-INF/views/member/callback.jsp"/>
+	</definition>
+	
 	
 	
 	

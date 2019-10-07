@@ -42,4 +42,15 @@ public interface MemberService{
 	// 카카오 회원가입
 	public void getkakaoregi(MemBean mbean);
 	
+	// 카카오 로그인
+	public boolean getkakaouser(MemBean mbean);
+	
+	// 네이버 유저확인
+	public boolean getNaveruser(MemBean mbean);
+	
+	// 네이버 유저 회원가입
+	public void getNaverRegi(MemBean mbean);
+	
+	
+	
 }
