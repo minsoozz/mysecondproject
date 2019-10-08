@@ -18,6 +18,7 @@
 
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="/css/member/mypage/content/orderlog.css">
+
 </head>
 
 

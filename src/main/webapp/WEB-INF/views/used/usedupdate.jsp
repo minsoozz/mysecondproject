@@ -28,7 +28,7 @@
 </div>
 
 <div id="_right">
-<form action="/used/usedwriteAf" id="_wform" enctype="multipart/form-data" method="post">
+<form action="/used/usedupdateAf" id="_wform" enctype="multipart/form-data" method="post">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <input type="hidden" name="s_id" value="${login.userid }">
 <table>
@@ -53,10 +53,12 @@
 <td><input type="text" id="sample6_address" name="place" readonly="readonly" style="background: #e5e5e5" size="30" value="${dto.place }">
 &nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색"></td>
 </tr>
-
 <tr>
 <td><label>제목:</label></td>
-<td><input type="text" id="_title" name="title" size="30" value="${dto.title }"></td>
+<td><input type="text" id="_title" name="title" size="30" value="${dto.title }">
+	<input type="hidden" name="seq" value="${dto.seq }">
+	</td>
+
 </tr>
 
 <tr>
@@ -84,12 +86,22 @@
 <%
 ProductsDto dto = (ProductsDto)request.getAttribute("dto");
 String arr[] = dto.getPhoto_list();
+String arr2[] = dto.getPhoto_originlist();
+
+
+for(int i = 0 ; i < arr.length ; i ++){
+	// System.out.println(arr[i]);
+}
+
+
+int arrSize = arr.length;
 %>
-<c:set var="img" value="<%=arr %>"/>
+<c:set var="img" value="<%=arr2 %>"/>
 <c:forEach var="i" items="${img }" varStatus="status">
 <tr>
 <td></td>
-<td>${i }<input type="file" name="files" id="_image" class="image" value="${i }"><button type="button" id="_del">삭제</button>
+<td>기존파일 : ${i }<br><input type="file" name="files" id="_image" class="image"><button type="button" id="_del" class="del">삭제</button>
+<input type="hidden" name="originfile" value="${i }">
 </td>
 </tr>
 </c:forEach>
@@ -109,11 +121,37 @@ String arr[] = dto.getPhoto_list();
 
 var sel_files = [];
 
-var count = 0;
+var count = 0; 	// 사진 추가 카운트
+
+var len = <%=arrSize%>;
+
+if(len > 0){
+	count = len;
+}
+
+var originfile = new Array();
+
+<%for(int i =0; i < arr.length; i++){%>
+	originfile.push('<%=arr[i]%>')
+	
+	<%
+}%>
 
 $(document).ready(function() {
-	$("#_wbtn").click(function() {
 	
+	<%for(int i =0; i < arr.length; i++){%>
+	
+    var img_html = "<img class='img' src=/upload/used" + '<%=arr[i]%>' + "\ />";
+    $("#_imglist").append(img_html);
+	
+	
+	
+	<%
+}%>
+
+	
+	$(document).on("click", "#_wbtn", function(e){
+		
 		if( $("#_category").val() == "" || $("#_category").val() == null ){
 			alert("카테고리를 선택해주세요");
 			return;
@@ -144,28 +182,27 @@ $(document).ready(function() {
 			return;
 		}
 		
-		if( $("#_image").val() == "" || $("#_image").val() == null ){
-			alert("사진을 등록해주세요");
+		 /*if( $(".nimage").val() == "" || $(".nimage").val() == null ){
+			alert("기존 파일이 없는 항목은 사진을 추가해야 합니다");
 			return;
-		}
+		} */
 		
 		$("#_wform").submit();
 	});
 	
 	
    $(document).on("change", ".image", handleImgsFilesSelect);
-   
 
    $("#_add").click(function() {
 	   
 	   
-	   if(count >= 4){
+	   if(count >= 5){
 		   alert("사진은 최대 5장까지 추가 할 수 있습니다");
 		   return;
 	   } 
 	   else {
 		   var table = document.getElementById("tb");
-		   $('#mybody').append("<tr><td></td><td><input type='file' name='files' id='_image' class='image'><button type='button' id='_del' class='del'>삭제</button></td></tr>");	  
+		   $('#mybody').append("<tr><td></td><td><input type='file' name='files' id='_image' class='nimage'><button type='button' id='_del' class='del'>삭제</button></td></tr>");	  
 		   count++;
 	   }
 	   
@@ -173,12 +210,31 @@ $(document).ready(function() {
 
 });
 
+$(document).on("change", ".image", function(e){
+	
+	var check = $(this).val();
+	
+	if(check == "" || null) {
+		alert("파일 선택하지 않으면 업로드 되지않습니다.");
+		return;
+	}
+});
+	
+
+
+
 $(document).on("mouseover",".img", function(e) {
 	$("#_img").append("<span id='preview'><img id='_preview' src='"+ $(this).attr("src") +"'/></span>");
 });
 
 $(document).on("mouseout",".img", function(e) {
 	$("#preview").remove();
+});
+
+$(document).on("click",".img", function(e) {
+	$("#preview").remove();
+	$(this).remove();
+	
 });
 
 function handleImgsFilesSelect(e) {
@@ -218,8 +274,15 @@ function maxLengthCheck(object){
   }
 
 $(document).on("click",".del", function() {
+	
+	if(count == 1 ){
+		alert("사진은 최소 한장입니다");
+		return;
+	} else {
+		
 	$(this).parent().remove();
-	count--;
+		count--;
+	}
 })
 
 $("#_del").click(function() {

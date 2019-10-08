@@ -4,6 +4,7 @@ package com.rhymes.app.used.controller;
 import java.io.FileOutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.Service.UsedService;
+import com.rhymes.app.used.model.BbsParam;
 import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 import com.rhymes.app.used.util.Coolsms;
@@ -43,22 +45,49 @@ public class UsedController {
 	
 	
 	@GetMapping("/hello") 
-	public String test(HttpServletRequest req) {
+	public String test(HttpServletRequest req,Principal prc) {
 		// 아직 구축이 제대로 안되서 임의로 로그인 아이디 설정해 놓음
-		P_MemberDTO Mdto = usedService.getMemberDto("sujin123");
-		Mdto.setUserid("sujin123");
+		System.out.println(prc.getName());
 		
+		String userid = prc.getName();
+		
+		P_MemberDTO Mdto = usedService.getMemberDto(userid);
+		
+		System.out.println(Mdto.toString());
 		
 		req.getSession().setAttribute("login", Mdto);
 		return "used/test";
 	}
 	
 	@GetMapping("usedlist")
-	public String usedlist(Model model) {
+	public String usedlist(Model model,BbsParam param) {
 		
-		List<ProductsDto> list = usedService.getUsedList();
+		System.out.println("카테고리 : " + param.getCategory() + " 검색어 : " + param.getKeyword() +" 검색조건 : " + param.getSelect());
+		
+		int totalRecordCount = usedService.getBbsCount(param);
+		
+		System.out.println("게시글의 수 : " + totalRecordCount);
+		
+		// pageNumber 취득
+		int sn = param.getPageNumber(); // 0 , 1, 2
+		int start = sn * param.getRecordCountPerPage() + 1; // 0 -> 1 , 1 - > 11		1   11
+		int end = (sn + 1) * param.getRecordCountPerPage(); // 0 - > 10, 1 - > 20		10  20
+		
+		param.setStart(start);
+		param.setEnd(end);
+			
+		List<ProductsDto> list = usedService.getUsedList(param);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("select",param.getSelect());
+		model.addAttribute("category",param.getCategory());
+		model.addAttribute("keyword",param.getKeyword());
+		
+		model.addAttribute("pageNumber",sn); // 현재 페이지 넘버
+		model.addAttribute("pageCountPerScreen",10);
+		model.addAttribute("recordCountPerPage",param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		
 		
 		return "usedlist.tiles";
 	}
@@ -114,9 +143,28 @@ public class UsedController {
 		String arr[] = str.split(",");
 		dto.setPhoto_list(arr);
 		
+		String str2 = dto.getPhoto();	
+		String arr2[] = str2.split(",");
+		dto.setPhoto_originlist(arr2);
+		
+		
 		model.addAttribute("dto",dto);
 		
 		return "usedupdate.tiles";
+	}
+	
+	@GetMapping(value="deleteProduct")
+	public String deleteProduct(int seq,Model model) {
+		
+		boolean b = usedService.deleteProduct(seq);
+		
+		if(b) {
+			System.out.println("성공");
+		} else {
+			System.out.println("실패");
+		}
+		
+		return "redirect:usedlist";
 	}
 	
 	@GetMapping(value="/getCommentsList",produces = "application/json; charset=utf8")
@@ -284,7 +332,7 @@ public class UsedController {
 		
 		MultipartFile mpf = mfreq.getFile(files.next());
 		
-		String path = req.getServletContext().getRealPath("/upload");
+		String path = req.getServletContext().getRealPath("/upload/used");
 		
 		
 		String photo = "";
@@ -324,6 +372,103 @@ public class UsedController {
 
 	}
 	
+	@RequestMapping(value="usedupdateAf", method = RequestMethod.POST)
+	public String usedupdateAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
+			HttpServletRequest req, String[] originfile) throws Exception {
+		
+		ProductsDto dto = new ProductsDto(
+				Pdto.getSeq(),
+				Pdto.getS_id(),
+				Pdto.getCategory(),
+				Pdto.getTitle(),
+				Pdto.getContent(),
+				Pdto.getPrice(),
+				Pdto.getQuantity(),
+				Pdto.getPlace(),
+				Pdto.getPhoto(),
+				Pdto.getPhoto_sys(),
+				Pdto.getDivision(),
+				Pdto.getLikes());
+
+		List<MultipartFile> list = mfreq.getFiles("files");
+
+		int size = list.size();
+		
+		String[] oldfile = new String[5];
+		
+		Arrays.fill(oldfile,"");
+		
+		
+		for (int i = 0; i < originfile.length; i++) {
+			oldfile[i] = originfile[i];
+			System.out.println("oldfile : " + oldfile[i]);
+		}
+		Iterator<String> files = mfreq.getFileNames();
+		
+		MultipartFile mpf = mfreq.getFile(files.next());
+		
+		String path = req.getServletContext().getRealPath("/upload/used");
+		
+		String photo = "";
+		String photo_sys = "";
+		int count = 0;         
+		if(list != null && size > 0) {
+			for(MultipartFile mf : list) {
+	
+				String originFileName = mf.getOriginalFilename();
+	
+				if (originFileName == null || originFileName == "" || originFileName.length() == 0) {
+				originFileName = oldfile[size-1];
+				System.out.println(originFileName);
+				 String systemFileName = System.currentTimeMillis() + originFileName;	            
+		         
+		            photo += originFileName + ",";
+		            photo_sys += systemFileName + ",";
+		            
+		            long fileSize = mf.getSize();
+	      
+					FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
+						
+					System.out.println(path); // 업로드 경로
+					
+					dto.setPhoto(Pdto.getPhoto());
+					dto.setPhoto_sys(Pdto.getPhoto_sys());
+				} 
+				
+	            String systemFileName = System.currentTimeMillis() + originFileName;	            
+	         
+	            photo += originFileName + ",";
+	            photo_sys += systemFileName + ",";
+	            
+	            long fileSize = mf.getSize();
+      
+				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
+					
+				System.out.println(path); // 업로드 경로
+				
+				fs.write(mf.getBytes());
+				fs.close();
+				
+				count ++;
+			}
+		}
+		
+		dto.setPhoto(photo);
+		dto.setPhoto_sys(photo_sys);
+		
+		System.out.println(dto.toString());
+		
+		boolean b = usedService.UsedUpdate(dto);
+		
+		if(b) {
+			System.out.println("성공~~");
+		} else {
+			System.out.println("공부하자..");
+		}
+		
+		return "redirect:/used/hello";
+	}
+	
 	@GetMapping(value="/addlikes")
 	@ResponseBody
 		public String addlikes(int bno, String mname) {
@@ -351,6 +496,15 @@ public class UsedController {
 		public String likeCount(int bno) {
 		
 		int count = usedService.getboardlikes(bno);
+		return count+"";
+	}
+	
+	@GetMapping(value="/getSeller")
+	@ResponseBody
+	public String getSeller(String s_id) {
+		
+		int count = usedService.getSellerid(s_id);
+		
 		return count+"";
 	}
 	
