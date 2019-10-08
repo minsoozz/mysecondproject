@@ -119,7 +119,7 @@
                                     <a class="nav-link" href="/Rhymes/store/productList">MEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">MARKET</a>
+                                    <a class="nav-link" href="/used/usedlist">MARKET</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">EVENT</a>
@@ -158,6 +158,9 @@
 	        }
 	    });
 	});
+	
+	
+	
 	</script> 
 	</body>
 

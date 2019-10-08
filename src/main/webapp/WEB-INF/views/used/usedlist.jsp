@@ -15,8 +15,10 @@
 <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script> 
 <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script> 
 
+
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="/css/member/mypage/content/orderlog.css">
+
 </head>
 <body>
 <div>

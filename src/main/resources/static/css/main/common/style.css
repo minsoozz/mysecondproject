@@ -214,17 +214,18 @@ ol {
 }
 
 #scrollUp {
-    bottom: 55px;
+	position:fixed;
+    bottom: 65px;
     font-size: 14px;
-    right: 50%;
-    width: 30px;
+    right: 5%;
+    width: 40px;
     background-color: #b7dc57;
     color: #fff;
     text-align: center;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 50%;
-    margin-right: -15px;
+    margin-right: -40px;
 }
 
 a,
@@ -364,6 +365,12 @@ li {
     padding-right: 13px;
 }
 .top_header_area .signup-search-area .join a {
+    margin-right: 13px;
+    border-right: 2px solid #c2c2c2;
+    padding-right: 13px;
+}
+
+.top_header_area .signup-search-area .cart a {
     margin-right: 13px;
     border-right: 2px solid #c2c2c2;
     padding-right: 13px;
