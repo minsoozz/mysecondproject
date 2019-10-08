@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rhymes.app.Store.model.OrderDto;
 import com.rhymes.app.payment.model.OrderDTO;
@@ -45,11 +44,35 @@ public class PaymentController {
    // 단일제품 구매 
    //@GetMapping("/payment")
    @RequestMapping(value = "/payment" , method = {RequestMethod.POST, RequestMethod.GET})
-   public String payment(String stock_seq, String p_quantity)throws Exception {
+   public String payment(Model model, String stock_seq, String p_quantity)throws Exception {
       System.out.println("daraepayment");
       
       System.out.println("상품재고 번호 : " + stock_seq);
       System.out.println("상품재고 번호 : " + p_quantity);
+
+      List<OrderDTO> basketList = new ArrayList<OrderDTO>();
+      
+	  OrderDTO dto = new OrderDTO();
+	  dto.setStock_seq(Integer.parseInt(stock_seq));
+	  dto.setP_quantity(Integer.parseInt(p_quantity));
+	  
+	  System.out.println("재고번호 : " + stock_seq + ", 수량 :" + p_quantity);
+	  
+	  // db 가져오기
+	  basketList.add( PaymentService.getOrder(dto) );
+      
+      for(OrderDTO o : basketList) {
+    	  System.out.println("basketList : " + o.getId());
+    	  System.out.println("basketList : " + o.getStock_seq());
+    	  System.out.println("basketList : " + o.getPhoto1_file());
+    	  System.out.println("basketList : " + o.getP_name());
+    	  System.out.println("basketList : " + o.getC_name());
+    	  System.out.println("basketList : " + o.getP_quantity());
+    	  System.out.println("basketList : " + o.getP_price());
+      }
+
+      
+      model.addAttribute("basketList", basketList);
       
       if(true) {
          // 로그인 되어있으면 결제 페이지로 이동
@@ -63,7 +86,7 @@ public class PaymentController {
    
    // 장바구니 리스트 구매
    @PostMapping("/payment/basketOrder")
-   public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity, RedirectAttributes redirect) throws Exception{
+   public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity) throws Exception{
       System.out.println(blist_stockseq);
       System.out.println(blist_pQuantity);
       
@@ -86,7 +109,7 @@ public class PaymentController {
       }
 
       List<OrderDTO> basketList = new ArrayList<OrderDTO>();
-      
+
       for (OrderDto b : bOlist) {
     	  OrderDTO dto = new OrderDTO();
     	  dto.setStock_seq(b.getStock_seq());
@@ -95,7 +118,7 @@ public class PaymentController {
          System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
 
          // db 가져오기
-         basketList = PaymentService.getOrder(dto);
+         basketList.add( PaymentService.getOrder(dto) );
       }
       
       for(OrderDTO o : basketList) {

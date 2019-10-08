@@ -9,6 +9,7 @@ resultType="com.rhymes.app.payment.model.OrderDTO">
 SELECT P.C_NAME, P.P_NAME, P.PRICE, P.PHOTO1_FILE, S.STOCK_SEQ, S.QUANTITY
 FROM RHY_STORE_PRODUCT P, RHY_STORE_STOCK S
 WHERE P.P_SEQ = S.P_SEQ
+AND STOCK_SEQ=#{stock_seq} AND P_QUANTITY=#{p_quantity}
 </select>
 
 <!-- 비회원으로 주문내역 있는지 확인 -->

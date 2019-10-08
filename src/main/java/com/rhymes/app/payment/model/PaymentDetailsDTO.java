@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Payment_Details implements Serializable {
+public class PaymentDetailsDTO implements Serializable {
 	private int seq;			// id
 	private int p_seq;			// 상품고유번호
 	private int price;			// 상품결제가격

@@ -19,9 +19,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	// 주문페이지에서 상품정보 가져오기
 	@Override
-	public List<OrderDTO> getOrder(OrderDTO dto) {
+	public OrderDTO getOrder(OrderDTO dto) {
 		
-		List<OrderDTO> order = SqlSession.selectOne(p + "getOrder", dto);
+		OrderDTO order = SqlSession.selectOne(p + "getOrder", dto);
 		
 		return order;
 	}
