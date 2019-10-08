@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.dao.UsedDao;
+import com.rhymes.app.used.model.BbsParam;
 import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 
@@ -30,10 +31,10 @@ public class UsedDaoImpl implements UsedDao {
 	}
 
 	@Override
-	public List<ProductsDto> getUsedList() {
+	public List<ProductsDto> getUsedList(BbsParam param) {
 		// TODO Auto-generated method stub
 
-		List<ProductsDto> list = sqlSession.selectList(ns + "getUsedList");
+		List<ProductsDto> list = sqlSession.selectList(ns + "getUsedList",param);
 
 		return list;
 	}
@@ -147,7 +148,35 @@ public class UsedDaoImpl implements UsedDao {
 		
 		int n = sqlSession.insert(ns + "insertanswer", map);
 		
-		return false;
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean usedUpdate(ProductsDto dto) {
+		System.out.println("dao :" + dto.toString());
+		int n = sqlSession.update(ns + "usedupdate", dto);
+		return n > 0 ? true : false;
+	}
+
+	// 페이징을 위한 게시글 총 개수 구하기
+	@Override	
+	public int getBbsCount(BbsParam param) {
+		int n = sqlSession.selectOne(ns + "getBbsCount", param);
+		return n;
+	}
+
+	@Override
+	public int getSellerid(String s_id) {
+		int n = sqlSession.selectOne(ns + "getSellerid", s_id);
+		
+		return n;
+	}
+
+	@Override
+	public boolean deleteProduct(int seq) {
+		int n = sqlSession.delete(ns + "deleteProduct", seq);
+		
+		return n > 0 ? true :false;
 	}
 	
 	
