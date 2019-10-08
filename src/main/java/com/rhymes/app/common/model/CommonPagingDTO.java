@@ -143,6 +143,14 @@ public class CommonPagingDTO implements Serializable {
         setNav(this.totalSize);
     }
     
+    /**총 목록 개수를 설정하고 네비게이션 값 수정
+     * @param totalSize
+     */
+    public void setTotalSize(int totalSize) {
+    	this.totalSize = totalSize;
+    	setNav(totalSize);
+    }
+    
     /**네비게이션 바 설정
      * 12345 : 1 ~ 5
      * 678910 : 6 ~ 10

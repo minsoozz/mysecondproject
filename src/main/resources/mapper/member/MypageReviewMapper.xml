@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review">	
+
+	<!-- 매개변수로 받은 유저ID가 갖고있는 모든 주문번호를 가져옴 -->
+	<select id="getPaymentCodesByUserid" parameterType="java.lang.String" resultType="java.lang.String">
+		<include refid="getPaymentCodesByUseridSql"/></select>
+	
+	<!-- Query -->
+	<!-- 검색조건에 맞는 적립금 디테일의 총 개수 리턴 -->
+	<sql id="getPaymentCodesByUseridSql">
+		SELECT PAYMENT_CODE FROM RHY_PAYMENT WHERE USERID=#{userid};
+	</sql>
+		
+
+</mapper>

@@ -18,6 +18,8 @@
 
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/review.css">
+<script type="text/javascript" src="<%=ctx%>/js/member/mypage/content/review.js"></script>
+
 </head>
 <div class="mypage_main_content_title" align="left">
 	<h3>상품후기</h3>
@@ -42,68 +44,16 @@
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div class="tab-pane active" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">				
-			<div class="order_id" align="left">
-				<a class="order_id_detail">주문번호 1568601875323</a>
-			</div>
-			<div class="waiting_item">
-			<div class="form-group">
-				<div class="form-row">
-					<div class="col-md-2 img_waiting_item">
-						<img alt="" src="https://img-cf.kurly.com/shop/data/goods/155841692418s0.jpg">
-					</div>
-					<div class="col-md-5 detail_waiting_item">
-						<div class="form-row">
-							머스터드 2종(품목)
-						</div>
-						<div class="form-row">
-							US 머스터드(옵션)
-						</div>
-						<div class="form-row">
-							1개 구매
-						</div>
-					</div>
-					<div class="col-md-3 delivery_waiting_item">
-						9월 17일 배송 완료
-					</div>
-					<div class="col-md-2 writenew_waiting_item">
-						<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 쓰기"><br>
-					</div>
-				</div>
-			</div>
-			</div>
+		<!-- 작성가능후기 탭 시작 -->
+		<div class="tab-pane active" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">
 			
-			<div class="waiting_item">
-			<div class="form-group">
-				<div class="form-row">
-					<div class="col-md-2 img_waiting_item">
-						<img alt="" src="https://img-cf.kurly.com/shop/data/goods/1555910724529s0.jpg">
-					</div>
-					<div class="col-md-5 detail_waiting_item">
-						<div class="form-row">
-							[르푸도레] 베이글 2종(품목)
-						</div>
-						<div class="form-row">
-							[르푸도레] 플레인 베이글(옵션)
-						</div>
-						<div class="form-row">
-							1개 구매
-						</div>
-					</div>
-					<div class="col-md-3 delivery_waiting_item">
-						9월 17일 배송 완료
-					</div>
-					<div class="col-md-2 writenew_waiting_item">
-						<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 쓰기"><br>
-					</div>
-				</div>
-			</div>
-			</div>
-			
-		</div>
+		</div><!-- 작성가능후기 탭 끝 -->
+		
+		
+		
 		<div class="tab-pane" id="_written_reviews" role="tabpanel" aria-labelledby="written_reviews-tab">
 			...
-		</div>
+		</div><!-- 작성한후기 탭 끝 -->
 	</div>
 </div>
 </html>
