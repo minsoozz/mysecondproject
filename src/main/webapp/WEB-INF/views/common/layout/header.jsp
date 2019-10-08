@@ -61,18 +61,26 @@
                         </c:if>
                         
                         <c:if test="${userloginid ne null}">
+                        
                         	<div class="">
                         		<span>${userloginid } 님</span>
                         	</div>
                         	<div class="">
                         		<a href="/member/logout">Logout</a>
                         	</div>
+                        	
+                        	<c:if test="${userloginid ne 'ADMIN' }">
+	                        	<div class="mypage">
+	                                <a href="a.jsp">Mypage</a>
+	                            </div>
+                            </c:if>
+                            
                         </c:if>
-                        
-                        
-                            <div class="mypage">
-                                <a href="a.jsp">Mypage</a>
-                            </div>
+
+                       	<c:if test="${userloginid eq 'ADMIN' }">
+                       		&nbsp;&nbsp;<a href="/admin/memlist">admin</a>
+                       	</c:if>
+
                         </div>
                         
                         <!-- 

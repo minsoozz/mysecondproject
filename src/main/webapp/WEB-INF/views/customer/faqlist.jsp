@@ -12,22 +12,22 @@
 <form action="faqlist" name="frmForm1" id="_frmFormSearch" method="POST">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 <table style="width:85%" >
-<colgroup>
-	<col width="50"><col width="100"><col width="600">
-</colgroup>
-<tr>
-<th>
-	<select id="_s_category" name="s_category" onchange="categorychange()">
-	  <option value="" selected="selected">선택</option>
-	  <option value="01" <c:out value="${s_category == '01'? 'selected':'' }"/>>회원문의</option>
-      <option value="02"<c:out value="${s_category == '02'? 'selected':'' }"/>>주문/결제</option>
-      <option value="03"<c:out value="${s_category == '03'? 'selected':'' }"/>>취소/교환/반품</option>
-      <option value="04"<c:out value="${s_category == '04'? 'selected':'' }"/>>배송문의</option>
-      <option value="05"<c:out value="${s_category == '05'? 'selected':'' }"/>>쿠폰/적립금</option>
-      <option value="06"<c:out value="${s_category == '06'? 'selected':'' }"/>>서비스 이용 및 기타</option>
-	</select>
-</th>
-</tr>
+	<colgroup>
+		<col width="50"><col width="100"><col width="600">
+	</colgroup>
+	<tr>
+		<th>
+			<select id="_s_category" name="s_category" onchange="categorychange()">
+			  <option value="" selected="selected">선택</option>
+			  <option value="01" <c:out value="${s_category == '01'? 'selected':'' }"/>>회원문의</option>
+		      <option value="02"<c:out value="${s_category == '02'? 'selected':'' }"/>>주문/결제</option>
+		      <option value="03"<c:out value="${s_category == '03'? 'selected':'' }"/>>취소/교환/반품</option>
+		      <option value="04"<c:out value="${s_category == '04'? 'selected':'' }"/>>배송문의</option>
+		      <option value="05"<c:out value="${s_category == '05'? 'selected':'' }"/>>쿠폰/적립금</option>
+		      <option value="06"<c:out value="${s_category == '06'? 'selected':'' }"/>>서비스 이용 및 기타</option>
+			</select>
+		</th>
+	</tr>
 </table>    
     
 <table class="list_table" style="width:85%" >

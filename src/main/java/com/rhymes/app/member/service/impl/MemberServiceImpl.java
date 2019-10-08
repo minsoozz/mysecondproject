@@ -104,7 +104,7 @@ public class MemberServiceImpl implements MemberService {
 		// 담당자이메일
 		String ic_email = sellerbean.getIc_email1()+"@"+sellerbean.getIc_email2();
 		
-		SellerDTO sel = new SellerDTO(
+		SellerDTO sel = new SellerDTO(	0,
 										memdto.getUserid(),
 										sellerbean.getC_name(),
 										c_num,

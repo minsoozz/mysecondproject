@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class P_MemberDTO {
 
+	private int seq; 
 	private String userid; // 아이디
 	private String username; // 이름
 
@@ -39,9 +40,10 @@ public class P_MemberDTO {
 		this.userbirth = userbirth;
 	}
 
-	public P_MemberDTO(String userid, String username, String postcode, String address, String detailAddress,
+	public P_MemberDTO(int seq, String userid, String username, String postcode, String address, String detailAddress,
 			String phone, String useremail, String usergender, String userbirth, int count, boolean islike) {
 		super();
+		this.seq = seq;
 		this.userid = userid;
 		this.username = username;
 		this.postcode = postcode;
@@ -82,4 +84,6 @@ public class P_MemberDTO {
 				+ ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail=" + useremail + ", usergender="
 				+ usergender + ", userbirth=" + userbirth + ", count=" + count;
 	}
+
+
 }

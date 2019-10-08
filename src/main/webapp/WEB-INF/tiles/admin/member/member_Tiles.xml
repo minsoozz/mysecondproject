@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	
+	
+   <!-- 회원관리 -->
+   <definition name="memlist" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
+       <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header.jsp" />
+       <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu.jsp" />
+       <put-attribute name="body" value="/WEB-INF/views/admin/member/memberlist.jsp" />
+       <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer.jsp" />
+   </definition>
+  
+
+	<!-- 쿠폰,적립금 관리 -->
+	
+	<definition name="mem_cp"	extends="memlist">
+		<put-attribute name="body" value="/WEB-INF/views/admin/member/coupon_points.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	<!-- admin test -->
+<!-- 	<definition name="memtest/admin" template="/WEB-INF/views/member/tmp/admin.jsp">
+	</definition> -->
+
+	<!-- member test -->
+<!-- 	<definition name="memtest/member" template="/WEB-INF/views/member/tmp/member.jsp">
+	</definition> -->
+
+	<!-- seller test -->
+<!-- 	<definition name="memtest/seller" template="/WEB-INF/views/member/tmp/seller.jsp">
+	</definition> -->
+
+</tiles-definitions>
+
