@@ -67,7 +67,7 @@ function detail(seq){
 	// var money = $(".commamoney").text();
 	 //alert(money);
  });0
- 
+ </script>
 	
 </body>
 </html>
