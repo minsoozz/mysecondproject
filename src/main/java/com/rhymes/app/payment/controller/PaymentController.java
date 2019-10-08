@@ -54,7 +54,7 @@ public class PaymentController {
 
 		OrderDTO dto = new OrderDTO();
 		dto.setStock_seq(Integer.parseInt(stock_seq));
-		dto.setP_quantity(Integer.parseInt(p_quantity));
+		dto.setQuantity(Integer.parseInt(p_quantity));
 
 		System.out.println("재고번호 : " + stock_seq + ", 수량 :" + p_quantity);
 
@@ -86,8 +86,9 @@ public class PaymentController {
 	// 장바구니 리스트 구매
 	@RequestMapping("/payment/basketOrder")
 	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity) throws Exception {
-		System.out.println(blist_stockseq);
-		System.out.println(blist_pQuantity);
+		System.out.println("================= 여기부터 payment ==================");
+		//System.out.println(blist_stockseq);
+		//System.out.println(blist_pQuantity);
 
 		String[] _sqArr = blist_stockseq.split("/");
 		int[] sqArr = Arrays.stream(_sqArr).mapToInt(Integer::parseInt).toArray();
@@ -99,8 +100,8 @@ public class PaymentController {
 		for (int i = 0; i < sqArr.length; i++) {
 			OrderDto order = new OrderDto();
 
-			System.out.println(sqArr[i]);
-			System.out.println(pqArr[i]);
+			//System.out.println(sqArr[i]);
+			//System.out.println(pqArr[i]);
 
 			order.setStock_seq(sqArr[i]);
 			order.setP_quantity(pqArr[i]);
@@ -112,7 +113,7 @@ public class PaymentController {
 		for (OrderDto b : bOlist) {
 			OrderDTO dto = new OrderDTO();
 			dto.setStock_seq(b.getStock_seq());
-			dto.setP_quantity(b.getP_quantity());
+			dto.setQuantity(b.getP_quantity());
 
 			System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
 
@@ -121,13 +122,14 @@ public class PaymentController {
 		}
 
 		for (OrderDTO o : basketList) {
-			System.out.println("basketList : " + o.getId());
-			System.out.println("basketList : " + o.getStock_seq());
-			System.out.println("basketList : " + o.getPhoto1_file());
-			System.out.println("basketList : " + o.getP_name());
-			System.out.println("basketList : " + o.getC_name());
-			System.out.println("basketList : " + o.getP_quantity());
-			System.out.println("basketList : " + o.getP_price());
+			//System.out.println("basketList : " + o.getId());
+			System.out.println("재고번호 : " + o.getStock_seq());
+			System.out.println("이미지 파일 이름 : " + o.getPhoto1_file());
+			System.out.println("상품명 : " + o.getP_name());
+			System.out.println("회사명 : " + o.getC_name());
+			System.out.println("재고수량 : " + o.getQuantity());
+			System.out.println("단가 : " + o.getP_price());
+			System.out.println("===================================");
 		}
 
 		model.addAttribute("basketList", basketList);

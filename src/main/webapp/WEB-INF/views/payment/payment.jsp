@@ -38,7 +38,6 @@
 
 
 
-<%-- 상품번호 : ${b.stock_seq }, 수량 : ${b.p_quantity } --%>
 <div class="divback">
 <h4>상품 정보</h4>
 <table>
@@ -47,16 +46,16 @@
 	<td width="20%" align="center">상품 금액</td>
 </tr>
 
-<%-- <c:forEach var="b" items="${bOlist }" varStatus="i"> --%>
+<c:forEach items="${basketList }" var="list">
 <tr>
-	<td rowspan="2">상품 이미지</td>
-	<td width="50%" align="left">[돌쇠]무항생제 한우사골 (고기)곰탕</td>
+	<td rowspan="2">${list.photo1_file }</td>
+	<td width="50%" align="left">[${list.p_name }]${list.c_name }</td>
 	<td rowspan="2" width="10%" align="center">11,600</td>
 </tr>
 <tr>
-	<td align="left">1개/개 당 11,600원</td>
+	<td align="left">1개/개 당 ${list.p_price }원</td>
 </tr>
-<%-- </c:forEach> --%>
+</c:forEach>
 
 </table>
 </div>

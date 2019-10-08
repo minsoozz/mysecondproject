@@ -26,7 +26,7 @@ public class OrdercheckDAOImpl implements OrdercheckDAO {
 		dto.setSend_name(name);
 		dto.setPayment_code(code);
 		
-		String _name = sqlsession.selectOne(p + "not_member_confirm", dto);
+		String _name = sqlsession.selectOne(p + "no_member_confirm", dto);
 		
 		if(_name == null) {
 			return false;
