@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.rhymes.app.common.service.CommonService;
-import com.rhymes.app.common.service.KakaoAPI;
 import com.rhymes.app.member.model.MemberDTO;
+import com.rhymes.app.member.service.impl.KakaoAPI;
 
 @Controller
 @RequestMapping("/welcome")

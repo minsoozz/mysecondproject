@@ -35,7 +35,7 @@
 	</div>
 	</div>
 	
-	<div id="footer_wrap">
+	<div id="footer_wrap_mypage">
 	<tiles:insertAttribute name="footer"/> <!-- /WEB-INF/views/common/layout/footer.jsp -->
 	</div>
 </body>
