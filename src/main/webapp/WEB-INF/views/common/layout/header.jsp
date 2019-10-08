@@ -61,17 +61,15 @@
                         </c:if>
                         
                         <c:if test="${userloginid ne null}">
-                        	<div class="">
+                        	<div class="header_username">
                         		<span>${userloginid } 님</span>
                         	</div>
-                        	<div class="">
+                        	<div class="header_logout">
                         		<a href="/member/logout">Logout</a>
                         	</div>
                         </c:if>
-                        
-                        
-                            <div class="mypage">
-                                <a href="a.jsp">Mypage</a>
+                            <div class="header_mypage">
+                                <a href="/mypage/orderlog">Mypage</a>
                             </div>
                         </div>
                         

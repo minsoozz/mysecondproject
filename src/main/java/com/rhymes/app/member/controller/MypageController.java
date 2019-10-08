@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +29,8 @@ import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberOrderDTO;
+import com.rhymes.app.member.model.mypage.MemberOrderPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
 import com.rhymes.app.member.service.MypageCouponService;
 import com.rhymes.app.member.service.MypagePersonalService;
@@ -61,17 +63,40 @@ public class MypageController {
 		return "member/mypage";
 	}
 	
+	@Autowired
+	SqlSession ss;
+	
+	/**마이페이지메뉴의 랜딩페이지
+	 * 로그인한 회원의 주문내역을 보여준다
+	 * @param pcp
+	 * @param session
+	 * @return
+	 */
 	@GetMapping(value = "/orderlog")
-	public String showOrderLog(Principal pcp, HttpSession session) {
+	public String showOrderLog(MemberOrderPagingDTO mOPDto,Principal pcp, HttpSession session) {
 		log.info("show OrderLog");
 		//선언부
 		String userid = pcp.getName();
 		DecimalFormat dcFormat = new DecimalFormat("###,###,###");
 		
 		//마이페이지 상단 메뉴 정보 세션에 등록(적립금, 쿠폰) - EHCache 적용
-		session.setAttribute("totalPoints", dcFormat.format(mypagePointsService.getAmountOfPointById(userid)));
-		session.setAttribute("expPoints", dcFormat.format(mypagePointsService.getAmountOfExpiredPointById(userid)));
-		session.setAttribute("validCoupons", dcFormat.format(mypageCouponService.getCountOnConditions(userid)));
+		try { session.setAttribute("totalPoints", dcFormat.format(mypagePointsService.getAmountOfPointById(userid)));
+			}catch(Exception e) { session.setAttribute("totalPoints", "0"); }
+		try { session.setAttribute("expPoints", dcFormat.format(mypagePointsService.getAmountOfExpiredPointById(userid)));
+			}catch(Exception e) { session.setAttribute("expPoints", "0"); }
+		try { session.setAttribute("validCoupons", dcFormat.format(mypageCouponService.getCountOnConditions(userid)));
+			}catch(Exception e) { session.setAttribute("validCoupons", "0"); }
+		
+		//주문내역 리스트 출력
+		log.info(mOPDto.toString());
+		mOPDto.setUserid(userid);
+		List<MemberOrderDTO> lst = ss.selectList("orderlog.getOrderlogsById", mOPDto);
+		log.info("startSeq" + mOPDto.getStartSeq() + " , userid : " + mOPDto.getUserid() );
+		log.info("lst size : " + lst.size());
+		for (int i = 0 ; i < lst.size() ; i ++) {
+			log.info(lst.get(i).toString());
+		}
+		
 		
 		return "member/mypage/orderlog";
 	}
