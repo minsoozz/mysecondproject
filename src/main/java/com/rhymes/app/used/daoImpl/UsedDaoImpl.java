@@ -59,10 +59,9 @@ public class UsedDaoImpl implements UsedDao {
 	}
 
 	@Override
-	public P_MemberDTO getMemberDto(String userid) {
-
-		P_MemberDTO dto = sqlSession.selectOne(ns + "getMember", userid);
-
+	public P_MemberDTO getMemberDto(String id) {
+		P_MemberDTO dto = sqlSession.selectOne(ns + "getMember", id);
+				System.out.println("dto : " + dto.toString());
 		return dto;
 	}
 

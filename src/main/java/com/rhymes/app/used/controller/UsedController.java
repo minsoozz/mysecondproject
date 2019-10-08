@@ -45,10 +45,15 @@ public class UsedController {
 	
 	
 	@GetMapping("/hello") 
-	public String test(HttpServletRequest req) {
+	public String test(HttpServletRequest req,Principal prc) {
 		// 아직 구축이 제대로 안되서 임의로 로그인 아이디 설정해 놓음
-		P_MemberDTO Mdto = usedService.getMemberDto("sujin123");
-		Mdto.setUserid("sujin123");
+		System.out.println(prc.getName());
+		
+		String userid = prc.getName();
+		
+		P_MemberDTO Mdto = usedService.getMemberDto(userid);
+		
+		System.out.println(Mdto.toString());
 		
 		req.getSession().setAttribute("login", Mdto);
 		return "used/test";
