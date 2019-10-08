@@ -33,16 +33,17 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 </head>
 <body>
-
+	<input type="hidden" id="hdnPseq" value="${productDto.p_seq }">
+	
 	<div>	
 		<div class="mainImg" style="border:2px solid">
-			<img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
+			<img alt="사진1" src="/upload/store/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
 		</div>
 		<div style="border:2px solid red">
-			<img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
-			<img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
-			<img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
-			<img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
+			<img alt="사진2" src="/upload/store/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
+			<img alt="사진3" src="/upload/store/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
+			<img alt="사진4" src="/upload/store/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
+			<img alt="사진5" src="/upload/store/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
 		</div>
 	</div>
 
@@ -53,9 +54,14 @@ $(document).ajaxSend(function(e, xhr, options) {
 	<div class='' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
 		<br>사이즈 선택<br>
 		<c:forEach items="${sizelist }" var="size" varStatus="vs">
-			<%-- <option value="${size.size}" value2="${size.stock_seq }" label="${size.size }"> --%>
+			<c:if test="${size.quantity ne 0 }">
 			<input type="radio" name='sizeRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
 			<label for="chooseSize${vs.count }" id="_sizeChoo" class="sizeLabel" style="cursor: pointer; background-color: white;">${size.size }</label>
+			</c:if>
+			<c:if test="${size.quantity eq 0 }">
+			<input type="radio" name='sizeRadio' id="chooseSize${vs.count }" disabled="disabled" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
+			<label for="chooseSize${vs.count }" id="_sizeChoo" style="cursor: pointer; background-color: grey; color:white;">${size.size }</label>
+			</c:if>
 		</c:forEach>
 	</div>
 
@@ -68,6 +74,17 @@ $(document).ajaxSend(function(e, xhr, options) {
 	<br>
 	<input type="button" value="바로구매" id="buyBtn" onclick="buying()" style="cursor:pointer;"><br>
 	<input type="button" value="장바구니" class="basketBtn" style="cursor:pointer;">
+	<button type="button" class="wishBtn" style="cursor:pointer;">
+		위시리스트
+		<span>
+		<c:if test="${wishChk == false }">
+			<img class="heartImg" src="/img/store-img/unlike.png" style="width:10px; height:10px;">
+		</c:if>
+		<c:if test="${wishChk == true }">
+			<img class="heartImg" src="/img/store-img/like.png" style="width:10px; height:10px;">
+		</c:if>
+		</span>
+	</button>
 
     <div class="basket" style="overflow: scroll;">
  	</div>
@@ -117,6 +134,28 @@ $(document).on('click', '.sizeLabel', function(){
 	$(this).attr('style', 'background-color:#d7fd75');
 });
 
+/* 위시리스트 클릭 */
+$(document).on('click', '.wishBtn', function(){
+	var p_seq = $("#hdnPseq").val();
+	
+	$.ajax({
+        type:"get",
+        data: "p_seq=" + p_seq,
+        url:"/Rhymes/store/operWishlist",
+        success:function( data ){
+        	if(data == "insert"){
+        		$(".heartImg").attr('src', '/img/store-img/like.png');
+        	}else if(data == "delete"){
+        		$(".heartImg").attr('src', '/img/store-img/unlike.png');
+        	}
+		},
+        error:function(){
+           alert("error!!"); 
+        }
+	})
+		
+});
+
 // 장바구니 클릭
 $(document).on('click', '.basketBtn', function(){	
 	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
@@ -148,6 +187,7 @@ $(document).on('click', '.basketBtn', function(){
 		}
 	}
 });
+
 /* 미니 장바구니 리스트 */
 function showBasketList(arrLen, arr){
 	$(".blist").html("");
@@ -156,7 +196,7 @@ function showBasketList(arrLen, arr){
 	var str = "<div align='center' id='baskettitle'><h2>ㅋ장바구니ㅋ</h2></div>";
 	for (var i = 0; i < arrLen; i++) {
 		str += "<div stylesdf='margin-top:5%;' align='center' class='blist' >";
-		str += "<label><img src='/upload/"+ arr[i].photo1_file + "' style='width:100px; height:100px;'><br>";
+		str += "<label><img src='/upload/store/"+ arr[i].photo1_file + "' style='width:100px; height:100px;'><br>";
 		str += "<label class='_bDeleteBtn' value='"+arr[i].stock_seq+"'>X</label><br>";
 		str += "<label>" + arr[i].p_name + "</label><br>";
 		str += "<label>사이즈 : " + arr[i].size + "</label><br>";

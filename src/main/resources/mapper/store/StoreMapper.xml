@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="store">
+
+
+<select id="getCompanyList" resultType="String">
+	SELECT C_NAME FROM rhy_mem_c
+	ORDER BY (CASE WHEN C_NAME REGEXP '[A-Z]' THEN C_NAME  REGEXP '[0-9]' ELSE C_NAME  NOT REGEXP '[A-Z]' END), C_NAME  ASC 
+</select>
+
+<!-- 상품리스트 -->
+ <select id="getProductList" parameterType="com.rhymes.app.Store.model.ProductParam" resultType="com.rhymes.app.Store.model.ProductDto">
+ 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE 		
+ 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY P_SEQ DESC) AS RNUM,
+ 			P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO01_FILE
+ 			FROM rhy_store_product
+ 			WHERE 1 = 1
+ 			
+ 			<!-- 검색시 -->
+ 			<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">
+				<!-- 브랜드 검색 -->
+				<if test="criterion == 'company_search'">
+					AND C_NAME LIKE '%' #{keyword} '%'
+				</if>
+				<!-- 제품이름&브랜드 통합검색 -->				
+				<if test="criterion == 'all_search'">
+					AND C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} 
+				</if>
+			</if>
+			
+			<!-- 카테고리 선택시 -->
+			<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">
+				<!-- 3차 카테고리 선택시(1,2,3 모두 존재) -->
+				<if test="c1_name != null and c1_name != '' and c2_name != null and c2_name != '' and c3_name != null and c3_name != ''" >
+					AND C1_NAME = #{c1_name} AND C2_NAME = #{c2_name} AND #{c3_name}
+				</if>
+				<!-- 2차 카테고리 선택시(1,2만 존재) -->
+				<if test="c1_name != null and c1_name != '' and c2_name != null and c2_name != '' and (c3_name = null or c3_name = '')" >
+					AND C1_NAME = #{c1_name} AND C2_NAME = #{c2_name}
+				</if>
+				<!-- 1차 카테고리 선택시(1만 존재) -->
+				<if test="c1_name != null and c1_name != '' and (c2_name = null or c2_name != '') and (c3_name = null or c3_name = '')" >
+					AND C1_NAME = #{c1_name}
+				</if>
+			</if>
+			
+ 	WHERE RNUM BETWEEN ${start} AND ${end}		
+    ORDER BY P_SEQ DESC		 	 
+ </select>
+ 
+ <select id="productCnt" parameterType="com.rhymes.app.Store.model.ProductParam" resultType="java.lang.Integer">
+ 	SELECT IFNULL(COUNT(*), 0) AS CNT
+	FROM rhy_store_product
+	WHERE 1=1
+	<!-- 검색시 -->
+			<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">
+			<!-- 브랜드 검색 -->
+			<if test="criterion == 'company_search'">
+				AND C_NAME LIKE '%' #{keyword} '%'
+			</if>
+			<!-- 제품이름&브랜드 통합검색 -->				
+			<if test="criterion == 'all_search'">
+				AND C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} 
+			</if>
+		</if>
+		
+		<!-- 카테고리 선택시 -->
+		<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">
+			<!-- 3차 카테고리 선택시(1,2,3 모두 존재) -->
+			<if test="c1_name != null and c1_name != '' and c2_name != null and c2_name != '' and c3_name != null and c3_name != ''" >
+				AND C1_NAME = #{c1_name} AND C2_NAME = #{c2_name} AND #{c3_name}
+			</if>
+			<!-- 2차 카테고리 선택시(1,2만 존재) -->
+			<if test="c1_name != null and c1_name != '' and c2_name != null and c2_name != '' and (c3_name = null or c3_name = '')" >
+				AND C1_NAME = #{c1_name} AND C2_NAME = #{c2_name}
+			</if>
+			<!-- 1차 카테고리 선택시(1만 존재) -->
+			<if test="c1_name != null and c1_name != '' and (c2_name = null or c2_name != '') and (c3_name = null or c3_name = '')" >
+				AND C1_NAME = #{c1_name}
+			</if>
+		</if>
+	
+ </select>
+
+
+</mapper>

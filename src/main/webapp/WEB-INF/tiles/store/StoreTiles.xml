@@ -20,10 +20,7 @@
        <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />      
     </definition>
 <!-- 상품등록 -->    
-   <definition name="register.tiles" template="/WEB-INF/views/store/layout/store_template.jsp">       
-	   <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
-	   <put-attribute name="body" value="/WEB-INF/views/store/register.jsp"/>      
-	   <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
+   <definition name="register.tiles" template="/WEB-INF/views/store/register.jsp">       
    </definition>
 <!-- 장바구니 --> 
     <definition name="basket.tiles" template="/WEB-INF/views/store/layout/store_template2.jsp">

@@ -10,14 +10,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -27,11 +26,14 @@ import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.OrderDto;
 import com.rhymes.app.Store.model.ProductDto;
+import com.rhymes.app.Store.model.ProductParam;
 import com.rhymes.app.Store.model.StockDto;
+import com.rhymes.app.Store.model.WishlistDto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.PurchaseService;
 import com.rhymes.app.Store.service.RegisterService;
+import com.rhymes.app.Store.service.StoreService;
 
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +46,8 @@ import lombok.extern.slf4j.Slf4j;
 public class StoreController {
 	
 	@Autowired
+	StoreService store;
+	@Autowired
 	RegisterService register;
 	@Autowired
 	PurchaseService purchase;
@@ -54,6 +58,48 @@ public class StoreController {
 	public String register()throws Exception{
 		return "register.tiles";
 	}  
+	
+	
+	@GetMapping("/store/productList")
+	public String productList(Model model, ProductParam param) throws Exception{
+		/* 브랜드 리스트 */
+		List<String> clist = store.getCompnayList();	
+		/* 2차 카테고리 리스트 */
+		List<Category2Dto> cate2Wlist = register.getCate2List(2);
+		List<Category2Dto> cate2Mlist = register.getCate2List(1);
+		
+		// paging 처리
+		int sn = param.getPageNumber();
+		int start = sn * param.getRecordCountPerPage() + 1; 
+		int end = (sn + 1) * param.getRecordCountPerPage();
+		
+		param.setStart(start);
+		param.setEnd(end);
+				
+		//상품 총갯수
+		int totalProduct = store.getProductCnt(param);
+		
+		/* 상품 리스트 */
+		List<ProductDto> plist = store.getProductList(param);
+		
+		for (int i = 0; i < plist.size(); i++) {
+			int price = plist.get(i).getP_price();
+			plist.get(i).setP_price2(formatter.format(price));
+		}
+		
+		//
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("totalRecordCount", totalProduct);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		
+		
+		model.addAttribute("cate2Wlist", cate2Wlist);
+		model.addAttribute("cate2Mlist", cate2Mlist);
+		model.addAttribute("clist", clist);
+		model.addAttribute("plist", plist);
+		return "productList.tiles";
+	}
 	
 	@ResponseBody
 	@GetMapping("/store/cate2List")
@@ -85,11 +131,11 @@ public class StoreController {
 	@RequestMapping(value="/store/registerInsert", method = RequestMethod.POST)
     public String registerInsert(Model model, ProductDto product, StockDto stock,
       MultipartHttpServletRequest multi, HttpServletRequest req) throws Exception{
-      product.setC_name("test");
+      product.setC_name("뚱뚱이마켓");
 		
 	  int p_seq = register.getPseq();
 	  		
-      String path = req.getServletContext().getRealPath("/upload");
+      String path = req.getServletContext().getRealPath("/upload/store");
       System.out.println("path : " + path);
       String fileName = "";
       
@@ -160,30 +206,14 @@ public class StoreController {
 						System.out.println("[" + sizeArr[i] + "사이즈] stock insert 성공!!");
 					}
 				}
-
 			} else {
 				System.out.println("product insert 실패");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-      
       return "redirect:/Rhymes/store/productList";
    }
-	
-	@GetMapping("/store/productList")
-	public String productList(Model model) throws Exception{
-
-		List<ProductDto> plist = purchase.getProductList();
-
-		for (int i = 0; i < plist.size(); i++) {
-			int price = plist.get(i).getP_price();
-			plist.get(i).setP_price2(formatter.format(price));
-		}
-		
-		model.addAttribute("plist", plist);
-		return "productList.tiles";
-	}
 	
 	//@PostMapping("/store/productDetail")
 	@RequestMapping(value="/store/productDetail", method = RequestMethod.GET)
@@ -193,14 +223,22 @@ public class StoreController {
 		ProductDto productDto = purchase.getProductDetail(p_seq);
 		productDto.setP_price2(formatter.format(productDto.getP_price()));
 		
-		List<String> photolist = new ArrayList<String>();
-		photolist.add(productDto.getPhoto1_file());
-		photolist.add(productDto.getPhoto2_file());
-		photolist.add(productDto.getPhoto3_file());
-		photolist.add(productDto.getPhoto4_file());
-		photolist.add(productDto.getPhoto5_file());
+		//위시리스트 체크 여부
+		 WishlistDto wish = new WishlistDto();
+		 wish.setId("sujin123");
+		 wish.setP_seq(p_seq);
+		 boolean wishChk = purchase.chkWishlist(wish);
 		
-		model.addAttribute("photolist", photolist);
+		/*
+		 * List<String> photolist = new ArrayList<String>();
+		 * photolist.add(productDto.getPhoto1_file());
+		 * photolist.add(productDto.getPhoto2_file());
+		 * photolist.add(productDto.getPhoto3_file());
+		 * photolist.add(productDto.getPhoto4_file());
+		 * photolist.add(productDto.getPhoto5_file()); model.addAttribute("photolist",
+		 * photolist);
+		 */
+		model.addAttribute("wishChk", wishChk);
 		model.addAttribute("sizelist", sizelist);
 		model.addAttribute("productDto", productDto);
 		
@@ -238,6 +276,40 @@ public class StoreController {
 		
 		return "redirect:/Rhymes/payment";
 	}
+	
+	@ResponseBody
+	@GetMapping("/store/operWishlist")
+	public String insertWishlist(WishlistDto wish) throws Exception {
+		String str = "";
+		
+		//세션에서 아이디 담아야함(수정필요)
+		wish.setId("sujin123");
+		
+		// 단일상품의 위시리스트 버튼을 이미 클릭했는지 확인 후 분기
+		boolean wishChk = purchase.chkWishlist(wish);
+		
+		// 위시리스트에 존재하는 경우
+		if(wishChk) {
+			boolean deleteBool = purchase.deleteWishlist(wish);
+			if(deleteBool) {
+				str = "delete";				
+			}else {
+				str = "제거 실패ㅠ";
+			}
+		// 위시리스트에 존재하지 않는 경우	
+		}else {
+			boolean insertBool = purchase.insertWishlist(wish);
+			
+			if(insertBool) {
+				str = "insert";
+			}else {
+				str ="등록 실패 ㅎ";
+			}
+		}
+		
+		return str;
+	}
+	
 	
 	@ResponseBody
 	@GetMapping("/store/insertBasket")
@@ -299,14 +371,20 @@ public class StoreController {
 		int unitPrice = 0;
 		int basketPcnt = 0;
 		int total_price = 0;
+		int quantity = 0; /*재고수량*/
+		
 		for (int i = 0; i < blist.size(); i++) {
 			int price = blist.get(i).getP_price();
 			blist.get(i).setP_price2(formatter.format(price));
-			// 총액 결제 금액 계산
+		// 총액 결제 금액 계산
 			unitPrice = blist.get(i).getP_price();
 			basketPcnt = blist.get(i).getP_quantity();
-			//제품 단가 * 재고번호 수량
-			total_price += (unitPrice * basketPcnt);
+			quantity = blist.get(i).getQuantity();
+			if(quantity != 0) {
+				//제품 단가 * 재고번호 수량
+				total_price += (unitPrice * basketPcnt);
+			}
+			
 		}
 		blist.get(0).setTotal_price(formatter.format(total_price));
 		blist.get(0).setTotal_price2(total_price);
@@ -321,7 +399,7 @@ public class StoreController {
 		int unitPrice = 0;
 		int basketPcnt = 0;
 		int total_price = 0;
-		String updatedTotal = "";	
+		int quantity = 0;
 		
 		try {
 			purchase.deleteBasket(b_seq);
@@ -332,7 +410,11 @@ public class StoreController {
 				blist.get(i).setP_price2(formatter.format(price));
 				unitPrice = blist.get(i).getP_price();
 				basketPcnt = blist.get(i).getP_quantity();
-				total_price += (unitPrice * basketPcnt);				
+				quantity = blist.get(i).getQuantity();
+				if(quantity != 0) {
+					//제품 단가 * 재고번호 수량
+					total_price += (unitPrice * basketPcnt);
+				}				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -367,6 +449,7 @@ public class StoreController {
 		int unitPrice = 0;
 		int basketPcnt = 0;
 		int total_price = 0;
+		int quantity = 0;
 		
 		basket.setId("sujin123");
 		
@@ -380,7 +463,13 @@ public class StoreController {
 					blist.get(i).setP_price2(formatter.format(price));
 					unitPrice = blist.get(i).getP_price();
 					basketPcnt = blist.get(i).getP_quantity();
-					total_price += (unitPrice * basketPcnt);				
+					quantity = blist.get(i).getQuantity();
+					
+					log.info(quantity +"");
+					if(quantity!=0) {
+						//제품 단가 * 재고번호 수량
+						total_price += (unitPrice * basketPcnt);
+					}
 				}
 			}else {
 				log.info("수량변경 실패");

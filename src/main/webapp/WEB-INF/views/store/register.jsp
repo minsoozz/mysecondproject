@@ -288,6 +288,9 @@ function numberWithCommas(x) {
 <script>
 
 $(document).on('click', '#finishBtn', function(){
+	
+	/* if($("#_pname").val()!="" && $("#_ptitle").val() && ) */
+	
 	alert("등록이 완료되었습니다.");
 	$("#p_name").val($("#_pname").val());
 	$("#p_title").val($("#_ptitle").val());

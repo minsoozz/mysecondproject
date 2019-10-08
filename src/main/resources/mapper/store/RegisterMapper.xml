@@ -4,11 +4,11 @@
 
 <mapper namespace="register">
  <select id="getCate2List" parameterType="Integer" resultType="com.rhymes.app.Store.model.category.Category2Dto">
-     SELECT * FROM rhy_store_cate2
+     SELECT C2_SEQ, C2_NAME, C1_SEQ FROM rhy_store_cate2
      WHERE C1_SEQ = #{c1_seq}
  </select>
  <select id="getCate3List" parameterType="Integer" resultType="com.rhymes.app.Store.model.category.Category3Dto">
-     SELECT * FROM rhy_store_cate3
+     SELECT C3_SEQ, C3_NAME, C2_SEQ FROM rhy_store_cate3
      WHERE C2_SEQ = #{c2_seq}
  </select>
  

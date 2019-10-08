@@ -6,6 +6,7 @@ import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.StockDto;
+import com.rhymes.app.Store.model.WishlistDto;
 
 public interface PurchaseService {
 
@@ -18,4 +19,7 @@ public interface PurchaseService {
 	public void deleteBasket(int b_seq) throws Exception;
 	public int updateBaksetQ(BasketDto basket) throws Exception;
 	public int deleteBasektAll(BasketDto basket) throws Exception;
+	public boolean insertWishlist(WishlistDto wish) throws Exception;
+	public boolean chkWishlist(WishlistDto wish) throws Exception;
+	public boolean deleteWishlist(WishlistDto wish) throws Exception;
 }

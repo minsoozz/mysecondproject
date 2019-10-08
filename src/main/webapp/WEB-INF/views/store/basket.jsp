@@ -15,32 +15,35 @@
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 body{
-	font: Open Sans;
-	min-height: 100%;
-	box-sizing: border-box;
-	height:100%;
-	width:100%;
-	
+   font: Open Sans;
+   min-height: 100%;
+   box-sizing: border-box;
+   height:100%;
+   width:100%;
+   
 }
 h2 {
   font: 100 40px Open Sans;
-  text-align: center;
-  margin: 50px 0px 22px 0px;
+  text-align: left;
+  margin: 50px 20px 22px 0px;
+}
+#cart_wrap{
+   margin-left: 50px;
 }
 #cntProduct_wrap{
   font: 100 15px Open Sans;
-  text-align: center;
-  margin: 50px 0px 50px 0px;
+  text-align: left;
+  margin: 50px 20px 50px 0px;
   margin-top: 0px;
 }
 #mainContainer{
   position: absolute;
-  top: 380px;
+  top: 450px;
   bottom: 0;
   left: 0;
   right: 0;
-  height:100%;
-  width: 75%;
+  height:auto;
+  width: 1500px;
   background: white;
   margin: auto;
 }
@@ -87,7 +90,7 @@ border-bottom: 1px solid #DADCE0;
 padding-top: 15px;
 padding-bottom: 15px;
 width:70%;
-height:115px;
+height:170px;
 float:left;
 }
 .pname_wrap{
@@ -128,7 +131,7 @@ position:absolute;
 border:1px solid #EAEAEA;
 height:auto;
 width:400px;
-margin-left:30px;
+margin-left:100px;
 top:0px;
 left:1000px;
 float:right;
@@ -205,15 +208,15 @@ right: auto;
 margin-left: 38%;
 }
 .pqSelect{
-	border-radius: 10px;
-	width:100px;
-	border: 1px solid #DADCE0;
-	display:inline-block;
-	text-align: center;
-	margin-top: 30px;
-	position:relative;
-	left:-18px;
-	height:22px;
+   border-radius: 10px;
+   width:100px;
+   border: 1px solid #DADCE0;
+   display:inline-block;
+   text-align: center;
+   margin-top: 30px;
+   position:relative;
+   left:-18px;
+   height:22px;
 }
 .goShopping{
 position: relative;
@@ -236,9 +239,11 @@ opacity:0.9;
 
 </style>
 <body>
-
+<br><br>
+<div id="cart_wrap">
 <h2><b>장바구니</b></h2>
 <div id="cntProduct_wrap"><label id="_allCnt">${fn:length(blist) }</label>개 상품</div>
+</div>
 
 <div id="mainContainer">
 <div id="product-select-all"><a href="#" class="allDeleteBtn" style="color:black">전체삭제</a></div>
@@ -246,30 +251,43 @@ opacity:0.9;
 	<div id=sub1Container" class="sub1_${ba.b_seq }">
 		<div class="product-opt_basket">
 			<div class="item-info">
-				<span class="img_wrap"><a href="/Rhymes/store/productDetail?p_seq=${ba.p_seq }"><img alt="사진x" src="/upload/${ba.photo1_file }" style="width:100px;height:100px;"></a></span>
+				<span class="img_wrap"><a href="/Rhymes/store/productDetail?p_seq=${ba.p_seq }"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></a></span>
 				<div class="info_wrap">
 					<div style="margin-top:8px; font-size: 15px;" class="pname_wrap"><a >${ba.c_name }</a></div>
 					<div style="margin-bottom: 7px; margin-top:3px;" class="pname_wrap"><a >${ba.p_name }</a></div>
 					<div class="info2_warp">
 					사이즈 : <span>${ba.size }</span><br>
+					<c:if test="${ba.quantity ne 0 }">
 					<div style="margin-top:3px;">수량 : <span class="eachPq${ba.b_seq }" id="eachPq${vs.count }">${ba.p_quantity }</span></div>
 					<div style="margin-top:3px;">단가 : <span><fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price}" /></span></div>
+					</c:if>
+					<c:if test="${ba.quantity eq 0 }">
+					<div style="margin-top:3px;">수량 : <span>${ba.p_quantity }</span></div>
+					<div style="margin-top:3px;">단가 : <span><fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price}" /></span></div>
+					</c:if>										
 					</div>
 				</div>
 				<div class="optionchange_wrap">
-					<a href="#" onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )">수량 변경</a><br>
+					<c:if test="${ba.quantity ne 0 }">
+					<a href="#" onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9">수량 변경</font></a><br>
 					<div class="pqSelect">
 						<span class="minus_Btn" style="cursor:pointer;" value="${ba.b_seq }">-</span>&nbsp;&nbsp;&nbsp;
 							<label id="pqCnt${ba.b_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
 						<span class="plus_btn" style="cursor:pointer;" value="${ba.b_seq }">+</span>
 					</div>
+					</c:if>
 				</div>
 				<div class="price_wrap">
 					<input type="hidden" value="${ba.p_price }" id="eachPrice${ba.b_seq }">											
 					<input type="hidden" value="${ba.p_price * ba.p_quantity}" id="pMq${ba.b_seq }">
-					<span class="eachMultiple${ba.b_seq }">
-					<fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price * ba.p_quantity}" />
-					</span> 원
+					<c:if test="${ba.quantity ne 0 }">
+						<span class="eachMultiple${ba.b_seq }">
+						<fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price * ba.p_quantity}" />
+						</span> 원
+					</c:if>
+					<c:if test="${ba.quantity eq 0 }">
+						<span><font style="color:red">품절</font>	</span>
+					</c:if>
 				</div>
 				<div class="delete_wrap">
 					<label class="delete_btn" value="${ba.b_seq }">X</label>
@@ -361,10 +379,12 @@ $(document).on('click', '.orderBtn', function(){
 	
 	//alert(len);
 	for (var i = 0; i < len; i++) {
-		blist_pQuantity += $("#eachPq" + (i+1)).html();
-		blist_pQuantity += "/";
-		blist_stockseq += $("#eachSs" + (i+1)).val();
-		blist_stockseq += "/";
+		if($("#eachPq" + (i+1)).html() != undefined){
+			blist_pQuantity += $("#eachPq" + (i+1)).html();
+			blist_pQuantity += "/";
+			blist_stockseq += $("#eachSs" + (i+1)).val();
+			blist_stockseq += "/";
+		}
 	}
 	$("#blist_stockseq").val(blist_stockseq);
 	$("#blist_pQuantity").val(blist_pQuantity);

@@ -39,11 +39,8 @@
                         <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
 
-
                     </div>
                 </div>
-                
-               
                 
                 <!--  Login Register Area  -->
                 <div class="col-7 col-xs-6">
