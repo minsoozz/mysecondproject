@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.member.dao.MypageCouponDAO;
@@ -22,6 +24,7 @@ public class MypageCouponDAOImpl implements MypageCouponDAO {
 	/**검색조건에 맞는 유효한 쿠폰의 총 개수 리턴
 	 * @return
 	 */
+	@Cacheable(key = "#userid", value = "getCountOnConditions")
 	@Override
 	public int getCountOnConditions(String userid) {
 		// TODO Auto-generated method stub
@@ -60,6 +63,7 @@ public class MypageCouponDAOImpl implements MypageCouponDAO {
 	 * @param cDDto
 	 * @return
 	 */
+	@CacheEvict(key = "#userid", value = {"getAmountOfPointById", "getAmountOfExpiredPointById", "getCountOnConditions"})
 	@Override
 	public int regiNewCoupon(MemberCouponDetailDTO cDDto) {
 		return sqlSession.update(ns + "regiNewCoupon", cDDto);

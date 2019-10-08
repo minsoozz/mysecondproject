@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.member.dao.MypagePointsDAO;
@@ -22,6 +24,7 @@ public class MypagePointsDAOImpl implements MypagePointsDAO {
 	 * @param mPDto
 	 * @return
 	 */
+	@CacheEvict(value = {"getAmountOfPointById", "getAmountOfExpiredPointById"}, key = "#userid")
 	@Override
 	public int addNewPoint(MemberPointDTO mPDto) {
 		return sqlSession.insert(ns + "addNewPoint", mPDto);
@@ -61,6 +64,7 @@ public class MypagePointsDAOImpl implements MypagePointsDAO {
 	 * @param userid
 	 * @return
 	 */
+	@Cacheable(key = "#userid", value = "getAmountOfPointById")
 	@Override
 	public int getAmountOfPointById(String userid) {
 		// TODO Auto-generated method stub
@@ -71,6 +75,7 @@ public class MypagePointsDAOImpl implements MypagePointsDAO {
 	 * @param userid
 	 * @return
 	 */
+	@Cacheable(key = "#userid", value = "getAmountOfExpiredPointById")
 	@Override
 	public int getAmountOfExpiredPointById(String userid) {
 		// TODO Auto-generated method stub

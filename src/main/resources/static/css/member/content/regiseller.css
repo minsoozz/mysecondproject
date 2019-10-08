@@ -1,0 +1,109 @@
+@charset "UTF-8";
+.inputtext_s{
+	word-break: break-all;
+	box-sizing: border-box;
+	font: inherit;
+	margin: 5px 5px 5px 5px;
+	letter-spacing: -0.05em;
+	max-width: 100%;
+	font-family: 'Noto Sans';
+	color: #333;
+	width: 150px;
+	height: 34px;
+	padding: 0 19px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	font-size: 14px;
+	line-height: 20px;
+	outline: none;
+}
+.inputtext_bname{
+	word-break: break-all;
+	box-sizing: border-box;
+	font: inherit;
+	margin: 5px 5px 5px 5px;
+	letter-spacing: -0.05em;
+	max-width: 100%;
+	font-family: 'Noto Sans';
+	color: #333;
+	width: 150px;
+	height: 34px;
+	padding: 0 19px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	font-size: 14px;
+	line-height: 20px;
+	outline: none;
+	position: relative;
+    left: 50px;
+}
+.regibutton{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #525252;
+/*     font-weight: bolder; */
+    height: 33px;
+    padding: 0px 30px 0px 30px;
+    margin: 0px 9px;
+}
+.regiBtn{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #525252;
+/*     font-weight: bolder; */
+    height: 43px;
+    width: 200px;
+    /* padding: 0px 30px 0px 30px; */
+    margin: 3px 9px;
+}
+.regiBtn:hover{
+	color: #c2fb2d;
+	border-color:#c2fb2d; 
+}
+.regibutton:hover{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bolder;
+    height: 33px;
+    padding: 0px 30px 0px 30px;
+    color: #c2fb2d;
+	border-color:#c2fb2d; 
+}
+.findidtext{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: larger;
+    color: #505050;
+    /* margin-bottom: 10px; */
+    padding-bottom: 16px;
+}
+.regisellermargin{
+	margin: 59px;
+    width: 1000px;
+}
+.cnamespan{
+	position: relative;
+	left: -20px;
+}
+#_crText{
+	font-size: small;
+    position: relative;
+/*     top: -29px; */
+    left: -244px;
+}
+.cnamediv{
+	position: relative;
+	left: -293px;
+}
+td{
+	border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: #d7fd75;
+    border: solid 1px #d7fd75;
+}

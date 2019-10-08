@@ -3,6 +3,7 @@
 
 <mapper namespace="payment">
 
+<!-- 비회원으로 주문내역 있는지 확인 -->
 <select id="not_member_confirm" parameterType="com.rhymes.app.payment.model.PaymentDTO"
 resultType="java.lang.String">
 SELECT SEND_NAME
@@ -10,9 +11,17 @@ FROM RHY_PAYMENT
 WHERE SEND_NAME=#{send_name } AND PAYMENT_CODE=#{payment_code }
 </select>
 
+<!-- 주문내역 조회 -->
 <select id="getOrdercheck" resultType="com.rhymes.app.payment.model.PaymentDTO">
 SELECT * FROM RHY_PAYMENT
 ORDER BY RDATE DESC
 </select>
+
+<!-- 주문상세내역 조회 -->
+<select id="getOrdercheckDetail" resultType="com.rhymes.app.payment.model.PaymentDTO">
+SELECT * FROM RHY_PAYMENT
+ORDER BY RDATE DESC
+</select>
+
 
 </mapper>
