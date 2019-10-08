@@ -47,7 +47,7 @@
 	<td width="20%" align="center">상품 금액</td>
 </tr>
 
-<c:forEach var="b" items="${bOlist }" varStatus="i">
+<%-- <c:forEach var="b" items="${bOlist }" varStatus="i"> --%>
 <tr>
 	<td rowspan="2">상품 이미지</td>
 	<td width="50%" align="left">[돌쇠]무항생제 한우사골 (고기)곰탕</td>
@@ -56,7 +56,7 @@
 <tr>
 	<td align="left">1개/개 당 11,600원</td>
 </tr>
-</c:forEach>
+<%-- </c:forEach> --%>
 
 </table>
 </div>
@@ -74,14 +74,14 @@
 <tr>
 	<th>휴대폰 번호</th>
 	<td>
-	<input type="text" id="to" placeholder="인증받을 전화번호">   <!-- 인증번호 받을사람 휴대폰 번호 -->	
+	<input type="text" id="to" placeholder="전화번호 입력">   <!-- 인증번호 받을사람 휴대폰 번호 -->
 	<input type="button" id="oneselfConfirmBtn" value="본인인증">
 	&nbsp;비회원으로 구매를 원하시면, 본인인증이 필요합니다.<br>
 	
-	인증번호 입력 :    <input type="text" id="userNum">   <!-- 인증번호 입력창 -->
+	<input type="text" id="userNum" placeholder="인증번호 입력">   <!-- 인증번호 입력창 -->
 	<input type="button" id="enterBtn" value="확인">
 
-	<input type="text" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+	<!-- <input type="text" name="text" id="text"> -->   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
 
 	</td>
 </tr>

@@ -51,7 +51,7 @@ $("#oneselfConfirmBtn").click(function() {
 				alert("text : " + text + ", to : " + to);
 				
 				$.ajax({
-					url:"/Rhymes/sendsms",
+					url:"/sendsms",
 					type:"get",
 					data:{
 						to: to,
@@ -198,7 +198,7 @@ function paymens(){
 	        msg += '\n결제수단 : ' + rsp.pay_method;
 	        msg += '\n가상계좌 : ' + rsp.vbank_num;
 
-	        location.href = '/Rhymes/paymentAf?paid_amount='+rsp.paid_amount+'&imp_uid='+rsp.imp_uid
+	        location.href = '/paymentAf?paid_amount='+rsp.paid_amount+'&imp_uid='+rsp.imp_uid
 	        		+'&status='+rsp.status+'&pay_method='+rsp.pay_method+'&receipt_url='+rsp.receipt_url
 	        		+'&vbank_num='+rsp.vbank_num+'&vbank_name='+rsp.vbank_name
 	        		+'&vbank_date='+rsp.vbank_date+'&vbank_holder='+rsp.vbank_holder; //완료페이지로 이동
