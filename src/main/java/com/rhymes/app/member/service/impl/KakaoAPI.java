@@ -120,47 +120,20 @@ public class KakaoAPI {
             
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-//            JsonObject id = element.getAsJsonObject().get("id").getAsJsonObject();
-            
-//            int id = element.getAsInt();
+
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
         	userInfo.put("nickname", nickname);
         	userInfo.put("email", email);
             	
-            
-            
-//            userInfo.put("id", id);
-            
-            /*
-            String userid = (String)userInfo.get("id");
-            String useremail = (String)userInfo.get("email");
-            String username = (String)userInfo.get("nickname");
-            String userbirth = (String)userInfo.get("birthday");
-            String usergender = (String)userInfo.get("gender");
 
-            P_MemberDTO pmem = new P_MemberDTO(userid, username, useremail, usergender, userbirth);
-            
-            System.out.println("pmem toString : "+pmem.toString());
-            
-            MemberDTO mem = new MemberDTO(userid, passwordEncoder.encode("testpw"));
-            
-            boolean b = memberdao.getkakaoregi(mem);	// 공통정보
-            
-            if(b) {
-            
-	            memberdao.getkakaoregi_p(pmem);	// 추가정보
-	            
-	            AuthoritiesDTO adto = new AuthoritiesDTO(userid, "ROLE_MEMBER");
-	            memberdao.getAuthAddmem(adto);	// 권한
-	            
-            }
-            */
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        } catch (NullPointerException npe) {
+			userInfo.put("email", null);
+		}
         
         return userInfo;
     }

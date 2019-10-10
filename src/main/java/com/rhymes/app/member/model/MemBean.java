@@ -22,7 +22,7 @@ public class MemBean implements Serializable {
 	private boolean isCredentialsNonExpired;	// 만료여부
 	private boolean isEnabled;					// 사용가능여부
 	
-		// P_MemberDto
+	// P_MemberDto
 	private String username;		// 이름
 	private String postcode;		// 우편번호
 	private String address;			// 주소
@@ -33,7 +33,7 @@ public class MemBean implements Serializable {
 	private String gender;		// 성별
 	private String birth;		// 생일
 	private int count;			// 인증횟수
-		
+	
 	// AuthoritiesDto
 	private String authority;	// 권한
 	

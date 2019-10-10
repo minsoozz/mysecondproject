@@ -45,6 +45,9 @@ public interface MemberService{
 	// 카카오 로그인
 	public boolean getkakaouser(MemBean mbean);
 	
+	// 카카오이메일과 다른 이메일로 가입했을 경우
+//	public boolean getSnsUserName(MemBean mbean);
+	
 	// 네이버 유저확인
 	public boolean getNaveruser(MemBean mbean);
 	
