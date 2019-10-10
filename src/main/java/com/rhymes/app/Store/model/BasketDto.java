@@ -7,11 +7,13 @@ import lombok.ToString;
 
 public class BasketDto {
 
-	private int b_seq;		// 장바구니 seq
-	private String id;		// 장바구니를 담은 user
+	private int b_seq;			// 장바구니 seq
+	private String id;			// 장바구니를 담은 user
 	private int stock_seq;		// 상품 재고번호(색상, 사이즈 구분)
 	private int p_quantity;		// 장바구니 상품수량
 	private String rdate;		// 장바구니에 담은 날짜
+	
+	
 	public int getB_seq() {
 		return b_seq;
 	}

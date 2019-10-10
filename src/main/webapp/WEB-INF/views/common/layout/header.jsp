@@ -68,7 +68,7 @@
                                 <a href="/mypage/orderlog">Mypage</a>
                             </div>
                             <div class="cart">
-                                <a href="a.jsp">Cart</a>
+                                <a href="/Rhymes/store/basket">Cart</a>
                             </div>
                         </div>
                         
@@ -124,10 +124,10 @@
                             <ul class="navbar-nav" id="rhymes-nav">
                             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList">WOMEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=WOMEN">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList">MEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=MEN">MEN</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/used/usedlist">MARKET</a>
