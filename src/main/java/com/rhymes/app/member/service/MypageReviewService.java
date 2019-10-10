@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.rhymes.app.member.model.mypage.MemberOrderDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 
 public interface MypageReviewService {
 
@@ -12,6 +14,18 @@ public interface MypageReviewService {
 	 * @return
 	 */
 	public List<String> getPaymentCodesByUserid(String userid);
+	
+	/**매개변수로 받은 검색조건(userid, review_written(t/f))에 맞는 모든 후기의 개수를 리턴
+	 * @param mRPDto
+	 * @return
+	 */
+	public int getReviewCountByIdAndConditions(MemberReviewPagingDTO mRPDto);
+	
+	/**매개변수로 받은 검색조건(USERID, review_written(t/f), paging)에 맞는 모든 후기목록를 가져옴
+	 * @param mRPDto
+	 * @return
+	 */
+	public Map<String, List<MemberReviewDTO>> getReviewByIdAndOtherConditions(MemberReviewPagingDTO mRPDto);
 	
 	/**리뷰 작성 여부에 따라 Map에 저장
 	 * key:true, value:리뷰가작성된 주문이력 Map

@@ -17,7 +17,7 @@
 
 <div class="body_wrap">
 <div class="mypage_main_content_top">
-	<div class="top_title" align="left">
+	<div class="top_title mypage_main_content_title" align="left">
 		<h3>주문 내역</h3>
 	</div>
 	<div class="top_term" id="_top_term" align="right">

@@ -1,11 +1,14 @@
 package com.rhymes.app.member.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rhymes.app.member.model.mypage.MemberOrderDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 import com.rhymes.app.member.service.MypageOrderlogService;
 import com.rhymes.app.member.service.MypageReviewService;
 
@@ -68,27 +73,52 @@ public class MypageReviewController {
 		
 		return "member/mypage/review";
 	}
-
-	/**작성가능 후기 뷰를 리턴
+	
+	/**작성가능 후기목록 뷰를 리턴
 	 * @param model
 	 * @return
 	 */
 	@GetMapping(value = "/review/review_sub_wait")
-	public String showReviewSubWait(Model model, @RequestParam(defaultValue = "1")int pageNum) {
+	public String showReviewSubWait(Model model, 
+			@RequestParam(defaultValue = "1")int pageNum, Principal pcp) throws Exception {
+		log.info("showReviewSubWait()");
 		
-		
-		
-		return "member/mypage/review/review_sub_wait";
+		setReviewViewModel(model, pageNum, pcp, "false");
+				
+		return "member/mypage/sub/review_sub_wait";
 	}
 	
-	/**작성가능 후기 뷰를 리턴
+	/**작성가능 후기목록 뷰를 리턴
 	 * @param model
 	 * @return
 	 */
 	@GetMapping(value = "/review/review_sub_done")
-	public String showReviewSubDone(Model model) {
+	public String showReviewSubDone(Model model,
+			@RequestParam(defaultValue = "1")int pageNum, Principal pcp) throws Exception {
+		log.info("showReviewSubDone()");
 		
+		setReviewViewModel(model, pageNum, pcp, "true");
 		
-		return "member/mypage/review/review_sub_done";
+//		return "member/mypage/sub/review_sub_done";
+		return "member/mypage/sub/review_sub_wait";
+	}
+	
+	private void setReviewViewModel(Model model, int pageNum, Principal pcp, String type) {
+		//선언부
+		String userid = pcp.getName();
+		MemberReviewPagingDTO mRPDto = new MemberReviewPagingDTO(userid, pageNum, type);
+		Map<String, List<MemberReviewDTO>> reviewMap = null;
+		List<String> keySet = null;
+				
+		//모델 통신
+		mRPDto.setTotalSize(mypageReviewService.getReviewCountByIdAndConditions(mRPDto));
+		reviewMap = mypageReviewService.getReviewByIdAndOtherConditions(mRPDto);
+		keySet = new ArrayList<String>(reviewMap.keySet());
+						
+		//attr 추가
+		model.addAttribute("mRPDto", mRPDto);
+		model.addAttribute("reviewMap", reviewMap);
+		model.addAttribute("reviewMapKeyset", keySet);
+		System.out.println(mRPDto);
 	}
 }

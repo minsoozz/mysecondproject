@@ -124,7 +124,7 @@ public class MypageController {
 		log.info("mpdto : " + mPDto);
 		model.addAttribute("mPDto", mypageOrderlogService.getPaymentInfoByPaymentCode(payment_code));
 		
-		return "member/mypage/orderlog/orderdetail";
+		return "member/mypage/orderlog/detail";
 	}
 	
 	@GetMapping(value = "/wishlist")

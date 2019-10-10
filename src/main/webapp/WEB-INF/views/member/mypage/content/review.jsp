@@ -22,7 +22,7 @@
 
 </head>
 <div class="mypage_main_content_title" align="left">
-	<h3>상품후기</h3>
+	<h3 id="review_title">상품후기</h3>
 	<div class="review_notice">
 		<b>후기 작성 시 사진후기 100원, 글후기 50원을 적립해드립니다.</b><br>
 		- 퍼플, 더퍼플은 <b>2배</b> 적립 (사진 200원, 글 100원)<br>- 주간 베스트 후기로 선정 시 <b>5,000원</b>을
@@ -46,13 +46,13 @@
 	<div class="tab-content">
 		<!-- 작성가능후기 탭 시작 -->
 		<div class="tab-pane active" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">
-			
+			<script type="text/javascript">getUnWrittenReviews(1);</script>
 		</div><!-- 작성가능후기 탭 끝 -->
 		
 		
 		
 		<div class="tab-pane" id="_written_reviews" role="tabpanel" aria-labelledby="written_reviews-tab">
-			...
+			<script type="text/javascript">getWrittenReviews(1);</script>
 		</div><!-- 작성한후기 탭 끝 -->
 	</div>
 </div>

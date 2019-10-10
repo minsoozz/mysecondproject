@@ -36,7 +36,7 @@ public class CommonPagingDTO implements Serializable {
         
     /**총 페이지 수 */
     private int totalPage = 1;
-     
+    
     /** 현재 페이지 네비게이션 사이즈 */
     private int pageNavSize = 5;
      

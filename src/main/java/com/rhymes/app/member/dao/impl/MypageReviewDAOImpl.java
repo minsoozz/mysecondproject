@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.member.dao.MypageReviewDAO;
+import com.rhymes.app.member.model.mypage.MemberReviewDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 
 @Repository
 public class MypageReviewDAOImpl implements MypageReviewDAO {
@@ -25,6 +27,25 @@ public class MypageReviewDAOImpl implements MypageReviewDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(ns + "getPaymentCodesByUserid", userid);
 	}
+	
+	/**매개변수로 받은 검색조건(userid, review_written(t/f))에 맞는 모든 후기의 개수를 리턴
+	 * @param mRPDto
+	 * @return
+	 */
+	@Override
+	public int getReviewCountByIdAndConditions(MemberReviewPagingDTO mRPDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns + "getReviewCountByIdAndConditions", mRPDto);
+	}
 
+	/**매개변수로 받은 검색조건(USERID, review_written(t/f), paging)에 맞는 모든 후기목록를 가져옴
+	 * @param mRPDto
+	 * @return
+	 */
+	@Override
+	public List<MemberReviewDTO> getReviewByIdAndOtherConditions(MemberReviewPagingDTO mRPDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(ns + "getReviewByIdAndOtherConditions", mRPDto);
+	}
 	
 }

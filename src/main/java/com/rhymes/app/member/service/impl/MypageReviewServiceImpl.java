@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.rhymes.app.member.dao.MypageOrderlogDAO;
 import com.rhymes.app.member.dao.MypageReviewDAO;
 import com.rhymes.app.member.model.mypage.MemberOrderDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 import com.rhymes.app.member.service.MypageReviewService;
 
 @Service
@@ -30,6 +32,38 @@ public class MypageReviewServiceImpl implements MypageReviewService {
 	public List<String> getPaymentCodesByUserid(String userid) {
 		// TODO Auto-generated method stub
 		return mypageReviewDAO.getPaymentCodesByUserid(userid);
+	}
+	
+	/**매개변수로 받은 검색조건(userid, review_written(t/f))에 맞는 모든 후기의 개수를 리턴
+	 * @param mRPDto
+	 * @return
+	 */
+	@Override
+	public int getReviewCountByIdAndConditions(MemberReviewPagingDTO mRPDto) {
+		// TODO Auto-generated method stub
+		return mypageReviewDAO.getReviewCountByIdAndConditions(mRPDto);
+	}
+
+	/**매개변수로 받은 검색조건(USERID, review_written(t/f), paging)에 맞는 모든 후기목록를 가져옴
+	 * 주문번호로 그루핑(k:주문번호, v:후기목록List)
+	 * @param mRPDto
+	 * @return
+	 */
+	@Override
+	public Map<String, List<MemberReviewDTO>> getReviewByIdAndOtherConditions(MemberReviewPagingDTO mRPDto) {
+		// TODO Auto-generated method stub
+		List<MemberReviewDTO> reviewList = mypageReviewDAO.getReviewByIdAndOtherConditions(mRPDto); 
+		Map<String, List<MemberReviewDTO>> reviewMap = new HashMap<String, List<MemberReviewDTO>>();
+		
+		for(MemberReviewDTO dto : reviewList) {
+			String key = dto.getPayment_code();
+			if( false == reviewMap.containsKey(key) ) {
+				reviewMap.put(key, new ArrayList<MemberReviewDTO>());
+			}			
+			reviewMap.get(key).add(dto);
+		}
+		
+		return reviewMap;
 	}
 
 	/**리뷰 작성 여부에 따라 Map에 데이터를 저장해서 리턴
