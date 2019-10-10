@@ -339,7 +339,7 @@ opacity:0.9;
 </div>	
 </div>
 <!-- 주문하기 -->
-<form action="/Rhymes/payment/basketOrder" method="post" id="bOrderFrm">
+<form action="/payment/basketOrder" method="post" id="bOrderFrm">
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 	<input type='hidden' name="blist_stockseq" id="blist_stockseq" value="">	
 	<input type='hidden' name="blist_pQuantity" id="blist_pQuantity" value="">

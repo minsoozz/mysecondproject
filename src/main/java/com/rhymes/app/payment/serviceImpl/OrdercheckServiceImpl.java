@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rhymes.app.payment.dao.OrdercheckDAO;
+import com.rhymes.app.payment.model.DeliveryDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.service.OrdercheckService;
 
@@ -29,8 +30,14 @@ public class OrdercheckServiceImpl implements OrdercheckService {
 
 	// 주문상세내역 조회
 	@Override
-	public List<PaymentDTO> getOrdercheckDetail() {
-		return OrdercheckDao.getOrdercheckDetail();
+	public List<PaymentDTO> getOrdercheckDetail(String payment_code) {
+		return OrdercheckDao.getOrdercheckDetail(payment_code);
+	}
+
+	// 배송현황 조회
+	@Override
+	public List<DeliveryDTO> getOrdercheckDelivery(String payment_code) {
+		return OrdercheckDao.getOrdercheckDelivery(payment_code);
 	}
 
 }

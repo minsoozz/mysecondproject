@@ -128,6 +128,19 @@ $(document).ajaxSend(function(e, xhr, options) {
 </div>
 
 <!-- 구매하기 form -->
+<<<<<<< HEAD
+<form action="/payment" id="orderFrm" method="post">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	<input type='hidden' name="stock_seq" id="stock_seq">
+	<input type='hidden' name="p_quantity" id="p_quantity" >
+</form>	
+
+<!-- 장바구니 구매하기 form -->
+<form action="/payment/basketOrder" method="post" id="bOrderFrm">
+ 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+	<input type='hidden' name="blist_stockseq" id="blist_stockseq" value="">	
+	<input type='hidden' name="blist_pQuantity" id="blist_pQuantity" value="">
+=======
 <form action="/Rhymes/payment" id="orderFrm" method="post">
    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
    <input type='hidden' name="stock_seq" id="stock_seq">
@@ -139,6 +152,7 @@ $(document).ajaxSend(function(e, xhr, options) {
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
    <input type='hidden' name="blist_stockseq" id="blist_stockseq" value="">   
    <input type='hidden' name="blist_pQuantity" id="blist_pQuantity" value="">
+>>>>>>> master
 </form>
 
 <!-- 장바구니 페이지이동 form -->
