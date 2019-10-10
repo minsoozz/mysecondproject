@@ -10,17 +10,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-tr{
-	border: 1px solid black; 
-}
-</style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css"	
-	href="<%=request.getContextPath() %>/css/used/silde.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/used/silde.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/used/detail.css">
  <%
  	ProductsDto dto = (ProductsDto)request.getAttribute("dto");
 	String arr[] = dto.getPhoto_list();
@@ -64,7 +60,7 @@ value="${dto.price }" />원</h5></div>
   <div id="div_like"><h5>좋아요 : <span id="_likes">${dto.likes }</span></h5></div>
   <div id="div_readcount"><h5>조회수 : ${dto.readcount }</h5></div> 
   <div id="div_rdate"><h5>등록일 : ${dto.rdate }</h5></div>
-  <div id="div_blacklist"><h5><a href="#">신고하기</a></h5></div>
+  <div id="div_blacklist"><h5><a href="#none" id="mybtn">신고하기</a></h5></div>  
   <div id="div_category"><h5>카테고리 ${dto.category }</h5></div>  
   <div id="div_like_button">
   	<!-- <button type="button" id="_likebtn">찜</button> -->
@@ -125,7 +121,161 @@ value="${dto.price }" />원</h5></div>
 </div>
 
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">신고하기</h4>
+				<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<div class="modal-body">
+				<ul class="list">
+					<li><input type="radio" name="list" class="list-checkbox"
+						id="list-input1" checked /> <label for="list-input1"
+						class="title">광고(상점홍보,낚시글,도배글)</label>
+						<div class="desc">
+							<div>
+								<a href="#none" val="상점홍보" class="modal_text">상점홍보</a><br>
+								<a href="#none" val="낚시글" class="modal_text">낚시글</a><br>
+								<a href="#none" val="도배글" class="modal_text">도배글</a><br>
+								<a href="#none" val="타사이트,어플 광고" class="modal_text">타사이트,어플 광고</a>
+							</div>
+						</div></li>
+					<li><input type="radio" name="list" class="list-checkbox"
+						id="list-input2" /> <label for="list-input2"
+						class="title">물품정보 부정확(카테고리,가격,사진)</label>
+						<div class="desc">
+							<div>
+								<a href="#none" val="카테고리가 잘못됨" class="modal_text">카테고리가 잘못됨</a><br>
+								<a href="#none" val="가격이 잘못됨" class="modal_text">가격이 잘못됨</a><br>
+								<a href="#none" val="사진이 잘못됨" class="modal_text">사진이 잘못됨</a><br>
+								<a href="#none" val="상품명이 잘못됨" class="modal_text">상품명이 잘못됨</a>
+							</div>
+						</div></li>
+					<li><input type="radio" name="list" class="list-checkbox"
+						id="list-input3" /> <label for="list-input3" class="title">거래 금지 품목(담배,주류,장물)</label>
+						<div class="desc">
+							<div>
+								<a href="#none" val="담배/주류" class="modal_text">담배/주류</a><br>
+								<a href="#none" val="장물(분실폰,분실의류..)" class="modal_text">장물(분실폰,분실의류..)</a><br>
+								<a href="#none" val="의약품류" class="modal_text">의약품류</a><br>
+								<a href="#none" val="콘택트 렌즈" class="modal_text">콘택트 렌즈</a><br>
+							</div>
+						</div></li>
+					<li><input type="radio" name="list" class="list-checkbox"
+						id="list-input4" /> <label for="list-input4"
+						class="title">언어폭력(비방,욕설,성희롱)</label>
+						<div class="desc">
+							<div>
+								<a href="#none" val="비방/욕설" class="modal_text">비방/욕설</a><br>
+								<a href="#none" val="성희롱" class="modal_text">성희롱</a>
+							</div>
+						</div></li>
+					<li><input type="radio" name="list" class="list-checkbox"
+						id="list-input5" /> <label for="list-input5"
+						class="title">기타사유(직접입력)</label>
+						<div class="desc">
+							<div>
+							
+							<textarea cols="60" rows="3" id="modal_area"></textarea>
+							<br>
+							<button type="button" class="modal_btn" style="color: black">등록</button>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+			<!-- 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			 --></div>
+		</div>
+
+	</div>
+  </div>
+
 <script type="text/javascript">
+
+$(document).ready(function(){
+		
+	$("#mybtn").click(function(){
+        $("#myModal").modal();
+    });
+    
+    $(".modal_text").click(function(){
+     	var str = 	$(this).attr('val')
+    	var seq = "${dto.seq }";
+    	var id = "${userloginid }";
+    	var b_id = "${dto.s_id}";
+    	
+     	$.ajax({
+     		url:"/used/blacklist",
+     		type:"get",
+     		data:{
+     			str:str,
+     			seq:seq,
+     			id:id,
+     			b_id:b_id
+     		},
+     		success:function(data){
+     			var count = parseInt(data);
+     			
+     			if(count > 0) {
+     			       $("#myModal").modal('hide');
+     			        alert("신고가 완료되었습니다");
+     			} else {
+     				alert("오류 관리자한테 문의~");
+     			}
+     		},
+     		error:function(e){
+     			alert(e);
+     		}
+     	});
+     	
+
+    
+    
+    });
+    
+    $(".modal_btn").click(function(){
+     var str =  $("#modal_area").val()
+     var seq = "${dto.seq }";
+ 	 var id = "${login.userid }";
+ 	 var b_id = "${dto.s_id}";
+ 	
+  	$.ajax({
+  		url:"/used/blacklist",
+  		type:"get",
+  		data:{
+  			str:str,
+  			seq:seq,
+  			id:id,
+  			b_id:b_id
+  		},
+  		success:function(data){
+  			var count = parseInt(data);
+  			
+  			if(count > 0) {
+  			       $("#myModal").modal('hide');
+  			        alert("신고가 완료되었습니다");
+  			} else {
+  				alert("오류 관리자한테 문의~");
+  			}
+  		},
+  		error:function(e){
+  			alert(e);
+  		}
+  	});
+     
+     
+    });
+    
+
+});
+
+
+
 //current position
 var pos = 0;
 //number of slides
@@ -279,6 +429,14 @@ $(function(){
  };
  
  function addComment(seq){
+	 
+	 var loginid = "${login.userid}";
+	 
+	 if(loginid == null || loginid == ""){
+		 alert("로그인이 필요합니다");
+		 return;
+	 }
+	 
 	 var text = $("#_comments").val();
 	 
 	 if(text == "" || text == null){

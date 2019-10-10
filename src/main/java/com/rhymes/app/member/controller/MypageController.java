@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,63 +29,108 @@ import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.PointsPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberOrderDTO;
+import com.rhymes.app.member.model.mypage.MemberOrderPagingDTO;
+import com.rhymes.app.member.model.mypage.MemberPaymentDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
 import com.rhymes.app.member.service.MypageCouponService;
+import com.rhymes.app.member.service.MypageOrderlogService;
 import com.rhymes.app.member.service.MypagePersonalService;
 import com.rhymes.app.member.service.MypagePointsService;
 
 import lombok.extern.slf4j.Slf4j;
 
 
+/**마이페이지 컨트롤러
+ * orderlog : 주문내역
+ * wishlist : 찜 목록
+ * review : 상품후기
+ * points : 적립금
+ * couopn : 쿠폰
+ * personal : 개인정보수정
+ * @author minhj
+ *
+ */
 @Slf4j
 @EnableCaching
 @Controller
 @RequestMapping("/mypage/*")
 public class MypageController {
 
-	@Autowired
+	@Autowired//주문내역 서비스
+	private MypageOrderlogService mypageOrderlogService;
+	
+	@Autowired//적립금 서비스 
 	private MypagePointsService mypagePointsService;
 	
-	@Autowired
+	@Autowired//쿠폰 서비스
 	private MypageCouponService mypageCouponService;
 	
-	@Autowired
+	@Autowired//개인정보 수정 서비스
 	private MypagePersonalService mypagePersonalService;
 	
-	@Autowired
+	@Autowired//비밀번호 인코더
 	BCryptPasswordEncoder bc;
-		
-	@GetMapping(value = "/main")
-	public String mypageMain() {
-		log.info("show main");
-		return "member/mypage";
-	}
 	
-	@GetMapping(value = "/orderlog")
-	public String showOrderLog(Principal pcp, HttpSession session) {
+	@Autowired
+	SqlSession ss;
+	
+	/**마이페이지메뉴의 랜딩페이지
+	 * 로그인한 회원의 주문내역을 보여준다
+	 * @param pcp
+	 * @param session
+	 * @return
+	 */
+	@GetMapping(value = {"/orderlog", "/", "/main"})
+	public String showOrderLog(MemberOrderPagingDTO mOPDto,Principal pcp, HttpSession session, Model model) throws Exception {
 		log.info("show OrderLog");
 		//선언부
 		String userid = pcp.getName();
 		DecimalFormat dcFormat = new DecimalFormat("###,###,###");
+		int totalRecordOfOrderlog = 10;
 		
 		//마이페이지 상단 메뉴 정보 세션에 등록(적립금, 쿠폰) - EHCache 적용
-		session.setAttribute("totalPoints", dcFormat.format(mypagePointsService.getAmountOfPointById(userid)));
-		session.setAttribute("expPoints", dcFormat.format(mypagePointsService.getAmountOfExpiredPointById(userid)));
-		session.setAttribute("validCoupons", dcFormat.format(mypageCouponService.getCountOnConditions(userid)));
+		try { session.setAttribute("totalPoints", dcFormat.format(mypagePointsService.getAmountOfPointById(userid))); }catch(Exception e) { session.setAttribute("totalPoints", "0"); }
+		try { session.setAttribute("expPoints", dcFormat.format(mypagePointsService.getAmountOfExpiredPointById(userid))); }catch(Exception e) { session.setAttribute("expPoints", "0"); }
+		try { session.setAttribute("validCoupons", dcFormat.format(mypageCouponService.getCountOnConditions(userid))); }catch(Exception e) { session.setAttribute("validCoupons", "0"); }
+
+		//주문내역 리스트 출력
+		mOPDto.setUserid(userid);
+		totalRecordOfOrderlog = mypageOrderlogService.getTotalOrderlogCount(mOPDto);
+		mOPDto.setTotalSize(totalRecordOfOrderlog);
+
+		List<MemberOrderDTO> lst = mypageOrderlogService.getOrderlogsById(mOPDto);
+				
+		model.addAttribute("orderlogList", lst);
+		model.addAttribute("pagingDto", mOPDto);
 		
 		return "member/mypage/orderlog";
+	}
+	
+	/**주문내역 상세정보 페이지
+	 * 주문품목, 결제정보, 주문정보, 배송정보
+	 * 주문내역에서 아이템을 클릭하면 이동할 수 있다.
+	 * @param model
+	 * @param payment_code
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(value = "/orderlog/showdetail")
+	public String showOrderlogDetail(Model model, @RequestParam(defaultValue = "0") String payment_code) throws Exception {
+		
+		model.addAttribute("payDetailList", mypageOrderlogService.getOrderlogDetailsByPaymentCode(payment_code));
+		model.addAttribute("payment_code", payment_code);
+		MemberPaymentDTO mPDto = mypageOrderlogService.getPaymentInfoByPaymentCode(payment_code);
+		log.info("mpdto : " + mPDto);
+		model.addAttribute("mPDto", mypageOrderlogService.getPaymentInfoByPaymentCode(payment_code));
+		
+		return "member/mypage/orderlog/detail";
 	}
 	
 	@GetMapping(value = "/wishlist")
 	public String showWishList() {
 		log.info("show wishlist");
 		return "member/mypage/wishlist";
-	}
-	
-	@GetMapping(value = "/review")
-	public String showReview() {
-		log.info("show review");
-		return "member/mypage/review";
 	}
 	
 	/**적립금 현황 뷰를 보여주는 메소드
