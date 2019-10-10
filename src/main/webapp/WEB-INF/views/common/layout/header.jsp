@@ -37,6 +37,9 @@
             <div class="row">
                 <div class="col-5 col-xs-6"> 
                     <div class="top_social_bar">
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 
@@ -165,9 +168,6 @@
     </a>
     
     <!-- ****** Header Area End ****** -->
-
-
-    
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->
      <script type=text/javascript>
@@ -182,7 +182,6 @@
 	        }
 	    });
 	});
-	
 	
 	jQuery(document).ready(function () {
         $(window).scroll(function () {
@@ -201,8 +200,5 @@
 	
 	</script> 
 	</body>
-
-
-
 
 </html>

@@ -13,6 +13,8 @@ import com.rhymes.app.Store.model.WishlistDto;
 
 public interface PurchaseDao extends Serializable {
 
+	// 상품 리스트
+	public List<ProductDto> getProductList() throws Exception;
 	// 상품 상세페이지
 	public ProductDto getProductDetail(int p_seq) throws Exception;
 	// 재고번호별 제품사이즈 가져오기
