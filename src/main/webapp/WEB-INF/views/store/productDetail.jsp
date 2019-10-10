@@ -396,7 +396,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 		<th colspan="4" align="center">
 		<!-- 페이징 -->
 		<div id="paging_wrap"> 
-			<jsp:include page="/WEB-INF/views/customer/paging.jsp" flush="false">
+			<jsp:include page="/WEB-INF/views/store/product_paging.jsp" flush="false">
 				<jsp:param name="pageNumber" value="${pageNumber }"/>
 				<jsp:param name="totalRecordCount" value="${totalRecordCount }"/>
 				<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }"/>

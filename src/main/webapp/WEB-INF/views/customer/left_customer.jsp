@@ -13,10 +13,6 @@
 		<li class="cmenu_item">
 			<a href="qnalist">1:1문의</a>
 		</li>
-		
-		<li class="cmenu_item">
-			<a href="pqnalist">연습용 상품질문</a>
-		</li>
 	
 	</ul>
 </div>
