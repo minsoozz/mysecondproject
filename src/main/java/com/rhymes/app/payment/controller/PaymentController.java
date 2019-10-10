@@ -134,13 +134,9 @@ public class PaymentController {
 		// DB 쿠폰 개수 가져오기
 		int coupon_count = PaymentService.getCountCoupon(userid);
 		
-		// DB 쿠폰 가져오기
-		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
-		
 
 		model.addAttribute("point_amount", point_amount);
 		model.addAttribute("coupon_count", coupon_count);
-		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("basketList", basketList);
 
 		if (true) {
@@ -261,6 +257,20 @@ public class PaymentController {
 		}
 
 		return "success";
+	}
+	
+	// 결제페이지에서 쿠폰 가져오기
+	@RequestMapping(value = "/payment_coupon", method = RequestMethod.GET)
+	public String payment_coupon(Model model, Principal pcp) {
+		System.out.println("쿠폰 컨트롤러");
+		String userid = pcp.getName();
+		
+		// DB 쿠폰 가져오기
+		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
+
+		model.addAttribute("coupon_code", coupon_code);
+		
+		return "/payment/coupon";
 	}
 
 }

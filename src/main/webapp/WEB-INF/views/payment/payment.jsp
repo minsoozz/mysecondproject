@@ -130,8 +130,8 @@
 </tr>
 <tr>
 	<th>휴대폰 *</th>
-	<td><input type="text" size="5" id="receivephone1">&nbsp;-&nbsp;
-	<input type="text" size="5" id="receivephone2">&nbsp;-&nbsp;
+	<td><input type="text" size="5" id="receivephone1">&nbsp;&nbsp;
+	<input type="text" size="5" id="receivephone2">&nbsp;&nbsp;
 	<input type="text" size="5" id="receivephone3"></td>
 </tr>
 <tr>
@@ -152,14 +152,15 @@
 <table class="payment_tb" border="1">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
-	<td>
+	<td>쿠폰 사용&nbsp;&nbsp;<input type="text" id="coupon_use">
+	&nbsp;&nbsp;<input type="button" id="coupon_btn" value="쿠폰선택"></td>
+<%-- 	<td>
 	<select id="coupon_use" onchange="coupon_change()">
 	<option value="0">쿠폰 적용 안함</option>
 	<c:forEach items="${coupon_code }" var="coupon">
 	<option value="">${coupon.title }</option>
 	</c:forEach>
-	</select></td>
-	<td></td>
+	</select></td> --%>
 </tr>
 <tr>
 	<td colspan="2">(보유쿠폰 : ${coupon_count }개) 중복할인 안됩니다</td>
@@ -170,7 +171,10 @@
 	<td colspan="2">사용 가능한 적립금이 없습니다</td>
 </c:if>
 <c:if test="${not empty point_amount }">
-	<td colspan="2">${point_amount }원&nbsp;&nbsp;&nbsp;&nbsp;<input type="text">원 사용 (1000월 단위로 사용가능합니다)</td>
+	<td colspan="2">
+	<input type="text">원
+	&nbsp;&nbsp;사용가능 적립금 : ${point_amount }원
+	&nbsp;&nbsp;(1000원 단위로 사용가능합니다)</td>
 </c:if>
 </tr>
 </table>

@@ -114,19 +114,15 @@ $("#mail_move").click(function () {
 
 
 
+$("#coupon_btn").click(function () {
+	window.open("/payment_coupon", "window팝업", "width=600, height=750, menubar=no, status=no, toolbar=no");
 });
 
 
 
 
 
-function coupon_change(){
-	alert("쿠폰");
-
-	// 총 금액 계산
-	var coupon_use = $("#coupon_use").val();
-	alert(coupon_use);
-}
+});
 
 
 
