@@ -497,6 +497,7 @@ public class StoreController {
 		int quantity = 0;
 		
 		basket.setId("sujin123");
+		//System.out.println("sss");
 		
 		try {
 			int n = purchase.updateBaksetQ(basket);
