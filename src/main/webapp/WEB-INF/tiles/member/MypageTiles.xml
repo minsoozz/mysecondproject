@@ -24,6 +24,11 @@
        <put-attribute name="mypage_content" value="/WEB-INF/views/member/mypage/content/sub/orderdetail.jsp" />
    	</definition>
    	
+   	<!-- write new review view -->
+   	<definition name="member/mypage/review/writenew" extends="member/mypage">
+       <put-attribute name="mypage_content" value="/WEB-INF/views/member/mypage/content/sub/review_write_new.jsp" />
+   	</definition>
+   	
    	<!-- sub-sub pages(written review, un written review ... )  -->
 	<definition name="member/mypage/sub/*" template="/WEB-INF/views/member/mypage/content/sub/{1}.jsp">
        <put-attribute name="mypage_content" value="/WEB-INF/views/member/mypage/content/sub/{1}.jsp" />
