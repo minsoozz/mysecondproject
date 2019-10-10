@@ -48,7 +48,7 @@
 
 <c:forEach items="${basketList }" var="list">
 <tr>
-	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/img/upload/${list.photo1_file }"></td>
+	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/${list.photo1_file }"></td>
 	<td width="50%" align="left">[${list.p_name }]${list.c_name }</td>
 	<td rowspan="2" width="10%" align="center" id="total_price">${list.p_price * list.quantity }</td>
 </tr>
@@ -80,8 +80,8 @@
 	<input type="text" id="userNum" placeholder="인증번호 입력">   <!-- 인증번호 입력창 -->
 	<input type="button" id="enterBtn" value="확인">
 
-	<input type="hidden" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-	<input type="hidden" id="_text_confirm">
+	<input type="text" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+	<input type="text" id="_text_confirm">
 
 	</td>
 </tr>
@@ -118,12 +118,10 @@
 </tr>
 <tr>
 	<th></th>
-	<td><input type="text" size="20" id="sample4_postcode" placeholder="우편번호">
-	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" size="40" id="sample4_roadAddress" placeholder="도로명주소">
-	<input type="text" size="40" id="sample4_jibunAddress" placeholder="지번주소"><br>
-	<input type="text" size="40" id="sample4_detailAddress" placeholder="상세주소">
-	<input type="text" size="40" id="sample4_extraAddress" placeholder="참고항목">
+	<td><input type="text" size="20" id="sample6_postcode" placeholder="우편번호">
+	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+	<input type="text" size="40" id="sample6_address" placeholder="지번주소">
+	<input type="text" size="40" id="sample6_detailAddress" placeholder="상세주소">
 	</td>
 </tr>
 <tr>
@@ -151,33 +149,54 @@
 <!-- 로그인 했을때만 보이기 -->
 <div class="divback">
 <h4>쿠폰 적립금</h4>
-<table class="payment_tb">
+<table class="payment_tb" border="1">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td>
-	<select>
-	<option value="">쿠폰 적용 안함</option>
+	<select id="coupon_use" onchange="coupon_change()">
+	<option value="0">쿠폰 적용 안함</option>
 	<c:forEach items="${coupon_code }" var="coupon">
 	<option value="">${coupon.title }</option>
 	</c:forEach>
-	</select>
-	</td>
+	</select></td>
+	<td></td>
 </tr>
 <tr>
-	<td>(보유쿠폰 : ${coupon_count }개) 중복할인 안됩니다</td>
+	<td colspan="2">(보유쿠폰 : ${coupon_count }개) 중복할인 안됩니다</td>
 </tr>
 <tr>
 	<th>적립금 적용</th>
 <c:if test="${empty point_amount }">
-	<td>사용 가능한 적립금이 없습니다</td>
+	<td colspan="2">사용 가능한 적립금이 없습니다</td>
 </c:if>
 <c:if test="${not empty point_amount }">
-	<td>${point_amount }원&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="coupon_use" onblur="coupon_onblur()">원 사용 (1000월 단위로 사용가능합니다)</td>
+	<td colspan="2">${point_amount }원&nbsp;&nbsp;&nbsp;&nbsp;<input type="text">원 사용 (1000월 단위로 사용가능합니다)</td>
 </c:if>
 </tr>
 </table>
 </div>
 <br><br><br><br><br><br>
+
+
+
+
+
+<form id="payment_frm">
+<input type="hidden" name="send_name">
+<input type="hidden" name="send_phone">
+<input type="hidden" name="send_email">
+<input type="hidden" name="receive_name">
+<input type="hidden" name="receive_phone">
+<input type="hidden" name="receive_postnum">
+<input type="hidden" name="receive_address">
+<input type="hidden" name="payment_method">
+<input type="hidden" name="delivery_price">
+<input type="hidden" name="coupon_code">
+<input type="hidden" name="disc_coupon">
+<input type="hidden" name="disc_point">
+<input type="hidden" name="add_point">
+<input type="hidden" name="totalprice">
+</form>
 
 
 
