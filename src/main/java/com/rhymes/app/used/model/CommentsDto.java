@@ -22,6 +22,7 @@ public class CommentsDto implements Serializable {
 	private int ref;		// 시퀀스랑 동일
 	private int step;		// 길이
 	private int depth;		// 깊이
+
 }
 
 /* 

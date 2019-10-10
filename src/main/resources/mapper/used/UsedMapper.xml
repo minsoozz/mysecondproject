@@ -158,7 +158,7 @@
 
 <!-- 댓글 불러오기 -->
 <select id="getComments" parameterType="java.lang.Integer" resultType="com.rhymes.app.used.model.CommentsDto">
-	SELECT seq,id,comments,wdate,parent,ref,step,depth
+	SELECT seq,id,comments,wdate as date,parent,ref,step,depth
 	FROM rhy_used_Comments
 	where parent=#{seq}
 	order by ref desc, step asc
