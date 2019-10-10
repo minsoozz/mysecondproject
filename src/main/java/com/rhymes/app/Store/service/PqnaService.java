@@ -1,23 +1,21 @@
-package com.rhymes.app.customer.dao;
+package com.rhymes.app.Store.service;
 
 import java.util.List;
 
+import com.rhymes.app.Store.model.PqnaDto;
 import com.rhymes.app.customer.model.CustomerParam;
-import com.rhymes.app.customer.model.PqnaDto;
-import com.rhymes.app.customer.model.QnaDto;
 
-
-public interface PqnaDao {
+public interface PqnaService{
 
 	//Pqna list가져오기
 	public List<PqnaDto> getPqnaList(CustomerParam param);
 	
 	//Pqna count
 	public int getPqnaCount(CustomerParam param);
-	
+	 
 	//Pqna 업로드
 	public boolean PqnaUpload(PqnaDto dto);
-	
+		
 	//Pqna 디테일
 	public PqnaDto getPqnaDetail(int seq);
 	
@@ -29,5 +27,4 @@ public interface PqnaDao {
 	
 	//Pqna 답글
 	public boolean PqnaAnswer(PqnaDto dto)throws Exception;
-			
 }

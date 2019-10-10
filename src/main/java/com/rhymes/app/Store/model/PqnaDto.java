@@ -1,4 +1,4 @@
-package com.rhymes.app.customer.model;
+package com.rhymes.app.Store.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

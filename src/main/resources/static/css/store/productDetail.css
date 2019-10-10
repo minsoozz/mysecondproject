@@ -139,7 +139,7 @@ label.panel-label {
     transition-duration: 200ms;
 }
 
-/*마우스오버*/
+/*留덉슦�뒪�삤踰�*/
 label.panel-label:hover {
     color: gray;
 }
@@ -287,7 +287,7 @@ ul#tabs-list li label.panel-label {
     font-size: 0.875em;
 }
 
-/*탭 hover*/
+/*�꺆 hover*/
 
 ul#tabs-list li label.panel-label::after {
     content: "";
@@ -313,3 +313,9 @@ ul#tabs-list li label.panel-label:hover::after {
     display: none;
 }
 
+/* 상품문의 리스트테이블 */
+.list_table { width:98%;}
+.list_table th { text-align:center; padding:20px 0px;  border-top: 3px solid #E0FF8B;}
+.list_table td { padding:20px 0px 20px 10px;  border-top:1px solid #EFEFEF;}
+.list_table td,.list_table th { font-size: 12px;}
+ 

@@ -7,6 +7,11 @@
 	int pageCountPerScreen;	// 스크린당 페이지 수 = 10
 	int recordCountPerPage;	// 페이지당 글 수 = 10
 	
+	//
+	int _p_seq;
+	String p_seq = request.getParameter("p_seq");
+	//
+	
 	String st1 = request.getParameter("totalRecordCount");
 	if(st1 == null) totalRecordCount = 0;
 	else			totalRecordCount = Integer.parseInt(st1);
@@ -100,7 +105,7 @@
 	if(screenEndPageIndex < totalPageCount){	// [11][12][13] >
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-		<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>)">
+		<a href=xxx title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>,<%=p_seq %>);return false;">
 			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
 		</a>
 		</span>
@@ -113,7 +118,7 @@
 	%>
 	<!-- >> -->
 	<li class="page-item">
-	      <a href="#" class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>)" aria-label="Next">
+	      <a href=xxx class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>,<%=p_seq %>);return false;" aria-label="Next">
 	        <span aria-hidden="true">&raquo;</span>
 	        <span class="sr-only">Next</span>
 	      </a>

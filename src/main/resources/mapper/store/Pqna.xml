@@ -3,7 +3,7 @@
 
 <mapper namespace="Pqna">
 	<!-- pqnalist -->
-	<select id="getPqnaList" parameterType="com.rhymes.app.customer.model.CustomerParam"  resultType="com.rhymes.app.customer.model.PqnaDto">
+	<select id="getPqnaList" parameterType="com.rhymes.app.customer.model.CustomerParam"  resultType="com.rhymes.app.Store.model.PqnaDto">
        SELECT SEQ, ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT
       FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC)AS RNUM,
 					SEQ, ID, P_SEQ,WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT
@@ -21,20 +21,20 @@
 	</select>
 	
 	<!-- pqna 올리기 -->
-	<insert id="PqnaUpload" parameterType="com.rhymes.app.customer.model.PqnaDto">
+	<insert id="PqnaUpload" parameterType="com.rhymes.app.Store.model.PqnaDto">
 	INSERT INTO RHY_STORE_PRODUCTQNA(ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT)
 	VALUES(#{ id}, #{p_seq}, now(),#{secret},(SELECT IFNULL(MAX(REF), 0)+1 FROM RHY_STORE_PRODUCTQNA ALIAS_FOR_SUBQUERY),0,0,#{title}, #{content})
 	</insert>
 	
 	<!-- pqna디테일 -->
-	 <select id="getPqnaDetail" parameterType="java.lang.Integer" resultType="com.rhymes.app.customer.model.PqnaDto">
+	 <select id="getPqnaDetail" parameterType="java.lang.Integer" resultType="com.rhymes.app.Store.model.PqnaDto">
        SELECT * 
        FROM RHY_STORE_PRODUCTQNA
        WHERE SEQ = #{seq}
     </select>
     
     <!-- pqna 수정 -->
-	<update id="PqnaUpdateAf" parameterType="com.rhymes.app.customer.model.PqnaDto">
+	<update id="PqnaUpdateAf" parameterType="com.rhymes.app.Store.model.PqnaDto">
 	UPDATE RHY_STORE_PRODUCTQNA
 	SET TITLE=#{title}, CONTENT=#{content}, SECRET=#{secret}
 	WHERE SEQ=#{seq}
@@ -47,13 +47,13 @@
 	</delete>
 	
 	<!-- pqna 답글 -->
-	<update id="PqnaAnswer" parameterType="com.rhymes.app.customer.model.PqnaDto">
+	<update id="PqnaAnswer" parameterType="com.rhymes.app.Store.model.PqnaDto">
 	UPDATE RHY_STORE_PRODUCTQNA
 		SET STEP = (STEP+1)     
 			WHERE REF= #{ref}
 			AND STEP> #{step}
 	</update>
-	<insert id="PqnaAnswerAf" parameterType="com.rhymes.app.customer.model.PqnaDto">
+	<insert id="PqnaAnswerAf" parameterType="com.rhymes.app.Store.model.PqnaDto">
 	     INSERT INTO RHY_STORE_PRODUCTQNA(ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT)
 	     VALUES(#{id},#{p_seq}, NOW(),#{secret},
 	     				#{ref},

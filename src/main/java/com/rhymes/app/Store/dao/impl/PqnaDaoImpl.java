@@ -1,4 +1,4 @@
-package com.rhymes.app.customer.daoimpl;
+package com.rhymes.app.Store.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.rhymes.app.customer.dao.PqnaDao;
+import com.rhymes.app.Store.dao.PqnaDao;
+import com.rhymes.app.Store.model.PqnaDto;
 import com.rhymes.app.customer.model.CustomerParam;
-import com.rhymes.app.customer.model.PqnaDto;
 import com.rhymes.app.customer.model.QnaDto;
 
 @Repository

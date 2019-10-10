@@ -10,7 +10,7 @@ private int depth = 0;
 	}
 	
 	public String getArrow(){
-		String rs = "<img src='../img/customer-img/re.png' width='20px' height='12px' />";
+		String rs = "<img src='/img/customer-img/re.png' width='20px' height='12px' />";
 		String nbsp = "&nbsp;&nbsp;&nbsp;&nbsp;";
 		String ts="";
 		for(int i=0; i<depth; i++){
