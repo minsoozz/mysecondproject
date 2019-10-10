@@ -8,10 +8,11 @@ public class BasketListDto {
 	private int p_price;
 	private String size;
 	private int stock_seq;
-	private int p_quantity;
+	private int p_quantity;	// 장바구니 수량
 	private String rdate;
 	private int b_seq;
 	private int p_seq;
+	private int quantity;	// 재고 수량
 	
 	//가공 변수
 	private String p_price2;
@@ -20,7 +21,14 @@ public class BasketListDto {
 	private int total_price2;
 	
 	
-	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public int getP_seq() {
 		return p_seq;
 	}

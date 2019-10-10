@@ -37,6 +37,9 @@
             <div class="row">
                 <div class="col-5 col-xs-6"> 
                     <div class="top_social_bar">
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 
@@ -78,7 +81,7 @@
                                 <a href="/mypage/orderlog">Mypage</a>
                             </div>
                             <div class="cart">
-                                <a href="a.jsp">Cart</a>
+                                <a href="/Rhymes/store/basket">Cart</a>
                             </div>
 
                         </div>
@@ -135,10 +138,10 @@
                             <ul class="navbar-nav" id="rhymes-nav">
                             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList">WOMEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=WOMEN">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList">MEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=MEN">MEN</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/used/usedlist">MARKET</a>
@@ -165,9 +168,6 @@
     </a>
     
     <!-- ****** Header Area End ****** -->
-
-
-    
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->
      <script type=text/javascript>
@@ -182,7 +182,6 @@
 	        }
 	    });
 	});
-	
 	
 	jQuery(document).ready(function () {
         $(window).scroll(function () {
@@ -201,8 +200,5 @@
 	
 	</script> 
 	</body>
-
-
-
 
 </html>
