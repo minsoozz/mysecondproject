@@ -93,6 +93,7 @@ function detail(seq, c1name){
 	//$("#moveFrm").attr("action", "/Rhymes/store/productList").submit();
 	$("#moveFrm").submit();
 }
+
 // 페이징 이동
 function goPage( pageNumber) {
 	$("#_pageNumber").val(pageNumber);
@@ -100,5 +101,8 @@ function goPage( pageNumber) {
 }
 </script> 
 	
+
+
+
 </body>
 </html>
