@@ -35,15 +35,8 @@
     <div class="top_header_area">
         <div class="container">
             <div class="row">
-                <div class="col-5 col-xs-6">
-                
-                    <!--  맨위에 sns 아이콘들 -->
+                <div class="col-5 col-xs-6"> 
                     <div class="top_social_bar">
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-
-
                     </div>
                 </div>
                 
@@ -146,7 +139,7 @@
                                     <a class="nav-link" href="#">EVENT</a>
                                 </li>
                                 <li class="nav-item">
-                           			<a class="nav-link" href="/Rhymes/noticelist">CUSTOMER CENTER</a>
+                           			<a class="nav-link" href="/customercenter/noticelist">CUSTOMER CENTER</a>
                            		</li>
                            		
                             </ul>

@@ -28,7 +28,7 @@ import com.rhymes.app.customer.util.FileDelete;
 
  
 @Controller
-@RequestMapping("/Rhymes")
+@RequestMapping("/customercenter")
 public class NoticeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
@@ -36,11 +36,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService NoticeService;
 	
-	@GetMapping("/main")
-	public String main() {
-		
-		return "redirect:/Rhymes/noticelist";
-	}
+	
 	
 	
 	@RequestMapping(value = "/noticelist", method = {RequestMethod.GET, RequestMethod.POST})
@@ -152,7 +148,7 @@ public class NoticeController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/Rhymes/noticelist";
+		return "redirect:/customercenter/noticelist";
 	}
 	
 	//글수정가기
@@ -217,7 +213,7 @@ public class NoticeController {
 		
 		
 		
-		return "redirect:/Rhymes/noticelist";
+		return "redirect:/customercenter/noticelist";
 	}
 	
 	
