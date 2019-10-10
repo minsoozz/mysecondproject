@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -29,6 +28,7 @@ import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.ProductParam;
 import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.WishlistDto;
+import com.rhymes.app.Store.model.category.Category1Dto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.PurchaseService;
@@ -40,7 +40,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@Log4j
 
 @RequestMapping("/Rhymes")
 public class StoreController {
@@ -58,18 +57,47 @@ public class StoreController {
 	public String register()throws Exception{
 		return "register.tiles";
 	}  
-	
-	
+		
 	@GetMapping("/store/productList")
 	public String productList(Model model, ProductParam param) throws Exception{
-		/* 브랜드 리스트 */
+		
+		System.out.println("페이지 넘버 : " + param.getPageNumber());
+		
+		// 입점 업체 리스트
 		List<String> clist = store.getCompnayList();	
-		/* 2차 카테고리 리스트 */
-		List<Category2Dto> cate2Wlist = register.getCate2List(2);
-		List<Category2Dto> cate2Mlist = register.getCate2List(1);
+		// 1차 카테고리 리스트 초기화
+		List<Category1Dto> cate1list = new ArrayList<Category1Dto>();
+		// 2차 카테고리 리스트 초기화
+		List<Category2Dto> cate2list = new ArrayList<Category2Dto>();
+		
+		if(param.getC1_name()!=null && !param.getC1_name().equals("")) {
+			// 카테고리 선택하고 검색시 카테고리 리스트 설정
+			if(param.getKeyword()!=null && param.getKeyword()!= "") {
+				System.out.println("^^^^^^^" + param.getC1_name());
+				if(param.getC1_name().equals("MEN")) {
+					param.setC1_seq(1);
+				}else if(param.getC1_name().equals("WOMEN")) {
+					param.setC1_seq(2);
+				}
+				cate2list = store.getkCate2List(param);
+			// 아무조건없이 카테고리1 클릭해서 들어갈 때	
+			}else{
+				if(param.getC1_name().equals("MEN")) {
+					cate2list = register.getCate2List(1);
+				}else if(param.getC1_name().equals("WOMEN")) {
+					cate2list = register.getCate2List(2);
+				}
+			}
+		// 브랜드 클릭 + 카테고리1 선택없이 전체검색시 카테고리 리스트 설정
+		}else if(param.getC1_name()==null || param.getC1_name().equals("")){
+			cate1list = store.getkCate1List(param);
+			model.addAttribute("cate1list", cate1list);			
+		}
+		
+		log.info(param.getKeyword());
 		
 		// paging 처리
-		int sn = param.getPageNumber();
+		int sn = param.getPageNumber(); 
 		int start = sn * param.getRecordCountPerPage() + 1; 
 		int end = (sn + 1) * param.getRecordCountPerPage();
 		
@@ -82,23 +110,42 @@ public class StoreController {
 		/* 상품 리스트 */
 		List<ProductDto> plist = store.getProductList(param);
 		
+		System.out.println("상품리스트 사이즈 : " + plist.size());
+		
 		for (int i = 0; i < plist.size(); i++) {
 			int price = plist.get(i).getP_price();
 			plist.get(i).setP_price2(formatter.format(price));
 		}
 		
-		//
+		model.addAttribute("criterion", param.getCriterion());
+		model.addAttribute("keyword", param.getKeyword());
+		//left nav
+		model.addAttribute("cate2list", cate2list);
+		model.addAttribute("clist", clist);
+		model.addAttribute("c1_name", param.getC1_name());
+		//페이징
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("totalRecordCount", totalProduct);
 		model.addAttribute("pageCountPerScreen", 10);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
-		
-		
-		model.addAttribute("cate2Wlist", cate2Wlist);
-		model.addAttribute("cate2Mlist", cate2Mlist);
-		model.addAttribute("clist", clist);
+		//상품 리스트	
 		model.addAttribute("plist", plist);
+		
 		return "productList.tiles";
+	}
+	
+	@ResponseBody
+	@GetMapping("/store/kCate2List")
+	public List<Category2Dto> getkCate2List(ProductParam param) throws Exception{
+		List<Category2Dto> cate2list = store.getkCate2List(param);
+		return cate2list;
+	}
+		
+	@ResponseBody
+	@GetMapping("/store/kCate3List")
+	public List<Category3Dto> getkCate3List(ProductParam param) throws Exception{
+		List<Category3Dto> cate3list = store.getkCate3List(param);
+		return cate3list;
 	}
 	
 	@ResponseBody
@@ -131,7 +178,7 @@ public class StoreController {
 	@RequestMapping(value="/store/registerInsert", method = RequestMethod.POST)
     public String registerInsert(Model model, ProductDto product, StockDto stock,
       MultipartHttpServletRequest multi, HttpServletRequest req) throws Exception{
-      product.setC_name("뚱뚱이마켓");
+      product.setC_name("비마켓");
 		
 	  int p_seq = register.getPseq();
 	  		
@@ -217,30 +264,38 @@ public class StoreController {
 	
 	//@PostMapping("/store/productDetail")
 	@RequestMapping(value="/store/productDetail", method = RequestMethod.GET)
-	public String productDetail(Model model, int p_seq) throws Exception{
-		List<StockDto> sizelist = purchase.getSizeList(p_seq);
+	public String productDetail(Model model, ProductDto product) throws Exception{
+		List<StockDto> sizelist = purchase.getSizeList(product.getP_seq());
 		
-		ProductDto productDto = purchase.getProductDetail(p_seq);
+		ProductDto productDto = purchase.getProductDetail(product.getP_seq());
 		productDto.setP_price2(formatter.format(productDto.getP_price()));
 		
-		//위시리스트 체크 여부
+	//위시리스트 체크 여부
 		 WishlistDto wish = new WishlistDto();
+		 //세션에서 가져와야함
 		 wish.setId("sujin123");
-		 wish.setP_seq(p_seq);
+		 wish.setP_seq(product.getP_seq());
 		 boolean wishChk = purchase.chkWishlist(wish);
 		
-		/*
-		 * List<String> photolist = new ArrayList<String>();
-		 * photolist.add(productDto.getPhoto1_file());
-		 * photolist.add(productDto.getPhoto2_file());
-		 * photolist.add(productDto.getPhoto3_file());
-		 * photolist.add(productDto.getPhoto4_file());
-		 * photolist.add(productDto.getPhoto5_file()); model.addAttribute("photolist",
-		 * photolist);
-		 */
-		model.addAttribute("wishChk", wishChk);
-		model.addAttribute("sizelist", sizelist);
-		model.addAttribute("productDto", productDto);
+	 //left nav
+		 model.addAttribute("c1_name", product.getC1_name());
+		 /* 브랜드 리스트 */
+		 List<String> clist = store.getCompnayList();	 
+		 model.addAttribute("clist", clist);
+		 /* 2차 카테고리 리스트 */
+		 List<Category2Dto> cate2list = new ArrayList<Category2Dto>();
+		 
+		 if(product.getC1_name() != "" || product.getC1_name() != null) {
+			if(product.getC1_name().equals("MEN")) {
+				cate2list = register.getCate2List(1);
+			}else if(product.getC1_name().equals("WOMEN")) {
+				cate2list = register.getCate2List(2);
+			}
+		 }
+		 model.addAttribute("cate2list", cate2list);
+		 model.addAttribute("wishChk", wishChk);
+		 model.addAttribute("sizelist", sizelist);
+		 model.addAttribute("productDto", productDto);
 		
 		return "productDetail.tiles";
 	}
@@ -260,15 +315,6 @@ public class StoreController {
 		
 		List<OrderDto> oList = new ArrayList<OrderDto>();
 		oList.add(order);
-		
-		/*
-		 * System.out.println("stock_seq : " + stock_seq);
-		 * System.out.println("p_quantity : " + p_quantity);
-		 */
-		
-		//model.addAttribute(arg0, arg1);
-		//model.addAttribute(arg0, arg1);
-		//model.addAttribute("order", order);
 		
 		log.info("리스트 사이즈 : " + oList.size());
 		
@@ -306,7 +352,6 @@ public class StoreController {
 				str ="등록 실패 ㅎ";
 			}
 		}
-		
 		return str;
 	}
 	

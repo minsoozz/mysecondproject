@@ -417,7 +417,7 @@ function addCate3(arr, arrLen) {
 	
 	/* <ul class="drop-down" id="cate2"> */
 	var str ="";
-	str = "<input type='radio' id='check3' style='display: none'>";
+	str += "<input type='radio' id='check3' style='display: none'>";
 	for (var i = 0; i < arrLen; i++) {
 		
 		str += "<div class='c3Div'><label for='check3' style='cursor:pointer' background-color: white;' value='" + arr[i].c3_seq + "' value2='"+arr[i].c3_name+"' class='c3sel'>";

@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    <%
+<%
 	int totalRecordCount;		// 전체글수   23 -> 3p
 	int pageNumber;				// 현재페이지 0 ~ 9 [1] ~ [10]
 	int pageCountPerScreen; 	// 스크린당 페이지 수 = = 10
 	int recordCountPerPage;		// 페이지당 글수 = 10
 	
 	String st1 = request.getParameter("totalRecordCount");
+	
 	if(st1 == null) {
 		totalRecordCount = 0;
 	}else{
@@ -38,6 +39,7 @@
 	// 총 페이지 수
 	int totalPageCount = totalRecordCount / recordCountPerPage;
 	//        2                   23       /           10
+	
 	if((totalRecordCount % recordCountPerPage) !=0){
 		totalPageCount++;		// -> 3페이지
 	}

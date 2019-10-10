@@ -3,9 +3,13 @@
 <!-- <mapper namespace="com.mde.app.common.dao"> -->
 
 <mapper namespace="register">
+ 
  <select id="getCate2List" parameterType="Integer" resultType="com.rhymes.app.Store.model.category.Category2Dto">
      SELECT C2_SEQ, C2_NAME, C1_SEQ FROM rhy_store_cate2
-     WHERE C1_SEQ = #{c1_seq}
+     WHERE 1=1 
+     	<if test="c1_seq != '' and c1_seq != null">
+     		AND C1_SEQ = #{c1_seq}
+     	</if>
  </select>
  <select id="getCate3List" parameterType="Integer" resultType="com.rhymes.app.Store.model.category.Category3Dto">
      SELECT C3_SEQ, C3_NAME, C2_SEQ FROM rhy_store_cate3
@@ -33,7 +37,7 @@
  </select>
 
  <select id="getProductList" parameterType="com.rhymes.app.Store.model.ProductDto" resultType="com.rhymes.app.Store.model.ProductDto">
- 	SELECT P_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE 		
+ 	SELECT P_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME 		
  	FROM rhy_store_product 	 
  </select>
  

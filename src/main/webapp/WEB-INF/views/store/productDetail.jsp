@@ -60,7 +60,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 			</c:if>
 			<c:if test="${size.quantity eq 0 }">
 			<input type="radio" name='sizeRadio' id="chooseSize${vs.count }" disabled="disabled" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
-			<label for="chooseSize${vs.count }" id="_sizeChoo" style="cursor: pointer; background-color: grey; color:white;">${size.size }</label>
+			<label for="chooseSize${vs.count }" id="_sizeChoo" style="cursor: pointer; background-color: grey; color:white;" onclick="soldout()">${size.size }</label>
 			</c:if>
 		</c:forEach>
 	</div>
@@ -88,6 +88,13 @@ $(document).ajaxSend(function(e, xhr, options) {
 
     <div class="basket" style="overflow: scroll;">
  	</div>
+
+<!-- 메시지 영역 -->
+<div class="wModal">
+	<div class="wModal-content">
+		<span id="msg"></span>
+	</div>
+</div>
 
 <!-- 구매하기 form -->
 <form action="/Rhymes/payment" id="orderFrm" method="post">
@@ -119,11 +126,21 @@ $(document).ajaxSend(function(e, xhr, options) {
     xhr.setRequestHeader(header, token);
 });
 
-//장바구니 영역외 클릭시 hide
+//sold out
+function soldout(){
+	$("#msg").html("<b><font style='font-size:35px'>SOLD OUT</font></b>")
+	$(".wModal").fadeIn();
+	setTimeout(function() {
+		$(".wModal").fadeOut();
+	},700);
+}
+
+//장바구니 영역 외 클릭시 hide
 $('body').click(function(e){
 	 if($(".basket").css("display") == "block") {
          if(!$('.basket, .blist').has(e.target).length) { 
         	 $(".basket").hide("slow");
+        	 
           } 
   	 }
 });
@@ -138,6 +155,8 @@ $(document).on('click', '.sizeLabel', function(){
 $(document).on('click', '.wishBtn', function(){
 	var p_seq = $("#hdnPseq").val();
 	
+	$("#msg").html("");
+	
 	$.ajax({
         type:"get",
         data: "p_seq=" + p_seq,
@@ -145,8 +164,19 @@ $(document).on('click', '.wishBtn', function(){
         success:function( data ){
         	if(data == "insert"){
         		$(".heartImg").attr('src', '/img/store-img/like.png');
+        		$("#msg").html("<b>위시리스트에 등록되었습니다.</b>")
+        		$(".wModal").fadeIn();
+        		setTimeout(function() {
+        			$(".wModal").fadeOut();
+        		},500);
         	}else if(data == "delete"){
         		$(".heartImg").attr('src', '/img/store-img/unlike.png');
+        		$("#msg").html("<b>위시리스트에서 삭제되었습니다.</b>")
+        		$(".wModal").fadeIn();
+        		setTimeout(function() {
+        			$(".wModal").fadeOut();
+        		},500);
+        		
         	}
 		},
         error:function(){
@@ -161,7 +191,11 @@ $(document).on('click', '.basketBtn', function(){
 	var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
 	
 	if(isNaN(stock_seq)){
-		alert("사이즈를 선택해주세요.");	
+		$("#msg").html("<b>사이즈를 선택해주세요.</b>")
+		$(".wModal").fadeIn();
+		setTimeout(function() {
+			$(".wModal").fadeOut();
+		},700);
 	}else{
 		var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
 		var cnt = Number($("#pqCnt").html());
@@ -173,7 +207,6 @@ $(document).on('click', '.basketBtn', function(){
 		        data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
 		        url:"/Rhymes/store/insertBasket",
 		        success:function( data ){
-		        	//alert(data);
 		        	var obj = JSON.stringify(data);
 					var arr = JSON.parse(obj);
 					//alert(arr[0].total_price);
@@ -208,7 +241,6 @@ function showBasketList(arrLen, arr){
 		blist_stockseq += "/";
 		blist_pQuantity += arr[i].p_quantity;
 		blist_pQuantity += "/";
-				
 	}
 			
 		str += "<label class='moveBasketBtn'>장바구니 가기</label><br>";
@@ -237,9 +269,9 @@ $(document).on('click', '.moveBasketBtn', function(){
 
 /* 미니장바구니 삭제버튼 클릭 */
 $(document).on('click', '._bDeleteBtn', function(){
-	alert("삭제");
+	//alert("삭제");
 	var stock_seq = $(this).val();
-	alert("재고번호 : " + stock_seq);
+	//alert("재고번호 : " + stock_seq);
 	/* ajax로 삭제하고 리스트 다시 뿌려야함 */
 });
 
@@ -249,7 +281,11 @@ function buying(){
 	//alert(stock_seq);
 	
 	if(isNaN(stock_seq)){
-		alert("사이즈를 선택해주세요.");	
+		$("#msg").html("<b>사이즈를 선택해주세요.</b>")
+		$(".wModal").fadeIn();
+		setTimeout(function() {
+			$(".wModal").fadeOut();
+		},700);
 	}else{
 		
 		$("#stock_seq").val(Number(stock_seq));
@@ -258,8 +294,8 @@ function buying(){
 		$("#p_quantity").val(Number(cnt));
 		$("#orderFrm").submit();
 				
-		alert(typeof $("#p_quantity").val());
-		alert(typeof $("#stock_seq").val());
+		//alert(typeof $("#p_quantity").val());
+		//alert(typeof $("#stock_seq").val());
 	}
 }
 
@@ -269,7 +305,11 @@ var cnt = Number($("#pqCnt").html());
 if(cnt<9){
 	$("#pqCnt").html(cnt+1);	
 }else{
-	alert("최대 구매수량을 초과했습니다.");
+	$("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
+	$(".wModal").fadeIn();
+	setTimeout(function() {
+		$(".wModal").fadeOut();
+	},900);
 }
 
 });

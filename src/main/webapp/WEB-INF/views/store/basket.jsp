@@ -236,6 +236,34 @@ margin-left: 47%;
 .goShopping:hover{
 opacity:0.9;
 }
+.wModal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	margin:auto;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 40%; /* Full height */
+	overflow: hidden; /* Enable scroll if needed */
+	/* background-color: rgb(0,0,0); Fallback color
+	background-color: rgba(0,0,0,0.4); */ /* Black w/ opacity */
+	/* background-color:green; */
+}
+	
+/* Modal Content/Box */
+.wModal-content {
+	position:fixed;
+    background-color: #d7fd75;
+    margin:3%;
+    padding: 20px;
+    opacity:0.7;
+    border: 0px solid #888;
+    width: 100%;
+    height: auto;
+    margin: 8% auto;
+    text-align: center;
+}
 
 </style>
 <body>
@@ -251,7 +279,8 @@ opacity:0.9;
 	<div id=sub1Container" class="sub1_${ba.b_seq }">
 		<div class="product-opt_basket">
 			<div class="item-info">
-				<span class="img_wrap"><a href="/Rhymes/store/productDetail?p_seq=${ba.p_seq }"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></a></span>
+				<%-- <span class="img_wrap"><a href="/Rhymes/store/productDetail?p_seq=${ba.p_seq }"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></a></span> --%>
+				<span class="img_wrap"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></span>
 				<div class="info_wrap">
 					<div style="margin-top:8px; font-size: 15px;" class="pname_wrap"><a >${ba.c_name }</a></div>
 					<div style="margin-bottom: 7px; margin-top:3px;" class="pname_wrap"><a >${ba.p_name }</a></div>
@@ -269,7 +298,7 @@ opacity:0.9;
 				</div>
 				<div class="optionchange_wrap">
 					<c:if test="${ba.quantity ne 0 }">
-					<a href="#" onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9">수량 변경</font></a><br>
+					<a onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
 					<div class="pqSelect">
 						<span class="minus_Btn" style="cursor:pointer;" value="${ba.b_seq }">-</span>&nbsp;&nbsp;&nbsp;
 							<label id="pqCnt${ba.b_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
@@ -286,7 +315,7 @@ opacity:0.9;
 						</span> 원
 					</c:if>
 					<c:if test="${ba.quantity eq 0 }">
-						<span><font style="color:red">품절</font>	</span>
+						<span><font style="color:red">SOLD OUT</font></span>
 					</c:if>
 				</div>
 				<div class="delete_wrap">
@@ -310,13 +339,18 @@ opacity:0.9;
 					<td class='leftTd' style="padding-top: 15px;">예상 배송비</td>
 					<td class='rightTd' style="padding-top: 15px;">
 						<c:set value="${blist[0].total_price2 }" var="total"/>
-						<c:if test="${ total lt 10000}">
-							<span class="post_price" value="3000">
-								<fmt:formatNumber type="currency" currencySymbol="" value="${'3000'}" />
-							</span> 원
-						</c:if>
 						<c:if test="${ total gt 10000}">
 							<span class="post_price" value="0">0</span> 원
+						</c:if>
+						<c:if test="${ total lt 10000}">
+							<c:if test="${ total eq 0}">
+								<span class="post_price" value="0">0</span> 원
+							</c:if>
+							<c:if test="${ total ne 0}">
+								<span class="post_price" value="3000">
+									<fmt:formatNumber type="currency" currencySymbol="" value="${'3000'}" />
+								</span> 원
+							</c:if>
 						</c:if>
 												
 					</td>
@@ -326,15 +360,20 @@ opacity:0.9;
 					<td class='rightTd' style="padding-top: 30px; font-weight: bold; font-size: 18px;">
 					<input type="hidden" id="flexTotal" value="">
 					<input type="hidden" id="flexPostFee" value="">
-						<c:if test="${ total lt 10000}">
-							<span class="pay_price">
-							<fmt:formatNumber type="currency" currencySymbol="" value="${total + 3000}" />
-							</span> 원
-						</c:if>
 						<c:if test="${ total gt 10000}">
 							<span class="pay_price">
 								<fmt:formatNumber type="currency" currencySymbol="" value="${total}"/>
 							</span> 원
+						</c:if>
+						<c:if test="${ total lt 10000}">
+							<c:if test="${ total eq 0}">
+								<span class="pay_price"> 0 </span> 원
+							</c:if>
+							<c:if test="${ total ne 0}">
+								<span class="pay_price">
+								<fmt:formatNumber type="currency" currencySymbol="" value="${total + 3000}" />
+								</span> 원
+							</c:if>	
 						</c:if>
 					</td>
 				</tr>
@@ -351,6 +390,13 @@ opacity:0.9;
 <div>
 </div>	
 </div>
+<!-- 메시지 영역 -->
+<div class="wModal">
+	<div class="wModal-content">
+		<span id="msg"></span>
+	</div>
+</div>
+
 <!-- 주문하기 -->
 <form action="/Rhymes/payment/basketOrder" method="post" id="bOrderFrm">
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
@@ -358,6 +404,7 @@ opacity:0.9;
 	<input type='hidden' name="blist_pQuantity" id="blist_pQuantity" value="">
 </form>
 
+<!----------------- SCRIPT ZONE ----------------->
 <script>
 var allCnt = ${fn:length(blist) };
 
@@ -372,25 +419,31 @@ $(document).on('click', '.goShopping', function(){
 });
 
 $(document).on('click', '.orderBtn', function(){
-	alert("주문할게여");
-	var len = ${fn:length(blist) };
-	var blist_stockseq = "";
-	var blist_pQuantity = "";
-	
-	//alert(len);
-	for (var i = 0; i < len; i++) {
-		if($("#eachPq" + (i+1)).html() != undefined){
-			blist_pQuantity += $("#eachPq" + (i+1)).html();
-			blist_pQuantity += "/";
-			blist_stockseq += $("#eachSs" + (i+1)).val();
-			blist_stockseq += "/";
+	if($(".pay_price").html() != "0"){
+		$("#msg").html("<b>장바구니에 주문가능한 상품이 없습니다.</b>")
+    	$(".wModal").fadeIn();
+    	setTimeout(function() {
+    		$(".wModal").fadeOut();
+    	},700);
+	}else{
+		var len = ${fn:length(blist) };
+		var blist_stockseq = "";
+		var blist_pQuantity = "";
+		
+		//alert(len);
+		for (var i = 0; i < len; i++) {
+			if($("#eachPq" + (i+1)).html() != undefined){
+				blist_pQuantity += $("#eachPq" + (i+1)).html();
+				blist_pQuantity += "/";
+				blist_stockseq += $("#eachSs" + (i+1)).val();
+				blist_stockseq += "/";
+			}
 		}
+		$("#blist_stockseq").val(blist_stockseq);
+		$("#blist_pQuantity").val(blist_pQuantity);
+		
+		$("#bOrderFrm").submit();
 	}
-	$("#blist_stockseq").val(blist_stockseq);
-	$("#blist_pQuantity").val(blist_pQuantity);
-	
-	$("#bOrderFrm").submit();
-	
 });
 
 $(document).on('click', '.allDeleteBtn', function(){
@@ -441,6 +494,12 @@ function changeQ(stock_seq, b_seq){
         	$(".eachMultiple"+b_seq).html(numberWithCommas(udtQ));
         	$("#pMq"+b_seq).val(udtQ);
         	
+        	$("#msg").html("<b>수량이 변경되었습니다.</b>")
+        	$(".wModal").fadeIn();
+        	setTimeout(function() {
+        		$(".wModal").fadeOut();
+        	},700);
+        	
         	if(data>=10000){
         		$("#totalP_price").html(numberWithCommas(data));
         		$(".pay_price").html(numberWithCommas(data));
@@ -463,7 +522,11 @@ $(document).on('click', '.plus_btn', function(){
 	if(cnt<9){
 		$("#pqCnt" + b_seq).html(cnt+1);	
 	}else{
-		alert("최대 구매수량을 초과했습니다.");
+		$("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
+    	$(".wModal").fadeIn();
+    	setTimeout(function() {
+    		$(".wModal").fadeOut();
+    	},700);
 	}
 });
 
@@ -501,20 +564,26 @@ $(document).on('click', '.delete_btn', function(){
             	//배송비 + (총금액-삭제금액)
             	var udtPp = data + Number(postfee);
             	$("#flexTotal").val(udtPp);
- 				
+            	
             /* 1.배송비 부과될 때 */	           	
             	if(data<10000){
-            		alert("배송비O");
+            		//alert("배송비O");
             		/* 수정된 총 결제 예상 금액 */
             		udtPp = data + 3000;
             		      				    		
             		/* 상품금액 */
             		$("#totalP_price").html(numberWithCommas(data));
+            		
+            		if(data>0){
             		/* 예상 배송비 */
-            		$(".post_price").attr("value", "3000");
-            		$(".post_price").html("3,000");
-            		/* 총 결제 예정 금액 */
-            		$(".pay_price").html(numberWithCommas(udtPp));
+	            		$(".post_price").attr("value", "3000");
+	            		$(".post_price").html("3,000");
+	            		/* 총 결제 예정 금액 */
+	            		$(".pay_price").html(numberWithCommas(udtPp));
+            		}else if(data == 0){
+                		$(".post_price").html("0");
+                		$(".pay_price").html("0");
+                	}
             		
             	}
             /* 2.무료배송 */	
@@ -544,6 +613,12 @@ $(document).on('click', '.delete_btn', function(){
             	}
             }
             //minusallCnt();
+            
+            $("#msg").html("<b>장바구니에서 삭제되었습니다.</b>")
+        	$(".wModal").fadeIn();
+        	setTimeout(function() {
+        		$(".wModal").fadeOut();
+        	},700);
         },
         error:function(){
            alert("error!!"); 

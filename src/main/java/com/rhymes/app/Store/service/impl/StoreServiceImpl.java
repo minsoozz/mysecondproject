@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.rhymes.app.Store.dao.StoreDao;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.ProductParam;
+import com.rhymes.app.Store.model.category.Category1Dto;
+import com.rhymes.app.Store.model.category.Category2Dto;
+import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.StoreService;
 
 @Service
@@ -29,6 +32,21 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public int getProductCnt(ProductParam param) throws Exception {
 		return store.getProductCnt(param);
+	}
+
+	@Override
+	public List<Category1Dto> getkCate1List(ProductParam param) throws Exception {
+		return store.getkCate1List(param);
+	}
+
+	@Override
+	public List<Category2Dto> getkCate2List(ProductParam param) throws Exception {
+		return store.getkCate2List(param);
+	}
+
+	@Override
+	public List<Category3Dto> getkCate3List(ProductParam param) throws Exception {
+		return store.getkCate3List(param);
 	}
 
 	
