@@ -58,20 +58,27 @@
                             <div class="join">
                                 <a href="/member/regiMain">Join</a>
                             </div>
+                            
                         </c:if>
                         
                         <c:if test="${userloginid ne null}">
                         	<div class="">
-                        		<span>${userloginid } 님</span>
+                        		<span>안녕하세요 ${userloginid } 님  &nbsp;</span>
                         	</div>
-                        	<div class="">
+                        	&nbsp;&nbsp;
+                        	<div class="logout">
                         		<a href="/member/logout">Logout</a>
+                        		
                         	</div>
                         </c:if>
                         
                         
+                        
                             <div class="mypage">
-                                <a href="a.jsp">Mypage</a>
+                                <a href="/mypage/orderlog">Mypage</a>
+                            </div>
+                            <div class="cart">
+                                <a href="a.jsp">Cart</a>
                             </div>
                         </div>
                         
@@ -133,13 +140,13 @@
                                     <a class="nav-link" href="/Rhymes/store/productList">MEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">MARKET</a>
+                                    <a class="nav-link" href="/used/usedlist">MARKET</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">EVENT</a>
                                 </li>
                                 <li class="nav-item">
-                           			<a class="nav-link" href="/Rhymes/noticelist">CUSTOMER CENTER</a>
+                           			<a class="nav-link" href="/customercenter/noticelist">CUSTOMER CENTER</a>
                            		</li>
                            		
                             </ul>
@@ -152,7 +159,9 @@
         </div>
     </header>
     
-
+<a id="backToTop" class="scrolltop" href="#">
+      <i class="fas fa-chevron-circle-up"></i>
+    </a>
     
     <!-- ****** Header Area End ****** -->
 
@@ -172,6 +181,23 @@
 	        }
 	    });
 	});
+	
+	
+	jQuery(document).ready(function () {
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 100) {
+            $('#backToTop').fadeIn(500);
+          } else {
+            $('#backToTop').fadeOut('slow');
+          }
+        });
+        $('#backToTop').click(function (e) {
+          e.preventDefault();
+          $('html, body').animate({scrollTop: 0}, 200);
+        });
+      });
+	
+	
 	</script> 
 	</body>
 

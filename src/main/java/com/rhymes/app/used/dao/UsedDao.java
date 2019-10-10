@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.used.model.BbsParam;
 import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 
@@ -12,7 +13,7 @@ public interface UsedDao {
 
 	boolean UsedWrite(ProductsDto dto);
 
-	List<ProductsDto> getUsedList();
+	List<ProductsDto> getUsedList(BbsParam param);
 
 	ProductsDto getUsedDetail(int seq);
 
@@ -43,5 +44,13 @@ public interface UsedDao {
 	boolean deleteComment(Map<String, Object> map);
 
 	boolean insertanswer(Map<String, Object> map);
+
+	boolean usedUpdate(ProductsDto dto);
+
+	int getBbsCount(BbsParam param);
+
+	int getSellerid(String s_id);
+
+	boolean deleteProduct(int seq);
 	
 }

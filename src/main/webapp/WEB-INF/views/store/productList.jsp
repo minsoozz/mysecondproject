@@ -29,7 +29,7 @@
 	<div class='subDiv' align='center' ">
 	<c:forEach items="${plist }" var="pro" varStatus="vs">
 	<div class='eachDiv' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
-		<img alt="사진없음" src="/upload/${pro.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"><br>
+		<img alt="사진없음" src="/upload/${pro.photo1_file }" style="width:250px;height:250px; margin-top: 20px;margin-bottom: 20px" style="margin:3%;"><br>
 		<font size="5px"><b>${pro.p_name }</b></font><br>
 		<font size="4px">&#8361;${pro.p_price2 }<br>
 		<font size="3px">(${pro.p_color })</font>
@@ -68,6 +68,6 @@ function detail(seq){
 	 //alert(money);
  });0
  </script>
-	
+
 </body>
 </html>
