@@ -5,18 +5,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rhymes.app.Store.model.OrderDto;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.model.OrderDTO;
 import com.rhymes.app.payment.service.PaymentService;
 import com.rhymes.app.payment.util.Coolsms;
@@ -72,7 +81,7 @@ public class PaymentController {
 	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity, Principal pcp) throws Exception {
 		System.out.println("================= 여기부터 payment ==================");
 
-		//String userid = pcp.getName();
+		String userid = pcp.getName();
 		// 장바구니에서 문자열로 데이터를 가져왔다
 		// 예) 신발/청바지/티셔츠			// blist_stockseq : 주문한 상품의 재고번호
 		// 예) 100/80/95				// blist_pQuantity : 주문한 상품의 재고수량
@@ -108,7 +117,7 @@ public class PaymentController {
 			// 데이터를 가져오기 위해서 주문한 상품의 재고번호를 dto에 담고 매개변수로 DB에 보낸다
 			dto.setStock_seq(bOlist.get(i).getStock_seq());
 
-			// DB 주문한 상품의 정보
+			// DB 주문한 상품의 정보 가져오기
 			// 장바구니로 데이터를 가져갈 리스트에 넣는다
 			basketList.add(PaymentService.getOrder(dto));
 
@@ -120,14 +129,18 @@ public class PaymentController {
 		
 		
 		// DB 적립금 가져오기
-		//int point_amount = PaymentService.getPoint(userid);
+		int point_amount = PaymentService.getPoint(userid);
+		
+		// DB 쿠폰 개수 가져오기
+		int coupon_count = PaymentService.getCountCoupon(userid);
 		
 		// DB 쿠폰 가져오기
-		//String coupon_code = PaymentService.getCoupon(userid);
+		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
 		
 
-		//model.addAttribute("point_amount", point_amount);
-		//model.addAttribute("coupon_code", coupon_code);
+		model.addAttribute("point_amount", point_amount);
+		model.addAttribute("coupon_count", coupon_count);
+		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("basketList", basketList);
 
 		if (true) {
@@ -157,7 +170,57 @@ public class PaymentController {
 
 		return "/payment/paymentAf";
 	}
+	
+	/** 자바 메일 발송 *
+	 * @throws MessagingException
+	 * @throws AddressException **/
+	@RequestMapping(value = "/mailSender")
+	public void mailSender() throws AddressException, MessagingException {
+		System.out.println("메일발송 컨트롤러");
+		
+		// 네이버일 경우 smtp.naver.com 을 입력합니다.
+		// Google일 경우 smtp.gmail.com 을 입력합니다.
+		String host = "smtp.naver.com";
+		
+		final String username = "ogbgt5"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
+		final String password = "nahdl^*^zrb15"; //네이버 이메일 비밀번호를 입력해주세요.
+		int port=465; //포트번호
+		
+		// 메일 내용
+		String recipient = "onep577@naver.com";
 
+		//받는 사람의 메일주소를 입력해주세요.
+		String subject = "메일테스트"; //메일 제목 입력해주세요.
+		String body = username+"님으로 부터 메일을 받았습니다."; //메일 내용 입력해주세요.
+		
+		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
+		
+		// SMTP 서버 정보 설정
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", port);
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true");
+		props.put("mail.smtp.ssl.trust", host);
+		
+		//Session 생성
+		//Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			String un=username;
+			String pw=password;
+			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+				return new javax.mail.PasswordAuthentication(un, pw);
+			}
+		});
+		session.setDebug(true); //for debug
+		Message mimeMessage = new MimeMessage(session); //MimeMessage 생성
+		mimeMessage.setFrom(new InternetAddress("ogbgt5@naver.com")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다. 이때는 이메일 풀 주소를 다 작성해주세요.
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
+		mimeMessage.setSubject(subject); //제목셋팅
+		mimeMessage.setText(body); //내용셋팅
+		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
+	}
+
+		
 	// 주문페이지에서 비회원으로 주문할때 본인인증
 	@ResponseBody
 	@RequestMapping(value = "/sendsms", method = RequestMethod.GET)

@@ -40,7 +40,7 @@
 
 <div class="divback">
 <h4>상품 정보</h4>
-<table>
+<table class="payment_tb">
 <tr style="border-bottom: 1px solid #dbdbdb;">
 	<td colspan="2" align="center" width="50%">상품 정보</td>
 	<td width="20%" align="center">상품 금액</td>
@@ -50,7 +50,7 @@
 <tr>
 	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/img/upload/${list.photo1_file }"></td>
 	<td width="50%" align="left">[${list.p_name }]${list.c_name }</td>
-	<td rowspan="2" width="10%" align="center">${list.p_price * list.quantity }</td>
+	<td rowspan="2" width="10%" align="center" id="total_price">${list.p_price * list.quantity }</td>
 </tr>
 <tr>
 	<td align="left">${list.quantity }개/개 당 ${list.p_price }원</td>
@@ -67,7 +67,7 @@
 
 <div class="divback">
 <h4>주문자 정보</h4>
-<table>
+<table class="payment_tb">
 <!--
 -->
 <tr>
@@ -81,7 +81,7 @@
 	<input type="button" id="enterBtn" value="확인">
 
 	<input type="hidden" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-	<input type="text" id="_text_confirm">
+	<input type="hidden" id="_text_confirm">
 
 	</td>
 </tr>
@@ -96,7 +96,7 @@
 	<input type="text" size="5" id="sendphone3"></td>
 </tr><tr>
 	<th>이메일 *</th>
-	<td><input type="text" size="26"></td>
+	<td><input type="text" size="26"><input type="button" id="mail_move" value="메일발송"></td>
 </tr><tr>
 	<td></td>
 	<td>이메일을 통해 주문처리과정을 보내드립니다.<br>이메일 주소란에는 반드시 수신가능한 이메일 주소를 입력해 주세요.</td>
@@ -110,7 +110,7 @@
 
 <div class="divback">
 <h4>배송 정보</h4>
-<table>
+<table class="payment_tb">
 <tr>
 	<th>주소 *</th>
 	<td>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -151,22 +151,29 @@
 <!-- 로그인 했을때만 보이기 -->
 <div class="divback">
 <h4>쿠폰 적립금</h4>
-<table>
+<table class="payment_tb">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td>
 	<select>
-	<option>쿠폰 적용 안함</option>
-	<option>사용할 쿠폰</option>
+	<option value="">쿠폰 적용 안함</option>
+	<c:forEach items="${coupon_code }" var="coupon">
+	<option value="">${coupon.title }</option>
+	</c:forEach>
 	</select>
 	</td>
 </tr>
 <tr>
-	<td>(보유쿠폰 : 1개)</td>
+	<td>(보유쿠폰 : ${coupon_count }개) 중복할인 안됩니다</td>
 </tr>
 <tr>
 	<th>적립금 적용</th>
+<c:if test="${empty point_amount }">
 	<td>사용 가능한 적립금이 없습니다</td>
+</c:if>
+<c:if test="${not empty point_amount }">
+	<td>${point_amount }원&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="coupon_use" onblur="coupon_onblur()">원 사용 (1000월 단위로 사용가능합니다)</td>
+</c:if>
 </tr>
 </table>
 </div>
@@ -178,7 +185,7 @@
 
 <div class="divback">
 <h4>결제 수단</h4>
-<table>
+<table class="payment_tb">
 <tr style="background-color: #fafafa">
 	<th>결제 수단 선택</th>
 	<td>
@@ -201,6 +208,8 @@
 </div>
 <input type="button" id="paymentBtn" value="결제하기" onclick="paymens()"><br><br>
 </div>
+
+
 
 
 

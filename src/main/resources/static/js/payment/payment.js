@@ -2,6 +2,10 @@ $(function(){
 	
 	alert("결제");
 
+
+
+	
+	
 // 주문자와 동일한 정보로 보낼 때
 $("#checkorder").click(function () {
 	//alert("주문자와 동일");
@@ -100,7 +104,30 @@ $("#enterBtn").click(function() {
 
 
 
+
+$("#mail_move").click(function () {
+	alert("메일");
+	location.href="/mailSender";
 });
+
+
+
+
+
+});
+
+
+
+
+
+function coupon_onblur(){
+	alert("쿠폰");
+	// 총 금액 계산
+	var coupon_use = $("#coupon_use").val();
+	alert(coupon_use);
+}
+
+
 
 
 
