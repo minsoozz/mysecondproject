@@ -1,13 +1,14 @@
-package com.rhymes.app.customer.serviceimpl;
+package com.rhymes.app.Store.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.rhymes.app.customer.dao.PqnaDao;
+
+import com.rhymes.app.Store.dao.PqnaDao;
+import com.rhymes.app.Store.model.PqnaDto;
+import com.rhymes.app.Store.service.PqnaService;
 import com.rhymes.app.customer.model.CustomerParam;
-import com.rhymes.app.customer.model.PqnaDto;
-import com.rhymes.app.customer.service.PqnaService;
 
 @Service
 public class PqnaServiceImpl implements PqnaService {

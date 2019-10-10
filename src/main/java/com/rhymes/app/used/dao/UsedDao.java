@@ -52,5 +52,7 @@ public interface UsedDao {
 	int getSellerid(String s_id);
 
 	boolean deleteProduct(int seq);
+
+	boolean setblackList(Map<String, Object> map);
 	
 }

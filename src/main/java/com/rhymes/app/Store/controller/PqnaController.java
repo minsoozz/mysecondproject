@@ -1,4 +1,4 @@
-package com.rhymes.app.customer.controller;
+package com.rhymes.app.Store.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,62 +16,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rhymes.app.Store.model.PqnaDto;
+import com.rhymes.app.Store.service.PqnaService;
 import com.rhymes.app.customer.model.CustomerParam;
-import com.rhymes.app.customer.model.PqnaDto;
-import com.rhymes.app.customer.model.QnaDto;
-import com.rhymes.app.customer.service.PqnaService;
 import com.rhymes.app.customer.util.FUpUtil;
 
 @Controller
-@RequestMapping("/customercenter")
+@RequestMapping("/productqna")
 public class PqnaController {
 
 	@Autowired
 	private PqnaService PqnaService;
 	
-	@RequestMapping(value = "/pqnalist", method = {RequestMethod.GET, RequestMethod.POST})
-	public String pqnalist(Model model, CustomerParam param){
-		
-		//페이징
-		int sn = param.getPageNumber();	//0 1 2
-		int start = sn * param.getRecordCountPerPage() + 1;	// 1 11
-		int end = (sn + 1) * param.getRecordCountPerPage(); // 10 20
-		
-		param.setStart(start);
-		param.setEnd(end);
-
-		List<PqnaDto> pqnalist = PqnaService.getPqnaList(param);
-		
-		//글의 총수
-		int totalRecordCount = PqnaService.getPqnaCount(param);	
-		model.addAttribute("pqnalist", pqnalist);
-		
-		model.addAttribute("pageNumber", sn);
-		model.addAttribute("pageCountPerScreen", 10);
-		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
-		model.addAttribute("totalRecordCount", totalRecordCount);
-		
-				
-		return "pqnalist.tiles";
-	}
 	
-	//글쓰기가기
+	//상품문의 글쓰기가기
 	@GetMapping("/pqnawrite")
 	public String pqnawrite(Model model) {
 		
 		return "pqnawrite.tiles";
 	}
 	
-	//글작성완료
+	//상품문의 글작성완료
 	@RequestMapping(value = "/pqnaupload", method = {RequestMethod.GET, RequestMethod.POST})
 	public String qpanupload(PqnaDto pqnadto) {
 		
 		PqnaService.PqnaUpload(pqnadto);
 		
-		return "redirect:/customercenter/pqnalist";
+		return "redirect:/productqna/pqnalist";
 	}
 
-	//글수정가기
+	//상품문의 글수정가기
 	@GetMapping("/pqnaupdate")
 	public String pqnaupdate(int seq, Model model) {
 		
@@ -81,33 +55,33 @@ public class PqnaController {
 		return "pqnaupdate.tiles";
 	}
 	
-	//글수정하기
+	//상품문의 글수정하기
 	@RequestMapping(value = "/pqnaupdateAf", method = {RequestMethod.GET, RequestMethod.POST})
 	public String pqnaupdateAf(PqnaDto pqnadto) {
 		
 		PqnaService.PqnaUpdateAf(pqnadto);
 		
-		return "redirect:/customercenter/pqnalist";
+		return "redirect:/productqna/pqnalist";
 	}
 	
-	//삭제하기
+	//상품문의 삭제하기
 	@GetMapping("/pqnadelete")
 	public String pqnadelete(int seq) {
 		
 		
 		PqnaService.PqnaDelete(seq);
 		
-		return "redirect:/customercenter/pqnalist";
+		return "redirect:/productqna/pqnalist";
 	}
 		
-	//답글 가기 
+	//상품 문의 답글 가기 
 	@GetMapping(value = "/pqnaanswer")
 	public String answerwrite(int seq, Model model) {			
 		model.addAttribute("seq", seq);
 		
 		return "pqnaanswer.tiles";
 	}
-	//답글작성
+	//상품 문의 답글작성
 	@RequestMapping(value = "/pqnaanswerAf", method= RequestMethod.POST)
 	public String pqnaanswerAf(PqnaDto pqnadto){		
 		
@@ -118,7 +92,7 @@ public class PqnaController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/customercenter/pqnalist";
+		return "redirect:/productqna/pqnalist";
 		
 	}
 	

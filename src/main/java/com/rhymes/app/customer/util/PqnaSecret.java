@@ -10,7 +10,8 @@ private int secret = 0;
 	}
 	
 	public String getArrow(){
-		String sc = "<img src='../img/customer-img/wkanfthl.png' width='20px' height='15px' />";
+		
+		String sc = "<img src='/img/customer-img/wkanfthl.png' width='20px' height='15px' />";
 		String ts="";
 		
 		return secret == 0 ? "" : ts+sc;

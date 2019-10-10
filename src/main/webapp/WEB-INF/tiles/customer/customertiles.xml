@@ -72,10 +72,6 @@
    
    
    <!-- 연습용 상품문의 -->
-    <!-- Pqna리스트 -->
-   <definition name="pqnalist.tiles" extends="noticelist.tiles">
-       <put-attribute name="body" value="/WEB-INF/views/customer/pqnalist.jsp" />
-   </definition>
    <!-- Pqna글쓰기 -->
    <definition name="pqnawrite.tiles" extends="noticelist.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/pqnawrite.jsp" />

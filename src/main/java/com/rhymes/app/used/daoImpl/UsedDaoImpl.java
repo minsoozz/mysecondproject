@@ -50,7 +50,6 @@ public class UsedDaoImpl implements UsedDao {
 
 	@Override
 	public int getSellerCount(String parameter) {
-
 		sqlSession.update(ns + "updateSellerCount", parameter);
 
 		int count = sqlSession.selectOne(ns + "getSellerCount", parameter);
@@ -61,7 +60,7 @@ public class UsedDaoImpl implements UsedDao {
 	@Override
 	public P_MemberDTO getMemberDto(String id) {
 		P_MemberDTO dto = sqlSession.selectOne(ns + "getMember", id);
-				System.out.println("dto : " + dto.toString());
+				
 		return dto;
 	}
 
@@ -112,7 +111,7 @@ public class UsedDaoImpl implements UsedDao {
 	@Override
 	public List<CommentsDto> getComments(int seq) {
 		List<CommentsDto> list = sqlSession.selectList(ns + "getComments", seq);
-		System.out.println(list.toString());
+		
 		return list;
 	}
 
@@ -152,7 +151,7 @@ public class UsedDaoImpl implements UsedDao {
 
 	@Override
 	public boolean usedUpdate(ProductsDto dto) {
-		System.out.println("dao :" + dto.toString());
+		
 		int n = sqlSession.update(ns + "usedupdate", dto);
 		return n > 0 ? true : false;
 	}
@@ -174,6 +173,13 @@ public class UsedDaoImpl implements UsedDao {
 	@Override
 	public boolean deleteProduct(int seq) {
 		int n = sqlSession.delete(ns + "deleteProduct", seq);
+		
+		return n > 0 ? true :false;
+	}
+
+	@Override
+	public boolean setblackList(Map<String, Object> map) {
+		int n = sqlSession.insert(ns + "setblackList", map);
 		
 		return n > 0 ? true :false;
 	}
