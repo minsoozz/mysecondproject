@@ -37,12 +37,11 @@
             <div class="row">
                 <div class="col-5 col-xs-6"> 
                     <div class="top_social_bar">
-<<<<<<< HEAD
+
                         <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-=======
->>>>>>> master
+
                     </div>
                 </div>
                 
