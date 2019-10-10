@@ -15,6 +15,7 @@ tr{
 	border: 1px solid black; 
 }
 </style>
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>

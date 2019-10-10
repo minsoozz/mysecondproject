@@ -5,10 +5,21 @@
     
 <!DOCTYPE html>
 <html>
+<title>121</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css"	
+	href="<%=request.getContextPath() %>/css/store/silde.css">
+	
+	
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <head>
 
 <meta charset="UTF-8">
+
 <!-- security ajax -->
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
@@ -18,11 +29,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <link rel="stylesheet" href="/css/store/productDetail.css">
-<link rel="stylesheet" href="/css/store/slide.css">
-
-
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -34,10 +40,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<link href='/css/style.css' rel='stylesheet'/>
-<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-
-	
 
 </head>
 <body>
@@ -56,17 +58,28 @@ $(document).ajaxSend(function(e, xhr, options) {
    </div>
  --%>
       
-  <div id="wrapper">
+
+
+
+<div id="wrapper">
       <div id="slider-wrap">
           <ul id="slider">
-         <li><img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
-
-        <li> <img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
-         <li><img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
-          <li><img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
-           <li> <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
+			 <li data-color="#1abc9c">              
+				<img src="/upload/${productDto.photo1_file }">
+             </li>
+             <li data-color="#1abc9c">              
+				<img src="/upload/${productDto.photo2_file }">
+             </li>
+             <li data-color="#1abc9c">              
+				<img src="/upload/${productDto.photo3_file }">
+             </li>
+             <li data-color="#1abc9c">              
+				<img src="/upload/${productDto.photo4_file }">
+             </li>
+             <li data-color="#1abc9c">              
+				<img src="/upload/${productDto.photo5_file }">
+             </li>
           </ul>
-          
            <!--controls-->
           <div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
           <div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
@@ -76,8 +89,9 @@ $(document).ajaxSend(function(e, xhr, options) {
             <ul>
             </ul>
           </div>
-          <!--controls-->                   
-      </div>  
+          <!--controls-->  
+                 
+      </div>
    </div>
 
 
@@ -127,6 +141,13 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 </div>
 
+<!-- 메시지 영역 -->
+<div class="wModal">
+   <div class="wModal-content">
+      <span id="msg"></span>
+   </div>
+</div>
+
 <!-- 구매하기 form -->
 <form action="/Rhymes/payment" id="orderFrm" method="post">
    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -143,12 +164,9 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <!-- 장바구니 페이지이동 form -->
 <form action="/Rhymes/store/basket" method="get" id="moveBasketFrm"></form>
-</div>
 
 
-<br><br><br>
-<br><br><br>
-<br><br><br>
+<div id="aa"></div>
 
 <ul class="goods-view-infomation-tab-group">
 	<li class="goods-view-infomation-tab">
@@ -320,9 +338,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 <div class="goods-view-infomation-content" id="goods_qna">
-
 <div id="button.wrap">
-
 			<span class="button blue">
 				<button type="button" id="_btnWrite">상품문의</button>
 			</span>
@@ -419,13 +435,24 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 </div>
 
-
-
+</div>
 
 
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
 <script>
+//current position
+var pos = 0;
+//number of slides
+var totalSlides = $('#slider-wrap ul li').length;
+//get the slide width
+var sliderWidth = $('#slider-wrap').width();
+
+
+
+
+
+
 var blist_stockseq = "";
 var blist_pQuantity = "";
 
@@ -435,52 +462,66 @@ $(document).ajaxSend(function(e, xhr, options) {
     xhr.setRequestHeader(header, token);
 });
 
-//장바구니 영역외 클릭시 hide
+//sold out
+function soldout(){
+   $("#msg").html("<b><font style='font-size:35px'>SOLD OUT</font></b>")
+   $(".wModal").fadeIn();
+   setTimeout(function() {
+      $(".wModal").fadeOut();
+   },700);
+}
+
+//장바구니 영역 외 클릭시 hide
 $('body').click(function(e){
     if($(".basket").css("display") == "block") {
          if(!$('.basket, .blist').has(e.target).length) { 
             $(".basket").hide("slow");
+            
           } 
       }
 });
 
-// 사이즈 선택시 버튼색상 변경
+//사이즈 선택시 버튼색상 변경
 $(document).on('click', '.sizeLabel', function(){
    $(".sizeLabel").attr('style', 'background-color:white');
    $(this).attr('style', 'background-color:#d7fd75');
 });
 
-// 장바구니 클릭
-$(document).on('click', '.basketBtn', function(){   
-   var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
+/* 위시리스트 클릭 */
+$(document).on('click', '.wishBtn', function(){
+   var p_seq = $("#hdnPseq").val();
    
-   if(isNaN(stock_seq)){
-      alert("사이즈를 선택해주세요.");   
-   }else{
-      var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-      var cnt = Number($("#pqCnt").html());
-      if(isNaN(stock_seq)){
-         alert("사이즈를 선택해주세요.");
-      }else{
-         $.ajax({
-              type:"get",
-              data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-              url:"/Rhymes/store/insertBasket",
-              success:function( data ){
-                 //alert(data);
-                 var obj = JSON.stringify(data);
-               var arr = JSON.parse(obj);
-               //alert(arr[0].total_price);
-               var arrLen = arr.length;
-                 showBasketList(arrLen, arr);
-              },
-              error:function(){
-                 alert("error!!"); 
-              }
-            })
-      }
-   }
+   $("#msg").html("");
+   
+   $.ajax({
+        type:"get",
+        data: "p_seq=" + p_seq,
+        url:"/Rhymes/store/operWishlist",
+        success:function( data ){
+           if(data == "insert"){
+              $(".heartImg").attr('src', '/img/store-img/like.png');
+              $("#msg").html("<b>위시리스트에 등록되었습니다.</b>")
+              $(".wModal").fadeIn();
+              setTimeout(function() {
+                 $(".wModal").fadeOut();
+              },500);
+           }else if(data == "delete"){
+              $(".heartImg").attr('src', '/img/store-img/unlike.png');
+              $("#msg").html("<b>위시리스트에서 삭제되었습니다.</b>")
+              $(".wModal").fadeIn();
+              setTimeout(function() {
+                 $(".wModal").fadeOut();
+              },500);
+              
+           }
+      },
+        error:function(){
+           alert("error!!"); 
+        }
+   })
+      
 });
+
 /* 미니 장바구니 리스트 */
 function showBasketList(arrLen, arr){
    $(".blist").html("");
@@ -489,7 +530,7 @@ function showBasketList(arrLen, arr){
    var str = "<div align='center' id='baskettitle'><h2>ㅋ장바구니ㅋ</h2></div>";
    for (var i = 0; i < arrLen; i++) {
       str += "<div stylesdf='margin-top:5%;' align='center' class='blist' >";
-      str += "<label><img src='/upload/"+ arr[i].photo1_file + "' style='width:100px; height:100px;'><br>";
+      str += "<label><img src='/upload/store/"+ arr[i].photo1_file + "' style='width:100px; height:100px;'><br>";
       str += "<label class='_bDeleteBtn' value='"+arr[i].stock_seq+"'>X</label><br>";
       str += "<label>" + arr[i].p_name + "</label><br>";
       str += "<label>사이즈 : " + arr[i].size + "</label><br>";
@@ -501,7 +542,6 @@ function showBasketList(arrLen, arr){
       blist_stockseq += "/";
       blist_pQuantity += arr[i].p_quantity;
       blist_pQuantity += "/";
-            
    }
          
       str += "<label class='moveBasketBtn'>장바구니 가기</label><br>";
@@ -530,9 +570,9 @@ $(document).on('click', '.moveBasketBtn', function(){
 
 /* 미니장바구니 삭제버튼 클릭 */
 $(document).on('click', '._bDeleteBtn', function(){
-   alert("삭제");
+   //alert("삭제");
    var stock_seq = $(this).val();
-   alert("재고번호 : " + stock_seq);
+   //alert("재고번호 : " + stock_seq);
    /* ajax로 삭제하고 리스트 다시 뿌려야함 */
 });
 
@@ -542,7 +582,11 @@ function buying(){
    //alert(stock_seq);
    
    if(isNaN(stock_seq)){
-      alert("사이즈를 선택해주세요.");   
+      $("#msg").html("<b>사이즈를 선택해주세요.</b>")
+      $(".wModal").fadeIn();
+      setTimeout(function() {
+         $(".wModal").fadeOut();
+      },700);
    }else{
       
       $("#stock_seq").val(Number(stock_seq));
@@ -551,8 +595,8 @@ function buying(){
       $("#p_quantity").val(Number(cnt));
       $("#orderFrm").submit();
             
-      alert(typeof $("#p_quantity").val());
-      alert(typeof $("#stock_seq").val());
+      //alert(typeof $("#p_quantity").val());
+      //alert(typeof $("#stock_seq").val());
    }
 }
 
@@ -562,7 +606,11 @@ var cnt = Number($("#pqCnt").html());
 if(cnt<9){
    $("#pqCnt").html(cnt+1);   
 }else{
-   alert("최대 구매수량을 초과했습니다.");
+   $("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
+   $(".wModal").fadeIn();
+   setTimeout(function() {
+      $(".wModal").fadeOut();
+   },900);
 }
 
 });
@@ -573,6 +621,48 @@ if(cnt!=1){
    $("#pqCnt").html(cnt-1);
 }    
 });
+</script>
+
+
+<!-- 상품문의 -->
+<script type="text/javascript">
+/* 클릭시 내용보이기 */
+$(".detail").hide();
+
+function pqnadetail(seq){
+	
+	if($("#detail"+seq).css("display")=="none"){
+		$(".detail").hide();
+		$("#detail"+seq).show();
+	
+	}else{
+		$("#detail"+seq).hide();
+	}
+}
+/* 버튼 */
+function PqnaAnswer( seq ) {
+	location.href = "pqnaanswer?seq=" + seq;
+}
+function PqnaDelete( seq ) {
+	location.href = "pqnadelete?seq=" + seq;
+}
+function PqnaUpdate( seq ) {
+	location.href = "pqnaupdate?seq=" + seq;
+}
+
+$("#_btnWrite").click(function () { 
+	location.href = "pqnawrite";
+});
+
+function goPage( pageNumber,p_seq) {
+	
+	$("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
+	$("#_p_seq").val(p_seq);  // 들어오는 값을 가져옴 
+	$("#_frmFormSearch").attr("action", "/Rhymes/store/productDetail").submit(); //
+	
+}
+
+
 
 
 
@@ -670,46 +760,13 @@ function pagination(){
     $('#pagination-wrap ul li').removeClass('active');
     $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
 }
-</script>
-</script>
 
-<!-- 상품문의 -->
-<script type="text/javascript">
-/* 클릭시 내용보이기 */
-$(".detail").hide();
 
-function pqnadetail(seq){
-	
-	if($("#detail"+seq).css("display")=="none"){
-		$(".detail").hide();
-		$("#detail"+seq).show();
-	
-	}else{
-		$("#detail"+seq).hide();
-	}
-}
-/* 버튼 */
-function PqnaAnswer( seq ) {
-	location.href = "pqnaanswer?seq=" + seq;
-}
-function PqnaDelete( seq ) {
-	location.href = "pqnadelete?seq=" + seq;
-}
-function PqnaUpdate( seq ) {
-	location.href = "pqnaupdate?seq=" + seq;
-}
 
-$("#_btnWrite").click(function () { 
-	location.href = "pqnawrite";
-});
 
-function goPage( pageNumber,p_seq) {
-	
-	$("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
-	$("#_p_seq").val(p_seq);  // 들어오는 값을 가져옴 
-	$("#_frmFormSearch").attr("action", "/Rhymes/store/productDetail").submit(); //
-	
-}
+
+
+
 
 </script>  
       

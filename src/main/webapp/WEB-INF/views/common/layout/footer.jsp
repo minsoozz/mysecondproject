@@ -82,17 +82,17 @@
 
 
     <!-- ****** Footer Menu Area End ****** -->
-    
-    <!-- Jquery-2.2.4 js -->
-   <script src="../js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-   <script src="../js/bootstrap/popper.min.js"></script>
-       <!-- Bootstrap-4 js -->
-   <script src="../js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins JS -->
-    <script src="../js/others/plugins.js"></script>
-    <!-- Active JS -->
-    <script src="../js/active.js"></script>
+   <%String ctx = request.getContextPath(); %>
+	<!-- Jquery-2.2.4 js -->
+	<script src="<%=ctx %>/js/jquery/jquery-2.2.4.min.js"></script>
+	<!-- Popper js -->
+	<script src="<%=ctx %>/js/bootstrap/popper.min.js"></script>
+	<!-- Bootstrap-4 js -->
+	<script src="<%=ctx %>/js/bootstrap/bootstrap.min.js"></script>
+	<!-- All Plugins JS -->
+	<script src="<%=ctx %>/js/others/plugins.js"></script>
+	<!-- Active JS -->
+	<script src="<%=ctx %>/js/active.js"></script>
     
 </body>
 </html>
