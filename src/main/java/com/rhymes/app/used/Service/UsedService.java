@@ -54,4 +54,6 @@ public interface UsedService {
 
 	public boolean deleteProduct(int seq);
 
+	public boolean setblackList(Map<String, Object> map);
+
 }

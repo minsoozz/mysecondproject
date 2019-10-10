@@ -222,4 +222,10 @@ where seq in ( select seq
 	WHERE s_id=#{s_id}
 </select>
 
+<!--게시글 신고  -->
+<insert id="setblackList" parameterType="hashmap">
+	INSERT INTO rhy_used_blacklist(b_id,b_seq,reporter,content,rdate,review)
+	VALUES(#{b_id},#{seq},#{id},#{str},NOW(),0)
+</insert>
+
 </mapper>

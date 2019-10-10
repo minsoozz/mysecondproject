@@ -1,15 +1,21 @@
+<%@page import="org.springframework.security.core.userdetails.UserDetails"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <div class="menu_table">
 	<h2>민수마켓</h2>
 	<ul style="width: 100%">
 		<li class="title"><a href="usedlist">게시판 목록</a></li>
+ 		 <c:if test="${userloginid ne null}">
 		<li class="menu_item"><a href="#none" id="usedwrite">판매 등록</a></li>
+		 </c:if>
+		<c:if test="${userloginid eq null}">
+   		</c:if>
 	</ul>
 </div>
 
@@ -31,7 +37,7 @@ $(document).ready(function() {
 			if(count > 0){
 				location.href="usedwrite";
 			} else {
-				 var con_test = confirm("판매자 등록이 필요합니다 이동하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
+				 var con_test = confirm("판매자 등록이 필요합니다 이동하시겠습니까?");	
 				 
 				 if(con_test == true){
 			 			popupOpen();
