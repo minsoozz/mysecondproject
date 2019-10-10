@@ -70,9 +70,19 @@
 	      </a>
 	    </li>
 	    
-	    <c:forEach begin="${mRPDto.firstNavIndex }" end="${mRPDto.lastNavIndex }" step="1" var="i">
-	    	<li class="page-item"><a class="page-link" href="#review_title" onclick="getUnWrittenReviews(${i});">${i }</a></li>
-	    </c:forEach>
+	    <c:choose>
+	    	<c:when test="${dto.review_written == 'true' }">
+	    		<c:forEach begin="${mRPDto.firstNavIndex }" end="${mRPDto.lastNavIndex }" step="1" var="i">
+			    	<li class="page-item"><a class="page-link" href="#review_title" onclick="getWrittenReviews(${i});">${i }</a></li>
+			    </c:forEach>
+	    	</c:when>
+	    	<c:otherwise>
+		    	<c:forEach begin="${mRPDto.firstNavIndex }" end="${mRPDto.lastNavIndex }" step="1" var="i">
+			    	<li class="page-item"><a class="page-link" href="#review_title" onclick="getUnWrittenReviews(${i});">${i }</a></li>
+			    </c:forEach>
+	    	</c:otherwise>
+	    </c:choose>
+	    
 	    
 	    
 	    <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>

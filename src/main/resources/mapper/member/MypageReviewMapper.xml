@@ -43,16 +43,16 @@
 					D.PHOTO1_FILE AS IMG, E.DELIVERY_STATUS AS DELIVERY_STATUS, E.EDATE AS EDATE, B.REVIEW_WRITTEN AS REVIEW_WRITTEN
 				FROM RHY_PAYMENT A, (SELECT * FROM RHY_PAYMENT_DETAILS ORDER BY PRICE) B, RHY_STORE_STOCK C, RHY_STORE_PRODUCT D, RHY_DELIVERY E
 				WHERE A.PAYMENT_CODE = B.PAYMENT_CODE AND B.S_SEQ = C.STOCK_SEQ AND C.P_SEQ = D.P_SEQ AND B.PAYMENT_CODE = E.PAYMENT_CODE 
-					AND A.USERID=#{userid} <include refid="dateConditions"/>
-					AND A.RDATE <![CDATA[>=]]> DATE_ADD(NOW(), INTERVAL -1 MONTH)
+					AND A.USERID=#{userid} <include refid="dateConditions"/>					
 				ORDER BY B.PRICE DESC) AA, (SELECT @ROWNUM :=0) BB
 			) AAA
 		LIMIT #{startSeq},#{recordCountPerPage};
 	</sql>
 	
-	<!-- 날짜 검색조건 -->
+	<!-- 날짜, 리뷰작성여부 검색조건 -->
 	<sql id="dateConditions">
-		<if test="review_written == 'false'">AND B.REVIEW_WRITTEN=#{review_written} </if>
+		<if test="review_written == 'false'">AND B.REVIEW_WRITTEN=#{review_written} AND A.RDATE <![CDATA[>=]]> DATE_ADD(NOW(), INTERVAL -1 MONTH) </if>
+		<if test="review_written == 'true'">AND B.REVIEW_WRITTEN=#{review_written} </if>
 	</sql>
 		
 
