@@ -1,3 +1,4 @@
+<%@page import="com.rhymes.app.used.model.ProductsDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
@@ -17,6 +18,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <link rel="stylesheet" href="/css/store/productDetail.css">
+<link rel="stylesheet" href="/css/store/slide.css">
+
+
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -31,11 +37,13 @@ $(document).ajaxSend(function(e, xhr, options) {
 <link href='/css/style.css' rel='stylesheet'/>
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 
+	
+
 </head>
 <body>
-
+<%-- 
 <div id="body_wrap">
-   <div id="productdetail_img_wrap">   
+   <div id="productdetail_img_wrap">
       <div class="mainImg">
          <img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
       </div>
@@ -46,9 +54,37 @@ $(document).ajaxSend(function(e, xhr, options) {
          <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
       </div>
    </div>
-
+ --%>
       
-   ${ productDto.p_name}<br>
+  <div id="wrapper">
+      <div id="slider-wrap">
+          <ul id="slider">
+         <li><img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
+
+        <li> <img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
+         <li><img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
+          <li><img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
+           <li> <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;"></li>
+          </ul>
+          
+           <!--controls-->
+          <div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
+          <div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
+          <div id="counter"></div>
+                
+          <div id="pagination-wrap">
+            <ul>
+            </ul>
+          </div>
+          <!--controls-->                   
+      </div>  
+   </div>
+
+
+  <div id="side_goods">
+  
+   <h3>${ productDto.p_name}</h3>
+   <p style="color: gray">${ productDto.p_title}</p>
    &#8361;${ productDto.p_price2}<br>
    
    <div class='' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
@@ -60,7 +96,7 @@ $(document).ajaxSend(function(e, xhr, options) {
          </c:if>
          <c:if test="${size.quantity eq 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" disabled="disabled" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
-         <label for="chooseSize${vs.count }" id="_sizeChoo" style="cursor: pointer; background-color: red; color:white;">${size.size }</label>
+         <label for="chooseSize${vs.count }" id="_sizeChoo" style="cursor: pointer; background-color: grey; color:white;">${size.size }</label>
          </c:if>
       </c:forEach>
    </div>
@@ -74,9 +110,22 @@ $(document).ajaxSend(function(e, xhr, options) {
    <br>
    <input type="button" value="바로구매" id="buyBtn" onclick="buying()" style="cursor:pointer;"><br>
    <input type="button" value="장바구니" class="basketBtn" style="cursor:pointer;">
+   <button type="button" class="wishBtn" style="cursor:pointer;">
+      위시리스트
+      <span>
+      <c:if test="${wishChk == false }">
+         <img class="heartImg" src="/img/store-img/unlike.png" style="width:10px; height:10px;">
+      </c:if>
+      <c:if test="${wishChk == true }">
+         <img class="heartImg" src="/img/store-img/like.png" style="width:10px; height:10px;">
+      </c:if>
+      </span>
+   </button>
 
     <div class="basket" style="overflow: scroll;">
     </div>
+
+</div>
 
 <!-- 구매하기 form -->
 <form action="/Rhymes/payment" id="orderFrm" method="post">
@@ -97,34 +146,26 @@ $(document).ajaxSend(function(e, xhr, options) {
 </div>
 
 
-
+<br><br><br>
+<br><br><br>
 <br><br><br>
 
-<!-- TAB CONTROLLERS -->
-<input id="panel-1-ctrl" class="panel-radios" type="radio" name="tab-radios" checked>
-<input id="panel-2-ctrl" class="panel-radios" type="radio" name="tab-radios">
-<input id="panel-3-ctrl" class="panel-radios" type="radio" name="tab-radios">
-
-
-<!-- TABS LIST -->
-<ul id="tabs-list">
-    <!-- MENU TOGGLE -->
-    <li id="li-for-panel-1">
-      <label class="panel-label" for="panel-1-ctrl">상품 상세 정보</label>
-    </li>
-    <li id="li-for-panel-2">
-      <label class="panel-label" for="panel-2-ctrl">상품 후기</label>
-    </li>
-    <li id="li-for-panel-3">
-      <label class="panel-label" for="panel-3-ctrl">상품 문의</label>
-    </li>
+<ul class="goods-view-infomation-tab-group">
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_info" class="goods-view-infomation-tab-anchor __active">INFOMATION</a>
+	</li>
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
+	</li>
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+	</li>
+	<li class="goods-view-infomation-tab-group:after"></li>
 </ul>
 
-<!-- THE PANELS -->
-<article id="panels">
-  <div class="container">
-    <section id="panel-1">
-    <main>
+
+
+<div class="goods-view-infomation-content __active" id="goods_info">
 
 		p_title(상품 기본정보 입력:부가설명) : ${productDto.p_title}<br>
 		detail(상품 상세정보 입력) : ${productDto.detail}<br>
@@ -236,51 +277,56 @@ $(document).ajaxSend(function(e, xhr, options) {
 			<span style="color: #777777;">
 			· 고객님의 변심으로 인한 교환, 반품을 원하실 경우, 상품배송비용은 고객님께서 부담하셔야합니다.(색상교환, 사이즈 교환 등 포함)
 			</span>
-			</li>
-			
+			</li>			
 		</ul>
-		
-</main>
-    </section>
-    </div>
- </article>
-    
+    </div> 
 
-<!-- TABS LIST -->
-<ul id="tabs-list">
-    <!-- MENU TOGGLE -->
-    <li id="li-for-panel-1">
-      <label class="panel-label" for="panel-4-ctrl">상품 상세 정보</label>
-    </li>
-    <li id="li-for-panel-2">
-      <label class="panel-label" for="panel-5-ctrl">상품 후기</label>
-    </li>
-    <li id="li-for-panel-3">
-      <label class="panel-label" for="panel-6-ctrl">상품 문의</label>
-    </li>
+
+
+
+<br><br>
+<ul class="goods-view-infomation-tab-group">
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
+	</li>
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_review" class="goods-view-infomation-tab-anchor __active">REVIEW</a>
+	</li>
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+	</li>
+	<li class="goods-view-infomation-tab-group:after"></li>
 </ul>
-<!-- 후기 -->
-<article id="panels">
-  <div class="container">
-    <section id="panel-2">
-    <main>
-   		 후기
-	</main>
-</section>
+
+<div class="goods-view-infomation-content" id="goods_review">
+상품 후기
 </div>
-</article>
- 
- 
-<!-- 문의 -->
-<article id="panels">
-  <div class="container">
-    <section id="panel-3">
-    <main>
-   		 상품 문의
-	</main>
-</section>
+
+
+
+<br><br>
+<ul class="goods-view-infomation-tab-group">
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
+	</li>
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
+	</li>
+	<li class="goods-view-infomation-tab">
+	<a href="#goods_qna" class="goods-view-infomation-tab-anchor __active">Q&A</a>
+	</li>
+	<li class="goods-view-infomation-tab-group:after"></li>
+</ul>
+
+
+
+<div class="goods-view-infomation-content" id="goods_qna">
+상품문의
 </div>
-</article>
+
+
+
+
 
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
@@ -434,6 +480,102 @@ if(cnt!=1){
 });
 
 
+
+
+$(document).ready(function(){
+    /*****************
+     BUILD THE SLIDER
+    *****************/
+    //set width to be 'x' times the number of slides
+    $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
+    
+    //next slide    
+    $('#next').click(function(){
+        slideRight();
+    });
+    
+    //previous slide
+    $('#previous').click(function(){
+        slideLeft();
+    });
+    
+    
+    
+    /*************************
+     //*> OPTIONAL SETTINGS
+    ************************/
+    //automatic slider
+    var autoSlider = setInterval(slideRight, 3000);
+    
+    //for each slide 
+    $.each($('#slider-wrap ul li'), function() { 
+
+       //create a pagination
+       var li = document.createElement('li');
+       $('#pagination-wrap ul').append(li);    
+    });
+    
+    //counter
+    countSlides();
+    
+    //pagination
+    pagination();
+    
+    //hide/show controls/btns when hover
+    //pause automatic slide when hover
+    $('#slider-wrap').hover(
+      function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
+      function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
+    );
+    
+    
+
+});//DOCUMENT READY
+    
+
+
+/***********
+ SLIDE LEFT
+************/
+function slideLeft(){
+    pos--;
+    if(pos==-1){ pos = totalSlides-1; }
+    $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));    
+    
+    //*> optional
+    countSlides();
+    pagination();
+}
+
+
+/************
+ SLIDE RIGHT
+*************/
+function slideRight(){
+    pos++;
+    if(pos==totalSlides){ pos = 0; }
+    $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
+    
+    //*> optional 
+    countSlides();
+    pagination();
+}
+
+
+
+    
+/************************
+ //*> OPTIONAL SETTINGS
+************************/
+function countSlides(){
+    $('#counter').html(pos+1 + ' / ' + totalSlides);
+}
+
+function pagination(){
+    $('#pagination-wrap ul li').removeClass('active');
+    $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+}
+</script>
 </script>
 </body>
 </html>

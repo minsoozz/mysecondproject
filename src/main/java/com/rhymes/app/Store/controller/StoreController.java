@@ -193,6 +193,13 @@ public class StoreController {
 		ProductDto productDto = purchase.getProductDetail(p_seq);
 		productDto.setP_price2(formatter.format(productDto.getP_price()));
 		
+		String[] photo_list = new String[5];
+		photo_list[0] = productDto.getPhoto1_file();
+		photo_list[1] = productDto.getPhoto2_file();
+		photo_list[2] = productDto.getPhoto3_file();
+		photo_list[3] = productDto.getPhoto4_file();
+		photo_list[4] = productDto.getPhoto5_file();
+		
 		List<String> photolist = new ArrayList<String>();
 		photolist.add(productDto.getPhoto1_file());
 		photolist.add(productDto.getPhoto2_file());
@@ -200,6 +207,9 @@ public class StoreController {
 		photolist.add(productDto.getPhoto4_file());
 		photolist.add(productDto.getPhoto5_file());
 		
+		//배열
+		model.addAttribute("photo_list", photo_list);
+		//리스트
 		model.addAttribute("photolist", photolist);
 		model.addAttribute("sizelist", sizelist);
 		model.addAttribute("productDto", productDto);
