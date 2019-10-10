@@ -79,7 +79,7 @@
 	for(int i = screenStartPageIndex; i<screenEndPageIndex; i++){
 		if(i == pageNumber){	// 현재페이지
 		%>
-		<span style="font-size: 12pt; color: #000000;background-color:#F6FFCC; border:#D8D8D8 1px solid; padding: 5px">
+		<span style="font-size: 12pt; color: #000000;background-color:#deffc8; border:#D8D8D8 1px solid; padding: 5px">
 			<%=i+1 %>
 		</span>
 		<% 

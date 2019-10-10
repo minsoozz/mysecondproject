@@ -14,7 +14,12 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/member/mem_styles.css">
 
 </head>
+<script type="text/javascript">
+$( "#create-user" ).button().on( "click", function() {
+    dialog.dialog( "open" );
+  });
 
+</script>
 <body>
 
 <!-- page container area start -->
@@ -60,8 +65,10 @@
 <form action="memlist" id="_frm" method="post">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<table class="dbkit-table">
+	<col width="10%"><col width="50%"><col width="50%"><col width="80%">
+	<col width="80%"><col width="60%"><col width="30%"><col width="80%">
 	    <tr class="heading-td">
-	        <th class="list_checkbox"><input type="checkbox"></th>
+	        <th class="list_checkbox"><input type="checkbox" name='allckeck' onclick='allchecks(this.checked)' id='_allck'></th>
 	        <th class="list_id">아이디</th>
 	        <th class="list_name">이름</th>
 	        <th class="list_address">주소</th>
@@ -73,18 +80,18 @@
 	    
 	    <c:if test="${empty memlist }">
 		<tr>
-			<td colspan="8" align="center">검색결과가 없습니다. 다시 검색하여 주세요.</td>
+			<td colspan="8" align="center">검색결과가 없습니다.</td>
 		</tr>
 		</c:if>
 		
 		<c:forEach var="mem" items="${memlist }" varStatus="vs">
 		<tr>
 		    <td class="list_checkbox">
-		    	<input type="checkbox">
+		    	<input type="checkbox" name='allck' value="${mem.seq }">
 		    </td>
-		    <td class="list_id"><a href="#">${mem.userid }</a></td>
+		    <td class="list_id"><a href="mem_update?id=${mem.userid }">${mem.userid }</a></td>
 		  <td class="list_name">${mem.username }</td>
-		  <td class="list_address td_add">${mem.address }</td>
+		  <td class="list_address">${mem.address }</td>
 		  <td class="list_email">${mem.useremail }</td>
 		  <td class="list_phone">${mem.phone }</td>
 		  <td class="list_social">${mem.social}</td>
@@ -92,23 +99,8 @@
 		</tr>
 		</c:forEach>
 	</table>
-</form>
-
-</div>
-<br>
-
-<!-- 페이징 -->
-<%-- <div id="paging_wrap"> 
-	<jsp:include page="<%=request.getContextPath() %>/WEB-INF/views/admin/member/paging.jsp" flush="false">
-		<jsp:param name="pageNumber" value="${pageNumber }"/>
-		<jsp:param name="totalRecordCount" value="${totalRecordCount }"/>
-		<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }"/>
-		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }"/>
-	</jsp:include>
-</div> --%>
-<!-- 페이징끝 -->
-                        
-<div align="center">
+	<br><br>
+	<div align="center">
 	<select id="_s_category" name="s_category" onchange="categorychange()">
 		<option value="" selected="selected">선택</option>
 		<option value="01" <c:out value="${s_category == '01'? 'selected':'' }"/>>아이디</option>
@@ -126,11 +118,27 @@
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 	<!-- 검색끝 -->
 </div>
+</form>
+
+</div>
+<br>
+
+<!-- 페이징 -->
+<div id="paging_wrap"> 
+	<jsp:include page="/WEB-INF/views/admin/member/paging.jsp" flush="false">
+		<jsp:param name="pageNumber" value="${pageNumber }"/>
+		<jsp:param name="totalRecordCount" value="${totalRecordCount }"/>
+		<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }"/>
+		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }"/>
+	</jsp:include>
+</div>
+<!-- 페이징끝 -->
+                        
+
     
 </div>
 <div align="right">
-	<input type="button" class="btn" onclick="MemDel('${mem.seq }')" value="탈퇴">
-<input type="button" class="btn" onclick="MemUpdate('${mem.seq }')" value="수정">
+	<input type="button" id="delBtn"  value="탈퇴">
                         </div>
                     </div>
                 </div>
@@ -140,6 +148,15 @@
     </div>
 </div>
 <!-- main content area end -->
+
+
+
+
+
+
+
+
+
 
 </div>
 <!-- page container area end -->
@@ -188,4 +205,20 @@ $("#_btnSearch").click(function () {
 
 </script>
 
+<script type="text/javascript">
+
+function allchecks(e) {
+	// 모두 체크
+	var arr = document.getElementsByName("allck");
+	
+	for(i=0; i<arr.length; i++){
+		arr[i].checked = e;
+	}
+}
+
+$("#delBtn").click(function(){
+	
+});
+
+</script>
 </html>

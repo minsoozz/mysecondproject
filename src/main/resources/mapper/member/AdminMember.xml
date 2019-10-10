@@ -11,7 +11,7 @@
 					M.SEQ, M.ID, M.RDATE, M.SOCIAL, P.NAME, P.POSTCODE, P.ADDRESS, P.DETAILADDRESS, 
 					P.EMAIL, P.PHONE, P.GENDER, P.BIRTH, A.AUTHORITY
 					FROM RHY_MEM M, RHY_MEM_P P, AUTHORITIES A
-					WHERE 1=1 
+					WHERE M.ID = P.ID AND P.ID = A.ID
 					<if test="s_category != null and s_category != ''">
 						<if test="s_keyword != null and s_keyword != ''">
 							<if test="s_category == '01'">
@@ -28,7 +28,7 @@
 							</if>
 						</if>
 					</if>
-					AND M.ID = P.ID AND P.ID = A.ID
+					
 					)B
 			WHERE RNUM BETWEEN ${start} AND ${end}	
 			ORDER BY SEQ DESC
@@ -40,7 +40,7 @@
 		resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0) AS CNT
 		FROM RHY_MEM M, RHY_MEM_P P, AUTHORITIES A
-		WHERE 1=1
+		WHERE M.ID = P.ID AND P.ID = A.ID
 			<if test="s_category != null and s_category != ''
 							and s_keyword != null and s_keyword != ''">
 						
@@ -56,9 +56,37 @@
 				<if test="s_category == '04'">
 					AND P.PHONE '%' #{s_keyword} '%'
 				</if>
-					AND M.ID = P.ID AND P.ID = A.ID
+					
 			</if>
 	</select>
+
+	<!-- 회원정보 불러오기 -->
+	<select id="getAdMem" parameterType="java.lang.String" resultType="com.rhymes.app.member.model.P_MemberDTO">
+		SELECT SEQ, ID AS USERID, NAME AS USERNAME, POSTCODE, ADDRESS, DETAILADDRESS, EMAIL AS USEREMAIL, PHONE, GENDER AS USERGENDER, BIRTH AS USERBIRTH
+		FROM RHY_MEM_P
+		WHERE ID=#{id}
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="getAdMemAf" parameterType="com.rhymes.app.member.model.P_MemberDTO">
+		UPDATE RHY_MEM_P
+		SET NAME=#{username}, POSTCODE=#{postcode}, ADDRESS=#{address}, DETAILADDRESS=#{detailAddress}, 
+			EMAIL=#{useremail}, PHONE=#{phone}, GENDER=#{usergender}, BIRTH=#{userbirth}
+		WHERE ID=#{userid}
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </mapper>

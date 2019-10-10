@@ -11,8 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">        
    <!-- Favicon -->
     <link rel="icon" href="/img/main-img/core-img/favicon.ico">  
- <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/css/admin/common/body.css">
+<%--  <link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath() %>/css/admin/common/body.css"> --%>
  
  
 </head>

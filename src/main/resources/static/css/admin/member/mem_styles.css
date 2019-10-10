@@ -263,7 +263,7 @@ ul.breadcrumbs {
 .market-status-table {
     overflow: hidden;
 }
-
+/* 
 table.dbkit-table {
     width: 100%;
 }
@@ -301,20 +301,21 @@ table.dbkit-table tr td {
     font-weight: 400;
     letter-spacing: 0;
     color: #616161;
-}
+} */
 
 .list_checkbox{
     min-width: 30px;
 }
-.list_id, .list_name, .list_social, .list_phone, .list_address, .list_email{
-	min-width: 100px;
+.list_id, .list_name, .list_address, .list_email, .list_phone, .list_social, .list_rdate{
+	min-width: 200px;
 	max-width: 200px;
 }
-.td_add{
-	position: relative;
-	left: -70px;
-	min-width: 200px;
-	max-width: 300px;
+#delBtn{
+	border-radius: 5px;
+	background-color: white;
+	border: solid 1px #616161;
+	color: #616161;
+	padding: 0 5px;
 }
 
 .mv-icon img {

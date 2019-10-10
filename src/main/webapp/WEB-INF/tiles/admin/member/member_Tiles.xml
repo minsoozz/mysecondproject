@@ -13,6 +13,11 @@
        <put-attribute name="body" value="/WEB-INF/views/admin/member/memberlist.jsp" />
        <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer.jsp" />
    </definition>
+   
+   <!-- 수정 창 -->
+   <definition name="mem_update"	extends="memlist">
+		<put-attribute name="body" value="/WEB-INF/views/admin/member/memberupdate.jsp" />
+	</definition>
   
 
 	<!-- 쿠폰,적립금 관리 -->

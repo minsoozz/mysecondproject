@@ -166,11 +166,11 @@ text:hover {
 	position: relative;
     left: -276px;
 }
-td{
+/* td{
 	position: relative;
     left: -11px;
     width: 100%
-}
+} */
 th{
 	width: 100%;
 }

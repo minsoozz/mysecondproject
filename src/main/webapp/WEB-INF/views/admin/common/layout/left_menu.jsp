@@ -1,182 +1,163 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>left_menu</title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/font-awesome.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/themify-icons.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/metisMenu.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/slicknav.min.css">
-    <!-- amchart css -->
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <!-- others css -->
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/typography.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/default-css.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/styles.css">
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/responsive.css">
-    <!-- modernizr css -->
-    <script src="<%=request.getContextPath() %>/js/admin/modernizr-2.8.3.min.js"></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SB Admin 2 - Dashboard</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="<%=request.getContextPath() %>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="<%=request.getContextPath() %>/css/admin/common/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
-<body>
 
-<!-- sidebar menu area start -->
-        <div class="sidebar-menu">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <a href="main"><img src="<%=request.getContextPath() %>/img/admin/rhymemi.png" alt="logo"></a>
-                </div>
-            </div>
-            <div class="main-menu">
-                <div class="menu-inner">
-                    <nav>
-                        <ul class="metismenu" id="menu">
-                            <li class="active">
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>회원관리</span></a>
-                                <ul class="collapse">
-                                    <li class="active"><a href="memlist">회원 리스트</a></li>
-                                    <li><a href="mem_cp">쿠폰/적립금</a></li>
-                                    <li><a href="#">-	</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>-----</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pie-chart"></i><span>-----</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-palette"></i><span>-----</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-slice"></i><span>-----</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
-                                    <span>------</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								
-                                </ul>
-                            </li>
-                            <li><a href="#"><i class="ti-map-alt"></i> <span>-----</span></a></li>
-                            <li><a href="#"><i class="ti-receipt"></i> <span>-----</span></a></li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layers-alt"></i> <span>-----</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-exclamation-triangle"></i>
-                                    <span>Error</span></a>
-                                <ul class="collapse">
-                                    <li><a href="404.html">Error 404</a></li>
-                                    <li><a href="403.html">Error 403</a></li>
-                                    <li><a href="500.html">Error 500</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-align-left"></i> <span>-----</span></a>
-                                <ul class="collapse">
-                                    <li><a href="#">-</a></li>
-      								<li><a href="#">-</a></li>
-      								
-                                    <li><a href="#" aria-expanded="true">-----</a>
-                                        <ul class="collapse">
-                                            <li><a href="#">-</a></li>
-		      								<li><a href="#">-</a></li>
-		      								<li><a href="#">-</a></li>
-		      								
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">------</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
         </div>
-        <!-- sidebar menu area end -->
-        
-    <!-- jquery latest version -->
-    <script src="<%=request.getContextPath() %>/js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- bootstrap 4 js -->
-    <script src="<%=request.getContextPath() %>/js/bootstrap/popper.min.js"></script>
-    <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
-    <script src="<%=request.getContextPath() %>/js/admin/owl.carousel.min.js"></script>
-    <script src="<%=request.getContextPath() %>/js/admin/metisMenu.min.js"></script>
-    <script src="<%=request.getContextPath() %>/js/jquery/jquery.slimscroll.min.js"></script>
-    <script src="<%=request.getContextPath() %>/js/jquery/jquery.slicknav.min.js"></script>
+        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+      </a>
 
-    <!-- start chart js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <!-- start highcharts js -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!-- start zingchart js -->
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    <script>
-    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
-    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
-    </script>
-    <!-- all line chart activation -->
-    <script src="<%=request.getContextPath() %>/js/chart/line-chart.js"></script>
-    <!-- all pie chart -->
-    <script src="<%=request.getContextPath() %>/js/chart/pie-chart.js"></script>
-    <!-- others plugins -->
-    <script src="<%=request.getContextPath() %>/js/others/plugins.js"></script>
-    <script src="<%=request.getContextPath() %>/js/others/scripts.js"></script>
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Interface
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Components</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="buttons.html">Buttons</a>
+            <a class="collapse-item" href="cards.html">Cards</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Utilities</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Utilities:</h6>
+            <a class="collapse-item" href="utilities-color.html">Colors</a>
+            <a class="collapse-item" href="utilities-border.html">Borders</a>
+            <a class="collapse-item" href="utilities-animation.html">Animations</a>
+            <a class="collapse-item" href="utilities-other.html">Other</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Addons
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Pages</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Login Screens:</h6>
+            <a class="collapse-item" href="login.html">Login</a>
+            <a class="collapse-item" href="register.html">Register</a>
+            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Other Pages:</h6>
+            <a class="collapse-item" href="404.html">404 Page</a>
+            <a class="collapse-item" href="blank.html">Blank Page</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Charts -->
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Tables</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="<%=request.getContextPath() %>/vendor/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath() %>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="<%=request.getContextPath() %>/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="<%=request.getContextPath() %>/js/admin/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="<%=request.getContextPath() %>/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="<%=request.getContextPath() %>/js/admin/demo/chart-area-demo.js"></script>
+  <script src="<%=request.getContextPath() %>/js/admin/demo/chart-pie-demo.js"></script>
 
 </body>
+
 </html>

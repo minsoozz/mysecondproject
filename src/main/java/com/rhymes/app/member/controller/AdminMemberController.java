@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rhymes.app.member.model.MemBean;
+import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.MemberParam;
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.service.AdminMemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +33,7 @@ public class AdminMemberController {
 	@RequestMapping(value = "/memlist", method = {RequestMethod.GET, RequestMethod.POST}) 
 	public String memlist(Model model, MemberParam param){
 		log.info("show admin memlistview");
-		System.out.println("@@@@@@@@@@@@@@@param.toString()"+param.toString());
+		System.out.println("@@@@@@@@@@@@@@@param.toString():   "+param.toString());
 		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
@@ -45,7 +47,7 @@ public class AdminMemberController {
 		
 		//list 총 수
 		int totalRecordCount = adminMemberService.getmemCount(param);
-		System.out.println("+++++++++++++totalRecordCount"+totalRecordCount);
+		System.out.println("+++++++++++++totalRecordCount:    "+totalRecordCount);
 		
 		model.addAttribute("memlist", memlist);
 		
@@ -61,6 +63,28 @@ public class AdminMemberController {
 		return "memlist"; 
 		
 	}
+	
+	// 수정창으로 회원정보 불러오기
+	@GetMapping("/mem_update")
+	public String mem_update(String id, Model model) {
+		log.info("show admin mem_update");
+		P_MemberDTO mem = adminMemberService.getAdMem(id);
+		
+		model.addAttribute("admem", mem);
+		
+		return "mem_update";
+	}
+	
+	// 회원정보 수정
+	@GetMapping("/mem_updateAf")
+	public String mem_updateAf(P_MemberDTO pmem, Model model) {
+		log.info("show admin mem_updateAf");
+
+		adminMemberService.getAdMemAf(pmem);
+		
+		return "redirect:/admin/memlist";
+	}
+	
 
 
 	// 쿠폰,적립금 관리 view
