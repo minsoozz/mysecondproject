@@ -3,6 +3,8 @@
 
 <mapper namespace="payment">
 
+<!-- 장바구니에서 주문페이지로 갈 때 -->
+
 <!-- 장바구니에서 주문한 상품정보 가져오기 -->
 <select id="getOrder" parameterType="com.rhymes.app.payment.model.OrderDTO"
 resultType="com.rhymes.app.payment.model.OrderDTO">
@@ -12,12 +14,44 @@ WHERE P.P_SEQ = S.P_SEQ
 AND STOCK_SEQ=#{stock_seq}
 </select>
 
+<!-- 주문페이지로 적립금 가져오기 -->
+<select id="getPoint" parameterType="java.lang.String">
+SELECT AMOUNT
+FROM RHY_MEM_POINT
+WHERE id=#${id}
+</select>
+
+<!-- 주문페이지로 쿠폰 가져오기 -->
+<select id="getCoupon" parameterType="java.lang.String">
+SELECT 
+FROM RHY_MEM_COUPON C1, RHY_MEM_COUPON_DETAIL C2
+WHERE id=#{id}
+</select>
+
+
+
+
+
+<!-- 주문페이지에서 주문완료 후 -->
+
 <!-- 주문한 상품의 재고 수량 차감 -->
 <select id="product_count" parameterType="com.rhymes.app.payment.model.OrderDTO">
 UPDATE RHY_STORE_STOCK
 SET QUANTITY = QUANTITY - 1
 WHERE STOCK_SEQ=#{stock_seq}
 </select>
+
+<!-- 이메일로 결제내역을 보낸다 -->
+<!-- 적립금 차감한다 -->
+<!-- 사용한 쿠폰을 지운다 -->
+<!-- 주문한 상품수량만큼 재고수량에서 차감한다 -->
+<!-- 결제내역 저장 -->
+
+
+
+
+
+
 
 <!-- 비회원으로 주문내역 있는지 확인 -->
 <select id="no_member_confirm" parameterType="com.rhymes.app.payment.model.PaymentDTO"

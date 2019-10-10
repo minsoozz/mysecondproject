@@ -80,7 +80,7 @@ $("#oneselfConfirmBtn").click(function() {
 
 /* 내가 작성한 번호와 인증번호를 비교한다 */
 $("#enterBtn").click(function() {
-	alert($("#text").val());
+	alert( $("#text").val() );
 	var userNum = $("#userNum").val();
 	
 	var sysNum = $("#text").val();
@@ -90,6 +90,7 @@ $("#enterBtn").click(function() {
 	}else{
 		if(userNum.trim() == sysNum.trim()){
 			alert("성공");
+			$("#_text_confirm").val( sysNum );
 		}else {
 			alert("실패");
 		}
@@ -165,11 +166,19 @@ function sample4_execDaumPostcode() {
 
 // 결제 API
 function paymens(){
-	var radioVal = $('input[name="payment"]:checked').val();
 	//alert(radioVal);
+	var radioVal = $('input[name="payment"]:checked').val();
 	
 	if(radioVal == null){
 		alert("결제수단을 선택해주세요");
+		return;
+	}
+	
+	var _text_confirm = $("#_text_confirm").val();
+	alert(_text_confirm);
+	
+	if(_text_confirm == "" ){
+		alert("본인인증을 해주세요");
 		return;
 	}
 	

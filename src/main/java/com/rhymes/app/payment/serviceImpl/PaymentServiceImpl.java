@@ -22,4 +22,16 @@ public class PaymentServiceImpl implements PaymentService {
 		return PaymentDao.getOrder(dto);
 	}
 
+	// 주문페이지에서 적립금 가져오기
+	@Override
+	public int getPoint(String id) {
+		return PaymentDao.getPoint(id);
+	}
+
+	// 주문페이지에서 쿠폰 가져오기
+	@Override
+	public String getCoupon(String id) {
+		return PaymentDao.getCoupon(id);
+	}
+
 }

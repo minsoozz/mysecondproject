@@ -1,5 +1,6 @@
 package com.rhymes.app.payment.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,8 +35,6 @@ public class PaymentController {
 		return "/payment/welcome";
 	}
 
-	// 결제페이지로 이동
-
 	// 단일제품 구매
 	// @GetMapping("/payment")
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
@@ -46,11 +45,6 @@ public class PaymentController {
 		System.out.println("상품수량 : " + p_quantity);
 
 		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
-		
-		if(stock_seq == null && p_quantity == null) {
-			stock_seq = "123456";
-			p_quantity = "2";
-		}
 
 		OrderDTO dto = new OrderDTO();
 		dto.setStock_seq(Integer.parseInt(stock_seq));
@@ -60,16 +54,6 @@ public class PaymentController {
 
 		// db 가져오기
 		basketList.add(PaymentService.getOrder(dto));
-
-		for (OrderDTO o : basketList) {
-			//System.out.println("basketList : " + o.getId());
-			//System.out.println("basketList : " + o.getStock_seq());
-			//System.out.println("basketList : " + o.getPhoto1_file());
-			//System.out.println("basketList : " + o.getP_name());
-			//System.out.println("basketList : " + o.getC_name());
-			//System.out.println("basketList : " + o.getP_quantity());
-			//System.out.println("basketList : " + o.getP_price());
-		}
 
 		model.addAttribute("basketList", basketList);
 
@@ -85,53 +69,65 @@ public class PaymentController {
 
 	// 장바구니 리스트 구매
 	@RequestMapping("/payment/basketOrder")
-	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity) throws Exception {
+	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity, Principal pcp) throws Exception {
 		System.out.println("================= 여기부터 payment ==================");
-		//System.out.println(blist_stockseq);
-		//System.out.println(blist_pQuantity);
 
+		//String userid = pcp.getName();
+		// 장바구니에서 문자열로 데이터를 가져왔다
+		// 예) 신발/청바지/티셔츠			// blist_stockseq : 주문한 상품의 재고번호
+		// 예) 100/80/95				// blist_pQuantity : 주문한 상품의 재고수량
+		
+
+		
+		// 재고번호와 수량을 구분자인 /를 기준으로 배열로 바꿔서 리스트에 넣기
+		// 매개변수로 받은 데이터를 /를 구분자로 자르면 데이터의 개수가 나온다
 		String[] _sqArr = blist_stockseq.split("/");
 		int[] sqArr = Arrays.stream(_sqArr).mapToInt(Integer::parseInt).toArray();
 		String[] _pqArr = blist_pQuantity.split("/");
 		int[] pqArr = Arrays.stream(_pqArr).mapToInt(Integer::parseInt).toArray();
 
-		List<OrderDto> bOlist = new ArrayList<OrderDto>();
+		List<OrderDTO> bOlist = new ArrayList<OrderDTO>();
 
 		for (int i = 0; i < sqArr.length; i++) {
-			OrderDto order = new OrderDto();
-
-			//System.out.println(sqArr[i]);
-			//System.out.println(pqArr[i]);
+			OrderDTO order = new OrderDTO();
 
 			order.setStock_seq(sqArr[i]);
-			order.setP_quantity(pqArr[i]);
+			order.setQuantity(pqArr[i]);
 			bOlist.add(order);
 		}
 
+
+		
+		// 장바구니로 데이터를 가져갈 리스트 생성
 		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
-
-		for (OrderDto b : bOlist) {
+		
+		// bOlist 리스트의 사이즈만큼 즉, 데이터의 개수만큼 for문을 돌린다
+		// 예) 신발/청바지/티셔츠			라면 데이터의 개수는 3이다
+		for (int i=0; i<bOlist.size(); i++) {
 			OrderDTO dto = new OrderDTO();
-			dto.setStock_seq(b.getStock_seq());
-			dto.setQuantity(b.getP_quantity());
+			// 데이터를 가져오기 위해서 주문한 상품의 재고번호를 dto에 담고 매개변수로 DB에 보낸다
+			dto.setStock_seq(bOlist.get(i).getStock_seq());
 
-			System.out.println("재고번호 : " + b.getStock_seq() + ", 수량 :" + b.getP_quantity());
-
-			// db 가져오기
+			// DB 주문한 상품의 정보
+			// 장바구니로 데이터를 가져갈 리스트에 넣는다
 			basketList.add(PaymentService.getOrder(dto));
-		}
 
-		for (OrderDTO o : basketList) {
-			//System.out.println("basketList : " + o.getId());
-			System.out.println("재고번호 : " + o.getStock_seq());
-			System.out.println("이미지 파일 이름 : " + o.getPhoto1_file());
-			System.out.println("상품명 : " + o.getP_name());
-			System.out.println("회사명 : " + o.getC_name());
-			System.out.println("재고수량 : " + o.getQuantity());
-			System.out.println("단가 : " + o.getP_price());
-			System.out.println("===================================");
+			// db로 받을 수 있는 건 재고수량이다
+			// 주문수량은 매개변수로만 받을 수 있어서 직접 dto에 넣는다
+			basketList.get(i).setQuantity(bOlist.get(i).getQuantity());
 		}
+		
+		
+		
+		// DB 적립금 가져오기
+		//int point_amount = PaymentService.getPoint(userid);
+		
+		// DB 쿠폰 가져오기
+		//String coupon_code = PaymentService.getCoupon(userid);
+		
 
+		//model.addAttribute("point_amount", point_amount);
+		//model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("basketList", basketList);
 
 		if (true) {
@@ -148,16 +144,18 @@ public class PaymentController {
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model) {
 		System.out.println("daraepaymentAf");
+		
+		// 이메일로 결제내역을 보낸다
+		
+		// 적립금 차감한다
+		
+		// 사용한 쿠폰을 지운다
+		
+		// 주문한 상품수량만큼 재고수량에서 차감한다
+		
+		// db에 결제내역을 저장한다
 
 		return "/payment/paymentAf";
-	}
-
-	// 주문페이지에서 배송할 주소찾기 팝업창 띄우기
-	@RequestMapping("/addresssearch")
-	public String addresssearch(Model model) {
-		System.out.println("daraeaddresssearch");
-
-		return "/payment/addresssearch";
 	}
 
 	// 주문페이지에서 비회원으로 주문할때 본인인증

@@ -48,12 +48,12 @@
 
 <c:forEach items="${basketList }" var="list">
 <tr>
-	<td rowspan="2">${list.photo1_file }</td>
+	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/img/upload/${list.photo1_file }"></td>
 	<td width="50%" align="left">[${list.p_name }]${list.c_name }</td>
-	<td rowspan="2" width="10%" align="center">11,600</td>
+	<td rowspan="2" width="10%" align="center">${list.p_price * list.quantity }</td>
 </tr>
 <tr>
-	<td align="left">1개/개 당 ${list.p_price }원</td>
+	<td align="left">${list.quantity }개/개 당 ${list.p_price }원</td>
 </tr>
 </c:forEach>
 
@@ -80,7 +80,8 @@
 	<input type="text" id="userNum" placeholder="인증번호 입력">   <!-- 인증번호 입력창 -->
 	<input type="button" id="enterBtn" value="확인">
 
-	<!-- <input type="text" name="text" id="text"> -->   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+	<input type="hidden" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+	<input type="text" id="_text_confirm">
 
 	</td>
 </tr>
@@ -112,8 +113,8 @@
 <table>
 <tr>
 	<th>주소 *</th>
-	<td>새 배송지 추가 <input type="radio" onclick="sample4_execDaumPostcode()">
-	&nbsp;&nbsp;&nbsp;&nbsp;위(주문자) 정보와 같음 <input type="radio" name="address" id="oldaddress"></td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;
+	위(주문자) 정보와 같음 <input type="radio" name="address" id="oldaddress"></td>
 </tr>
 <tr>
 	<th></th>

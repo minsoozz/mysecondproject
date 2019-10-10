@@ -26,4 +26,22 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return order;
 	}
 
+	// 주문페이지에서 적립금 가져오기
+	@Override
+	public int getPoint(String id) {
+		
+		int point = SqlSession.selectOne(p + "getPoint", id);
+		
+		return point;
+	}
+
+	// 주문페이지에서 쿠폰 가져오기
+	@Override
+	public String getCoupon(String id) {
+		
+		String coupon = SqlSession.selectOne(p + "getCoupon", id);
+		
+		return coupon;
+	}
+
 }
