@@ -17,7 +17,7 @@
 	
 <form action="popupAf" method="post" id="_form">
 	  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	  <input type="hidden" id="_s_id" name="s_id" value="${login.userid }">
+	  <input type="hidden" id="_s_id" name="s_id" value="${userloginid }">
       <input type="text" id="to" name="to" placeholder="휴대폰 번호"/>	<!-- 인증번호 받을사람 휴대폰 번호 -->
       <input type="button" id="send" value="전송" class="btn"><br> <!-- 문자보내는 전송버튼 -->
       <input type="text" id="userNum" placeholder="인증번호를 입력해주세요">	<!-- 인증번호 입력창 -->
@@ -101,6 +101,11 @@ var count = 0;
 	 })
  	$("#enterBtn").click(function() {	/* 내가 작성한 번호와 인증번호를 비교한다 */
 		
+ 		if($("#to").val() == "" || $("#to").val() == null){
+ 			alert("휴대폰 번호를 입력해주세요");
+ 			return;
+ 		}
+ 		
  		var userNum = $("#userNum").val(); 
  		var sysNum = $("#text").val();			
  		

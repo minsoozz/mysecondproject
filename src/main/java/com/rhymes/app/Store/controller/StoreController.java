@@ -26,12 +26,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.OrderDto;
+import com.rhymes.app.Store.model.PqnaDto;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
+import com.rhymes.app.Store.service.PqnaService;
 import com.rhymes.app.Store.service.PurchaseService;
 import com.rhymes.app.Store.service.RegisterService;
+import com.rhymes.app.customer.model.CustomerParam;
 
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +50,10 @@ public class StoreController {
 	RegisterService register;
 	@Autowired
 	PurchaseService purchase;
+	
+	//상품문의
+	@Autowired
+	private PqnaService PqnaService;
 	
 	DecimalFormat formatter = new DecimalFormat("###,###");
 	
@@ -187,11 +194,18 @@ public class StoreController {
 	
 	//@PostMapping("/store/productDetail")
 	@RequestMapping(value="/store/productDetail", method = RequestMethod.GET)
-	public String productDetail(Model model, int p_seq) throws Exception{
+	public String productDetail(Model model, int p_seq, CustomerParam param) throws Exception{
 		List<StockDto> sizelist = purchase.getSizeList(p_seq);
 		
 		ProductDto productDto = purchase.getProductDetail(p_seq);
 		productDto.setP_price2(formatter.format(productDto.getP_price()));
+		
+		String[] photo_list = new String[5];
+		photo_list[0] = productDto.getPhoto1_file();
+		photo_list[1] = productDto.getPhoto2_file();
+		photo_list[2] = productDto.getPhoto3_file();
+		photo_list[3] = productDto.getPhoto4_file();
+		photo_list[4] = productDto.getPhoto5_file();
 		
 		List<String> photolist = new ArrayList<String>();
 		photolist.add(productDto.getPhoto1_file());
@@ -200,10 +214,34 @@ public class StoreController {
 		photolist.add(productDto.getPhoto4_file());
 		photolist.add(productDto.getPhoto5_file());
 		
+		//배열
+		model.addAttribute("photo_list", photo_list);
+		//리스트
 		model.addAttribute("photolist", photolist);
 		model.addAttribute("sizelist", sizelist);
 		model.addAttribute("productDto", productDto);
 		
+		
+		///////////////////상품문의부분////////////////
+		//페이징
+		int sn = param.getPageNumber();	//0 1 2
+		int start = sn * param.getRecordCountPerPage() + 1;	// 1 11
+		int end = (sn + 1) * param.getRecordCountPerPage(); // 10 20
+		
+		param.setStart(start);
+		param.setEnd(end);
+
+		List<PqnaDto> pqnalist = PqnaService.getPqnaList(param);
+		
+		//글의 총수
+		int totalRecordCount = PqnaService.getPqnaCount(param);	
+		model.addAttribute("pqnalist", pqnalist);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+
+
 		return "productDetail.tiles";
 	}
 	

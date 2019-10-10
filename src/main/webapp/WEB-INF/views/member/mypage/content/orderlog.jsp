@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="<%=ctx %>/css/member/mypage/content/orderlog.css">
 <script type="text/javascript" src="<%=ctx %>/js/member/mypage/content/orderlog.js"></script>
+
 </head>
 
 

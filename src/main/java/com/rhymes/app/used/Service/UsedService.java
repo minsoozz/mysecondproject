@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.used.model.BbsParam;
 import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 
 public interface UsedService {
 	public boolean UsedWrite(ProductsDto dto);
 
-	public List<ProductsDto> getUsedList();
+	public List<ProductsDto> getUsedList(BbsParam param);
 
 	public ProductsDto getUsedDetail(int seq);
 
@@ -44,5 +45,15 @@ public interface UsedService {
 	public boolean deleteComment(Map<String, Object> map);
 
 	public boolean insertanswer(Map<String, Object> map);
+
+	public boolean UsedUpdate(ProductsDto dto);
+
+	public int getBbsCount(BbsParam param);
+
+	public int getSellerid(String s_id);
+
+	public boolean deleteProduct(int seq);
+
+	public boolean setblackList(Map<String, Object> map);
 
 }

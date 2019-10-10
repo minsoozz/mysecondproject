@@ -10,11 +10,71 @@
 	VALUES (#{s_id},#{category},#{title},#{content},#{price},#{quantity},#{place},#{photo},#{photo_sys},'판매중',0,0,SYSDATE())
 	</insert>
 	
+<update id="usedupdate" parameterType="com.rhymes.app.used.model.ProductsDto">
+	UPDATE rhy_used_products
+	SET CATEGORY=#{category},TITLE=#{title},PRICE=#{price},QUANTITY=#{quantity},PLACE=#{place},PHOTO=#{photo},PHOTO_SYS=#{photo_sys}
+	WHERE SEQ=#{seq}
+</update>	
+	
 <!-- 물품 리스트  -->	
 <select id="getUsedList" resultType="com.rhymes.app.used.model.ProductsDto">
-	SELECT * FROM
-	rhy_used_products
+	SELECT seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes,readcount,rdate
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY RDATE DESC) AS RNUM, 
+			seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes,readcount,rdate
+		  FROM rhy_used_products
+		  WHERE 1=1
+	<if test="category != null">
+	
+	<if test="select != null and keyword != null">
+		<if test="select == 'title'">
+            AND TITLE LIKE CONCAT('%',#{keyword},'%')
+            AND CATEGORY LIKE CONCAT('%',#{category},'%')
+         </if>
+         <if test="select == 'content'">
+            AND CONTENT LIKE CONCAT('%',#{keyword},'%')
+            AND CATEGORY LIKE CONCAT('%',#{category},'%')
+         </if>
+         <if test="select == 'id'">
+            AND S_ID LIKE LIKE CONCAT('%',#{keyword},'%')
+            AND CATEGORY LIKE CONCAT('%',#{category},'%')
+         </if>
+      </if>
+      AND CATEGORY LIKE CONCAT('%',#{category},'%')
+      </if>
+	) A
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	<!-- AND CATEGORY LIKE CONCAT('%',#{category},'%') -->
+	ORDER BY RDATE DESC
 </select>
+
+
+<!-- 페이징을 위한 게시글 총 개수 구하기 -->
+ <select id="getBbsCount" parameterType="com.rhymes.app.used.model.BbsParam" resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*), 0)AS CNT
+	FROM rhy_used_products
+	WHERE 1=1
+	
+		<if test="category != null">
+	
+		<if test="select != null and keyword != null">
+		<if test="select == 'title'">
+            AND TITLE LIKE CONCAT('%',#{keyword},'%')
+            AND CATEGORY LIKE CONCAT('%',#{category},'%')
+         </if>
+         <if test="select == 'content'">
+            AND CONTENT LIKE CONCAT('%',#{keyword},'%')
+            AND CATEGORY LIKE CONCAT('%',#{category},'%')
+         </if>
+         <if test="select == 'id'">
+            AND S_ID LIKE LIKE CONCAT('%',#{keyword},'%')
+            AND CATEGORY LIKE CONCAT('%',#{category},'%')
+         </if>
+      </if>
+      AND CATEGORY LIKE CONCAT('%',#{category},'%')
+      </if>
+    <!-- AND CATEGORY LIKE CONCAT('%',#{category},'%') -->      
+</select>
+
 
 <!-- 물품 디테일 -->
 <select id="getUsedDetail" resultType="com.rhymes.app.used.model.ProductsDto" parameterType="java.lang.Integer">
@@ -39,9 +99,9 @@
 
 <!-- 멤버 정보 불러오기 -->
 <select id="getMember" resultType="com.rhymes.app.member.model.P_MemberDTO" parameterType="java.lang.String">
-	SELECT id,name,postcode,address,detailaddress,phone,gender,birth,count
+	SELECT id as userid, name as username, postcode,address,detailAddress,email as useremail,phone,gender as usergender,birth as userbirth,count
 	FROM rhy_mem_p
-	where id=#{userid}
+	WHERE ID=#{id}
 </select>
 
 <!-- 기본주소가 등록된 회원 판매자 등록 -->
@@ -125,6 +185,11 @@
 	AND seq=#{seq}
 </delete>
 
+<delete id="deleteProduct" parameterType="java.lang.Integer">
+	DELETE FROM rhy_used_Products
+	WHERE SEQ=#{seq}
+</delete>
+
 <!-- 답글 정렬을 위한 step 업데이트 -->
 <update id="updateanswer" parameterType="hashmap">
 update rhy_used_Comments 
@@ -149,4 +214,18 @@ where seq in ( select seq
 													 from  rhy_used_Comments
 													 			where seq = #{seq} ) m3 ) + 1)
 </insert>
+
+<!-- 셀러 등록 여부 조회 -->
+<select id="getSellerid" parameterType="java.lang.String" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM rhy_used_seller
+	WHERE s_id=#{s_id}
+</select>
+
+<!--게시글 신고  -->
+<insert id="setblackList" parameterType="hashmap">
+	INSERT INTO rhy_used_blacklist(b_id,b_seq,reporter,content,rdate,review)
+	VALUES(#{b_id},#{seq},#{id},#{str},NOW(),0)
+</insert>
+
 </mapper>

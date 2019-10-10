@@ -39,6 +39,13 @@
 	WHERE SEQ=#{seq}
 	</update>
 	
+	<!-- 파일명 -->
+	<select id="QnaFilename" parameterType="java.lang.Integer" resultType="String">
+	SELECT FILENAME 
+	FROM QNA
+	WHERE SEQ=#{seq}
+	</select>
+	
 	<!-- qna 삭제 -->
 	<delete id="QnaDelete" parameterType="java.lang.Integer">
 	DELETE FROM QNA
@@ -46,7 +53,6 @@
 	</delete>
 	
 	<!-- qna 답글 -->
-	
 	
 	<update id="QnaAnswer" parameterType="com.rhymes.app.customer.model.QnaDto">
 	UPDATE QNA

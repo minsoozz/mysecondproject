@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.dao.UsedDao;
+import com.rhymes.app.used.model.BbsParam;
 import com.rhymes.app.used.model.CommentsDto;
 import com.rhymes.app.used.model.ProductsDto;
 
@@ -30,10 +31,10 @@ public class UsedDaoImpl implements UsedDao {
 	}
 
 	@Override
-	public List<ProductsDto> getUsedList() {
+	public List<ProductsDto> getUsedList(BbsParam param) {
 		// TODO Auto-generated method stub
 
-		List<ProductsDto> list = sqlSession.selectList(ns + "getUsedList");
+		List<ProductsDto> list = sqlSession.selectList(ns + "getUsedList",param);
 
 		return list;
 	}
@@ -49,7 +50,6 @@ public class UsedDaoImpl implements UsedDao {
 
 	@Override
 	public int getSellerCount(String parameter) {
-
 		sqlSession.update(ns + "updateSellerCount", parameter);
 
 		int count = sqlSession.selectOne(ns + "getSellerCount", parameter);
@@ -58,10 +58,9 @@ public class UsedDaoImpl implements UsedDao {
 	}
 
 	@Override
-	public P_MemberDTO getMemberDto(String userid) {
-
-		P_MemberDTO dto = sqlSession.selectOne(ns + "getMember", userid);
-
+	public P_MemberDTO getMemberDto(String id) {
+		P_MemberDTO dto = sqlSession.selectOne(ns + "getMember", id);
+				
 		return dto;
 	}
 
@@ -112,7 +111,7 @@ public class UsedDaoImpl implements UsedDao {
 	@Override
 	public List<CommentsDto> getComments(int seq) {
 		List<CommentsDto> list = sqlSession.selectList(ns + "getComments", seq);
-		System.out.println(list.toString());
+		
 		return list;
 	}
 
@@ -147,7 +146,42 @@ public class UsedDaoImpl implements UsedDao {
 		
 		int n = sqlSession.insert(ns + "insertanswer", map);
 		
-		return false;
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean usedUpdate(ProductsDto dto) {
+		
+		int n = sqlSession.update(ns + "usedupdate", dto);
+		return n > 0 ? true : false;
+	}
+
+	// 페이징을 위한 게시글 총 개수 구하기
+	@Override	
+	public int getBbsCount(BbsParam param) {
+		int n = sqlSession.selectOne(ns + "getBbsCount", param);
+		return n;
+	}
+
+	@Override
+	public int getSellerid(String s_id) {
+		int n = sqlSession.selectOne(ns + "getSellerid", s_id);
+		
+		return n;
+	}
+
+	@Override
+	public boolean deleteProduct(int seq) {
+		int n = sqlSession.delete(ns + "deleteProduct", seq);
+		
+		return n > 0 ? true :false;
+	}
+
+	@Override
+	public boolean setblackList(Map<String, Object> map) {
+		int n = sqlSession.insert(ns + "setblackList", map);
+		
+		return n > 0 ? true :false;
 	}
 	
 	

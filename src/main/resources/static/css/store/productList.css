@@ -14,7 +14,7 @@ body{
 	margin-left:-60px; 
 	margin-right:auto; 
 	padding:0px;
-	margin-top: -30px;
+	margin-top: 30px;
 }
 
 .subDiv{
@@ -31,8 +31,8 @@ body{
 
 .eachDiv{
 	display:inline-block;
-	border: 1px solid black;
-	width: 400px;
+	border: 1px solid lightgray;
+	width: 290px;
 	height:400px;
 	float:left;
 	margin-bottom: 3%;

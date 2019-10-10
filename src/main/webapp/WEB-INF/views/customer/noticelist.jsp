@@ -5,7 +5,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
-
 <div id="button.wrap">
 	<span class="button blue">
 		<button type="button" id="_btnWrite">공지사항쓰기</button>
@@ -46,10 +45,10 @@
 </tr>
 </c:forEach>
 
-<tr>
-<th colspan="5" align="center">
+ <tr>
+<th colspan="5">
 <!-- 페이징 -->
-<div id="paging_wrap"> 
+<div id="paging_wrap" align="center">  
 	<jsp:include page="/WEB-INF/views/customer/paging.jsp" flush="false">
 		<jsp:param name="pageNumber" value="${pageNumber }"/>
 		<jsp:param name="totalRecordCount" value="${totalRecordCount }"/>
@@ -58,16 +57,24 @@
 	</jsp:include>
 </div>
 <!-- 페이징끝 --> 
+
 </th>
 </tr>
-
+ 
+ 
+ 
 <tr>
 <th colspan="5">
 <!-- 검색 -->
 <div class="box_border" style="margin-top: 5px; margin-bottom: 10px">
 <form action="" name="frmForm1" id="_frmFormSearch" method="POST">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+
 <table style="margin-left: auto; margin-right: auto; margin-top: 3px; margin-bottom: 3px">
+
+
+
 <tr>
 	<td>검색:</td>
 	<td style="padding-left: 0px">
@@ -96,6 +103,11 @@
 <!-- 검색끝 -->
 </th>
 </tr>
+
+
+
+
+
 </tbody>
 </table>
  

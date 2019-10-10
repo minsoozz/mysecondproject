@@ -213,20 +213,24 @@ ol {
     padding: 0;
 }
 
-#scrollUp {
-    bottom: 55px;
-    font-size: 14px;
-    right: 50%;
-    width: 30px;
-    background-color: #b7dc57;
-    color: #fff;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 50%;
-    margin-right: -15px;
-}
-
+ 
+ .scrolltop {
+        display: none;
+        position: fixed;
+        right: 80px;
+        bottom: 50px;
+        z-index: 1030;
+        font-size: 1.875rem;
+        color: #b7dc57;
+        transition: all 0.5s ease-in-out;
+        opacity: 0.8;
+      }
+      .scrolltop:hover,
+      .scrolltop:focus {
+        color: #A1CF2D;
+        transition: all 0.5s ease-in-out;
+      }
+      
 a,
 a:hover,
 a:focus,
@@ -372,6 +376,20 @@ li {
     margin-right: 13px;
     border-right: 2px solid #c2c2c2;
     padding-right: 13px;
+}
+
+.top_header_area .signup-search-area .mypage a {
+    margin-right: 13px;
+    border-right: 2px solid #c2c2c2;
+    padding-right: 13px;
+}
+
+.top_header_area .signup-search-area .logout a {
+    margin-right: 13px;
+    border-right: 2px solid #c2c2c2;
+    border-left: 2px solid #c2c2c2;
+    padding-right: 13px;
+     padding-left: 13px;
 }
 
 .top_header_area .signup-search-area .search_button {
