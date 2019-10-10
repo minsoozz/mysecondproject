@@ -47,6 +47,7 @@ public class UsedController {
 	@GetMapping("/hello") 
 	public String test(HttpServletRequest req,Principal prc) {
 		// 아직 구축이 제대로 안되서 임의로 로그인 아이디 설정해 놓음
+		/*
 		System.out.println(prc.getName());
 		
 		String userid = prc.getName();
@@ -56,13 +57,19 @@ public class UsedController {
 		System.out.println(Mdto.toString());
 		
 		req.getSession().setAttribute("login", Mdto);
+		*/
 		return "used/test";
 	}
 	
 	@GetMapping("usedlist")
-	public String usedlist(Model model,BbsParam param) {
+	public String usedlist(Model model,BbsParam param,Principal prc, HttpServletRequest req) {
 		
-		System.out.println("카테고리 : " + param.getCategory() + " 검색어 : " + param.getKeyword() +" 검색조건 : " + param.getSelect());
+		
+		if(prc != null) {
+			P_MemberDTO Pdto = usedService.getMemberDto(prc.getName());
+			req.getSession().setAttribute("login", Pdto);
+			
+		}
 		
 		int totalRecordCount = usedService.getBbsCount(param);
 		
@@ -265,7 +272,14 @@ public class UsedController {
 	}
 	
 	@GetMapping("popup")
-	public String popup(Principal prc) {
+	public String popup(Principal prc,Model model,HttpServletRequest req) {
+		
+		String name = prc.getName();
+		P_MemberDTO Pdto = usedService.getMemberDto(name);
+		
+		// req.getSession().setAttribute("login", Pdto);
+		
+		model.addAttribute("login",Pdto);
 		
 		return "popup";
 	}
@@ -368,7 +382,7 @@ public class UsedController {
 			System.out.println("공부하자..");
 		}
 		
-		return "redirect:/used/hello";		
+		return "redirect:/used/usedlist";		
 
 	}
 	
@@ -456,7 +470,6 @@ public class UsedController {
 		dto.setPhoto(photo);
 		dto.setPhoto_sys(photo_sys);
 		
-		System.out.println(dto.toString());
 		
 		boolean b = usedService.UsedUpdate(dto);
 		
@@ -501,11 +514,32 @@ public class UsedController {
 	
 	@GetMapping(value="/getSeller")
 	@ResponseBody
-	public String getSeller(String s_id) {
+	public String getSeller(String s_id,Principal prc) {
 		
 		int count = usedService.getSellerid(s_id);
 		
 		return count+"";
+	}
+	
+	@GetMapping(value="/blacklist")
+	@ResponseBody
+	public String blacklist(String str,int seq,String id,String b_id) {
+		System.out.println(id);
+		String count = "";
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("str",str);
+		map.put("seq",seq);
+		map.put("id", id);
+		map.put("b_id",b_id);
+		
+		boolean b = usedService.setblackList(map);
+		
+		if(b) count = "1";
+		 else count = "0"; 
+		
+		return count;
 	}
 	
 	@GetMapping(value = "/SendSms")

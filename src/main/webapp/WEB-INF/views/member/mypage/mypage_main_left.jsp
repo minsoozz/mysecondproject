@@ -5,6 +5,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/mypage_main_left.css">
+<script type="text/javascript" src="<%=ctx%>/js/member/mypage/mypage_main_left.js"></script>
 </head>
 
 

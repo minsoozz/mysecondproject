@@ -8,13 +8,10 @@
 <% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>MypageMainTop</title>
+
 
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/mypage_main_top.css">
 
-</head>
 <body>
 
 <!-- <div id="_mypage_wrap" class="mypage_wrap" align="center"> -->
@@ -48,11 +45,6 @@
 			</ul>	
 		</div>	
 	</div>
-	
-	<div>
-	
-	</div>
-<!-- </div> -->
 
 </body>
 </html>
