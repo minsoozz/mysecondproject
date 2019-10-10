@@ -36,7 +36,7 @@ tr{
         <c:set var="img" value="<%=arr %>"/>
 			<c:forEach var="i" items="${img }" varStatus="status">
 			 <li data-color="#1abc9c">              
-				<img src="/upload/${i }">
+				<img src="/upload/used/${i }">
              </li>
 			</c:forEach>
           </ul>
@@ -152,6 +152,12 @@ var next_backup2;		// 답글 html 백업
 var mydiv_backup2;		// 답글 html 백업
 
 var count = 0;
+
+$("#_deletebtn").click(function() {
+	var seq = "${dto.seq}";
+	location.href="/used/deleteProduct?seq="+seq;
+})
+
 
 $("#_updatebtn").click(function() {
 	var seq = "${dto.seq}";
