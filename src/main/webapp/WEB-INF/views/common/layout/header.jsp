@@ -64,9 +64,6 @@
                         		
                         	</div>
                         </c:if>
-                        
-                        
-                        
                             <div class="mypage">
                                 <a href="/mypage/orderlog">Mypage</a>
                             </div>

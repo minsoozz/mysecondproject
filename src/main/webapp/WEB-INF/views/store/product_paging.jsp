@@ -58,12 +58,12 @@
 %>
 
 
-<div align="center">
+<div align="center" id="ff">
 	<nav aria-label="Page navigation example">
 	<!-- << -->
 	<ul class="pagination">
 		<li class="page-item">
-	      <a href="#none" class="page-link"  title="처음페이지" onclick="goPage('0')">
+	      <a href="#ff" class="page-link"  title="처음페이지" onclick="goPage('0',<%=p_seq %>)">
 	        <span aria-hidden="true">&laquo;</span>
 	        <span class="sr-only">Previous</span>
 	      </a>
@@ -75,7 +75,7 @@
 	if(screenStartPageIndex > 1){
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-		<a href="#none" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1 %>')">
+		<a href="#ff" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1 %>,<%=p_seq %>')">
 			<img alt="" src="../img/customer-img/arrow_back.gif" style="width: 9px; height: 9px">
 		</a>
 		</span>
@@ -89,12 +89,12 @@
 	for(int i = screenStartPageIndex; i<screenEndPageIndex; i++){
 		if(i == pageNumber){	// 현재페이지
 		%>
-		<li class="#none"><a class="page-link" style="color: #000000;background-color:#F6FFCC;"><%=i+1 %></a></li>
+		<li class="#ff"><a class="page-link" style="color: #000000;background-color:#F6FFCC;"><%=i+1 %></a></li>
 		
 		<% 
 		}else{	// 그외의 페이지들
 			%>
-			<li class="page-item"><a href="#none" class="page-link" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>)"><%=i+1 %></a></li>
+			<li class="page-item"><a href="#none" class="page-link" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>,<%=p_seq %>)"><%=i+1 %></a></li>
 	<%
 		}
 	}
@@ -105,7 +105,7 @@
 	if(screenEndPageIndex < totalPageCount){	// [11][12][13] >
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-		<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>);return false;">
+		<a href="#ff" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>,<%=p_seq %>);return false;">
 			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
 		</a>
 		</span>
@@ -118,7 +118,7 @@
 	%>
 	<!-- >> -->
 	<li class="page-item">
-	      <a href=#none class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>);return false;" aria-label="Next">
+	      <a href="#ff" class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>,<%=p_seq %>);return false;" aria-label="Next">
 	        <span aria-hidden="true">&raquo;</span>
 	        <span class="sr-only">Next</span>
 	      </a>

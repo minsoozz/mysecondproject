@@ -36,7 +36,7 @@ public class CommonPagingDTO implements Serializable {
         
     /**총 페이지 수 */
     private int totalPage = 1;
-     
+    
     /** 현재 페이지 네비게이션 사이즈 */
     private int pageNavSize = 5;
      
@@ -141,6 +141,14 @@ public class CommonPagingDTO implements Serializable {
     public void setRecordCountPerPage(int recordCountPerPage) {
         this.recordCountPerPage = recordCountPerPage;
         setNav(this.totalSize);
+    }
+    
+    /**총 목록 개수를 설정하고 네비게이션 값 수정
+     * @param totalSize
+     */
+    public void setTotalSize(int totalSize) {
+    	this.totalSize = totalSize;
+    	setNav(totalSize);
     }
     
     /**네비게이션 바 설정
