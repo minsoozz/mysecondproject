@@ -37,6 +37,8 @@ public class MemBean implements Serializable {
 	// AuthoritiesDto
 	private String authority;	// 권한
 	
+	private String social;	// 소셜 로그인 구분
+	
 	public MemBean() {}
 
 	public MemBean(String userid, String userpw, Date rdate, int seq, boolean isAccountNonExpired,
@@ -72,6 +74,16 @@ public class MemBean implements Serializable {
 				+ username + ", postcode=" + postcode + ", address=" + address + ", detailAddress=" + detailAddress
 				+ ", phone=" + phone + ", useremail=" + useremail + ", gender=" + gender + ", birth=" + birth
 				+ ", count=" + count + ", authority=" + authority + "]";
+	}
+
+	public MemBean(String userid, String userpw, String username, String useremail, String authority, String social) {
+		super();
+		this.userid = userid;
+		this.userpw = userpw;
+		this.username = username;
+		this.useremail = useremail;
+		this.authority = authority;
+		this.social = social;
 	}
 	
 	/*

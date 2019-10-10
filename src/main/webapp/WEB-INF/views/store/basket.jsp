@@ -24,23 +24,26 @@ body{
 }
 h2 {
   font: 100 40px Open Sans;
-  text-align: center;
-  margin: 50px 0px 22px 0px;
+  text-align: left;
+  margin: 50px 20px 22px 0px;
+}
+#cart_wrap{
+	margin-left: 50px;
 }
 #cntProduct_wrap{
   font: 100 15px Open Sans;
-  text-align: center;
-  margin: 50px 0px 50px 0px;
+  text-align: left;
+  margin: 50px 20px 50px 0px;
   margin-top: 0px;
 }
 #mainContainer{
   position: absolute;
-  top: 380px;
+  top: 450px;
   bottom: 0;
   left: 0;
   right: 0;
-  height:100%;
-  width: 75%;
+  height:auto;
+  width: 1500px;
   background: white;
   margin: auto;
 }
@@ -87,7 +90,7 @@ border-bottom: 1px solid #DADCE0;
 padding-top: 15px;
 padding-bottom: 15px;
 width:70%;
-height:115px;
+height:170px;
 float:left;
 }
 .pname_wrap{
@@ -128,7 +131,7 @@ position:absolute;
 border:1px solid #EAEAEA;
 height:auto;
 width:400px;
-margin-left:30px;
+margin-left:100px;
 top:0px;
 left:1000px;
 float:right;
@@ -236,9 +239,11 @@ opacity:0.9;
 
 </style>
 <body>
-
+<br><br>
+<div id="cart_wrap">
 <h2><b>장바구니</b></h2>
 <div id="cntProduct_wrap"><label id="_allCnt">${fn:length(blist) }</label>개 상품</div>
+</div>
 
 <div id="mainContainer">
 <div id="product-select-all"><a href="#" class="allDeleteBtn" style="color:black">전체삭제</a></div>

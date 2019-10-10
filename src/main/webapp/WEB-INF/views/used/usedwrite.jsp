@@ -134,10 +134,10 @@ $(document).ready(function() {
 			return;
 		}
 		
-		if( $("#_image").val() == "" || $("#_image").val() == null ){
+		/*if( $("._image").val() == "" || $("._image").val() == null ){
 			alert("사진을 등록해주세요");
 			return;
-		}
+		}*/
 		
 		$("#_wform").submit();
 	});

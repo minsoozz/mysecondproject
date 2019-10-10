@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal" var="prc"/>
 <% String ctx = request.getContextPath(); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head> 
@@ -43,21 +47,38 @@
                     </div>
                 </div>
                 
-               
-                
                 <!--  Login Register Area  -->
                 <div class="col-7 col-xs-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
-                            
+						<c:if test="${userloginid eq null}">    
                             <div class="login">
-                                <a href="a.jsp">Login</a>
+                                <a href="/member/login">Login</a>
                             </div>
                             <div class="join">
-                                <a href="a.jsp">Join</a>
+                                <a href="/member/regiMain">Join</a>
                             </div>
+                            
+                        </c:if>
+                        
+                        <c:if test="${userloginid ne null}">
+                        	<div class="">
+                        		<span>안녕하세요 ${userloginid } 님  &nbsp;</span>
+                        	</div>
+                        	&nbsp;&nbsp;
+                        	<div class="logout">
+                        		<a href="/member/logout">Logout</a>
+                        		
+                        	</div>
+                        </c:if>
+                        
+                        
+                        
                             <div class="mypage">
-                                <a href="a.jsp">Mypage</a>
+                                <a href="/mypage/orderlog">Mypage</a>
+                            </div>
+                            <div class="cart">
+                                <a href="a.jsp">Cart</a>
                             </div>
                         </div>
                         
@@ -119,7 +140,7 @@
                                     <a class="nav-link" href="/Rhymes/store/productList">MEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">MARKET</a>
+                                    <a class="nav-link" href="/used/usedlist">MARKET</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">EVENT</a>
@@ -138,7 +159,9 @@
         </div>
     </header>
     
-
+<a id="backToTop" class="scrolltop" href="#">
+      <i class="fas fa-chevron-circle-up"></i>
+    </a>
     
     <!-- ****** Header Area End ****** -->
 
@@ -158,6 +181,23 @@
 	        }
 	    });
 	});
+	
+	
+	jQuery(document).ready(function () {
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 100) {
+            $('#backToTop').fadeIn(500);
+          } else {
+            $('#backToTop').fadeOut('slow');
+          }
+        });
+        $('#backToTop').click(function (e) {
+          e.preventDefault();
+          $('html, body').animate({scrollTop: 0}, 200);
+        });
+      });
+	
+	
 	</script> 
 	</body>
 

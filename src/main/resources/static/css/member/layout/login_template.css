@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.mypage_middle_content_template{
+	position: absolute;
+    width: 800px;
+    height: 100%;
+/*     background-color: #eaeaeab3; */
+    z-index: 0;
+    position: absolute;
+    /* margin: 0 0 0 -198px; */
+    top: 77%;
+    left: 30.0%;
+}
+
+
+
+#footer_wrap {
+	z-index: -1;
+	position: relative;
+	top: 650px;
+}
+
+.login_wrap{
+	align-content: center;
+}

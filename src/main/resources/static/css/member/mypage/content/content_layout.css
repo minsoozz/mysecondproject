@@ -14,13 +14,13 @@
 
 .btn-rhy-border {	/* 라임색테두리버튼 */
 	margin: 5px;
-	width: 100px;
-	border-color: #d7fd75;
+	width: 100px !important;
+	border-color: #d7fd75 !important;
 }
 
 .btn-rhy-full {	/* 라임색버튼 */
-	color: #400000;
-	background-color: #d7fd75;
+	color: #400000 !important;
+	background-color: #d7fd75 !important;
 }
 
 .tbl-rhy-head {	/* 테이블 헤드 스타일 */
@@ -52,8 +52,8 @@
 	left: 50%;
 }
 
-#footer_wrap {
+#footer_wrap_mypage {
 	z-index: -1;
 	position: relative;
-	top: 480px;
+	top: 600px;
 }
