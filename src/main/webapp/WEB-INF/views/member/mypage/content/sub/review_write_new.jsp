@@ -27,7 +27,7 @@
 	  <textarea id="summernote" name="editordata"></textarea>
 	</form>
 </div>
-끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝끝
+충돌충돌충돌충돌충돌충돌충돌충돌충돌충돌
 <script type="text/javascript">
 $(function(){
 	$("#summernote").summernote();
