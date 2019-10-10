@@ -78,13 +78,16 @@ public class MypageReviewController {
 	public String showReviewSubDone(Model model,
 			@RequestParam(defaultValue = "1")int pageNum, Principal pcp) throws Exception {
 		log.info("showReviewSubDone()");
-		
+		 
 		setReviewViewModel(model, pageNum, pcp, "true");
 		
 //		return "member/mypage/sub/review_sub_done";
 		return "member/mypage/sub/review_sub_wait";
 	}
 	
+	/**새 후기 작성 뷰
+	 * @return
+	 */
 	@GetMapping(value = "/review/writenew")
 	public String showWriteNewReview() {
 		log.info("showWriteNewReview()");
