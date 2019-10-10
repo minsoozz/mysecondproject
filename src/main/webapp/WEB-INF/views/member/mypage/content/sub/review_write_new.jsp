@@ -17,8 +17,7 @@
 <div style="width:70%;">
    <textarea name="content" id="summernote" style="padding-left: 36%;"></textarea>
 </div>
-
-
+충돌충돌충돌충돌충돌충돌충돌충돌충돌충돌
 <script type="text/javascript">
 $(function(){
 	$("#summernote").summernote();
