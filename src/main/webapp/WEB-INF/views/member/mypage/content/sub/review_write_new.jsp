@@ -18,4 +18,10 @@
    <textarea name="content" id="summernote" style="padding-left: 36%;"></textarea>
 </div>
 
+
+<script type="text/javascript">
+$(function(){
+	$("#summernote").summernote();
+});
+</script>
 </html>
