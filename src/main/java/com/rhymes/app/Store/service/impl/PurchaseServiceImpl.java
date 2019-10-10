@@ -20,11 +20,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 	PurchaseDao purchase;
 	
 	@Override
-	public List<ProductDto> getProductList() throws Exception {
-		return purchase.getProductList();
-	}
-
-	@Override
 	public ProductDto getProductDetail(int p_seq) throws Exception {
 		return purchase.getProductDetail(p_seq);
 	}

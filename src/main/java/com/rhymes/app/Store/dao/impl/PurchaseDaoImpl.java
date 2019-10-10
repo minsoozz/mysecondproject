@@ -22,11 +22,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	String ns = "purchase.";
 	
 	@Override
-	public List<ProductDto> getProductList() throws Exception {
-		return sqlSession.selectList(ns + "getProductList");
-	}
-
-	@Override
 	public ProductDto getProductDetail(int p_seq) throws Exception {
 		return sqlSession.selectOne(ns + "getProductDetail", p_seq);
 	}

@@ -5,10 +5,7 @@
 <mapper namespace="purchase">
 
 <!-- 상품리스트 -->
-<!--  <select id="getProductList" parameterType="com.rhymes.app.Store.model.ProductDto" resultType="com.rhymes.app.Store.model.ProductDto">
- 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE 		
- 	FROM rhy_store_product 	 
- </select> -->
+
  <!-- 상품디테일 -->
  <select id="getProductDetail" parameterType="Integer" resultType="com.rhymes.app.Store.model.ProductDto">
  	SELECT P_SEQ, C_NAME, P_NAME, P_TITLE, P_PRICE, P_COLOR, NATION, MDATE, DETAIL, PHOTO1_FILE, PHOTO2_FILE, PHOTO3_FILE, PHOTO4_FILE, PHOTO5_FILE, C1_NAME 
