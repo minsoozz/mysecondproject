@@ -320,17 +320,9 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 <div class="goods-view-infomation-content" id="goods_qna">
-상품문의
 
+<div id="button.wrap">
 
- 
- 
-<!-- 문의 -->
-<article id="panels">
-  <div class="container">
-    <section id="panel-3">
-    <main>
-   		 <div id="button.wrap">
 			<span class="button blue">
 				<button type="button" id="_btnWrite">상품문의</button>
 			</span>
@@ -424,8 +416,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 		</table>
 		
 		</form>
-	</main>
-</section>
+
 </div>
 
 

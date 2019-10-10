@@ -139,8 +139,7 @@ opacity: 0.9;
 	margin-left: 1000px;
 	top: 400px;
 	
-	
-
+}
 /* detail tab */
 
 label.panel-label {
@@ -181,12 +180,21 @@ label.panel-label:hover {
     -webkit-transition: opacity 600ms;
     transition: opacity 600ms;
     overflow-y: hidden;
+
 }
 #panel-1-ctrl:checked ~ #panels #panel-1 main {
     max-height: initial;
     opacity: 1;
     padding: 48px 24px;
 }
+
+}
+#panel-1-ctrl:checked ~ #panels #panel-1 main {
+    max-height: initial;
+    opacity: 1;
+    padding: 48px 24px;
+}
+
 #panel-2-ctrl:checked ~ #panels #panel-2 main {
     max-height: initial;
     opacity: 1;
@@ -222,7 +230,6 @@ label.panel-label:hover {
 #panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1 label.panel-label::after {
     height: 6px;
 }
-
 
 
 
