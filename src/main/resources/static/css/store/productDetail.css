@@ -51,28 +51,38 @@ body{
 	opacity: 0.5;
 }
 .basketBtn{
-	border-radius: 13px;
-	margin-top:5px;
-	width:230px;
-	height:35px;
-	background: white;
-	font: Open Sans 30px;
-	color: blakc; 
+   border-radius: 13px;
+   margin-top:5px;
+   width:115px;
+   height:35px;
+   background: white;
+   font: Open Sans 30px;
+   color: blakc; 
 }
+.wishBtn{
+   border-radius: 13px;
+   margin-top:5px;
+   width:115px;
+   height:35px;
+   background: white;
+   font: Open Sans 30px;
+   color: blakc; 
+}
+
 .basketBtn:hover{
 	opacity:0.5;
 }
 #_sizeChoo{
-	font: 100 14px Open Sans;
-	font-style: inherit;
-	border-radius: 10px;
-	width: 50px;
-	height:30px;
-	display : inline-block;
-	text-align: center;
-	border: 1px solid #DADCE0;
-	/* padding-top: 5px;
-	margin-top: 5px; */
+   font: 100 14px Open Sans;
+   font-style: inherit;
+   border-radius: 10px;
+   width: 50px;
+   height:30px;
+   display : inline-block;
+   text-align: center;
+   border: 1px solid #DADCE0;
+   /* padding-top: 5px;
+   margin-top: 5px; */
 }
 .basket{
     display:none;
@@ -121,6 +131,15 @@ opacity: 0.9;
 }
 
 
+
+#side_goods{
+	position:absolute;
+	width: auto;
+	height: auto;
+	margin-left: 1000px;
+	top: 400px;
+	
+}
 /* detail tab */
 
 label.panel-label {
@@ -139,7 +158,7 @@ label.panel-label {
     transition-duration: 200ms;
 }
 
-/*마우스오버*/
+/*留덉슦�뒪�삤踰�*/
 label.panel-label:hover {
     color: gray;
 }
@@ -161,12 +180,21 @@ label.panel-label:hover {
     -webkit-transition: opacity 600ms;
     transition: opacity 600ms;
     overflow-y: hidden;
+
 }
 #panel-1-ctrl:checked ~ #panels #panel-1 main {
     max-height: initial;
     opacity: 1;
     padding: 48px 24px;
 }
+
+}
+#panel-1-ctrl:checked ~ #panels #panel-1 main {
+    max-height: initial;
+    opacity: 1;
+    padding: 48px 24px;
+}
+
 #panel-2-ctrl:checked ~ #panels #panel-2 main {
     max-height: initial;
     opacity: 1;
@@ -201,115 +229,74 @@ label.panel-label:hover {
 }
 #panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1 label.panel-label::after {
     height: 6px;
-    
 }
 
 
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2 {
-    pointer-events: none;
-    cursor: default;
-    -webkit-transform: translate3d(0, 1px, 0);
-    transform: translate3d(0, 1px, 0);
-    box-shadow: none;
-    border-right: none;
+
+
+/* detail tab */
+
+.goods-view-infomation{
+	margin-top:50px
 }
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2.last {
-    border-right: 1px solid transparent;
+.goods-view-infomation-tab-group{
+	border-bottom:1px solid #e2e2e2;
 }
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2 + li {
-    border-left: 0px solid #dfdfdf;
+.goods-view-infomation-tab-group:after{
+	display:block;
+	content:'';
+	clear:both
 }
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2 label.panel-label {
-    background-color: white;
-    color: #5D5D5D;
-    padding-top: 24px;
+.goods-view-infomation-tab{
+	float:left;
+	vertical-align:top
 }
-#panel-2-ctrl:checked ~ #tabs-list #li-for-panel-2 label.panel-label::after {
-    height: 6px;
+.goods-view-infomation-tab:first-child .goods-view-infomation-tab-anchor{
+	border-left:1px solid #e2e2e2;
+	width:170px
 }
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3 {
-    pointer-events: none;
-    cursor: default;
-    -webkit-transform: translate3d(0, 1px, 0);
-    transform: translate3d(0, 1px, 0);
-    box-shadow: none;
-    border-right: none;
+.goods-view-infomation-tab-anchor{
+	position:relative;
+	top:1px;
+	width:168px;
+	height:46px;
+	line-height:46px;
+	text-align:center;
+	display:block;
+	color:#949494;
+	font-size:14px;
+	font-family:"Noto Sans";
+	background-color:#e7ffab;
+	border:1px solid #e2e2e2;
+	border-bottom:0;
+	border-left:none}
+.goods-view-infomation-tab-anchor span{
+	font-size:12px;
+	color:#e2e2e2
 }
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3.last {
-    border-right: 1px solid transparent;
-}
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3 + li {
-    border-left: 1px solid #dfdfdf;
-}
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3 label.panel-label {
-    background-color: white;
-    color: #5D5D5D;
-    padding-top: 24px;
-    border-right: 1px solid #F4F4F4;
-}
-#panel-3-ctrl:checked ~ #tabs-list #li-for-panel-3 label.panel-label::after {
-    height: 6px;
-}
-ul#tabs-list {
-    display: flex;
-    justify-content: left;
-    list-style: none;
-    text-align: center;
-    border-bottom: 0px solid #dfdfdf;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    border-bottom: 0px solid #dfdfdf;
-}
-ul#tabs-list li {
-    display: flex;
-    text-align: center;
-    font-size: 0.875em;
-    width: 18%;
-    box-shadow: 0px -2px 2px rgba(0, 0, 0, 0.05);
-    border-right: 0px solid #dfdfdf;
-    position: relative;
-}
-ul#tabs-list li:hover {
-    -webkit-transition: none;
-    transition: none;
-    border-right: none;
-}
-ul#tabs-list li:hover.last {
-    border-right: 1px solid transparent;
-}
-ul#tabs-list li:hover + li {
-    border-left: 0px solid #dfdfdf;
-}
-ul#tabs-list li label.panel-label {
-    position: relative;
-    padding: 24px 0;
-    font-size: 0.875em;
+.goods-view-infomation-tab-anchor.__active{
+	background-color:#fff;
+	height:47px
 }
 
-/*탭 hover*/
 
-ul#tabs-list li label.panel-label::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: 100%;
-    background-color: #D6F87F;
-    height: 0;
-    -webkit-transition-property: height;
-    transition-property: height;
-    -webkit-transition-duration: 200ms;
-    transition-duration: 200ms;
+/* detail index */
+
+.goods-view-infomation-content{
+	padding-top:60px;
+	min-height:500px;
+	margin-bottom:50px}
+.goods-view-infomation-content.__active{
+	margin-left :40px;
+	display:block
 }
-ul#tabs-list li label.panel-label:hover {
-    padding-top: 24px;
-}
-ul#tabs-list li label.panel-label:hover::after {
-    height: 6px;
+.goods-view-infomation-board{
+	width:100%
 }
 
-.panel-radios {
-    display: none;
-}
-
+/* 상품문의 리스트테이블 */
+.list_table { width:98%;}
+.list_table th { text-align:center; padding:20px 0px;  border-top: 3px solid #E0FF8B;}
+.list_table td { padding:20px 0px 20px 10px;  border-top:1px solid #EFEFEF;}
+.list_table td,.list_table th { font-size: 12px;}
+ 

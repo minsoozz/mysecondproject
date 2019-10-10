@@ -55,7 +55,7 @@
 	</td>
 </tr>
 <tr class="detail" id='detail${faq.seq}'>
-	<td><img alt="" src="../img/customer-img/answer.PNG" height="12px"; width="24px;" align="top"> </td>
+	<td><img alt="" src="../img/customer-img/answer.PNG" height="12px" width="24px;" align="top"> </td>
 	<td colspan="2" align="left">
 	<div style="white-space:pre-line;">
 	${faq.content }
@@ -111,6 +111,7 @@
 <input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
 <input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 </form>
+
 </div>
 <!-- 검색끝 -->
 </th>

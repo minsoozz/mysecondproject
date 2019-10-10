@@ -14,7 +14,7 @@ import com.rhymes.app.customer.model.FaqDto;
 import com.rhymes.app.customer.service.FaqService;
 
 @Controller
-@RequestMapping("/Rhymes")
+@RequestMapping("/customercenter")
 public class FaqController {
 
 	@Autowired
@@ -68,7 +68,7 @@ public class FaqController {
 		
 		FaqService.FaqUpload(faqdto);
 		
-		return "redirect:/Rhymes/faqlist";
+		return "redirect:/customercenter/faqlist";
 	}
 	
 	//글수정가기
@@ -89,15 +89,17 @@ public class FaqController {
 		
 		FaqService.FaqUpdateAf(faqdto);
 		
-		return "redirect:/Rhymes/faqlist";
+		return "redirect:/customercenter/faqlist";
 	}
 	
 	//삭제하기
 	@GetMapping("/faqdelete")
 	public String faqdelete(int seq) {
+		
+		
 		FaqService.FaqDelete(seq);
 		
-		return "redirect:/Rhymes/faqlist";
+		return "redirect:/customercenter/faqlist";
 	}
 	
 	
