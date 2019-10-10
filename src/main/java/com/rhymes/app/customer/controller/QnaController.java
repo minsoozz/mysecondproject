@@ -23,7 +23,7 @@ import com.rhymes.app.customer.util.FUpUtil;
 import com.rhymes.app.customer.util.FileDelete;
 
 @Controller
-@RequestMapping("/Rhymes")
+@RequestMapping("/customercenter")
 public class QnaController {
 
 	@Autowired
@@ -120,7 +120,7 @@ public class QnaController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/Rhymes/qnalist";
+		return "redirect:/customercenter/qnalist";
 	}
 	
 	//글수정가기
@@ -184,7 +184,7 @@ public class QnaController {
 		
 		
 		
-		return "redirect:/Rhymes/qnalist";
+		return "redirect:/customercenter/qnalist";
 	}
 	
 	
@@ -199,10 +199,10 @@ public class QnaController {
 		
 		boolean b = QnaService.QnaDelete(seq);
 		if(b) {
-			return "redirect:/Rhymes/qnalist";
+			return "redirect:/customercenter/qnalist";
 		}
 		
-		return "redirect:/Rhymes/qnalist";
+		return "redirect:/customercenter/qnalist";
 	}
 	
 	//답글 가기 
@@ -253,14 +253,14 @@ public class QnaController {
 			boolean b = QnaService.QnaAnswer(dto);
 			if(b) {
 				
-				return "redirect:/Rhymes/qnalist";
+				return "redirect:/customercenter/qnalist";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "redirect:/Rhymes/qnalist";
+		return "redirect:/customercenter/qnalist";
 		
 	}
 	

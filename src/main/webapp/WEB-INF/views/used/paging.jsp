@@ -7,11 +7,6 @@
 	int pageCountPerScreen;	// 스크린당 페이지 수 = 10
 	int recordCountPerPage;	// 페이지당 글 수 = 10
 	
-	//
-	int _p_seq;
-	String p_seq = request.getParameter("p_seq");
-	//
-	
 	String st1 = request.getParameter("totalRecordCount");
 	if(st1 == null) totalRecordCount = 0;
 	else			totalRecordCount = Integer.parseInt(st1);
@@ -57,18 +52,13 @@
 	
 %>
 
-
-<div align="center">
-	<nav aria-label="Page navigation example">
+<div style="float: left; width: 96%; text-align: center;">
 	<!-- << -->
-	<ul class="pagination">
-		<li class="page-item">
-	      <a href="#none" class="page-link"  title="처음페이지" onclick="goPage('0')">
-	        <span aria-hidden="true">&laquo;</span>
-	        <span class="sr-only">Previous</span>
-	      </a>
-	    </li>
-	
+	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
+	<a href="#none" title="처음페이지" onclick="goPage('0')">
+		<img alt="" src="../img/customer-img/arrow_first.gif" style="width: 9px; height: 9px">
+	</a>
+	</span>
 	
 	<!-- < -->
 	<%
@@ -89,12 +79,17 @@
 	for(int i = screenStartPageIndex; i<screenEndPageIndex; i++){
 		if(i == pageNumber){	// 현재페이지
 		%>
-		<li class="page-item"><a class="page-link" style="color: #000000;background-color:#F6FFCC;"><%=i+1 %></a></li>
-		
+		<span style="font-size: 12pt; color: #000000;background-color:#F6FFCC; border:#D8D8D8 1px solid; padding: 5px">
+			<%=i+1 %>
+		</span>
 		<% 
 		}else{	// 그외의 페이지들
 			%>
-			<li class="page-item"><a href="#none" class="page-link" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>)"><%=i+1 %></a></li>
+			<span style="font-size: 12pt; color: #000000;border:#D8D8D8 1px solid; padding: 5px">
+			<a href="#none" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>)">
+				<%=i+1 %>
+			</a>
+			</span>
 	<%
 		}
 	}
@@ -105,7 +100,7 @@
 	if(screenEndPageIndex < totalPageCount){	// [11][12][13] >
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-		<a href=xxx title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>,<%=p_seq %>);return false;">
+		<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>)">
 			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
 		</a>
 		</span>
@@ -117,14 +112,12 @@
 	}
 	%>
 	<!-- >> -->
-	<li class="page-item">
-	      <a href=xxx class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>,<%=p_seq %>);return false;" aria-label="Next">
-	        <span aria-hidden="true">&raquo;</span>
-	        <span class="sr-only">Next</span>
-	      </a>
-	    </li>
-	  </ul>
-	</nav>
+	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
+	<a href="#none" title="마지막페이지" onclick="goPage(<%=end_page %>)">
+		<img alt="" src="../img/customer-img/arrow_end.gif" style="width: 9px; height: 9px;">
+	</a>
+	</span>
+	
 </div>
 
 

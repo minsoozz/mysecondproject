@@ -101,6 +101,11 @@ var count = 0;
 	 })
  	$("#enterBtn").click(function() {	/* 내가 작성한 번호와 인증번호를 비교한다 */
 		
+ 		if($("#to").val() == "" || $("#to").val() == null){
+ 			alert("휴대폰 번호를 입력해주세요");
+ 			return;
+ 		}
+ 		
  		var userNum = $("#userNum").val(); 
  		var sysNum = $("#text").val();			
  		

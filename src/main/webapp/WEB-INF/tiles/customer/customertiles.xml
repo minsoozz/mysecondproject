@@ -60,10 +60,7 @@
        <put-attribute name="body" value="/WEB-INF/views/customer/qnawrite.jsp" />
    </definition>
    
-
- 
    <!-- qna 글수정 -->
-   
    <definition name="qnaupdate.tiles" extends="noticelist.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/qnaupdate.jsp" />
    </definition>
@@ -71,6 +68,21 @@
    <!-- qna 답글 -->
    <definition name="qnaanswer.tiles" extends="noticelist.tiles">
        <put-attribute name="body" value="/WEB-INF/views/customer/qnaanswer.jsp" />
+   </definition>
+   
+   
+   <!-- 연습용 상품문의 -->
+   <!-- Pqna글쓰기 -->
+   <definition name="pqnawrite.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/pqnawrite.jsp" />
+   </definition>
+   <!-- 글수정 -->
+   <definition name="pqnaupdate.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/pqnaupdate.jsp" />
+   </definition>
+      <!-- pqna 답글 -->
+   <definition name="pqnaanswer.tiles" extends="noticelist.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/customer/pqnaanswer.jsp" />
    </definition>
    
 </tiles-definitions>
