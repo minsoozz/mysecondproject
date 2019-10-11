@@ -38,4 +38,6 @@ public class CommonController {
 	public String welcomeMain() {
 		return "welcome/main";
 	}
+	
+	
 }

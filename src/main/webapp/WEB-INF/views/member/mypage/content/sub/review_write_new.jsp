@@ -4,23 +4,36 @@
 <% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
-<!-- 새 후기 작성 뷰 -->
+ 
+<script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
+<script src="<%=ctx%>/vendor/ckeditor/ckfinder/ckfinder.js"></script>
 
+<script src="<%=ctx%>/js/member/mypage/content/sub/review_write_new.js"></script>
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/sub/review_write_new.css">
-<script type="text/javascript" src="<%=ctx%>/js/member/mypage/content/sub/review_write_new.js"></script>
 
-<div class="mypage_main_content_title" align="left">
-	<h3>상품후기</h3>
-	<hr>
+<div class="mypage_main_content_top">
+	<div class="top_title mypage_main_content_title" align="left">
+		<h3>상품후기</h3>
+		<hr>
+	</div>
 </div>
 
-<div style="width:70%;">
-   <textarea name="content" id="summernote" style="padding-left: 36%;"></textarea>
+<div class="editor_wrap">
+   <textarea name="content" id="review_editor"></textarea>
 </div>
-충돌충돌충돌충돌충돌충돌충돌충돌충돌충돌
+<img alt="" src="http://192.168.0.14:18080/upload/store/15704428782241.png">
+<!-- CKEditor -->
 <script type="text/javascript">
-$(function(){
-	$("#summernote").summernote();
-});
+
+ClassicEditor
+	.create( document.querySelector( '#review_editor' ), {
+		ckfinder: {
+	        uploadUrl: '/ck/fileupload' // 내가 지정한 업로드 url (post로 요청감)
+	    }
+	} )
+	.catch( error => {
+	    console.error( error );
+	} );
 </script>
+
 </html>
