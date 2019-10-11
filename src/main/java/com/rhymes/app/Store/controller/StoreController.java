@@ -33,6 +33,7 @@ import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.PurchaseService;
 import com.rhymes.app.Store.service.RegisterService;
 import com.rhymes.app.Store.service.StoreService;
+import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.used.Service.UsedService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -59,13 +60,28 @@ public class StoreController {
    DecimalFormat formatter = new DecimalFormat("###,###");
    
    @GetMapping("/store/register")
-   public String register()throws Exception{
-      return "register.tiles";
+   public String register(Principal prc)throws Exception{
+      
+	   String c_id = "";
+	   String c_name = "";
+	      if(prc != null) {
+	    	  c_id = prc.getName();
+	    	  System.out.println("업체 아이디 : " + c_id);
+	    	  SellerDTO seller = new SellerDTO();
+	    	  seller.setId(c_id); 
+	    	  seller = register.getCname(seller);
+	    	  c_name = seller.getC_name();
+	      }
+       System.out.println("업체 아이디 : " + c_name);
+	   
+	   
+	   return "register.tiles";
    }  
       
    @GetMapping("/store/productList")
    public String productList(Model model, ProductParam param) throws Exception{
-      
+	   
+	   
       System.out.println("상품리스트 페이지 넘버 : " + param.getPageNumber());
       
       // 입점 업체 리스트
@@ -182,8 +198,20 @@ public class StoreController {
    
    @RequestMapping(value="/store/registerInsert", method = RequestMethod.POST)
     public String registerInsert(Model model, ProductDto product, StockDto stock,
-      MultipartHttpServletRequest multi, HttpServletRequest req) throws Exception{
-      product.setC_name("비마켓");
+      MultipartHttpServletRequest multi, HttpServletRequest req, Principal prc) throws Exception{
+      
+	   String c_id = "";
+	   String c_name = "";
+	      if(prc != null) {
+	    	  System.out.println("업체 아이디 : " + c_id);
+	    	  c_id = prc.getName();
+	    	  
+	    	  SellerDTO seller = new SellerDTO();
+	    	  seller = register.getCname(seller);
+	    	  c_name = seller.getC_name();
+	      }
+	   
+	   product.setC_name(c_name);
       
      int p_seq = register.getPseq();
            
@@ -264,7 +292,7 @@ public class StoreController {
       } catch (Exception e) {
          e.printStackTrace();
       }
-      return "redirect:/Rhymes/store/productList";
+      return "redirect:/main";
    }
    
    //@PostMapping("/store/productDetail")

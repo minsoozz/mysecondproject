@@ -292,7 +292,7 @@ opacity:0.9;
 					</c:if>
 					<c:if test="${ba.quantity eq 0 }">
 					<div style="margin-top:3px;">수량 : <span>${ba.p_quantity }</span></div>
-					<div style="margin-top:3px;">단가 : <span><fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price}" /></span></div>
+					<div style="margin-top:3px;">상품 가격 : <span><fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price}" /></span>원</div>
 					</c:if>										
 					</div>
 				</div>

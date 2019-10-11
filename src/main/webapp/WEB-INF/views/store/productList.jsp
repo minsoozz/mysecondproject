@@ -62,12 +62,14 @@ http-equiv="X-UA-Compatible" content="IE=edge">
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 	<input type="hidden" id="p_seq" name="p_seq" value="0">
 	<input type="hidden" name="c1_name" value="${c1name }">
+	<input type="hidden" name="keyword" value="${keyword }">
 </form>
 
 <form id="_frmFormSearch" action="" >
 <input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:0 }">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 	<input type="hidden" name="c1_name" value="${c1name }">
+	<input type="hidden" name="criterion" value="${criterion }">
 </form>
 
 <!------------------ SCRIPT ZONE ------------------>

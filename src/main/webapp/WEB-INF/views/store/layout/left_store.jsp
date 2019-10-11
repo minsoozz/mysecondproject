@@ -53,14 +53,12 @@
    </button>
    <!-- 2차 카테고리 -->
    <div class="dropdown-container" id="withoutC1C2${b_cate1.c1_seq}">
-   	
-   	<!-- 3차 카테고리 -->
-	<div class="dropdown-container" id="withoutC1C3${b_cate1.c1_seq }">
-	   		
-	</div>
+	   	<!-- 3차 카테고리 -->
+	   
    </div>
  </c:forEach>
 
+<!-- 브랜드 리스트 -->
   <br>
   <button class="dropdown-btn"><b>BRAND</b>
     <i class="fa fa-caret-down"></i>
@@ -119,6 +117,8 @@
 	<input type='hidden' name='c2_name' value="" class="c3_c2name">
 	<input type='hidden' name='c3_name' value="" class="c3_c3name">
 	<input type='hidden' name='keyword' value="" class="keyword">
+	<input type='hidden' name='criterion' value="" class="criterion">
+	
 </form>
 
 <!--------------------- SCRIPTZONE ----------------------------------->
@@ -127,6 +127,7 @@
 //카테고리 없이 검색어바로 들어올시 1차카테고리 생성 후 
 //1차 카테고리 클릭 -> 2차 카테고리 불러오기
 $(document).on('click', '#withoutC1C1list', function(){
+	
 	var c1_name = $(this).val();
 	var c1_seq = $(this).attr("value2");
 	var keyword = $("._keyword").val();
@@ -148,31 +149,36 @@ $(document).on('click', '#withoutC1C1list', function(){
            alert("error!!"); 
         }
    })
-	
 
 });
 function addkCate2(arr, arrLen, c1_seq, c1_name) {
-	
+ 	
 	var str ="";
 	for (var i = 0; i < arrLen; i++) {
-		str += "<button class='dropdown-btn2' id='withoutC1C2list' c2name='"+arr[i].c2_name+"' ";
+		str += "<button class='dropdown-btn2' id='withoutC1C2list"+arr[i].c2_seq+"' c2name='"+arr[i].c2_name+"' ";
 		str += "c2seq='"+arr[i].c2_seq+"' c1name='"+c1_name+"' c1seq='"+c1_seq+"'>";
 		str += arr[i].c2_name;
 		str += "<i class='fa fa-caret-down'></i>";
 		str += "</button>";
 	}
-	$("#withoutC1C3" + c1_seq).append(str);
+	$("#withoutC1C2" + c1_seq).append(str);
+	
 }
 
 
 //카테고리 없이 검색어바로 들어올시 1차카테고리 생성 후 
 //2차 카테고리 클릭 -> 3차 카테고리 불러오기
-$(document).on('click', '#withoutC1C2list', function(){
+$(document).on('click', '.dropdown-btn2', function(){
+	$("a[name='cbtn3']").fadeOut();
+	$(".criterion").val("all_search");
+	
 	var c1_name = $(this).attr("c1name");
 	var c1_seq = $(this).attr("c1seq");
 	var c2_name = $(this).attr("c2name");
 	var c2_seq = $(this).attr("c2seq");
 	var keyword2 = $("._keyword").val();
+	//alert(c2_name);
+	//alert(c1_name + ", " + c1_seq + ", " + c2_name + ", " + c2_seq + ", " + keyword2);
 	
 	$.ajax({
         type:"get",
@@ -189,24 +195,27 @@ $(document).on('click', '#withoutC1C2list', function(){
            alert("error!!"); 
         }
    })
-	
-	
 });
-function addkCate3(arr, arrLen, c1_name, c1_seq, c2_name, c2_seq){
+
+function addkCate3(arr, arrLen, c1_name, c2_name, c2_seq, c1_seq){
 	//alert(c1_name);
 	//alert(c2_name);
-	var str ="";
+	//alert(c1_name)
+	var str ="";		
+	str += "<div class='dropdown-container2'>";
 	for (var i = 0; i < arrLen; i++) {
-		str += "<a href='#' class='_cate3a"+c2_seq+"' id='cate3_btn' style='cursor:pointer;' c3_name='"+arr[i].c3_name+"' c2_name='"+c2_name+"'>";
+		str += "<a href='#' name='cbtn3' class='_cate3a"+c2_seq+"' id='cate3_btn' style='cursor:pointer;' c3_name='"+arr[i].c3_name+"' c2_name='"+c2_name+"' c1_name='"+c1_name+"'>";
 		str += arr[i].c3_name;
 		str += "</a>";
 	}
+	str += "</div>";
 	//alert(str);
-	//alert(c1_seq);
-	$("#withoutC1C2" + c1_seq).append(str);
+	//alert(c2_seq);
+	$("#withoutC1C2list" + c2_seq).after(str);
+	//$(".dropdown-btn2").after(str);
+	//$(".dropdown-btn2").nextElementSibling.fadeIn();
 	
 }
-
 
 // 3차 카테고리 클릭시
 $(document).on('click', '#cate3_btn', function(){
@@ -215,13 +224,14 @@ $(document).on('click', '#cate3_btn', function(){
 	var c2_name = $(this).attr("c2_name");
 	$(".c3_c2name").val(c2_name);
 	var c1_name = $("._c1name").val();
+	
 	$(".c3_c1name").val(c1_name);
 	var keyword = $("._keyword").val();
 	$(".keyword").val(keyword);
 	
+	//alert(c1_name);
+	
 	$("#c3ClickFrm").submit();
-	
-	
 	
 });
 
@@ -270,7 +280,6 @@ function bring3cate(c2_seq){
 	           alert("error!!"); 
 	        }
 	   })
-		
 	}
 }
 
@@ -282,6 +291,7 @@ function addCate3(arr, arrLen, c2_seq, c2_name) {
 		str += arr[i].c3_name;
 		str += "</a>";
 	}
+	
 	$("#cate3zone" + c2_seq).append(str);
 }
 
@@ -334,6 +344,8 @@ $(document).on('click', '.brandClick', function(){
 });	
 
 //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+
+
 var dropdown = document.getElementsByClassName("dropdown-btn");
 var i;
 
@@ -357,36 +369,32 @@ for (i = 0; i < dropdown.length; i++) {
   });
 }
 
-var dropdown = document.getElementsByClassName("dropdown-btn2");
-var i;
 
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
-	this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    
-    if (dropdownContent.style.display === "block") {    	
-      //dropdownContent.style.display = "none";
-      $(this.nextElementSibling).fadeOut();
-    } else {
-      //$(".dropdown-container").attr('style', "display:none;");
-      $(".dropdown-container2").fadeOut();
-      $(".dropdown-btn2").attr('style', "background-color:white;");
-      $(this).attr('style', "background-color:#d7fd75;");
-      //dropdownContent.style.display = "block";
-      $(this.nextElementSibling).fadeIn();
-      
-    }
-  });
-}
+	var dropdown = document.getElementsByClassName("dropdown-btn2");
+	var i;
+	
+	for (i = 0; i < dropdown.length; i++) {
+	  dropdown[i].addEventListener("click", function() {
+		//alert("ggggggggg");
+		this.classList.toggle("active");
+	    var dropdownContent = this.nextElementSibling;
+	    
+	    if (dropdownContent.style.display === "block") {    	
+	    	$(this.nextElementSibling).fadeOut();
+	      //$(this.nextElementSibling).show();
+	      
+	    } else {
+	    	//alert("닫힘->열림");
+	      //$(".dropdown-container").attr('style', "display:none;");
+	      $(".dropdown-container2").fadeOut();
+	      $(".dropdown-btn2").attr('style', "background-color:white;");
+	      $(this).attr('style', "background-color:#d7fd75;");
+	      $(this.nextElementSibling).fadeIn();
+	      
+	    }
+	  });
+	}
 
-
-
-
-/* 회사이름 sorting */
- function cnameMove(c_name){
-	alert(c_name);
-}
 
 </script>
 </body>

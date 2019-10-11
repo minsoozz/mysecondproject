@@ -12,7 +12,7 @@
 <!-- 상품리스트 -->
  <select id="getProductList" parameterType="com.rhymes.app.Store.model.ProductParam" resultType="com.rhymes.app.Store.model.ProductDto">
  	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME 		
- 	FROM (	SELECT ROW_NUMBER()OVER(ORDER BY P_SEQ) AS RNUM, 
+ 	FROM (	SELECT ROW_NUMBER()OVER(ORDER BY P_SEQ DESC) AS RNUM, 
  			P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, RDATE, C1_NAME
  			FROM rhy_store_product
  			WHERE 1 = 1
@@ -28,6 +28,13 @@
 					<if test="c1_name != null and c1_name != ''">
 					AND C1_NAME = #{c1_name}
 					</if>
+					
+					<if test="c1_name == null or c1_name == ''">
+						<if test="c2_name != null and c2_name != '' and c3_name != null and c3_name != ''">
+						AND C2_NAME = #{c2_name} AND C3_NAME = #{c3_name}
+						</if>
+					</if>
+					
 					AND (C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} '%')
 				</if>
 			</if>
@@ -51,7 +58,7 @@
 				</if>
 			)A
  	WHERE RNUM BETWEEN ${start} AND #{end}
- 	ORDER BY P_SEQ		
+ 	ORDER BY P_SEQ DESC	
  </select>
  
  <select id="productCnt" parameterType="com.rhymes.app.Store.model.ProductParam" resultType="java.lang.Integer">
@@ -69,6 +76,12 @@
 				<if test="c1_name != null and c1_name != ''">
 				AND C1_NAME = #{c1_name}
 				</if>
+				<if test="c1_name == null or c1_name == ''">
+					<if test="c2_name != null and c2_name != '' and c3_name != null and c3_name != ''">
+					AND C2_NAME = #{c2_name} AND C3_NAME = #{c3_name}
+					</if>
+				</if>
+				
 				AND (C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} '%')
 			</if>
 		</if>
