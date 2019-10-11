@@ -100,13 +100,18 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
   <div id="side_goods">
-  
-   <h3>${ productDto.p_name}</h3>
-   <p style="color: gray">${ productDto.p_title}</p>
-   &#8361;${ productDto.p_price2}<br>
+  <h4>${ productDto.c_name}</h4>
+   <p style="color: gray;font-size: 20px;margin-bottom: 32px;">${ productDto.p_name}</p>
+   <p style="color: gray;font-size: 20px;">&#8361;${ productDto.p_price2}</p>
+   <br>
+   <p style="color: gray;font-size: 15px">${ productDto.p_title}</p><br>
+   
+ 
+   <p style="color: gray;font-size: 15px;margin-bottom: -5px;">· MADE IN ${productDto.nation}</p>
+   <p style="color: gray;font-size: 15px">· SKU : ${productDto.cp_code}</p>
    
    <div class='' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
-      <br>사이즈 선택<br>
+      사이즈 선택<br>
       <c:forEach items="${sizelist }" var="size" varStatus="vs">
          <c:if test="${size.quantity ne 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
@@ -126,6 +131,8 @@ $(document).ajaxSend(function(e, xhr, options) {
       <span class="plus_btn" style="cursor:pointer;">+</span>
    </span>
    <br>
+   
+   <div id="b_btn">
    <input type="button" value="바로구매" id="buyBtn" onclick="buying()" style="cursor:pointer;"><br>
    <input type="button" value="장바구니" class="basketBtn" style="cursor:pointer;">
    <button type="button" class="wishBtn" style="cursor:pointer;">
@@ -139,10 +146,12 @@ $(document).ajaxSend(function(e, xhr, options) {
       </c:if>
       </span>
    </button>
-
+  </div>
 
     <div class="basket" style="overflow: scroll;">
     </div>
+</div>
+
 
 
 <!-- 메시지 영역 -->
@@ -169,7 +178,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!-- 장바구니 페이지이동 form -->
 <form action="/Rhymes/store/basket" method="get" id="moveBasketFrm"></form>
 
-</div>
+
 <div id="aa"></div>
 
 <ul class="goods-view-infomation-tab-group">
@@ -189,12 +198,23 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <div class="goods-view-infomation-content __active" id="goods_info">
 
-      p_title(상품 기본정보 입력:부가설명) : ${productDto.p_title}<br>
-      detail(상품 상세정보 입력) : ${productDto.detail}<br>
-      원산지 : ${productDto.nation}<br>
-      생산일 : ${productDto.mdate}<br><br><br><br>
+<div align="center">
+     <%--  p_title(상품 기본정보 입력:부가설명) : ${productDto.p_title}<br> --%>
+     <!--  detail(상품 상세정보 입력) : --> 
+     
+     <p style="font-size: 15px;">${productDto.detail}</p><br>
+      
+       <img src="/upload/store/${productDto.photo1_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+        <img src="/upload/store/${productDto.photo2_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+         <img src="/upload/store/${productDto.photo3_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+          <img src="/upload/store/${productDto.photo4_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+           <img src="/upload/store/${productDto.photo5_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+      <br>원산지 : ${productDto.nation}<br>
+      <br>생산일 : ${productDto.mdate}<br><br><br><br>
+     </div> 
       
       
+      <div style="font-size: 12px;">
       <p>
       <strong>Tax&nbsp;Information</strong>
       </p>
@@ -334,10 +354,10 @@ $(document).ajaxSend(function(e, xhr, options) {
    <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
    </li>
    <li class="goods-view-infomation-tab">
-   <a href="#goods_review" class="goods-view-infomation-tab-anchor __active">REVIEW</a>
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
    </li>
    <li class="goods-view-infomation-tab">
-   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor __active">Q&A</a>
    </li>
    <li class="goods-view-infomation-tab-group:after"></li>
 </ul>
@@ -503,7 +523,7 @@ function showBasketList(arrLen, arr){
    $(".blist").html("");
    $("#baskettitle").remove();
    var str = "";
-   var str = "<div align='center' id='baskettitle'><h2>ㅋ장바구니ㅋ</h2></div>";
+   var str = "<br><div align='center' id='baskettitle'><h2>장바구니</h2><br></div>";
    for (var i = 0; i < arrLen; i++) {
       str += "<div stylesdf='margin-top:5%;' align='center' class='blist' >";
       str += "<label><img src='/upload/store/"+ arr[i].photo1_file + "' style='width:100px; height:100px;'><br>";
@@ -532,7 +552,7 @@ function showBasketList(arrLen, arr){
    $(".basket").append(str);
    
    $(".basket").animate({width:'toggle'},350);
-//>>>>>>> e5b8cb7a54fefa75d2734e685a5710447a83ce7d
+
 }
 
 /* 미니장바구니 전체 구매버튼 클릭 */

@@ -161,7 +161,7 @@ function addkCate2(arr, arrLen, c1_seq, c1_name) {
 		str += "<i class='fa fa-caret-down'></i>";
 		str += "</button>";
 	}
-	$("#withoutC1C3" + c1_seq).append(str);
+	$("#withoutC1C2" + c1_seq).append(str);
 }
 
 

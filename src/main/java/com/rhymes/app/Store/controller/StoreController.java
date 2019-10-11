@@ -264,7 +264,7 @@ public class StoreController {
       } catch (Exception e) {
          e.printStackTrace();
       }
-      return "redirect:/Rhymes/store/productList";
+      return "redirect:/main";
    }
    
    //@PostMapping("/store/productDetail")
