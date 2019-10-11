@@ -39,4 +39,11 @@ spring:
       enabled: true
       file-size-threshold: 10MB
       
-
+logging:
+  level: 
+    org:
+     apache:
+      tiles:
+       request:
+        locale:
+         PostfixedApplicationResource:ERROR

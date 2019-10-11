@@ -80,7 +80,7 @@
 		<th colspan="4" align="center">
 		<!-- 페이징 -->
 		<div id="paging_wrap"> 
-			<jsp:include page="/WEB-INF/views/store/product_paging.jsp" flush="false">
+			<jsp:include page="/WEB-INF/views/store/productqna/product_paging.jsp" flush="false">
 				<jsp:param name="pageNumber" value="${pageNumber }"/>
 				<jsp:param name="totalRecordCount" value="${totalRecordCount }"/>
 				<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }"/>
@@ -89,7 +89,6 @@
 			
 		<!-- hidden 을 통해서 값을 넘겨주기 -->
 		<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
-		
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">	
 		</div>
 		<!-- 페이징끝 --> 
@@ -98,7 +97,7 @@
 		
 		</tbody>
 		</table>
-		
+	
 		</form>
 
 </div>    
@@ -134,10 +133,9 @@ $("#_btnWrite").click(function () {
 	location.href = "pqnawrite";
 });
 
-function goPage( pageNumber) {
+function goPage(pageNumber) {
 	
 	$("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
-
 	$("#_frmFormSearch").attr("action", "/productqna/pqnalist").submit(); //
 	
 }

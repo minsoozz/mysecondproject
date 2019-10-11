@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- jar 파일 두개 추가, 링크 추가 -->
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -50,10 +50,10 @@
 <tr>
 	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/${list.photo1_file }"></td>
 	<td width="50%" align="left">[${list.p_name }]${list.c_name }</td>
-	<td rowspan="2" width="10%" align="center" id="total_price">${list.p_price * list.quantity }</td>
+	<td rowspan="2" width="10%" align="center" id="total_price"><fmt:formatNumber value="${list.p_price * list.quantity }" />원</td>
 </tr>
 <tr>
-	<td align="left">${list.quantity }개/개 당 ${list.p_price }원</td>
+	<td align="left">${list.quantity }개/개 당 <fmt:formatNumber value="${list.p_price }"/>원</td>
 </tr>
 </c:forEach>
 
@@ -80,8 +80,8 @@
 	<input type="text" id="userNum" placeholder="인증번호 입력">   <!-- 인증번호 입력창 -->
 	<input type="button" id="enterBtn" value="확인">
 
-	<input type="text" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-	<input type="text" id="_text_confirm">
+	<input type="hidden" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+	<input type="hidden" id="_text_confirm">
 
 	</td>
 </tr>
@@ -96,7 +96,7 @@
 	<input type="text" size="5" id="sendphone3"></td>
 </tr><tr>
 	<th>이메일 *</th>
-	<td><input type="text" size="26"><input type="button" id="mail_move" value="메일발송"></td>
+	<td><input type="text" size="26"><input type="button" onclick="location.href='/mailSender'" value="메일발송"></td>
 </tr><tr>
 	<td></td>
 	<td>이메일을 통해 주문처리과정을 보내드립니다.<br>이메일 주소란에는 반드시 수신가능한 이메일 주소를 입력해 주세요.</td>
@@ -113,8 +113,7 @@
 <table class="payment_tb">
 <tr>
 	<th>주소 *</th>
-	<td>&nbsp;&nbsp;&nbsp;&nbsp;
-	위(주문자) 정보와 같음 <input type="radio" name="address" id="oldaddress"></td>
+	<td>위(주문자) 정보와 같음 <input type="checkbox" id="oldaddress"></td>
 </tr>
 <tr>
 	<th></th>
@@ -130,8 +129,8 @@
 </tr>
 <tr>
 	<th>휴대폰 *</th>
-	<td><input type="text" size="5" id="receivephone1">&nbsp;-&nbsp;
-	<input type="text" size="5" id="receivephone2">&nbsp;-&nbsp;
+	<td><input type="text" size="5" id="receivephone1">&nbsp;&nbsp;
+	<input type="text" size="5" id="receivephone2">&nbsp;&nbsp;
 	<input type="text" size="5" id="receivephone3"></td>
 </tr>
 <tr>
@@ -149,28 +148,37 @@
 <!-- 로그인 했을때만 보이기 -->
 <div class="divback">
 <h4>쿠폰 적립금</h4>
-<table class="payment_tb" border="1">
+<table class="payment_tb">
+
+<c:if test="${empty coupon_count }">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
-	<td>
-	<select id="coupon_use" onchange="coupon_change()">
-	<option value="0">쿠폰 적용 안함</option>
-	<c:forEach items="${coupon_code }" var="coupon">
-	<option value="">${coupon.title }</option>
-	</c:forEach>
-	</select></td>
 	<td></td>
 </tr>
 <tr>
-	<td colspan="2">(보유쿠폰 : ${coupon_count }개) 중복할인 안됩니다</td>
+	<td colspan="2">(보유쿠폰 : 0 개)</td>
 </tr>
+</c:if>
+<c:if test="${not empty coupon_count }">
+<tr>
+	<th rowspan="2">쿠폰 적용</th>
+	<td>쿠폰 사용&nbsp;&nbsp;<input type="text" id="coupon_use">
+	&nbsp;&nbsp;<input type="button" id="coupon_btn" value="쿠폰선택"></td>
+</tr>
+<tr>
+	<td colspan="2">(보유쿠폰 : ${coupon_count } 개) 중복할인 안됩니다</td>	
+</tr>
+</c:if>
 <tr>
 	<th>적립금 적용</th>
 <c:if test="${empty point_amount }">
 	<td colspan="2">사용 가능한 적립금이 없습니다</td>
 </c:if>
 <c:if test="${not empty point_amount }">
-	<td colspan="2">${point_amount }원&nbsp;&nbsp;&nbsp;&nbsp;<input type="text">원 사용 (1000월 단위로 사용가능합니다)</td>
+	<td colspan="2">
+	<input type="text">원
+	&nbsp;&nbsp;사용가능 적립금 : <fmt:formatNumber value="${point_amount }" />원
+	&nbsp;&nbsp;(1,000원 단위로 사용가능합니다)</td>
 </c:if>
 </tr>
 </table>

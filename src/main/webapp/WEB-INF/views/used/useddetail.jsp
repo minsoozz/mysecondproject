@@ -31,9 +31,8 @@ tr{
  %>
  </head>
 <!-- <body> -->
-<div id="detail_wrap" style="background-color: gray">
-	<hr id="_hr">
-		
+<div id="detail_wrap" style="background-color: white">
+	
 <div id="wrapper">
       <div id="slider-wrap">
           <ul id="slider">
@@ -103,11 +102,15 @@ value="${dto.price }" />원</h5></div>
   </div>
   
  	<div id="div_content">
- 		<h5>상품정보 ${dto.content }</h5>
+  	<hr color="black">
+ 		<h5>상품정보 </h5>
+ 		<br>
+ 		${dto.content }
  	</div>
-
+	<hr>
 	<div id="map" style="width:400px;height:300px;">
 	</div>
+	
 	
 	<c:if test="${login.userid eq dto.s_id}">
 	<div id="div_btn">
@@ -212,6 +215,10 @@ value="${dto.price }" />원</h5></div>
   </div>
 
 <script type="text/javascript">
+
+$("#_notesbtn").click(function() {
+	alert("점검중입니다");
+})
 
 function gologin(){
 	 var con_test = confirm("로그인이 필요합니다 로그인 페이지로 이동하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
@@ -446,7 +453,7 @@ $(function(){
 			
 			} else {
 				html += "<div>";
-				html += "<table>";
+				html += "<table id='dtable'>";
 				html += "<tr><td>등록된 댓글이 없습니다.</td></tr>";
 				html += "</div>";
 				html += "</table>";
