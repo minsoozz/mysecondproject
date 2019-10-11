@@ -35,7 +35,7 @@
 </a>
 </c:if>
 <c:if test="${empty keyword}">
-    <a href="#">WHAT THEY WANT 16</a>
+    <a href="#"><b>BEST</b></a>
 </c:if>    
   <c:forEach items="${cate2list }" var="cate2" varStatus="vs">
 	  <input type="hidden" value="${cate2.c2_name }">

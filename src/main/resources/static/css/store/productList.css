@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Inconsolata|Schoolbell&display=swap');
+
 
 body{
    font-family: "Noto Sans KR", sans-serif;	
@@ -15,7 +17,31 @@ body{
    margin-right:auto; 
    padding:0px;
    margin-top: 30px;
+   
 }
+
+.titleDiv{
+   font-family: 'Alegreya Sans SC', sans-serif;
+   margin:0 auto;
+   display:table;
+   width:85%;
+   height:40px;
+   text-align: center;
+   vertical-align: middle;
+   left:40%;
+   align:center;
+   /* border:2px solid red; */
+}
+.sortingDiv{
+	position:absolute;
+	right:14%;
+}
+.sortingBy{
+	color:grey;
+	margin-right: 20px;
+	cursor:pointer;
+}
+
 
 .subDiv{
    margin:0 auto;

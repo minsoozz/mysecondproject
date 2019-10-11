@@ -80,9 +80,14 @@ public class StoreController {
       
    @GetMapping("/store/productList")
    public String productList(Model model, ProductParam param) throws Exception{
-	   
-	   
+	  
       System.out.println("상품리스트 페이지 넘버 : " + param.getPageNumber());
+      System.out.println("-----------c2name: " + param.getC2_name());
+      System.out.println("-----------c3name: " + param.getC3_name());
+      
+      if( param.getSorting()==null||("").equals(param.getSorting()) ) {
+    	param.setSorting("NEW");  
+      }
       
       // 입점 업체 리스트
       List<String> clist = store.getCompnayList();   
@@ -114,7 +119,6 @@ public class StoreController {
          cate1list = store.getkCate1List(param);
          model.addAttribute("cate1list", cate1list);         
       }
-      
       log.info(param.getKeyword());
       
       // paging 처리
@@ -138,12 +142,16 @@ public class StoreController {
          plist.get(i).setP_price2(formatter.format(price));
       }
       
+      model.addAttribute("sorting", param.getSorting());
       model.addAttribute("criterion", param.getCriterion());
       model.addAttribute("keyword", param.getKeyword());
       //left nav
       model.addAttribute("cate2list", cate2list);
       model.addAttribute("clist", clist);
       model.addAttribute("c1_name", param.getC1_name());
+      model.addAttribute("c2_name", param.getC2_name());
+      model.addAttribute("c3_name", param.getC3_name());
+      
       //페이징
       model.addAttribute("pageNumber", sn);
       model.addAttribute("totalRecordCount", totalProduct);
@@ -554,7 +562,6 @@ public class StoreController {
                basketPcnt = blist.get(i).getP_quantity();
                quantity = blist.get(i).getQuantity();
                
-               log.info(quantity +"");
                if(quantity!=0) {
                   //제품 단가 * 재고번호 수량
                   total_price += (unitPrice * basketPcnt);
