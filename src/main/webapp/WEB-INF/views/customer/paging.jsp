@@ -60,6 +60,7 @@
 
 <div align="center">
 	<nav aria-label="Page navigation example">
+	
 	<!-- << -->
 	<ul class="pagination">
 		<li class="page-item">
@@ -106,7 +107,7 @@
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
 
-		<a href=xxxx title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>,<%=p_seq %>);return false;">
+		<a href="#" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>);return false;">
 
 			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
 		</a>
@@ -121,7 +122,7 @@
 	<!-- >> -->
 	<li class="page-item">
 
-	      <a href=xxxx class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>,<%=p_seq %>); return false;" aria-label="Next">
+	      <a href="#" class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>)" >
 
 
 	        <span aria-hidden="true">&raquo;</span>

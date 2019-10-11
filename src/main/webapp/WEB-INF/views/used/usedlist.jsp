@@ -124,8 +124,6 @@ $(document).ready(function() {
 		
 		var category = "${category}";
 		
-		alert(category);
-	
 	    var keyword = $("#_keyword").val();
 		var select = $("#s_select").val();
 		
