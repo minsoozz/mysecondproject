@@ -49,19 +49,21 @@ public class PaymentController {
 	public String payment(Model model, String stock_seq, String p_quantity) throws Exception {
 		System.out.println("daraepayment");
 
-		System.out.println("상품재고 번호 : " + stock_seq);
-		System.out.println("상품수량 : " + p_quantity);
-
 		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
 
 		OrderDTO dto = new OrderDTO();
 		dto.setStock_seq(Integer.parseInt(stock_seq));
-		dto.setQuantity(Integer.parseInt(p_quantity));
 
 		System.out.println("재고번호 : " + stock_seq + ", 수량 :" + p_quantity);
 
 		// db 가져오기
 		basketList.add(PaymentService.getOrder(dto));
+		
+		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
+		
+		for (int i = 0; i < basketList.size(); i++) {
+			System.out.println("단일제품 : " + basketList.get(i).toString());
+		}
 
 		model.addAttribute("basketList", basketList);
 
