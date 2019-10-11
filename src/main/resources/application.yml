@@ -36,11 +36,12 @@ spring:
       max-request-size: 10MB
       enabled: true
       file-size-threshold: 10MB
-logging:
-  level:
-   org:
-    apache:
-     tiles:
-      request:
-       locale:
-        PostfixedApplicationResource: ERROR
+      
+logging:
+  level: 
+    org:
+     apache:
+      tiles:
+       request:
+        locale:
+         PostfixedApplicationResource: ERROR

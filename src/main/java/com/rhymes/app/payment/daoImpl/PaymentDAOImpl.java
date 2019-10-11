@@ -48,7 +48,10 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 		System.out.println("PaymentDAOIMPL userid : " + userid);
 		
-		int countCoupon = SqlSession.selectOne(p + "getCountCoupon", userid);
+		int countCoupon = 0;
+		try {
+			countCoupon = SqlSession.selectOne(p + "getCountCoupon", userid);
+		}catch(Exception e) {}
 		
 		System.out.println("PaymentDAOIMPL countCoupon : " + countCoupon);
 
@@ -61,14 +64,19 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public List<MemberCouponDTO> getAllCoupon(String userid) {
 		
 		List<MemberCouponDTO> coupon = new ArrayList<MemberCouponDTO>();
+		MemberCouponDTO dto = new MemberCouponDTO();
+		dto.setTitle("쿠폰없음");
+		coupon.add(dto);
+		try {
+			coupon = SqlSession.selectList(p + "getAllCoupon", userid);
+		}catch(Exception e) {}
 		
-		coupon = SqlSession.selectList(p + "getAllCoupon", userid);
 		int countCoupon = SqlSession.selectOne(p + "getCountCoupon", userid);
 		
 		System.out.println("PaymentDAOIMPL 쿠폰 개수 : " + countCoupon);
 
-		for (MemberCouponDTO dto : coupon) {
-			System.out.println("PaymentDAOIMPL 쿠폰 정보 : " + dto.toString());
+		for (MemberCouponDTO _dto : coupon) {
+			System.out.println("PaymentDAOIMPL 쿠폰 정보 : " + _dto.toString());
 		}
 		
 		return coupon;

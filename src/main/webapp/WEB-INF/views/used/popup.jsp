@@ -77,7 +77,6 @@ var count = 0;
 				 			  id: $("#_s_id").val()
 				 			  },
 				 	 success:function(data){
-				 		alert(data);
 				 		
 				 		},
 				 		error(xhr, ajaxOptioins,thrownError){
@@ -137,7 +136,6 @@ var count = 0;
  		var postcode = $("#sample6_postcode").val();
  		var address = $("#sample6_address").val();
  		var detailaddress =  $("#sample6_detailAddress").val();
- 		alert(count);
  		if(count > 0){
 			if(emptycount == 1){ /* emptycount가 1이라면 기존에 주소를 입력하지 않았다  */
 				

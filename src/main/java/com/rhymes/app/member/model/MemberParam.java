@@ -26,5 +26,8 @@ public class MemberParam implements Serializable{
 	// [1]�������� -> 1~10 �� ���� �ҷ��;��� DB��
 	private int start = 1;
 	private int end = 10;
+	
+	// select
+	private String authority;
 		
 }

@@ -52,11 +52,11 @@ $( "#create-user" ).button().on( "click", function() {
             <div class="card-body">
                 <div class="d-sm-flex justify-content-between align-items-center">
                     <h4 class="header-title mb-0">회원 목록</h4>
-                    <select class="custome-select border-0 pr-3">
-                        <option selected>전체</option>
-                        <option value="0">일반회원</option>
-                        <option value="0">업체</option>
-                        <option value="0">개인판매자</option>
+                    <select class="custome-select border-0 pr-3" name="authority" id="_authority" onchange="auth()">
+                        <option selected value="0">전체</option>
+                        <option value="1">일반회원</option>
+                        <option value="2">업체</option>
+                        <option value="3">개인판매자</option>
                     </select>
                 </div>
                 
@@ -221,5 +221,11 @@ $("#delBtn").click(function(){
 	
 });
 
+function auth() {
+	$("#_authority").click(function(){
+		alert("test");
+	// 	location.href="/admin/memlist".submit();
+	});
+)
 </script>
 </html>

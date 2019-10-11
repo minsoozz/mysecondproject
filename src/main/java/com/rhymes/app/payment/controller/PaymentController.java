@@ -46,24 +46,25 @@ public class PaymentController {
 	// 단일제품 구매
 	// @GetMapping("/payment")
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
-	public String payment(Model model, String stock_seq, String p_quantity) throws Exception {
-		System.out.println("daraepayment");
-
-		System.out.println("상품재고 번호 : " + stock_seq);
-		System.out.println("상품수량 : " + p_quantity);
+	public String payment(Model model, String stock_seq, String p_quantity, Principal pcp) throws Exception {
 
 		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
 
 		OrderDTO dto = new OrderDTO();
 		dto.setStock_seq(Integer.parseInt(stock_seq));
-		dto.setQuantity(Integer.parseInt(p_quantity));
-
-		System.out.println("재고번호 : " + stock_seq + ", 수량 :" + p_quantity);
 
 		// db 가져오기
 		basketList.add(PaymentService.getOrder(dto));
+		
+		// db에는 재고수량이 있고 주문수량은 없다 매개변수로 받은 주문수량을 직접 넣는다
+		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
+		basketList.get(0).setId(pcp.getName());
 
 		model.addAttribute("basketList", basketList);
+		
+		for (OrderDTO _dto : basketList) {
+			System.out.println("장바구니 : " + _dto.toString());
+		}
 
 		if (true) {
 			// 로그인 되어있으면 결제 페이지로 이동
@@ -123,6 +124,11 @@ public class PaymentController {
 			// db로 받을 수 있는 건 재고수량이다
 			// 주문수량은 매개변수로만 받을 수 있어서 직접 dto에 넣는다
 			basketList.get(i).setQuantity(bOlist.get(i).getQuantity());
+			basketList.get(i).setId(userid);
+		}
+		
+		for (OrderDTO dto : basketList) {
+			System.out.println("장바구니 : " + dto.toString());
 		}
 		
 		
@@ -179,8 +185,8 @@ public class PaymentController {
 		// Google일 경우 smtp.gmail.com 을 입력합니다.
 		String host = "smtp.naver.com";
 		
-		final String username = "ogbgt5"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-		final String password = "nahdl^*^zrb15"; //네이버 이메일 비밀번호를 입력해주세요.
+		final String username = "project_test_darae"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
+		final String password = "final_project"; //네이버 이메일 비밀번호를 입력해주세요.
 		int port=465; //포트번호
 		
 		// 메일 내용

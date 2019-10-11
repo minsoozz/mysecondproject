@@ -54,6 +54,12 @@ html {
 	-webkit-tap-highlight-color: transparent
 }
 
+.page-title {
+	padding: 20px;
+	font-size: medium;
+	font-weight: bold;
+}
+
 article, aside, figcaption, figure, footer, header, hgroup, main, nav,
 	section {
 	display: block
@@ -2310,8 +2316,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
 	color: #fff;
-	background-color: #4e73df;
-	border-color: #4e73df
+	background-color: #64e2b7;
+	border-color: #64e2b7;
 }
 
 .btn-primary:hover {
@@ -4633,7 +4639,8 @@ none
 	background-color: #fff;
 	background-clip: border-box;
 	border: 1px solid #e3e6f0;
-	border-radius: .35rem
+	border-radius: .35rem;
+	margin: 20px;
 }
 
 .card>hr {
@@ -9456,7 +9463,7 @@ supports ((position:-webkit-sticky ) or (position:sticky )){ .
 }
 
 .text-primary {
-	color: #4e73df !important
+	color: #64e2b7 !important
 }
 
 a.text-primary:focus, a.text-primary:hover {
@@ -9681,7 +9688,7 @@ a:focus {
 #wrapper #content-wrapper {
 	background-color: #f8f9fc;
 	width: 100%;
-	/* 	overflow-x: hidden */
+	overflow-x: hidden
 }
 
 #wrapper #content-wrapper #content {
@@ -9815,8 +9822,8 @@ opacity
 }
 
 .bg-gradient-primary {
-	background-color: #4e73df;
-	background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+	background-color: #64e2b7;
+	/* 	background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%); */
 	background-size: cover
 }
 
@@ -10082,9 +10089,7 @@ opacity
 }
 
 .topbar {
-	height: 4.375rem;
-    width: 1678px;
-    float: right;
+	height: 4.375rem
 }
 
 .topbar #sidebarToggleTop {
@@ -10226,9 +10231,7 @@ opacity
 
 .sidebar {
 	width: 6.5rem;
-	min-height: 100vh;
-	position: relative;
-    top: -94px;
+	min-height: 100vh
 }
 
 .sidebar .nav-item {

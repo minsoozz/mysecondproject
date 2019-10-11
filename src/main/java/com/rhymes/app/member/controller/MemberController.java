@@ -260,15 +260,15 @@ public class MemberController {
 	@RequestMapping(value = "/sendSms.do", method = RequestMethod.GET)
 	public String sendSms(HttpServletRequest request) throws Exception {
 
-		String api_key = "NCSIOIHJHNMGEUH7";
-		String api_secret = "5DYGAAUIVWUIWA4RNHYIKIUQRF1MBM10";
+		String api_key = "NCSJIOFN175HJZRU";
+		String api_secret = "G1OPKSUUMY3GWZTTVAFZ5BDXOAGPYRFK";
 
 		Coolsms coolsms = new Coolsms(api_key, api_secret);
 
 		HashMap<String, String> set = new HashMap<String, String>();
 
 		set.put("to", (String) request.getParameter("to")); // 받는 사람
-		set.put("from", "01092557316"); // 발신번호
+		set.put("from", "01068889859"); // 발신번호
 		set.put("text", "비마켓 인증번호 [" + (String) request.getParameter("text") + "]"); // 문자내용
 		set.put("type", "sms"); // 문자 타입
 
