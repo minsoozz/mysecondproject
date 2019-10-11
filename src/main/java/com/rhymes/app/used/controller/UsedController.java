@@ -63,7 +63,7 @@ public class UsedController {
 	
 	@GetMapping("usedlist")
 	public String usedlist(Model model,BbsParam param,Principal prc, HttpServletRequest req) {
-		
+			System.out.println(param.toString());
 		
 		if(prc != null) {
 			P_MemberDTO Pdto = usedService.getMemberDto(prc.getName());

@@ -27,7 +27,7 @@ public class MemberDTO implements Serializable {
 	
 	
 	public MemberDTO() {}
-
+	
 	
 	@Builder
 	public MemberDTO(String userid, String userpw) {

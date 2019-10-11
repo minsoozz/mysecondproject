@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class SellerDTO implements Serializable {
 
+	private int seq;
 	private String id;				// 아이디
 	private String c_name;			// 상호명
 	private String c_num;			// 사업자등록번호
@@ -31,11 +32,23 @@ public class SellerDTO implements Serializable {
 	
 	public SellerDTO() {}
 
-	public SellerDTO(String id, String c_name, String c_num, String p_name, String c_postcode, String c_address,
-			String c_detailaddress, String c_cond, String c_type, String ic_name, String ic_phone, String ic_email,
-			String s_postcode, String s_address, String s_detailaddress, String r_postcode, String r_address,
-			String r_detailaddress, int c_code) {
+
+
+	public SellerDTO(String id, String c_name, String c_num) {
 		super();
+		this.id = id;
+		this.c_name = c_name;
+		this.c_num = c_num;
+	}
+
+
+
+	public SellerDTO(int seq, String id, String c_name, String c_num, String p_name, String c_postcode,
+			String c_address, String c_detailaddress, String c_cond, String c_type, String ic_name, String ic_phone,
+			String ic_email, String s_postcode, String s_address, String s_detailaddress, String r_postcode,
+			String r_address, String r_detailaddress, int c_code) {
+		super();
+		this.seq = seq;
 		this.id = id;
 		this.c_name = c_name;
 		this.c_num = c_num;
@@ -57,21 +70,16 @@ public class SellerDTO implements Serializable {
 		this.c_code = c_code;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "SellerDTO [id=" + id + ", c_name=" + c_name + ", c_num=" + c_num + ", p_name=" + p_name
+		return "SellerDTO [seq=" + seq + ", id=" + id + ", c_name=" + c_name + ", c_num=" + c_num + ", p_name=" + p_name
 				+ ", c_postcode=" + c_postcode + ", c_address=" + c_address + ", c_detailaddress=" + c_detailaddress
 				+ ", c_cond=" + c_cond + ", c_type=" + c_type + ", ic_name=" + ic_name + ", ic_phone=" + ic_phone
 				+ ", ic_email=" + ic_email + ", s_postcode=" + s_postcode + ", s_address=" + s_address
 				+ ", s_detailaddress=" + s_detailaddress + ", r_postcode=" + r_postcode + ", r_address=" + r_address
 				+ ", r_detailaddress=" + r_detailaddress + ", c_code=" + c_code + "]";
-	}
-
-	public SellerDTO(String id, String c_name, String c_num) {
-		super();
-		this.id = id;
-		this.c_name = c_name;
-		this.c_num = c_num;
 	}
 
 

@@ -104,7 +104,7 @@ public class MemberServiceImpl implements MemberService {
 		// 담당자이메일
 		String ic_email = sellerbean.getIc_email1()+"@"+sellerbean.getIc_email2();
 		
-		SellerDTO sel = new SellerDTO(
+		SellerDTO sel = new SellerDTO(	0,
 										memdto.getUserid(),
 										sellerbean.getC_name(),
 										c_num,
@@ -216,6 +216,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberdao.getsnsuser(mbean);
 	}
 
+	// 카카오 이메일과 다른 이메일로 회원가입 했을 경우
+	/*
+	 * @Override public boolean getSnsUserName(MemBean mbean) { return
+	 * memberdao.getSnsUserName(mbean); }
+	 */
+	
 	// 네이버 유저확인
 	@Override
 	public boolean getNaveruser(MemBean mbean) {
@@ -236,6 +242,8 @@ public class MemberServiceImpl implements MemberService {
 		memberdao.getAuthAddmem(amem);
 		
 	}
+
+
 
 	
 

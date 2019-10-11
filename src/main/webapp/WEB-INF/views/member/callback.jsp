@@ -40,10 +40,14 @@
 						alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
 						/* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
 						naverLogin.reprompt();
-						return;
+						return location.href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=6tOlbeGI_v71dSverLKi&state=STATE_STRING&redirect_uri=http://localhost:18080/member/callback&auth_type=reprompt";
+
+// 						return;
+// 						return window.location.replace("http://" + window.location.hostname + 
+// 	                            ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/member/navertest");
 					}
-					alert("email: " + email);
-					alert("username: " + username);
+// 					alert("email: " + email);
+// 					alert("username: " + username);
 // 					console.log("email: "+email);
 					window.location.replace("http://" + window.location.hostname + 
                             ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/member/loginPostNaver?username="+username+"&useremail="+email);

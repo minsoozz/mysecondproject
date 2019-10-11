@@ -20,7 +20,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -134,13 +133,9 @@ public class PaymentController {
 		// DB 쿠폰 개수 가져오기
 		int coupon_count = PaymentService.getCountCoupon(userid);
 		
-		// DB 쿠폰 가져오기
-		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
-		
 
 		model.addAttribute("point_amount", point_amount);
 		model.addAttribute("coupon_count", coupon_count);
-		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("basketList", basketList);
 
 		if (true) {
@@ -167,6 +162,8 @@ public class PaymentController {
 		// 주문한 상품수량만큼 재고수량에서 차감한다
 		
 		// db에 결제내역을 저장한다
+		
+		// 배송내역 저장
 
 		return "/payment/paymentAf";
 	}
@@ -261,6 +258,20 @@ public class PaymentController {
 		}
 
 		return "success";
+	}
+	
+	// 결제페이지에서 쿠폰 가져오기
+	@RequestMapping(value = "/payment_coupon", method = RequestMethod.GET)
+	public String payment_coupon(Model model, Principal pcp) {
+		System.out.println("쿠폰 컨트롤러");
+		String userid = pcp.getName();
+		
+		// DB 쿠폰 가져오기
+		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
+
+		model.addAttribute("coupon_code", coupon_code);
+		
+		return "/payment/coupon";
 	}
 
 }

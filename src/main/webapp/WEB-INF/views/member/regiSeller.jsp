@@ -41,7 +41,7 @@ function checkIt() {
 		<div id="body" align="center">
 		
 			<div align="center">
-				<span class="findidtext">사업자 회원</span>
+				<span class="findidtext">사업자 회원</span><br><br>
 			</div>
 		
 			<table border="1" class="bordertable">
