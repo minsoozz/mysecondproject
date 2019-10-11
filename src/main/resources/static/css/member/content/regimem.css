@@ -166,11 +166,11 @@ text:hover {
 	position: relative;
     left: -276px;
 }
-td{
+/* td{
 	position: relative;
     left: -11px;
     width: 100%
-}
+} */
 th{
 	width: 100%;
 }
@@ -313,7 +313,7 @@ td,th{
 	border: solid 1px #c2fb2d;
     position: absolute;
     left: 510px;
-    z-index: -1;
+/*     z-index: -1; */
     height: 1176px;
     width: 700px;
     /* padding-top: 6px; */

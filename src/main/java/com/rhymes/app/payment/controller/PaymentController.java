@@ -20,7 +20,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,21 +47,17 @@ public class PaymentController {
 	// @GetMapping("/payment")
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
 	public String payment(Model model, String stock_seq, String p_quantity) throws Exception {
-		System.out.println("daraepayment");
-
-		System.out.println("상품재고 번호 : " + stock_seq);
-		System.out.println("상품수량 : " + p_quantity);
 
 		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
 
 		OrderDTO dto = new OrderDTO();
 		dto.setStock_seq(Integer.parseInt(stock_seq));
-		dto.setQuantity(Integer.parseInt(p_quantity));
-
-		System.out.println("재고번호 : " + stock_seq + ", 수량 :" + p_quantity);
 
 		// db 가져오기
 		basketList.add(PaymentService.getOrder(dto));
+		
+		// db에는 재고수량이 있고 주문수량은 없다 매개변수로 받은 주문수량을 직접 넣는다
+		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
 
 		model.addAttribute("basketList", basketList);
 
@@ -134,13 +129,9 @@ public class PaymentController {
 		// DB 쿠폰 개수 가져오기
 		int coupon_count = PaymentService.getCountCoupon(userid);
 		
-		// DB 쿠폰 가져오기
-		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
-		
 
 		model.addAttribute("point_amount", point_amount);
 		model.addAttribute("coupon_count", coupon_count);
-		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("basketList", basketList);
 
 		if (true) {
@@ -167,6 +158,8 @@ public class PaymentController {
 		// 주문한 상품수량만큼 재고수량에서 차감한다
 		
 		// db에 결제내역을 저장한다
+		
+		// 배송내역 저장
 
 		return "/payment/paymentAf";
 	}
@@ -182,8 +175,8 @@ public class PaymentController {
 		// Google일 경우 smtp.gmail.com 을 입력합니다.
 		String host = "smtp.naver.com";
 		
-		final String username = "ogbgt5"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-		final String password = "nahdl^*^zrb15"; //네이버 이메일 비밀번호를 입력해주세요.
+		final String username = "project_test_darae"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
+		final String password = "final_project"; //네이버 이메일 비밀번호를 입력해주세요.
 		int port=465; //포트번호
 		
 		// 메일 내용
@@ -261,6 +254,20 @@ public class PaymentController {
 		}
 
 		return "success";
+	}
+	
+	// 결제페이지에서 쿠폰 가져오기
+	@RequestMapping(value = "/payment_coupon", method = RequestMethod.GET)
+	public String payment_coupon(Model model, Principal pcp) {
+		System.out.println("쿠폰 컨트롤러");
+		String userid = pcp.getName();
+		
+		// DB 쿠폰 가져오기
+		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
+
+		model.addAttribute("coupon_code", coupon_code);
+		
+		return "/payment/coupon";
 	}
 
 }
