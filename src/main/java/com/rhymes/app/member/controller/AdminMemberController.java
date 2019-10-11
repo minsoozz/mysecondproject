@@ -34,6 +34,7 @@ public class AdminMemberController {
 	public String memlist(Model model, MemberParam param){
 		log.info("show admin memlistview");
 		System.out.println("@@@@@@@@@@@@@@@param.toString():   "+param.toString());
+		System.out.println("+++++++++++++++++++++     " + param.toString());
 		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
@@ -59,6 +60,7 @@ public class AdminMemberController {
 		// 추가
 		model.addAttribute("s_category",param.getS_category());
 		model.addAttribute("s_keyword",param.getS_keyword());
+		model.addAttribute("authority",param.getAuthority());
 		
 		return "memlist"; 
 		

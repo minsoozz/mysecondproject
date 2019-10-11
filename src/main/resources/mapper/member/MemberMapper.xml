@@ -63,7 +63,7 @@
     	WHERE C_NUM=#{c_num}
     </select>
     
-    <!-- 사업자 추가정보 -->
+    <!-- 사업자 회원가입 -->
 	<insert id="getAddSeller_C" parameterType="com.rhymes.app.member.model.SellerDTO">
 		INSERT INTO RHY_MEM_C(ID, C_NAME, C_NUM, P_NAME, C_COND, C_TYPE,
 								IC_NAME, IC_PHONE, IC_EMAIL,
