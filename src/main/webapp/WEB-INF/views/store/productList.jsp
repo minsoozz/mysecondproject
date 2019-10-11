@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>     
 
 <!DOCTYPE html>
 <html>
@@ -23,15 +24,14 @@ http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 <body>
 
-c1 : ${c1_name }<br>
+<%-- c1 : ${c1_name }<br>
 c2 : ${c2_name }<br>
 c3 : ${c3_name }<br>
 keyword : ${keyword }<br>
 criterion : ${criterion }<br>
 sorting : ${sorting } <br>
 pageNumber : ${pageNumber }<br>
-총 상품갯수 : ${totalRecordCount }
-
+총 상품갯수 : ${totalRecordCount } --%>
 
 <c:if test="${empty plist }">
 <div align="center" id="emptyProduct">
@@ -41,15 +41,23 @@ pageNumber : ${pageNumber }<br>
 </c:if>
 
 <div class='mainDiv'>
+	<c:if test="${not empty plist }">
 	<div class="titleDiv">
-		<div class="sortingDiv">
-			<label onclick="sortingBy('NEW')" class="sortingBy" >NEW</label>
-			<label class="sortingBy">BEST</label>
-			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy">PRICE↓</label>
-			<label onclick="sortingBy('PRICEUP')" class="sortingBy">PRICE↑</label>
+		<div class="trackingDiv">
+			<c:if test="${not empty c1_name and not empty c2_name and not empty c3_name }">
+			${c2_name }&nbsp;>&nbsp;<span id="c3fontstyle">${c3_name }</span>
+			</c:if>
 		</div>
+		 		
+		<div class="sortingDiv">
+			<label onclick="sortingBy('NEW')" class="sortingBy" style="${sorting == 'NEW'? 'color:black;font-weight:bolder;':'' }">NEW</label>
+			<label class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
+			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
+			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
+		</div>
+		
 	</div>
-	
+	</c:if>
 	<div class='subDiv'>
 			<c:set value="${plist[0].c1_name }" var="c1name"/>
 			<input type="hidden" class="hdnC1name" value="${c1name }">
@@ -81,6 +89,8 @@ pageNumber : ${pageNumber }<br>
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 	<input type="hidden" id="p_seq" name="p_seq" value="0">
 	<input type="hidden" name="c1_name" value="${c1name }">
+	<input type="hidden" name="c2_name" value="${c1name }">
+	<input type="hidden" name="c3_name" value="${c1name }">
 	<input type="hidden" name="keyword" value="${keyword }">
 </form>
 

@@ -254,7 +254,7 @@ opacity: 0.9;
     left: 0;
 	top: 0;
 }
-#keyword{
+#searchWord{
     border: 1px solid #DADCE0;
     padding: 15px;
     border-radius: 4px;
@@ -263,7 +263,7 @@ opacity: 0.9;
     margin-left:3%;
     margin-right: 1%;
     font-size: 25px;
-    text-align: left;
+    text-align: center;
     padding-left: 25px;
 }
 .mwRadioL{

@@ -92,7 +92,7 @@
 			<input type="radio" name='mwChk' id="wChk" class="_mwChk" style="display:none" value="WOMEN">
 			<label for="wChk" class="mwRadioL" style="cursor: pointer; background-color: white;">WOMEN</label>
 			
-			<input type="text" id="keyword" style="widht:500px;" placeholder="SEARCH" onkeypress="if( event.keyCode==13 ){search();}">
+			<input type="text" id="searchWord" style="widht:500px;" placeholder="SEARCH" onkeypress="if( event.keyCode==13 ){search();}">
 
 			<img src="https://cdn0.iconfinder.com/data/icons/it-hardware/100/search-512.png" style="width:40px; height:40px; cursor:pointer;" onclick="search()">  <!-- id="m_search_btn" -->&nbsp;
 		</div>
@@ -120,7 +120,7 @@
 	<input type='hidden' name='c2_name' value="" class="c3_c2name">
 	<input type='hidden' name='c3_name' value="" class="c3_c3name">
 	<input type='hidden' name='keyword' value="" class="keyword">
-	<input type='hidden' name='criterion' value="" class="criterion">
+	<input type='hidden' name='criterion' value="${criterion }" class="criterion">
 	
 </form>
 
@@ -227,7 +227,9 @@ $(document).on('click', '#cate3_btn', function(){
 	var c2_name = $(this).attr("c2_name");
 	$(".c3_c2name").val(c2_name);
 	var c1_name = $("._c1name").val();
-	
+	if(c1_name==''){
+		c1_name = $(this).attr("c1_name");
+	}	
 	$(".c3_c1name").val(c1_name);
 	var keyword = $("._keyword").val();
 	$(".keyword").val(keyword);
@@ -300,7 +302,7 @@ function addCate3(arr, arrLen, c2_seq, c2_name) {
 
 function search(){
 	var c1_name = $("input[name='mwChk']:checked").val();
-	var keyword = $("#keyword").val();
+	var keyword = $("#searchWord").val();
 	
 	if(keyword != ""){
 		if(keyword.length < 12){
@@ -327,7 +329,7 @@ $('body').click(function(e){
         	//$(".modal").css("display", "none");
         	$(".modal").fadeOut();
         	/* 검색창 초기화 */
-        	$("#keyword").val('');
+        	$("#searchWord").val('');
         	$("input:radio[name='mwChk']").prop("checked", false);
         	$(".mwRadioL").attr('style', 'background-color:white');
          } 
