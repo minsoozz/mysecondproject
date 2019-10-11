@@ -46,7 +46,7 @@ public class PaymentController {
 	// 단일제품 구매
 	// @GetMapping("/payment")
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
-	public String payment(Model model, String stock_seq, String p_quantity) throws Exception {
+	public String payment(Model model, String stock_seq, String p_quantity, Principal pcp) throws Exception {
 
 		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
 
@@ -58,8 +58,13 @@ public class PaymentController {
 		
 		// db에는 재고수량이 있고 주문수량은 없다 매개변수로 받은 주문수량을 직접 넣는다
 		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
+		basketList.get(0).setId(pcp.getName());
 
 		model.addAttribute("basketList", basketList);
+		
+		for (OrderDTO _dto : basketList) {
+			System.out.println("장바구니 : " + _dto.toString());
+		}
 
 		if (true) {
 			// 로그인 되어있으면 결제 페이지로 이동
@@ -119,6 +124,11 @@ public class PaymentController {
 			// db로 받을 수 있는 건 재고수량이다
 			// 주문수량은 매개변수로만 받을 수 있어서 직접 dto에 넣는다
 			basketList.get(i).setQuantity(bOlist.get(i).getQuantity());
+			basketList.get(i).setId(userid);
+		}
+		
+		for (OrderDTO dto : basketList) {
+			System.out.println("장바구니 : " + dto.toString());
 		}
 		
 		

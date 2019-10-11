@@ -48,7 +48,7 @@
 
 <c:forEach items="${basketList }" var="list">
 <tr>
-	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/${list.photo1_file }"></td>
+	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${list.photo1_file }"></td>
 	<td width="50%" align="left">[${list.p_name }]${list.c_name }</td>
 	<td rowspan="2" width="10%" align="center" id="total_price"><fmt:formatNumber value="${list.p_price * list.quantity }" />원</td>
 </tr>
@@ -119,8 +119,9 @@
 	<th></th>
 	<td><input type="text" size="20" id="sample6_postcode" placeholder="우편번호">
 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" size="40" id="sample6_address" placeholder="지번주소">
-	<input type="text" size="40" id="sample6_detailAddress" placeholder="상세주소">
+	<input type="text" size="67" id="sample6_address" placeholder="지번주소"><br>
+	<input type="text" size="30" id="sample6_detailAddress" placeholder="상세주소">
+	<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목">
 	</td>
 </tr>
 <tr>
