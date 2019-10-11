@@ -151,7 +151,7 @@
 <h4>쿠폰 적립금</h4>
 <table class="payment_tb">
 
-<c:if test="${empty coupon_count }">
+<c:if test="${coupon_count eq 0 }">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td></td>
@@ -160,7 +160,7 @@
 	<td colspan="2">(보유쿠폰 : 0 개)</td>
 </tr>
 </c:if>
-<c:if test="${not empty coupon_count }">
+<c:if test="${coupon_count ne 0 }">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td>쿠폰 사용&nbsp;&nbsp;<input type="text" id="coupon_use">
