@@ -162,6 +162,8 @@ public class PaymentController {
 		// 주문한 상품수량만큼 재고수량에서 차감한다
 		
 		// db에 결제내역을 저장한다
+		
+		// 배송내역 저장
 
 		return "/payment/paymentAf";
 	}

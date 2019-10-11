@@ -31,3 +31,7 @@ h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 .payment_coupon_tb td{ padding: 15px 15px 15px 15px; border-bottom: 1px solid #444444; }
 .payment_coupon_tb th{ padding: 15px 15px 15px 15px; border-bottom: 1px solid #444444; background-color: #d7fd75; }
 
+
+/* 결제완료 페이지 */
+.paymentAf_tb th{ padding: 10px 10px 10px 10px; background-color: #d7fd75; }
+.paymentAf_tb td{ padding: 10px 10px 10px 10px; }

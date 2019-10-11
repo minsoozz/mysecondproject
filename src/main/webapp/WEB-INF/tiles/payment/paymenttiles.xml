@@ -27,11 +27,7 @@
 	</definition>
 
 	<definition name="/payment/paymentAf" extends="payment.tiles">
-		<put-attribute name="body" value="/WEB-INF/views/payment/paymentAf.jsp" />
-	</definition>
-
-	<definition name="/payment/basketOrder" extends="payment.tiles">
-		<put-attribute name="body" value="/WEB-INF/views/payment/paymentAf.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/payment/paymentAf_suc.jsp" />
 	</definition>
 
 	<definition name="/payment/nomembership" extends="payment.tiles">

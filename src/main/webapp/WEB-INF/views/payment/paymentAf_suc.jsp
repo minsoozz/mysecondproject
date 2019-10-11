@@ -76,38 +76,81 @@ if(pay_method.equals("card")){
 </head>
 <body>
 
-결제 완료창입니다<br><br>
 
-주문자 이름 : <%=buyer_name %><br>
-우편번호 : <%=buyer_postcode %><br><br>
 
-결제금액 : <%=paid_amount %>원<br>
-결제고유번호 : <%=imp_uid %><br>
-결제상태 : <%=status %><br>
-결제수단 : <%=pay_method %><br>
-<a href="${receipt_url }">매출전표 확인하기</a><br><br>
+<div class="paymentAf_wrap">
+<div class="paymentAf_payment_title" style="background-color: red; width: 60%;">
+결제방법
+</div>
+<div class="paymentAf_payment_content">
+<table class="paymentAf_tb" border="1">
+<tr>
+	<th>결제금액</th>
+	<th>결제고유번호</th>
+	<th>결제상태</th>
+	<th>결제수단</th>
+</tr>
+<tr>
+	<td><%=paid_amount %>원</td>
+	<td><%=imp_uid %></td>
+	<td><%=status %></td>
+	<td><%=pay_method %></td>
+</tr>
+</table>
+</div>
 
-<c:if test="${fn:length(vbank_num) eq 14 }">
-가상계좌 은행명 : <%=vbank_name %><br>
-가상계좌 : <%=vbank_num %><br>
-가상계좌 입금기한 : <%=vbank_date %><br>
-가상계좌 예금주 : <%=vbank_holder %>
-</c:if>
+<div class="paymentAf_delivery_title" style="background-color: red; width: 60%;">
+배송지 정보
+</div>
+<div class="paymentAf_delivery_content">
+<table class="paymentAf_tb" border="1">
+<tr>
+	<th>이름</th>
+	<td><%=buyer_name %></td>
+	<th>연락처</th>
+	<td></td>
+</tr>
+<tr>
+	<th>우편번호</th>
+	<td><%=buyer_postcode %></td>
+	<th>주소</th>
+	<td></td>
+</tr>
+<tr>
+	<th>주문시 요청사항</th>
+	<td colspan="3"></td>
+</tr>
+</table>
+</div>
 <br><br>
 
-
-<div>
-<div>주문상품</div>
-<div>결제방법</div>
-<div>주문자정보</div>
-<div>배송지정보</div>
-<div>완료안내문</div>
+<div class="paymentAf_result" style="border: 1px solid #dbdbdb; width: 60%;">
+<b style="text-align: center;">
+<%=buyer_name %>님의 주문이 완료되었습니다<br>
+고객님의 주문번호는 <%=imp_uid %>입니다.<br>
+제품 구입의 따른 적립금 2020원은 배송완료 후 적립됩니다.<br>
+주문해주신 제품 확인 후 보내드리겠습니다.<br>
+구매해주셔서 감사합니다.<br>
+<c:if test="${fn:length(vbank_num) eq 14 }">
+무통장 입금&nbsp;:&nbsp;<%=vbank_name %>&nbsp;&nbsp;<%=vbank_num %><br>
+&nbsp;&nbsp;(예금주:<%=vbank_holder %>)&nbsp;&nbsp;<%=buyer_name %><br>
+<%=vbank_date %>까지 <%=paid_amount %>원 입금해주세요
+</c:if>
+<c:if test="${fn:length(vbank_num) ne 14 }">
+<%=paid_amount %>원 <%=pay_method %> 결제로 <%=status %> 상태입니다
+</c:if>
+</b>
+</div>
+<div class="paymentAf_btn">
+<input type="button" onclick="location.href='/main'" value="메인으로">
+<input type="button" onclick="location.href='/Rhymes/ordercheck'" value="주문내역확인">
+</div>
 </div>
 
 
 
-<input type="button" onclick="location.href='/main'" value="메인으로">
-<input type="button" onclick="location.href='/Rhymes/ordercheck'" value="주문내역확인">
+<a href="${receipt_url }">매출전표 확인하기</a><br><br>
+<br><br>
 
 
 
