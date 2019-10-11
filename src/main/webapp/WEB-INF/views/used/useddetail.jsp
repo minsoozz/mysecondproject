@@ -31,9 +31,8 @@ tr{
  %>
  </head>
 <!-- <body> -->
-<div id="detail_wrap" style="background-color: gray">
-	<hr id="_hr">
-		
+<div id="detail_wrap" style="background-color: white">
+	
 <div id="wrapper">
       <div id="slider-wrap">
           <ul id="slider">
@@ -103,7 +102,7 @@ value="${dto.price }" />원</h5></div>
   </div>
   
  	<div id="div_content">
-  	<hr>
+  	<hr color="black">
  		<h5>상품정보 </h5>
  		<br>
  		${dto.content }
