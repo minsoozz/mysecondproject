@@ -12,18 +12,17 @@
    <!-- Favicon -->
     <link rel="icon" href="/img/main-img/core-img/favicon.ico">  
  <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/css/customer/customer.css">
+	href="<%=request.getContextPath() %>/css/customer/pqna.css">
  
  
 </head>
 <body>
  <!--  /WEB-INF/views/common/layout/header.jsp -->
 	
-   <div id="body_wrap">
+   <div id="body_wrap" style="width: 80%">
 	   
 	    
 		      <tiles:insertAttribute name="body"/> <!-- body -->
-	    	
 	  
     </div>
     
