@@ -21,7 +21,9 @@ public class MemberParam implements Serializable{
 	
 	// paging
 	private int pageNumber = 0;	//���� ������ 0���� ����
-	private int recordCountPerPage = 10;	//ǥ���� �� �������� �ۼ�
+	private int recordCountPerPage=10;	//ǥ���� �� �������� �ۼ�
+	
+//	private int dataTable_length;	// 리스트 나열 갯수
 	
 	// [1]�������� -> 1~10 �� ���� �ҷ��;��� DB��
 	private int start = 1;
@@ -29,5 +31,8 @@ public class MemberParam implements Serializable{
 	
 	// select
 	private String authority;
+	
+	// sorting
+	private String sorting="ID";	
 		
 }

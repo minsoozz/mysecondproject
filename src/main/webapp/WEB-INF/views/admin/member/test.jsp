@@ -30,13 +30,19 @@
 			<div class="row">
 				<div class="col-sm-12 col-md-6">
 					<div class="dataTables_length" id="dataTable_length">
-
-						 <select style="width: 100px;" name="dataTable_length" aria-controls="dataTable"
+					<form action="memlist" id="_frm" method="post">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						 <select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable"
+						 	onchange="dataTable_length()"
 							class="custom-select custom-select-sm form-control form-control-sm">
-							<option value="10">10</option>
-							<option value="25">25</option>
-							<option value="50">50</option>
-							<option value="100">100</option>
+							<option value="10" 
+								<c:out value="${recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
+							<option value="25"
+								<c:out value="${recordCountPerPage == '25'? 'selected':'' }"/>>25</option>
+							<option value="50"
+								<c:out value="${recordCountPerPage == '50'? 'selected':'' }"/>>50</option>
+							<option value="100"
+								<c:out value="${recordCountPerPage == '100'? 'selected':'' }"/>>100</option>
 						</select>
 					</div>
 				</div>
@@ -45,8 +51,7 @@
 					<div id="dataTable_filter"
 						class="searchPosition dataTables_filter">
 						
-						<form action="memlist" id="_frm" method="post">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						
 												
 						<select id="_s_category" name="s_category" onchange="categorychange()" class="searchSelect">
 							<option value="" selected="selected">선택</option>
@@ -71,19 +76,23 @@
 				<!-- /검색 -->
 				
 			</div>
+		
+			
+			
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+			
 				<thead>
 					<tr align="center">
 						<th class="list_checkbox"><input type="checkbox"
 							name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 						</th>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Address</th>
-						<th>Email</th>
-						<th>Phone</th>
-						<th>Social</th>
-						<th>date</th>
+						<th class="sorting">ID<input type="hidden" name="sorting" id="_sorting"></th>	<!-- 1 -->
+						<th class="sorting">Name</th>											<!-- 2 -->
+						<th class="sorting">Address</th>										<!-- 3 -->
+						<th class="sorting">Email</th>											<!-- 4 -->
+						<th class="sorting">Phone</th>											<!-- 5 -->
+						<th class="sorting">Social</th>											<!-- 6 -->
+						<th class="sorting">date</th>											<!-- 7 -->
 					</tr>
 				</thead>
 
@@ -174,11 +183,52 @@ $("#delBtn").click(function(){
 	
 });
 
-function selectMem(){
-// 	var sel = $("#_select").val();
-// 	alert(sel);
+/* function selectMem(){
+	$("#_frm").attr("action", "memlist").submit();
+} */
+
+// 리스트 갯수 뿌리기
+function dataTable_length(){
 	$("#_frm").attr("action", "memlist").submit();
 }
+
+// sorting
+$(function(){
+	$(".sorting").click(function() {
+		var thNum = $(this).index();
+
+		if(thNum == 1){
+			$("#_sorting").val("ID");
+			$("#_frm").attr("action", "memlist").submit();		
+		}
+		if(thNum == 2){
+			$("#_sorting").val("NAME");
+			$("#_frm").attr("action", "memlist").submit();		
+		}
+		if(thNum == 3){
+			$("#_sorting").val("ADDRESS");
+			$("#_frm").attr("action", "memlist").submit();		
+		}
+		if(thNum == 4){
+			$("#_sorting").val("EMAIL");
+			$("#_frm").attr("action", "memlist").submit();		
+		}
+		if(thNum == 5){
+			$("#_sorting").val("PHONE");
+			$("#_frm").attr("action", "memlist").submit();		
+		}
+		if(thNum == 6){
+			$("#_sorting").val("SOCIAL");
+			$("#_frm").attr("action", "memlist").submit();		
+		}
+		if(thNum == 7){
+			$("#_sorting").val("RDATE");
+			$("#_frm").attr("action", "memlist").submit();		
+		}
+		
+	});
+});
+
 </script>
 
 

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
@@ -34,7 +35,6 @@ public class AdminMemberController {
 	public String memlist(Model model, MemberParam param){
 		log.info("show admin memlistview");
 		
-		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
 		int start = sn * param.getRecordCountPerPage() + 1;	// 1 11
@@ -54,7 +54,7 @@ public class AdminMemberController {
 		model.addAttribute("pageCountPerScreen", 10);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);		
-		
+		System.out.println("_________----------__________-------" + param.toString());
 		// 추가
 			
 		model.addAttribute("s_category",param.getS_category());
@@ -62,7 +62,6 @@ public class AdminMemberController {
 		model.addAttribute("authority",param.getAuthority());
 		
 		return "memlist"; 
-		
 	}
 	
 	// 수정창으로 회원정보 불러오기
