@@ -21,11 +21,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	
 	String ns = "purchase.";
 	
-	@Override
-	public List<ProductDto> getProductList() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public ProductDto getProductDetail(int p_seq) throws Exception {
