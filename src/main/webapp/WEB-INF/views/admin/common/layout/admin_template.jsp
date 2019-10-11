@@ -11,15 +11,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">        
    <!-- Favicon -->
     <link rel="icon" href="/img/main-img/core-img/favicon.ico">  
-<%--  <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/css/admin/common/body.css"> --%>
+ <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/common/admin_body.css">
+	 <%-- <link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath() %>/css/admin/member/.css"> --%>
+<%-- 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/common/admin_template.css"> --%>
+	
  
  
 </head>
 <body>
- 
+ <div id="top_header">
   <tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
-	
+</div>
    <div id="body_wrap">
 	   
 	    <div id="middle_wrap">

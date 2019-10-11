@@ -4,10 +4,16 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	
+	<!-- admin main -->
+   <definition name="memlist" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header.jsp" />
+    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/admin/member/test.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer.jsp" />
+   </definition>
 	
    <!-- 회원관리 -->
-   <definition name="memlist" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
+   <definition name="memlist4444" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
        <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header.jsp" />
        <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu.jsp" />
        <put-attribute name="body" value="/WEB-INF/views/admin/member/memberlist.jsp" />
