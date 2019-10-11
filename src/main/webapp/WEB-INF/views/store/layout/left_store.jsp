@@ -4,6 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
+ <!-- test -->
+ 
+ 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <input type="hidden" class="_c1name" value="${c1_name }">
