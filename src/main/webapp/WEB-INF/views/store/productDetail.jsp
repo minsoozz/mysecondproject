@@ -344,14 +344,15 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 <div class="goods-view-infomation-content" id="goods_qna">
-<div class="goods-view-infomation-content" id="goods_qna">
 
-      <div  id="_product_qna">
+
+<div id="_product_qna_wrap" >
+      <div  id="_product_qna" >
          <script type="text/javascript">getProductQna(0);</script>
       </div><!-- 작성한후기 탭 끝 -->
-
-
 </div>
+
+
 </div>
 </div>
 

@@ -15,6 +15,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class PaymentAfParamDTO implements Serializable {
+	private String basket_seq;				// 장바구니 코드
+	
 	private int totalprice;					// 결제금액
 	private String payment_code;			// 결제코드
 	private String payment_method;			// 결제수단

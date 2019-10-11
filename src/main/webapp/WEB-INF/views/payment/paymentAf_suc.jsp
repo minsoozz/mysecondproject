@@ -20,6 +20,12 @@ String receipt_url = request.getParameter("receipt_url");
 String buyer_name = request.getParameter("buyer_name");
 // 주소
 String buyer_postcode = request.getParameter("buyer_postcode");
+// 연락처
+String buyer_tel = request.getParameter("buyer_tel");
+// 수취인 주소
+String buyer_addr = request.getParameter("buyer_addr");
+// 배송시 요청사항
+String buyer_addr_request = request.getParameter("buyer_addr_request");
 
 
 
@@ -78,12 +84,12 @@ if(pay_method.equals("card")){
 
 
 
-<div class="paymentAf_wrap">
-<div class="paymentAf_payment_title" style="background-color: red; width: 60%;">
+<div class="paymentAf_wrap" style="text-align: center; margin-left: 40%; background-color: yellow;">
+<div class="paymentAf_payment_title" style="background-color: red; width: 100%;">
 결제방법
 </div>
 <div class="paymentAf_payment_content">
-<table class="paymentAf_tb" border="1">
+<table class="paymentAf_tb" border="1" style="width: 100%;">
 <tr>
 	<th>결제금액</th>
 	<th>결제고유번호</th>
@@ -98,23 +104,24 @@ if(pay_method.equals("card")){
 </tr>
 </table>
 </div>
+<br><br>
 
-<div class="paymentAf_delivery_title" style="background-color: red; width: 60%;">
+<div class="paymentAf_delivery_title" style="background-color: red; width: 100%;">
 배송지 정보
 </div>
 <div class="paymentAf_delivery_content">
-<table class="paymentAf_tb" border="1">
+<table class="paymentAf_tb" border="1" style="width: 100%;">
 <tr>
 	<th>이름</th>
 	<td><%=buyer_name %></td>
 	<th>연락처</th>
-	<td></td>
+	<td><%=buyer_tel %></td>
 </tr>
 <tr>
 	<th>우편번호</th>
 	<td><%=buyer_postcode %></td>
 	<th>주소</th>
-	<td></td>
+	<td><%=buyer_addr %></td>
 </tr>
 <tr>
 	<th>주문시 요청사항</th>
@@ -124,7 +131,7 @@ if(pay_method.equals("card")){
 </div>
 <br><br>
 
-<div class="paymentAf_result" style="border: 1px solid #dbdbdb; width: 60%;">
+<div class="paymentAf_result">
 <b style="text-align: center;">
 <%=buyer_name %>님의 주문이 완료되었습니다<br>
 고객님의 주문번호는 <%=imp_uid %>입니다.<br>
@@ -134,7 +141,7 @@ if(pay_method.equals("card")){
 <c:if test="${fn:length(vbank_num) eq 14 }">
 무통장 입금&nbsp;:&nbsp;<%=vbank_name %>&nbsp;&nbsp;<%=vbank_num %><br>
 &nbsp;&nbsp;(예금주:<%=vbank_holder %>)&nbsp;&nbsp;<%=buyer_name %><br>
-<%=vbank_date %>까지 <%=paid_amount %>원 입금해주세요
+<%=vbank_date %>까지 <%=paid_amount %>원 입금해주세요<%=buyer_addr_request %>
 </c:if>
 <c:if test="${fn:length(vbank_num) ne 14 }">
 <%=paid_amount %>원 <%=pay_method %> 결제로 <%=status %> 상태입니다
@@ -143,13 +150,13 @@ if(pay_method.equals("card")){
 </div>
 <div class="paymentAf_btn">
 <input type="button" onclick="location.href='/main'" value="메인으로">
-<input type="button" onclick="location.href='/Rhymes/ordercheck'" value="주문내역확인">
+<input type="button" onclick="location.href='/mypage/orderlog'" value="주문내역확인"><br>
+<a href="${receipt_url }">매출전표 확인하기</a>
 </div>
 </div>
 
 
 
-<a href="${receipt_url }">매출전표 확인하기</a><br><br>
 <br><br>
 
 

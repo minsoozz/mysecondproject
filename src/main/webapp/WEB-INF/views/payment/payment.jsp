@@ -80,8 +80,8 @@
 	<input type="text" id="userNum" placeholder="인증번호 입력">   <!-- 인증번호 입력창 -->
 	<input type="button" id="enterBtn" value="확인">
 
-	<input type="text" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-	<input type="text" id="_text_confirm">
+	<input type="hidden" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+	<input type="hidden" id="_text_confirm">
 
 	</td>
 </tr>
@@ -149,14 +149,26 @@
 <div class="divback">
 <h4>쿠폰 적립금</h4>
 <table class="payment_tb">
+
+<c:if test="${empty coupon_count }">
+<tr>
+	<th rowspan="2">쿠폰 적용</th>
+	<td></td>
+</tr>
+<tr>
+	<td colspan="2">(보유쿠폰 : 0 개)</td>
+</tr>
+</c:if>
+<c:if test="${not empty coupon_count }">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td>쿠폰 사용&nbsp;&nbsp;<input type="text" id="coupon_use">
 	&nbsp;&nbsp;<input type="button" id="coupon_btn" value="쿠폰선택"></td>
 </tr>
 <tr>
-	<td colspan="2">(보유쿠폰 : ${coupon_count }개) 중복할인 안됩니다</td>
+	<td colspan="2">(보유쿠폰 : ${coupon_count } 개) 중복할인 안됩니다</td>	
 </tr>
+</c:if>
 <tr>
 	<th>적립금 적용</th>
 <c:if test="${empty point_amount }">
