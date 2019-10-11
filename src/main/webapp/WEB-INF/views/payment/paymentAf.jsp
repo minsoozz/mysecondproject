@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- jar 파일 두개 추가, 링크 추가 -->
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
 // 결제금액
@@ -94,6 +94,15 @@ if(pay_method.equals("card")){
 가상계좌 예금주 : <%=vbank_holder %>
 </c:if>
 <br><br>
+
+
+<div>
+<div>주문상품</div>
+<div>결제방법</div>
+<div>주문자정보</div>
+<div>배송지정보</div>
+<div>완료안내문</div>
+</div>
 
 
 

@@ -419,7 +419,7 @@ $(document).on('click', '.goShopping', function(){
 });
 
 $(document).on('click', '.orderBtn', function(){
-	if($(".pay_price").html() != "0"){
+	if($(".pay_price").html() == "0"){
 		$("#msg").html("<b>장바구니에 주문가능한 상품이 없습니다.</b>")
     	$(".wModal").fadeIn();
     	setTimeout(function() {
