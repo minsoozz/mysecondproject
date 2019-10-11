@@ -103,11 +103,15 @@ value="${dto.price }" />원</h5></div>
   </div>
   
  	<div id="div_content">
- 		<h5>상품정보 ${dto.content }</h5>
+  	<hr>
+ 		<h5>상품정보 </h5>
+ 		<br>
+ 		${dto.content }
  	</div>
-
+	<hr>
 	<div id="map" style="width:400px;height:300px;">
 	</div>
+	
 	
 	<c:if test="${login.userid eq dto.s_id}">
 	<div id="div_btn">
@@ -450,7 +454,7 @@ $(function(){
 			
 			} else {
 				html += "<div>";
-				html += "<table>";
+				html += "<table id='dtable'>";
 				html += "<tr><td>등록된 댓글이 없습니다.</td></tr>";
 				html += "</div>";
 				html += "</table>";

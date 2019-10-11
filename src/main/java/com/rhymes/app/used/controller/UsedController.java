@@ -101,10 +101,10 @@ public class UsedController {
 	
 	@GetMapping("useddetail")
 	public String useddetail(Model model,int seq, HttpServletRequest req) {
+		boolean c = usedService.updateReadCount(seq);	// 조회수 증가
 		
 		ProductsDto dto = usedService.getUsedDetail(seq);		// 게시글 정보 받아오기
 		dto.setLikes( usedService.getboardlikes(seq));			// 게시글의 좋아요 개수 설정
-		boolean c = usedService.updateReadCount(dto.getSeq());	// 조회수 증가
 		
 		
 		String id = "";
