@@ -91,6 +91,8 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		return n>0?true:false;
 	}
 
+	
+
 
 
 	

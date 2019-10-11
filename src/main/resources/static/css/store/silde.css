@@ -6,18 +6,25 @@ a:hover{color:#1bc1a3;}
 body, hmtl{background: #ecf0f1; font-family: 'Anton', sans-serif;}
 
 
+#aa{
+	margin-top: 600px;
+}
+
 #wrapper{
+margin-top:600px;
     width:600px;
     margin:50px auto;
+    margin-left:400px;
     height:400px;
-    position:relative;
+    position:absolute;
     color:#fff;
     text-shadow:rgba(0,0,0,0.1) 2px 2px 0px;    
 }
 
+/*감싸는거 크기조절*/
 #slider-wrap{
-    width:400px;
-    height:400px;
+    width:500px;
+    height:500px;
     position:relative;
     right:310px;
     overflow:hidden;
@@ -32,11 +39,13 @@ body, hmtl{background: #ecf0f1; font-family: 'Anton', sans-serif;}
     left:0;     
 }
 
+
+/*안에 이미지 크기조절*/
 #slider-wrap ul#slider li{
     float:left;
     position:relative;
-    width:400px;
-    height:400px;   
+    width:500px;
+    height:500px;   
 }
 
 #slider-wrap ul#slider li > div{
@@ -107,16 +116,18 @@ body, hmtl{background: #ecf0f1; font-family: 'Anton', sans-serif;}
 
 /*bar*/
 #pagination-wrap{
+	
     min-width:20px;
-    margin-top:350px;
+    margin-top:450px;
     margin-left: auto; 
     margin-right: auto;
-    height:15px;
+    height:100px;
     position:relative;
     text-align:center;
 }
 
 #pagination-wrap ul {
+	 
     width:100%;
 }
 

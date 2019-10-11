@@ -40,9 +40,15 @@
                 <div class="col-5 col-xs-6"> 
                     <div class="top_social_bar">
 
+                    
+                    <!--  맨위에 sns 아이콘들 -->
+                    <div class="top_social_bar">
                         <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/rhymesstore/?igshid=1x7bqfwz6wwle"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+
+                    </div>
+
 
                     </div>
                 </div>

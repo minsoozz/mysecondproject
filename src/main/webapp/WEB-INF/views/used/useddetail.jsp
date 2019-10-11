@@ -10,6 +10,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<style type="text/css">
+tr{
+	border: 1px solid black; 
+}
+</style>
+
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -204,6 +212,10 @@ value="${dto.price }" />원</h5></div>
   </div>
 
 <script type="text/javascript">
+
+$("#_notesbtn").click(function() {
+	alert("점검중입니다");
+})
 
 function gologin(){
 	 var con_test = confirm("로그인이 필요합니다 로그인 페이지로 이동하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
