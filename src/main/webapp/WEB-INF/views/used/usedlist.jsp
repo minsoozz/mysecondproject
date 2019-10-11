@@ -41,6 +41,7 @@
 			
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="0">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage ? 0 : recordCountPerPage)}">	
+	<input type="hidden" name="category" value="${category }">
 </form>
 	</div>
 	<c:if test="${empty list }">
@@ -110,9 +111,10 @@ $(document).ready(function() {
 	$(".sbtn").click(function() {
 		var category = $(this).val();
 	
-
+	    var keyword = $("#_keyword").val();
+		var select = $("#s_select").val();
 		
-	 location.href="usedlist?category="+category;
+		location.href="usedlist?category="+category+"&keyword="+keyword+"&select="+select;
 		
 		
 		
