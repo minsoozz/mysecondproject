@@ -32,10 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		session.setAttribute("userloginid", username);
 		
-		MemberDTO dto = memDAO.getOneMemberByMemberId(username);
-		
-		//log.warn("queried by member mapper: " + dto);
-		//log.info("minp == " + bc.encode("minp"));
+		MemberDTO dto = memDAO.getOneMemberByMemberId(username);				
 		
 		return dto == null ? null : new CustomUser(dto);
 	}	

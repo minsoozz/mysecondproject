@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.rhymes.app.Store.dao.RegisterDao;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.StockDto;
+import com.rhymes.app.Store.model.category.Category1Dto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
 
@@ -52,5 +53,7 @@ public class RegisterDaoImpl implements RegisterDao {
 		System.out.println("c2_seq : " + c2_seq);
 		return sqlSession.selectOne(ns + "getSizeunit", c2_seq);
 	}
+
+	
 	
 }

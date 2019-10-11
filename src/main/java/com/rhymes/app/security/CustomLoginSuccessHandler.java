@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -38,9 +37,8 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		log.warn("ROLE NAMES : " + roleNames);
 
-		if (roleNames.contains("ROLE_ADMIN")) {
-			
-			resp.sendRedirect("/member/admin");
+		if (roleNames.contains("ROLE_ADMIN")) {			
+			resp.sendRedirect("/main");
 			return;
 		}
 		if (roleNames.contains("ROLE_MEMBER")) {

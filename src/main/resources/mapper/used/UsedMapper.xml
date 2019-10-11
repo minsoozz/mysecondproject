@@ -158,7 +158,7 @@
 
 <!-- 댓글 불러오기 -->
 <select id="getComments" parameterType="java.lang.Integer" resultType="com.rhymes.app.used.model.CommentsDto">
-	SELECT seq,id,comments,wdate,parent,ref,step,depth
+	SELECT seq,id,comments,wdate as date,parent,ref,step,depth
 	FROM rhy_used_Comments
 	where parent=#{seq}
 	order by ref desc, step asc
@@ -221,5 +221,11 @@ where seq in ( select seq
 	FROM rhy_used_seller
 	WHERE s_id=#{s_id}
 </select>
+
+<!--게시글 신고  -->
+<insert id="setblackList" parameterType="hashmap">
+	INSERT INTO rhy_used_blacklist(b_id,b_seq,reporter,content,rdate,review)
+	VALUES(#{b_id},#{seq},#{id},#{str},NOW(),0)
+</insert>
 
 </mapper>

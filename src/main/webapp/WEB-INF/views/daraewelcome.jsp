@@ -10,9 +10,10 @@
 <body>
 한글<br><br>
 
-<a href="/Rhymes/payment">payment</a><br>
-<a href="/Rhymes/excel">exceldownload</a><br>
-<a href="/Rhymes/ordercheck_nomembership_confirm_move">ordercheck</a><br>
+<a href="/payment">payment</a><br>
+<a href="/excel">exceldownload</a><br>
+<a href="/ordercheck_nomembership_confirm_move">ordercheck</a><br>
+<a href="/ordercheck_move">ordercheck 2</a><br>
 
 <br><br>
 </body>

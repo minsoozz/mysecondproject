@@ -62,7 +62,7 @@
 <div>	
 		<div id="product_main" align="center" class="detail" val="${var.seq }">
 			<div id="product_img">
-				<img id="img" alt="" src="../upload/<%=img%>">	
+				<img id="img" alt="" src="../upload/used/<%=img%>">	
 			</div>
 			<div id="product_title">
 				<label>${var.title }</label>

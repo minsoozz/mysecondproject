@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.rhymes.app.Store.dao.RegisterDao;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.StockDto;
+import com.rhymes.app.Store.model.category.Category1Dto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.RegisterService;
@@ -47,6 +48,8 @@ public class RegisterServiceImpl implements RegisterService {
 	public String getSizeunit(int c2_seq) throws Exception {
 		return register.getSizeunit(c2_seq);
 	}
+
+	
 	
 
 

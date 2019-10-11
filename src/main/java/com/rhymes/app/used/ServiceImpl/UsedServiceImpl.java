@@ -142,6 +142,12 @@ public class UsedServiceImpl implements UsedService {
 		// TODO Auto-generated method stub
 		return usedDao.deleteProduct(seq);
 	}
+
+	@Override
+	public boolean setblackList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return usedDao.setblackList(map);
+	}
 	
 	
 }
