@@ -189,11 +189,11 @@ function paymens(){
 	}
 	
 	var _text_confirm = $("#_text_confirm").val();
-	alert(_text_confirm);
+	//alert(_text_confirm);
 	
 	if(_text_confirm == "" ){
-		alert("본인인증을 해주세요");
-		return;
+		//alert("본인인증을 해주세요");
+		//return;
 	}
 	
 	var IMP = window.IMP; // 생략가능
@@ -209,7 +209,8 @@ function paymens(){
 	    buyer_name : '구매자이름',
 	    buyer_tel : '010-1234-5678',
 	    buyer_addr : '서울특별시 강남대로 비트캠프',
-	    buyer_postcode : '123-456'
+	    buyer_postcode : '123-456',
+	    custom_data : '배송시 요청사항'
 	}, function(rsp) {
 	    if ( rsp.success ) {
 	        var msg = '결제가 완료되었습니다.';
@@ -225,7 +226,8 @@ function paymens(){
 	        		+'&status='+rsp.status+'&pay_method='+rsp.pay_method+'&receipt_url='+rsp.receipt_url
 	        		+'&vbank_num='+rsp.vbank_num+'&vbank_name='+rsp.vbank_name
 	        		+'&vbank_date='+rsp.vbank_date+'&vbank_holder='+rsp.vbank_holder
-	        		+'&buyer_name='+rsp.buyer_name+'&buyer_postcode='+rsp.buyer_postcode; //완료페이지로 이동
+	        		+'&buyer_name='+rsp.buyer_name+'&buyer_postcode='+rsp.buyer_postcode
+	        		+'&buyer_tel='+rsp.buyer_tel+'&buyer_addr='+rsp.buyer_addr+'&buyer_addr_request='+rsp.custom_data; //완료페이지로 이동
 
 	    } else {
 	        var msg = '결제에 실패하였습니다.';

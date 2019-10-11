@@ -43,4 +43,7 @@ tr{
 #ctable{
 	width: 661px;
 }
-
+#dtable{
+	width:661px;
+	text-align: center;
+}
