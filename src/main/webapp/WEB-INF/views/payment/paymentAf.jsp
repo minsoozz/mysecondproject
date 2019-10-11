@@ -16,6 +16,10 @@ String status = request.getParameter("status");
 String pay_method = request.getParameter("pay_method");
 // 거래 매출 전표
 String receipt_url = request.getParameter("receipt_url");
+// 주문명
+String buyer_name = request.getParameter("buyer_name");
+// 주소
+String buyer_postcode = request.getParameter("buyer_postcode");
 
 
 
@@ -73,6 +77,9 @@ if(pay_method.equals("card")){
 <body>
 
 결제 완료창입니다<br><br>
+
+주문자 이름 : <%=buyer_name %><br>
+우편번호 : <%=buyer_postcode %><br><br>
 
 결제금액 : <%=paid_amount %>원<br>
 결제고유번호 : <%=imp_uid %><br>

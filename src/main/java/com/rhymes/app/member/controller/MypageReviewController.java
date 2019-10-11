@@ -43,33 +43,15 @@ public class MypageReviewController {
 	
 	@Autowired
 	private MypageReviewService mypageReviewService;
-	
-	@Autowired
-	private MypageOrderlogService mypageOrderlogService;
-	
+		
+	/**후기 뷰를 보여주는 메소드
+	 * @param pcp
+	 * @param model
+	 * @return
+	 */
 	@GetMapping(value = "/review")
 	public String showReview(Principal pcp, Model model) {
 		log.info("show review");
-				
-		//선언부
-		String userid = pcp.getName();	//현재 세션에 로그인된 아이디
-//		Map<Boolean, Map<String, List<MemberOrderDetailDTO>>> reviewItems = null;	//리뷰 대상 주문내용들
-		
-		//map형태 외부 map -> key:리뷰작성여부, value=내부맵 
-		//	내부 map -> key:유저ID가 갖는 주문번호, value:세부주문내역
-		//유저ID가 갖고있는 유효주문번호들을 List로 가져와서 keySet으로 활용
-//		List<String> codeList = mypageReviewService.getPaymentCodesByUserid(userid);
-//		reviewItems = mypageReviewService.getTwoMapsSeperatedByWhetherReviewWritten(codeList);
-//		
-//		model.addAttribute("reviewWritten", reviewItems.get(true));	//리뷰작성한 주문내역
-//		model.addAttribute("reviewWrittenKeyset", reviewItems.get(true).keySet().toArray());
-//		model.addAttribute("reviewUnWritten", reviewItems.get(false));	//리뷰를 작성하지 않은 주문내역
-//		model.addAttribute("reviewUnWrittenKeyset", reviewItems.get(false).keySet().toArray());
-
-		
-		//리뷰작성대기 : 현재부터 30일 전 까지의 데이터만 가져온다
-		
-		//리뷰작성완료 : 모든 데이터를 페이징 규칙에 따라 가져온다
 		
 		return "member/mypage/review";
 	}
@@ -103,6 +85,22 @@ public class MypageReviewController {
 		return "member/mypage/sub/review_sub_wait";
 	}
 	
+	@GetMapping(value = "/review/writenew")
+	public String showWriteNewReview() {
+		log.info("showWriteNewReview()");
+		return "member/mypage/review/writenew";
+	}
+	
+	
+	
+	/* 컨트롤러 전용 유틸 메소드 */
+	
+	/**후기목록 뷰에 넘길 데이터를 만들어 주는 메소드
+	 * @param model
+	 * @param pageNum
+	 * @param pcp
+	 * @param type
+	 */
 	private void setReviewViewModel(Model model, int pageNum, Principal pcp, String type) {
 		//선언부
 		String userid = pcp.getName();
@@ -119,6 +117,11 @@ public class MypageReviewController {
 		model.addAttribute("mRPDto", mRPDto);
 		model.addAttribute("reviewMap", reviewMap);
 		model.addAttribute("reviewMapKeyset", keySet);
-		System.out.println(mRPDto);
+		System.out.println(type);
+		for(String s : keySet) {			
+			System.out.println(reviewMap.get(s).toString());
+		}
 	}
+	
+	
 }

@@ -10,6 +10,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<style type="text/css">
+tr{
+	border: 1px solid black; 
+}
+</style>
+
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -59,15 +67,23 @@ value="${dto.price }" />원</h5></div>
   
   <div id="div_like"><h5>좋아요 : <span id="_likes">${dto.likes }</span></h5></div>
   <div id="div_readcount"><h5>조회수 : ${dto.readcount }</h5></div> 
-  <div id="div_rdate"><h5>등록일 : ${dto.rdate }</h5></div>
-  <div id="div_blacklist"><h5><a href="#none" id="mybtn">신고하기</a></h5></div>  
+  <div id="div_rdate"><h5>등록일 : <fmt:formatDate value="${dto.rdate }" pattern="yyyy-MM-dd "/></h5></div>
+  <div id="div_blacklist">
+ 	 <c:if test="${userloginid ne null}">
+ 		<h5><a href="#none" id="mybtn">신고하기</a></h5>
+	 </c:if>
+
+	 <c:if test="${userloginid eq null}">
+ 	    <h5><a href="#none" class="gologin">신고하기</a></h5>
+  	 </c:if>
+  </div>  
   <div id="div_category"><h5>카테고리 ${dto.category }</h5></div>  
   <div id="div_like_button">
   	<!-- <button type="button" id="_likebtn">찜</button> -->
   	
   	<!-- 좋아요 기능 시작!!! -->
   	<c:choose>
-  		<c:when test="${login.userid ne null }">
+  		<c:when test="${userloginid ne null }">
   			<c:if test="${login.islike == 'true' }">
 	  			<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/likeAf.png" style="width: 50px" height="50px" id="like_img"></a>
   			</c:if>
@@ -76,7 +92,7 @@ value="${dto.price }" />원</h5></div>
   			</c:if>
   		</c:when>
   	<c:otherwise>
-  		<a><img alt="" src="/img/used-img/like.png" style="width: 50px" height="50px"></a>
+  		<a href="#none" class="gologin"><img alt="" src="/img/used-img/like.png" style="width: 50px" height="50px"></a>
   	</c:otherwise>
   	</c:choose>
   </div>
@@ -197,8 +213,26 @@ value="${dto.price }" />원</h5></div>
 
 <script type="text/javascript">
 
+function gologin(){
+	 var con_test = confirm("로그인이 필요합니다 로그인 페이지로 이동하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
+	 
+	 if(con_test == true){
+		location.href="/member/login";
+   }
+	 
+	 else if(con_test == false){
+  		
+	 }
+}
+
 $(document).ready(function(){
-		
+	
+	
+	
+	$(".gologin").click(function() {
+		gologin();
+	})
+	
 	$("#mybtn").click(function(){
         $("#myModal").modal();
     });
@@ -433,7 +467,7 @@ $(function(){
 	 var loginid = "${login.userid}";
 	 
 	 if(loginid == null || loginid == ""){
-		 alert("로그인이 필요합니다");
+		 gologin();
 		 return;
 	 }
 	 
@@ -489,7 +523,7 @@ $(function(){
 	 var comment_backup = next.text();	// 댓글 내용 백업
 
 	 
-	 next.html("<td colspan='4'><textarea rows='3' cols='30' id='_ucomments' name='ucomments'>"+comment_backup+"</textarea><a href='#none' onclick='updatecomment(${dto.seq},myseq)'>수정</a></td>");	
+	 next.html("<td colspan='4'><textarea rows='3' cols='75' id='_ucomments' name='ucomments'>"+comment_backup+"</textarea><a href='#none' onclick='updatecomment(${dto.seq},myseq)'>수정</a></td>");	
 	 mydiv.html("<a href='#none' onclick='cancel(this)' >수정취소</a>");
 	 
  }
@@ -499,7 +533,7 @@ $(function(){
 	 var wid = $(th).attr('value');
 	 var loginid = "${login.userid}";
 	 if(loginid == "" || loginid == null){
-		 alert("로그인이 필요합니다");
+		 gologin();
 		 return;
 	 }
 	 
@@ -522,7 +556,7 @@ $(function(){
 	next_backup2 = next2.html();	// 댓글 html 백업
 	mydiv_backup2 = mydiv2.html();	// 수정,삭제 html 백업
 	
-	 next2.after("<tr id='_answer'><td colspan='4'><textarea rows='3' cols='30' placeholder='"+wid+"에게 답글 쓰기' id='_ucomments2' name='ucomments2'></textarea><a href='#none' onclick='insert_answer(${dto.seq},myseq2,myref)'>등록</a></td></tr>");	
+	 next2.after("<tr id='_answer'><td colspan='4'><textarea rows='3' cols='75' placeholder='"+wid+"에게 답글 쓰기' id='_ucomments2' name='ucomments2'></textarea><a href='#none' onclick='insert_answer(${dto.seq},myseq2,myref)'>등록</a></td></tr>");	
 	 mydiv2.html("<a href='#none' onclick='cancel2()' >취소</a>")
 	
  }

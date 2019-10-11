@@ -111,7 +111,7 @@ public class UsedDaoImpl implements UsedDao {
 	@Override
 	public List<CommentsDto> getComments(int seq) {
 		List<CommentsDto> list = sqlSession.selectList(ns + "getComments", seq);
-		
+		System.out.println(list.toString());
 		return list;
 	}
 
