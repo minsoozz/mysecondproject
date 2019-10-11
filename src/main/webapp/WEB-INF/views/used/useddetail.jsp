@@ -205,6 +205,10 @@ value="${dto.price }" />원</h5></div>
 
 <script type="text/javascript">
 
+$("#_notesbtn").click(function() {
+	alert("점검중입니다");
+})
+
 function gologin(){
 	 var con_test = confirm("로그인이 필요합니다 로그인 페이지로 이동하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
 	 
