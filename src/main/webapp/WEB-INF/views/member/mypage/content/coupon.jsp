@@ -90,6 +90,7 @@
 							<div class="col-md-7" align="center">
 								<p class="txt_coupon_info">${cpn.title }</p>
 								<small class="txt_coupon_info_sub form-text text-muted">${cpn.sub_title }</small>
+								<small class="txt_coupon_info_sub form-text text-muted">${cpn.coup_code }</small>
 							</div>
 							<div class="col-md-1" align="center">
 								${cpn.func }

@@ -183,7 +183,7 @@ public class StoreController {
    @RequestMapping(value="/store/registerInsert", method = RequestMethod.POST)
     public String registerInsert(Model model, ProductDto product, StockDto stock,
       MultipartHttpServletRequest multi, HttpServletRequest req) throws Exception{
-      product.setC_name("비마켓");
+      product.setC_name("코코마켓");
       
      int p_seq = register.getPseq();
            
