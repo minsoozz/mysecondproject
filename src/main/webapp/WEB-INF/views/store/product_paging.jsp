@@ -11,19 +11,19 @@
 
 	
 	String st1 = request.getParameter("totalRecordCount");
-	if(st1 == null) totalRecordCount = 0;
+	if(st1 == null || "".equals(st1)) totalRecordCount = 1;
 	else			totalRecordCount = Integer.parseInt(st1);
 	
 	String st2 = request.getParameter("pageNumber");
-	if(st2 == null) pageNumber = 0;
+	if(st2 == null || "".equals(st2)) pageNumber = 1;
 	else			pageNumber = Integer.parseInt(st2);
 	
 	String st3 = request.getParameter("pageCountPerScreen");
-	if(st3 == null) pageCountPerScreen = 0;
+	if(st3 == null || "".equals(st3)) pageCountPerScreen = 1;
 	else			pageCountPerScreen = Integer.parseInt(st3);
 	
 	String st4 = request.getParameter("recordCountPerPage");
-	if(st4 == null) recordCountPerPage = 0;
+	if(st4 == null || "".equals(st4)) recordCountPerPage = 1;
 	else			recordCountPerPage = Integer.parseInt(st4);
 	
 	// 총페이지 수
