@@ -11,6 +11,7 @@ import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.StockDto;
+import com.rhymes.app.Store.model.WishlistDto;
 
 @Repository
 public class PurchaseDaoImpl implements PurchaseDao {
@@ -20,11 +21,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	
 	String ns = "purchase.";
 	
-	@Override
-	public List<ProductDto> getProductList() throws Exception {
-		return sqlSession.selectList(ns + "getProductList");
-	}
-
 	@Override
 	public ProductDto getProductDetail(int p_seq) throws Exception {
 		return sqlSession.selectOne(ns + "getProductDetail", p_seq);
@@ -70,6 +66,26 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		int n = sqlSession.delete(ns + "deleteBasketAll", basket);
 		return n;
 	}
+
+	@Override
+	public boolean insertWishlist(WishlistDto wish) throws Exception {
+		int n = sqlSession.insert(ns + "insertWishlist", wish);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean chkWishlist(WishlistDto wish) throws Exception {
+		int n = sqlSession.selectOne(ns + "chkWishlist", wish);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean deleteWishlist(WishlistDto wish) throws Exception {
+		int n = sqlSession.delete(ns + "deleteWishlist", wish);
+		return n>0?true:false;
+	}
+
+	
 
 
 

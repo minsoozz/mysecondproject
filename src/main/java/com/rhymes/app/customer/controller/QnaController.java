@@ -92,7 +92,7 @@ public class QnaController {
 		qnadto.setFilename(filename);
 		
 		// upload 
-		String fupload = req.getServletContext().getRealPath("/upload");
+		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		
 		
 		// String fupload = "d:\\tmp";
@@ -153,7 +153,7 @@ public class QnaController {
 			qnadto.setFilename(filename);
 			
 			// upload 
-			String fupload = req.getServletContext().getRealPath("/upload");
+			String fupload = req.getServletContext().getRealPath("/upload/customer");
 			
 			
 			System.out.println("_fupload:" + fupload);	//�뾽濡쒕뱶 �쐞移�
@@ -193,7 +193,7 @@ public class QnaController {
 	public String qnadelete(int seq, HttpServletRequest req) {
 		
 		String filename = QnaService.getfilename(seq);
-		String fupload = req.getServletContext().getRealPath("/upload");
+		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		FileDelete.main(fupload + "/" + filename);
 		 
 		
@@ -224,7 +224,7 @@ public class QnaController {
 		dto.setFilename(filename);
 		
 		// upload 
-		String fupload = req.getServletContext().getRealPath("/upload");
+		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		
 		
 		// String fupload = "d:\\tmp";

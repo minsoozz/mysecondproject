@@ -85,4 +85,11 @@
        <put-attribute name="body" value="/WEB-INF/views/customer/pqnaanswer.jsp" />
    </definition>
    
+   
+   <definition name="pqnalist.tiles" template="/WEB-INF/views/customer/layout/pqna_template.jsp">
+    
+       <put-attribute name="body" value="/WEB-INF/views/store/productqna/pqnalist.jsp" />
+     
+   </definition>
+   
 </tiles-definitions>

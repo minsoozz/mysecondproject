@@ -2,6 +2,7 @@ package com.rhymes.app.payment.dao;
 
 import java.util.List;
 
+import com.rhymes.app.payment.model.DeliveryDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
 public interface OrdercheckDAO {
@@ -13,6 +14,9 @@ public interface OrdercheckDAO {
 	public List<PaymentDTO> getOrdercheck();
 	
 	// 주문상세내역 조회
-	public List<PaymentDTO> getOrdercheckDetail();
+	public List<PaymentDTO> getOrdercheckDetail(String payment_code);
+	
+	// 배송현황 조회
+	public List<DeliveryDTO> getOrdercheckDelivery(String payment_code);
 
 }

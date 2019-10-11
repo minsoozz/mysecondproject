@@ -118,7 +118,7 @@ public class NoticeController {
 		
 		// upload 
 		
-		String fupload = req.getServletContext().getRealPath("/upload");
+		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		
 		// �뤃�뜑
 		// String fupload = "d:\\tmp";
@@ -182,7 +182,7 @@ public class NoticeController {
 			noticedto.setFilename(filename);
 			
 			// upload 
-			String fupload = req.getServletContext().getRealPath("/upload");
+			String fupload = req.getServletContext().getRealPath("/upload/customer");
 			
 			
 			System.out.println("_fupload:" + fupload);	//�뾽濡쒕뱶 �쐞移�
@@ -222,16 +222,16 @@ public class NoticeController {
 	public String noticedelete(int seq, HttpServletRequest req) {
 		
 		String filename = NoticeService.getfilename(seq);
-		String fupload = req.getServletContext().getRealPath("/upload");
+		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		FileDelete.main(fupload + "/" + filename);
 		 
 		
 		boolean b = NoticeService.NoticeDelete(seq);
 		if(b) {
-			return "redirect:/Rhymes/noticelist";
+			return "redirect:/customercenter/noticelist";
 		}
 		
-		return "redirect:/Rhymes/noticelist";
+		return "redirect:/customercenter/noticelist";
 	}
 	
 }
