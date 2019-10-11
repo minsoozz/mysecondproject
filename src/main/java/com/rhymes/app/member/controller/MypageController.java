@@ -33,6 +33,7 @@ import com.rhymes.app.member.model.mypage.MemberOrderDTO;
 import com.rhymes.app.member.model.mypage.MemberOrderPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberPaymentDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 import com.rhymes.app.member.service.MypageCouponService;
 import com.rhymes.app.member.service.MypageOrderlogService;
 import com.rhymes.app.member.service.MypagePersonalService;
@@ -182,22 +183,27 @@ public class MypageController {
 		
 		/* 뷰로 보낼 변수 선언 */
 		int validCoupons = 0;	//유효한 쿠폰 개수
+		int myCoupons = 0;		//쿠폰 리스트에 보여지는 쿠폰 개수
 		List<MemberCouponDTO> couponDetailList = new ArrayList<MemberCouponDTO>();	//쿠폰 정보 리스트
 		String userid = pcp.getName();	//현재 로그인한 사용자 아이디
-		PointsPagingDTO pDto = null;	//페이징 dto
-		
+		//PointsPagingDTO pDto = null;	//페이징 dto
+		MemberReviewPagingDTO pDto = null;
 		
 		try {
 			/* 변수에 알맞은 값 저장 */
 			validCoupons = mypageCouponService.getCountOnConditions(userid);
-			pDto = new PointsPagingDTO(pageNum, validCoupons, userid);
-			//pDto = new PointsPagingDTO(pageNum, validCoupons, 2, userid);
+			myCoupons = mypageCouponService.getCountOfMyCoupons(userid);
+			pDto = new MemberReviewPagingDTO();
+			pDto.setPageNum(pageNum);	pDto.setTotalSize(myCoupons);	pDto.setUserid(userid);	pDto.setRecordCountPerPage(4);
 			couponDetailList = mypageCouponService.getDetailsOnConditions(pDto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		
+		System.out.println("listsize" + couponDetailList.size() + ", " + pDto.toString());
+		
 		/* 저장된 값들을 뷰로 전송 */
+		model.addAttribute("myCoupons", myCoupons);
 		model.addAttribute("validCoupons", validCoupons);
 		model.addAttribute("pDto", pDto);
 		model.addAttribute("couponDetailList", couponDetailList);

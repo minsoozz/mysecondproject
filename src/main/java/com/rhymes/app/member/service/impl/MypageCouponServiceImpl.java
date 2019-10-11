@@ -9,6 +9,7 @@ import com.rhymes.app.member.dao.MypageCouponDAO;
 import com.rhymes.app.member.model.PointsPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 import com.rhymes.app.member.service.MypageCouponService;
 
 @Service
@@ -25,12 +26,23 @@ public class MypageCouponServiceImpl implements MypageCouponService {
 		// TODO Auto-generated method stub
 		return mypageCouponDAO.getCountOnConditions(userid);
 	}
+	
+	/**쿠폰리스트에 보여줄 쿠폰의 총 개수 리턴
+	 * @param userid
+	 * @return
+	 */
+	@Override
+	public int getCountOfMyCoupons(String userid) {
+		// TODO Auto-generated method stub
+		return mypageCouponDAO.getCountOfMyCoupons(userid);
+	}
 
 	/**검색조건에 맞는 쿠폰 디테일 정보 리턴
 	 * @return
 	 */
 	@Override
-	public List<MemberCouponDTO> getDetailsOnConditions(PointsPagingDTO dto) {
+//	public List<MemberCouponDTO> getDetailsOnConditions(PointsPagingDTO dto) {
+	public List<MemberCouponDTO> getDetailsOnConditions(MemberReviewPagingDTO dto) {
 		// TODO Auto-generated method stub
 		return mypageCouponDAO.getDetailsOnConditions(dto);
 	}
