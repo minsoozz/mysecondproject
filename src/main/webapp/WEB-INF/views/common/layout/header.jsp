@@ -5,8 +5,10 @@
 <sec:authentication property="principal" var="prc"/>
 <% String ctx = request.getContextPath(); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head> 
 <meta charset="UTF-8">
 
@@ -37,6 +39,17 @@
             <div class="row">
                 <div class="col-5 col-xs-6"> 
                     <div class="top_social_bar">
+
+                    
+                    <!--  맨위에 sns 아이콘들 -->
+                    <div class="top_social_bar">
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/rhymesstore/?igshid=1x7bqfwz6wwle"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+
+                    </div>
+
+
                     </div>
                 </div>
                 
@@ -55,6 +68,7 @@
                         </c:if>
                         
                         <c:if test="${userloginid ne null}">
+                        
                         	<div class="">
                         		<span>안녕하세요 ${userloginid } 님  &nbsp;</span>
                         	</div>
@@ -63,13 +77,23 @@
                         		<a href="/member/logout">Logout</a>
                         		
                         	</div>
+                            
                         </c:if>
+
+                       	<c:if test="${userloginid eq 'ADMIN' }">
+                       		&nbsp;&nbsp;<a href="/admin/main">admin</a>
+                       	</c:if>
+
+
+
+
                             <div class="mypage">
                                 <a href="/mypage/orderlog">Mypage</a>
                             </div>
                             <div class="cart">
-                                <a href="a.jsp">Cart</a>
+                                <a href="/Rhymes/store/basket">Cart</a>
                             </div>
+
                         </div>
                         
                         <!-- 
@@ -124,10 +148,10 @@
                             <ul class="navbar-nav" id="rhymes-nav">
                             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList">WOMEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=WOMEN">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList">MEN</a>
+                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=MEN">MEN</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/used/usedlist">MARKET</a>
@@ -154,9 +178,6 @@
     </a>
     
     <!-- ****** Header Area End ****** -->
-
-
-    
        
     <!-- nav바 밑으로 내리면 상단에 고정시켜주는 코드-->
      <script type=text/javascript>
@@ -171,7 +192,6 @@
 	        }
 	    });
 	});
-	
 	
 	jQuery(document).ready(function () {
         $(window).scroll(function () {
@@ -190,8 +210,5 @@
 	
 	</script> 
 	</body>
-
-
-
 
 </html>

@@ -44,13 +44,13 @@
 	<td></td>
 	<td>${order_list[i.index].totalprice }</td>
 	<td>
-	<input type="button" value="주문상세보기" onclick="ordercheck_detail()">
+	<input type="button" value="주문상세보기" onclick="ordercheck_detail('${order_list[i.index].payment_code }')">
 	</td>
-<!-- 	<td>
-	<input type="button" value="배송현황보기" onclick="ordercheck_delivery()">
-	</td> -->
+ 	<td>
+	<input type="button" value="배송현황보기" onclick="ordercheck_delivery('${order_list[i.index].payment_code }')" >
+	</td>
 	<td>
-	<input type="button" value="상품후기쓰기" onclick="ordercheck_review()">
+	<input type="button" value="상품후기쓰기" onclick="ordercheck_review('${order_list[i.index].payment_code }')">
 	</td>
 </tr>
 </c:forEach>

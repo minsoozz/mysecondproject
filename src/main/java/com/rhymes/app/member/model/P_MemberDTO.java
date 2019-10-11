@@ -11,6 +11,7 @@ public class P_MemberDTO {
    private String userid; // 아이디
    private String username; // 이름
 
+
    private String postcode; // 우편번호
    private String address; // 주소
    private String detailAddress; // 상세주소
@@ -40,22 +41,23 @@ public class P_MemberDTO {
       this.userbirth = userbirth;
    }
 
-   public P_MemberDTO(int seq, String userid, String username, String postcode, String address, String detailAddress,
-         String phone, String useremail, String usergender, String userbirth, int count, boolean islike) {
-      super();
-      this.seq = seq;
-      this.userid = userid;
-      this.username = username;
-      this.postcode = postcode;
-      this.address = address;
-      this.detailAddress = detailAddress;
-      this.phone = phone;
-      this.useremail = useremail;
-      this.usergender = usergender;
-      this.userbirth = userbirth;
-      this.count = count;
-      this.islike = islike;
-   }
+	public P_MemberDTO(int seq, String userid, String username, String postcode, String address, String detailAddress,
+			String phone, String useremail, String usergender, String userbirth, int count, boolean islike) {
+		super();
+		this.seq = seq;
+		this.userid = userid;
+		this.username = username;
+		this.postcode = postcode;
+		this.address = address;
+		this.detailAddress = detailAddress;
+		this.phone = phone;
+		this.useremail = useremail;
+		this.usergender = usergender;
+		this.userbirth = userbirth;
+		this.count = count;
+		this.islike = islike;
+	}
+
 
    public P_MemberDTO(String userid, String username, String postcode, String address, String detailAddress,
          String phone, String useremail, String usergender, String userbirth, int count) {
@@ -79,11 +81,17 @@ public class P_MemberDTO {
             + ", usergender=" + usergender + ", userbirth=" + userbirth + ", count=" + count + "]";
    }
 
-   public String toJSONString() {
-      return "userid=" + userid + ", username=" + username + ", postcode=" + postcode + ", address=" + address
-            + ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail=" + useremail + ", usergender="
-            + usergender + ", userbirth=" + userbirth + ", count=" + count;
-   }
+
+	public String toJSONString() {
+		return "userid=" + userid + ", username=" + username + ", postcode=" + postcode + ", address=" + address
+				+ ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail=" + useremail + ", usergender="
+				+ usergender + ", userbirth=" + userbirth + ", count=" + count;
+	}
+
+
+
+
 
 
 }
+

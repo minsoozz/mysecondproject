@@ -4,14 +4,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>회원가입</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/regimem.css">
-
-
 
 
 <script type="text/javascript">
@@ -273,19 +273,25 @@ function idCheck(focusYN) {
     }
     
  //   boolean idcheck = false;
+ 
+ var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(document).ajaxSend(function(e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+});
     
-    alert("ok");
-    alert($("#_id").val());
+//     alert("ok");
+//     alert($("#_id").val());
     $.ajax({
 		url:"/member/getIDCheck",
-		type:"get",
+		type:"post",
 		data:{id:$("#_id").val()},
 		success:function(msg){
- 			alert("suc");
+//  			alert("suc");
 			if(msg == 'YES'){
-	 			alert("msg == YES");	// id있음	
-	 		$("#_rgetid").html("사용할 수 없는 아이디입니다.");
-	 		$("#_rgetid").css("color", "red");
+	 		//	alert("msg == YES");	// id있음	
+	 		$(".txt1").html("사용할 수 없는 아이디입니다.");
+	 		$(".txt1").css("color", "red");
 	 		$("#_id").val("");
 	 //		$("#_userid").val("");
 	 		$("#_id").focus();
@@ -312,9 +318,10 @@ function idCheck(focusYN) {
 <body>
 
 <div id="wrap">
-	<form action="/member/addmem" name="userinput" onsubmit="return checkIt()" method="get">
+	<form action="/member/addmem" name="userinput" onsubmit="return checkIt()" method="post">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<input type="hidden" name="authority" value="ROLE_MEMBER">
-	<div class="backcolor" align="center"></div>
+<!-- 	<div class="backcolor" align="center"></div> -->
 		<div id="body" align="center">
 			<div align="center"><span class="findidtext">가입정보 입력</span></div>
 				<table width="500px;" class="regi_table">

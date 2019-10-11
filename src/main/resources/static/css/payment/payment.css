@@ -15,15 +15,23 @@
 #content_title_wrap div.title { padding-left:25px; background-repeat:no-repeat; background-position:10px 9px; font-weight:bold; }
 
 
-/* payment.jsp - table */
-td{ padding: 10px 10px 10px 10px; }
-th{ padding-left : 10px; width: 25%; }
+/* 결제 페이지 */
+.payment_tb td{ padding: 10px 10px 10px 10px; }
+.payment_tb th{ padding-left : 10px; width: 25%; }
 h4{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
-.tb{ font-family: monospace; width: 100%; }
+.payment_tb{ width: 100%; }
 .divback{ border-bottom: 1px solid #dbdbdb; padding-top: 10px; width: 100%; }
 .divfirst{ width: 90%; margin: auto; }
 #paymentBtn{ background-color: #d7fd75; border: 1px solid #d7fd75; width: 400px; height: 100px; font-family: sans-serif; font-size: 30px; margin-top: 70px; }
 
 
+/* 쿠폰 팝업 페이지 */
+.payment_coupon_tb{ padding: 15px 15px 15px 15px; border-top: 1px solid #444444; border-collapse: collapse; }
+.payment_coupon_tb td{ padding: 15px 15px 15px 15px; border-bottom: 1px solid #444444; }
+.payment_coupon_tb th{ padding: 15px 15px 15px 15px; border-bottom: 1px solid #444444; background-color: #d7fd75; }
 
+
+/* 결제완료 페이지 */
+.paymentAf_tb th{ padding: 10px 10px 10px 10px; background-color: #d7fd75; }
+.paymentAf_tb td{ padding: 10px 10px 10px 10px; }

@@ -4,16 +4,18 @@ package com.rhymes.app.Store.model;
 
 public class ProductDto {
 
-	private int p_seq; 				// 상품 번호(색상별 구분)
+	private int p_seq; 				// 상품 번호
 	private String c_name;			// Company Name
 	private String p_name;			// 상품명
 	private String p_title;			// 상품 부가설명
 	private String cp_code;			// 상품 부가설명
 	private int p_price;			// 단가
 	private String p_color;			// 상품 색상
-	private String c1_name; 			// 대분류 코드
-	private String c2_name;				// 중분류 코드
-	private String c3_name;				// 소분류 코드
+	
+	private String c1_name; 		// 1차 카테고리 이름
+	private String c2_name;			// 2차 카테고리 이름
+	private String c3_name;			// 3차 카테고리 이름
+	
 	private String nation;			// 제품 원산지
 	private String mdate;			// 제조년월(6자리)
 	private String detail;			// 제품 상세
