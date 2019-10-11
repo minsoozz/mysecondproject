@@ -4,4 +4,9 @@
 	float: right;
 	position: relative;
 	bottom: 1078px;
+/* 	max-width: none !important; */
 }
+/* .container {
+  width: 1120px;
+  max-width: none !important;
+} */

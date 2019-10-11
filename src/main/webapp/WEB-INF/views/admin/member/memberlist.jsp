@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <!DOCTYPE html>
 <html>
 
@@ -10,8 +10,9 @@
     <meta charset="utf-8">
     
     <title>memberlist</title>
-
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/member/mem_styles.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<%--     <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/member/mem_styles.css"> --%>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/commmon/sb-admin-2.min.css">
 
 </head>
 <script type="text/javascript">
@@ -30,7 +31,7 @@ $( "#create-user" ).button().on( "click", function() {
 
     <!-- page title area start -->
 
-<div class="col-sm-6">
+<div class="col-xs-6">
     <div class="breadcrumbs-area clearfix">
         <h4 class="page-title pull-left">Memlist</h4>
     </div>
@@ -46,7 +47,7 @@ $( "#create-user" ).button().on( "click", function() {
 <!-- overview area end -->
 <!-- market value area start -->
 <div class="row mt-5 mb-5">
-    <div class="col-12">
+    <div class="col-xs-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-sm-flex justify-content-between align-items-center">
@@ -182,12 +183,12 @@ $( "#create-user" ).button().on( "click", function() {
     ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
     </script>
     <!-- all line chart activation -->
-    <script src="<%=request.getContextPath() %>/js/chart/line-chart.js"></script>
+<%--     <script src="<%=request.getContextPath() %>/js/chart/line-chart.js"></script> --%>
     <!-- all pie chart -->
-    <script src="<%=request.getContextPath() %>/js/chart/pie-chart.js"></script>
+<%--     <script src="<%=request.getContextPath() %>/js/chart/pie-chart.js"></script> --%>
     <!-- others plugins -->
-    <script src="<%=request.getContextPath() %>/js/others/plugins.js"></script>
-    <script src="<%=request.getContextPath() %>/js/others/scripts.js"></script>
+<%--     <script src="<%=request.getContextPath() %>/js/others/plugins.js"></script> --%>
+<%--     <script src="<%=request.getContextPath() %>/js/others/scripts.js"></script> --%>
 </body>
 
 <script type="text/javascript">

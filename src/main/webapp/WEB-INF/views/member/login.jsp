@@ -73,7 +73,7 @@
 	<div align="center">
 	    <c:if test="${userId eq null}">
 	        <a href="https://kauth.kakao.com/oauth/authorize?client_id=7941c0b534b8b053634f144ea1b326ea&redirect_uri=http://localhost:18080/member/kakaoLogin&response_type=code">
-	            <img src="/img/member-img/kakao_account_login_btn_medium_wide.png">
+	            <img src="/img/member-img/kakao_account_login_btn_medium_wide.png" style="width: 232px; height: 51px">
 	        </a>
 	    </c:if>
 	    

@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/styles.css">
+<%-- <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/common/styles.css"> --%>
+<link href="<%=request.getContextPath() %>/css/admin/common/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 <body>

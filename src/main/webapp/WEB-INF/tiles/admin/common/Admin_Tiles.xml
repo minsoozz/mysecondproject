@@ -5,14 +5,20 @@
 <tiles-definitions>
 
 	
-    <definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
-    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header.jsp" />
-    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu.jsp" />
-    <put-attribute name="body" value="/WEB-INF/views/admin/main/main.jsp" />
-    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer.jsp" />
-   </definition>
+<!--    <definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
+    <put-attribute name="header" value="" />
+    <put-attribute name="left_menu" value="" />
+    <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+    <put-attribute name="footer" value="" />
+   </definition> -->
    
 
+	<definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
+	    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header.jsp" />
+	    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/views/admin/main/main.jsp" />
+	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer.jsp" />
+	</definition> 
 	
    <!-- admin main -->
 <!--    <definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">

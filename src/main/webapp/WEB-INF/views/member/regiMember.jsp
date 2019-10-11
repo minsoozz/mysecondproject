@@ -280,18 +280,18 @@ $(document).ajaxSend(function(e, xhr, options) {
     xhr.setRequestHeader(header, token);
 });
     
-    alert("ok");
-    alert($("#_id").val());
+//     alert("ok");
+//     alert($("#_id").val());
     $.ajax({
 		url:"/member/getIDCheck",
 		type:"post",
 		data:{id:$("#_id").val()},
 		success:function(msg){
- 			alert("suc");
+//  			alert("suc");
 			if(msg == 'YES'){
-	 			alert("msg == YES");	// id있음	
-	 		$("#_rgetid").html("사용할 수 없는 아이디입니다.");
-	 		$("#_rgetid").css("color", "red");
+	 		//	alert("msg == YES");	// id있음	
+	 		$(".txt1").html("사용할 수 없는 아이디입니다.");
+	 		$(".txt1").css("color", "red");
 	 		$("#_id").val("");
 	 //		$("#_userid").val("");
 	 		$("#_id").focus();
