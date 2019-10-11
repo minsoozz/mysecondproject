@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -133,14 +135,14 @@ function idCheck(focusYN) {
     
  //   boolean idcheck = false;
     
-    alert("ok");
-    alert($("#_id").val());
+//     alert("ok");
+//     alert($("#_id").val());
     $.ajax({
 		url:"/member/getIDCheck",
 		type:"get",
 		data:{id:$("#_id").val()},
 		success:function(msg){
- 			alert("suc");
+//  			alert("suc");
 			if(msg == 'YES'){
 	 			alert("msg == YES");	// id있음	
 	 		$("#_rgetid").html("사용할 수 없는 아이디입니다.");
@@ -316,7 +318,8 @@ function checkIt() {
 <body>
 
 
-<form action="/member/addsellerdetail" name="userinput" onsubmit="return checkIt()" method="get">
+<form action="/member/addsellerdetail" name="userinput" onsubmit="return checkIt()" method="post">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <input type="hidden" name="authority" value="ROLE_SELLER">
 <div id="body" align="center">
 	<table class="regi_table">

@@ -20,7 +20,8 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	SqlSession sqlSession;
 	
 	String ns = "purchase.";
-	
+
+
 	@Override
 	public ProductDto getProductDetail(int p_seq) throws Exception {
 		return sqlSession.selectOne(ns + "getProductDetail", p_seq);

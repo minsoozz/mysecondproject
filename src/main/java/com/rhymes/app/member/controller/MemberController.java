@@ -260,15 +260,15 @@ public class MemberController {
 	@RequestMapping(value = "/sendSms.do", method = RequestMethod.GET)
 	public String sendSms(HttpServletRequest request) throws Exception {
 
-		String api_key = "NCSIOIHJHNMGEUH7";
-		String api_secret = "5DYGAAUIVWUIWA4RNHYIKIUQRF1MBM10";
+		String api_key = "NCSJIOFN175HJZRU";
+		String api_secret = "G1OPKSUUMY3GWZTTVAFZ5BDXOAGPYRFK";
 
 		Coolsms coolsms = new Coolsms(api_key, api_secret);
 
 		HashMap<String, String> set = new HashMap<String, String>();
 
 		set.put("to", (String) request.getParameter("to")); // 받는 사람
-		set.put("from", "01092557316"); // 발신번호
+		set.put("from", "01068889859"); // 발신번호
 		set.put("text", "비마켓 인증번호 [" + (String) request.getParameter("text") + "]"); // 문자내용
 		set.put("type", "sms"); // 문자 타입
 
@@ -455,9 +455,14 @@ public class MemberController {
 		System.out.println("kakaologin Controller : " + userInfo);
 
 		mbean.setUserid((String) userInfo.get("email"));
+		mbean.setUsername((String) userInfo.get("nickname"));
+		
 		boolean b = memService.getkakaouser(mbean); /* select해서 찾은이메일이 없다면 밑에 실행 */
-		req.getSession().setAttribute("userloginid", (String) userInfo.get("nickname"));
-		if (b) {
+		
+		
+		
+		if (b) {	// rhymes회원일 경우
+			req.getSession().setAttribute("userloginid", (String) userInfo.get("nickname"));
 
 			model.addAttribute("username", (String) userInfo.get("email"));
 			model.addAttribute("password", (String) userInfo.get("nickname"));
@@ -465,7 +470,8 @@ public class MemberController {
 //			model.addAttribute("_csrf", CsrfToken.class.getName());
 			
 			return "kakaologinsuc";
-		} else if (userInfo.get("email") != null) {
+		} else if (userInfo.get("email") != null) {		// rhymes회원이 아닐경우, 회원가입 시 email정보제공을 체크 했을 때
+			req.getSession().setAttribute("userloginid", (String) userInfo.get("nickname"));
 
 			String useremail = (String) userInfo.get("email");
 			String username = (String) userInfo.get("nickname");
@@ -477,19 +483,18 @@ public class MemberController {
 
 			memService.getkakaoregi(mbean); // email, 이름, pw를 넣음, sns로그인구분
 
-			// 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-//			session.setAttribute("email", userInfo.get("email"));
-//			session.setAttribute("access_Token", access_Token);
-
-//			model.addAttribute("userInfo", userInfo);
-
 			model.addAttribute("username", (String) userInfo.get("email"));
 			model.addAttribute("password", (String) userInfo.get("nickname"));
 			model.addAttribute("_csrf", token);
+			
+			// 클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+//			session.setAttribute("email", userInfo.get("email"));
+//			session.setAttribute("access_Token", access_Token);
+//			model.addAttribute("userInfo", userInfo);
 
 			return "kakaologinsuc";
 
-		} else {
+		} else {	// rhymes회원이 아니고, 회원가입 시 email추가정보 제공을 누르지 않았을 때 (/kakaoregiAf로 넘어감(추가정보입력을 위해))
 
 			String username = (String) userInfo.get("nickname");
 			String userpw = (String) userInfo.get("nickname"); // 비밀번호 대용
@@ -502,10 +507,13 @@ public class MemberController {
 
 			return "kakaoLoginadd";
 		}
+		/*
+		 * else { return "login"; }
+		 */
 
 	}
 
-	// 카카오 추가정보 입력 후 로그인
+	// 카카오 추가정보 입력 후 로그인 
 	@GetMapping("/kakaoregiAf")
 	public String kakaoregiAf(MemBean mbean, HttpServletRequest req, Model model) {
 
@@ -521,26 +529,30 @@ public class MemberController {
 		return "kakaologinsuc";
 
 	}
+	
 
-	// 로그아웃
+	// 로그아웃	------사용안함------------------------------------------------
 	@GetMapping("/kakaoLogout")
 	public String logout(HttpSession session) {
 		kakao.kakaoLogout((String) session.getAttribute("access_Token"));
 		session.removeAttribute("access_Token");
 		session.removeAttribute("userId");
 		return "main/welcome";
-	}
+	} //---------------------------------------------------------------------
 	
-	
+	// 네이버 callback
 	@GetMapping("/callback")
 	public String navercallback(HttpSession session) {
 		System.out.println("callback Controller 도착");
-		
-		
-		
 		return "navercallback";
 	}
 	
+	
+	/**
+	 * apiResult json 구조 {"resultcode":"00", "message":"success",
+	 * "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"shinn0608@naver.com","name":"\uc2e0\ubc94\ud638"}}
+	 **/
+	// 네이버 회원가입
 	@GetMapping("/loginPostNaver")
 	public String loginPOSTNaver(Model model, HttpSession session, MemBean mbean, HttpServletRequest req) {
 		System.out.println("loginPostNaver도착");
@@ -570,8 +582,7 @@ public class MemberController {
 		
 		return "kakaologinsuc";
 	}
-	
-	
+
 	
 	
 	
@@ -584,35 +595,7 @@ public class MemberController {
 	
 	
 
-	/**
-	 * apiResult json 구조 {"resultcode":"00", "message":"success",
-	 * "response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"shinn0608@naver.com","name":"\uc2e0\ubc94\ud638"}}
-	 **/
-	/*
-	 * //네이버 로그인 성공시 callback호출 메소드
-	 * 
-	 * @RequestMapping(value = "/callback", method = { RequestMethod.GET,
-	 * RequestMethod.POST }) public String callback(Model model, @RequestParam
-	 * String code, @RequestParam String state, HttpSession session) throws
-	 * IOException, ParseException { System.out.println("여기는 callback");
-	 * OAuth2AccessToken oauthToken; oauthToken =
-	 * naverLoginBO.getAccessToken(session, code, state); //1. 로그인 사용자 정보를 읽어온다.
-	 * apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
-	 * 
-	 * //2. String형식인 apiResult를 json형태로 바꿈 JSONParser parser = new JSONParser();
-	 * Object obj = parser.parse(apiResult); JSONObject jsonObj = (JSONObject) obj;
-	 * //3. 데이터 파싱 //Top레벨 단계 _response 파싱 JSONObject response_obj =
-	 * (JSONObject)jsonObj.get("response"); //response의 nickname값 파싱 String nickname
-	 * = (String)response_obj.get("nickname"); System.out.println(nickname); //4.파싱
-	 * 닉네임 세션으로 저장 session.setAttribute("sessionId",nickname); //세션 생성
-	 * model.addAttribute("result", apiResult); return "login"; }
-	 * 
-	 * //로그아웃
-	 * 
-	 * @RequestMapping(value = "/naverlogout", method = { RequestMethod.GET,
-	 * RequestMethod.POST }) public String naverlogout(HttpSession session)throws
-	 * IOException { System.out.println("여기는 logout"); session.invalidate(); return
-	 * "redirect:index.jsp"; }
-	 */
+
+
 
 }

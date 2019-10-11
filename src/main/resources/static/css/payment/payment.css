@@ -26,4 +26,15 @@ h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 #paymentBtn{ background-color: #d7fd75; border: 1px solid #d7fd75; width: 400px; height: 100px; font-family: sans-serif; font-size: 30px; margin-top: 70px; }
 
 
+/* 쿠폰 팝업 페이지 */
+.payment_coupon_tb{ padding: 15px 15px 15px 15px; border-top: 1px solid #444444; border-collapse: collapse; }
+.payment_coupon_tb td{ padding: 15px 15px 15px 15px; border-bottom: 1px solid #444444; }
+.payment_coupon_tb th{ padding: 15px 15px 15px 15px; border-bottom: 1px solid #444444; background-color: #d7fd75; }
+
+
+/* 결제완료 페이지 */
+.paymentAf_tb th{ padding: 10px 10px 10px 10px; background-color: #d7fd75; }
+.paymentAf_tb td{ padding: 10px 10px 10px 10px; }
+.paymentAf_result{ border: 1px solid #dbdbdb; width: 100%; }
+
 

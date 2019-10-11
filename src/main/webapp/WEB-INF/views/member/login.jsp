@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/member/content/login.css">
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script src="http://lab.alexcican.com/set_cookies/cookie.js" type="text/javascript" ></script>
 </head>
 <body>
 
@@ -35,7 +36,7 @@
 			<tr>
 				<td width="130px" style="padding: 0px;">
 					<div class="rememberCheck">
-				        <input class="rememberCheck-input" type="checkbox" id="chk_save_id">
+				        <input class="rememberCheck-input" type="checkbox" id="chk_save_id" >
 				        <label class="rememberCheck-label" for="gridCheck1" style="font-size: small;">Remember Me</label>
 				    </div>
 			    </td>
@@ -51,7 +52,6 @@
 				<td colspan="2">
 				<br>
 					<input type="submit" value="로그인" class="regibutton_login">
-<!--  					<button type="button" class="btn btn-primary" id="btnLogin">zz테스트</button>  -->
 				</td>
 			</tr>			
 		</table>
@@ -73,7 +73,7 @@
 	<div align="center">
 	    <c:if test="${userId eq null}">
 	        <a href="https://kauth.kakao.com/oauth/authorize?client_id=7941c0b534b8b053634f144ea1b326ea&redirect_uri=http://localhost:18080/member/kakaoLogin&response_type=code">
-	            <img src="/img/member-img/kakao_account_login_btn_medium_wide.png">
+	            <img src="/img/member-img/kakao_account_login_btn_medium_wide.png" style="width: 232px; height: 51px">
 	        </a>
 	    </c:if>
 	    
@@ -122,37 +122,69 @@ function onKeyDown()
 
 
 <script type="text/javascript">
-$("#btnLogin").click(function() {
-	alert("d");
-// 	$("#_frmForm").attr({"action":"loginAf.do", "target":"_self"}).submit();		
+$(document).ready(function() {
+
+    var userInputId = getCookie("userInputId");
+    var setCookieYN = getCookie("setCookieYN");
+    
+    if(setCookieYN == 'Y') {
+        $("#chk_save_id").prop("checked", true);
+    } else {
+        $("#chk_save_id").prop("checked", false);
+    }
+    
+    $("#txtId").val(userInputId); 
+    
+    //로그인 버튼 클릭
+    $('#chk_save_id').click(function() {
+        if($("#chk_save_id").is(":checked")){ 
+            var userInputId = $("#txtId").val();
+            setCookie("userInputId", userInputId, 60); 
+            setCookie("setCookieYN", "Y", 60);
+        } else {
+            deleteCookie("userInputId");
+            deleteCookie("setCookieYN");
+        }
+        
+        
+    });
 });
 
-var user_id = $.cookie("user_id");
-if(user_id != null){	// 지정한 쿠키가 있을 때
-	// alert("쿠키 있음");
-	$("#txtId").val( user_id );
-	$("#chk_save_id").attr("checked", "checked");
+//쿠키값 Set
+function setCookie(cookieName, value, exdays){
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + 
+    exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
 }
-$("#chk_save_id").click(function() {
-	
-	if( $("#chk_save_id").is(":checked") ){	// 체크 되었을 때
-	//	alert("체크 됨");
-		if( $("#txtId").val().trim() == "" ){
-			alert("id를 입력해 주십시오");
-			$("#chk_save_id").prop("checked", false);			
-		}else{	// 정상 기입한 경우
-			// 쿠키 저장
-			$.cookie("user_id", $("#txtId").val().trim(), {expires:7, path:'/'});
-		}
-	}
-	else{
-	//	alert("체크 없어짐");
-		$.removeCookie("user_id", {path:'/'});
-	}
-});
-$("#btnLogin").click(function(){
-// 	location.href="regi.do";
-});
+
+//쿠키값 Delete
+function deleteCookie(cookieName){
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+
+//쿠키값 가져오기
+function getCookie(cookie_name) {
+    var x, y;
+    var val = document.cookie.split(';');
+    
+    for (var i = 0; i < val.length; i++) {
+        x = val[i].substr(0, val[i].indexOf('='));
+        y = val[i].substr(val[i].indexOf('=') + 1);
+        x = x.replace(/^\s+|\s+$/g, ''); // 앞과 뒤의 공백 제거하기
+        
+        if (x == cookie_name) {
+          return unescape(y); // unescape로 디코딩 후 값 리턴
+        }
+    }
+}
 </script>
+
+
+
+
 
 </html>

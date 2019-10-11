@@ -26,27 +26,20 @@
 		<put-attribute name="body" value="/WEB-INF/views/payment/payment.jsp" />
 	</definition>
 
-	<definition name="/payment/paymentAf"
-		extends="payment.tiles">
-		<put-attribute name="body" value="/WEB-INF/views/payment/paymentAf.jsp" />
+	<definition name="/payment/paymentAf" extends="payment.tiles">
+		<put-attribute name="body" value="/WEB-INF/views/payment/paymentAf_suc.jsp" />
 	</definition>
 
-	<definition name="/payment/basketOrder"
-		extends="payment.tiles">
-		<put-attribute name="body" value="/WEB-INF/views/payment/paymentAf.jsp" />
-	</definition>
-
-	<definition name="/payment/nomembership"
-		extends="payment.tiles">
+	<definition name="/payment/nomembership" extends="payment.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/payment/nomembership.jsp" />
 	</definition>
 
-	<definition name="addresssearch"
-		template="/WEB-INF/views/common/layout/template.jsp">
+	<definition name="/payment/coupon" template="/WEB-INF/views/payment/layout/payment_template.jsp">
 		<put-attribute name="header" value="" />
-		<put-attribute name="body" value="/WEB-INF/views/payment/addresssearch/jusoPopup.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/payment/popup/coupon_popup.jsp" />
 		<put-attribute name="footer" value="" />
 	</definition>
+
 
 
 
