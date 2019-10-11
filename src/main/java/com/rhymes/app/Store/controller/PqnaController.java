@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.rhymes.app.Store.model.PqnaDto;
 import com.rhymes.app.Store.service.PqnaService;
 import com.rhymes.app.customer.model.CustomerParam;
+import com.rhymes.app.customer.model.FaqDto;
 import com.rhymes.app.customer.util.FUpUtil;
 
 @Controller
@@ -35,6 +36,32 @@ public class PqnaController {
 		
 		return "pqnawrite.tiles";
 	}
+	
+	@RequestMapping(value = "/pqnalist", method = {RequestMethod.GET, RequestMethod.POST})
+	public String faqlist(Model model, CustomerParam param){
+		
+		///////////////////상품문의부분////////////////
+		//페이징
+		int sn = param.getPageNumber();	//0 1 2
+		int start = sn * param.getRecordCountPerPage() + 1;	// 1 11
+		int end = (sn + 1) * param.getRecordCountPerPage(); // 10 20
+		
+		param.setStart(start);
+		param.setEnd(end);
+		
+		List<PqnaDto> pqnalist = PqnaService.getPqnaList(param);
+		
+		//글의 총수
+		int totalRecordCount = PqnaService.getPqnaCount(param);	
+		model.addAttribute("pqnalist", pqnalist);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+
+		return "pqnalist.tiles";
+	}
+	
 	
 	//상품문의 글작성완료
 	@RequestMapping(value = "/pqnaupload", method = {RequestMethod.GET, RequestMethod.POST})
