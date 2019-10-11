@@ -40,7 +40,8 @@
 				<input type="button" value="검색" id="_formbtn" name="formbtn">
 			
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="0">
-	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage ? 0 : recordCountPerPage)}">	
+	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage ? 0 : recordCountPerPage)}">
+	<input type="hidden" name="category" value="${category }">	
 </form>
 	</div>
 	<c:if test="${empty list }">
