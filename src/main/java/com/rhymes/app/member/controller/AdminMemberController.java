@@ -33,8 +33,7 @@ public class AdminMemberController {
 	@RequestMapping(value = "/memlist", method = {RequestMethod.GET, RequestMethod.POST}) 
 	public String memlist(Model model, MemberParam param){
 		log.info("show admin memlistview");
-		System.out.println("@@@@@@@@@@@@@@@param.toString():   "+param.toString());
-		System.out.println("+++++++++++++++++++++     " + param.toString());
+		
 		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
@@ -48,7 +47,6 @@ public class AdminMemberController {
 		
 		//list 총 수
 		int totalRecordCount = adminMemberService.getmemCount(param);
-		System.out.println("+++++++++++++totalRecordCount:    "+totalRecordCount);
 		
 		model.addAttribute("memlist", memlist);
 		
@@ -58,6 +56,7 @@ public class AdminMemberController {
 		model.addAttribute("totalRecordCount", totalRecordCount);		
 		
 		// 추가
+			
 		model.addAttribute("s_category",param.getS_category());
 		model.addAttribute("s_keyword",param.getS_keyword());
 		model.addAttribute("authority",param.getAuthority());
@@ -97,11 +96,7 @@ public class AdminMemberController {
 	}
 
 	
-	 // member list
-	@GetMapping("newmain")
-	public String newMain() {
-		return "AdminMainNew";
-	}
+	 
 	
 
 }
