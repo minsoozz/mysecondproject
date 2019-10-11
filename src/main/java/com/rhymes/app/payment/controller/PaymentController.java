@@ -47,21 +47,17 @@ public class PaymentController {
 	// @GetMapping("/payment")
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
 	public String payment(Model model, String stock_seq, String p_quantity) throws Exception {
-		System.out.println("daraepayment");
-
-		System.out.println("상품재고 번호 : " + stock_seq);
-		System.out.println("상품수량 : " + p_quantity);
 
 		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
 
 		OrderDTO dto = new OrderDTO();
 		dto.setStock_seq(Integer.parseInt(stock_seq));
-		dto.setQuantity(Integer.parseInt(p_quantity));
-
-		System.out.println("재고번호 : " + stock_seq + ", 수량 :" + p_quantity);
 
 		// db 가져오기
 		basketList.add(PaymentService.getOrder(dto));
+		
+		// db에는 재고수량이 있고 주문수량은 없다 매개변수로 받은 주문수량을 직접 넣는다
+		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
 
 		model.addAttribute("basketList", basketList);
 
@@ -179,8 +175,8 @@ public class PaymentController {
 		// Google일 경우 smtp.gmail.com 을 입력합니다.
 		String host = "smtp.naver.com";
 		
-		final String username = "ogbgt5"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-		final String password = "nahdl^*^zrb15"; //네이버 이메일 비밀번호를 입력해주세요.
+		final String username = "project_test_darae"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
+		final String password = "final_project"; //네이버 이메일 비밀번호를 입력해주세요.
 		int port=465; //포트번호
 		
 		// 메일 내용
