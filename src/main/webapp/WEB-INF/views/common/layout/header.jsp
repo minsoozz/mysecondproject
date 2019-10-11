@@ -5,8 +5,10 @@
 <sec:authentication property="principal" var="prc"/>
 <% String ctx = request.getContextPath(); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head> 
 <meta charset="UTF-8">
 
@@ -37,6 +39,7 @@
             <div class="row">
                 <div class="col-5 col-xs-6"> 
                     <div class="top_social_bar">
+
                     
                     <!--  맨위에 sns 아이콘들 -->
                     <div class="top_social_bar">
@@ -45,6 +48,7 @@
                         <a href="https://www.instagram.com/rhymesstore/?igshid=1x7bqfwz6wwle"><i class="fa fa-instagram" aria-hidden="true"></i></a>
 
                     </div>
+
 
                     </div>
                 </div>
@@ -76,11 +80,11 @@
                             
                         </c:if>
 
-
-
                        	<c:if test="${userloginid eq 'ADMIN' }">
-                       		&nbsp;&nbsp;<a href="/admin/memlist">admin</a>
+                       		&nbsp;&nbsp;<a href="/admin/main">admin</a>
                        	</c:if>
+
+
 
 
                             <div class="mypage">

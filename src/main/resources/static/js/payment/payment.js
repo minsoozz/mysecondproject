@@ -2,30 +2,28 @@ $(function(){
 	
 	alert("결제");
 
-
-
 	
-	
-// 주문자와 동일한 정보로 보낼 때
-$("#checkorder").click(function () {
-	//alert("주문자와 동일");
-	
-	$("#receiveid").val( $("#sendid").val() );
-	$("#receivephone1").val( $("#sendphone1").val() );
-	$("#receivephone2").val( $("#sendphone2").val() );
-	$("#receivephone3").val( $("#sendphone3").val() );
-	
-});
-
 
 // 기존 배송지와 같은 장소로 전달할 때
 $("#oldaddress").click(function () {
 	//alert("기존 배송지");
+	
+	var b = $("input:checkbox[id='oldaddress']").is(":checked");
+	
+	if(b){
+		alert("true");
+		$("#receiveid").val( $("#sendid").val() );
+		$("#receivephone1").val( $("#sendphone1").val() );
+		$("#receivephone2").val( $("#sendphone2").val() );
+		$("#receivephone3").val( $("#sendphone3").val() );
+	}else{
+		alert("false");
+		$("#receiveid").val( "" );
+		$("#receivephone1").val( "" );
+		$("#receivephone2").val( "" );
+		$("#receivephone3").val( "" );
+	}
 
-	$("#receiveid").val( $("#sendid").val() );
-	$("#receivephone1").val( $("#sendphone1").val() );
-	$("#receivephone2").val( $("#sendphone2").val() );
-	$("#receivephone3").val( $("#sendphone3").val() );
 });
 
 
@@ -105,9 +103,16 @@ $("#enterBtn").click(function() {
 
 
 
-$("#mail_move").click(function () {
-	alert("메일");
-	location.href="/mailSender";
+$("#coupon_btn").click(function () {
+	window.open("/payment_coupon", "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
+});
+
+
+
+
+
+$("#coupon_popup_btn").click(function () {
+	alert("confirm");
 });
 
 
@@ -115,18 +120,6 @@ $("#mail_move").click(function () {
 
 
 });
-
-
-
-
-
-function coupon_change(){
-	alert("쿠폰");
-
-	// 총 금액 계산
-	var coupon_use = $("#coupon_use").val();
-	alert(coupon_use);
-}
 
 
 
