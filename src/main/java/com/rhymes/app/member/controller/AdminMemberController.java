@@ -98,7 +98,10 @@ public class AdminMemberController {
 
 	
 	 // member list
-	 
+	@GetMapping("newmain")
+	public String newMain() {
+		return "AdminMainNew";
+	}
 	
 
 }
