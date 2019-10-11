@@ -48,7 +48,7 @@ a:active {
 #footer_wrap {
 	z-index: -1;
 	position: relative;
-	top: 300px;
+	top: 16px;
 }
 .rememberCheck{
     /* padding-left: 1.25rem; */
