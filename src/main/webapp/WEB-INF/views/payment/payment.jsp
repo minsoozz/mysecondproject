@@ -172,10 +172,10 @@
 </c:if>
 <tr>
 	<th>적립금 적용</th>
-<c:if test="${empty point_amount }">
+<c:if test="${point_amount eq 0 }">
 	<td colspan="2">사용 가능한 적립금이 없습니다</td>
 </c:if>
-<c:if test="${not empty point_amount }">
+<c:if test="${point_amount ne 0 }">
 	<td colspan="2">
 	<input type="text">원
 	&nbsp;&nbsp;사용가능 적립금 : <fmt:formatNumber value="${point_amount }" />원
