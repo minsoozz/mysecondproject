@@ -113,6 +113,9 @@ body{
    /* padding-top: 5px;
    margin-top: 5px; */
 }
+
+
+/*장바구니*/
 .basket{
     display:none;
     width:18%;
@@ -123,7 +126,7 @@ body{
     top:5px;
     bottom:5px;
     right:0px;
-    background-color:#d7fd75;
+    background-color:#ebffb9;
     z-index: 100000;
 }
 

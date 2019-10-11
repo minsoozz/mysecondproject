@@ -524,7 +524,7 @@ function showBasketList(arrLen, arr){
    $(".blist").html("");
    $("#baskettitle").remove();
    var str = "";
-   var str = "<br><div align='center' id='baskettitle'><h2>장바구니</h2><br></div>";
+   var str = "<br><br><div align='center' id='baskettitle'><h4>장바구니</h4><br></div>";
    for (var i = 0; i < arrLen; i++) {
       str += "<div stylesdf='margin-top:5%;' align='center' class='blist' >";
       str += "<label><img src='/upload/store/"+ arr[i].photo1_file + "' style='width:100px; height:100px;'><br>";
