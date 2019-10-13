@@ -84,7 +84,7 @@ pageNumber : ${pageNumber }<br>
 	</jsp:include>
 </div>
                
-<form action="/Rhymes/store/productDetail" id="moveFrm" method="get">
+<form action="/store/productDetail" id="moveFrm" method="get">
 	<%-- <!-- ★ csrf 예방을 위한 코드추가 -->
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 	<input type="hidden" id="p_seq" name="p_seq" value="0">
@@ -95,7 +95,7 @@ pageNumber : ${pageNumber }<br>
 </form>
 
 <!-- 페이징 FORM -->
-<form id="_frmFormSearch" method="get" action="/Rhymes/store/productList" >
+<form id="_frmFormSearch" method="get" action="/store/productList" >
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:0 }">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 	<input type="hidden" name="c1_name" value="${c1_name }">
@@ -106,7 +106,7 @@ pageNumber : ${pageNumber }<br>
 </form>
 
 <!-- 정렬 FORM -->
-<form id="sortingFrm" method="get" action="/Rhymes/store/productList" >
+<form id="sortingFrm" method="get" action="/store/productList" >
 	<input type="hidden" name="sorting" class="_sorting" value="">
 	<input type="hidden" name="c1_name" class="_c1name" value="${c1_name }">
 	<input type="hidden" name="c2_name" class="_c2name" value="${c2_name }">
@@ -142,7 +142,7 @@ $(document).ready(function () {
 function detail(seq, c1name){
 	$("#p_seq").val(seq); 
 	//var c1_name = $(".hdnC1name").val();
-	//$("#moveFrm").attr("action", "/Rhymes/store/productList").submit();
+	//$("#moveFrm").attr("action", "/store/productList").submit();
 	$("#moveFrm").submit();
 }
 

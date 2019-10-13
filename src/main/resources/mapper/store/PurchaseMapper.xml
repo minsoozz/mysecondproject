@@ -58,7 +58,11 @@
  	DELETE FROM rhy_store_wishlist
 	WHERE ID = #{id} AND P_SEQ = #{p_seq}
  </delete>
- 
+<!-- 재입고 알림 -->
+ <insert id="rn_insert" parameterType="com.rhymes.app.Store.model.RestockNotifyDto">
+ 	INSERT INTO rhy_store_restock_notify
+ 	VALUES(NULL, #{id}, #{stock_seq}, #{phone}, NOW())
+ </insert> 
 
  
 </mapper>

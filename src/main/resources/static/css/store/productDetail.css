@@ -1,5 +1,6 @@
 -@charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 
 .slider_wrap{
 	position: absolute;
@@ -15,6 +16,8 @@ body{
 	min-height: 100%;
 	padding: 30px;
 	box-sizing: border-box;
+	overflow-x:hidden;
+	
 }
 
 #body_wrap { width:1600px; height:2000px; margin-left:auto; margin-right:auto; padding:0px;}	
@@ -283,6 +286,19 @@ opacity: 0.9;
 	font-family: "Noto Sans KR", sans-serif;
 	font-size: 20px;
 }
+#restockBtn{
+	/* font-family: 'Do Hyeon', sans-serif; */
+	font-family: "Noto Sans KR", sans-serif;
+	font-size: 13px;
+	cursor:pointer;
+}
+#restockBtn img{
+	width:19px;
+	height:19px;
+}
+#restockBtn : hover{
+	color:grey;
+}
 
 /* Modal Css */
 	.modal {
@@ -328,9 +344,9 @@ opacity: 0.9;
 		z-index: 1; /* Sit on top */
 		left: 0;
 		margin:auto;
-		top: 0;
+		top: 300px;
 		width: 100%; /* Full width */
-		height: 40%; /* Full height */
+		height: 50%; /* Full height */
 		overflow: hidden; /* Enable scroll if needed */
 		/* background-color: rgb(0,0,0); Fallback color
 		background-color: rgba(0,0,0,0.4); */ /* Black w/ opacity */
@@ -362,4 +378,72 @@ opacity: 0.9;
 		text-decoration: none;
 		cursor: pointer;
 	}	
+/* restock modal */
+.restockModal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: -13%;
+	width: 100%; /* Full width */
+	height: 113%; /* Full height */
+	overflow: hidden; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ }
+.restockModal-content {
+    background-color: #fefefe;
+	margin: 10% auto; /* 10% from the top and centered */
+	padding: 40px;
+	width:500px;
+	height:auto;
+	border: 1px solid #888;
+	border-radius: 5px;
+	overflow: scroll;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	
+ }
+/* .restockModal-content::-webkit-scrollbar { 
+    display: none; 
+} */
+#restock-img{
+	width:150px;
+	height:150px;
+	align:center;
+	margin:auto;
+	margin-top: 40px;
+	left: 0;
+	top: 0;
+	
+}
+
+#_sizeRestock{
+   font: 100 14px Open Sans;
+   font-style: inherit;
+   width: 50px;
+   height:30px;
+   display : inline-block;
+   text-align: center;
+   border: 1px solid #DADCE0;
+   padding-top: 6px;
+   width: 90px;
+   height:40px;
+   /* padding-top: 5px;
+   margin-top: 5px; */
+}
+#restockPhone{
+	margin-top: 5px;
+	width:100%;
+	height:45px;
+	padding:12px;
+	
+}
+#rsFinish-btn{
+	background-color: black;
+	color:white;
+	width:200px;
+	height:55px;	
+}
+
 

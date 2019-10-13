@@ -15,7 +15,7 @@
 <div class="sidenav">
 
  <c:if test="${not empty c1_name}">
- <a style="text-align: left; font-size: 15px;" onclick="location.href='/Rhymes/store/productList?c1_name=${c1_name}'">
+ <a style="text-align: left; font-size: 15px;" onclick="location.href='/store/productList?c1_name=${c1_name}'">
  		<c:if test="${not empty keyword}">
  			<br>${keyword }&nbsp;&nbsp;for&nbsp;
  		</c:if>
@@ -104,18 +104,18 @@
 <body>
 
 <!-- 검색 -->
-<form action="/Rhymes/store/productList" method="get" id='searchFrm'>
+<form action="/store/productList" method="get" id='searchFrm'>
 	<input type='hidden' name="criterion" value="all_search">	
 	<input type="hidden" name="keyword" class="keyword" value="">
 	<input type="hidden" name="c1_name" class="c1_name" value="">
 </form>
 <!-- 브랜드 클릭 -->
-<form action="/Rhymes/store/productList" method="get" id='brandClickFrm'>
+<form action="/store/productList" method="get" id='brandClickFrm'>
 	<input type='hidden' name='keyword' value="" class="keyword">	
 	<input type='hidden' name='criterion' value="company_search">
 </form>
 <!-- 3차 카테고리 클릭 -->
-<form action="/Rhymes/store/productList" method="get" id='c3ClickFrm'>
+<form action="/store/productList" method="get" id='c3ClickFrm'>
 	<input type='hidden' name='c1_name' value="" class="c3_c1name">	
 	<input type='hidden' name='c2_name' value="" class="c3_c2name">
 	<input type='hidden' name='c3_name' value="" class="c3_c3name">
@@ -140,7 +140,7 @@ $(document).on('click', '#withoutC1C1list', function(){
 	$.ajax({
         type:"get",
         data: "c1_name="+ c1_name +"&c1_seq=" + c1_seq +"&keyword=" + keyword,
-        url:"/Rhymes/store/kCate2List",
+        url:"/store/kCate2List",
         success:function( data ){
         	var obj = JSON.stringify(data);
 			var arr = JSON.parse(obj);
@@ -186,7 +186,7 @@ $(document).on('click', '.dropdown-btn2', function(){
 	$.ajax({
         type:"get",
         data: "c1_name="+ c1_name +"&c2_name=" + c2_name +"&keyword=" + keyword2,
-        url:"/Rhymes/store/kCate3List",
+        url:"/store/kCate3List",
         success:function( data ){
         	var obj = JSON.stringify(data);
 			var arr = JSON.parse(obj);
@@ -257,7 +257,7 @@ function bring3cate(c2_seq){
 		$.ajax({
 	        type:"get",
 	        data: "c2_seq=" + c2_seq,
-	        url:"/Rhymes/store/cate3List",
+	        url:"/store/cate3List",
 	        success:function( data ){
 	        	var obj = JSON.stringify(data);
 				var arr = JSON.parse(obj);
@@ -273,7 +273,7 @@ function bring3cate(c2_seq){
 		$.ajax({
 	        type:"get",
 	        data: "c1_name="+ c1_name +"&c2_name=" + c2_name +"&keyword=" + keyword,
-	        url:"/Rhymes/store/kCate3List",
+	        url:"/store/kCate3List",
 	        success:function( data ){
 	        	var obj = JSON.stringify(data);
 				var arr = JSON.parse(obj);

@@ -92,7 +92,7 @@
                             </div>
                             <c:if test="${userloginid ne null}">
                             <div class="cart">
-                                <a href="/Rhymes/store/basket">Cart</a>
+                                <a href="/store/basket">Cart</a>
                             </div>
 							</c:if>
                         </div>
@@ -149,10 +149,10 @@
                             <ul class="navbar-nav" id="rhymes-nav">
                             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=WOMEN">WOMEN</a>
+                                    <a class="nav-link" href="/store/productList?c1_name=WOMEN">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=MEN">MEN</a>
+                                    <a class="nav-link" href="/store/productList?c1_name=MEN">MEN</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/used/usedlist">MARKET</a>
