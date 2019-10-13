@@ -12,6 +12,7 @@ import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.category.Category1Dto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
+import com.rhymes.app.member.model.SellerDTO;
 
 @Repository
 public class RegisterDaoImpl implements RegisterDao {
@@ -52,6 +53,11 @@ public class RegisterDaoImpl implements RegisterDao {
 	public String getSizeunit(int c2_seq) throws Exception {
 		System.out.println("c2_seq : " + c2_seq);
 		return sqlSession.selectOne(ns + "getSizeunit", c2_seq);
+	}
+
+	@Override
+	public SellerDTO getCname(SellerDTO seller) throws Exception {
+		return sqlSession.selectOne(ns + "getCname", seller);
 	}
 
 	

@@ -228,7 +228,7 @@
 <!-- <button id="finishBtn" class="f_button">판매등록하기</button> -->
  <!-- enctype="multipart/form-data" --> 
 
-<form action="/Rhymes/store/registerInsert" enctype="multipart/form-data" method="post">
+<form action="/store/registerInsert" enctype="multipart/form-data" method="post">
 	
 	<!-- ★ csrf 예방을 위한 코드추가 -->
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -349,7 +349,7 @@ $(document).ready(function(){
 		$.ajax({
 	        type:"get",
 	        data: "c1_seq=" + c1_seq,
-	        url:"/Rhymes/store/cate2List",
+	        url:"/store/cate2List",
 	        success:function( data ){
 	            var obj = JSON.stringify(data);
 				var arr = JSON.parse(obj);
@@ -400,7 +400,7 @@ $(document).ready(function(){
 		$.ajax({
 	        type:"get",
 	        data: "c2_seq=" + c2_seq,
-	        url:"/Rhymes/store/cate3List",
+	        url:"/store/cate3List",
 	        success:function( data ){
 	        	var obj = JSON.stringify(data);
 				var arr = JSON.parse(obj);
@@ -447,7 +447,7 @@ $(document).ready(function(){
 		$.ajax({
 	        type:"get",
 	        data: "c2_seq=" + sel_c2seq,
-	        url:"/Rhymes/store/sizeUnit",
+	        url:"/store/sizeUnit",
 	        success:function( data ){
 				//alert("성공!!!!!!!!!!!!!!!!!!!");	        	
 	        	//alert(data.length);

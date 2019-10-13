@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+<style>
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Inconsolata|Reenie+Beanie|Schoolbell&display=swap');
+</style>
+
 
 body{
    font-family: "Noto Sans KR", sans-serif;	
@@ -15,6 +19,42 @@ body{
    margin-right:auto; 
    padding:0px;
    margin-top: 30px;
+   
+}
+
+.titleDiv{
+   font-family: 'Alegreya Sans SC', sans-serif;
+   margin:0 auto;
+   display:table;
+   width:85%;
+   height:40px;
+   text-align: center;
+   vertical-align: middle;
+   left:40%;
+   align:center;
+   margin-bottom: 0;
+   /* border:2px solid red; */
+}
+.trackingDiv{
+	float:left;
+	color:grey;
+	font-size: 13px;
+	padding-top: 5px;
+}
+
+.sortingDiv{
+	position:absolute;
+	right:10%;
+}
+.sortingBy{
+	color:grey;
+	margin-right: 20px;
+	cursor:pointer;	 
+}
+#c3fontstyle{
+	color:black;
+	font-weight: bold;
+	
 }
 
 .subDiv{
@@ -60,7 +100,7 @@ body{
 	top: 0;
 	overflow: hidden;
 }
-#keyword{
+#searchWord{
     border: 1px solid #DADCE0;
     padding: 15px;
     border-radius: 4px;
@@ -91,8 +131,8 @@ body{
 	font-weight: bold;
 	margin: 5%;
 	margin-top: 8%;
-	margin-left: 22%;
-	position:absolute;
+	margin-left: -4%;
+	position:relative;
 }
 
 

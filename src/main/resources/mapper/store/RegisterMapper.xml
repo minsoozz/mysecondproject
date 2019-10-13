@@ -41,4 +41,9 @@
  	FROM rhy_store_product 	 
  </select>
  
+ <select id="getCname" resultType="com.rhymes.app.member.model.SellerDTO" parameterType="com.rhymes.app.member.model.SellerDTO">
+ 	SELECT C_NAME FROM rhy_mem_c
+ 	WHERE ID = #{ id }  	
+ </select>
+ 	
 </mapper>

@@ -4,6 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
+ <!-- test -->
+ 
+ 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <input type="hidden" class="_c1name" value="${c1_name }">
@@ -12,7 +15,7 @@
 <div class="sidenav">
 
  <c:if test="${not empty c1_name}">
- <a style="text-align: left; font-size: 15px;" onclick="location.href='/Rhymes/store/productList?c1_name=${c1_name}'">
+ <a style="text-align: left; font-size: 15px;" onclick="location.href='/store/productList?c1_name=${c1_name}'">
  		<c:if test="${not empty keyword}">
  			<br>${keyword }&nbsp;&nbsp;for&nbsp;
  		</c:if>
@@ -32,7 +35,7 @@
 </a>
 </c:if>
 <c:if test="${empty keyword}">
-    <a href="#">WHAT THEY WANT 16</a>
+    <a href="#"><b>BEST</b></a>
 </c:if>    
   <c:forEach items="${cate2list }" var="cate2" varStatus="vs">
 	  <input type="hidden" value="${cate2.c2_name }">
@@ -53,14 +56,12 @@
    </button>
    <!-- 2차 카테고리 -->
    <div class="dropdown-container" id="withoutC1C2${b_cate1.c1_seq}">
-   	
-   	<!-- 3차 카테고리 -->
-	<div class="dropdown-container" id="withoutC1C3${b_cate1.c1_seq }">
-	   		
-	</div>
+	   	<!-- 3차 카테고리 -->
+	   
    </div>
  </c:forEach>
 
+<!-- 브랜드 리스트 -->
   <br>
   <button class="dropdown-btn"><b>BRAND</b>
     <i class="fa fa-caret-down"></i>
@@ -91,7 +92,7 @@
 			<input type="radio" name='mwChk' id="wChk" class="_mwChk" style="display:none" value="WOMEN">
 			<label for="wChk" class="mwRadioL" style="cursor: pointer; background-color: white;">WOMEN</label>
 			
-			<input type="text" id="keyword" style="widht:500px;" placeholder="SEARCH" onkeypress="if( event.keyCode==13 ){search();}">
+			<input type="text" id="searchWord" style="widht:500px;" placeholder="SEARCH" onkeypress="if( event.keyCode==13 ){search();}">
 
 			<img src="https://cdn0.iconfinder.com/data/icons/it-hardware/100/search-512.png" style="width:40px; height:40px; cursor:pointer;" onclick="search()">  <!-- id="m_search_btn" -->&nbsp;
 		</div>
@@ -103,22 +104,24 @@
 <body>
 
 <!-- 검색 -->
-<form action="/Rhymes/store/productList" method="get" id='searchFrm'>
+<form action="/store/productList" method="get" id='searchFrm'>
 	<input type='hidden' name="criterion" value="all_search">	
 	<input type="hidden" name="keyword" class="keyword" value="">
 	<input type="hidden" name="c1_name" class="c1_name" value="">
 </form>
 <!-- 브랜드 클릭 -->
-<form action="/Rhymes/store/productList" method="get" id='brandClickFrm'>
+<form action="/store/productList" method="get" id='brandClickFrm'>
 	<input type='hidden' name='keyword' value="" class="keyword">	
 	<input type='hidden' name='criterion' value="company_search">
 </form>
 <!-- 3차 카테고리 클릭 -->
-<form action="/Rhymes/store/productList" method="get" id='c3ClickFrm'>
+<form action="/store/productList" method="get" id='c3ClickFrm'>
 	<input type='hidden' name='c1_name' value="" class="c3_c1name">	
 	<input type='hidden' name='c2_name' value="" class="c3_c2name">
 	<input type='hidden' name='c3_name' value="" class="c3_c3name">
 	<input type='hidden' name='keyword' value="" class="keyword">
+	<input type='hidden' name='criterion' value="${criterion }" class="criterion">
+	
 </form>
 
 <!--------------------- SCRIPTZONE ----------------------------------->
@@ -127,6 +130,7 @@
 //카테고리 없이 검색어바로 들어올시 1차카테고리 생성 후 
 //1차 카테고리 클릭 -> 2차 카테고리 불러오기
 $(document).on('click', '#withoutC1C1list', function(){
+	
 	var c1_name = $(this).val();
 	var c1_seq = $(this).attr("value2");
 	var keyword = $("._keyword").val();
@@ -136,7 +140,7 @@ $(document).on('click', '#withoutC1C1list', function(){
 	$.ajax({
         type:"get",
         data: "c1_name="+ c1_name +"&c1_seq=" + c1_seq +"&keyword=" + keyword,
-        url:"/Rhymes/store/kCate2List",
+        url:"/store/kCate2List",
         success:function( data ){
         	var obj = JSON.stringify(data);
 			var arr = JSON.parse(obj);
@@ -148,36 +152,41 @@ $(document).on('click', '#withoutC1C1list', function(){
            alert("error!!"); 
         }
    })
-	
 
 });
 function addkCate2(arr, arrLen, c1_seq, c1_name) {
-	
+ 	
 	var str ="";
 	for (var i = 0; i < arrLen; i++) {
-		str += "<button class='dropdown-btn2' id='withoutC1C2list' c2name='"+arr[i].c2_name+"' ";
+		str += "<button class='dropdown-btn2' id='withoutC1C2list"+arr[i].c2_seq+"' c2name='"+arr[i].c2_name+"' ";
 		str += "c2seq='"+arr[i].c2_seq+"' c1name='"+c1_name+"' c1seq='"+c1_seq+"'>";
 		str += arr[i].c2_name;
 		str += "<i class='fa fa-caret-down'></i>";
 		str += "</button>";
 	}
-	$("#withoutC1C3" + c1_seq).append(str);
+	$("#withoutC1C2" + c1_seq).append(str);
+	
 }
 
 
 //카테고리 없이 검색어바로 들어올시 1차카테고리 생성 후 
 //2차 카테고리 클릭 -> 3차 카테고리 불러오기
-$(document).on('click', '#withoutC1C2list', function(){
+$(document).on('click', '.dropdown-btn2', function(){
+	$("a[name='cbtn3']").fadeOut();
+	$(".criterion").val("all_search");
+	
 	var c1_name = $(this).attr("c1name");
 	var c1_seq = $(this).attr("c1seq");
 	var c2_name = $(this).attr("c2name");
 	var c2_seq = $(this).attr("c2seq");
 	var keyword2 = $("._keyword").val();
+	//alert(c2_name);
+	//alert(c1_name + ", " + c1_seq + ", " + c2_name + ", " + c2_seq + ", " + keyword2);
 	
 	$.ajax({
         type:"get",
         data: "c1_name="+ c1_name +"&c2_name=" + c2_name +"&keyword=" + keyword2,
-        url:"/Rhymes/store/kCate3List",
+        url:"/store/kCate3List",
         success:function( data ){
         	var obj = JSON.stringify(data);
 			var arr = JSON.parse(obj);
@@ -189,24 +198,27 @@ $(document).on('click', '#withoutC1C2list', function(){
            alert("error!!"); 
         }
    })
-	
-	
 });
-function addkCate3(arr, arrLen, c1_name, c1_seq, c2_name, c2_seq){
+
+function addkCate3(arr, arrLen, c1_name, c2_name, c2_seq, c1_seq){
 	//alert(c1_name);
 	//alert(c2_name);
-	var str ="";
+	//alert(c1_name)
+	var str ="";		
+	str += "<div class='dropdown-container2'>";
 	for (var i = 0; i < arrLen; i++) {
-		str += "<a href='#' class='_cate3a"+c2_seq+"' id='cate3_btn' style='cursor:pointer;' c3_name='"+arr[i].c3_name+"' c2_name='"+c2_name+"'>";
+		str += "<a href='#' name='cbtn3' class='_cate3a"+c2_seq+"' id='cate3_btn' style='cursor:pointer;' c3_name='"+arr[i].c3_name+"' c2_name='"+c2_name+"' c1_name='"+c1_name+"'>";
 		str += arr[i].c3_name;
 		str += "</a>";
 	}
+	str += "</div>";
 	//alert(str);
-	//alert(c1_seq);
-	$("#withoutC1C2" + c1_seq).append(str);
+	//alert(c2_seq);
+	$("#withoutC1C2list" + c2_seq).after(str);
+	//$(".dropdown-btn2").after(str);
+	//$(".dropdown-btn2").nextElementSibling.fadeIn();
 	
 }
-
 
 // 3차 카테고리 클릭시
 $(document).on('click', '#cate3_btn', function(){
@@ -215,13 +227,16 @@ $(document).on('click', '#cate3_btn', function(){
 	var c2_name = $(this).attr("c2_name");
 	$(".c3_c2name").val(c2_name);
 	var c1_name = $("._c1name").val();
+	if(c1_name==''){
+		c1_name = $(this).attr("c1_name");
+	}	
 	$(".c3_c1name").val(c1_name);
 	var keyword = $("._keyword").val();
 	$(".keyword").val(keyword);
 	
+	//alert(c1_name);
+	
 	$("#c3ClickFrm").submit();
-	
-	
 	
 });
 
@@ -242,7 +257,7 @@ function bring3cate(c2_seq){
 		$.ajax({
 	        type:"get",
 	        data: "c2_seq=" + c2_seq,
-	        url:"/Rhymes/store/cate3List",
+	        url:"/store/cate3List",
 	        success:function( data ){
 	        	var obj = JSON.stringify(data);
 				var arr = JSON.parse(obj);
@@ -258,7 +273,7 @@ function bring3cate(c2_seq){
 		$.ajax({
 	        type:"get",
 	        data: "c1_name="+ c1_name +"&c2_name=" + c2_name +"&keyword=" + keyword,
-	        url:"/Rhymes/store/kCate3List",
+	        url:"/store/kCate3List",
 	        success:function( data ){
 	        	var obj = JSON.stringify(data);
 				var arr = JSON.parse(obj);
@@ -270,7 +285,6 @@ function bring3cate(c2_seq){
 	           alert("error!!"); 
 	        }
 	   })
-		
 	}
 }
 
@@ -282,12 +296,13 @@ function addCate3(arr, arrLen, c2_seq, c2_name) {
 		str += arr[i].c3_name;
 		str += "</a>";
 	}
+	
 	$("#cate3zone" + c2_seq).append(str);
 }
 
 function search(){
 	var c1_name = $("input[name='mwChk']:checked").val();
-	var keyword = $("#keyword").val();
+	var keyword = $("#searchWord").val();
 	
 	if(keyword != ""){
 		if(keyword.length < 12){
@@ -314,7 +329,7 @@ $('body').click(function(e){
         	//$(".modal").css("display", "none");
         	$(".modal").fadeOut();
         	/* 검색창 초기화 */
-        	$("#keyword").val('');
+        	$("#searchWord").val('');
         	$("input:radio[name='mwChk']").prop("checked", false);
         	$(".mwRadioL").attr('style', 'background-color:white');
          } 
@@ -334,6 +349,8 @@ $(document).on('click', '.brandClick', function(){
 });	
 
 //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+
+
 var dropdown = document.getElementsByClassName("dropdown-btn");
 var i;
 
@@ -357,36 +374,32 @@ for (i = 0; i < dropdown.length; i++) {
   });
 }
 
-var dropdown = document.getElementsByClassName("dropdown-btn2");
-var i;
 
-for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
-	this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    
-    if (dropdownContent.style.display === "block") {    	
-      //dropdownContent.style.display = "none";
-      $(this.nextElementSibling).fadeOut();
-    } else {
-      //$(".dropdown-container").attr('style', "display:none;");
-      $(".dropdown-container2").fadeOut();
-      $(".dropdown-btn2").attr('style', "background-color:white;");
-      $(this).attr('style', "background-color:#d7fd75;");
-      //dropdownContent.style.display = "block";
-      $(this.nextElementSibling).fadeIn();
-      
-    }
-  });
-}
+	var dropdown = document.getElementsByClassName("dropdown-btn2");
+	var i;
+	
+	for (i = 0; i < dropdown.length; i++) {
+	  dropdown[i].addEventListener("click", function() {
+		//alert("ggggggggg");
+		this.classList.toggle("active");
+	    var dropdownContent = this.nextElementSibling;
+	    
+	    if (dropdownContent.style.display === "block") {    	
+	    	$(this.nextElementSibling).fadeOut();
+	      //$(this.nextElementSibling).show();
+	      
+	    } else {
+	    	//alert("닫힘->열림");
+	      //$(".dropdown-container").attr('style', "display:none;");
+	      $(".dropdown-container2").fadeOut();
+	      $(".dropdown-btn2").attr('style', "background-color:white;");
+	      $(this).attr('style', "background-color:#d7fd75;");
+	      $(this.nextElementSibling).fadeIn();
+	      
+	    }
+	  });
+	}
 
-
-
-
-/* 회사이름 sorting */
- function cnameMove(c_name){
-	alert(c_name);
-}
 
 </script>
 </body>

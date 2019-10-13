@@ -45,7 +45,7 @@
                     <div class="top_social_bar">
                         <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                         <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="https://www.instagram.com/rhymesstore/?igshid=1x7bqfwz6wwle"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/rhymesstore/?igshid=16e3i1e5qn8aq"><i class="fa fa-instagram" aria-hidden="true"></i></a>
 
                     </div>
 
@@ -90,10 +90,11 @@
                             <div class="mypage">
                                 <a href="/mypage/orderlog">Mypage</a>
                             </div>
+                            <c:if test="${userloginid ne null}">
                             <div class="cart">
-                                <a href="/Rhymes/store/basket">Cart</a>
+                                <a href="/store/basket">Cart</a>
                             </div>
-
+							</c:if>
                         </div>
                         
                         <!-- 
@@ -148,10 +149,10 @@
                             <ul class="navbar-nav" id="rhymes-nav">
                             
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=WOMEN">WOMEN</a>
+                                    <a class="nav-link" href="/store/productList?c1_name=WOMEN">WOMEN</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Rhymes/store/productList?c1_name=MEN">MEN</a>
+                                    <a class="nav-link" href="/store/productList?c1_name=MEN">MEN</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/used/usedlist">MARKET</a>
