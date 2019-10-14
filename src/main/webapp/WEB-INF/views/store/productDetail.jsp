@@ -179,18 +179,20 @@ $(document).ajaxSend(function(e, xhr, options) {
 			</div>
 			<br>
 			<hr width = "100%" color = "#DADCE0"><br>
-			<div id="restock-size">
+			<div id="restock-size" style="margin-top: -10px;">
 				<div>
-					<div style="float:left; margin-right: 50%;">
+					<div style="float:left;">
 						<strong>사이즈</strong>
 					</div>
-					<div>
+					<div class="_putrsSize">
 						<label style="color:grey; font-size: 12px;" class="restockLabel">사이즈를 선택하세요.</label> &nbsp;
 						<input type="hidden" id="restockseq-hdn">
+					</div>
+					<div>	
 						<a href="#">변경</a>
 					</div>
 				</div>
-				<div style="margin-top: 5px;">
+				<div style="margin-top: 30px;">
 				<c:forEach items="${sizelist }" var="size" varStatus="vs">
 					<c:if test="${size.quantity eq 0 }">
 						<input type="radio" name='restockRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display: none"
@@ -199,10 +201,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 						style="cursor: pointer; background-color: white;"><strong>${size.size }</strong></label>
 					</c:if>
 					<c:if test="${size.quantity ne 0 }">
-						<input type="radio" name='restockRadio' id="chooseSize${vs.count }" disabled="disabled" class="_chooseSize${index.count }" style="display: none"
-							value="${size.size }" value2="${size.stock_seq }">
-						<label for="chooseSize${vs.count }" id="_sizeRestock"
-							style="cursor: pointer; background-color: #DADCE0; color: grey;">${size.size }</label>
+						<label id="_sizeRestock" style="background-color: #DADCE0; color: grey;" >${size.size }</label>
 					</c:if>
 				</c:forEach>
 				</div>
@@ -211,8 +210,8 @@ $(document).ajaxSend(function(e, xhr, options) {
 				<input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="&quot;-&quot;&nbsp;없이 숫자만 입력해 주세요." id="restockPhone">	
 				<br><br>
 				<div style="font-size: 12px;">
-				<input type="checkbox" id="restockInfoChk" style="margin-bottom: 15px">
-					<a href="#" style="color:black"><b>개인정보 수집,</b></a> 이용에 동의합니다.
+				<input type="checkbox" name="personinfoChk" id="restockInfoChk" style="margin-bottom: 15px; cursor: pointer;">
+					&nbsp;<a href="#" style="color:black"><b>개인정보 수집,</b></a> 이용에 동의합니다.
 				</div><br>
 				<div align="center">
 					<input type="button" value="입고 알림 신청" id="rsFinish-btn">
@@ -455,32 +454,72 @@ $(document).ajaxSend(function(e, xhr, options) {
 $(document).on('click', '#rsFinish-btn', function(){
 	//★폰번호 자릿수, 체크박스 유효성 체크해야함
 	
+	
 	var phone = $("#restockPhone").val();
 	var stock_seq = $("#restockseq-hdn").val();
-	
-	 $.ajax({
-         type:"get",
-         data: "phone=" + phone + "&stock_seq=" + stock_seq,
-         url:"/store/restockNotify_insert",
-         success:function( data ){
-          // 닫고 초기화
-          $(".restockModal").fadeOut();
-	      $(".restockLabel").html("사이즈를 선택하세요.");
-	      $("#restockPhone").val("");
-	      $("input:radio[name='restockRadio']").prop("checked", false);
-	      $(".restock_label").attr('style', 'background-color:white');
-          // 성공 메시지
-	      $("#msg").html("<strong>입고 알림신청이 완료되었습니다.</strong>")
-	      $(".wModal").fadeIn();
-	      setTimeout(function() {
-	         $(".wModal").fadeOut();
-	      },2500);
-          
-       },
-         error:function(){
-            alert("error!!"); 
-         }
-    }) 
+	var pinfoChk = $("input:checkbox[name='personinfoChk']").prop("checked");
+
+	if(stock_seq == ""){
+		$("#msg").html("<strong>사이즈를 선택해주세요.</strong>");
+	      	 $(".wModal").fadeIn();
+	     	 setTimeout(function() {
+	         	$(".wModal").fadeOut();
+	         },1000);
+    }else{
+		if(phone.length == 11){
+			 
+			if(pinfoChk){
+				$.ajax({
+			         type:"get",
+			         data: "phone=" + phone + "&stock_seq=" + stock_seq,
+			         url:"/store/restockNotify_insert",
+			         success:function( data ){
+			        	 if(data == "already"){
+			        		 $("#msg").html("<strong>이미 입고 알림신청이 된 상태입니다.</strong>");
+			   		      	 $(".wModal").fadeIn();
+			   		     	 setTimeout(function() {
+			   		         	$(".wModal").fadeOut();
+			   		         },2500);
+			   		     	$(".restockLabel").html("사이즈를 선택하세요.");
+			   		        $("input:radio[name='restockRadio']").prop("checked", false);
+					        $(".restock_label").attr('style', 'background-color:white'); 
+			   		     	 
+			        	 }
+			        	 else if(data == "insert"){
+					          // 닫고 초기화
+					          $(".restockModal").fadeOut();
+						      $("#restockPhone").val("");
+						      $("input:radio[name='restockRadio']").prop("checked", false);
+						      $(".restock_label").attr('style', 'background-color:white');
+						      $(".restockLabel").html("사이즈를 선택하세요.");
+					          // 성공 메시지
+						      $("#msg").html("<strong>입고 알림신청이 완료되었습니다.</strong>")
+						      $(".wModal").fadeIn();
+						      setTimeout(function() {
+						         $(".wModal").fadeOut();
+						      },2500);
+			        	 }          
+			       },
+			         error:function(){
+			            alert("error!!"); 
+			         }
+			     })
+			}else{
+				 $("#msg").html("<strong>입고 알림 신청을 위해 개인정보 수집에 동의해주세요.</strong>");
+   		      	 $(".wModal").fadeIn();
+   		     	 setTimeout(function() {
+   		         	$(".wModal").fadeOut();
+   		         },2000);
+			}   
+		  }else{
+			  $("#msg").html("<strong>휴대폰 번호를 정확하게 입력해주세요</strong>");
+		      	 $(".wModal").fadeIn();
+		     	 setTimeout(function() {
+		         	$(".wModal").fadeOut();
+		         },2000);
+		     	$("#restockPhone").focus();
+		   }
+    	}
 });
 
 
@@ -498,7 +537,7 @@ $(document).on('click', '.restock_label', function(){
 	//alert(stock_seq);
 	//alert(stock_size);
 	$("#restockseq-hdn").val(stock_seq);
-	$(".restockLabel").html(stock_size);
+	$(".restockLabel").html("<strong>"+stock_size+"</strong>");
 	
 });
 
@@ -510,11 +549,11 @@ $('body').click(function(e){
         if(!$('.restockModal, .restockModal').has(e.target).length) { 
         	//$(".modal").css("display", "none");
         	$(".restockModal").fadeOut();
-        	$(".restockLabel").html("사이즈를 선택하세요.");
         	$("#restockPhone").val("");
         	
         	$("input:radio[name='restockRadio']").prop("checked", false);
         	$(".restock_label").attr('style', 'background-color:white');
+        	$(".restockLabel").html("사이즈를 선택하세요.");
         	
          } 
  	 }

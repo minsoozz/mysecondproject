@@ -93,6 +93,12 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		return n>0?true:false;
 	}
 
+	@Override
+	public boolean chkRestockN(RestockNotifyDto restock) throws Exception {
+		int n = sqlSession.selectOne(ns + "chkRestockN", restock);
+		return n>0?true:false;
+	}
+
 	
 
 

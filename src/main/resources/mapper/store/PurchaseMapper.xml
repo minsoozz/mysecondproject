@@ -63,6 +63,9 @@
  	INSERT INTO rhy_store_restock_notify
  	VALUES(NULL, #{id}, #{stock_seq}, #{phone}, NOW())
  </insert> 
-
+ <select id="chkRestockN" parameterType="com.rhymes.app.Store.model.RestockNotifyDto" resultType="Integer">
+ 	SELECT COUNT(*) FROM rhy_store_restock_notify
+	WHERE ID = #{id} AND STOCK_SEQ=#{stock_seq}
+ </select>
  
 </mapper>

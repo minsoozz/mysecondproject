@@ -582,29 +582,35 @@ public class StoreController {
    //재입고 신청 INSERT
    @ResponseBody
    @GetMapping("/restockNotify_insert")
-   public String restockNotify_insert(Principal prc,RestockNotifyDto restock) throws Exception {
+   public String restockNotify_insert(Principal prc, RestockNotifyDto restock) throws Exception {
       
+	  System.out.println("------------------재입고 컨트롤러");
+	   
+	   
+	  String msg = "";
 	  String userId = "";
-      if(prc != null) {
+      // 로그인이 되어있을 때
+	  if(prc != null) {
          userId = prc.getName();
          restock.setId(userId);
          
-         try {
-			boolean bool = purchase.insertRestockN(restock);
-			
-			if(bool) {
-				System.out.println("재입고 알림 등록완료");
-			}
-        	 
-		 } catch (Exception e) {
-			 e.printStackTrace();
-		 }
-         
+        	boolean rnChk = purchase.chkRestockN(restock);
+        	 System.out.println("---------재입고 아이디 체크 : " + rnChk);
+        	// 재입고 테이블에 존재할 때
+        	if(rnChk) {
+        		msg = "already";
+        	}
+        	else {
+        		boolean bool = purchase.insertRestockN(restock);
+        		if(bool) {
+        			System.out.println("재입고 알림 등록완료");
+        			msg = "insert";
+        		}
+        	}
       }
-      
-      String str = "";
-      
-      return null;
+	  System.out.println("-------컨틀롤러msg : " + msg);
+	  
+      return msg;
    }  
       
    

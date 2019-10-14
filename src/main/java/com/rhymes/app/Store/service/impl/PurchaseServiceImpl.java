@@ -79,4 +79,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public boolean insertRestockN(RestockNotifyDto restock) throws Exception {
 		return purchase.insertRestockN(restock);
 	}
+
+	@Override
+	public boolean chkRestockN(RestockNotifyDto restock) throws Exception {
+		return purchase.chkRestockN(restock);
+	}
 }

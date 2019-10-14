@@ -42,5 +42,6 @@ public interface PurchaseDao extends Serializable {
 	
 	// 재입고 알림 등록
 	public boolean insertRestockN(RestockNotifyDto restock) throws Exception;
-	
+	// 재입고 아이디 체크
+	public boolean chkRestockN(RestockNotifyDto restock) throws Exception;
 }
