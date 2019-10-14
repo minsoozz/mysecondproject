@@ -19,24 +19,45 @@
 	outline: none;
 }
 .regibutton{
-	border-radius: 5px;
-    border: solid 2px #c5c5c5;
+    border-radius: 3px;
+    border: solid 1px #cccccc;
     background-color: #ffffff;
     color: #525252;
-/*     font-weight: bolder; */
-    height: 33px;
-    padding: 0px 30px 0px 30px;
+    /* font-weight: bolder; */
+    height: 34px;
+    /* padding: 0px 30px 0px 30px; */
     margin: 0px 9px;
+    position: relative;
+    right: 112px;
+    word-break: break-all;
+    box-sizing: border-box;
+    font: inherit;
+    margin: 5px 5px 5px 5px;
+    letter-spacing: -0.05em;
+    max-width: 100%;
+    font-family: 'Noto Sans';
+    color: #333;
+    /* width: 230px; */
+    height: 34px;
+    /* padding: 0 19px; */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    outline: none;
 }
 .regibutton_s{
 	border-radius: 5px;
     border: solid 1px #c5c5c5;
     background-color: #ffffff;
     color: #525252;
-/*     font-weight: bolder; */
-    height: 33px;
-    padding: 0px 30px 0px 30px;
+    /* font-weight: bolder; */
+    height: 43px;
+    height: 43px;
+    adding: 0px 30px 0px 30px;
     margin: 0px 9px;
+    width: 299px;
 }
 
 .page-container {
@@ -58,6 +79,7 @@
     background-color: #fff;
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
+    width: 480px;
 }
 
 .card:hover {
@@ -765,8 +787,15 @@ table tr th {
 
 table tr th,
 table tr td {
-    border-top: 1px solid rgba(120, 130, 140, 0.13) !important;
+/*     border-top: 1px solid rgba(120, 130, 140, 0.13) !important; */
     
+}
+.memBtn{
+    /* padding: 10px; */
+    margin: 16px 0px 5px;
+}
+.td_margin{
+	margin-left: 6px;	
 }
 
 table tr td [class^="ti-"] {
