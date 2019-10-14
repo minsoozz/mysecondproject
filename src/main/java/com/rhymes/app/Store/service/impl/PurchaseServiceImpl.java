@@ -9,6 +9,7 @@ import com.rhymes.app.Store.dao.PurchaseDao;
 import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
+import com.rhymes.app.Store.model.RestockNotifyDto;
 import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.WishlistDto;
 import com.rhymes.app.Store.service.PurchaseService;
@@ -72,5 +73,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public boolean deleteWishlist(WishlistDto wish) throws Exception {
 		return purchase.deleteWishlist(wish);
+	}
+
+	@Override
+	public boolean insertRestockN(RestockNotifyDto restock) throws Exception {
+		return purchase.insertRestockN(restock);
 	}
 }

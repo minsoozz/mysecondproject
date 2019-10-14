@@ -5,6 +5,7 @@ import java.util.List;
 import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
+import com.rhymes.app.Store.model.RestockNotifyDto;
 import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.WishlistDto;
 
@@ -21,4 +22,5 @@ public interface PurchaseService {
 	public boolean insertWishlist(WishlistDto wish) throws Exception;
 	public boolean chkWishlist(WishlistDto wish) throws Exception;
 	public boolean deleteWishlist(WishlistDto wish) throws Exception;
+	public boolean insertRestockN(RestockNotifyDto restock) throws Exception;
 }

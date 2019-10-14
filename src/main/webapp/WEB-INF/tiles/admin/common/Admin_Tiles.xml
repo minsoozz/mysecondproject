@@ -4,43 +4,16 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	
-<!--    <definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
-    <put-attribute name="header" value="" />
-    <put-attribute name="left_menu" value="" />
-    <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
-    <put-attribute name="footer" value="" />
-   </definition> -->
    
 
-	<definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
+	 <definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
 	    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header.jsp" />
 	    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu.jsp" />
 	    <put-attribute name="body" value="/WEB-INF/views/admin/main/main.jsp" />
 	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer.jsp" />
-	</definition> 
+	</definition>  
 	
-   <!-- admin main -->
-<!--    <definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp">
-    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header.jsp" />
-    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu.jsp" />
-    <put-attribute name="body" value="/WEB-INF/views/admin/member/memberlist.jsp" />
-    <put-attribute name="footer" value="" />
-   </definition> -->
-   
-<!--    /WEB-INF/views/index.jsp -->
-<!--    /WEB-INF/views/admin/common/layout/header.jsp -->
-<!-- /WEB-INF/views/admin/common/layout/left_menu.jsp -->
-<!-- /WEB-INF/views/admin/common/layout/footer.jsp -->
-   
-<!--    <definition name="AdminMain" template="/WEB-INF/views/admin/common/layout/admin_template.jsp"> -->
-<!--        <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header.jsp" /> -->
-<!--        <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu.jsp" /> -->
-<!--        <put-attribute name="body" value="/WEB-INF/views/admin/common/index.jsp" /> -->
-<!--        <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer.jsp" /> -->
-<!--    </definition> -->
   
-
 
 </tiles-definitions>
 

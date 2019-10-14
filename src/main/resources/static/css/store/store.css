@@ -9,7 +9,7 @@
 	
 
 #sidebar_wrap { float:left; width:250px; margin:0px; padding:5px;}
-#content_wrap { float:left; width:1250px;  border-left:solid 1px #EFEFEF; padding: 0px; }
+#content_wrap { float:left; width:1250px;  border-left:solid 1px #EFEFEF; padding: 5px; }
 
 #content_title_wrap { height:90px; width:100%;  text-align:left; font-weight:normal; line-height:2.5em; _line-height:2.7em; margin-bottom:10px; }
 #content_title_wrap div.title { padding-left:25px; background-repeat:no-repeat; background-position:10px 9px; font-weight:bold; }
@@ -117,7 +117,7 @@
 }
 
 /* /// */
-.sidenav .cate3A a, .dropdown-btn2 {
+.cate3A, .dropdown-btn2 {
 	
   font-size : 12px;
   padding: 16px 0px 16px 19px; 
@@ -133,7 +133,7 @@
   
 }
 
-.sidenav .cate3A a { 
+.cate3A{ 
 	font-size : 12px;
 	display:block; 
 	
@@ -144,12 +144,11 @@
 }
 
 /* On mouse-over */
-.sidenav .cate3A:hover, .dropdown-btn2:hover {
+.cate3A:hover, .dropdown-btn2:hover {
   background-repeat:no-repeat; 
   background-position:5px 7px; 
   background-color:#E1FF36;
   color:#000000;  
-  
 }
 
 /* //// */
@@ -174,6 +173,13 @@
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
   display: none;
+ 
+  background-color: #fff;
+  padding-left: 13px;
+}
+
+.dropdown-container2 {
+  display: block;
  
   background-color: #fff;
   padding-left: 13px;

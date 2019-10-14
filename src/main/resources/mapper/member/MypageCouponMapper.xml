@@ -8,9 +8,14 @@
 	<select id="getCountOnConditions" resultType="java.lang.Integer" parameterType="java.lang.String">
 		<include refid="getCountOnConditionsSql"/></select>
 		
+	<!-- 쿠폰리스트에 보여줄 쿠폰의 총 개수 리턴 -->
+	<select id="getCountOfMyCoupons" resultType="java.lang.Integer" parameterType="java.lang.String">
+		<include refid="getCountOfMyCouponsSql"/></select>
+		
 	<!-- 검색조건에 맞는 쿠폰 디테일 정보 리턴 -->
 	<select id="getDetailsOnConditions" resultType="com.rhymes.app.member.model.mypage.MemberCouponDTO"
-	 parameterType="com.rhymes.app.member.model.PointsPagingDTO">
+	 parameterType="com.rhymes.app.member.model.mypage.MemberReviewPagingDTO">
+	 <!-- parameterType="com.rhymes.app.member.model.PointsPagingDTO"> -->	 
 		<include refid="getDetailsOnConditionsSql"/></select>
 	
 	<!-- 쿠폰번호에 맞는 쿠폰상세정보 리턴 -->
@@ -34,13 +39,21 @@
  	<!-- 실제 쿼리 작성 영역 -->
  	
  	<!-- 검색조건에 맞는 유효한 쿠폰의 총 개수 리턴 -->
- 	<sql id="getCountOnConditionsSql">
- 		<![CDATA[		
+ 	<sql id="getCountOnConditionsSql"> 				
 		SELECT COUNT(*) AS CNT
 		FROM RHY_MEM_COUPON_DETAIL
-		WHERE USERID=#{userid} AND DATE_FORMAT(EXPDATE,'%Y-%m-%d') > CURDATE()
-		GROUP BY USERID;
-		]]>
+		WHERE USERID=#{userid} AND DATE_FORMAT(EXPDATE,'%Y-%m-%d') <![CDATA[>]]> CURDATE()
+			AND ISUSED='미사용'
+		GROUP BY USERID		
+ 	</sql>
+ 	
+ 	<!-- 쿠폰리스트에 보여줄 쿠폰의 총 개수 리턴 -->
+ 	<sql id="getCountOfMyCouponsSql"> 				
+		SELECT COUNT(*) AS CNT
+		FROM RHY_MEM_COUPON_DETAIL
+		WHERE USERID=#{userid} AND DATE_FORMAT(EXPDATE,'%Y-%m-%d') <![CDATA[>]]> CURDATE()
+			AND VISIBLE=1
+		GROUP BY USERID		
  	</sql>
  	
  	<!-- 검색조건에 맞는 쿠폰 디테일 정보 리턴 -->
@@ -50,7 +63,7 @@
 		FROM (
 			<![CDATA[
 			SELECT 
-				@ROWNUM := @ROWNUM +1 AS RNUM, B.SEQ AS SEQ, TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, USERID, 
+				@ROWNUM := @ROWNUM +1 AS RNUM, B.SEQ AS SEQ, TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, USERID,
 				DATE_FORMAT(GDATE,'%Y-%m-%d') AS GDATE, 
 				DATE_FORMAT(EXPDATE,'%Y-%m-%d') AS EXPDATE, 
 				COUP_CODE,

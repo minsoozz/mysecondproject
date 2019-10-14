@@ -135,14 +135,14 @@ function idCheck(focusYN) {
     
  //   boolean idcheck = false;
     
-    alert("ok");
-    alert($("#_id").val());
+//     alert("ok");
+//     alert($("#_id").val());
     $.ajax({
 		url:"/member/getIDCheck",
 		type:"get",
 		data:{id:$("#_id").val()},
 		success:function(msg){
- 			alert("suc");
+//  			alert("suc");
 			if(msg == 'YES'){
 	 			alert("msg == YES");	// id있음	
 	 		$("#_rgetid").html("사용할 수 없는 아이디입니다.");

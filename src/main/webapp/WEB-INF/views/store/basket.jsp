@@ -279,7 +279,7 @@ opacity:0.9;
 	<div id=sub1Container" class="sub1_${ba.b_seq }">
 		<div class="product-opt_basket">
 			<div class="item-info">
-				<%-- <span class="img_wrap"><a href="/Rhymes/store/productDetail?p_seq=${ba.p_seq }"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></a></span> --%>
+				<%-- <span class="img_wrap"><a href="/store/productDetail?p_seq=${ba.p_seq }"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></a></span> --%>
 				<span class="img_wrap"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></span>
 				<div class="info_wrap">
 					<div style="margin-top:8px; font-size: 15px;" class="pname_wrap"><a >${ba.c_name }</a></div>
@@ -292,7 +292,7 @@ opacity:0.9;
 					</c:if>
 					<c:if test="${ba.quantity eq 0 }">
 					<div style="margin-top:3px;">수량 : <span>${ba.p_quantity }</span></div>
-					<div style="margin-top:3px;">단가 : <span><fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price}" /></span></div>
+					<div style="margin-top:3px;">상품 가격 : <span><fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price}" /></span>원</div>
 					</c:if>										
 					</div>
 				</div>
@@ -449,7 +449,7 @@ $(document).on('click', '.orderBtn', function(){
 $(document).on('click', '.allDeleteBtn', function(){
 	$.ajax({
         type:"get",
-        url:"/Rhymes/store/deleteBasketAll",
+        url:"/store/deleteBasketAll",
         success:function( data ){
         	$("#cntProduct_wrap").remove();
     		$("#product-select-all").remove();
@@ -487,7 +487,7 @@ function changeQ(stock_seq, b_seq){
 	$.ajax({
         type:"get",
         data: "stock_seq=" + stock_seq + "&p_quantity=" + p_quantity + "&b_seq=" + b_seq,
-        url:"/Rhymes/store/updateBasketQ",
+        url:"/store/updateBasketQ",
         success:function( data ){
 			//alert(data);
         	$(".eachPq"+b_seq).html(p_quantity);
@@ -547,7 +547,7 @@ $(document).on('click', '.delete_btn', function(){
 	$.ajax({
         type:"get",
         data: "b_seq=" + b_seq,
-        url:"/Rhymes/store/deleteBasket",
+        url:"/store/deleteBasket",
         success:function( data ){
             $(".sub1_" + b_seq).remove();
             //alert("삭제 후 총 결제금액 : " + data);

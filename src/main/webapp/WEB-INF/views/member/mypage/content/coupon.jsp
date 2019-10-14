@@ -20,7 +20,6 @@
 <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
 <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
 
-
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="/css/member/mypage/content/coupon.css">
 <script type="text/javascript" src="<%=ctx%>/js/member/mypage/content/coupon.js"></script>
@@ -91,6 +90,7 @@
 							<div class="col-md-7" align="center">
 								<p class="txt_coupon_info">${cpn.title }</p>
 								<small class="txt_coupon_info_sub form-text text-muted">${cpn.sub_title }</small>
+								<small class="txt_coupon_info_sub form-text text-muted">${cpn.coup_code }</small>
 							</div>
 							<div class="col-md-1" align="center">
 								${cpn.func }

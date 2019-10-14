@@ -48,7 +48,7 @@
 
 <c:forEach items="${basketList }" var="list">
 <tr>
-	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/${list.photo1_file }"></td>
+	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${list.photo1_file }"></td>
 	<td width="50%" align="left">[${list.p_name }]${list.c_name }</td>
 	<td rowspan="2" width="10%" align="center" id="total_price"><fmt:formatNumber value="${list.p_price * list.quantity }" />원</td>
 </tr>
@@ -80,8 +80,8 @@
 	<input type="text" id="userNum" placeholder="인증번호 입력">   <!-- 인증번호 입력창 -->
 	<input type="button" id="enterBtn" value="확인">
 
-	<input type="text" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-	<input type="text" id="_text_confirm">
+	<input type="hidden" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+	<input type="hidden" id="_text_confirm">
 
 	</td>
 </tr>
@@ -96,7 +96,7 @@
 	<input type="text" size="5" id="sendphone3"></td>
 </tr><tr>
 	<th>이메일 *</th>
-	<td><input type="text" size="26"><input type="button" onclick="location.href='/mailSender'" value="메일발송"></td>
+	<td><input type="text" size="26"><input type="hidden" onclick="location.href='/mailSender'" value="메일발송"></td>
 </tr><tr>
 	<td></td>
 	<td>이메일을 통해 주문처리과정을 보내드립니다.<br>이메일 주소란에는 반드시 수신가능한 이메일 주소를 입력해 주세요.</td>
@@ -119,8 +119,9 @@
 	<th></th>
 	<td><input type="text" size="20" id="sample6_postcode" placeholder="우편번호">
 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" size="40" id="sample6_address" placeholder="지번주소">
-	<input type="text" size="40" id="sample6_detailAddress" placeholder="상세주소">
+	<input type="text" size="67" id="sample6_address" placeholder="지번주소"><br>
+	<input type="text" size="30" id="sample6_detailAddress" placeholder="상세주소">
+	<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목">
 	</td>
 </tr>
 <tr>
@@ -149,20 +150,32 @@
 <div class="divback">
 <h4>쿠폰 적립금</h4>
 <table class="payment_tb">
+
+<c:if test="${coupon_count eq 0 }">
+<tr>
+	<th rowspan="2">쿠폰 적용</th>
+	<td></td>
+</tr>
+<tr>
+	<td colspan="2">(보유쿠폰 : 0 개)</td>
+</tr>
+</c:if>
+<c:if test="${coupon_count ne 0 }">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td>쿠폰 사용&nbsp;&nbsp;<input type="text" id="coupon_use">
 	&nbsp;&nbsp;<input type="button" id="coupon_btn" value="쿠폰선택"></td>
 </tr>
 <tr>
-	<td colspan="2">(보유쿠폰 : ${coupon_count }개) 중복할인 안됩니다</td>
+	<td colspan="2">(보유쿠폰 : ${coupon_count } 개) 중복할인 안됩니다</td>	
 </tr>
+</c:if>
 <tr>
 	<th>적립금 적용</th>
-<c:if test="${empty point_amount }">
+<c:if test="${point_amount eq 0 }">
 	<td colspan="2">사용 가능한 적립금이 없습니다</td>
 </c:if>
-<c:if test="${not empty point_amount }">
+<c:if test="${point_amount ne 0 }">
 	<td colspan="2">
 	<input type="text">원
 	&nbsp;&nbsp;사용가능 적립금 : <fmt:formatNumber value="${point_amount }" />원

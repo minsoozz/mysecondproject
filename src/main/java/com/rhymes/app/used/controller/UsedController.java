@@ -550,8 +550,8 @@ public class UsedController {
 
 		if(count <= 3) {
 
-	    String api_key = "NCSVKDEE4KHSNBFN";
-	    String api_secret = "KDPVGPJQJMGFBVB4BQPRZFSAHLQF9DLM";
+	    String api_key = "NCSJIOFN175HJZRU";
+	    String api_secret = "G1OPKSUUMY3GWZTTVAFZ5BDXOAGPYRFK";
 	  
 	    
 	    Coolsms coolsms = new Coolsms(api_key, api_secret);
@@ -559,7 +559,7 @@ public class UsedController {
 	    HashMap<String, String> set = new HashMap<String, String>();
 
 	    set.put("to", (String)request.getParameter("to")); // 받는사람
-	    set.put("from", "01024943936"); // 보내는사람
+	    set.put("from", "01068889859"); // 보내는사람
 	    set.put("text", "안녕하세요 인증번호는 ["+(String)request.getParameter("text")+"]입니다"); // 문자내용
 	    set.put("type", "sms"); // 문자 타입
 

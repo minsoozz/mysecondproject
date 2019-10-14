@@ -70,7 +70,7 @@
 						</div>
 						<div class="order_body_btns" align="center">
 							<c:choose>
-								<c:when test="${orderlog.review_written == 'FALSE' }">
+								<c:when test="${orderlog.review_written == 'false' }">
 									<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 쓰기"><br>	
 								</c:when>
 								<c:otherwise>
