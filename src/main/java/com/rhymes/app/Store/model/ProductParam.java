@@ -25,6 +25,9 @@ public class ProductParam implements Serializable {
 	private int c2_seq;
 	private int c3_seq;
 	
+	// NEW ARRIVAL
+	private String key;
+	
 	// 페이징
 	private int pageNumber = 0;				
 	private int recordCountPerPage = 16; 	// 표현할 한 페이지의 글 수
@@ -109,6 +112,12 @@ public class ProductParam implements Serializable {
 		}
 		public void setSorting(String sorting) {
 			this.sorting = sorting;
+		}
+		public String getKey() {
+			return key;
+		}
+		public void setKey(String key) {
+			this.key = key;
 		}
 		
 	

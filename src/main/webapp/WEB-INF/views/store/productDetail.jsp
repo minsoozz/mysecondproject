@@ -454,17 +454,16 @@ $(document).ajaxSend(function(e, xhr, options) {
 $(document).on('click', '#rsFinish-btn', function(){
 	//★폰번호 자릿수, 체크박스 유효성 체크해야함
 	
-	
 	var phone = $("#restockPhone").val();
 	var stock_seq = $("#restockseq-hdn").val();
 	var pinfoChk = $("input:checkbox[name='personinfoChk']").prop("checked");
-
+	
 	if(stock_seq == ""){
 		$("#msg").html("<strong>사이즈를 선택해주세요.</strong>");
 	      	 $(".wModal").fadeIn();
 	     	 setTimeout(function() {
 	         	$(".wModal").fadeOut();
-	         },1000);
+	         },800);
     }else{
 		if(phone.length == 11){
 			 
@@ -550,11 +549,11 @@ $('body').click(function(e){
         	//$(".modal").css("display", "none");
         	$(".restockModal").fadeOut();
         	$("#restockPhone").val("");
+        	$("#restockseq-hdn").val("");
         	
         	$("input:radio[name='restockRadio']").prop("checked", false);
         	$(".restock_label").attr('style', 'background-color:white');
         	$(".restockLabel").html("사이즈를 선택하세요.");
-        	
          } 
  	 }
 });

@@ -44,7 +44,7 @@
 					<if test="c1_name == null or c1_name == ''">
 						<if test="c2_name != null and c2_name != '' and c3_name != null and c3_name != ''">
 						AND C2_NAME = #{c2_name} AND C3_NAME = #{c3_name}
-						</if>
+						</if>	
 					</if>
 					
 					AND (C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} '%')
@@ -70,6 +70,9 @@
 				</if>
 			)A
  	WHERE RNUM BETWEEN ${start} AND #{end}
+ 		<if test="key == 'newarrival'">
+ 			AND (RDATE BETWEEN DATE_ADD(NOW(),INTERVAL -1 DAY ) AND NOW())
+ 		</if>	
  	ORDER BY 
 		 	<if test="sorting == 'NEW'">
 		 	P_SEQ DESC
@@ -85,6 +88,7 @@
  	
  </select>
  
+ <!-- 리스트에 불러올 상품 갯수 -->
  <select id="productCnt" parameterType="com.rhymes.app.Store.model.ProductParam" resultType="java.lang.Integer">
  	SELECT IFNULL(COUNT(*), 0) AS CNT
 	FROM rhy_store_product

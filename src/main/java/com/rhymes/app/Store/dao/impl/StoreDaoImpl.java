@@ -33,6 +33,7 @@ public class StoreDaoImpl implements StoreDao {
 
 	@Override
 	public List<ProductDto> getProductList(ProductParam param) throws Exception {
+		System.out.println("----------------"+param.getKey());
 		return sqlSession.selectList(ns + "getProductList", param);
 	}
 
