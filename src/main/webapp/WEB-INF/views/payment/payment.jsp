@@ -36,7 +36,7 @@
 
 
 
-
+<form id="payment_frm" name="payment_frm">
 
 <div class="divback">
 <h4>상품 정보</h4>
@@ -46,14 +46,16 @@
 	<td width="20%" align="center">상품 금액</td>
 </tr>
 
-<c:forEach items="${basketList }" var="list">
+<c:forEach begin="0" end="${fn:length(basketList) -1 }" varStatus="i">
 <tr>
-	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${list.photo1_file }"></td>
-	<td width="50%" align="left">[${list.p_name }]${list.c_name }</td>
-	<td rowspan="2" width="10%" align="center" id="total_price"><fmt:formatNumber value="${list.p_price * list.quantity }" />원</td>
+	<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }"></td>
+	<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].c_name }</td>
+	<td rowspan="2" width="10%" align="center" id="one_total_price${i.index }">
+	<fmt:formatNumber value="${basketList[i.index].p_price * basketList[i.index].quantity }" />원
+	</td>
 </tr>
 <tr>
-	<td align="left">${list.quantity }개/개 당 <fmt:formatNumber value="${list.p_price }"/>원</td>
+	<td align="left">${basketList[i.index].quantity }개/개 당 <fmt:formatNumber value="${basketList[i.index].p_price }"/>원</td>
 </tr>
 </c:forEach>
 
@@ -80,23 +82,25 @@
 	<input type="text" id="userNum" placeholder="인증번호 입력">   <!-- 인증번호 입력창 -->
 	<input type="button" id="enterBtn" value="확인">
 
-	<input type="hidden" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
-	<input type="hidden" id="_text_confirm">
+	<input type="text" name="text" id="text">   <!-- 인증번호를 히든으로 저장해서 보낸다 -->
+	<input type="text" id="_text_confirm">
 
 	</td>
 </tr>
 <tr>
 	<th>보내는 분 *</th>
-	<td><input type="text" size="26" id="sendid"></td>
+	<td><input type="text" size="26" id="send_name" name="send_name"></td>
 </tr>
 <tr>
 	<th>휴대폰 *</th>
-	<td><input type="text" size="5" id="sendphone1">&nbsp;-&nbsp;
-	<input type="text" size="5" id="sendphone2">&nbsp;-&nbsp;
-	<input type="text" size="5" id="sendphone3"></td>
+	<td><input type="text" size="5" id="send_phone1">&nbsp;-&nbsp;
+	<input type="text" size="5" id="send_phone2">&nbsp;-&nbsp;
+	<input type="text" size="5" id="send_phone3">
+	<input type="hidden" name="send_phone">
+	</td>
 </tr><tr>
 	<th>이메일 *</th>
-	<td><input type="text" size="26"><input type="hidden" onclick="location.href='/mailSender'" value="메일발송"></td>
+	<td><input type="text" id="send_email" name="send_email" size="26"><input type="hidden" onclick="location.href='/mailSender'" value="메일발송"></td>
 </tr><tr>
 	<td></td>
 	<td>이메일을 통해 주문처리과정을 보내드립니다.<br>이메일 주소란에는 반드시 수신가능한 이메일 주소를 입력해 주세요.</td>
@@ -117,26 +121,29 @@
 </tr>
 <tr>
 	<th></th>
-	<td><input type="text" size="20" id="sample6_postcode" placeholder="우편번호">
+	<td><input type="text" size="20" id="sample6_postcode" name="receive_postnum" placeholder="우편번호">
 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 	<input type="text" size="67" id="sample6_address" placeholder="지번주소"><br>
 	<input type="text" size="30" id="sample6_detailAddress" placeholder="상세주소">
 	<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목">
+	<input type="hidden" name="receive_address">
 	</td>
 </tr>
 <tr>
 	<th>수령인 이름 *</th>
-	<td><input type="text" size="26" id="receiveid"></td>
+	<td><input type="text" size="26" id="receive_name" name="receive_name"></td>
 </tr>
 <tr>
 	<th>휴대폰 *</th>
-	<td><input type="text" size="5" id="receivephone1">&nbsp;&nbsp;
-	<input type="text" size="5" id="receivephone2">&nbsp;&nbsp;
-	<input type="text" size="5" id="receivephone3"></td>
+	<td><input type="text" size="5" id="receive_phone1">&nbsp;&nbsp;
+	<input type="text" size="5" id="receive_phone2">&nbsp;&nbsp;
+	<input type="text" size="5" id="receive_phone3">
+	<input type="hidden" name="receive_phone">
+	</td>
 </tr>
 <tr>
 	<th>배송 요청사항</th>
-	<td><textarea rows="3" cols="70"></textarea>0지/50자</td>
+	<td><textarea id="receive_address_request" name="receive_address_request" rows="3" cols="70"></textarea>0지/50자</td>
 </tr>
 </table>
 </div>
@@ -149,7 +156,25 @@
 <!-- 로그인 했을때만 보이기 -->
 <div class="divback">
 <h4>쿠폰 적립금</h4>
-<table class="payment_tb">
+<table class="payment_tb" border="1">
+<tr>
+	<th>상품금액</th>
+	<th></th>
+	<th>배송비</th>
+	<th></th>
+	<th>할인금액</th>
+	<th></th>
+	<th>결제 예정금액</th>
+</tr>
+<tr>
+	<td id="product_price">${totalprice }</td>
+	<td>+</td>
+	<td id="delivery_price">${delivery_price }</td>
+	<td>-</td>
+	<td id="discprice">0</td>
+	<td>=</td>
+	<td id="totalprice"></td>
+</tr>
 
 <c:if test="${coupon_count eq 0 }">
 <tr>
@@ -157,27 +182,35 @@
 	<td></td>
 </tr>
 <tr>
-	<td colspan="2">(보유쿠폰 : 0 개)</td>
+	<td colspan="6">(보유쿠폰 : 0 개)</td>
 </tr>
 </c:if>
 <c:if test="${coupon_count ne 0 }">
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
-	<td>쿠폰 사용&nbsp;&nbsp;<input type="text" id="coupon_use">
-	&nbsp;&nbsp;<input type="button" id="coupon_btn" value="쿠폰선택"></td>
+	<td colspan="6">쿠폰 사용&nbsp;&nbsp;
+	<input type="text" id="coupon_use" readonly="readonly">&nbsp;&nbsp;
+	<input type="button" id="coupon_btn" name="coupon_code" value="쿠폰선택">
+	<!-- <b id="coupon_use_func">1</b>
+	<b id="coupon_use_func_num">2</b>
+	<b id="coupon_use_func_measure">3</b> -->
+	<input type="hidden" name="disc_coupon" value="">
+	</td>
 </tr>
 <tr>
-	<td colspan="2">(보유쿠폰 : ${coupon_count } 개) 중복할인 안됩니다</td>	
+	<td colspan="6">(보유쿠폰 : ${coupon_count } 개) 중복할인 안됩니다
+	<input type="hidden" id="point_amount" value="${point_amount }">
+	</td>
 </tr>
 </c:if>
 <tr>
 	<th>적립금 적용</th>
 <c:if test="${point_amount eq 0 }">
-	<td colspan="2">사용 가능한 적립금이 없습니다</td>
+	<td colspan="6">사용 가능한 적립금이 없습니다</td>
 </c:if>
 <c:if test="${point_amount ne 0 }">
-	<td colspan="2">
-	<input type="text">원
+	<td colspan="6">
+	<input type="text" id="disc_point" name="disc_point" onchange="price_change()">원
 	&nbsp;&nbsp;사용가능 적립금 : <fmt:formatNumber value="${point_amount }" />원
 	&nbsp;&nbsp;(1,000원 단위로 사용가능합니다)</td>
 </c:if>
@@ -186,26 +219,11 @@
 </div>
 <br><br><br><br><br><br>
 
-
-
-
-
-<form id="payment_frm">
-<input type="hidden" name="send_name">
-<input type="hidden" name="send_phone">
-<input type="hidden" name="send_email">
-<input type="hidden" name="receive_name">
-<input type="hidden" name="receive_phone">
-<input type="hidden" name="receive_postnum">
-<input type="hidden" name="receive_address">
 <input type="hidden" name="payment_method">
-<input type="hidden" name="delivery_price">
-<input type="hidden" name="coupon_code">
-<input type="hidden" name="disc_coupon">
-<input type="hidden" name="disc_point">
-<input type="hidden" name="add_point">
+<!-- <input type="hidden" name="delivery_price"> -->
+<input type="hidden" name="add_point" id="add_point">
 <input type="hidden" name="totalprice">
-</form>
+
 
 
 
@@ -228,14 +246,14 @@
 	<td></td>
 	<td></td>
 </tr>
-<tr>
-	<th>결제하실 금액</th>
-	<td>49,900원</td>
-</tr>
 </table><br>
 </div>
+</form>
+
+
 <input type="button" id="paymentBtn" value="결제하기" onclick="paymens()"><br><br>
 </div>
+
 
 
 

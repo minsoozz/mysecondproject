@@ -1,6 +1,7 @@
 $(function(){
-	
 	alert("결제");
+	result_price();
+	
 
 	
 
@@ -12,16 +13,16 @@ $("#oldaddress").click(function () {
 	
 	if(b){
 		alert("true");
-		$("#receiveid").val( $("#sendid").val() );
-		$("#receivephone1").val( $("#sendphone1").val() );
-		$("#receivephone2").val( $("#sendphone2").val() );
-		$("#receivephone3").val( $("#sendphone3").val() );
+		$("#receive_name").val( $("#send_name").val() );
+		$("#receive_phone1").val( $("#send_phone1").val() );
+		$("#receive_phone2").val( $("#send_phone2").val() );
+		$("#receive_phone3").val( $("#send_phone3").val() );
 	}else{
 		alert("false");
-		$("#receiveid").val( "" );
-		$("#receivephone1").val( "" );
-		$("#receivephone2").val( "" );
-		$("#receivephone3").val( "" );
+		$("#receive_name").val( "" );
+		$("#receive_phone1").val( "" );
+		$("#receive_phone2").val( "" );
+		$("#receive_phone3").val( "" );
 	}
 
 });
@@ -100,9 +101,7 @@ $("#enterBtn").click(function() {
 });
 
 
-
-
-
+// 쿠폰 팝업창이 나온다
 $("#coupon_btn").click(function () {
 	window.open("/payment_coupon", "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
 });
@@ -111,15 +110,49 @@ $("#coupon_btn").click(function () {
 
 
 
-$("#coupon_popup_btn").click(function () {
-	alert("confirm");
 });
 
 
 
 
+// 결제금액 계산
+function result_price() {
+	var product_price = $("#product_price").text();
+	var delivery_price = $("#delivery_price").text();
+	var disc_price = $("#discprice").text();
+	var totalprice = $("#totalprice").text();
 
-});
+	$("#totalprice").text( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_price) );
+}
+
+
+
+
+
+
+
+// 적립금
+function price_change() {
+	//alert("적립금");
+	
+	var point_amount = $("#point_amount").val();
+	var disc_point = $("#disc_point").val();
+	//alert("disc_point : " + disc_point + ", point_amount : " + point_amount);
+	
+	var _point_amount = parseInt(point_amount) + 1;
+	var _disc_point = parseInt(disc_point) + 2;
+
+	//alert("_disc_point : " + _disc_point + ", _point_amount : " + _point_amount);
+	
+	if( _point_amount < _disc_point ) {
+		alert( $("#point_amount").val() + "원까지 사용가능합니다" );
+		$("#disc_point").val("");
+	}
+	
+	$("#discprice").text( $("#disc_point").val() );
+	result_price();
+}
+
 
 
 
@@ -192,9 +225,31 @@ function paymens(){
 	//alert(_text_confirm);
 	
 	if(_text_confirm == "" ){
-		//alert("본인인증을 해주세요");
-		//return;
+		alert("본인인증을 해주세요");
+		return;
 	}
+	
+	var send_name = $("#send_name").val();
+	var send_phone = $("#send_phone1").val() + $("#send_phone2").val() + $("#send_phone3").val();
+	var send_email = $("#send_email").val();
+
+	var receive_name = $("#receive_name").val();
+	var receive_phone = $("#receive_phone1").val() + $("#receive_phone2").val() + $("#receive_phone3").val();
+	var receive_postnum = $("#sample6_postcode").val();
+	var receive_address = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
+	var receive_address_request = $("#receive_address_request").val();
+	
+	var disc_point = $("#disc_point").val();	
+	var totalprice = $("#totalprice").val();
+
+	
+	document.payment_frm.payment_method.value = radioVal;
+	//document.payment_frm.delivery_price.value = 3000;
+	//document.payment_frm.coupon_code.value;	
+	//document.payment_frm.disc_coupon.value;
+	
+	document.payment_frm.add_point.value = totalprice * 0.02;
+	document.payment_frm.totalprice.value = totalprice;
 	
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp50599923');  // 가맹점 식별 코드
@@ -205,12 +260,11 @@ function paymens(){
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
 	    amount : 150,
-	    buyer_email : 'onep577@naver.com',
-	    buyer_name : '구매자이름',
-	    buyer_tel : '010-1234-5678',
-	    buyer_addr : '서울특별시 강남대로 비트캠프',
-	    buyer_postcode : '123-456',
-	    custom_data : '배송시 요청사항'
+	    buyer_email : send_email,
+	    buyer_name : send_name,
+	    buyer_tel : send_phone,
+	    buyer_addr : receive_address,
+	    buyer_postcode : receive_postnum
 	}, function(rsp) {
 	    if ( rsp.success ) {
 	        var msg = '결제가 완료되었습니다.';
@@ -221,6 +275,7 @@ function paymens(){
 	        msg += '\n결제상황 : ' + rsp.status;
 	        msg += '\n결제수단 : ' + rsp.pay_method;
 	        msg += '\n가상계좌 : ' + rsp.vbank_num;
+	        msg += '\n결제시간 : ' + rsp.paid_at;
 
 	        location.href = '/paymentAf?paid_amount='+rsp.paid_amount+'&imp_uid='+rsp.imp_uid
 	        		+'&status='+rsp.status+'&pay_method='+rsp.pay_method+'&receipt_url='+rsp.receipt_url
