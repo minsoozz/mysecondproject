@@ -96,7 +96,7 @@
 	<input type="text" size="5" id="sendphone3"></td>
 </tr><tr>
 	<th>이메일 *</th>
-	<td><input type="text" size="26"><input type="button" onclick="location.href='/mailSender'" value="메일발송"></td>
+	<td><input type="text" size="26"><input type="hidden" onclick="location.href='/mailSender'" value="메일발송"></td>
 </tr><tr>
 	<td></td>
 	<td>이메일을 통해 주문처리과정을 보내드립니다.<br>이메일 주소란에는 반드시 수신가능한 이메일 주소를 입력해 주세요.</td>

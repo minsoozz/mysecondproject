@@ -9,6 +9,7 @@ import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.category.Category1Dto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
+import com.rhymes.app.member.model.SellerDTO;
 
 public interface RegisterDao extends Serializable {
 
@@ -23,6 +24,7 @@ public interface RegisterDao extends Serializable {
 	
 	public String getSizeunit(int c2_seq) throws Exception;
 	
+	public SellerDTO getCname(SellerDTO seller) throws Exception;
 	
 	
 	

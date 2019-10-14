@@ -10,6 +10,7 @@ import com.rhymes.app.Store.dao.PurchaseDao;
 import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
+import com.rhymes.app.Store.model.RestockNotifyDto;
 import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.WishlistDto;
 
@@ -82,6 +83,12 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	@Override
 	public boolean deleteWishlist(WishlistDto wish) throws Exception {
 		int n = sqlSession.delete(ns + "deleteWishlist", wish);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean insertRestockN(RestockNotifyDto restock) throws Exception {
+		int n = sqlSession.insert(ns + "rn_insert", restock);
 		return n>0?true:false;
 	}
 

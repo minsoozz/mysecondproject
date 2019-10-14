@@ -8,6 +8,7 @@ import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.category.Category1Dto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
+import com.rhymes.app.member.model.SellerDTO;
 
 public interface RegisterService extends Serializable {
 
@@ -17,5 +18,6 @@ public interface RegisterService extends Serializable {
 	public boolean insertProduct(ProductDto product) throws Exception;
 	public boolean insertStock(StockDto stock) throws Exception;
 	public String getSizeunit(int c2_seq) throws Exception;
+	public SellerDTO getCname(SellerDTO seller) throws Exception;
 	
 }

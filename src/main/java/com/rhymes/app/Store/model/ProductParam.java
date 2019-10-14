@@ -9,6 +9,9 @@ import lombok.Setter;
 
 public class ProductParam implements Serializable {
 
+	// 정렬
+	private String sorting;
+	
 	// 검색
 	private String keyword;	  // 검색어
 	private String criterion; // 상품이름 OR 브랜드이름
@@ -101,8 +104,12 @@ public class ProductParam implements Serializable {
 		public void setC3_seq(int c3_seq) {
 			this.c3_seq = c3_seq;
 		}
-			
-		
+		public String getSorting() {
+			return sorting;
+		}
+		public void setSorting(String sorting) {
+			this.sorting = sorting;
+		}
 		
 	
 }

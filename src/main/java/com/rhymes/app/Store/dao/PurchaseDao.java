@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
+import com.rhymes.app.Store.model.RestockNotifyDto;
 import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.WishlistDto;
 
@@ -39,5 +40,7 @@ public interface PurchaseDao extends Serializable {
 	// 위시리스트 삭제
 	public boolean deleteWishlist(WishlistDto wish)throws Exception;
 	
+	// 재입고 알림 등록
+	public boolean insertRestockN(RestockNotifyDto restock) throws Exception;
 	
 }
