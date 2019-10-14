@@ -25,6 +25,7 @@ import com.rhymes.app.Store.model.BasketDto;
 import com.rhymes.app.Store.model.BasketListDto;
 import com.rhymes.app.Store.model.ProductDto;
 import com.rhymes.app.Store.model.ProductParam;
+import com.rhymes.app.Store.model.RestockNotifyDto;
 import com.rhymes.app.Store.model.StockDto;
 import com.rhymes.app.Store.model.WishlistDto;
 import com.rhymes.app.Store.model.category.Category1Dto;
@@ -33,6 +34,7 @@ import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.PurchaseService;
 import com.rhymes.app.Store.service.RegisterService;
 import com.rhymes.app.Store.service.StoreService;
+import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.used.Service.UsedService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 
-@RequestMapping("/Rhymes")
+@RequestMapping("/store")
 public class StoreController {
    
    @Autowired
@@ -58,15 +60,35 @@ public class StoreController {
    
    DecimalFormat formatter = new DecimalFormat("###,###");
    
-   @GetMapping("/store/register")
-   public String register()throws Exception{
-      return "register.tiles";
+   @GetMapping("/register")
+   public String register(Principal prc)throws Exception{
+      
+	   String c_id = "";
+	   String c_name = "";
+	      if(prc != null) {
+	    	  c_id = prc.getName();
+	    	  System.out.println("업체 아이디 : " + c_id);
+	    	  SellerDTO seller = new SellerDTO();
+	    	  seller.setId(c_id); 
+	    	  seller = register.getCname(seller);
+	    	  c_name = seller.getC_name();
+	      }
+       System.out.println("업체 아이디 : " + c_name);
+	   
+	   
+	   return "register.tiles";
    }  
       
-   @GetMapping("/store/productList")
+   @GetMapping("/productList")
    public String productList(Model model, ProductParam param) throws Exception{
-      
+	  
       System.out.println("상품리스트 페이지 넘버 : " + param.getPageNumber());
+      System.out.println("-----------c2name: " + param.getC2_name());
+      System.out.println("-----------c3name: " + param.getC3_name());
+      
+      if( param.getSorting()==null||("").equals(param.getSorting()) ) {
+    	param.setSorting("NEW");  
+      }
       
       // 입점 업체 리스트
       List<String> clist = store.getCompnayList();   
@@ -98,7 +120,6 @@ public class StoreController {
          cate1list = store.getkCate1List(param);
          model.addAttribute("cate1list", cate1list);         
       }
-      
       log.info(param.getKeyword());
       
       // paging 처리
@@ -122,12 +143,16 @@ public class StoreController {
          plist.get(i).setP_price2(formatter.format(price));
       }
       
+      model.addAttribute("sorting", param.getSorting());
       model.addAttribute("criterion", param.getCriterion());
       model.addAttribute("keyword", param.getKeyword());
       //left nav
       model.addAttribute("cate2list", cate2list);
       model.addAttribute("clist", clist);
       model.addAttribute("c1_name", param.getC1_name());
+      model.addAttribute("c2_name", param.getC2_name());
+      model.addAttribute("c3_name", param.getC3_name());
+      
       //페이징
       model.addAttribute("pageNumber", sn);
       model.addAttribute("totalRecordCount", totalProduct);
@@ -140,35 +165,36 @@ public class StoreController {
    }
    
    @ResponseBody
-   @GetMapping("/store/kCate2List")
+   @GetMapping("/kCate2List")
    public List<Category2Dto> getkCate2List(ProductParam param) throws Exception{
       List<Category2Dto> cate2list = store.getkCate2List(param);
+      System.out.println("ggggggggggggggggggggggggg");
       return cate2list;
    }
       
    @ResponseBody
-   @GetMapping("/store/kCate3List")
+   @GetMapping("/kCate3List")
    public List<Category3Dto> getkCate3List(ProductParam param) throws Exception{
       List<Category3Dto> cate3list = store.getkCate3List(param);
       return cate3list;
    }
    
    @ResponseBody
-   @GetMapping("/store/cate2List")
+   @GetMapping("/cate2List")
    public List<Category2Dto> getCate2List(int c1_seq) throws Exception{
       List<Category2Dto> cate2list = register.getCate2List(c1_seq);
       return cate2list;
    }
    
    @ResponseBody
-   @GetMapping("/store/cate3List")
+   @GetMapping("/cate3List")
    public List<Category3Dto> getCate3List(int c2_seq) throws Exception{
       List<Category3Dto> cate3list = register.getCate3List(c2_seq);
       return cate3list;
    }
    
    @ResponseBody
-   @GetMapping("/store/sizeUnit")
+   @GetMapping("/sizeUnit")
    public List<String> sizeUnit(String c2_seq) throws Exception{
       
       int c2_seq2 = Integer.parseInt(c2_seq);
@@ -180,10 +206,22 @@ public class StoreController {
       return list;
    }
    
-   @RequestMapping(value="/store/registerInsert", method = RequestMethod.POST)
+   @RequestMapping(value="/registerInsert", method = RequestMethod.POST)
     public String registerInsert(Model model, ProductDto product, StockDto stock,
-      MultipartHttpServletRequest multi, HttpServletRequest req) throws Exception{
-      product.setC_name("비마켓");
+      MultipartHttpServletRequest multi, HttpServletRequest req, Principal prc) throws Exception{
+      
+	   String c_id = "";
+	   String c_name = "";
+	      if(prc != null) {
+	    	  System.out.println("업체 아이디 : " + c_id);
+	    	  c_id = prc.getName();
+	    	  
+	    	  SellerDTO seller = new SellerDTO();
+	    	  seller = register.getCname(seller);
+	    	  c_name = seller.getC_name();
+	      }
+	   
+	   product.setC_name(c_name);
       
      int p_seq = register.getPseq();
            
@@ -259,7 +297,7 @@ public class StoreController {
                }
             }
          } else {
-            System.out.println("product insert 실패");
+            System.out.println("product insert 실패");	
          }
       } catch (Exception e) {
          e.printStackTrace();
@@ -268,7 +306,7 @@ public class StoreController {
    }
    
    //@PostMapping("/store/productDetail")
-   @RequestMapping(value="/store/productDetail", method = RequestMethod.GET)
+   @RequestMapping(value="/productDetail", method = RequestMethod.GET)
    public String productDetail(Model model, ProductDto product, Principal prc, HttpServletRequest req) throws Exception{
       
       String userId = "";
@@ -314,7 +352,7 @@ public class StoreController {
    }
    
    @ResponseBody
-   @GetMapping("/store/operWishlist")
+   @GetMapping("/operWishlist")
    public String insertWishlist(WishlistDto wish, Principal prc) throws Exception {
       String userId = "";
       if(prc != null) {
@@ -352,7 +390,7 @@ public class StoreController {
    
    
    @ResponseBody
-   @GetMapping("/store/insertBasket")
+   @GetMapping("/insertBasket")
    public List<BasketListDto> insertBasket(BasketDto basket, Principal prc)throws Exception{
       
       String userId = "";
@@ -404,7 +442,7 @@ public class StoreController {
    }
    
    
-   @GetMapping("/store/basket")
+   @GetMapping("/basket")
    public String basket(Model model, Principal prc)throws Exception {
       String userId = "";
       if(prc != null) {
@@ -441,7 +479,7 @@ public class StoreController {
    }
    
    @ResponseBody
-   @GetMapping("/store/deleteBasket")
+   @GetMapping("/deleteBasket")
    public int deleteBasket(int b_seq, Principal prc) throws Exception{      
       String userId = "";
       if(prc != null) {
@@ -475,7 +513,7 @@ public class StoreController {
    }
    
    @ResponseBody
-   @GetMapping("/store/deleteBasketAll")
+   @GetMapping("/deleteBasketAll")
    public String deleteBasket(Principal prc) throws Exception{      
       String userId = "";
       if(prc != null) {
@@ -499,7 +537,7 @@ public class StoreController {
    }
    
    @ResponseBody
-   @GetMapping("/store/updateBasketQ")
+   @GetMapping("/updateBasketQ")
    public int updateBasketQ(BasketDto basket, Principal prc) throws Exception{
       String userId = "";
       if(prc != null) {
@@ -526,7 +564,6 @@ public class StoreController {
                basketPcnt = blist.get(i).getP_quantity();
                quantity = blist.get(i).getQuantity();
                
-               log.info(quantity +"");
                if(quantity!=0) {
                   //제품 단가 * 재고번호 수량
                   total_price += (unitPrice * basketPcnt);
@@ -540,4 +577,36 @@ public class StoreController {
       }
       return total_price;
    }
+   
+   
+   //재입고 신청 INSERT
+   @ResponseBody
+   @GetMapping("/restockNotify_insert")
+   public String restockNotify_insert(Principal prc,RestockNotifyDto restock) throws Exception {
+      
+	  String userId = "";
+      if(prc != null) {
+         userId = prc.getName();
+         restock.setId(userId);
+         
+         try {
+			boolean bool = purchase.insertRestockN(restock);
+			
+			if(bool) {
+				System.out.println("재입고 알림 등록완료");
+			}
+        	 
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 }
+         
+      }
+      
+      String str = "";
+      
+      return null;
+   }  
+      
+   
+   
 }

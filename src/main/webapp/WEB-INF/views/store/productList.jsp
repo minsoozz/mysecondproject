@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>     
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +24,15 @@ http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 <body>
 
+<%-- c1 : ${c1_name }<br>
+c2 : ${c2_name }<br>
+c3 : ${c3_name }<br>
+keyword : ${keyword }<br>
+criterion : ${criterion }<br>
+sorting : ${sorting } <br>
+pageNumber : ${pageNumber }<br>
+총 상품갯수 : ${totalRecordCount } --%>
+
 <c:if test="${empty plist }">
 <div align="center" id="emptyProduct">
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT09uR_LfHPdzAfTxt9K3hvmH6atw3ZJRM6lMX9BaaDf9U1EMHfcQ"><br>
@@ -31,6 +41,23 @@ http-equiv="X-UA-Compatible" content="IE=edge">
 </c:if>
 
 <div class='mainDiv'>
+	<c:if test="${not empty plist }">
+	<div class="titleDiv">
+		<div class="trackingDiv">
+			<c:if test="${not empty c1_name and not empty c2_name and not empty c3_name }">
+			${c2_name }&nbsp;>&nbsp;<span id="c3fontstyle">${c3_name }</span>
+			</c:if>
+		</div>
+		 		
+		<div class="sortingDiv">
+			<label onclick="sortingBy('NEW')" class="sortingBy" style="${sorting == 'NEW'? 'color:black;font-weight:bolder;':'' }">NEW</label>
+			<label class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
+			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
+			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
+		</div>
+		
+	</div>
+	</c:if>
 	<div class='subDiv'>
 			<c:set value="${plist[0].c1_name }" var="c1name"/>
 			<input type="hidden" class="hdnC1name" value="${c1name }">
@@ -57,22 +84,47 @@ http-equiv="X-UA-Compatible" content="IE=edge">
 	</jsp:include>
 </div>
                
-<form action="/Rhymes/store/productDetail" id="moveFrm" method="get">
+<form action="/store/productDetail" id="moveFrm" method="get">
 	<%-- <!-- ★ csrf 예방을 위한 코드추가 -->
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 	<input type="hidden" id="p_seq" name="p_seq" value="0">
 	<input type="hidden" name="c1_name" value="${c1name }">
+	<input type="hidden" name="c2_name" value="${c1name }">
+	<input type="hidden" name="c3_name" value="${c1name }">
+	<input type="hidden" name="keyword" value="${keyword }">
 </form>
 
-<form id="_frmFormSearch" action="" >
-<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:0 }">
+<!-- 페이징 FORM -->
+<form id="_frmFormSearch" method="get" action="/store/productList" >
+	<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:0 }">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
-	<input type="hidden" name="c1_name" value="${c1name }">
+	<input type="hidden" name="c1_name" value="${c1_name }">
+	<input type="hidden" name="c2_name" value="${c2_name }">
+	<input type="hidden" name="c3_name" value="${c3_name }">
+	<input type="hidden" name="keyword" value="${keyword }">
+	<input type="hidden" name="criterion" value="${criterion }">
+</form>
+
+<!-- 정렬 FORM -->
+<form id="sortingFrm" method="get" action="/store/productList" >
+	<input type="hidden" name="sorting" class="_sorting" value="">
+	<input type="hidden" name="c1_name" class="_c1name" value="${c1_name }">
+	<input type="hidden" name="c2_name" class="_c2name" value="${c2_name }">
+	<input type="hidden" name="c3_name" class="_c3name" value="${c3_name }">
+	<input type="hidden" name="criterion" class="_criterion" value="${criterion }">
+	<input type="hidden" name="keyword" class="_keyword" value="${keyword }">
 </form>
 
 <!------------------ SCRIPT ZONE ------------------>
-<!-- 상품 상세정보 이동 -->
 <script>
+<!-- 상품 정렬 -->
+function sortingBy(sort){
+	$("._sorting").val(sort);
+	$("#sortingFrm").submit();
+}
+
+<!-- 상품 상세정보 이동 -->
+
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 $(document).ajaxSend(function(e, xhr, options) {
@@ -90,7 +142,7 @@ $(document).ready(function () {
 function detail(seq, c1name){
 	$("#p_seq").val(seq); 
 	//var c1_name = $(".hdnC1name").val();
-	//$("#moveFrm").attr("action", "/Rhymes/store/productList").submit();
+	//$("#moveFrm").attr("action", "/store/productList").submit();
 	$("#moveFrm").submit();
 }
 
@@ -99,9 +151,8 @@ function goPage( pageNumber) {
 	$("#_pageNumber").val(pageNumber);
 	$("#_frmFormSearch").submit();
 }
-</script> 
-	
 
+</script> 
 
 
 </body>

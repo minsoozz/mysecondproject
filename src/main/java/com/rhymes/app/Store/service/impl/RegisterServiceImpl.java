@@ -12,6 +12,7 @@ import com.rhymes.app.Store.model.category.Category1Dto;
 import com.rhymes.app.Store.model.category.Category2Dto;
 import com.rhymes.app.Store.model.category.Category3Dto;
 import com.rhymes.app.Store.service.RegisterService;
+import com.rhymes.app.member.model.SellerDTO;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
@@ -47,6 +48,11 @@ public class RegisterServiceImpl implements RegisterService {
 	@Override
 	public String getSizeunit(int c2_seq) throws Exception {
 		return register.getSizeunit(c2_seq);
+	}
+
+	@Override
+	public SellerDTO getCname(SellerDTO seller) throws Exception {
+		return register.getCname(seller);
 	}
 
 	
