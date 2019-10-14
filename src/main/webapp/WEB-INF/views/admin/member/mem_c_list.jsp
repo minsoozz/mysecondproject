@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin Member List</title>
+<title>mem_c_list</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath() %>/css/admin/member/memberlist.css">
 <link rel="stylesheet" type="text/css"
@@ -23,7 +23,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>
+		<h6 class="m-0 font-weight-bold text-primary">업체 목록</h6>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -53,16 +53,18 @@
 						
 						
 												
-						<select id="_s_category" name="s_category" onchange="categorychange()" class="searchSelect">
+						<select id="_s_category" name="s_category" onchange="categorychange()" class="custome-select border-0 pr-3 searchSelect">
 							<option value="" selected="selected">선택</option>
 							<option value="01"
 								<c:out value="${s_category == '01'? 'selected':'' }"/>>아이디</option>
 							<option value="02"
-								<c:out value="${s_category == '02'? 'selected':'' }"/>>이메일</option>
+								<c:out value="${s_category == '02'? 'selected':'' }"/>>상호</option>
 							<option value="03"
-								<c:out value="${s_category == '03'? 'selected':'' }"/>>종류</option>
+								<c:out value="${s_category == '03'? 'selected':'' }"/>>사업자번호</option>
 							<option value="04"
-								<c:out value="${s_category == '04'? 'selected':'' }"/>>전화번호</option>
+								<c:out value="${s_category == '04'? 'selected':'' }"/>>담당자이름</option>
+							<option value="05"
+								<c:out value="${s_category == '05'? 'selected':'' }"/>>담당자번호</option>
 						</select>
 						<input type="search" id="_s_keyword" name="s_keyword" class="searchText form-control-sm" placeholder="" aria-controls="dataTable" style="width: 150px">
 						<button class="btn btn-primary" type="button">
@@ -86,33 +88,37 @@
 						<th class="list_checkbox"><input type="checkbox"
 							name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 						</th>
-						<th class="sorting">ID<input type="hidden" name="sorting" id="_sorting"></th>	<!-- 1 -->
-						<th class="sorting">Name</th>											<!-- 2 -->
-						<th class="sorting">Address</th>										<!-- 3 -->
-						<th class="sorting">Email</th>											<!-- 4 -->
-						<th class="sorting">Phone</th>											<!-- 5 -->
-						<th class="sorting">Social</th>											<!-- 6 -->
-						<th class="sorting">date</th>											<!-- 7 -->
+						<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting"></th>	<!-- 1 -->
+						<th class="sorting">상호</th>											<!-- 2 -->
+						<th class="sorting">사업자등록번호</th>										<!-- 3 -->
+						<th class="sorting">대표자명</th>											<!-- 4 -->
+						<th class="sorting">담당자이름</th>											<!-- 5 -->
+						<th class="sorting">회사주소</th>											<!-- 6 -->
+						<th class="sorting">담당자번호</th>											<!-- 7 -->
+						<th class="sorting">담당자메일</th>											<!-- 7 -->
+						<th class="sorting">가입일</th>											<!-- 7 -->
 					</tr>
 				</thead>
 
 				<tbody>
-					<c:if test="${empty memlist }">
+					<c:if test="${empty mem_c_list }">
 						<tr align="center">
 							<td colspan="8" align="center">검색결과가 없습니다.</td>
 						</tr>
 					</c:if>
-					<c:forEach var="mem" items="${memlist }" varStatus="vs">
+					<c:forEach var="c" items="${mem_c_list }" varStatus="vs">
 						<tr align="center">
 							<td class="list_checkbox"><input type="checkbox"
-								name='allck' value="${mem.seq }"></td>
-							<td class="list_id"><a href="mem_update?id=${mem.userid }">${mem.userid }</a></td>
-							<td class="list_name">${mem.username }</td>
-							<td class="list_address">${mem.address }</td>
-							<td class="list_email">${mem.useremail }</td>
-							<td class="list_phone">${mem.phone }</td>
-							<td class="list_social">${mem.social}</td>
-							<td class="list_rdate">${mem.rdate }</td>
+								name='allck' value="${c.seq }"></td>
+							<td class="list_id"><a href="mem_update?id=${c.userid }">${c.userid }</a></td>
+							<td>${c.c_name }</td>
+							<td>${c.c_num }</td>
+							<td>${c.p_name }</td>
+							<td>${c.ic_name }</td>
+							<td>${c.c_address}</td>
+							<td>${c.to }</td>
+							<td>${c.ic_email }</td>
+							<td>${c.rdate }</td>
 						</tr>
 					</c:forEach>
 
@@ -143,7 +149,7 @@
 </div>
 
 </div>
-<!-- /.container-fluid -->
+
 <!-- /.container-fluid -->
 
 </div>
@@ -156,13 +162,13 @@
 function goPage( pageNumber ) {
 	
 	$("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
-	$("#_frm").attr("action", "memlist").submit(); //
+	$("#_frm").attr("action", "mem_c_list").submit(); //
 	
 }
 
 $("#_btnSearch").click(function () {
 	//alert("클릭");
-	$("#_frm").attr("action", "memlist").submit(); //
+	$("#_frm").attr("action", "mem_c_list").submit(); //
 	
 });
 
@@ -189,7 +195,7 @@ $("#delBtn").click(function(){
 
 // 리스트 갯수 뿌리기
 function dataTable_length(){
-	$("#_frm").attr("action", "memlist").submit();
+	$("#_frm").attr("action", "mem_c_list").submit();
 }
 
 // sorting
@@ -199,31 +205,31 @@ $(function(){
 
 		if(thNum == 1){
 			$("#_sorting").val("ID");
-			$("#_frm").attr("action", "memlist").submit();		
+			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 2){
 			$("#_sorting").val("NAME");
-			$("#_frm").attr("action", "memlist").submit();		
+			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 3){
 			$("#_sorting").val("ADDRESS");
-			$("#_frm").attr("action", "memlist").submit();		
+			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 4){
 			$("#_sorting").val("EMAIL");
-			$("#_frm").attr("action", "memlist").submit();		
+			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 5){
 			$("#_sorting").val("PHONE");
-			$("#_frm").attr("action", "memlist").submit();		
+			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 6){
 			$("#_sorting").val("SOCIAL");
-			$("#_frm").attr("action", "memlist").submit();		
+			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 7){
 			$("#_sorting").val("RDATE");
-			$("#_frm").attr("action", "memlist").submit();		
+			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		
 	});

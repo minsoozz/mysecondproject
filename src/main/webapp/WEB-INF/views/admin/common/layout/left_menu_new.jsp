@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>left_menu_new</title>
 </head>
 
 <!-- Sidebar -->
@@ -39,14 +39,15 @@
   <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-      <i class="fas fa-fw fa-cog"></i>
+      <i class="fas fa-fw fa-folder"></i>
       <span>회원관리</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">member management</h6>
-        <a class="collapse-item" href="/admin/memlist">회원리스트</a>
-        <a class="collapse-item" href="cards.html">적립금/쿠폰</a>
+        <a class="collapse-item" href="/admin/memlist">회원 리스트</a>
+        <a class="collapse-item" href="/admin/mem_c_list">업체 리스트</a>
+        <a class="collapse-item" href="/admin/mem_cp">적립금/쿠폰</a>
       </div>
     </div>
   </li>
@@ -54,16 +55,16 @@
   <!-- Nav Item - Utilities Collapse Menu -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-      <i class="fas fa-fw fa-wrench"></i>
-      <span>업체관리</span>
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>통계</span>
     </a>
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Utilities:</h6>
-        <a class="collapse-item" href="utilities-color.html">업체리스트</a>
-        <a class="collapse-item" href="utilities-border.html">배송</a>
-        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-        <a class="collapse-item" href="utilities-other.html">Other</a>
+        <h6 class="collapse-header">------</h6>
+        <a class="collapse-item" href="utilities-color.html">-</a>
+        <a class="collapse-item" href="utilities-border.html">-</a>
+        <a class="collapse-item" href="utilities-animation.html">-</a>
+        <a class="collapse-item" href="utilities-other.html">-</a>
       </div>
     </div>
   </li>
