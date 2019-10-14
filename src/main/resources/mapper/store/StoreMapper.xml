@@ -12,7 +12,7 @@
 <!-- 상품리스트 -->
  <select id="getProductList" parameterType="com.rhymes.app.Store.model.ProductParam" resultType="com.rhymes.app.Store.model.ProductDto">
 
- 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME, CP_CODE	
+ 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME
  	FROM (	SELECT ROW_NUMBER()OVER(ORDER BY 
  			<if test="sorting == 'NEW'">
 		 	P_SEQ DESC
