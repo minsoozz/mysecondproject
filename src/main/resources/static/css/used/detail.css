@@ -40,9 +40,20 @@ tr{
 	text-align: left;
 	font-size: 13px;
 }
-#ctable{
+#ctable {
 	width: 661px;
 }
+/* 
+#ctable tr:nth-child(2n) {
+  border-top:red;
+}
+
+ */
+ 
+ #ctr2{
+ border-top: none;
+ }
+ 
 #dtable{
 	width:661px;
 	text-align: center;

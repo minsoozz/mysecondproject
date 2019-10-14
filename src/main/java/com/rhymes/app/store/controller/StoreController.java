@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.model.BasketDto;
 import com.rhymes.app.store.model.BasketListDto;
 import com.rhymes.app.store.model.ProductDto;
@@ -34,7 +35,6 @@ import com.rhymes.app.store.model.category.Category3Dto;
 import com.rhymes.app.store.service.PurchaseService;
 import com.rhymes.app.store.service.RegisterService;
 import com.rhymes.app.store.service.StoreService;
-import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.used.Service.UsedService;
 
 import lombok.extern.slf4j.Slf4j;
