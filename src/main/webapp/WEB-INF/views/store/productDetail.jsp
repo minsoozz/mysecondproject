@@ -413,7 +413,11 @@ $(document).ajaxSend(function(e, xhr, options) {
 </ul>
 
 <div class="goods-view-infomation-content" id="goods_review">
-상품 후기
+<div id="_product_review_wrap" >
+      <div  id="_product_review" >
+         <script type="text/javascript">getProductReview(0);</script>
+      </div><!-- 작성한후기 탭 끝 -->
+</div>
 </div>
 
 
