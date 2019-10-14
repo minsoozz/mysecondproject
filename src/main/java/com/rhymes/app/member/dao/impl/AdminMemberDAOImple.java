@@ -11,6 +11,7 @@ import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.MemberParam;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerBean;
 
 @Repository
 public class AdminMemberDAOImple implements AdminMemberDAO {
@@ -20,16 +21,28 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 	
 	private String ns = "admem.";
 	
-	// memlist 페이징
+	// 회원 리스트
 	@Override
 	public List<MemBean> getmemlist(MemberParam param) {
 		return sqlSession.selectList(ns+"getmemlist", param);
 	}
 
-	// list 총 수
+	// 회원 리스트 count
 	@Override
 	public int getmemCount(MemberParam param) {
 		return sqlSession.selectOne(ns+"getmemCount", param);
+	}
+	
+	// 업체 리스트
+	@Override
+	public List<SellerBean> getmem_c_list(MemberParam param) {
+		return sqlSession.selectList(ns+"getmem_c_list", param);
+	}
+
+	// 업체 리스트 count
+	@Override
+	public int getmem_c_Count(MemberParam param) {
+		return sqlSession.selectOne(ns+"getmem_c_Count", param);
 	}
 
 	// 수정창으로 회원정보 불러오기
@@ -42,5 +55,7 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 	public void getAdMemAf(P_MemberDTO pmem) {
 		sqlSession.update(ns+"getAdMemAf", pmem);
 	}
+
+
 	
 }

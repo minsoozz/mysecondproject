@@ -5,27 +5,27 @@
 <mapper namespace="purchase">
 
  <!-- 상품디테일 -->
- <select id="getProductDetail" parameterType="Integer" resultType="com.rhymes.app.Store.model.ProductDto">
+ <select id="getProductDetail" parameterType="Integer" resultType="com.rhymes.app.store.model.ProductDto">
  	SELECT P_SEQ, C_NAME, P_NAME, P_TITLE, P_PRICE, P_COLOR, NATION, MDATE, DETAIL, PHOTO1_FILE, PHOTO2_FILE, PHOTO3_FILE, PHOTO4_FILE, PHOTO5_FILE, C1_NAME, CP_CODE 
  	FROM rhy_store_product
  	WHERE P_SEQ = #{p_seq}
  </select>
- <select id="getSizeList" parameterType="Integer" resultType="com.rhymes.app.Store.model.StockDto">
+ <select id="getSizeList" parameterType="Integer" resultType="com.rhymes.app.store.model.StockDto">
  	SELECT STOCK_SEQ, SIZE, QUANTITY
  	FROM rhy_store_stock
  	WHERE P_SEQ = #{p_seq}
  </select>
  
  <!-- 장바구니 -->
- <insert id="insertBakset" parameterType="com.rhymes.app.Store.model.BasketDto">
+ <insert id="insertBakset" parameterType="com.rhymes.app.store.model.BasketDto">
  	INSERT INTO rhy_store_basket
  	VALUES(NULL, #{id}, #{stock_seq}, #{p_quantity}, NOW())
  </insert>
- <select id="chkBasket" parameterType="com.rhymes.app.Store.model.BasketDto" resultType="Integer">
+ <select id="chkBasket" parameterType="com.rhymes.app.store.model.BasketDto" resultType="Integer">
  	SELECT COUNT(*) FROM rhy_store_basket
 	WHERE ID = #{id} AND STOCK_SEQ=#{stock_seq}
  </select>
- <select id="getBasketList" parameterType="java.lang.String" resultType="com.rhymes.app.Store.model.BasketListDto">
+ <select id="getBasketList" parameterType="java.lang.String" resultType="com.rhymes.app.store.model.BasketListDto">
  	SELECT a.PHOTO1_FILE, a.C_NAME, a.P_NAME, a.P_PRICE, b.SIZE, b.STOCK_SEQ, b.P_SEQ, b.QUANTITY, c.P_QUANTITY, c.RDATE, c.B_SEQ
  	FROM rhy_store_stock b INNER JOIN rhy_store_basket c ON b.STOCK_SEQ = c.STOCK_SEQ
  		INNER JOIN rhy_store_product a ON a.P_SEQ = b.P_SEQ
@@ -36,21 +36,21 @@
  	DELETE FROM rhy_store_basket
  	WHERE B_SEQ = #{b_seq}
  </delete>
- <update id="updateBasketQ" parameterType="com.rhymes.app.Store.model.BasketDto">
+ <update id="updateBasketQ" parameterType="com.rhymes.app.store.model.BasketDto">
  	UPDATE rhy_store_basket
  	SET P_QUANTITY = #{p_quantity}
  	WHERE STOCK_SEQ = #{stock_seq} AND ID = #{id}
  </update>
- <delete id="deleteBasketAll" parameterType="com.rhymes.app.Store.model.BasketDto">
+ <delete id="deleteBasketAll" parameterType="com.rhymes.app.store.model.BasketDto">
  	DELETE FROM rhy_store_basket
  	WHERE ID = #{id}
  </delete>
 <!-- 위시리스트  -->
- <insert id="insertWishlist" parameterType="com.rhymes.app.Store.model.WishlistDto">
+ <insert id="insertWishlist" parameterType="com.rhymes.app.store.model.WishlistDto">
  	INSERT INTO rhy_store_wishlist
  	VALUES(NULL, #{id}, #{p_seq}, NOW())
  </insert>
- <select id="chkWishlist" parameterType="com.rhymes.app.Store.model.WishlistDto" resultType="Integer">
+ <select id="chkWishlist" parameterType="com.rhymes.app.store.model.WishlistDto" resultType="Integer">
  	SELECT COUNT(*) FROM rhy_store_wishlist
 	WHERE ID = #{id} AND P_SEQ=#{p_seq}
  </select>
@@ -59,10 +59,13 @@
 	WHERE ID = #{id} AND P_SEQ = #{p_seq}
  </delete>
 <!-- 재입고 알림 -->
- <insert id="rn_insert" parameterType="com.rhymes.app.Store.model.RestockNotifyDto">
+ <insert id="rn_insert" parameterType="com.rhymes.app.store.model.RestockNotifyDto">
  	INSERT INTO rhy_store_restock_notify
  	VALUES(NULL, #{id}, #{stock_seq}, #{phone}, NOW())
  </insert> 
-
+ <select id="chkRestockN" parameterType="com.rhymes.app.store.model.RestockNotifyDto" resultType="Integer">
+ 	SELECT COUNT(*) FROM rhy_store_restock_notify
+	WHERE ID = #{id} AND STOCK_SEQ=#{stock_seq}
+ </select>
  
 </mapper>

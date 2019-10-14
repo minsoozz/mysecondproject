@@ -37,7 +37,13 @@ public class MypagePointsDAOImpl implements MypagePointsDAO {
 	@Override
 	public int getCountOnConditions(String userid) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(ns + "getCountOnConditions", userid);
+		try {
+			return sqlSession.selectOne(ns + "getCountOnConditions", userid);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
+		
 	}
 
 	/**검색조건에 맞는 적립금 디테일 정보 리턴
