@@ -60,46 +60,46 @@ body{
 	border: 1px solid #DADCE0;
 	text-align: center;
 }
+
 #buyBtn{
-	border-radius: 13px;
-	margin-top:5px;
-	width:240px;
-	height:35px;
-	background: black;
+	border-radius: 30px;
+	margin-top:13px;
+	margin-bottom:10px;
+	width:270px;
+	height:55px;
+	background: #d7fd75;	
 	font: Open Sans 30px;
-	color: white; 
+	color: black; 
 }
 
 #buyBtn:hover{
 	opacity: 0.5;
 }
+
+#b_btn{
+	font-size: 13px;
+	
+}
+
 .basketBtn{
-	border-radius: 13px;
+	border-radius: 30px;
 	margin-top:5px;
-	width:115px;
-	height:35px;
+	width:135px;
+	height:45px;
 	background: white;
 	font: Open Sans 30px;
 	color: black; 
 }
 .wishBtn{
-	border-radius: 13px;
+	border-radius: 30px;
 	margin-top:5px;
-	width:115px;
-	height:35px;
+	width:135px;
+	height:45px;
 	background: white;
 	font: Open Sans 30px;
 	color: black; 
 }
-.wishBtn{
-   border-radius: 13px;
-   margin-top:5px;
-   width:115px;
-   height:35px;
-   background: white;
-   font: Open Sans 30px;
-   color: blakc; 
-}
+
 
 .basketBtn:hover{
 	opacity:0.5;
@@ -108,14 +108,17 @@ body{
    font: 100 14px Open Sans;
    font-style: inherit;
    border-radius: 10px;
-   width: 50px;
-   height:30px;
+   width: 65px;
+   height:35px;
    display : inline-block;
    text-align: center;
    border: 1px solid #DADCE0;
    /* padding-top: 5px;
    margin-top: 5px; */
 }
+
+
+/*장바구니*/
 .basket{
     display:none;
     width:18%;
@@ -126,7 +129,7 @@ body{
     top:5px;
     bottom:5px;
     right:0px;
-    background-color:#d7fd75;
+    background-color:#ebffb9;
     z-index: 100000;
 }
 
@@ -170,7 +173,7 @@ opacity: 0.9;
 	height: auto;
 	font-size: 15px;
 	margin-left: 800px;
-	margin-top: 50px;
+	margin-top: 46px;
 	
 }
 
@@ -226,6 +229,7 @@ opacity: 0.9;
 .goods-view-infomation-content{
 	padding-top:60px;
 	min-height:500px;
+	width:1250px;
 	margin-bottom:50px;
 	font-size: 14px;
 	margin-left: 30px;

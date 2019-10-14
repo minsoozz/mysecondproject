@@ -100,13 +100,18 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
   <div id="side_goods">
-  
-   <h3>${ productDto.p_name}</h3>
-   <p style="color: gray">${ productDto.p_title}</p>
-   &#8361;${ productDto.p_price2}<br>
+  <h4>${ productDto.c_name}</h4>
+   <p style="color: gray;font-size: 20px;margin-bottom: 32px;">${ productDto.p_name}</p>
+   <p style="color: gray;font-size: 20px;">&#8361;${ productDto.p_price2}</p>
+   <br>
+   <p style="color: gray;font-size: 15px">${ productDto.p_title}</p><br>
+   
+ 
+   <p style="color: gray;font-size: 15px;margin-bottom: -5px;">· MADE IN ${productDto.nation}</p>
+   <p style="color: gray;font-size: 15px">· SKU : ${productDto.cp_code}</p>
    
    <div class='' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
-      <br>사이즈 선택<br>
+      사이즈 선택<br>
       <c:forEach items="${sizelist }" var="size" varStatus="vs">
          <c:if test="${size.quantity ne 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
@@ -126,6 +131,8 @@ $(document).ajaxSend(function(e, xhr, options) {
       <span class="plus_btn" style="cursor:pointer;">+</span>
    </span>
    <br>
+   
+   <div id="b_btn">
    <input type="button" value="바로구매" id="buyBtn" onclick="buying()" style="cursor:pointer;"><br>
    <input type="button" value="장바구니" class="basketBtn" style="cursor:pointer;">
    <button type="button" class="wishBtn" style="cursor:pointer;">
@@ -139,6 +146,7 @@ $(document).ajaxSend(function(e, xhr, options) {
       </c:if>
       </span>
    </button>
+
 	<br><br>
 	<span id="restockBtn">
 		<img src="data:image/png;base64,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">
@@ -148,6 +156,8 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!-- 미니 장바구니 영역 -->
     <div class="basket" style="overflow: scroll;">
     </div>
+</div>
+</div>
 
 
 <!-- 메시지 영역 -->
@@ -239,7 +249,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!-- 장바구니 페이지이동 form -->
 <form action="/store/basket" method="get" id="moveBasketFrm"></form>
 
-</div>
+
 <div id="aa"></div>
 
 <ul class="goods-view-infomation-tab-group">
@@ -259,12 +269,23 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <div class="goods-view-infomation-content __active" id="goods_info">
 
-      p_title(상품 기본정보 입력:부가설명) : ${productDto.p_title}<br>
-      detail(상품 상세정보 입력) : ${productDto.detail}<br>
-      원산지 : ${productDto.nation}<br>
-      생산일 : ${productDto.mdate}<br><br><br><br>
+<div align="center">
+     <%--  p_title(상품 기본정보 입력:부가설명) : ${productDto.p_title}<br> --%>
+     <!--  detail(상품 상세정보 입력) : --> 
+     
+     <p style="font-size: 15px;">${productDto.detail}</p><br>
+      
+       <img src="/upload/store/${productDto.photo1_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+        <img src="/upload/store/${productDto.photo2_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+         <img src="/upload/store/${productDto.photo3_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+          <img src="/upload/store/${productDto.photo4_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+           <img src="/upload/store/${productDto.photo5_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+      <br>원산지 : ${productDto.nation}<br>
+      <br>생산일 : ${productDto.mdate}<br><br><br><br>
+     </div> 
       
       
+      <div style="font-size: 12px;">
       <p>
       <strong>Tax&nbsp;Information</strong>
       </p>
@@ -391,7 +412,11 @@ $(document).ajaxSend(function(e, xhr, options) {
 </ul>
 
 <div class="goods-view-infomation-content" id="goods_review">
-상품 후기
+<div id="_product_review_wrap" >
+      <div  id="_product_review" >
+         <script type="text/javascript">getProductReview(0);</script>
+      </div><!-- 작성한후기 탭 끝 -->
+</div>
 </div>
 
 
@@ -404,10 +429,10 @@ $(document).ajaxSend(function(e, xhr, options) {
    <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
    </li>
    <li class="goods-view-infomation-tab">
-   <a href="#goods_review" class="goods-view-infomation-tab-anchor __active">REVIEW</a>
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
    </li>
    <li class="goods-view-infomation-tab">
-   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor __active">Q&A</a>
    </li>
    <li class="goods-view-infomation-tab-group:after"></li>
 </ul>
@@ -691,7 +716,7 @@ function showBasketList(arrLen, arr){
    $(".blist").html("");
    $("#baskettitle").remove();
    var str = "";
-   var str = "<div align='center' id='baskettitle'><h2>ㅋ장바구니ㅋ</h2></div>";
+   var str = "<br><br><div align='center' id='baskettitle'><h4>장바구니</h4><br></div>";
    for (var i = 0; i < arrLen; i++) {
       str += "<div stylesdf='margin-top:5%;' align='center' class='blist' >";
       str += "<label><img src='/upload/store/"+ arr[i].photo1_file + "' style='width:100px; height:100px;'><br>";
@@ -720,7 +745,7 @@ function showBasketList(arrLen, arr){
    $(".basket").append(str);
    
    $(".basket").animate({width:'toggle'},350);
-//>>>>>>> e5b8cb7a54fefa75d2734e685a5710447a83ce7d
+
 }
 
 /* 미니장바구니 전체 구매버튼 클릭 */

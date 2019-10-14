@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.member.dao.MypageReviewDAO;
+import com.rhymes.app.member.model.mypage.MemberReviewBbsDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 
@@ -46,6 +47,36 @@ public class MypageReviewDAOImpl implements MypageReviewDAO {
 	public List<MemberReviewDTO> getReviewByIdAndOtherConditions(MemberReviewPagingDTO mRPDto) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(ns + "getReviewByIdAndOtherConditions", mRPDto);
+	}
+	
+	/**매개변수로 받은 디테일id(seq)에 맞는 주문정보 리턴 
+	 * @param seq
+	 * @return
+	 */
+	@Override
+	public MemberReviewDTO getReviewByIdSeq(int seq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns + "getReviewByIdSeq", seq);
+	}
+	
+	/**후기 게시물 DB에 저장
+	 * @param mRBDto
+	 * @return
+	 */
+	@Override
+	public int insertNewReviewBbs(MemberReviewBbsDTO mRBDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(ns + "insertNewReviewBbs", mRBDto);
+	}
+	
+	/**후기 게시물 저장이 완료된 경우 rhy_payment_details에 review_written값 true로 변경
+	 * @param seq
+	 * @return
+	 */
+	@Override
+	public int updateReviewWritten(int seq) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(ns + "updateReviewWritten", seq);
 	}
 	
 }

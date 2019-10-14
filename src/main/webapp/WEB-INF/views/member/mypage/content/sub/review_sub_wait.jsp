@@ -32,7 +32,7 @@
 	<div class="form-group">
 		<div class="form-row">
 				<div class="col-md-2 img_waiting_item">
-					<img onerror="this.src='https://i.ytimg.com/vi/vWMCCZEkrKg/maxresdefault.jpg'" src="<%=ctx %>/upload/store/${dto.img }">
+					<img src="<%=ctx %>/upload/store/${dto.img }" onerror="this.src='https://i.ytimg.com/vi/vWMCCZEkrKg/maxresdefault.jpg'">
 				</div>
 				<div class="col-md-5 detail_waiting_item">
 					<div class="form-row">${dto.p_name }</div>
@@ -48,7 +48,8 @@
 							<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 확인"><br>
 						</c:when>
 						<c:otherwise>
-							<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 쓰기"><br>
+							<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 쓰기"
+								onclick="location.href='<%=ctx %>/mypage/review/writenew?seq=${dto.seq}';"><br>
 						</c:otherwise>
 					</c:choose>					
 				</div>

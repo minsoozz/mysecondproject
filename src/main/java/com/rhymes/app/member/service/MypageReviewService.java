@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.rhymes.app.member.model.mypage.MemberOrderDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewBbsDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 
 public interface MypageReviewService {
-
+	
 	/**매개변수로 받은 유저ID가 갖고있는 모든 주문번호를 가져옴
 	 * @param userid
 	 * @return
@@ -37,4 +38,22 @@ public interface MypageReviewService {
 	 * @return
 	 */
 	public Map<Boolean, Map<String, List<MemberOrderDetailDTO>>> getTwoMapsSeperatedByWhetherReviewWritten(List<String> payment_codes);
+	
+	/**매개변수로 받은 디테일id(seq)에 맞는 주문정보 리턴 
+	 * @param seq
+	 * @return
+	 */
+	public MemberReviewDTO getReviewByIdSeq(int seq);
+	
+	/**후기 게시물 DB에 저장
+	 * @param mRBDto
+	 * @return
+	 */
+	public int insertNewReviewBbs(MemberReviewBbsDTO mRBDto);
+	
+	/**후기 게시물 저장이 완료된 경우 rhy_payment_details에 review_written값 true로 변경
+	 * @param seq
+	 * @return
+	 */
+	public int updateReviewWritten(int seq);	
 }
