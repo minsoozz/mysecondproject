@@ -93,6 +93,7 @@ value="${dto.price }" />원</h5></div>
   	<c:otherwise>
   		<a href="#none" class="gologin"><img alt="" src="/img/used-img/like.png" style="width: 50px" height="50px"></a>
   	</c:otherwise>
+  	
   	</c:choose>
   </div>
 	
@@ -101,7 +102,7 @@ value="${dto.price }" />원</h5></div>
   </div>
   </div>
   
- 	<div id="div_content">
+ 	<div id="div_content" style="white-space:pre-line;">
   	<hr color="black">
  		<h5>상품정보 </h5>
  		<br>
@@ -116,7 +117,7 @@ value="${dto.price }" />원</h5></div>
 	<div id="div_btn">
 		<button type="button" id="_updatebtn" name="updatebtn">수정</button>
 		<button type="button" id="_deletebtn" name="deletebtn">삭제</button>
-	</div>
+	</div> 
 	</c:if>
 </div>
 

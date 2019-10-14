@@ -31,13 +31,21 @@
 	<definition name="useddetail.tiles" extends="usedlist.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/used/useddetail.jsp"/>       
    </definition>
-   
-   <!-- 상품 수정 -->
-   
+
    	<!-- 디테일 -->
 	<definition name="usedupdate.tiles" extends="usedlist.tiles">
 		<put-attribute name="body" value="/WEB-INF/views/used/usedupdate.jsp"/>       
    </definition>
    
+   	<!-- 쪽지 메인 -->
+	<definition name="notes.tiles" extends="member/mypage">
+     <put-attribute name="mypage_content" value="/WEB-INF/views/used/notes.jsp" />
+   </definition>
+   <!-- 쪽지 보내기  -->
    
+   	<!-- 팝업창  -->
+   <definition name="notesWrite.tiles" template="/WEB-INF/views/used/noteswrite.jsp">  
+   </definition>
+   
+
 </tiles-definitions>

@@ -99,7 +99,7 @@
 
 <!-- 멤버 정보 불러오기 -->
 <select id="getMember" resultType="com.rhymes.app.member.model.P_MemberDTO" parameterType="java.lang.String">
-	SELECT id as userid, name as username, postcode,address,detailAddress,email as useremail,phone,gender as usergender,birth as userbirth,count
+	SELECT id as userid, name as username, postcode,address,detailAddress,email as useremail,phone,gender as usergender,birth as userbirth,count,subscribe
 	FROM rhy_mem_p
 	WHERE ID=#{id}
 </select>
