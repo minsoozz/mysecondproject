@@ -74,15 +74,17 @@
                         	</div>
                         	&nbsp;&nbsp;
                         	<div class="logout">
-                        		<a href="/member/logout">Logout</a>
-                        		
+                        		<a href="/member/logout">Logout</a>                        		
                         	</div>
                             
                         </c:if>
-
+                        
+                        
+						<div class="admin">
                        	<c:if test="${userloginid eq 'ADMIN' }">
-                       		&nbsp;&nbsp;<a href="/admin/main">admin</a>
+                       		<a href="/admin/main">Admin</a>
                        	</c:if>
+                       	</div>
 
 
 
@@ -96,22 +98,6 @@
                             </div>
 							</c:if>
                         </div>
-                        
-                        <!-- 
-                         Search Button Area
-                        <div class="search_button">
-                            <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>
-                        
-                        Search Form
-                        <div class="search-hidden-form">
-                            <form action="#" method="get">
-                                <input type="search" name="search" id="search-anything" placeholder="검색어를 입력하세요...">
-                                <input type="submit" value="" class="d-none">
-                                <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
-                            </form>
-                        </div>
-                         -->
                     </div>
                 </div>
             </div>

@@ -17,6 +17,7 @@
 <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script> 
 <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script> 
 <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script> 
+<link rel="stylesheet" href="/css/store/usedList.css">
 
 </head>
 <body>

@@ -36,7 +36,7 @@
 </c:if>
 <c:if test="${empty keyword}">
     <a href="#"><b>BEST</b></a>
-</c:if>    
+</c:if>
   <c:forEach items="${cate2list }" var="cate2" varStatus="vs">
 	  <input type="hidden" value="${cate2.c2_name }">
 	  <button class="dropdown-btn" id="cate2Btn${cate2.c2_seq }" onclick="bring3cate(${cate2.c2_seq})" value="${cate2.c2_name }">

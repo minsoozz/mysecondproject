@@ -11,11 +11,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<style type="text/css">
-tr{
-	border: 1px solid black; 
-}
-</style>
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -23,6 +18,8 @@ tr{
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+
+
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/used/silde.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/used/detail.css">
  <%
@@ -31,8 +28,8 @@ tr{
  %>
  </head>
 <!-- <body> -->
-<div id="detail_wrap" style="background-color: white">
-	
+
+
 <div id="wrapper">
       <div id="slider-wrap">
           <ul id="slider">
@@ -57,87 +54,94 @@ tr{
       </div>
   
    </div>
-
-  <div id="div_title_wrap">
-  <div id="div_title"><h2>제목 :${dto.title }</h2></div>
-  <div id="div_price"><h5>가격 : 
-  <fmt:formatNumber pattern="#,###"
-value="${dto.price }" />원</h5></div>
+   
+   
+  <div id="side_goods">
   
-  <div id="div_like"><h5>좋아요 : <span id="_likes">${dto.likes }</span></h5></div>
-  <div id="div_readcount"><h5>조회수 : ${dto.readcount }</h5></div> 
-  <div id="div_rdate"><h5>등록일 : <fmt:formatDate value="${dto.rdate }" pattern="yyyy-MM-dd "/></h5></div>
-  <div id="div_blacklist">
- 	 <c:if test="${userloginid ne null}">
- 		<h5><a href="#none" id="mybtn">신고하기</a></h5>
+  <h4>${dto.title }</h4>
+  <p style="color: gray;font-size: 15px">${dto.category }</p>
+  <p style="color: gray;font-size: 20px;">&#8361;${dto.price }</p>
+  <p style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : <fmt:formatDate value="${dto.rdate }" pattern="yyyy-MM-dd "/></p>
+  
+   <br>
+   <font style="color: gray;font-size: 15px">조회수 : ${dto.readcount }</font>
+   
+   &nbsp;&nbsp;&nbsp;&nbsp;
+   	 <c:if test="${userloginid ne null}">
+ 		<font style="color: gray;font-size: 15px"><a href="#none" id="mybtn">신고하기</a></font>
 	 </c:if>
+<p style="color: gray;font-size: 15px">거래 장소 : ${dto.place }</p>
 
-	 <c:if test="${userloginid eq null}">
- 	    <h5><a href="#none" class="gologin">신고하기</a></h5>
-  	 </c:if>
-  </div>  
-  <div id="div_category"><h5>카테고리 ${dto.category }</h5></div>  
-  <div id="div_like_button">
-  	<!-- <button type="button" id="_likebtn">찜</button> -->
-  	
+ 	
+
+
+  	 <div id="b_btn">
+  	 <input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
+  	 <button type="button" class="wishBtn" style="cursor:pointer;">
+  	 찜하기
   	<!-- 좋아요 기능 시작!!! -->
   	<c:choose>
   		<c:when test="${userloginid ne null }">
   			<c:if test="${login.islike == 'true' }">
-	  			<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/likeAf.png" style="width: 50px" height="50px" id="like_img"></a>
+	  			<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/likeAf.png" style="width: 15px" height="15px" id="like_img"></a>
   			</c:if>
 			  		<c:if test="${login.islike == 'false' }">
-  				<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/like.png" style="width: 50px" height="50px" id="like_img"></a>
+  				<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/like.png" style="width: 15px" height="15px" id="like_img"></a>
   			</c:if>
   		</c:when>
   	<c:otherwise>
-  		<a href="#none" class="gologin"><img alt="" src="/img/used-img/like.png" style="width: 50px" height="50px"></a>
+  		<a href="#none" class="gologin"><img alt="" src="/img/used-img/like.png" style="width: 15px" height="15px"></a>
   	</c:otherwise>
   	</c:choose>
-  </div>
-	
-  <div id="div_notes_button">
-  	<button type="button" id="_notesbtn">쪽지 보내기</button>
-  </div>
-  </div>
-  
- 	<div id="div_content">
-  	<hr color="black">
- 		<h5>상품정보 </h5>
- 		<br>
- 		${dto.content }
- 	</div>
-	<hr>
+  	</button>  	
+  	
+  		
 	<div id="map" style="width:400px;height:300px;">
 	</div>
-	
-	
+  	
 	<c:if test="${login.userid eq dto.s_id}">
 	<div id="div_btn">
 		<button type="button" id="_updatebtn" name="updatebtn">수정</button>
 		<button type="button" id="_deletebtn" name="deletebtn">삭제</button>
 	</div>
 	</c:if>
-</div>
+  </div>
+  </div>
 
-<div id="sub_wrap" align="center">
-<h1>댓글 구역</h1>
-<div id="_addcomments">
-</div>
-<table>
-<tr>
-	<td>
-		<textarea rows="3" cols="80" id="_comments" name="comments" placeholder="댓글을 입력하세요"></textarea>
-		<br>
-		  <div>
-			<a href="#" onclick="addComment('${dto.seq}')">등록</a>
-		  </div>
-	</td>
-</tr>
-</table>
+<br>
 
 
-</div>
+
+ 	<div id="market_info" align="left">
+  	
+ 		<h5>상품정보 </h5>
+ 		<hr color="gray">
+ 		<br>
+ 		${dto.content } 
+
+<br><br><br><br><br><br>
+
+	<h5>상품문의 </h5>
+ 	<hr color="gray"> 	
+	
+	<table>
+	<tr>
+		<td>
+			<textarea rows="5" cols="80" id="_comments" name="comments" placeholder="댓글을 입력하세요"></textarea>
+			<br>
+			  <div>
+				<a href="#" onclick="addComment('${dto.seq}')">등록</a>
+			  </div>
+		</td>
+	</tr>
+	</table>
+	<div id="_addcomments">
+	</div>
+	</div>
+
+
+
+
 
 
   <!-- Modal -->
@@ -428,7 +432,7 @@ $(function(){
 				var arrow = "<img src='/img/used-img/arrow.png' width='10px' height='10px'/>";
 				
 				if(depth > 0){
-					html += "<tr><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+					html += "<tr class='test'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
 						
 				} else {
 					html += "<tr><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";

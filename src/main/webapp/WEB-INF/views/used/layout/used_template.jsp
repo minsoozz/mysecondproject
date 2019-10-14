@@ -4,25 +4,29 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
-    <title>Rhymes</title>
+    <title>RHYMES</title>
+    <!-- Favicon -->
+    <link rel="icon" href="/img/main-img/core-img/favicon.ico">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">    
 
- 	 <tiles:insertAttribute name="header"/>  <!--  /WEB-INF/views/common/layout/header.jsp --> 
-	
+ 	
 	<link rel="stylesheet" type="text/css"	
 	href="<%=request.getContextPath() %>/css/used/used.css">
+	
+	
   </head>
    <body>
+   
+    <tiles:insertAttribute name="header"/>  <!--  /WEB-INF/views/common/layout/header.jsp --> 
+    
    <div id="body_wrap">   
 	    <div id="middle_wrap">
 	    	<div id="sidebar_wrap"> 
 		      <tiles:insertAttribute name="left_menu"/>
 		    </div>   
 			<div id="content_wrap"> 
-			  	<div id="content_title_wrap">
-					<div class="title" style="float: left; font-size: 24px"></div>
-					<div class="sub" style="float: left; font-size: 12px"></div>
-				</div>
+			  
 		      <tiles:insertAttribute name="body"/> <!-- body -->
 	    	</div>  
 	    </div>  

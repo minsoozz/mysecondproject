@@ -10,16 +10,13 @@
 	display: inline-block;
 	width: 100%;
 	padding: 0px;
-	margin: 0px;
-	text-align: center;
-	border: solid 1px black;
+	margin: 0px;	
+	border: solid 1px #EFEFEF;
 }
 
 #footer_wrap {
 	width: 100%;
-	border: solid 0px navy;
 	clear: both;
-	background-color: #f1eff0;
 	
 }
 
@@ -27,7 +24,7 @@
 	float: left;
 	width: 250px;
 	margin: 0px;
-	padding: 3px;
+	padding: 5px;
 }
 
 #content_wrap {
@@ -97,11 +94,7 @@ a:hover {
 	width: 1330px;
 	height: 1000px;	
 }
-#sub_wrap{
-	background-color:#D8D8D8;
-	width: 1330px;
-	height: 680px;
-}
+
 
 #div_title_wrap{
 	position: absolute;
@@ -115,7 +108,16 @@ a:hover {
 	color: white;
 	padding: 0px;
 }
+
 #div_content{
+	position: absolute;
+	top:950px;
+	width: 700px;
+	height: 300px;
+	background-color: white;
+}
+
+#market_info{
 	position: absolute;
 	top:950px;
 	width: 700px;
@@ -124,8 +126,8 @@ a:hover {
 }
 #map{
 	position: absolute;
-	top:950px;
-	left:1200px;
+	top:300px;
+	
 }
 
 #div_btn{
@@ -134,9 +136,72 @@ a:hover {
 	left: 65%;
  }
  
- .sbtn{
+.sbtn{
   	width: 200px;
   	margin-left: 11px;
   	
  }
  
+ 
+/* Fixed sidenav, full height */
+.sidenav {
+
+  width:80%; 
+  padding:0; 
+  margin-left:25px;
+  margin-top:40px; 
+  color:#000000; 
+  text-align:left; 
+  font-size: 12px;
+}
+
+/* Style the sidenav links and the dropdown button */
+
+.all-btn{
+  font-size : 12px;
+  padding: 16px 0px 16px 19px; 
+  text-decoration: none;
+  color: #000;
+  display: block;
+	border:none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+	
+}
+
+.sidenav a, .dropdown-btn {
+	
+  font-size : 12px;
+  padding: 16px 0px 16px 19px; 
+  text-decoration: none;
+  color: #000;
+  display: block;
+	border:none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  
+}
+
+.sidenav a { 
+	font-size : 12px;
+	display:block; 
+	background-color:#ffffff; 
+	padding: 16px 0px 16px 19px; 
+	text-decoration:none; 
+	color:#000000;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  background-repeat:no-repeat; 
+  background-position:5px 7px; 
+  background-color:#E1FF36;
+  color:#000000;  
+  
+}
