@@ -128,16 +128,6 @@
 <!--------------------- SCRIPTZONE ----------------------------------->
 <script type="text/javascript">
 
-
-//NEW ARRIVAL
-
-$(document).on('click', '.newArrival', function(){
-	alert("new");
-	var c1_name = "${c_name}";
-	alert(c1_name);
-});
-
-
 //카테고리 없이 검색어바로 들어올시 1차카테고리 생성 후 
 //1차 카테고리 클릭 -> 2차 카테고리 불러오기
 $(document).on('click', '#withoutC1C1list', function(){
