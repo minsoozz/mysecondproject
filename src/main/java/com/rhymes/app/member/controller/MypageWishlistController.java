@@ -70,9 +70,8 @@ public class MypageWishlistController {
 	@RequestMapping(value = "/wishlist/delete", method = RequestMethod.POST)
 	public String deleteWishlist(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
 		/* 선언부 */
-		log.info("[Ajax] deleteWishlist" );
+		log.info("[Ajax] deleteWishlist" + jsMap.get("pd_seq"));
 		
-				
 		return "1";
 	}
 	

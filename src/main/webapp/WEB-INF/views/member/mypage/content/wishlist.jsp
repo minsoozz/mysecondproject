@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
@@ -47,31 +48,42 @@
 	</div>
 	
 	<div class="body_wishlist">
-	<c:forEach items="${wishList }" var="dto">
-		<div class="form-row wishlist_row" id="itemrow_${dto.p_seq }">
-			<div class="col-md-2 chk_wishlist_item">				
-				<div class="switch_box box_1">
-					<input type="checkbox" class="switch_1 chk_item">
+	<c:choose>
+		<c:when test="${fn:length(wishList) < 1 }">
+			<div class="form-row wishlist_row" id="itemrow_${dto.p_seq }">
+				<div class="col-md-12 chk_wishlist_item">				
+					찜한 물품이 없습니다.
+				</div>		
+			</div>
+		</c:when>
+		<c:otherwise>
+			<c:forEach items="${wishList }" var="dto">
+				<div class="form-row wishlist_row" id="itemrow_${dto.p_seq }">
+					<div class="col-md-2 chk_wishlist_item">				
+						<div class="switch_box box_1">
+							<input type="checkbox" class="switch_1 chk_item">
+						</div>
+					</div>			
+		
+					<div class="col-md-2 img_wishlist_item" align="left">
+						<img src="<%=ctx %>/upload/store/${dto.photo1_file }" onerror="this.src='https://i.ytimg.com/vi/vWMCCZEkrKg/maxresdefault.jpg'">
+					</div>
+					<div class="col-md-6 detail_wishlist_item">
+						<div class="form-row">${dto.p_name }</div>
+						<div class="form-row">${dto.p_title }</div>
+						<div class="form-row"><fmt:formatNumber value="${dto.p_price }" pattern="###,###,###" />원</div>
+					</div>
+		
+					<div class="col-md-2 writenew_waiting_item">
+						<div class="wishlist_body_btns" align="center">
+							<input type="button" class="btn btn-default btn_order_body btn_save_basket" value="장바구니 담기"><br>
+							<input type="button" class="btn btn-default btn_order_body btn_delete_item" value="삭제">
+						</div>				
+					</div>
 				</div>
-			</div>			
-
-			<div class="col-md-2 img_wishlist_item" align="left">
-				<img src="<%=ctx %>/upload/store/${dto.photo1_file }" onerror="this.src='https://i.ytimg.com/vi/vWMCCZEkrKg/maxresdefault.jpg'">
-			</div>
-			<div class="col-md-6 detail_wishlist_item">
-				<div class="form-row">${dto.p_name }</div>
-				<div class="form-row">${dto.p_title }</div>
-				<div class="form-row"><fmt:formatNumber value="${dto.p_price }" pattern="###,###,###" />원</div>
-			</div>
-
-			<div class="col-md-2 writenew_waiting_item">
-				<div class="wishlist_body_btns" align="center">
-					<input type="button" class="btn btn-default btn_order_body btn_write_review" value="장바구니 담기"><br>
-					<input type="button" class="btn btn-default btn_order_body btn_delete_item" value="삭제">
-				</div>				
-			</div>
-		</div>
-	</c:forEach>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
 	</div>
 	
 	<div class="form-header tbl_wishlist_footer">

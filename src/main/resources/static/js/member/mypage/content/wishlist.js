@@ -36,6 +36,14 @@ $(function(){
 		
 		var isDone = deleteWishitem(p_seq);
 	});
+	
+	//선택된 아이템 다수 삭제 버튼 클릭 이벤트. Ajax 통신
+	$("#_btn_delete_all").click(function(){
+		var idString = '';
+		$(".body_wishlist").each(function(index, item){ 
+			console.log(index + ' , ' + item );
+		});
+	});
 });
 
 //p_seq에 해당하는 아이템을 삭제하여 완료여부를 리턴하는 함수
@@ -43,10 +51,7 @@ function deleteWishitem(p_seq){
 	// 배열 초기화
 	var viewData = {};
 	// data[키] = 밸류
-	viewData["userid"] = $("#_frm_userid").val();
-	viewData["pd_seq"] = $("#_frm_seq").val();
-	viewData["title"] = $("#_review_title").val();
-	viewData["content"] = myEditor.getData();
+	viewData["pd_seq"] = p_seq
 
 	$.ajax({
 		contentType : 'application/json',
@@ -58,12 +63,11 @@ function deleteWishitem(p_seq){
 		success : function( resp ) {
 			var result = resp + '';
 			if(result === '1'){
-				alert('저장이 완료되었습니다. ');
-				location.href= ctx + '/review';
+				alert('삭제가 완료되었습니다. ');
+				$("#itemrow_" + p_seq).remove();
 			}else{
 				console.log('세상에...0이라니..' + result);
-			}
-			
+			}			
 		},
 		error : function() {
 			alert('오류 발생. 고객센터로 문의하세요.');
