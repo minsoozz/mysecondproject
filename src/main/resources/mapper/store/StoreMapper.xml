@@ -11,7 +11,8 @@
 
 <!-- 상품리스트 -->
  <select id="getProductList" parameterType="com.rhymes.app.Store.model.ProductParam" resultType="com.rhymes.app.Store.model.ProductDto">
- 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME 		
+
+ 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME
  	FROM (	SELECT ROW_NUMBER()OVER(ORDER BY 
  			<if test="sorting == 'NEW'">
 		 	P_SEQ DESC
@@ -70,6 +71,7 @@
 				</if>
 			)A
  	WHERE RNUM BETWEEN ${start} AND #{end}
+
  	ORDER BY 
 		 	<if test="sorting == 'NEW'">
 		 	P_SEQ DESC
@@ -82,7 +84,6 @@
 		 	<if test="sorting == 'PRICEUP'">
 		 	P_PRICE DESC
 		 	</if>
- 	
  </select>
  
  <select id="productCnt" parameterType="com.rhymes.app.Store.model.ProductParam" resultType="java.lang.Integer">

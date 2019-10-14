@@ -61,7 +61,7 @@
 	<!-- << -->
 	<ul class="pagination">
 		<li class="page-item">
-	      <a href="#_product_qna" class="page-link"  title="처음페이지" onclick="goPage('0')">
+	      <a href="#_product_qna" class="page-link"  title="처음페이지" onclick="getProductQna('0')">
 	        <span aria-hidden="true">&laquo;</span>
 	        <span class="sr-only">Previous</span>
 	      </a>

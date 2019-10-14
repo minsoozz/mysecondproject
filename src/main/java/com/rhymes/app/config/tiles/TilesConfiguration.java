@@ -17,6 +17,7 @@ public class TilesConfiguration {
         configurer.setDefinitions("/WEB-INF/tiles/*/**");
         configurer.setCheckRefresh(true);
         configurer.setDefinitionsFactoryClass(CustomLocaleDefFac.class);
+        
         return configurer;
     }
 

@@ -25,6 +25,47 @@
 	<h3>찜 목록</h3>
 </div>
 
+<div class="form-group">
+	<div class="form-header">
+	<div class="form-row">
+		<div class="col-md-2 img_wishlist_item">
+			<input type="checkbox">
+		</div>
+		<div class="col-md-8 detail_wishlist_item">
+			상품설명
+		</div>
+		<div class="col-md-2 writenew_waiting_item">
+			<div class="wishlist_body_btns" align="center">
+				<input type="button" class="btn btn-default btn_order_body btn_write_review" value="장바구니 담기"><br>
+				<input type="button" class="btn btn-default btn_order_body" value="삭제">
+			</div>				
+		</div>
+	</div>
+	</div>
+	
+	<c:forEach items="${wishlist }" var="dto">
+		<div class="form-row">
+			<div class="col-md-2 img_wishlist_item">
+				<input type="checkbox">
+			</div>
+			<div class="col-md-2 img_wishlist_item">
+				<img src="<%=ctx %>/upload/store/${dto.photo1_file }" onerror="this.src='https://i.ytimg.com/vi/vWMCCZEkrKg/maxresdefault.jpg'">
+			</div>
+			<div class="col-md-6 detail_wishlist_item">
+				<div class="form-row">${dto.p_name }</div>
+				<div class="form-row">${dto.p_title }</div>
+				<div class="form-row">${dto.p_price }개 구매</div>
+			</div>
+			<div class="col-md-2 writenew_waiting_item">
+				<div class="wishlist_body_btns" align="center">
+					<input type="button" class="btn btn-default btn_order_body btn_write_review" value="장바구니 담기"><br>
+					<input type="button" class="btn btn-default btn_order_body" value="삭제">
+				</div>				
+			</div>
+		</div>
+	</c:forEach>
+</div>
+
 
 <div class="mypage_main_content_body">
 	<div class="body_wishlist" align="left">

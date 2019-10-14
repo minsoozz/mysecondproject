@@ -165,7 +165,6 @@ function addkCate2(arr, arrLen, c1_seq, c1_name) {
 		str += "</button>";
 	}
 	$("#withoutC1C2" + c1_seq).append(str);
-	
 }
 
 

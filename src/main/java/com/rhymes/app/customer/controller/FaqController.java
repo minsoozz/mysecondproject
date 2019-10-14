@@ -1,5 +1,6 @@
 package com.rhymes.app.customer.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class FaqController {
 		
 		List<FaqDto> faqlist = FaqService.getFaqList(param);
 		
-		//글의 총수
+		//글의 총수 
 		int totalRecordCount = FaqService.getFaqCount(param);	
 		model.addAttribute("faqlist", faqlist);
 		
@@ -58,6 +59,7 @@ public class FaqController {
 	public String faqwrite(Model model) {
 		model.addAttribute("doc_title", "자주하는 질문");
 		model.addAttribute("doc_sub", "고객님들께서 가장 자주하시는 질문을 모두 모았습니다.");
+		
 		
 		return "faqwrite.tiles";
 	}

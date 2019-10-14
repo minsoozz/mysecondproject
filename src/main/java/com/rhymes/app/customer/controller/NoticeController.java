@@ -2,6 +2,7 @@ package com.rhymes.app.customer.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -98,11 +99,13 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/noticewrite")
-	public String noticewrite(Model model) {
+	public String noticewrite(Model model,Principal pcp) {
 		model.addAttribute("doc_title", "공지사항");
 		model.addAttribute("doc_sub", "라임의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.");
 		
-		
+
+		String id = pcp.getName();
+		model.addAttribute("id",id);
 		return "noticewrite.tiles";
 	} 
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import com.rhymes.app.member.model.PointsPagingDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 
 public interface MypageCouponService {
 		
@@ -13,10 +14,17 @@ public interface MypageCouponService {
 	 */
 	public int getCountOnConditions(String userid);
 	
+	/**쿠폰리스트에 보여줄 쿠폰의 총 개수 리턴
+	 * @param userid
+	 * @return
+	 */
+	public int getCountOfMyCoupons(String userid);
+	
 	/**검색조건에 맞는 쿠폰 디테일 정보 리턴
 	 * @return
 	 */
-	public List<MemberCouponDTO> getDetailsOnConditions(PointsPagingDTO dto);
+	/* public List<MemberCouponDTO> getDetailsOnConditions(PointsPagingDTO dto); */
+	public List<MemberCouponDTO> getDetailsOnConditions(MemberReviewPagingDTO dto);
 	
 	
 	/**쿠폰번호에 맞는 쿠폰상세정보 리턴
