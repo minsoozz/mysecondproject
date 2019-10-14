@@ -127,13 +127,7 @@ public class MypageController {
 		
 		return "member/mypage/orderlog/detail";
 	}
-	
-	@GetMapping(value = "/wishlist")
-	public String showWishList() {
-		log.info("show wishlist");
-		return "member/mypage/wishlist";
-	}
-	
+		
 	/**적립금 현황 뷰를 보여주는 메소드
 	 * @param model
 	 * @param pcp

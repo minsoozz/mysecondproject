@@ -80,13 +80,9 @@ public class MypageReviewController {
 		
 		setReviewViewModel(model, pageNum, pcp, "true");
 		
-//		return "member/mypage/sub/review_sub_done";
 		return "member/mypage/sub/review_sub_wait";
 	}
-	
-	@Autowired
-	SqlSession ss;
-	
+		
 	/**후기작성 페이지 뷰 리턴
 	 * @param seq
 	 * @return
@@ -97,8 +93,8 @@ public class MypageReviewController {
 		log.info("showWriteNewReview()");
 		
 		if( seq == 0 )	return "redirect:/mypage/review";
-				
-		MemberReviewDTO dto = ss.selectOne("review.getReviewByIdSeq", seq);
+		
+		MemberReviewDTO dto = mypageReviewService.getReviewByIdSeq(seq);
 		
 		model.addAttribute("dto", dto);
 		
@@ -123,10 +119,11 @@ public class MypageReviewController {
 														jsMap.get("userid") + "", 
 														jsMap.get("title") + "", 
 														jsMap.get("content") + "");
-		int result = ss.insert("review.insertNewReviewBbs", dto);
+		
+		int result = mypageReviewService.insertNewReviewBbs(dto);		
 		if( result == 0 )	return "0";
 		
-		result = ss.update("review.updateReviewWritten", dto.getPd_seq() );
+		result = mypageReviewService.updateReviewWritten( dto.getPd_seq() );
 		if( result == 0 )	return "0";
 				
 		return "1";

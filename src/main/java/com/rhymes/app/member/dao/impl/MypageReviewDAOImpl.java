@@ -49,6 +49,16 @@ public class MypageReviewDAOImpl implements MypageReviewDAO {
 		return sqlSession.selectList(ns + "getReviewByIdAndOtherConditions", mRPDto);
 	}
 	
+	/**매개변수로 받은 디테일id(seq)에 맞는 주문정보 리턴 
+	 * @param seq
+	 * @return
+	 */
+	@Override
+	public MemberReviewDTO getReviewByIdSeq(int seq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(ns + "getReviewByIdSeq", seq);
+	}
+	
 	/**후기 게시물 DB에 저장
 	 * @param mRBDto
 	 * @return
