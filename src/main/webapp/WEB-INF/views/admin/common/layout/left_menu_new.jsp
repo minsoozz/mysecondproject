@@ -47,7 +47,7 @@
         <h6 class="collapse-header">member management</h6>
         <a class="collapse-item" href="/admin/memlist">회원 리스트</a>
         <a class="collapse-item" href="/admin/mem_c_list">업체 리스트</a>
-        <a class="collapse-item" href="/admin/mem_cp">적립금/쿠폰</a>
+        
       </div>
     </div>
   </li>

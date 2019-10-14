@@ -103,6 +103,8 @@
 							<!-- 6 -->
 							<th class="sorting">가입일</th>
 							<!-- 7 -->
+							
+							<th class="sorting">권한</th>
 						</tr>
 					</thead>
 
@@ -123,6 +125,7 @@
 								<td class="list_phone">${mem.phone }</td>
 								<td class="list_social">${mem.social}</td>
 								<td class="list_rdate">${mem.rdate }</td>
+								<td class="list_rdate">${mem.authority }</td>
 							</tr>
 						</c:forEach>
 
