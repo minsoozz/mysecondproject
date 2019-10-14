@@ -1,7 +1,48 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
+
+
+.slider_wrap{
+	position: absolute;
+	width: 400px;
+	height:400px;
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+#body____wrap{
+	width: 1250px;
+	height: 100px;
+	margin-left:auto; 
+	margin-right:auto; 
+	padding:0px;
+}
+
+body{
+	font: Open Sans;
+	min-height: 100%;
+	padding: 30px;
+	box-sizing: border-box;
+	overflow-x:hidden;
+	
+}
+
 tr{
 	border: 1px solid black; 
 }
+
+#side_goods{
+	position:absolute;
+	width: 1250px;
+	height: auto;
+	font-size: 15px;
+	margin-left: 800px;
+	margin-top: 46px;
+	
+}
+
+
 .list {
   list-style: none;
   padding: 0;
@@ -42,8 +83,78 @@ tr{
 }
 #ctable{
 	width: 661px;
+	
 }
-#dtable{
-	width:661px;
-	text-align: center;
+
+
+.test{
+	border-bottom: none;
 }
+
+#comment_wrap{
+
+	position : absolute;
+	margin-left: 80px;
+	
+}
+
+#market_info{
+	margin-left: 80px;
+}
+
+#info_qna{
+
+	border: 1px solid black;
+}
+
+
+/* ///////////productdetail.css////////////// */
+
+#b_btn{
+	font-size: 13px;
+	
+}
+
+#buyBtn{
+	border-radius: 30px;
+	margin-top:13px;
+	margin-bottom:10px;
+	width:270px;
+	height:55px;
+	background: #d7fd75;	
+	font: Open Sans 30px;
+	color: black; 
+}
+
+#buyBtn:hover{
+	opacity: 0.5;
+}
+
+
+.basketBtn{
+	border-radius: 30px;
+	margin-top:5px;
+	width:135px;
+	height:45px;
+	background: white;
+	font: Open Sans 30px;
+	color: black; 
+}
+.wishBtn{
+	border-radius: 30px;
+	margin-top:5px;
+	width:135px;
+	height:45px;
+	background: white;
+	font: Open Sans 30px;
+	color: black; 
+}
+
+
+.basketBtn:hover{
+	opacity:0.5;
+}
+
+
+
+
