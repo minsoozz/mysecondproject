@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.member.model.mypage.MemberReviewBbsDTO;
 import com.rhymes.app.member.model.mypage.MemberWishlistDTO;
+import com.rhymes.app.member.service.MypageWishlistService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,8 +36,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MypageWishlistController {
 	
 	@Autowired
-	SqlSession ss;
-
+	private MypageWishlistService mypageWishlistService;
+	
+	
 	/**위시리스트 페이지를 보여주는 메소드
 	 * @return
 	 */
@@ -49,7 +51,7 @@ public class MypageWishlistController {
 		String userid = pcp.getName();
 		
 		//Service 통신
-		wishList = ss.selectList("wishlist.getWishlistById", userid);
+		wishList = mypageWishlistService.getWishlistById(userid);
 		
 		//attr 추가
 		model.addAttribute("wishList", wishList);
@@ -72,7 +74,41 @@ public class MypageWishlistController {
 		/* 선언부 */
 		log.info("[Ajax] deleteWishlist" + jsMap.get("pd_seq"));
 		
-		return "1";
+		if(  null == jsMap.get("pd_seq") ) return "0";
+		
+		MemberWishlistDTO dto = new MemberWishlistDTO(pcp.getName(), Integer.parseInt(jsMap.get("pd_seq") + "" ));
+		
+		int result = mypageWishlistService.deleteWishItemByIdAndP_Seq(dto);
+		
+		return (result > 0)?"1":"0";
 	}
 	
+	/**여러개의 아이템 삭제.
+	 * @param model
+	 * @param jsMap
+	 * @param pcp
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/wishlist/delete/multiitem", method = RequestMethod.POST)
+	public String deleteMultiWishlist(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
+		/* 선언부 */
+		log.info("[Ajax] deleteMultiWishlist" + jsMap.get("pd_seq"));
+		System.out.println( jsMap.get("pd_seq") + "" );
+		if(  null == jsMap.get("pd_seq") ) return "0";
+		
+		MemberWishlistDTO dto = new MemberWishlistDTO();
+		dto.setUserid(pcp.getName());
+		String[] seqArr = (jsMap.get("pd_seq") + "").split(",");
+		int result = 0;
+		int tempSeq = 0;
+		
+		for (int i = 0; i < seqArr.length; i++) {
+			tempSeq = Integer.parseInt(seqArr[i]);
+			dto.setP_seq(tempSeq);
+			result = mypageWishlistService.deleteWishItemByIdAndP_Seq(dto);
+		}		
+		
+		return (result > 0)?"1":"0";		
+	}
 }

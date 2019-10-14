@@ -52,7 +52,8 @@
 				</div>				
 				<div class="col-md-2 detail-item-col">
 					<div class="item_btns_wrap">												
-						<input type="button" class="btn btn-rhy-border" value="후기 쓰기">
+						<input type="button" class="btn btn-rhy-border" value="후기 쓰기"
+							onclick="location.href='<%=ctx %>/mypage/review/writenew?seq=${detail.seq }';">
 						<input type="button" class="btn btn-rhy-border" value="장바구니 담기">
 					</div>
 				</div>

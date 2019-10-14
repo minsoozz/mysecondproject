@@ -90,7 +90,7 @@
 	<div class="form-row">
 		<div class="col-md-12 tbl_wishlist_overall_btns">
 			<input type="button" class="btn btn-rhy-full" value="선택품목 주문">
-			<input type="button" class="btn btn-rhy-border" value="선택품목 삭제">
+			<input type="button" id="_btn_delete_all" class="btn btn-rhy-border" value="선택품목 삭제">
 		</div>
 	</div>
 	</div>

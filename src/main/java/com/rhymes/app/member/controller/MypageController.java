@@ -119,10 +119,13 @@ public class MypageController {
 	@GetMapping(value = "/orderlog/showdetail")
 	public String showOrderlogDetail(Model model, @RequestParam(defaultValue = "0") String payment_code) throws Exception {
 		
+		//주문상세정보 리스트
 		model.addAttribute("payDetailList", mypageOrderlogService.getOrderlogDetailsByPaymentCode(payment_code));
+		
+		//주문코드
 		model.addAttribute("payment_code", payment_code);
-		MemberPaymentDTO mPDto = mypageOrderlogService.getPaymentInfoByPaymentCode(payment_code);
-		log.info("mpdto : " + mPDto);
+		
+		//결제정보
 		model.addAttribute("mPDto", mypageOrderlogService.getPaymentInfoByPaymentCode(payment_code));
 		
 		return "member/mypage/orderlog/detail";
