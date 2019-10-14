@@ -14,10 +14,17 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
+import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
 import com.rhymes.app.member.model.mypage.MemberOrderDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
+import com.rhymes.app.member.model.mypage.MemberReviewBbsDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 import com.rhymes.app.member.service.MypageOrderlogService;
@@ -85,12 +92,56 @@ public class MypageReviewController {
 		return "member/mypage/sub/review_sub_wait";
 	}
 	
+	@Autowired
+	SqlSession ss;
+	
+	/**후기작성 페이지 뷰 리턴
+	 * @param seq
+	 * @return
+	 */
 	@GetMapping(value = "/review/writenew")
-	public String showWriteNewReview() {
+	public String showWriteNewReview(@RequestParam(defaultValue = "0") int seq,
+			Model model) {
 		log.info("showWriteNewReview()");
+		
+		if( seq == 0 )	return "redirect:/mypage/review";
+				
+		MemberReviewDTO dto = ss.selectOne("review.getReviewByIdSeq", seq);
+		log.info("dto : " + dto);
+		
+		model.addAttribute("dto", dto);
+		
 		return "member/mypage/review/writenew";
 	}
 	
+	
+	/* Ajax통신 메소드 */
+	
+	/**Ajax통신을 통해 새 후기 게시물을 저장하고 주문내역디테일에 리뷰작성여부를 true로 변경하는 메소드.
+	 * @param model
+	 * @param jsMap
+	 * @param pcp
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/review/savenew", method = RequestMethod.POST)
+	public String regiNewCoupon(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
+		/* 선언부 */
+		log.info("dto : " + jsMap.get("content"));
+		MemberReviewBbsDTO dto = new MemberReviewBbsDTO(Integer.parseInt( jsMap.get("pd_seq") + "" ), 
+														jsMap.get("userid") + "", 
+														jsMap.get("title") + "", 
+														jsMap.get("content") + "");
+		int result = ss.insert("review.insertNewReviewBbs", dto);
+		if( result == 0 )	return "0";
+		
+		result = ss.update("review.updateReviewWritten", dto.getPd_seq() );
+		if( result == 0 )	return "0";
+		
+		log.info("저장끝!" + dto.toString());
+		
+		return "1";
+	}
 	
 	
 	/* 컨트롤러 전용 유틸 메소드 */

@@ -14,6 +14,7 @@ import lombok.ToString;
 public class MemberReviewDTO {
 
 	private int rnum;	//정렬 번호
+	private int seq;	//주문detail ID(seq)
 	private String payment_code;	//주문번호
 	private String userid;	//작성한 유저 ID
 	private String p_name;	//상품이름
