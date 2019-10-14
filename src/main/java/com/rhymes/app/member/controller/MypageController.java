@@ -192,9 +192,7 @@ public class MypageController {
 			couponDetailList = mypageCouponService.getDetailsOnConditions(pDto);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-		
-		System.out.println("listsize" + couponDetailList.size() + ", " + pDto.toString());
+		}	
 		
 		/* 저장된 값들을 뷰로 전송 */
 		model.addAttribute("myCoupons", myCoupons);

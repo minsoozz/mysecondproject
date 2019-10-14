@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wishlist">	
+
+	<!-- 매개변수로 받은 ID에 맞는 찜목록 리턴 -->
+	<select id="getWishlistById" parameterType="java.lang.String"
+	 resultType="com.rhymes.app.member.model.mypage.MemberWishlistDTO">
+		<include refid="getWishlistByIdSql"/></select>
+			
+	<!-- QUERY --> 	
+ 	<!-- 매개변수로 받은 ID의 주문상세내역을 리턴 -->
+ 	<sql id="getWishlistByIdSql">		
+		SELECT * 
+		FROM RHY_STORE_PRODUCT A, RHY_STORE_WISHLIST B
+		WHERE A.P_SEQ = B.P_SEQ AND B.ID = #{userid};
+ 	</sql>
+</mapper>
+
+
+
+
