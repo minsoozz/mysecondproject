@@ -11,6 +11,9 @@
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css"   
    href="<%=request.getContextPath() %>/css/store/silde.css">
+   <link rel="stylesheet" href="/css/store/productDetail.css">
+   
+   
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -28,7 +31,7 @@
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<link rel="stylesheet" href="/css/store/productDetail.css">
+
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -47,23 +50,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 <input type="hidden" id="hdnPseq" value="${productDto.p_seq }">
 
 <div id="body_wrap">
-<div id="middle_wrap">
-<%-- 
-<div id="body_wrap">
-   <div id="productdetail_img_wrap">
-      <div class="mainImg">
-         <img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
-      </div>
-      <div>
-         <img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
-      </div>
-   </div>
- --%>
-      
-
 
 <div id="wrapper">
       <div id="slider-wrap">
@@ -156,6 +142,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!-- 미니 장바구니 영역 -->
     <div class="basket" style="overflow: scroll;">
     </div>
+</div>
 </div>
 </div>
 
@@ -393,8 +380,7 @@ $(document).ajaxSend(function(e, xhr, options) {
          </li>         
       </ul>
     </div> 
-
-
+</div>
 
 
 <br><br>
@@ -449,7 +435,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 </div>
-</div>
+
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
 

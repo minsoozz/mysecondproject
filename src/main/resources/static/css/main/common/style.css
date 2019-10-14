@@ -391,7 +391,11 @@ li {
     padding-right: 13px;
      padding-left: 13px;
 }
-
+.top_header_area .signup-search-area .admin a {
+    margin-right: 13px;
+    border-right: 2px solid #c2c2c2;
+    padding-right: 13px;
+}
 .top_header_area .signup-search-area .search_button {
     margin-left: 54px;
 }
