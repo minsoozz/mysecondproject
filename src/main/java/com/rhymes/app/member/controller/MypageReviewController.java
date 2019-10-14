@@ -2,11 +2,8 @@ package com.rhymes.app.member.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rhymes.app.member.model.mypage.MemberCouponDTO;
-import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
-import com.rhymes.app.member.model.mypage.MemberOrderDetailDTO;
-import com.rhymes.app.member.model.mypage.MemberPointDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewBbsDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
-import com.rhymes.app.member.service.MypageOrderlogService;
 import com.rhymes.app.member.service.MypageReviewService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -107,7 +99,6 @@ public class MypageReviewController {
 		if( seq == 0 )	return "redirect:/mypage/review";
 				
 		MemberReviewDTO dto = ss.selectOne("review.getReviewByIdSeq", seq);
-		log.info("dto : " + dto);
 		
 		model.addAttribute("dto", dto);
 		
@@ -127,7 +118,7 @@ public class MypageReviewController {
 	@RequestMapping(value = "/review/savenew", method = RequestMethod.POST)
 	public String regiNewCoupon(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
 		/* 선언부 */
-		log.info("dto : " + jsMap.get("content"));
+		log.info("[Ajax] regiNewCoupon(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) " );
 		MemberReviewBbsDTO dto = new MemberReviewBbsDTO(Integer.parseInt( jsMap.get("pd_seq") + "" ), 
 														jsMap.get("userid") + "", 
 														jsMap.get("title") + "", 
@@ -137,9 +128,7 @@ public class MypageReviewController {
 		
 		result = ss.update("review.updateReviewWritten", dto.getPd_seq() );
 		if( result == 0 )	return "0";
-		
-		log.info("저장끝!" + dto.toString());
-		
+				
 		return "1";
 	}
 	
@@ -168,10 +157,7 @@ public class MypageReviewController {
 		model.addAttribute("mRPDto", mRPDto);
 		model.addAttribute("reviewMap", reviewMap);
 		model.addAttribute("reviewMapKeyset", keySet);
-		System.out.println(type);
-		for(String s : keySet) {			
-			System.out.println(reviewMap.get(s).toString());
-		}
+		
 	}
 	
 	
