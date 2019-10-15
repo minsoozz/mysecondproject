@@ -51,9 +51,17 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 		return sqlSession.selectOne(ns+"getAdMem", id);
 	}
 
+	// 회원정보 수정
 	@Override
 	public void getAdMemAf(P_MemberDTO pmem) {
 		sqlSession.update(ns+"getAdMemAf", pmem);
+	}
+
+	// 회원 정지
+	@Override
+	public void getMemLock(MemBean mb) {
+		sqlSession.update(ns+"getMemLock", mb);
+		
 	}
 
 

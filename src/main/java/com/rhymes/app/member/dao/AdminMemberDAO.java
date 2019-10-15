@@ -26,4 +26,8 @@ public interface AdminMemberDAO {
 
 	// 회원정보 수정
 	public void getAdMemAf(P_MemberDTO pmem);
+	
+	// 회원 정지
+	public void getMemLock(MemBean mb);
+	
 }

@@ -2,6 +2,7 @@ package com.rhymes.app.member.controller;
 
 import java.io.DataOutputStream;
 import java.net.URL;
+import java.security.Principal;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
@@ -66,7 +67,7 @@ public class AuthTestController {
 	@GetMapping("/login")
 	public String login(HttpServletRequest request, Model model, HttpSession session) {
 		log.info("show login view");
-
+		
 		return "rhylogin";
 	}
 

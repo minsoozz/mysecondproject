@@ -34,6 +34,16 @@
 				</td>
 			</tr>
 			<tr>
+				<td colspan="2">
+					 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+		                 <p style="color: red; font-size: small; padding-left: 4px;">아이디 혹은 비밀번호를 다시 확인해 주세요.
+<%-- 		                  ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} --%>
+						</p>
+		                 <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
+			        </c:if>
+				</td>
+			</tr>
+			<tr>
 				<td width="130px" style="padding: 0px;">
 					<div class="rememberCheck">
 				        <input class="rememberCheck-input" type="checkbox" id="chk_save_id" >
@@ -48,6 +58,7 @@
 				    </div>
 			    </td>
 			</tr>
+			
 			<tr>
 				<td colspan="2">
 				<br>

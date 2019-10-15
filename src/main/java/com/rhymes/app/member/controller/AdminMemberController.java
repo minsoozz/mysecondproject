@@ -1,9 +1,14 @@
 package com.rhymes.app.member.controller;
 
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +50,7 @@ public class AdminMemberController {
 		param.setEnd(end);
 		
 		List<MemBean> memlist = adminMemberService.getmemlist(param);
-		
+
 		//list 총 수
 		int totalRecordCount = adminMemberService.getmemCount(param);
 		
@@ -55,13 +60,12 @@ public class AdminMemberController {
 		model.addAttribute("pageCountPerScreen", 10);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);		
-		System.out.println("_________----------__________-------" + param.toString());
+		
 		// 추가
-			
 		model.addAttribute("s_category",param.getS_category());
 		model.addAttribute("s_keyword",param.getS_keyword());
 		model.addAttribute("authority",param.getAuthority());
-		
+		 
 		return "memlist"; 
 	}
 	
@@ -100,34 +104,41 @@ public class AdminMemberController {
 	}
 	
 	// 수정창으로 회원정보 불러오기
-	@GetMapping("/mem_update")
-	public String mem_update(String id, Model model) {
+	@ResponseBody
+	@RequestMapping(value = "/mem_update", method = {RequestMethod.GET, RequestMethod.POST})
+	public P_MemberDTO mem_update(Model model, HttpServletRequest req) {
 		log.info("show admin mem_update");
-		
+
+		String id = req.getParameter("id");
 		P_MemberDTO mem = adminMemberService.getAdMem(id);
-		
-		model.addAttribute("admem", mem);
-		
-		return "mem_update";
+
+		return mem;
 	}
 	
 	// 회원정보 수정
-	@GetMapping("/mem_updateAf")
-	public String mem_updateAf(P_MemberDTO pmem, Model model) {
+	@ResponseBody
+	@RequestMapping(value = "/mem_updateAf", method = {RequestMethod.GET, RequestMethod.POST})
+	public P_MemberDTO mem_updateAf(P_MemberDTO pmem, Model model, HttpServletRequest req) {
 		log.info("show admin mem_updateAf");
 
 		adminMemberService.getAdMemAf(pmem);
 		
-		return "redirect:/admin/memlist";
+		return pmem;
 	}
 	
 
 
-	// 쿠폰,적립금 관리 view
-	@GetMapping("/mem_cp")
-	public String mem_cp() {
-		log.info("show admin mem_cp");
-		return "mem_cp";
+	// 회원 정지
+	@RequestMapping(value = "/memLock", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memLock(MemBean bean, HttpServletRequest req) {
+		log.info("show admin memLock");
+
+		String dd[] = req.getParameterValues("checkid");
+		int checklen = dd.length;
+		bean.setChecklen(checklen);
+		
+		adminMemberService.getMemLock(bean);
+		return "redirect:/admin/memlist";
 	}
 
 	

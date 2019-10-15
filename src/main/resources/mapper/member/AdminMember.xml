@@ -6,10 +6,10 @@
 	<!-- 회원리스트 -->
 	<select id="getmemlist" parameterType="com.rhymes.app.member.model.MemberParam" resultType="com.rhymes.app.member.model.MemBean">
 		SELECT SEQ, ID AS USERID, RDATE, SOCIAL, NAME AS USERNAME, POSTCODE, ADDRESS, DETAILADDRESS, 
-				EMAIL AS USEREMAIL, PHONE, GENDER, BIRTH, AUTHORITY
+				EMAIL AS USEREMAIL, PHONE, GENDER, BIRTH, AUTHORITY, isAccountNonLock as isAccountNonLocked
 	       FROM (SELECT ROW_NUMBER()OVER(ORDER BY #{sorting} DESC)AS RNUM,
 					M.SEQ, M.ID, M.RDATE, M.SOCIAL, P.NAME, P.POSTCODE, P.ADDRESS, P.DETAILADDRESS, 
-					P.EMAIL, P.PHONE, P.GENDER, P.BIRTH, A.AUTHORITY
+					P.EMAIL, P.PHONE, P.GENDER, P.BIRTH, A.AUTHORITY, M.isAccountNonLock
 				FROM RHY_MEM M, RHY_MEM_P P, AUTHORITIES A
 				WHERE M.ID = P.ID AND P.ID = A.ID 
 				<if test="s_category != null and s_category != ''">
@@ -28,7 +28,6 @@
 						</if>
 					</if>
 				</if>
-					
 					)B
 			WHERE RNUM BETWEEN ${start} AND ${end}	
 			ORDER BY #{sorting} DESC
@@ -138,7 +137,12 @@
 		WHERE ID=#{userid}
 	</update>
 
-
+	<!-- 회원 정지 -->
+	<update id="getMemLock" parameterType="com.rhymes.app.member.model.MemBean">
+		UPDATE RHY_MEM
+		SET isAccountNonLock='false'
+		WHERE ID=#{userid}
+	</update>
 
 
 
