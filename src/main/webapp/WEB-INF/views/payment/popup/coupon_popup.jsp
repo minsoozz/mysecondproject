@@ -68,9 +68,12 @@
 <tr>
 	<td>	
 	<select id="coupon_popup_select" onchange="coupon_select(this)">
-		<option>사용안함</option>
+		<option func="">사용안함</option>
 		<c:forEach begin="0" end="${fn:length(coupon_code) -1 }" varStatus="i">
-		<option value="${coupon_code[i.index] }">${coupon_code[i.index].coup_code}</option>
+		<option func="${coupon_code[i.index].func }"
+				func_num="${coupon_code[i.index].func_num }"
+				func_measure="${coupon_code[i.index].func_measure }"
+		 		coup_code="${coupon_code[i.index].coup_code }">${coupon_code[i.index].coup_code}</option>
 		</c:forEach>
 	</select>
 	</td>
@@ -89,22 +92,45 @@
 
 
 <script type="text/javascript">
-$("#coupon_popup_btn").click(function () {
-	//alert("클릭");
-	
-	var coupon_popup_select = $("#coupon_popup_select").val();
-	//alert( coupon_popup_select );
-	
-	var test = $("#coupon_popup_select").attr("func");
-	alert(test);
-	
-	opener.document.getElementById("coupon_use").value = coupon_popup_select;
-	//opener.document.getElementById("coupon_use_func_num").value = coupon_popup_select;
-	//opener.document.getElementById("coupon_use_func_measure").value = coupon_popup_select;
-	
-	self.close();
-});
+$(function(){
 
+	var func;
+	var func_num;
+	var func_measure;
+	var coup_code;
+	
+	$("#coupon_popup_btn").click(function () {
+		//alert("클릭");
+		
+		var coupon_popup_select = $("#coupon_popup_select").val();
+		//alert( coupon_popup_select );
+		
+		func = $("#coupon_popup_select option:selected").attr("func");
+		func_num = $("#coupon_popup_select option:selected").attr("func_num");
+		func_measure = $("#coupon_popup_select option:selected").attr("func_measure");
+		coup_code = $("#coupon_popup_select option:selected").attr("coup_code");
+		
+		if(func == ""){
+			alert("쿠폰을 선택해주세요");
+			return;
+		}
+		
+		alert(func + func_num + func_measure + coup_code);
+	/* 
+		$("#coupon_use").text( coup_code );
+		$("#coupon_use_func").text( func );
+		$("#coupon_use_func_num").text( func_num );
+		$("#coupon_use_func_measure").text( func_measure ); */
+		
+		opener.document.getElementById("coupon_use").value = coup_code;
+		opener.document.getElementById("coupon_use_func").value = func;
+		opener.document.getElementById("coupon_use_func_num").value = func_num;
+		opener.document.getElementById("coupon_use_func_measure").value = func_measure;
+		 
+		window.close();
+	});
+	
+});
 
 
 //쿠폰 팝업창

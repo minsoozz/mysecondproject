@@ -189,11 +189,13 @@
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td colspan="6">쿠폰 사용&nbsp;&nbsp;
-	<input type="text" id="coupon_use" readonly="readonly">&nbsp;&nbsp;
-	<input type="button" id="coupon_btn" name="coupon_code" value="쿠폰선택">
-	<!-- <b id="coupon_use_func">1</b>
-	<b id="coupon_use_func_num">2</b>
-	<b id="coupon_use_func_measure">3</b> -->
+	<input type="text" id="coupon_use" name="coupon_code" value="" readonly="readonly" onchange="count_disc_coup()">&nbsp;&nbsp;
+	<input type="button" id="coupon_btn" value="쿠폰선택">
+	
+	<input type="text" id="coupon_use_func">
+	<input type="text" id="coupon_use_func_num">
+	<input type="text" id="coupon_use_func_measure">
+	
 	<input type="hidden" name="disc_coupon" value="">
 	</td>
 </tr>
@@ -220,7 +222,7 @@
 <br><br><br><br><br><br>
 
 <input type="hidden" name="payment_method">
-<!-- <input type="hidden" name="delivery_price"> -->
+<input type="hidden" name="delivery_price" value="${delivery_price }">
 <input type="hidden" name="add_point" id="add_point">
 <input type="hidden" name="totalprice">
 
