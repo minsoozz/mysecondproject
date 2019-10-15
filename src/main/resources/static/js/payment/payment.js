@@ -258,8 +258,16 @@ function paymens(){
 	var add_point = $("#add_point").val()
 	var disc_point = $("#disc_point").val();
 	var totalprice = $("#totalprice").text();
-	alert("totalprice : " + totalprice);
+	//alert("totalprice : " + totalprice);
 
+	var totalprice = $("#coupon_code").val();
+	var totalprice = $("#coupon_code").val();
+	var totalprice = $("#coupon_code").val();
+	var totalprice = $("#coupon_code").val();
+	var totalprice = $("#coupon_code").val();
+	var totalprice = $("#coupon_code").val();
+	var totalprice = $("#coupon_code").val();
+	var totalprice = $("#coupon_code").val();
 	
 	$("#payment_method").val( radioVal );
 	add_point = parseInt(totalprice) * 0.02;
