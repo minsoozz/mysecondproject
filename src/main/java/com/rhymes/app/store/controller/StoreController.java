@@ -1,12 +1,9 @@
 package com.rhymes.app.store.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.rhymes.app.companyadmin.service.ProductRegisterService;
 import com.rhymes.app.store.model.BasketDto;
 import com.rhymes.app.store.model.BasketListDto;
 import com.rhymes.app.store.model.ProductDto;
@@ -32,10 +28,7 @@ import com.rhymes.app.store.model.category.Category1Dto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
 import com.rhymes.app.store.service.PurchaseService;
-import com.rhymes.app.store.service.RegisterService;
 import com.rhymes.app.store.service.StoreService;
-import com.rhymes.app.companyadmin.service.ProductRegisterService;
-import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.used.Service.UsedService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -51,8 +44,10 @@ public class StoreController {
    
    @Autowired
    StoreService store;
+   
    @Autowired
    ProductRegisterService register;
+   
    @Autowired
    PurchaseService purchase;
    

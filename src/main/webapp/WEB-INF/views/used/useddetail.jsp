@@ -432,10 +432,12 @@ $(function(){
 				var arrow = "<img src='/img/used-img/arrow.png' width='10px' height='10px'/>";
 				
 				if(depth > 0){
+					html += "<tr class='ctr'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
 					html += "<tr class='test'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+
 						
 				} else {
-					html += "<tr><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+					html += "<tr class='ctr'><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
 						
 				}
 				
@@ -449,7 +451,7 @@ $(function(){
 				
 				
 				
-				html += "<tr><td colspan='4'>"+data[i].comments+"</td></tr>";
+				html += "<tr><td  id='ctr2' colspan='4'>"+data[i].comments+"</td></tr>";
 				html += "</div>";
 	
 			} 
