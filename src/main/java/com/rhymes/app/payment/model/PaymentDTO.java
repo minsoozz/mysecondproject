@@ -47,11 +47,6 @@ CREATE TABLE rhy_payment (
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentDTO implements Serializable {
-	private String stock_seq;				// 재고번호
-	private int quantity;					// 수량
-	private int stock_quantity;				// 상품 종류가 몇개인지
-	private int basket_del;					// 장바구니에서 구매했다면 장바구니 내역 지울 수 있는 변수
-
 	private int seq;						// 시퀀스
 	private String payment_code;			// 결제번호
 	private String userid;					// 구매회원ID
@@ -76,6 +71,7 @@ public class PaymentDTO implements Serializable {
 	private int add_point;					// 추가 적립금
 	private int totalprice;					// 결제 총 금액
 	private Date rdate;						// 결제일
+	
 }
 
 

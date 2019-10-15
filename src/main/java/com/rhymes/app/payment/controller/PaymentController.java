@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.model.OrderDTO;
+import com.rhymes.app.payment.model.PaymentAfDTO;
+import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.service.PaymentService;
 import com.rhymes.app.payment.util.Coolsms;
 
@@ -182,8 +184,10 @@ public class PaymentController {
 
 	// 주문페이지에서 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
-	public String paymentAf(Model model) {
+	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dto2) {
 		System.out.println("daraepaymentAf");
+		System.out.println("dto : " + dto.toString());
+		System.out.println("dto2 : " + dto2.toString());
 		
 		// 이메일로 결제내역을 보낸다
 		
@@ -199,7 +203,8 @@ public class PaymentController {
 		
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 
-		return "/payment/paymentAf";
+		return "";
+		//return "/payment/paymentAf";
 	}
 	
 	/** 자바 메일 발송 *
