@@ -23,7 +23,6 @@
 </c:if>
 
 
-
 <script type="text/javascript">
 function subscribe_func(){
 	
