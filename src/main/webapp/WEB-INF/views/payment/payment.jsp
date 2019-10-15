@@ -193,7 +193,7 @@
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td colspan="6">쿠폰 사용&nbsp;&nbsp;
-	<input type="text" id="coupon_use" name="coupon_code" value="" readonly="readonly" onchange="count_disc_coup()">&nbsp;&nbsp;
+	<input type="text" id="coupon_use" name="coupon_code" size="50" value="" readonly="readonly" onchange="count_disc_coup()">&nbsp;&nbsp;
 	<input type="button" id="coupon_btn" value="쿠폰선택">
 	
 	<input type="text" id="coupon_use_func">

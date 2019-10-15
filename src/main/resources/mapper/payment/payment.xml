@@ -45,7 +45,7 @@ FROM (
 		COUP_CODE,
 		(SELECT IF( DATE_FORMAT(B.EXPDATE,'%Y-%m-%d') < CURDATE(), '만료', ISUSED) ) AS ISUSED
 	FROM RHY_MEM_COUPON A, RHY_MEM_COUPON_DETAIL B, (SELECT @ROWNUM :=0) C
-	WHERE A.SEQ = B.C_SEQ AND USERID = 'mhj' AND VISIBLE=1
+	WHERE A.SEQ = B.C_SEQ AND USERID=#{userid} AND VISIBLE=1 AND ISUSED='미사용'
 	) RESULT
 	]]>
 </select>
@@ -94,16 +94,17 @@ VALUES(#{payment_code}, #{userid}, #{send_name}, #{send_phone}, #{send_email}, #
 #{disc_product}, #{add_point}, #{totalprice}, SYSDATE())
 </insert>
 
-<!-- 사용한 쿠폰을 지운다 -->
-<delete id="delete_coupon_code" parameterType="com.rhymes.app.payment.model.PaymentDTO">
-DELETE FROM RHY_MEM_COUPON_DETAIL
-COUP_CODE=#{coupon_code}
-</delete>
+<!-- 사용한 쿠폰을 사용으로 변환 -->
+<update id="update_isused_coupon" parameterType="com.rhymes.app.payment.model.PaymentDTO">
+UPDATE RHY_MEM_COUPON_DETAIL
+SET ISUSED='사용'
+WHERE COUP_CODE=#{coupon_code} AND USERID=#{userid}
+</update>
 
 <!-- 배송 내역 저장 -->
-<insert id="delivery_save">
+<insert id="delivery_save" parameterType="com.rhymes.app.payment.model.PaymentDTO">
 INSERT INTO RHY_DELIVERY
-VALUES(#{payment_code}, #{receive_name}, '우체국', '배송 준비중', '#{receive_postnum}', #{receive_address_request}, null)
+VALUES(#{payment_code}, #{receive_name}, '우체국', '배송 준비중', #{receive_postnum}, #{receive_address_request}, null)
 </insert>
 
 <!-- 이메일로 결제내역을 보낸다 -->

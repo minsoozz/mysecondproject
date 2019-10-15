@@ -185,18 +185,18 @@ public class PaymentController {
 	// 주문페이지에서 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
-		System.out.println("daraepaymentAf");
-		dto.setUserid( pcp.getName() );
-		System.out.println("dto : " + dto.toString());
-		System.out.println("dtoAf : " + dtoAf.toString());
+		//System.out.println("daraepaymentAf");
+		//dto.setUserid( pcp.getName() );
+		//System.out.println("dto : " + dto.toString());
+		//System.out.println("dtoAf : " + dtoAf.toString());
 		
 		// 상품의 재고번호를 ,를 기준으로 가져온다
-		String[] stock_seq = dtoAf.getStock_seq().split(",");
-		String[] quantity = dtoAf.getQuantity().split(",");
+		//String[] stock_seq = dtoAf.getStock_seq().split(",");
+		//String[] quantity = dtoAf.getQuantity().split(",");
 		
 		for (int i = 0; i < dtoAf.getStock_quantity(); i++) {
-			System.out.println(stock_seq[i]);
-			System.out.println(quantity[i]);
+			//System.out.println(stock_seq[i]);
+			//System.out.println(quantity[i]);
 
 			// 주문한 상품수량만큼 재고수량에서 차감한다
 			//boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
@@ -208,22 +208,29 @@ public class PaymentController {
 		//System.out.println("사용 포인트 차감 ----- " + b);
 
 		// db에 결제내역을 저장한다
-		boolean b = PaymentService.payment_save(dto);
-		System.out.println("결제 내역 저장 ----- " + b);
+		//boolean b = PaymentService.payment_save(dto);
+		//System.out.println("결제 내역 저장 ----- " + b);
 
-		// 사용한 쿠폰을 지운다
-		boolean b2 = PaymentService.delete_coupon_code(dto);
-		System.out.println("사용 쿠폰 삭제 ----- " + b2);
+		// 사용한 쿠폰을 사용으로 변환
+		//boolean b2 = PaymentService.update_isused_coupon(dto);
+		//System.out.println("사용한 쿠폰을 사용으로 변환 ----- " + b2);
 
 		// 배송내역 저장
-		boolean b3 = PaymentService.delivery_save(dto);
-		System.out.println("배송 내역 저장 ----- " + b3);
+		//boolean b3 = PaymentService.delivery_save(dto);
+		//System.out.println("배송 내역 저장 ----- " + b3);
+
+		// -- 이메일로 결제내역을 보낸다
+		
+		try {
+			mailSender(dto);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 		
 		
+		// -- 이메일로 결제내역을 보낸다
 		
-		// 이메일로 결제내역을 보낸다
-		
-		// 적립금 차감한다
+		// 적립금 차감한다 -- 아직
 		
 		// -- 사용한 쿠폰을 지운다
 		
@@ -231,7 +238,7 @@ public class PaymentController {
 		
 		// -- db에 결제내역을 저장한다
 		
-		// -- 배송내역 저장
+		// -- 배송내역 저장 -- 운송장번호 어떻게?
 		
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 
@@ -243,23 +250,24 @@ public class PaymentController {
 	 * @throws MessagingException
 	 * @throws AddressException **/
 	@RequestMapping(value = "/mailSender")
-	public void mailSender() throws AddressException, MessagingException {
+	public void mailSender(PaymentDTO dto) throws AddressException, MessagingException {
 		System.out.println("메일발송 컨트롤러");
 		
 		// 네이버일 경우 smtp.naver.com 을 입력합니다.
 		// Google일 경우 smtp.gmail.com 을 입력합니다.
 		String host = "smtp.naver.com";
 		
-		final String username = "project_test_darae"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-		final String password = "final_project"; //네이버 이메일 비밀번호를 입력해주세요.
+		final String username = "ogbgt5"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
+		final String password = "!1finalproject"; //네이버 이메일 비밀번호를 입력해주세요.
 		int port=465; //포트번호
 		
 		// 메일 내용
-		String recipient = "onep577@naver.com";
+		System.out.println("메일 발송 : " + dto.getSend_email().trim());
+		String recipient = dto.getSend_email().trim();
 
 		//받는 사람의 메일주소를 입력해주세요.
 		String subject = "메일테스트"; //메일 제목 입력해주세요.
-		String body = username+"님으로 부터 메일을 받았습니다."; //메일 내용 입력해주세요.
+		String body = username+"님으로 부터 "+dto.getTotalprice()+"원 결제 메일을 받았습니다."; //메일 내용 입력해주세요.
 		
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
 		
