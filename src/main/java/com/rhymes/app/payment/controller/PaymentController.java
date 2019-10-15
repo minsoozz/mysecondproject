@@ -59,8 +59,12 @@ public class PaymentController {
 		// db에는 재고수량이 있고 주문수량은 없다 매개변수로 받은 주문수량을 직접 넣는다
 		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
 		basketList.get(0).setId(pcp.getName());
+		
+		String totalprice = basketList.get(0).getP_price() * basketList.get(0).getQuantity() + "";
 
 		model.addAttribute("basketList", basketList);
+		model.addAttribute("totalprice", totalprice);
+
 		
 		for (OrderDTO _dto : basketList) {
 			System.out.println("장바구니 : " + _dto.toString());
@@ -139,10 +143,32 @@ public class PaymentController {
 		// DB 쿠폰 개수 가져오기
 		int coupon_count = PaymentService.getCountCoupon(userid);
 		
+		// DB 쿠폰 가져오기
+		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
+		
+		// 장바구니 내역 지울 수 있는 변수
+		int basket_del = 1;
 
+		int totalprice = 0;
+		for (OrderDTO dto : basketList) {
+			totalprice += dto.getP_price() * dto.getQuantity();
+		}
+		
+		int delivery_price = 0;
+		if(totalprice < 10000) {
+			delivery_price = 3000;
+		}else {
+			delivery_price = 0;
+		}
+		
+
+		model.addAttribute("basket_del", basket_del);
+		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("point_amount", point_amount);
 		model.addAttribute("coupon_count", coupon_count);
 		model.addAttribute("basketList", basketList);
+		model.addAttribute("totalprice", totalprice);
+		model.addAttribute("delivery_price", delivery_price);
 
 		if (true) {
 			// 로그인 되어있으면 결제 페이지로 이동
@@ -170,6 +196,8 @@ public class PaymentController {
 		// db에 결제내역을 저장한다
 		
 		// 배송내역 저장
+		
+		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 
 		return "/payment/paymentAf";
 	}
