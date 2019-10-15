@@ -214,11 +214,16 @@ public class PaymentController {
 		// 사용한 쿠폰을 지운다
 		boolean b2 = PaymentService.delete_coupon_code(dto);
 		System.out.println("사용 쿠폰 삭제 ----- " + b2);
+
+		// 배송내역 저장
+		boolean b3 = PaymentService.delivery_save(dto);
+		System.out.println("배송 내역 저장 ----- " + b3);
+		
 		
 		
 		// 이메일로 결제내역을 보낸다
 		
-		// -- 적립금 차감한다
+		// 적립금 차감한다
 		
 		// -- 사용한 쿠폰을 지운다
 		
@@ -226,7 +231,7 @@ public class PaymentController {
 		
 		// -- db에 결제내역을 저장한다
 		
-		// 배송내역 저장
+		// -- 배송내역 저장
 		
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 

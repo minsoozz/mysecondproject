@@ -100,6 +100,11 @@ DELETE FROM RHY_MEM_COUPON_DETAIL
 COUP_CODE=#{coupon_code}
 </delete>
 
+<!-- 배송 내역 저장 -->
+<insert id="delivery_save">
+INSERT INTO RHY_DELIVERY
+VALUES(#{payment_code}, #{receive_name}, '우체국', '배송 준비중', '', #{receive_address_request}, null)
+</insert>
 
 <!-- 이메일로 결제내역을 보낸다 -->
 

@@ -122,4 +122,13 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return count>0?true:false;
 	}
 
+	// 결제 후 배송 내역 저장
+	@Override
+	public boolean delivery_save(PaymentDTO dto) {
+		
+		int count = SqlSession.insert(p + "delivery_save", dto);
+
+		return count>0?true:false;
+	}
+
 }

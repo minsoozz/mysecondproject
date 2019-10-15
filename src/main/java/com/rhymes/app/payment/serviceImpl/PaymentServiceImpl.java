@@ -64,5 +64,11 @@ public class PaymentServiceImpl implements PaymentService {
 	public boolean delete_coupon_code(PaymentDTO dto) {
 		return PaymentDao.delete_coupon_code(dto);
 	}
+	
+	// 결제 후 배송 내역 저장
+	@Override
+	public boolean delivery_save(PaymentDTO dto) {
+		return PaymentDao.delivery_save(dto);
+	}
 
 }

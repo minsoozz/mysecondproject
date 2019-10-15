@@ -32,4 +32,7 @@ public interface PaymentService {
 	// 결제시 사용한 쿠폰 삭제
 	public boolean delete_coupon_code(PaymentDTO dto);
 	
+	// 결제 후 배송 내역 저장
+	public boolean delivery_save(PaymentDTO dto);
+	
 }
