@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.Service.MyUsedService;
 import com.rhymes.app.used.Service.UsedService;
+import com.rhymes.app.used.model.NotesDto;
 
 @RequestMapping(value = "mypage/*")
 @Controller
@@ -45,6 +46,12 @@ public class myUsedController {
 	public String NotesWrite(Model model, Principal prc) {
 
 		return "notesWrite.tiles";
+	}
+	
+	@GetMapping(value = "/noteswriteAf") // 쪽지 보내기 팝업
+	public String NotesWriteAf(Model model, Principal prc,NotesDto ndto) {
+			System.out.println(ndto.toString());
+		return "";
 	}
 
 	@GetMapping(value = "/json") // 쪽재 보내기 자동 검색

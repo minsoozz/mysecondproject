@@ -18,7 +18,6 @@ public class NotesDto implements Serializable {
 	private int seq;			// 시퀀스
 	private String recv_id;		// 보내는 사람 아이디
 	private String send_id;		// 받는 사람 아이디
-	private String title;		// 쪽지 제목
 	private String content;		// 쪽지 내용
 	private Date data_send;		// 쪽지를 보낸 날짜
 	private Date data_read;		// 받는이가 쪽지를 받은 날짜
