@@ -16,6 +16,9 @@ public class ProductParam implements Serializable {
 	private String keyword;	  // 검색어
 	private String criterion; // 상품이름 OR 브랜드이름
 	
+	// 업체명
+	private String c_name;
+	
 	// 카테고리
 	private String c1_name;
 	private String c2_name;
@@ -118,6 +121,12 @@ public class ProductParam implements Serializable {
 		}
 		public void setKey(String key) {
 			this.key = key;
+		}
+		public String getC_name() {
+			return c_name;
+		}
+		public void setC_name(String c_name) {
+			this.c_name = c_name;
 		}
 		
 	

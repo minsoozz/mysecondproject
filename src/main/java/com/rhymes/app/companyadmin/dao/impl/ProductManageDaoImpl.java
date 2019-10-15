@@ -6,21 +6,24 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.rhymes.app.companyadmin.dao.ProductRegisterDao;
+import com.rhymes.app.companyadmin.dao.ProductManageDao;
+import com.rhymes.app.companyadmin.model.ProductManageDto;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.model.ProductDto;
+import com.rhymes.app.store.model.ProductParam;
 import com.rhymes.app.store.model.StockDto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
 
 @Repository
-public class ProductRegisterDaoImpl implements ProductRegisterDao{
+public class ProductManageDaoImpl implements ProductManageDao{
 	
 	@Autowired
 	SqlSession sqlSession;
 	
-	String ns = "productregister";
-	
+	String ns = "productmanage.";
+
+// 1. 상품등록	
 	@Override
 	public List<Category2Dto> getCate2List(int c1_seq) throws Exception {
 		return sqlSession.selectList(ns + "getCate2List", c1_seq);
@@ -57,6 +60,22 @@ public class ProductRegisterDaoImpl implements ProductRegisterDao{
 	@Override
 	public SellerDTO getCname(SellerDTO seller) throws Exception {
 		return sqlSession.selectOne(ns + "getCname", seller);
+	}
+	
+//2.상품조회	
+	@Override
+	public List<ProductDto> getProductList(ProductManageDto pParam) throws Exception {
+		return sqlSession.selectList(ns + "getAdminProductList", pParam); 
+	}
+
+	@Override
+	public int getProductCnt(ProductManageDto pParam) throws Exception {
+		return sqlSession.selectOne(ns + "getAdminProductCnt", pParam);
+	}
+	//stocklist
+	@Override
+	public List<StockDto> getStockList(StockDto stock) throws Exception {
+		return sqlSession.selectList(ns + "getAdminStockList", stock);
 	}
 	
 	
