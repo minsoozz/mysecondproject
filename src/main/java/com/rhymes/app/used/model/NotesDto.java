@@ -16,11 +16,11 @@ import lombok.ToString;
 @ToString
 public class NotesDto implements Serializable {
 	private int seq;			// 시퀀스
-	private String recv_id;		// 보내는 사람 아이디
-	private String send_id;		// 받는 사람 아이디
+	private String send_id;		// 보내는 사람 아이디
+	private String recv_id;		// 받는 사람 아이디
 	private String content;		// 쪽지 내용
-	private Date data_send;		// 쪽지를 보낸 날짜
-	private Date data_read;		// 받는이가 쪽지를 받은 날짜
+	private String data_send;		// 쪽지를 보낸 날짜
+	private String data_read;		// 받는이가 쪽지를 받은 날짜
 	private String recv_read;	// 받는이가 쪽지를 읽은 여부
 	private String send_del;	// 보낸이가 보낸 쪽지함에서 삭제 여부
 	private String recv_del;	// 받는이가 받은 쪽지함에서 삭제 여부

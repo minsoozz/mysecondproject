@@ -6,4 +6,13 @@
   padding: 0 .5em 0 .5em;
   font-size: 0.75em;
 }
-
+#idcheck{
+	margin-left: 9px;
+	font-size: 11px;
+}
+#suc{
+	color: green;
+}
+#error{
+	color: red;
+}

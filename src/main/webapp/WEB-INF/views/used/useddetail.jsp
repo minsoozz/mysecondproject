@@ -61,7 +61,7 @@
   <h4>${dto.title }</h4>
   <p style="color: gray;font-size: 15px">${dto.category }</p>
   <p style="color: gray;font-size: 20px;">&#8361;${dto.price }</p>
-  <p style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : <fmt:formatDate value="${dto.rdate }" pattern="yyyy-MM-dd "/></p>
+  <p style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 :${dto.rdate }</p>
   
    <br>
    <font style="color: gray;font-size: 15px">조회수 : ${dto.readcount }</font>

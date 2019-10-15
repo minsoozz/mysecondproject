@@ -35,26 +35,63 @@ public class myUsedController {
 
 	@GetMapping(value = "/notes") // 쪽지 메인 View
 	public String getNotesList(Model model, Principal prc) {
-		P_MemberDTO dto = usedService.getMemberDto(prc.getName());
-		System.out.println(dto.toString());
+		P_MemberDTO dto = usedService.getMemberDto(prc.getName());	// 회원 정보를 얻는다
+		
+		System.out.println(prc.getName());
+		List<NotesDto> slist = MyusedService.getsendnotes(prc.getName());	// 회원 정보로 쪽지목록을 얻는다
+		List<NotesDto> rlist = MyusedService.getrecvnotes(prc.getName());	// 회원 정보로 쪽지목록을 얻는다
+		System.out.println("slist" + slist.toString());
+		System.out.println("rlist" + rlist.toString());
+		
+		model.addAttribute("slist", slist);
+		model.addAttribute("rlist", rlist);
 		model.addAttribute("dto", dto);
 
 		return "notes.tiles";
+		
 	}
-
-	@GetMapping(value = "/noteswrite") // 쪽지 보내기 팝업
+	
+	
+	@GetMapping(value = "/notesdetail") // 쪽지 내용 보기
+	public String notesdetail(Model model, Principal prc, String seq) {
+		System.out.println(seq);
+		NotesDto ndto = MyusedService.getnotesdetail(seq);
+		
+		model.addAttribute("dto", ndto);
+		
+		return "notesdetail.tiles";
+	}
+	
+	@GetMapping(value = "/noteswrite") // 쪽지 보내기 팝업띄우기
 	public String NotesWrite(Model model, Principal prc) {
 
 		return "notesWrite.tiles";
 	}
 	
-	@GetMapping(value = "/noteswriteAf") // 쪽지 보내기 팝업
-	public String NotesWriteAf(Model model, Principal prc,NotesDto ndto) {
-			System.out.println(ndto.toString());
+	@GetMapping(value = "/noteswriteAf") // 쪽지가 DB에 저장되는 부분
+	public String NotesWriteAf(Model model, Principal prc,NotesDto ndto, boolean save) {
+
+		if(save) {
+			ndto.setSend_del("N");
+		} else {
+			ndto.setSend_del("Y");
+			
+		}
+		
+		System.out.println(ndto.toString());
+		
+		boolean b = MyusedService.sendnotes(ndto);
+		
+		if(b) {
+			System.out.println("성공");
+		} else {
+			System.out.println("실패");
+		}
+		
 		return "";
 	}
 
-	@GetMapping(value = "/json") // 쪽재 보내기 자동 검색
+	@GetMapping(value = "/json") // 쪽지 보내기 자동 검색
 	@ResponseBody
 	public List<String> json(String value, Principal prc) throws Exception {
 		
@@ -69,6 +106,45 @@ public class myUsedController {
 
 		return member;
 	}
+	
+	@GetMapping(value = "/idcheck") // 쪽재 보내기 자동 검색
+	@ResponseBody
+	public String idcheck(String id) {
+	
+		int n = MyusedService.idcheck(id);
+
+		return n+"";
+	}
+	
+	
+	@GetMapping(value="/notesdelete")	// 쪽지 삭제
+	public String notesdelete(NotesDto ndto) {
+		System.out.println(ndto.toString());
+		
+		boolean b = MyusedService.notesdelete(ndto);
+		
+		if(b) {
+			System.out.println("삭제 성공");
+		} else {
+			System.out.println("실패");
+		}
+		return "redirect:/notes";
+	}
+	
+	@GetMapping(value="/notesdelete2")	// 쪽지 삭제2
+	public String notesdelete2(NotesDto ndto) {
+		System.out.println(ndto.toString());
+		
+		boolean b = MyusedService.notesdelete2(ndto);
+		
+		if(b) {
+			System.out.println("삭제 성공");
+		} else {
+			System.out.println("실패");
+		}
+		return "redirect:/notes";
+	}
+	
 
 	@GetMapping(value = "/subscribe")
 	@ResponseBody
