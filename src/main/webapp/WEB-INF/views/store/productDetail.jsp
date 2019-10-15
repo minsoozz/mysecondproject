@@ -168,6 +168,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 </div>
 
 <!-- 재입고 모달 영역-->
+
 <div class="restockModal">
 	<div class="restockModal-content">
 		<div>
@@ -231,6 +232,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 		</div>
 	</div>
 </div>
+
 
 <!-- 구매하기 form -->
 <form action="/payment" id="orderFrm" method="post">

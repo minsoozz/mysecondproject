@@ -34,7 +34,7 @@ import com.rhymes.app.store.model.category.Category3Dto;
 import com.rhymes.app.store.service.PurchaseService;
 import com.rhymes.app.store.service.RegisterService;
 import com.rhymes.app.store.service.StoreService;
-import com.rhymes.app.companyadmin.service.ProductRegisterService;
+import com.rhymes.app.companyadmin.service.ProductManageService;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.used.Service.UsedService;
 
@@ -52,7 +52,7 @@ public class StoreController {
    @Autowired
    StoreService store;
    @Autowired
-   ProductRegisterService register;
+   ProductManageService productmanage;
    @Autowired
    PurchaseService purchase;
    
@@ -94,9 +94,9 @@ public class StoreController {
          // 아무조건없이 카테고리1 클릭해서 들어갈 때   
          }else{
             if(param.getC1_name().equals("MEN")) {
-               cate2list = register.getCate2List(1);
+               cate2list = productmanage.getCate2List(1);
             }else if(param.getC1_name().equals("WOMEN")) {
-               cate2list = register.getCate2List(2);
+               cate2list = productmanage.getCate2List(2);
             }
          }
       // 브랜드 클릭 + 카테고리1 선택없이 전체검색시 카테고리 리스트 설정
@@ -166,14 +166,14 @@ public class StoreController {
    @ResponseBody
    @GetMapping("/cate2List")
    public List<Category2Dto> getCate2List(int c1_seq) throws Exception{
-      List<Category2Dto> cate2list = register.getCate2List(c1_seq);
+      List<Category2Dto> cate2list = productmanage.getCate2List(c1_seq);
       return cate2list;
    }
    
    @ResponseBody
    @GetMapping("/cate3List")
    public List<Category3Dto> getCate3List(int c2_seq) throws Exception{
-      List<Category3Dto> cate3list = register.getCate3List(c2_seq);
+      List<Category3Dto> cate3list = productmanage.getCate3List(c2_seq);
       return cate3list;
    }
    
@@ -183,7 +183,7 @@ public class StoreController {
       
       int c2_seq2 = Integer.parseInt(c2_seq);
       
-        String[] sizeUnits = register.getSizeunit(c2_seq2).split("/");
+        String[] sizeUnits = productmanage.getSizeunit(c2_seq2).split("/");
         List<String> list = Arrays.asList(sizeUnits);
         System.out.println("-----------" + list);
       
@@ -223,9 +223,9 @@ public class StoreController {
        
        if(product.getC1_name() != "" || product.getC1_name() != null) {
          if(product.getC1_name().equals("MEN")) {
-            cate2list = register.getCate2List(1);
+            cate2list = productmanage.getCate2List(1);
          }else if(product.getC1_name().equals("WOMEN")) {
-            cate2list = register.getCate2List(2);
+            cate2list = productmanage.getCate2List(2);
          }
        }
        
