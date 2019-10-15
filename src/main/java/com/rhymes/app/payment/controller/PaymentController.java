@@ -146,6 +146,8 @@ public class PaymentController {
 		// DB 쿠폰 가져오기
 		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
 		
+		// 장바구니 내역 지울 수 있는 변수
+		int basket_del = 1;
 
 		int totalprice = 0;
 		for (OrderDTO dto : basketList) {
@@ -160,6 +162,7 @@ public class PaymentController {
 		}
 		
 
+		model.addAttribute("basket_del", basket_del);
 		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("point_amount", point_amount);
 		model.addAttribute("coupon_count", coupon_count);

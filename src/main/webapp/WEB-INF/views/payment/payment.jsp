@@ -225,6 +225,7 @@
 <input type="hidden" name="delivery_price" value="${delivery_price }">
 <input type="hidden" name="add_point" id="add_point">
 <input type="hidden" name="totalprice">
+<input type="hidden" name="basket_del" value="${basket_del }">
 
 
 

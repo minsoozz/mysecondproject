@@ -117,7 +117,7 @@ $("#coupon_btn").click(function () {
 
 // 쿠폰변경 했을 때 결제 예정금액 변경
 function count_disc_coup() {
-	alert("안녕");
+	alert("쿠폰 변경되었을 때 onchange()함수 실행");
 
 	result_price();
 }
@@ -246,11 +246,6 @@ function paymens(){
 	var coupon_use_func = $("#coupon_use_func").val();
 	var coupon_use_func_num = $("#coupon_use_func_num").val();
 	
-	if( coupon_use_func == "적립" ) {
-		alert("적립");
-		document.payment_frm.add_point.value = coupon_use_func_num;
-	}
-	
 	var send_name = $("#send_name").val();
 	var send_phone = $("#send_phone1").val() + $("#send_phone2").val() + $("#send_phone3").val();
 	var send_email = $("#send_email").val();
@@ -267,7 +262,17 @@ function paymens(){
 	
 	document.payment_frm.payment_method.value = radioVal;
 	document.payment_frm.add_point.value = totalprice * 0.02;
+	
+	
+	alert("적립금1 : --- " + document.payment_frm.add_point.value);
+	
 	document.payment_frm.totalprice.value = totalprice;
+	
+	if( coupon_use_func == "적립" ) {
+		alert("적립");
+		document.payment_frm.add_point.value += coupon_use_func_num;
+	}
+	alert("적립금2 : --- " + document.payment_frm.add_point.value);
 	
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp50599923');  // 가맹점 식별 코드
@@ -277,7 +282,7 @@ function paymens(){
 	    pay_method : radioVal,
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
-	    amount : 150,
+	    amount : totalprice,
 	    buyer_email : send_email,
 	    buyer_name : send_name,
 	    buyer_tel : send_phone,
