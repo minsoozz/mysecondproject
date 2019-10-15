@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class PaymentAfDTO implements Serializable {
 	private String stock_seq;				// 재고번호
-	private int quantity;					// 수량
+	private String quantity;				// 수량
 	private int stock_quantity;				// 상품 종류가 몇개인지
 	private int basket_del;					// 장바구니에서 구매했다면 장바구니 내역 지울 수 있는 변수
 	private String receipt_url;				// 매출전표
@@ -29,4 +29,11 @@ public class PaymentAfDTO implements Serializable {
 	
 	// 카드
 	private String card_apply_num;			// 카드승인번호
+
+	// 주문한 후 상품 수량 차감할 때 필요
+	public PaymentAfDTO(String stock_seq, String quantity) {
+		super();
+		this.stock_seq = stock_seq;
+		this.quantity = quantity;
+	}
 }

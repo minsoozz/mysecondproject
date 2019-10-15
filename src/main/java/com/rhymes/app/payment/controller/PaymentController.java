@@ -184,20 +184,47 @@ public class PaymentController {
 
 	// 주문페이지에서 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
-	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dto2) {
+	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
 		System.out.println("daraepaymentAf");
+		dto.setUserid( pcp.getName() );
 		System.out.println("dto : " + dto.toString());
-		System.out.println("dto2 : " + dto2.toString());
+		System.out.println("dtoAf : " + dtoAf.toString());
+		
+		// 상품의 재고번호를 ,를 기준으로 가져온다
+		String[] stock_seq = dtoAf.getStock_seq().split(",");
+		String[] quantity = dtoAf.getQuantity().split(",");
+		
+		for (int i = 0; i < dtoAf.getStock_quantity(); i++) {
+			System.out.println(stock_seq[i]);
+			System.out.println(quantity[i]);
+
+			// 주문한 상품수량만큼 재고수량에서 차감한다
+			//boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
+			//System.out.println("재고수량 차감 ----- " + (i+1) + "번째 상품 차감 : " + b);
+		}
+		
+		// 적립금 차감한다 아직
+		//boolean b = PaymentService.disc_point(dto);
+		//System.out.println("사용 포인트 차감 ----- " + b);
+
+		// db에 결제내역을 저장한다
+		boolean b = PaymentService.payment_save(dto);
+		System.out.println("결제 내역 저장 ----- " + b);
+
+		// 사용한 쿠폰을 지운다
+		boolean b2 = PaymentService.delete_coupon_code(dto);
+		System.out.println("사용 쿠폰 삭제 ----- " + b2);
+		
 		
 		// 이메일로 결제내역을 보낸다
 		
-		// 적립금 차감한다
+		// -- 적립금 차감한다
 		
-		// 사용한 쿠폰을 지운다
+		// -- 사용한 쿠폰을 지운다
 		
-		// 주문한 상품수량만큼 재고수량에서 차감한다
+		// -- 주문한 상품수량만큼 재고수량에서 차감한다
 		
-		// db에 결제내역을 저장한다
+		// -- db에 결제내역을 저장한다
 		
 		// 배송내역 저장
 		

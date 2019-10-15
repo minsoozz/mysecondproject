@@ -99,9 +99,10 @@
 	<td><input type="text" size="5" id="send_phone1">&nbsp;-&nbsp;
 	<input type="text" size="5" id="send_phone2">&nbsp;-&nbsp;
 	<input type="text" size="5" id="send_phone3">
-	<input type="hidden" name="send_phone">
+	<input type="hidden" name="send_phone" id="send_phone">
 	</td>
-</tr><tr>
+</tr>
+<tr>
 	<th>이메일 *</th>
 	<td><input type="text" id="send_email" name="send_email" size="26"><input type="hidden" onclick="location.href='/mailSender'" value="메일발송"></td>
 </tr><tr>
@@ -129,7 +130,7 @@
 	<input type="text" size="67" id="sample6_address" placeholder="지번주소"><br>
 	<input type="text" size="30" id="sample6_detailAddress" placeholder="상세주소">
 	<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목">
-	<input type="hidden" name="receive_address">
+	<input type="hidden" name="receive_address" id="receive_address">
 	</td>
 </tr>
 <tr>
@@ -141,7 +142,7 @@
 	<td><input type="text" size="5" id="receive_phone1">&nbsp;&nbsp;
 	<input type="text" size="5" id="receive_phone2">&nbsp;&nbsp;
 	<input type="text" size="5" id="receive_phone3">
-	<input type="hidden" name="receive_phone">
+	<input type="hidden" name="receive_phone" id="receive_phone">
 	</td>
 </tr>
 <tr>
@@ -225,6 +226,7 @@
 <br><br><br><br><br><br>
 
 <input type="hidden" name="payment_method" id="payment_method">
+<input type="hidden" name="payment_status" id="payment_status">
 <input type="hidden" name="delivery_price" value="${delivery_price }">
 <input type="hidden" name="add_point" id="add_point" value="0">
 <input type="hidden" name="totalprice" id="totalprice" value="0">

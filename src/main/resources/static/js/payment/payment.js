@@ -254,6 +254,8 @@ function paymens(){
 	var receive_postnum = $("#sample6_postcode").val();
 	var receive_address = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
 	var receive_address_request = $("#receive_address_request").val();
+	
+	$("#receive_phone").val( receive_phone );
 
 		
 	var add_point = $("#add_point").val()
@@ -312,6 +314,9 @@ function paymens(){
 	        $("#vbank_date").val( rsp.vbank_date );
 	        $("#vbank_holder").val( rsp.vbank_holder );
 	        $("#card_apply_num").val( rsp.apply_num );
+	        $("#payment_status").val( rsp.status );
+	        $("#receive_address").val( rsp.buyer_addr );
+	        $("#send_phone").val( rsp.buyer_tel );
 
 	        /*
 	        location.href = '/paymentAf?paid_amount='+rsp.paid_amount+'&imp_uid='+rsp.imp_uid

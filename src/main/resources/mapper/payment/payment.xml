@@ -67,18 +67,41 @@ FROM (
 
 <!-- 결제페이지에서 결제완료 후 -->
 
-<!-- 결제한 상품의 재고 수량 차감 -->
-<select id="product_count" parameterType="com.rhymes.app.payment.model.OrderDTO">
+<!-- 주문한 상품수량만큼 재고수량에서 차감한다 -->
+<update id="disc_stock_quantity" parameterType="com.rhymes.app.payment.model.PaymentAfDTO">
 UPDATE RHY_STORE_STOCK
-SET QUANTITY = QUANTITY - 1
+SET QUANTITY = QUANTITY - ${quantity}
 WHERE STOCK_SEQ=#{stock_seq}
-</select>
+</update>
+
+<!-- 적립금 차감한다 -->
+<update id="disc_point" parameterType="com.rhymes.app.payment.model.PaymentDTO">
+
+SELECT *
+FROM RHY_MEM_POINT
+WHERE ID=#{userid}
+ORDER BY RDATE ASC
+</update>
+
+<!-- 결제내역 저장 -->
+<insert id="payment_save" parameterType="com.rhymes.app.payment.model.PaymentDTO">
+INSERT INTO RHY_PAYMENT(PAYMENT_CODE, USERID, SEND_NAME, SEND_PHONE, SEND_EMAIL, RECEIVE_NAME,
+RECEIVE_PHONE, RECEIVE_POSTNUM, RECEIVE_ADDRESS, PAYMENT_METHOD, PAYMENT_STATUS, DISC_COUPON,
+DELIVERY_PRICE, COUPON_CODE, DISC_POINT, DISC_PRODUCT, ADD_POINT, TOTALPRICE, RDATE)
+VALUES(#{payment_code}, #{userid}, #{send_name}, #{send_phone}, #{send_email}, #{receive_name},
+#{receive_phone}, #{receive_postnum}, #{receive_address}, #{payment_method}, #{payment_status},
+#{disc_coupon}, #{delivery_price}, #{coupon_code}, #{disc_point},
+#{disc_product}, #{add_point}, #{totalprice}, SYSDATE())
+</insert>
+
+<!-- 사용한 쿠폰을 지운다 -->
+<delete id="delete_coupon_code" parameterType="com.rhymes.app.payment.model.PaymentDTO">
+DELETE FROM RHY_MEM_COUPON_DETAIL
+COUP_CODE=#{coupon_code}
+</delete>
+
 
 <!-- 이메일로 결제내역을 보낸다 -->
-<!-- 적립금 차감한다 -->
-<!-- 사용한 쿠폰을 지운다 -->
-<!-- 주문한 상품수량만큼 재고수량에서 차감한다 -->
-<!-- 결제내역 저장 -->
 
 
 

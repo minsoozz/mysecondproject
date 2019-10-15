@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.model.OrderDTO;
+import com.rhymes.app.payment.model.PaymentDTO;
 
 public interface PaymentService {
 	
@@ -18,5 +19,17 @@ public interface PaymentService {
 	
 	// 결제페이지에서 쿠폰 가져오기
 	public List<MemberCouponDTO> getAllCoupon(String userid);
+	
+	// 결제한 후 상품 수량 차감
+	public boolean disc_stock_quantity(String stock_seq, String quantity);
 
+	// 결제한 후 사용 포인트 차감
+	public boolean disc_point(PaymentDTO dto);
+
+	// 결제 내역 저장
+	public boolean payment_save(PaymentDTO dto);
+	
+	// 결제시 사용한 쿠폰 삭제
+	public boolean delete_coupon_code(PaymentDTO dto);
+	
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.dao.PaymentDAO;
 import com.rhymes.app.payment.model.OrderDTO;
+import com.rhymes.app.payment.model.PaymentAfDTO;
+import com.rhymes.app.payment.model.PaymentDTO;
 
 @Repository
 public class PaymentDAOImpl implements PaymentDAO {
@@ -80,6 +82,44 @@ public class PaymentDAOImpl implements PaymentDAO {
 		}
 		
 		return coupon;
+	}
+
+	// 결제한 후 상품 수량 차감
+	@Override
+	public boolean disc_stock_quantity(String stock_seq, String quantity) {
+		
+		PaymentAfDTO dto = new PaymentAfDTO(stock_seq, quantity);
+		
+		int count = SqlSession.update(p + "disc_stock_quantity", dto);
+		
+		return count>0?true:false;
+	}
+
+	// 결제한 후 사용 포인트 차감
+	@Override
+	public boolean disc_point(PaymentDTO dto) {
+		
+		int count = SqlSession.update(p + "disc_point", dto);
+		
+		return count>0?true:false;
+	}
+
+	// 결제 내역 저장
+	@Override
+	public boolean payment_save(PaymentDTO dto) {
+
+		int count = SqlSession.insert(p + "payment_save", dto);
+
+		return count>0?true:false;
+	}
+
+	// 결제시 사용한 쿠폰 삭제
+	@Override
+	public boolean delete_coupon_code(PaymentDTO dto) {
+		
+		int count = SqlSession.delete(p + "delete_coupon_code", dto);
+		
+		return count>0?true:false;
 	}
 
 }
