@@ -128,7 +128,6 @@ function count_disc_coup() {
 
 // 결제금액 계산
 function result_price() {
-	alert("ㅇㅇㅇㅇ");
 	var product_price = $("#product_price").text();
 	var delivery_price = $("#delivery_price").text();
 	var disc_price = $("#discprice").text();
@@ -154,13 +153,13 @@ function price_change() {
 	//	$("#disc_point").text( "0" );
 	//}
 	
-	var _point_amount = parseInt(point_amount) + 1;
-	var _disc_point = parseInt(disc_point) + 2;
+	var _point_amount = parseInt(point_amount);
+	var _disc_point = parseInt(disc_point);
 	
 	
 	if( _point_amount < _disc_point ) {
 		alert( $("#point_amount").val() + "원까지 사용가능합니다" );
-		$("#disc_point").val("");
+		$("#disc_point").val("0");
 	}
 	
 	$("#discprice").text( $("#disc_point").val() );
@@ -256,23 +255,22 @@ function paymens(){
 	var receive_address = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
 	var receive_address_request = $("#receive_address_request").val();
 	
-	var disc_point = $("#disc_point").val();	
-	var totalprice = $("#totalprice").val();
+	var add_point = $("#add_point").val()
+	var disc_point = $("#disc_point").val();
+	var totalprice = $("#totalprice").text();
+	alert("totalprice : " + totalprice);
 
 	
-	document.payment_frm.payment_method.value = radioVal;
-	document.payment_frm.add_point.value = totalprice * 0.02;
+	$("#payment_method").val( radioVal );
+	add_point = parseInt(totalprice) * 0.02;
 	
-	
-	alert("적립금1 : --- " + document.payment_frm.add_point.value);
-	
-	document.payment_frm.totalprice.value = totalprice;
+	alert("적립금1 : --- " + add_point );
 	
 	if( coupon_use_func == "적립" ) {
 		alert("적립");
-		document.payment_frm.add_point.value += coupon_use_func_num;
+		add_point = parseInt(add_point) + parseInt(coupon_use_func_num);
 	}
-	alert("적립금2 : --- " + document.payment_frm.add_point.value);
+	alert("적립금2 : --- " + add_point );
 	
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp50599923');  // 가맹점 식별 코드

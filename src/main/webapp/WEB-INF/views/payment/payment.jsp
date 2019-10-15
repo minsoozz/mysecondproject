@@ -52,6 +52,9 @@
 	<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].c_name }</td>
 	<td rowspan="2" width="10%" align="center" id="one_total_price${i.index }">
 	<fmt:formatNumber value="${basketList[i.index].p_price * basketList[i.index].quantity }" />원
+	<input type="hidden" name="stock_seq" value="${${basketList[i.index].stock_seq }">
+	<input type="hidden" name="quantity" value="${${basketList[i.index].quantity }">
+	<input type="hidden" name="stock_quantity" value="${i.index }">
 	</td>
 </tr>
 <tr>
@@ -221,7 +224,7 @@
 </div>
 <br><br><br><br><br><br>
 
-<input type="hidden" name="payment_method">
+<input type="hidden" name="payment_method" id="payment_method">
 <input type="hidden" name="delivery_price" value="${delivery_price }">
 <input type="hidden" name="add_point" id="add_point">
 <input type="hidden" name="totalprice">
