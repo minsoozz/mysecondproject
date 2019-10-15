@@ -52,9 +52,9 @@
 	<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].c_name }</td>
 	<td rowspan="2" width="10%" align="center" id="one_total_price${i.index }">
 	<fmt:formatNumber value="${basketList[i.index].p_price * basketList[i.index].quantity }" />원
-	<input type="hidden" name="stock_seq" value="${${basketList[i.index].stock_seq }">
-	<input type="hidden" name="quantity" value="${${basketList[i.index].quantity }">
-	<input type="hidden" name="stock_quantity" value="${i.index }">
+	<input type="hidden" name="stock_seq" value="${basketList[i.index].stock_seq }">
+	<input type="hidden" name="quantity" value="${basketList[i.index].quantity }">
+	<input type="hidden" name="stock_quantity" value="${i.index +1 }">
 	</td>
 </tr>
 <tr>
@@ -99,9 +99,10 @@
 	<td><input type="text" size="5" id="send_phone1">&nbsp;-&nbsp;
 	<input type="text" size="5" id="send_phone2">&nbsp;-&nbsp;
 	<input type="text" size="5" id="send_phone3">
-	<input type="hidden" name="send_phone">
+	<input type="hidden" name="send_phone" id="send_phone">
 	</td>
-</tr><tr>
+</tr>
+<tr>
 	<th>이메일 *</th>
 	<td><input type="text" id="send_email" name="send_email" size="26"><input type="hidden" onclick="location.href='/mailSender'" value="메일발송"></td>
 </tr><tr>
@@ -129,7 +130,7 @@
 	<input type="text" size="67" id="sample6_address" placeholder="지번주소"><br>
 	<input type="text" size="30" id="sample6_detailAddress" placeholder="상세주소">
 	<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목">
-	<input type="hidden" name="receive_address">
+	<input type="hidden" name="receive_address" id="receive_address">
 	</td>
 </tr>
 <tr>
@@ -141,7 +142,7 @@
 	<td><input type="text" size="5" id="receive_phone1">&nbsp;&nbsp;
 	<input type="text" size="5" id="receive_phone2">&nbsp;&nbsp;
 	<input type="text" size="5" id="receive_phone3">
-	<input type="hidden" name="receive_phone">
+	<input type="hidden" name="receive_phone" id="receive_phone">
 	</td>
 </tr>
 <tr>
@@ -176,7 +177,7 @@
 	<td>-</td>
 	<td id="discprice">0</td>
 	<td>=</td>
-	<td id="totalprice"></td>
+	<td id="_totalprice"></td>
 </tr>
 
 <c:if test="${coupon_count eq 0 }">
@@ -199,7 +200,7 @@
 	<input type="text" id="coupon_use_func_num">
 	<input type="text" id="coupon_use_func_measure">
 	
-	<input type="hidden" name="disc_coupon" value="">
+	<input type="hidden" name="disc_coupon" value="0">
 	</td>
 </tr>
 <tr>
@@ -215,7 +216,7 @@
 </c:if>
 <c:if test="${point_amount ne 0 }">
 	<td colspan="6">
-	<input type="text" id="disc_point" name="disc_point" onchange="price_change()">원
+	<input type="text" id="disc_point" name="disc_point" onchange="price_change()" value="0">원
 	&nbsp;&nbsp;사용가능 적립금 : <fmt:formatNumber value="${point_amount }" />원
 	&nbsp;&nbsp;(1,000원 단위로 사용가능합니다)</td>
 </c:if>
@@ -225,12 +226,19 @@
 <br><br><br><br><br><br>
 
 <input type="hidden" name="payment_method" id="payment_method">
+<input type="hidden" name="payment_status" id="payment_status">
 <input type="hidden" name="delivery_price" value="${delivery_price }">
-<input type="hidden" name="add_point" id="add_point">
-<input type="hidden" name="totalprice">
+<input type="hidden" name="add_point" id="add_point" value="0">
+<input type="hidden" name="totalprice" id="totalprice" value="0">
 <input type="hidden" name="basket_del" value="${basket_del }">
 
-
+<input type="hidden" name="payment_code" id="payment_code">
+<input type="hidden" name="receipt_url" id="receipt_url">
+<input type="hidden" name="vbank_num" id="vbank_num">
+<input type="hidden" name="vbank_name" id="vbank_name">
+<input type="hidden" name="vbank_date" id="vbank_date">
+<input type="hidden" name="vbank_holder" id="vbank_holder">
+<input type="hidden" name="card_apply_num" id="card_apply_num">
 
 
 
