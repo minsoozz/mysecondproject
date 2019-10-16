@@ -26,9 +26,11 @@ public class ProductDto {
 	private String photo5_file;		// 이미지5
 	private String rdate;			// 제품등록 날짜
 	
-	private String p_price2;
+	private String p_price2;		// 원화 단위로 변환
 	
-	
+	private int rnum;				// 관리자쪽에서 확인하기 위한 순번
+	private int sum;				// 관리자쪽에서 확인하기 위한 총합 : 해당P_SEQ에 대한 STOCK 총합
+	private int wish;				// 관리자쪽에서 확인하기 위한 찜cnt
 	
 	public String getP_price2() {
 		return p_price2;
@@ -193,6 +195,30 @@ public class ProductDto {
 
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+	public int getSum() {
+		return sum;
+	}
+
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+
+	public int getWish() {
+		return wish;
+	}
+
+	public void setWish(int wish) {
+		this.wish = wish;
 	}
 	
 

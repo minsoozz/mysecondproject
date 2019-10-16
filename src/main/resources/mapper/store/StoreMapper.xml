@@ -9,7 +9,6 @@
 	
 </select>
 
-
 <select id="getCompanyList" resultType="String">
 	SELECT C_NAME FROM rhy_mem_c
 	ORDER BY (CASE WHEN C_NAME REGEXP '[A-Z]' THEN C_NAME REGEXP '[0-9]' ELSE C_NAME  NOT REGEXP '[A-Z]' END), C_NAME  ASC 

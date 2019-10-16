@@ -61,8 +61,6 @@
   <h4>${dto.title }</h4>
   <p style="color: gray;font-size: 15px">${dto.category }</p>
   <p style="color: gray;font-size: 20px;">&#8361;${dto.price }</p>
-  
-  
    <br>
    <font style="color: gray;font-size: 15px">조회수 : ${dto.readcount }</font>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -1,6 +1,6 @@
 $(function(){
-	
 	alert("결제");
+	result_price();
 
 	
 
@@ -12,16 +12,16 @@ $("#oldaddress").click(function () {
 	
 	if(b){
 		alert("true");
-		$("#receiveid").val( $("#sendid").val() );
-		$("#receivephone1").val( $("#sendphone1").val() );
-		$("#receivephone2").val( $("#sendphone2").val() );
-		$("#receivephone3").val( $("#sendphone3").val() );
+		$("#receive_name").val( $("#send_name").val() );
+		$("#receive_phone1").val( $("#send_phone1").val() );
+		$("#receive_phone2").val( $("#send_phone2").val() );
+		$("#receive_phone3").val( $("#send_phone3").val() );
 	}else{
 		alert("false");
-		$("#receiveid").val( "" );
-		$("#receivephone1").val( "" );
-		$("#receivephone2").val( "" );
-		$("#receivephone3").val( "" );
+		$("#receive_name").val( "" );
+		$("#receive_phone1").val( "" );
+		$("#receive_phone2").val( "" );
+		$("#receive_phone3").val( "" );
 	}
 
 });
@@ -100,9 +100,7 @@ $("#enterBtn").click(function() {
 });
 
 
-
-
-
+// 쿠폰 팝업창이 나온다
 $("#coupon_btn").click(function () {
 	window.open("/payment_coupon", "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
 });
@@ -111,15 +109,63 @@ $("#coupon_btn").click(function () {
 
 
 
-$("#coupon_popup_btn").click(function () {
-	alert("confirm");
 });
 
 
 
 
 
-});
+// 쿠폰변경 했을 때 결제 예정금액 변경
+function count_disc_coup() {
+	alert("쿠폰 변경되었을 때 onchange()함수 실행");
+
+	result_price();
+}
+
+
+
+
+
+// 결제금액 계산
+function result_price() {
+	var product_price = $("#product_price").text();
+	var delivery_price = $("#delivery_price").text();
+	var disc_price = $("#discprice").text();
+	var totalprice = $("#_totalprice").text();
+
+	$("#_totalprice").text( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_price) );
+}
+
+
+
+
+
+
+
+// 적립금
+function price_change() {
+	//alert("적립금");
+	
+	var point_amount = $("#point_amount").val();
+	var disc_point = $("#disc_point").val();
+
+	//if( disc_point.trim().length == 0 ) {
+	//	$("#disc_point").text( "0" );
+	//}
+	
+	var _point_amount = parseInt(point_amount);
+	var _disc_point = parseInt(disc_point);
+	
+	
+	if( _point_amount < _disc_point ) {
+		alert( $("#point_amount").val() + "원까지 사용가능합니다" );
+		$("#disc_point").val("0");
+	}
+	
+	$("#discprice").text( $("#disc_point").val() );
+	result_price();
+}
+
 
 
 
@@ -192,9 +238,49 @@ function paymens(){
 	//alert(_text_confirm);
 	
 	if(_text_confirm == "" ){
-		//alert("본인인증을 해주세요");
-		//return;
+		alert("본인인증을 해주세요");
+		return;
 	}
+	
+	var coupon_use_func = $("#coupon_use_func").val();
+	var coupon_use_func_num = $("#coupon_use_func_num").val();
+	
+	var send_name = $("#send_name").val();
+	var send_phone = $("#send_phone1").val() + $("#send_phone2").val() + $("#send_phone3").val();
+	var send_email = $("#send_email").val();
+
+	var receive_name = $("#receive_name").val();
+	var receive_phone = $("#receive_phone1").val() + $("#receive_phone2").val() + $("#receive_phone3").val();
+	var receive_postnum = $("#sample6_postcode").val();
+	var receive_address = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
+	var receive_address_request = $("#receive_address_request").val();
+	
+	$("#receive_phone").val( receive_phone );
+
+		
+	var add_point = $("#add_point").val()
+	var disc_point = $("#disc_point").val();
+	var totalprice = $("#_totalprice").text();
+	//alert("totalprice : " + totalprice);
+	
+	$("#totalprice").val( totalprice );
+	
+	
+	var disc_coupon = $("#disc_coupon").val();
+	var disc_point = $("#disc_point").val();
+	var add_point = $("#add_point").val();
+	
+	$("#payment_method").val( radioVal );
+	add_point = parseInt(totalprice) * 0.02;
+	
+	//alert("적립금1 : --- " + add_point );
+	
+	if( coupon_use_func == "적립" ) {
+		//alert("적립");
+		add_point = parseInt(add_point) + parseInt(coupon_use_func_num);
+	}
+	//alert("적립금2 : --- " + add_point );
+	$("#add_point").val( add_point );
 	
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp50599923');  // 가맹점 식별 코드
@@ -204,13 +290,12 @@ function paymens(){
 	    pay_method : radioVal,
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
-	    amount : 150,
-	    buyer_email : 'onep577@naver.com',
-	    buyer_name : '구매자이름',
-	    buyer_tel : '010-1234-5678',
-	    buyer_addr : '서울특별시 강남대로 비트캠프',
-	    buyer_postcode : '123-456',
-	    custom_data : '배송시 요청사항'
+	    amount : totalprice,
+	    buyer_email : send_email,
+	    buyer_name : send_name,
+	    buyer_tel : send_phone,
+	    buyer_addr : receive_address,
+	    buyer_postcode : receive_postnum
 	}, function(rsp) {
 	    if ( rsp.success ) {
 	        var msg = '결제가 완료되었습니다.';
@@ -221,14 +306,28 @@ function paymens(){
 	        msg += '\n결제상황 : ' + rsp.status;
 	        msg += '\n결제수단 : ' + rsp.pay_method;
 	        msg += '\n가상계좌 : ' + rsp.vbank_num;
+	        
+	        $("#payment_code").val( rsp.imp_uid );
+	        $("#receipt_url").val( rsp.receipt_url );
+	        $("#vbank_num").val( rsp.vbank_num );
+	        $("#vbank_name").val( rsp.vbank_name );
+	        $("#vbank_date").val( rsp.vbank_date );
+	        $("#vbank_holder").val( rsp.vbank_holder );
+	        $("#card_apply_num").val( rsp.apply_num );
+	        $("#payment_status").val( rsp.status );
+	        $("#receive_address").val( rsp.buyer_addr );
+	        $("#send_phone").val( rsp.buyer_tel );
 
+	        /*
 	        location.href = '/paymentAf?paid_amount='+rsp.paid_amount+'&imp_uid='+rsp.imp_uid
 	        		+'&status='+rsp.status+'&pay_method='+rsp.pay_method+'&receipt_url='+rsp.receipt_url
 	        		+'&vbank_num='+rsp.vbank_num+'&vbank_name='+rsp.vbank_name
 	        		+'&vbank_date='+rsp.vbank_date+'&vbank_holder='+rsp.vbank_holder
 	        		+'&buyer_name='+rsp.buyer_name+'&buyer_postcode='+rsp.buyer_postcode
 	        		+'&buyer_tel='+rsp.buyer_tel+'&buyer_addr='+rsp.buyer_addr+'&buyer_addr_request='+rsp.custom_data; //완료페이지로 이동
-
+	         */
+	        
+	        $("#payment_frm").attr("action", "/paymentAf").submit();
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '\n에러내용 : ' + rsp.error_msg;

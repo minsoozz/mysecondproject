@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <mapper namespace="com.mde.app.common.dao"> -->
+
+<mapper namespace="productmanage">
+ 
+ 
+ <!-- 1.상품 조회(PRODUCTLIST) -->
+<select id="getAdminProductList" parameterType="com.rhymes.app.store.model.ProductParam" resultType="com.rhymes.app.store.model.ProductDto">
+	SELECT RNUM, a.P_SEQ, a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, SUM
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY
+			<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
+		 	a.P_SEQ DESC
+		 	</if>
+			<if test="sorting == 'PRICEUP'">
+		 	a.P_PRICE DESC
+		 	</if>
+		 	<if test="sorting == 'PRICEDOWN'">
+		 	a.P_PRICE ASC
+		 	</if>
+	     	) AS RNUM,
+			a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, a.P_SEQ, SUM(b.QUANTITY) AS SUM, a.C_NAME
+			FROM rhy_store_product a INNER JOIN rhy_store_stock b ON a.P_SEQ = b.P_SEQ				
+			WHERE a.C_NAME = #{c_name}
+				<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">	
+					<if test="criterion == 'all_search'">
+						AND (a.P_NAME LIKE '%' #{keyword} '%' or a.CP_CODE LIKE '%' #{keyword} '%') 
+					</if>
+					<if test="criterion == 'pname_search'">
+						AND a.P_NAME LIKE '%' #{keyword} '%'
+					</if>
+					<if test="criterion == 'cpcode_search'">
+						AND a.CP_CODE LIKE '%' #{keyword} '%'
+					</if>
+				</if>	
+			GROUP BY a.P_SEQ			
+			) A
+	<!-- WHERE RNUM BETWEEN 1 AND 10 -->
+	ORDER BY 
+		<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
+		 	a.P_SEQ DESC
+		 	</if>
+			<if test="sorting == 'PRICEUP'">
+		 	a.P_PRICE DESC
+		 	</if>
+		 	<if test="sorting == 'PRICEDOWN'">
+		 	a.P_PRICE ASC
+			</if>
+</select>
+ <!-- 1(2).RODUCTLIST 상품 총갯수 -->
+<select id="getAdminProductCnt" parameterType="com.rhymes.app.companyadmin.model.ProductManageDto" resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*),0) AS CNT
+	FROM rhy_store_product
+	WHERE 1=1
+			<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">	
+				<if test="criterion == 'all_search'">
+					AND (P_NAME LIKE '%' #{keyword} '%' or CP_CODE LIKE '%' #{keyword} '%') 
+				</if>
+				<if test="criterion == 'pname_search'">
+					AND P_NAME LIKE '%' #{keyword} '%'
+				</if>
+				<if test="criterion == 'cpcode_search'">
+					AND CP_CODE LIKE '%' #{keyword} '%'
+				</if>
+			</if>
+			AND C_NAME = #{c_name}
+</select>
+ 
+ <!-- 1(3).상품 상세조회(PRODUCTDETAILLIST) -->
+<select id="getAdminStockList" parameterType="com.rhymes.app.store.model.StockDto" resultType="com.rhymes.app.store.model.StockDto">
+	SELECT STOCK_SEQ, SIZE, QUANTITY 
+	FROM rhy_store_stock
+	WHERE P_SEQ = #{p_seq}
+</select>
+ 
+<!-- 2.상품등록 -->
+ <select id="getCate2List" parameterType="Integer" resultType="com.rhymes.app.store.model.category.Category2Dto">
+     SELECT C2_SEQ, C2_NAME, C1_SEQ FROM rhy_store_cate2
+     WHERE 1=1 
+     	<if test="c1_seq != '' and c1_seq != null">
+     		AND C1_SEQ = #{c1_seq}
+     	</if>
+ </select>
+ <select id="getCate3List" parameterType="Integer" resultType="com.rhymes.app.store.model.category.Category3Dto">
+     SELECT C3_SEQ, C3_NAME, C2_SEQ FROM rhy_store_cate3
+     WHERE C2_SEQ = #{c2_seq}
+ </select>
+ 
+ <select id="getPseq" resultType="Integer">
+ 	SELECT nextval('p_seq') FROM DUAL
+ </select>
+ 
+ <insert id="insertProduct" parameterType="com.rhymes.app.store.model.ProductDto">
+ 	INSERT INTO rhy_store_product
+ 	VALUES(#{p_seq}, #{c_name}, #{p_name}, #{p_title}, #{cp_code}, #{p_price}, #{p_color}, #{c1_name}, #{c2_name}, #{c3_name},
+ 		#{nation}, #{mdate}, #{detail}, #{photo1_file}, #{photo2_file}, #{photo3_file}, #{photo4_file}, #{photo5_file}, NOW() )
+ </insert>
+ <insert id="insertStock" parameterType="com.rhymes.app.store.model.StockDto">
+ 	INSERT INTO rhy_store_stock
+ 	VALUES(NULL, #{p_seq}, #{p_size}, #{p_quantity})
+ </insert>
+ 
+ <select id="getSizeunit" resultType="String" parameterType="com.rhymes.app.store.model.SizeunitDto">
+ 	SELECT C2_SIZE 
+ 	FROM rhy_store_sizeunit
+ 	WHERE C2_SEQ = #{c2_seq}
+ </select>
+
+ <select id="getProductList" parameterType="com.rhymes.app.store.model.ProductDto" resultType="com.rhymes.app.store.model.ProductDto">
+ 	SELECT P_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME 		
+ 	FROM rhy_store_product 	 
+ </select>
+ 
+ <select id="getCname" resultType="com.rhymes.app.member.model.SellerDTO" parameterType="com.rhymes.app.member.model.SellerDTO">
+ 	SELECT C_NAME FROM rhy_mem_c
+ 	WHERE ID = #{ id }  	
+ </select>
+<!-- 상품등록 끝 --> 	
+</mapper>

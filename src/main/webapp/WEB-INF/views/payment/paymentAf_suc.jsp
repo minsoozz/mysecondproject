@@ -150,7 +150,8 @@ if(pay_method.equals("card")){
 </div>
 <div class="paymentAf_btn">
 <input type="button" onclick="location.href='/main'" value="메인으로">
-<input type="button" onclick="location.href='/mypage/orderlog'" value="주문내역확인"><br>
+<!-- <input type="button" onclick="location.href='/mypage/orderlog'" value="주문내역확인"><br> -->
+<input type="button" onclick="location.href='/ordercheck/ordercheck_nomembership_confirm'" value="주문내역확인"><br>
 <a href="${receipt_url }">매출전표 확인하기</a>
 </div>
 </div>

@@ -47,5 +47,8 @@
    <definition name="notesWrite.tiles" template="/WEB-INF/views/used/noteswrite.jsp">  
    </definition>
    
-
+   <!-- 팝업창  -->
+   <definition name="notesdetail.tiles" template="/WEB-INF/views/used/notesdetail.jsp">  
+   </definition>
+   
 </tiles-definitions>
