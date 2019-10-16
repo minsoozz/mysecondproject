@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
@@ -37,8 +38,8 @@
 		</a>
 	</td>
 	<td>${notice.id }</td>
-	<td>
-		<font size="1">${notice.wdate }</font>
+	<td> 
+		<font size="1">${fn:substring(notice.wdate,0,10)}</font>
 	</td>
 	<td>${notice.readcount }</td>
 	

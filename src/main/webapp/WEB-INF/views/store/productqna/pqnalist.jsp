@@ -1,22 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
 <div id="button.wrap">
 
 			<span class="button blue">
-				<button type="button" id="_btnWrite">»óÇ°¹®ÀÇ</button>
+				<button type="button" id="_btnWrite" onclick="PqnaWrite(${pp_seq })">ìƒí’ˆë¬¸ì˜</button>
 			</span>
 		</div>
-		<form action="/Rhymes/store/productDetail" name="frmForm1" id="_frmFormSearch" method="get">
+		<form action="" name="frmForm1" id="_frmFormSearch" method="get">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 		
-		<!--ºñ¹Ğ±Û -->
+		<!--ë¹„ë°€ê¸€ -->
 		<jsp:useBean id="spqna" class="com.rhymes.app.customer.util.PqnaSecret" scope="page"/>     
-		<!-- ´äº¯ -->
+		<!-- ë‹µë³€ -->
 		<jsp:useBean id="uqna" class="com.rhymes.app.customer.util.PqnaArrow" scope="page"/>    
 		 
 		    
@@ -26,14 +27,14 @@
 		</colgroup>
 		<thead>
 		<tr>
-			<th>¹øÈ£</th><th>Á¦¸ñ</th><th>ÀÛ¼ºÀÚ</th><th>ÀÛ¼ºÀÏ</th>
+			<th>ë²ˆí˜¸</th><th>ì œëª©</th><th>ì‘ì„±ì</th><th>ì‘ì„±ì¼</th>
 		</tr>
 		</thead>
 		
 		<tbody>
 		<c:if test="${empty pqnalist }">
 			<tr>
-				<td colspan="4">¹®ÀÇ°¡ ¾ø½À´Ï´Ù.</td>
+				<td colspan="4">ë¬¸ì˜ê°€ ì—†ìŠµë‹ˆë‹¤.</td>
 			</tr>
 		</c:if>
 		<c:forEach var="pqna" items="${pqnalist }" varStatus="vs">
@@ -41,16 +42,16 @@
 			<td>${vs.count }</td>
 			<td style="text-align: left;" onclick="pqnadetail(${pqna.seq})">
 			
-			<!-- ºñ¹Ğ±Û ÀÌ¹ÌÁö-->
+			<!-- ë¹„ë°€ê¸€ ì´ë¯¸ì§€-->
 			<jsp:setProperty property="secret" name="spqna" value="${pqna.secret }"/>
-			<jsp:getProperty property="arrow" name="spqna"/> <!-- getSecret È£Ãâ -->		
-			<!-- ´äº¯ ÀÌºñÁö-->
+			<jsp:getProperty property="arrow" name="spqna"/> <!-- getSecret í˜¸ì¶œ -->		
+			<!-- ë‹µë³€ ì´ë¹„ì§€-->
 			<jsp:setProperty property="depth" name="uqna" value="${pqna.depth }"/>
-			<jsp:getProperty property="arrow" name="uqna"/> <!-- getArrow È£Ãâ -->		
+			<jsp:getProperty property="arrow" name="uqna"/> <!-- getArrow í˜¸ì¶œ -->		
 					${pqna.title }
 			</td>
 			<td>${pqna.id }</td>
-			<td>${pqna.wdate }</td>
+			<td>${fn:substring(pqna.wdate,0,10)}</td>
 		</tr>
 		<tr class="detail" id='detail${pqna.seq}'>
 			<td></td>
@@ -63,13 +64,13 @@
 		
 			<div>
 			<span class="button blue">
-				<button type="button" class="btn" onclick="PqnaAnswer('${pqna.seq }')">´äº¯</button>
+				<button type="button" class="btn" onclick="PqnaAnswer('${pqna.seq }','${pp_seq }')">ë‹µë³€</button>
 			</span>
 			<span class="button blue">
-				<button type="button" class="btn" onclick="PqnaUpdate('${pqna.seq }')">¼öÁ¤</button>
+				<button type="button" class="btn" onclick="PqnaUpdate('${pqna.seq }')">ìˆ˜ì •</button>
 			</span>
 			<span class="button blue">
-				<button type="button" class="btn" onclick="PqnaDelete('${faq.seq }')">»èÁ¦</button>
+				<button type="button" class="btn" onclick="PqnaDelete('${pqna.seq }')">ì‚­ì œ</button>
 			</span>
 			</div>
 			</td>
@@ -78,7 +79,7 @@
 		
 		<tr>
 		<th colspan="4" align="center">
-		<!-- ÆäÀÌÂ¡ -->
+		<!-- í˜ì´ì§• -->
 		<div id="paging_wrap"> 
 			<jsp:include page="/WEB-INF/views/store/productqna/product_paging.jsp" flush="false">
 				<jsp:param name="pageNumber" value="${pageNumber }"/>
@@ -87,11 +88,11 @@
 				<jsp:param name="recordCountPerPage" value="${recordCountPerPage }"/>
 			</jsp:include>
 			
-		<!-- hidden À» ÅëÇØ¼­ °ªÀ» ³Ñ°ÜÁÖ±â -->
+		<!-- hidden ì„ í†µí•´ì„œ ê°’ì„ ë„˜ê²¨ì£¼ê¸° -->
 		<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">	
 		</div>
-		<!-- ÆäÀÌÂ¡³¡ --> 
+		<!-- í˜ì´ì§•ë --> 
 		</th>
 		</tr>
 		
@@ -103,9 +104,9 @@
 </div>    
 
 
-<!-- »óÇ°¹®ÀÇ -->
+<!-- ìƒí’ˆë¬¸ì˜ -->
 <script type="text/javascript">
-/* Å¬¸¯½Ã ³»¿ëº¸ÀÌ±â */
+/* í´ë¦­ì‹œ ë‚´ìš©ë³´ì´ê¸° */
 $(".detail").hide();
 
 function pqnadetail(seq){
@@ -118,24 +119,27 @@ function pqnadetail(seq){
 		$("#detail"+seq).hide();
 	}
 }
-/* ¹öÆ° */
-function PqnaAnswer( seq ) {
-	location.href = "pqnaanswer?seq=" + seq;
+/* ë²„íŠ¼ */
+function PqnaAnswer( seq, p_seq ) {
+	location.href = "/productqna/pqnaanswer?seq="+seq+"&p_seq="+p_seq;
 }
 function PqnaDelete( seq ) {
-	location.href = "pqnadelete?seq=" + seq;
+	location.href = "/productqna/pqnadelete?seq=" + seq;
 }
 function PqnaUpdate( seq ) {
-	location.href = "pqnaupdate?seq=" + seq;
+	location.href = "/productqna/pqnaupdate?seq=" + seq;
+}
+function PqnaWrite( p_seq ) {
+	location.href = "/productqna/pqnawrite?p_seq="+p_seq;
 }
 
-$("#_btnWrite").click(function () { 
-	location.href = "pqnawrite";
-});
+/* $("#_btnWrite").click(function () {  
+	location.href = "/productqna/pqnawrite";
+}); */
 
 function goPage(pageNumber) {
 	
-	$("#_pageNumber").val(pageNumber);  // µé¾î¿À´Â °ªÀ» °¡Á®¿È 
+	$("#_pageNumber").val(pageNumber);  // ë“¤ì–´ì˜¤ëŠ” ê°’ì„ ê°€ì ¸ì˜´ 
 	$("#_frmFormSearch").attr("action", "/productqna/pqnalist").submit(); //
 	
 }

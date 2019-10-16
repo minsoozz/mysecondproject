@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.Store.dao.PqnaDao;
+import com.rhymes.app.Store.model.DetailParam;
 import com.rhymes.app.Store.model.PqnaDto;
 import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.customer.model.QnaDto;
@@ -21,7 +22,7 @@ public class PqnaDaoImpl implements PqnaDao {
 	
 	//pqna list가져오기
 	@Override
-	public List<PqnaDto> getPqnaList(CustomerParam param) {
+	public List<PqnaDto> getPqnaList(DetailParam param) {
 		List<PqnaDto> list = new ArrayList<PqnaDto>();
 		list = sqlSession.selectList(ns +"getPqnaList", param);
 		
@@ -30,7 +31,7 @@ public class PqnaDaoImpl implements PqnaDao {
 
 	//pqna 글 수
 	@Override
-	public int getPqnaCount(CustomerParam param) {
+	public int getPqnaCount(DetailParam param) {
 		
 		return sqlSession.selectOne(ns+"getPqnaCount", param);
 	}

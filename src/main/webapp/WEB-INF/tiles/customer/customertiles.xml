@@ -72,24 +72,32 @@
    
    
    <!-- 연습용 상품문의 -->
+   
+   
+<!-- 상품문의 -->   
+   <definition name="pqnalist.tiles" template="/WEB-INF/views/customer/layout/pqna_template.jsp">
+       <put-attribute name="body" value="/WEB-INF/views/store/productqna/pqnalist.jsp" />
+   </definition>
+   
    <!-- Pqna글쓰기 -->
-   <definition name="pqnawrite.tiles" extends="noticelist.tiles">
-       <put-attribute name="body" value="/WEB-INF/views/customer/pqnawrite.jsp" />
+   <definition name="pqnawrite.tiles" template="/WEB-INF/views/customer/layout/write_template.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/store/productqna/pqnawrite.jsp" />
+       <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />      
    </definition>
    <!-- 글수정 -->
-   <definition name="pqnaupdate.tiles" extends="noticelist.tiles">
-       <put-attribute name="body" value="/WEB-INF/views/customer/pqnaupdate.jsp" />
+   <definition name="pqnaupdate.tiles" extends="pqnawrite.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/store/productqna/pqnaupdate.jsp" />
    </definition>
       <!-- pqna 답글 -->
-   <definition name="pqnaanswer.tiles" extends="noticelist.tiles">
-       <put-attribute name="body" value="/WEB-INF/views/customer/pqnaanswer.jsp" />
+   <definition name="pqnaanswer.tiles" extends="pqnawrite.tiles">
+       <put-attribute name="body" value="/WEB-INF/views/store/productqna/pqnaanswer.jsp" />
+   </definition>  
+<!-- 상품후기  -->
+    <definition name="previewlist.tiles" template="/WEB-INF/views/customer/layout/pqna_template.jsp">
+       <put-attribute name="body" value="/WEB-INF/views/store/productqna/previewlist.jsp" />
    </definition>
    
    
-   <definition name="pqnalist.tiles" template="/WEB-INF/views/customer/layout/pqna_template.jsp">
     
-       <put-attribute name="body" value="/WEB-INF/views/store/productqna/pqnalist.jsp" />
-     
-   </definition>
-   
 </tiles-definitions>

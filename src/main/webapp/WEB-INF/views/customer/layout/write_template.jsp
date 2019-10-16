@@ -12,16 +12,24 @@
    <!-- Favicon -->
     <link rel="icon" href="/img/main-img/core-img/favicon.ico">  
  <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/css/customer/pqna.css">
+	href="<%=request.getContextPath() %>/css/customer/customer.css">
  
  
 </head>
 <body>
- <!--  /WEB-INF/views/common/layout/header.jsp -->
+ 
+  <tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
 	
-   <div id="body_wrap" style="width: 80%">
+   <div id="body_wrap">
 	   
+	    <div id="middle_wrap"> 
+			<div id="content_wrap"> 
 		      <tiles:insertAttribute name="body"/> <!-- body -->
+	    	</div>  
+	    </div>  
+	    <div id="footer_wrap">
+	      <tiles:insertAttribute name="footer"/> <!-- /WEB-INF/views/common/layout/footer.jsp -->
+	   </div>
 	  
     </div>
     
