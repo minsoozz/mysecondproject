@@ -61,3 +61,177 @@
 	margin: 8px 0 16px;
 	
 }
+#_userid{
+	border: none;
+}
+.memupdateTitle{
+	font-size: large;
+    color: #444444;
+    font-weight: 700;
+}
+/* .memupdateTd{
+	border-bottom: solid 1px #989898;
+    position: relative;
+    top: -3px;
+    
+}*/ 
+.memupdateHr{
+	width: 329px;
+    position: relative;
+    left: -55px;
+    /* color: black; */
+    border-color: #cacbd2;
+}
+    
+										/* modal */
+										
+										
+										
+/* restock modal */
+.modaltable{
+	position: relative;
+    left: 85px;
+}
+.restockModal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: -13%;
+	width: 100%; /* Full width */
+	height: 113%; /* Full height */
+	overflow: hidden; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ }
+.restockModal-content {
+    background-color: #fefefe;
+	margin: 10% auto; /* 10% from the top and centered */
+	padding: 40px;
+	width: 550px;
+    height: 700px;
+	border: 1px solid #888;
+	border-radius: 5px;
+	overflow: scroll;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	
+ }
+.inputtext_s{
+	word-break: break-all;
+	box-sizing: border-box;
+	font: inherit;
+	margin: 5px 5px 5px 5px;
+	letter-spacing: -0.05em;
+	max-width: 100%;
+	font-family: 'Noto Sans';
+	color: #333;
+	width: 230px;
+	height: 34px;
+	padding: 0 19px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	font-size: 14px;
+	line-height: 20px;
+	outline: none;
+}
+.regibutton{
+    border-radius: 3px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    color: #525252;
+    /* font-weight: bolder; */
+    height: 34px;
+    /* padding: 0px 30px 0px 30px; */
+    margin: 0px 9px;
+    position: relative;
+    right: 112px;
+    word-break: break-all;
+    box-sizing: border-box;
+    font: inherit;
+    margin: 5px 5px 5px 5px;
+    letter-spacing: -0.05em;
+    max-width: 100%;
+    font-family: 'Noto Sans';
+    color: #333;
+    /* width: 230px; */
+    height: 34px;
+    /* padding: 0 19px; */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    outline: none;
+}
+.regibutton_s{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #525252;
+    /* font-weight: bolder; */
+    height: 43px;
+    adding: 0px 30px 0px 30px;
+    margin: 0px 9px;
+    width: 299px;
+}
+.memBtn{
+    /* padding: 10px; */
+    margin: 5px 0px 5px;
+    position: relative;
+    top: 30px;
+}
+.td_margin{
+	margin-left: 6px;	
+}
+==========================================
+	/* The Close Button */
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+	.close:hover, .close:focus {
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+
+====================================
+/* wishlist Modal Css */
+	.wModal {
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		margin:auto;
+		top: 300px;
+		width: 100%; /* Full width */
+		height: 50%; /* Full height */
+		overflow: hidden; /* Enable scroll if needed */
+		/* background-color: rgb(0,0,0); Fallback color
+		background-color: rgba(0,0,0,0.4); */ /* Black w/ opacity */
+		/* background-color:green; */
+	}
+	
+	/* Modal Content/Box */
+	.wModal-content {
+		position:fixed;
+	    background-color: #d7fd75;
+	    margin:3%;
+	    padding: 20px;
+	    opacity:0.7;
+	    border: 0px solid #888;
+	    width: 100%;
+	    height: auto;
+	    margin: 8% auto;
+	    text-align: center;
+	}
+
+	
+	#memdetailBtn{
+		color: black;
+	}

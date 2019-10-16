@@ -28,6 +28,8 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne( ns + "getOneMemberByMemberId", id);
 	}
 	
+	
+	
 	// id체크
 		@Override
 		public int getIDCheck(MemberDTO mem) {
@@ -130,6 +132,8 @@ public class MemberDAOImpl implements MemberDAO {
 			sqlSession.insert(ns+"getsnsregi_p", mb);
 			
 		}
+
+		
 
 		
 

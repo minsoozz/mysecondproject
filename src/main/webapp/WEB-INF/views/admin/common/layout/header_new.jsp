@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 
 <!-- Topbar -->
@@ -16,7 +19,7 @@
   </button>
 
   <!-- Topbar Search -->
-  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+<!--   <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
     <div class="input-group">
       <input type="text" class="form-control bg-light border-0 small" placeholder="header Search..." aria-label="Search" aria-describedby="basic-addon2">
       <div class="input-group-append">
@@ -25,7 +28,7 @@
         </button>
       </div>
     </div>
-  </form>
+  </form> -->
 
   <!-- Topbar Navbar -->
   <ul class="navbar-nav ml-auto">
@@ -55,24 +58,29 @@
       <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
-        <span class="badge badge-danger badge-counter">3+</span>
+        <c:if test="${newmemcount >0}">
+        	<span class="badge badge-danger badge-counter">new</span>
+        </c:if>
       </a>
       <!-- Dropdown - Alerts -->
       <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
         <h6 class="dropdown-header">
           Alerts Center
         </h6>
-        <a class="dropdown-item d-flex align-items-center" href="#">
+        <a class="dropdown-item d-flex align-items-center" href="#" id="alarm">
           <div class="mr-3">
             <div class="icon-circle bg-primary">
               <i class="fas fa-file-alt text-white"></i>
             </div>
           </div>
           <div>
-            <div class="small text-gray-500">December 12, 2019</div>
-            <span class="font-weight-bold">A new monthly report is ready to download!</span>
+            <div class="small text-gray-500">
+            	<span id="_today"></span>
+            </div>
+            	<font style="font-size: small;">오늘의 신규회원[${newmemcount }]</font>
           </div>
         </a>
+        <!-- 
         <a class="dropdown-item d-flex align-items-center" href="#">
           <div class="mr-3">
             <div class="icon-circle bg-success">
@@ -96,6 +104,7 @@
           </div>
         </a>
         <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+         -->
       </div>
     </li>
 
@@ -160,11 +169,16 @@
     <!-- Nav Item - User Information -->
     <li class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-        <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+        <c:if test="${prc ne 'anonymousUser' }">
+	        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+				안녕하세요 ${userloginid } 님
+	        </span>
+        </c:if>
+<!--         <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
       </a>
       <!-- Dropdown - User Information -->
       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+        <!-- 
         <a class="dropdown-item" href="#">
           <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
           Profile
@@ -173,9 +187,10 @@
           <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
           Settings
         </a>
-        <a class="dropdown-item" href="#">
-          <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-          Activity Log
+         -->
+        <a class="dropdown-item" href="/main">
+          <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>
+          Home
         </a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -208,11 +223,91 @@
       <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="login.html">Logout</a>
+        
+        <form action="/logout" method='post' id="_logfrm">
+		<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+		</form>
+       	<span class="_logout btn btn-primary">
+       	Logout
+      	</span>
+      	
       </div>
     </div>
   </div>
 </div>
 <!-- 모달창 등 추가 태그들 끝 -->
+
+
+<!-- logout -->
+<script type="text/javascript">
+	
+		$("._logout").click(function(){
+			$("#_logfrm").attr("action", "/logout").submit();
+		});
+		
+		$("._logout").mouseover(function(){
+			$(this).css("cursor", "pointer");
+		});
+		
+	
+</script>
+
+<!-- alarm 현재날짜 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;
+	var yyyy = today.getFullYear();
+	
+	if(dd<10) {
+	    dd='0'+dd
+	} 
+	
+	var Emm;
+	if(mm==1) {
+	    Emm="January";
+	}
+	if(mm==2) {
+	   Emm="February";
+	}
+	if(mm==3) {
+	    Emm="March";
+	}
+	if(mm==4) {
+	    Emm="April";
+	}
+	if(mm==5) {
+	    Emm="May";
+	}
+	if(mm==6) {
+	    Emm="June";
+	}
+	if(mm==7) {
+	    Emm="July";
+	}
+	if(mm==8) {
+	    Emm="August";
+	}
+	if(mm==9) {
+	    Emm="September";
+	}
+	if(mm==10) {
+	    Emm="October";
+	}
+	if(mm==11) {
+	    Emm="November";
+	}
+	if(mm==12) {
+	    Emm="December";
+	}
+	
+	today = Emm+' '+dd+', '+yyyy;
+	$("#_today").text(today);
+
+});
+</script>
+
 
 </html>
