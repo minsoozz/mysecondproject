@@ -109,7 +109,7 @@ public class ProductManageController {
 	     		  model.addAttribute("c_name", c_name);
 	     		  model.addAttribute("pDto", pDto);
 	     		  model.addAttribute("slist", slist);	
-	     		  url ="stocklist";
+	     		  url ="CompanyAdminStocklist";
 	     		  
 	     	  }else if(c_name.equals("") || c_name==null) {
 	     		 url = "redirect:/main";
@@ -166,7 +166,7 @@ public class ProductManageController {
      		 model.addAttribute("c_name", c_name);
      		 model.addAttribute("plist", plist);
      		  
-     		 url = "productlist";
+     		 url = "CompanyAdminProductlist";
      	  }else if(c_name.equals("") || c_name==null) {
      		 url = "redirect:/main";
      	  }
@@ -196,7 +196,7 @@ public class ProductManageController {
        System.out.println("업체 이름 : " + c_name);
 	   
 	   
-	   return "productregister";
+	   return "CompanyAdminProductregister";
 	 }
 	
 	//상품등록 처리
@@ -342,7 +342,7 @@ public class ProductManageController {
      		 model.addAttribute("c_name", c_name);
      		 model.addAttribute("plist", plist);
      		  
-     		 url = "productopertlist";
+     		 url = "CompanyAdminProductOpertlist";
      	  }else if(c_name.equals("") || c_name==null) {
      		 url = "redirect:/main";
      	  }
