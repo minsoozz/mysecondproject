@@ -71,9 +71,9 @@ public class MyUsedServiceImpl implements MyUsedService {
 
 
 	@Override
-	public NotesDto getnotesdetail(String seq) {
+	public NotesDto getnotesdetail(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return myUsedDao.getnotesdetail(seq);
+		return myUsedDao.getnotesdetail(map);
 	}
 
 
