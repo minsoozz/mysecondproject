@@ -43,12 +43,16 @@
    </definition>
    <!-- 쪽지 보내기  -->
    
-   	<!-- 팝업창  -->
+   <!-- 팝업창  -->
    <definition name="notesWrite.tiles" template="/WEB-INF/views/used/noteswrite.jsp">  
    </definition>
    
    <!-- 팝업창  -->
    <definition name="notesdetail.tiles" template="/WEB-INF/views/used/notesdetail.jsp">  
+   </definition>
+   
+   <!-- 팝업창  -->
+   <definition name="notesanswer.tiles" template="/WEB-INF/views/used/notesanswer.jsp">  
    </definition>
    
 </tiles-definitions>

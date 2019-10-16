@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
+<sec:authentication var="user" property="principal" />
 <% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,6 @@
 	
 </div>
 
-
 <div class="orderdetail_item_wrap order_sub_content_wrap"><!-- 주문한 상품목록 리스트 시작 -->
 	<c:forEach items="${payDetailList }" var="detail">
 		<div class="form-group">
@@ -30,7 +30,7 @@
 					<img alt="" src="<%=ctx %>/upload/store/${detail.img }"/>
 				</div>					
 				<div class="col-md-6 detail-item-col">
-					<div class="item_name"><a href="#"><h4>${detail.p_name }</h4></a></div>
+					<div class="item_name"><a href="<%=ctx %>/store/productDetail?p_seq=${detail.p_seq }&c1_name=${detail.c1_name}&c2_name=${detail.c2_name}&c3_name=${detail.c3_name}"><h4>${detail.p_name }</h4></a></div>
 					<div class="item_desc">
 						<span><fmt:formatNumber value="${detail.p_price }" pattern="###,###,###" />원</span>
 						<a>${detail.ea }개 구매</a>
@@ -52,7 +52,8 @@
 				</div>				
 				<div class="col-md-2 detail-item-col">
 					<div class="item_btns_wrap">												
-						<input type="button" class="btn btn-rhy-border" value="후기 쓰기">
+						<input type="button" class="btn btn-rhy-border" value="후기 쓰기"
+							onclick="location.href='<%=ctx %>/mypage/review/writenew?seq=${detail.seq }';">
 						<input type="button" class="btn btn-rhy-border" value="장바구니 담기">
 					</div>
 				</div>

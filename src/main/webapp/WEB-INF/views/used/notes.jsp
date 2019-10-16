@@ -41,15 +41,17 @@
 		<!-- 받은 쪽지함 탭 시작 -->
 		<div class="tab-pane active" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">
 		<br><br>
-		<table border="1">
-		<col width="100"><col width="300"><col width="150"><col width="100">
+		<table border="1" id="_ntable">
+		<col width="150"><col width="400"><col width="150"><col width="40">
 		<tr>
 			<th>보낸사람</th><th>내용</th><th>날짜</th><th>삭제</th>					
 		</tr>
 		<c:forEach items="${slist }" var="notes" varStatus="i">
 			<c:if test="${notes.recv_del eq 'N' }">
 		<tr>
-			<td><a href="#none" seq="${notes.seq }" onclick="notesdetail(this)">${notes.send_id }</a></td><td><a href="#none"  seq="${notes.seq }" onclick="notesdetail(this)">${notes.content }</a></td><td>${notes.data_send }</td><td><button type="button" value="${notes.seq }">삭제</button></td>	
+			<td align="center"><a href="#none" seq="${notes.seq }" onclick="notesdetail(this)">${notes.send_id }</a></td>
+			<td><div id="_content"><a href="#none"  seq="${notes.seq }" onclick="notesdetail(this)">${notes.content }</a></div></td>
+			<td>${notes.data_send }</td><td><button type="button" value="${notes.seq }">삭제</button></td>	
 		</tr>	
 			</c:if>
 		</c:forEach>
@@ -66,15 +68,17 @@
 		<!-- 보낸 쪽지함 탭 시작 -->
 		<div class="tab-pane" id="_written_reviews" role="tabpanel" aria-labelledby="written_reviews-tab">
 				<br><br>
-		<table border="1">
-		<col width="100"><col width="300"><col width="150"><col width="100">
+		<table border="1" id="_ntable">
+		<col width="150"><col width="400"><col width="150"><col width="40">
 		<tr>
 			<th>받는사람</th><th>내용</th><th>날짜</th><th>삭제</th>					
 		</tr>
 		<c:forEach items="${rlist }" var="notes" varStatus="i">
 			<c:if test="${notes.send_del eq 'N' }">
 		<tr>
-			<td><a href="#none" seq="${notes.seq }" onclick="notesdetail(this)">${notes.recv_id }</a></td><td><a href="#none"  seq="${notes.seq }" onclick="notesdetail(this)">${notes.content }</a></td><td>${notes.data_send }</td><td><button type="button" value="${notes.seq }">삭제</button></td>	
+			<td align="center"><a href="#none" seq="${notes.seq }" onclick="notesdetail(this)">${notes.recv_id }</a></td>
+			<td><div id="_content"><a href="#none"  seq="${notes.seq }" onclick="notesdetail(this)">${notes.content }</a></div></td>
+			<td>${notes.data_send }</td><td><button type="button" value="${notes.seq }">삭제</button></td>	
 		</tr>	
 			</c:if>
 		</c:forEach>
