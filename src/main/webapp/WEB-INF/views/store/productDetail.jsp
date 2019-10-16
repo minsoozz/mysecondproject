@@ -11,9 +11,6 @@
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css"   
    href="<%=request.getContextPath() %>/css/store/silde.css">
-   <link rel="stylesheet" href="/css/store/productDetail.css">
-   
-   
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,7 +28,7 @@
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-
+<link rel="stylesheet" href="/css/store/productDetail.css">
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -51,6 +48,23 @@ $(document).ajaxSend(function(e, xhr, options) {
 <input type="hidden" id="hdnPseq" value="${productDto.p_seq }">
 
 <div id="body_wrap">
+<div id="middle_wrap">
+<%-- 
+<div id="body_wrap">
+   <div id="productdetail_img_wrap">
+      <div class="mainImg">
+         <img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
+      </div>
+      <div>
+         <img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
+         <img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
+         <img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
+         <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
+      </div>
+   </div>
+ --%>
+      
+
 
 <div id="wrapper">
       <div id="slider-wrap">
@@ -143,7 +157,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!-- 미니 장바구니 영역 -->
     <div class="basket" style="overflow: scroll;">
     </div>
-</div>
 </div>
 </div>
 
@@ -383,7 +396,8 @@ $(document).ajaxSend(function(e, xhr, options) {
          </li>         
       </ul>
     </div> 
-</div>
+
+
 
 <!-- 후기 -->
 <br><br>
@@ -438,7 +452,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 </div>
-
+</div>
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
 
@@ -656,16 +670,32 @@ $(document).on('click', '.wishBtn', function(){
 //장바구니 클릭
 $(document).on('click', '.basketBtn', function(){   
    var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-   
+   var cnt = Number($("#pqCnt").html());
    if(id==""){
-      $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
+	   
+	   $.ajax({
+           type:"get",
+           data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+           url:"/store/insertCookieBasket",
+           success:function( data ){
+              var obj = JSON.stringify(data);
+            var arr = JSON.parse(obj);
+            //alert(arr[0].total_price);
+            var arrLen = arr.length;
+              showBasketList(arrLen, arr);
+           },
+           error:function(){
+              alert("error!!"); 
+           }
+         })
+      
+/* 	  $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
       $(".wModal").fadeIn();
       setTimeout(function() {
          $(".wModal").fadeOut();
       },1500);
       
-      location.href="/member/login";
-      
+      location.href="/member/login"; */
    }else{
       if(isNaN(stock_seq)){
          $("#msg").html("<b>사이즈를 선택해주세요.</b>")

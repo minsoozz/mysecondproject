@@ -4,9 +4,11 @@ import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -278,7 +280,7 @@ public class StoreController {
    @ResponseBody
    @GetMapping("/insertBasket")
    public List<BasketListDto> insertBasket(BasketDto basket, Principal prc)throws Exception{
-      
+	   
       String userId = "";
       if(prc != null) {
          userId = prc.getName();
@@ -327,6 +329,104 @@ public class StoreController {
       return blist;
    }
    
+   // 비회원 장바구니
+   @ResponseBody
+   @GetMapping("/insertCookieBasket")
+   public List<BasketListDto> insertCookieBasket(BasketDto basket, Principal prc,
+		   HttpServletRequest request)throws Exception{
+	   log.info("~~세션 장바구니 컨트롤러~~");
+	   System.out.println("stock_seq:" + basket.getStock_seq());
+	   HttpSession session = request.getSession();
+	   
+	   String ip = null;
+       ip = request.getHeader("X-Forwarded-For");
+       
+       if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+           ip = request.getHeader("Proxy-Client-IP"); 
+       } 
+       if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+           ip = request.getHeader("WL-Proxy-Client-IP"); 
+       } 
+       if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+           ip = request.getHeader("HTTP_CLIENT_IP"); 
+       } 
+       if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+           ip = request.getHeader("HTTP_X_FORWARDED_FOR"); 
+       }
+       if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+           ip = request.getHeader("X-Real-IP"); 
+       }
+       if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+           ip = request.getHeader("X-RealIP"); 
+       }
+       if (ip == null || ip.length()==  0 || "unknown".equalsIgnoreCase(ip)) { 
+           ip = request.getHeader("REMOTE_ADDR");
+       }
+       if (ip == null || ip.length()==  0 || "unknown".equalsIgnoreCase(ip)) { 
+           ip = request.getRemoteAddr(); 
+       }
+	   log.info("CLIENT IP : " + ip);
+	   List<BasketDto> cBasketList = new ArrayList<BasketDto>();
+	   List<BasketDto> cBasketList2 = new ArrayList<BasketDto>();
+	   
+       if(prc == null) {
+    	   // 클라이언트IP SESSION 장바구니 리스타가 존재하지 않을 때, 생성하면서 INSERT
+    	   if((List<BasketDto>)session.getAttribute(ip) == null) {
+    		   cBasketList.add(basket);
+        	   session.setAttribute(ip, cBasketList);
+    	   // SESSION 장바구니 리스트가 존재할 때, 기존 세션리스트를 새롭게 생성한 저장 리스트에 옮겨담고 INSERT
+    	   } else {
+    		   cBasketList = (List<BasketDto>)session.getAttribute(ip);
+
+    		   cBasketList2.addAll(cBasketList);
+    		   
+    		   // 이미 담겨있는 STOCK SEQ가 있는 체크
+    		   for (int i = 0; i < cBasketList2.size(); i++) {
+    			   int stock_seq = cBasketList2.get(i).getStock_seq();
+
+    			   // 이미 담겨있는 STOCK SEQ가 존재할 때, 수량 UPDATE하고 저장 리스트로 DTO 옮겨담기
+    			   if(stock_seq == basket.getStock_seq()) {
+    				   cBasketList2.get(i).setP_quantity(basket.getP_quantity());
+    			   }
+			   }
+    		   
+    		   Boolean test = check(cBasketList2 ,basket);
+    		   
+    		   if(test == true) { //중복된게 아니면 
+    			   cBasketList2.add(basket);
+    		   }
+  
+    		   // 장바구니 새로운값 추가
+    		   session.removeAttribute(ip);
+    		   session.setAttribute(ip, cBasketList2);
+    		   
+    	   }
+ 
+    	   System.out.println("세션리스트2 사이즈 : " + cBasketList2.size());
+    	   
+    	   for(BasketDto val : cBasketList2) {
+    		   System.out.println(val.getStock_seq());
+    	   }
+       }	
+	   return null;
+   }
+   
+   
+   public Boolean check(List<BasketDto> list, BasketDto dto) {
+	   
+	   Boolean test = true;
+	   
+	   for (int i = 0; i < list.size(); i++) {
+		   int stock_seq = list.get(i).getStock_seq();
+
+	   // 이미 담겨있는 STOCK SEQ가 존재할 때, 수량 UPDATE하고 저장 리스트로 DTO 옮겨담기
+		   if(stock_seq == dto.getStock_seq()) {
+			  test = false;
+		   }
+	   }
+	   
+	   return test;
+   }
    
    @GetMapping("/basket")
    public String basket(Model model, Principal prc)throws Exception {
