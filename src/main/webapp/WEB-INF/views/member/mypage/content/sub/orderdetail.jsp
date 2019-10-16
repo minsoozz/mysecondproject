@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
+<sec:authentication var="user" property="principal" />
 <% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,6 @@
 	</div>	
 	
 </div>
-
 
 <div class="orderdetail_item_wrap order_sub_content_wrap"><!-- 주문한 상품목록 리스트 시작 -->
 	<c:forEach items="${payDetailList }" var="detail">

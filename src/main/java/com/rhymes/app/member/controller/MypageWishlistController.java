@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rhymes.app.member.model.mypage.MemberReviewBbsDTO;
 import com.rhymes.app.member.model.mypage.MemberWishlistDTO;
 import com.rhymes.app.member.service.MypageWishlistService;
 

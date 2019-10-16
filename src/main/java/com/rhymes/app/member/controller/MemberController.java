@@ -1,7 +1,6 @@
 package com.rhymes.app.member.controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
@@ -34,7 +30,6 @@ import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.member.service.MemberService;
 import com.rhymes.app.member.service.impl.KakaoAPI;
 import com.rhymes.app.member.util.Coolsms;
-import com.rhymes.app.member.util.NaverLoginBO;
 import com.rhymes.app.member.util.RhymesMailling;
 
 @Controller
