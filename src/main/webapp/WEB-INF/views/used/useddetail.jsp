@@ -64,7 +64,7 @@
    <br>
    <font style="color: gray;font-size: 15px">조회수 : ${dto.readcount }</font>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   <font style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : <fmt:formatDate value="${dto.rdate }" pattern="yyyy-MM-dd "/></font>
+  <%--  <font style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : <fmt:formatDate value="${dto.rdate }" pattern="yyyy-MM-dd "/></font> --%>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    	 <c:if test="${userloginid ne null}">
  		<font style="color: gray;font-size: 15px"><a href="#none" id="mybtn"><img src="/img/used-img/report.png" width="25px;"height="25px"style="margin-bottom: 5px">신고하기</a></font>
