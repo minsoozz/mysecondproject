@@ -4,123 +4,113 @@ $(function(){
 
 	
 
-// 기존 배송지와 같은 장소로 전달할 때
-$("#oldaddress").click(function () {
-	//alert("기존 배송지");
-	
-	var b = $("input:checkbox[id='oldaddress']").is(":checked");
-	
-	if(b){
-		alert("true");
-		$("#receive_name").val( $("#send_name").val() );
-		$("#receive_phone1").val( $("#send_phone1").val() );
-		$("#receive_phone2").val( $("#send_phone2").val() );
-		$("#receive_phone3").val( $("#send_phone3").val() );
-	}else{
-		alert("false");
-		$("#receive_name").val( "" );
-		$("#receive_phone1").val( "" );
-		$("#receive_phone2").val( "" );
-		$("#receive_phone3").val( "" );
-	}
-
-});
-
-
-
-// 비회원으로 결제할 때
-var count = 0; /* 문자 중복을 막기 위한 인증번호 */
-$("#oneselfConfirmBtn").click(function() {
-	alert("본인인증1");
-	
-	var number = Math.floor(Math.random() * 100000) + 100000;
-	if(number>100000){
-		number = number - 10000;
-	}
-	
-	$("#text").val(number);      /* 난수로 생성된 인증번호를 hidden id : confirmnumber 에 숨긴다 */
-	var text = $("#text").val();
-	var to = $("#to").val();
-	
-	if(to == "" || to == null){
-		alert("빈칸이나 공백을 채워주세요");
-	}else {
-		var con_test = confirm("해당번호로 인증문자를 발송하시겠습니까?");   /* 문자를 보낼껀지 물어본다 */
+	// 기존 배송지와 같은 장소로 전달할 때
+	$("#oldaddress").click(function () {
+		//alert("기존 배송지");
 		
-		if(con_test == true){
-			if(count < 3){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
-				
-				alert("text : " + text + ", to : " + to);
-				
-				$.ajax({
-					url:"/sendsms",
-					type:"get",
-					data:{
-						to: to,
-						text: text
-				},
-				success:function(data){
-					alert("해당 휴대폰으로 인증번호를 발송" + data + " 했습니다");
-					count++;
-					alert(count);
-				},
-				error:function(){
-					alert("발송실패");
-				}
-			});
+		var b = $("input:checkbox[id='oldaddress']").is(":checked");
+		
+		if(b){
+			alert("true");
+			$("#receive_name").val( $("#send_name").val() );
+			$("#receive_phone1").val( $("#send_phone1").val() );
+			$("#receive_phone2").val( $("#send_phone2").val() );
+			$("#receive_phone3").val( $("#send_phone3").val() );
+		}else{
+			alert("false");
+			$("#receive_name").val( "" );
+			$("#receive_phone1").val( "" );
+			$("#receive_phone2").val( "" );
+			$("#receive_phone3").val( "" );
+		}
+	
+	});
+	
+	
+	
+	// 비회원으로 결제할 때
+	var count = 0; /* 문자 중복을 막기 위한 인증번호 */
+	$("#oneselfConfirmBtn").click(function() {
+		alert("본인인증1");
+		
+		var number = Math.floor(Math.random() * 100000) + 100000;
+		if(number>100000){
+			number = number - 10000;
+		}
+		
+		$("#text").val(number);      /* 난수로 생성된 인증번호를 hidden id : confirmnumber 에 숨긴다 */
+		var text = $("#text").val();
+		var to = $("#to").val();
+		
+		if(to == "" || to == null){
+			alert("빈칸이나 공백을 채워주세요");
+		}else {
+			var con_test = confirm("해당번호로 인증문자를 발송하시겠습니까?");   /* 문자를 보낼껀지 물어본다 */
 			
-			} else {
-				alert("휴대폰 인증 그만하세요");
+			if(con_test == true){
+				if(count < 3){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
+					
+					alert("text : " + text + ", to : " + to);
+					
+					$.ajax({
+						url:"/sendsms",
+						type:"get",
+						data:{
+							to: to,
+							text: text
+					},
+					success:function(data){
+						alert("해당 휴대폰으로 인증번호를 발송" + data + " 했습니다");
+						count++;
+						alert(count);
+					},
+					error:function(){
+						alert("발송실패");
+					}
+				});
+				
+				} else {
+					alert("휴대폰 인증 그만하세요");
+				}
 			}
 		}
-	}
-});
-
-
-
-
-
-/* 내가 작성한 번호와 인증번호를 비교한다 */
-$("#enterBtn").click(function() {
-	alert( $("#text").val() );
-	var userNum = $("#userNum").val();
+	});
 	
-	var sysNum = $("#text").val();
 	
-	if(userNum == null || userNum == ""){
-		alert("휴대폰으로 발송된 인증번호를 입력해주세요");
-	}else{
-		if(userNum.trim() == sysNum.trim()){
-			alert("성공");
-			$("#_text_confirm").val( sysNum );
-		}else {
-			alert("실패");
+	
+	
+	
+	/* 내가 작성한 번호와 인증번호를 비교한다 */
+	$("#enterBtn").click(function() {
+		alert( $("#text").val() );
+		var userNum = $("#userNum").val();
+		
+		var sysNum = $("#text").val();
+		
+		if(userNum == null || userNum == ""){
+			alert("휴대폰으로 발송된 인증번호를 입력해주세요");
+		}else{
+			if(userNum.trim() == sysNum.trim()){
+				alert("성공");
+				$("#_text_confirm").val( sysNum );
+			}else {
+				alert("실패");
+			}
 		}
-	}
+	});
+	
+	
+	// 쿠폰 팝업창이 나온다
+	$("#coupon_btn").click(function () {
+		var product_price = $("#product_price").text();
+		var delivery_price = $("#delivery_price").text();
+		var disc_point = $("#disc_point").val();
+
+		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&disc_point="+disc_point, "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
+	});
+	
+	
 });
-
-
-// 쿠폰 팝업창이 나온다
-$("#coupon_btn").click(function () {
-	window.open("/payment_coupon", "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
-});
-
-
-
-
-
-});
-
-
-
-
-
-// 쿠폰변경 했을 때 결제 예정금액 변경
-function count_disc_coup() {
-	alert("쿠폰 변경되었을 때 onchange()함수 실행");
-
-	result_price();
-}
 
 
 
@@ -130,10 +120,11 @@ function count_disc_coup() {
 function result_price() {
 	var product_price = $("#product_price").text();
 	var delivery_price = $("#delivery_price").text();
-	var disc_price = $("#discprice").text();
-	var totalprice = $("#_totalprice").text();
+	var disc_price = $("#_discprice").val();
+	//var totalprice = $("#_totalprice").text();
+	var totalprice = $("#__totalprice").val();
 
-	$("#_totalprice").text( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_price) );
+	$("#__totalprice").val( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_price) );
 }
 
 
@@ -148,6 +139,8 @@ function price_change() {
 	
 	var point_amount = $("#point_amount").val();
 	var disc_point = $("#disc_point").val();
+	var _discprice = $("#_discprice").val();
+	var disc_coupon = $("#disc_coupon").val();
 
 	//if( disc_point.trim().length == 0 ) {
 	//	$("#disc_point").text( "0" );
@@ -162,7 +155,7 @@ function price_change() {
 		$("#disc_point").val("0");
 	}
 	
-	$("#discprice").text( $("#disc_point").val() );
+	$("#_discprice").val( parseInt(disc_coupon) + _disc_point);
 	result_price();
 }
 
@@ -260,7 +253,8 @@ function paymens(){
 		
 	var add_point = $("#add_point").val()
 	var disc_point = $("#disc_point").val();
-	var totalprice = $("#_totalprice").text();
+	//var totalprice = $("#_totalprice").text();
+	var totalprice = $("#__totalprice").val();
 	//alert("totalprice : " + totalprice);
 	
 	$("#totalprice").val( totalprice );

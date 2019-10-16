@@ -2,16 +2,21 @@ package com.rhymes.app.store.service;
 
 import java.util.List;
 
+
+import com.rhymes.app.store.model.DetailParam;
+
+
+
 import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.store.model.PqnaDto;
 
 public interface PqnaService{
 
 	//Pqna list가져오기
-	public List<PqnaDto> getPqnaList(CustomerParam param);
+	public List<PqnaDto> getPqnaList(DetailParam param);
 	
 	//Pqna count
-	public int getPqnaCount(CustomerParam param);
+	public int getPqnaCount(DetailParam param);
 	 
 	//Pqna 업로드
 	public boolean PqnaUpload(PqnaDto dto);

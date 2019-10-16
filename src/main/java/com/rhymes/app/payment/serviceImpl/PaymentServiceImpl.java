@@ -59,10 +59,10 @@ public class PaymentServiceImpl implements PaymentService {
 		return PaymentDao.payment_save(dto);
 	}
 	
-	// 결제시 사용한 쿠폰 삭제
+	// 결제시 사용한 쿠폰을 사용으로 변환
 	@Override
-	public boolean delete_coupon_code(PaymentDTO dto) {
-		return PaymentDao.delete_coupon_code(dto);
+	public boolean update_isused_coupon(PaymentDTO dto) {
+		return PaymentDao.update_isused_coupon(dto);
 	}
 	
 	// 결제 후 배송 내역 저장

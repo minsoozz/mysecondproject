@@ -41,8 +41,9 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 </script>
 
- 
-<!-- qna -->
+<!-- 상품후기 -->
+<script type="text/javascript" src="<%=ctx%>/js/store/productreview.js"></script> 
+<!-- 상품qna -->
 <script type="text/javascript" src="<%=ctx%>/js/store/productqna.js"></script>
 
 </head>
@@ -155,6 +156,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 </div>
 
 <!-- 재입고 모달 영역-->
+
 <div class="restockModal">
 	<div class="restockModal-content">
 		<div>
@@ -218,6 +220,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 		</div>
 	</div>
 </div>
+
 
 <!-- 구매하기 form -->
 <form action="/payment" id="orderFrm" method="post">
@@ -382,7 +385,7 @@ $(document).ajaxSend(function(e, xhr, options) {
     </div> 
 </div>
 
-
+<!-- 후기 -->
 <br><br>
 <ul class="goods-view-infomation-tab-group">
    <li class="goods-view-infomation-tab">
@@ -400,7 +403,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <div class="goods-view-infomation-content" id="goods_review">
 <div id="_product_review_wrap" >
       <div  id="_product_review" >
-         <script type="text/javascript">getProductReview(0);</script>
+         <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
       </div><!-- 작성한후기 탭 끝 -->
 </div>
 </div>
@@ -408,7 +411,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 
-
+<!-- 상품qna -->
 <br><br>
 <ul class="goods-view-infomation-tab-group">
    <li class="goods-view-infomation-tab">
@@ -429,7 +432,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <div id="_product_qna_wrap" >
       <div  id="_product_qna" >
-         <script type="text/javascript">getProductQna(0);</script>
+         <script type="text/javascript">getProductQna(0,${productDto.p_seq });</script>
       </div><!-- 작성한후기 탭 끝 -->
 </div>
 

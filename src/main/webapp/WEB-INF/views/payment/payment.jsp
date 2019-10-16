@@ -175,9 +175,9 @@
 	<td>+</td>
 	<td id="delivery_price">${delivery_price }</td>
 	<td>-</td>
-	<td id="discprice">0</td>
+	<td id="discprice"><input type="text" id="_discprice" value="0"></td>
 	<td>=</td>
-	<td id="_totalprice"></td>
+	<td id="_totalprice"><input type="text" id="__totalprice"></td>
 </tr>
 
 <c:if test="${coupon_count eq 0 }">
@@ -193,14 +193,14 @@
 <tr>
 	<th rowspan="2">쿠폰 적용</th>
 	<td colspan="6">쿠폰 사용&nbsp;&nbsp;
-	<input type="text" id="coupon_use" name="coupon_code" value="" readonly="readonly" onchange="count_disc_coup()">&nbsp;&nbsp;
+	<input type="text" id="coupon_use" name="coupon_code" size="50" value="" onchange="count_disc_coup()">&nbsp;&nbsp;
 	<input type="button" id="coupon_btn" value="쿠폰선택">
 	
-	<input type="text" id="coupon_use_func">
-	<input type="text" id="coupon_use_func_num">
-	<input type="text" id="coupon_use_func_measure">
+	<input type="text" id="coupon_use_func" size="5">
+	<input type="text" id="coupon_use_func_num" size="5">
+	<input type="text" id="coupon_use_func_measure" size="5">
 	
-	<input type="hidden" name="disc_coupon" value="0">
+	<input type="hidden" name="disc_coupon" id="disc_coupon" value="0">
 	</td>
 </tr>
 <tr>
@@ -269,7 +269,22 @@
 </div>
 
 
+<script type="text/javascript">
+$(function(){
+/* 	console.log("최초 실행");
+	$("#coupon_use").change(function() {
+		
+		alert("쿠폰사용");
+	});
+	
+	if($("#coupon_use").val() != ""){
+		console.log(" 바뀜 ");
+	} */
+	
+});
 
+
+</script>
 
 
 

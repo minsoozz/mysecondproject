@@ -17,12 +17,14 @@
 <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script> 
 <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script> 
 <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script> 
-<link rel="stylesheet" href="/css/store/usedList.css">
+
+<link rel="stylesheet" href="/css/used/usedList.css">
 
 </head>
 <body>
 <div>
-	<div>
+	
+<div>
 	<button type="button" id="_all" name="all" class="sbtn">전체</button>
 	<button type="button" id="_man" name="man" class="sbtn" value="남성의류">남성의류</button>
 	<button type="button" id="_woman" name="woman" class="sbtn" value="여성의류">여성의류</button>
@@ -30,15 +32,17 @@
 	<button type="button" id="_beauty" name="beauty" class="sbtn" value="뷰티/미용">뷰티/미용</button>
 	<button type="button" id="_free" name="free" class="sbtn" value="무료나눔">무료나눔</button>
 	</div>
-	<div>
-<form id="_frmFormSearch">
-검색 : <input type="text" name="keyword" id="_keyword" value="${keyword }">
-					<select id="s_select">
-						<option value="title" <c:out value="${select == 'title'? 'selected':'' }"/>>제목</option>
-						<option value="content" <c:out value="${select == 'content'? 'selected':'' }"/>>내용</option>
-						<option value="s_id" <c:out value="${select == 'id'? 'selected':'' }"/>>작성자</option>
-					</select>
-				<input type="button" value="검색" id="_formbtn" name="formbtn">
+	
+	
+<div align="right" style="margin-top: 20px">
+	<form id="_frmFormSearch">
+		<select id="s_select">
+			<option value="title" <c:out value="${select == 't itle'? 'selected':'' }"/>>제목</option>
+			<option value="content" <c:out value="${select == 'content'? 'selected':'' }"/>>내용</option>
+			<option value="s_id" <c:out value="${select == 'id'? 'selected':'' }"/>>작성자</option>
+		</select>
+		<input type="text" name="keyword" id="_keyword" value="${keyword }">					
+		<input type="button" value="검색" id="_formbtn" name="formbtn">
 			
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="0">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage ? 0 : recordCountPerPage)}">	
@@ -61,24 +65,24 @@
 	 	String img = str.substring(0, idx);
 
 %>			
-<div>	
-		<div id="product_main" align="center" class="detail" val="${var.seq }">
-			<div id="product_img">
-				<img id="img" alt="" src="../upload/used/<%=img%>">	
+
+
+		
+		
+		
+	<div>
+		<div id="product_main" style="cursor:pointer;" align="center" class="detail" val="${var.seq }">			
+			<div style="margin-top: 18px; margin-bottom: 3px;"><img id="used_list_img" alt="" src="../upload/used/<%=img%>" style="margin:3%;"><br>
 			</div>
-			<div id="product_title">
-				<label>${var.title }</label>
-			</div>
-			<div id="product_price">
-				<label><a>${var.price }원</a></label>
-			</div>
-			<div id="product_place">
-				${var.place }
-			</div>
+				<font size="2px" color="gray" style="margin-bottom: 20px;">${var.category }</font><br>	
+				<font size="4px"><b>${var.title }</b></font><br>
+				<font size="3px">&#8361;${var.price }</font><br>
+				<font size="2px">${var.place }</font>
 		</div>
 </div>
 </c:forEach>
 </div>
+
 
 <!-- 페이징 -->
 <div id="paging_wrap">

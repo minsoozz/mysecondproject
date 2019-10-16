@@ -61,16 +61,18 @@
   <h4>${dto.title }</h4>
   <p style="color: gray;font-size: 15px">${dto.category }</p>
   <p style="color: gray;font-size: 20px;">&#8361;${dto.price }</p>
-  <p style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 :${dto.rdate }</p>
-  
    <br>
    <font style="color: gray;font-size: 15px">조회수 : ${dto.readcount }</font>
-   
-   &nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%--  <font style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : <fmt:formatDate value="${dto.rdate }" pattern="yyyy-MM-dd "/></font> --%>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    	 <c:if test="${userloginid ne null}">
- 		<font style="color: gray;font-size: 15px"><a href="#none" id="mybtn">신고하기</a></font>
+ 		<font style="color: gray;font-size: 15px"><a href="#none" id="mybtn"><img src="/img/used-img/report.png" width="25px;"height="25px"style="margin-bottom: 5px">신고하기</a></font>
 	 </c:if>
-<p style="color: gray;font-size: 15px">거래 장소 : ${dto.place }</p>
+	 
+	 <br><br>
+	 
+	<p style="color: black;font-size: 15px">거래지역 : ${dto.place }</p>
 
  	
 

@@ -47,8 +47,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 	// 결제페이지에서 사용자의 유효 쿠폰 개수 가져오기
 	@Override
 	public int getCountCoupon(String userid) {
-
-		System.out.println("PaymentDAOIMPL userid : " + userid);
 		
 		int countCoupon = 0;
 		try {
@@ -69,6 +67,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 		MemberCouponDTO dto = new MemberCouponDTO();
 		dto.setTitle("쿠폰없음");
 		coupon.add(dto);
+		
 		try {
 			coupon = SqlSession.selectList(p + "getAllCoupon", userid);
 		}catch(Exception e) {}
@@ -113,11 +112,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return count>0?true:false;
 	}
 
-	// 결제시 사용한 쿠폰 삭제
+	// 결제시 사용한 쿠폰을 사용으로 변환
 	@Override
-	public boolean delete_coupon_code(PaymentDTO dto) {
+	public boolean update_isused_coupon(PaymentDTO dto) {
 		
-		int count = SqlSession.delete(p + "delete_coupon_code", dto);
+		int count = SqlSession.delete(p + "update_isused_coupon", dto);
 		
 		return count>0?true:false;
 	}

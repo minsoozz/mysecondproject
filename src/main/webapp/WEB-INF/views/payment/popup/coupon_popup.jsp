@@ -60,14 +60,12 @@
 <table class="payment_coupon_tb">
 <tr>
 	<th>쿠폰선택</th>
-	<th>할인액(률)&nbsp;적립액(률)</th>
-	<th>사용기간
 	<input type="hidden"></th>
 </tr>
 
 <tr>
 	<td>	
-	<select id="coupon_popup_select" onchange="coupon_select(this)">
+	<select id="coupon_popup_select">
 		<option func="">사용안함</option>
 		<c:forEach begin="0" end="${fn:length(coupon_code) -1 }" varStatus="i">
 		<option func="${coupon_code[i.index].func }"
@@ -80,6 +78,8 @@
 </tr>
 <tr>
 	<td colspan="4">
+	<input type="hidden" id="product_price" value="${product_price }">
+	<input type="hidden" id="disc_point" value="${disc_point }">
 	<input type="button" id="coupon_popup_btn" value="확인">
 	<input type="button" value="취소" onclick="self.close();">
 	</td>	
@@ -102,9 +102,6 @@ $(function(){
 	$("#coupon_popup_btn").click(function () {
 		//alert("클릭");
 		
-		var coupon_popup_select = $("#coupon_popup_select").val();
-		//alert( coupon_popup_select );
-		
 		func = $("#coupon_popup_select option:selected").attr("func");
 		func_num = $("#coupon_popup_select option:selected").attr("func_num");
 		func_measure = $("#coupon_popup_select option:selected").attr("func_measure");
@@ -116,28 +113,36 @@ $(function(){
 		}
 		
 		alert(func + func_num + func_measure + coup_code);
-	/* 
-		$("#coupon_use").text( coup_code );
-		$("#coupon_use_func").text( func );
-		$("#coupon_use_func_num").text( func_num );
-		$("#coupon_use_func_measure").text( func_measure ); */
 		
+		// 할인, 적립 동시적용
 		opener.document.getElementById("coupon_use").value = coup_code;
 		opener.document.getElementById("coupon_use_func").value = func;
 		opener.document.getElementById("coupon_use_func_num").value = func_num;
 		opener.document.getElementById("coupon_use_func_measure").value = func_measure;
+
+		var disc_point = $("#disc_point").val();
+		var product_price = $("#product_price").val();
+		
+		// 할인일때만 적용
+		if(func_measure == "%") {
+			var disc_price = parseInt(product_price) * (parseInt(func_num) / 100);
+			
+			alert($("#product_price").val() - disc_price - parseInt(disc_point));
+
+			opener.document.getElementById("disc_coupon").value = disc_price;
+			opener.document.getElementById("__totalprice").value = $("#product_price").val() - disc_price - parseInt(disc_point);
+			opener.document.getElementById("_discprice").value = disc_price + parseInt(disc_point);
+		}else{
+			opener.document.getElementById("disc_coupon").value = "0";
+			opener.document.getElementById("__totalprice").value = parseInt(product_price) - parseInt(disc_point);
+			opener.document.getElementById("_discprice").value = parseInt(disc_point);
+		}
 		 
 		window.close();
 	});
 	
 });
 
-
-//쿠폰 팝업창
-function coupon_select( obj ) {
-	//alert("333");
-	//alert(obj.value);
-}
 </script>
 
 
