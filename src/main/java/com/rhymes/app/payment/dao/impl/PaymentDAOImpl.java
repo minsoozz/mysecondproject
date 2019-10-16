@@ -12,6 +12,7 @@ import com.rhymes.app.payment.dao.PaymentDAO;
 import com.rhymes.app.payment.model.OrderDTO;
 import com.rhymes.app.payment.model.PaymentAfDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
+import com.rhymes.app.payment.model.PaymentDetailsDTO;
 
 @Repository
 public class PaymentDAOImpl implements PaymentDAO {
@@ -83,6 +84,24 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return coupon;
 	}
 
+	// 결제한 후 결제 디테일에 넣기위한 상품 개당 가격 가져오기
+	@Override
+	public int getPrice(int stock_seq) {
+
+		int price = SqlSession.selectOne(p + "getPrice", stock_seq);
+		
+		return price;
+	}
+
+	// 결제한 후 결제 디테일 저장(후기여부는 false)
+	@Override
+	public boolean payment_detail_save(PaymentDetailsDTO dto) {
+
+		int count = SqlSession.insert(p + "payment_detail_save", dto);
+
+		return count>0?true:false;
+	}
+
 	// 결제한 후 상품 수량 차감
 	@Override
 	public boolean disc_stock_quantity(String stock_seq, String quantity) {
@@ -108,6 +127,15 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public boolean payment_save(PaymentDTO dto) {
 
 		int count = SqlSession.insert(p + "payment_save", dto);
+
+		return count>0?true:false;
+	}
+
+	// 결제 애프터 내역 저장
+	@Override
+	public boolean payment_after(PaymentAfDTO dto) {
+
+		int count = SqlSession.insert(p + "payment_after", dto);
 
 		return count>0?true:false;
 	}
