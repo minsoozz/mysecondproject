@@ -28,6 +28,7 @@ import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.model.OrderDTO;
 import com.rhymes.app.payment.model.PaymentAfDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
+import com.rhymes.app.payment.model.PaymentDetailsDTO;
 import com.rhymes.app.payment.service.PaymentService;
 import com.rhymes.app.payment.util.Coolsms;
 
@@ -190,7 +191,7 @@ public class PaymentController {
 		System.out.println("dto : " + dto.toString());
 		System.out.println("dtoAf : " + dtoAf.toString());
 		
-		// 상품의 재고번호를 ,를 기준으로 가져온다
+		// 상품 재고번호와 수량을 ,를 기준으로 가져온다
 		String[] stock_seq = dtoAf.getStock_seq().split(",");
 		String[] quantity = dtoAf.getQuantity().split(",");
 		
@@ -201,23 +202,37 @@ public class PaymentController {
 			// 주문한 상품수량만큼 재고수량에서 차감한다
 			boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
 			System.out.println("재고수량 차감 ----- " + (i+1) + "번째 상품 차감 : " + b);
+			
+			// 상품의 가격
+			int price = PaymentService.getPrice(Integer.parseInt(stock_seq[i]));
+			System.out.println("price : " + price);
+			
+			// db에 결제 디테일을 저장한다(후기 여부는 false)
+			PaymentDetailsDTO dtoDt = new PaymentDetailsDTO(Integer.parseInt(stock_seq[i]), Integer.parseInt(quantity[i]), price, dto.getPayment_code());
+			
+			boolean b3 = PaymentService.payment_detail_save(dtoDt);
+			System.out.println("결제 내역 디테일 저장 ---- " + b3);
 		}
 		
 		// 적립금 차감한다 -- 아직
 		boolean b = PaymentService.disc_point(dto);
 		System.out.println("사용 포인트 차감 ----- " + b);
 
-		// db에 결제내역을 저장한다
+		// rhy_payment db에 결제내역을 저장한다
 		boolean b2 = PaymentService.payment_save(dto);
 		System.out.println("결제 내역 저장 ----- " + b2);
+		
+		// rhy_payment_after db에 결제내역을 저장한다
+		boolean b3 = PaymentService.payment_after(dtoAf);
+		System.out.println("결제 애프터 저장 ---- " + b3);
 
 		// 사용한 쿠폰을 사용으로 변환
-		boolean b3 = PaymentService.update_isused_coupon(dto);
-		System.out.println("사용한 쿠폰을 사용으로 변환 ----- " + b3);
+		boolean b4 = PaymentService.update_isused_coupon(dto);
+		System.out.println("사용한 쿠폰을 사용으로 변환 ----- " + b4);
 
 		// 배송내역 저장 -- 운송장번호 어떻게?
-		boolean b4 = PaymentService.delivery_save(dto);
-		System.out.println("배송 내역 저장 ----- " + b4);
+		boolean b5 = PaymentService.delivery_save(dto);
+		System.out.println("배송 내역 저장 ----- " + b5);
 
 		// 이메일로 결제내역을 보낸다 -- 폼 필요
 		try {
@@ -235,7 +250,11 @@ public class PaymentController {
 		
 		// -- 주문한 상품수량만큼 재고수량에서 차감한다
 		
+		// -- 결제내역 디테일 저장
+		
 		// -- db에 결제내역을 저장한다
+		
+		// -- db에 결제 애프터 내역을 저장한다
 		
 		// -- 배송내역 저장 -- 운송장번호 어떻게?
 		

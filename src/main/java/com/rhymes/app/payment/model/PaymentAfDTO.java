@@ -15,9 +15,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class PaymentAfDTO implements Serializable {
+	private String payment_code;			// 결제번호
 	private String stock_seq;				// 재고번호
-	private String quantity;				// 수량
+	private String quantity;				// 수량	
 	private int stock_quantity;				// 상품 종류가 몇개인지
+
 	private int basket_del;					// 장바구니에서 구매했다면 장바구니 내역 지울 수 있는 변수
 	private String receipt_url;				// 매출전표
 	
