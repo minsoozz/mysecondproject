@@ -66,7 +66,7 @@
 <tr>
 	<td>	
 	<select id="coupon_popup_select">
-		<option func="">사용안함</option>
+		<option func_measure="default">사용안함</option>
 		<c:forEach begin="0" end="${fn:length(coupon_code) -1 }" varStatus="i">
 		<option func="${coupon_code[i.index].func }"
 				func_num="${coupon_code[i.index].func_num }"
@@ -106,9 +106,24 @@ $(function(){
 		func_num = $("#coupon_popup_select option:selected").attr("func_num");
 		func_measure = $("#coupon_popup_select option:selected").attr("func_measure");
 		coup_code = $("#coupon_popup_select option:selected").attr("coup_code");
+
+		var disc_point = $("#disc_point").val();
+		var product_price = $("#product_price").val();
 		
 		if(func == ""){
 			alert("쿠폰을 선택해주세요");
+			return;
+		}
+		
+		if(func_measure == "default"){
+			opener.document.getElementById("coupon_use").value = "";
+			opener.document.getElementById("coupon_use_func").value = "";
+			opener.document.getElementById("coupon_use_func_num").value = "";
+			opener.document.getElementById("coupon_use_func_measure").value = "";
+			opener.document.getElementById("disc_coupon").value = 0;
+			opener.document.getElementById("_discprice").value = 0;
+			opener.document.getElementById("__totalprice").value = parseInt(product_price) - parseInt(disc_point);
+			window.close();
 			return;
 		}
 		
@@ -119,23 +134,21 @@ $(function(){
 		opener.document.getElementById("coupon_use_func").value = func;
 		opener.document.getElementById("coupon_use_func_num").value = func_num;
 		opener.document.getElementById("coupon_use_func_measure").value = func_measure;
-
-		var disc_point = $("#disc_point").val();
-		var product_price = $("#product_price").val();
 		
 		// 할인일때만 적용
 		if(func_measure == "%") {
 			var disc_price = parseInt(product_price) * (parseInt(func_num) / 100);
 			
-			alert($("#product_price").val() - disc_price - parseInt(disc_point));
+			//alert($("#product_price").val() - disc_price - parseInt(disc_point));
+			//alert($("#product_price").val() + ", " + disc_price + ", " + parseInt(disc_point));
 
 			opener.document.getElementById("disc_coupon").value = disc_price;
-			opener.document.getElementById("__totalprice").value = $("#product_price").val() - disc_price - parseInt(disc_point);
 			opener.document.getElementById("_discprice").value = disc_price + parseInt(disc_point);
+			opener.document.getElementById("__totalprice").value = $("#product_price").val() - disc_price - parseInt(disc_point);
 		}else{
 			opener.document.getElementById("disc_coupon").value = "0";
-			opener.document.getElementById("__totalprice").value = parseInt(product_price) - parseInt(disc_point);
 			opener.document.getElementById("_discprice").value = parseInt(disc_point);
+			opener.document.getElementById("__totalprice").value = parseInt(product_price) - parseInt(disc_point);
 		}
 		 
 		window.close();

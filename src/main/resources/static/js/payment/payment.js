@@ -123,6 +123,8 @@ function result_price() {
 	var disc_price = $("#_discprice").val();
 	//var totalprice = $("#_totalprice").text();
 	var totalprice = $("#__totalprice").val();
+	
+	alert(product_price + ", " + delivery_price + ", " + disc_price + ", " + totalprice);
 
 	$("#__totalprice").val( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_price) );
 }
