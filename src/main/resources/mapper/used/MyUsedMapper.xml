@@ -70,6 +70,7 @@
 	SET send_del = 'Y'
 	WHERE recv_id=#{recv_id}
 	AND send_id=#{send_id}
+	AND seq=#{seq}
 </update>
 <!-- 쪽지 삭제 -->
 <update id="notesdelete2" parameterType="com.rhymes.app.used.model.NotesDto">
@@ -77,6 +78,7 @@
 	SET recv_del = 'Y'
 	WHERE recv_id=#{recv_id}
 	AND send_id=#{send_id}
+	AND seq=#{seq}
 </update>
 
 </mapper> 
