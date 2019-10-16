@@ -60,11 +60,10 @@
     </a>
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">------</h6>
-        <a class="collapse-item" href="utilities-color.html">-</a>
-        <a class="collapse-item" href="utilities-border.html">-</a>
-        <a class="collapse-item" href="utilities-animation.html">-</a>
-        <a class="collapse-item" href="utilities-other.html">-</a>
+        <h6 class="collapse-header">CHART</h6>
+        <a class="collapse-item" href="/admin/chart/sales">매출 통계</a>
+        <a class="collapse-item" href="/admin/chart/member">회원 통계</a>
+        <a class="collapse-item" href="/admin/chart/product">상품 통계</a>
       </div>
     </div>
   </li>

@@ -20,7 +20,8 @@ public class AdminPaymentController {
 	@RequestMapping("/admin/payment/exchange")
 	public String exchange() {
 		System.out.println("AdminPaymentController exchange()");
-		return "";
+		
+		return "/exchange";
 	}
 
 	// 관리자 페이지 환불관리
@@ -28,28 +29,31 @@ public class AdminPaymentController {
 	public String refund() {
 		System.out.println("AdminPaymentController refund()");
 		
-		return "";
+		return "/refund";
 	}
 	
 	// 관리자 페이지 무통장 주문 취소관리
 	@RequestMapping("/admin/payment/cancel")
 	public String cancel() {
 		System.out.println("AdminPaymentController cancel()");
-		return "";
+		
+		return "/cancel";
 	}
 	
 	// 관리자 페이지 결제성공관리
 	@RequestMapping("/admin/payment/success")
 	public String success() {
 		System.out.println("AdminPaymentController success()");
-		return "";
+		
+		return "/success";
 	}
 	
 	// 관리자 페이지 결제완료관리
 	@RequestMapping("/admin/payment/finish")
 	public String finish() {
 		System.out.println("AdminPaymentController finish()");
-		return "";
+		
+		return "/finish";
 	}
 	
 }
