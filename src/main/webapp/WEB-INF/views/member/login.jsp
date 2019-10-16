@@ -30,13 +30,18 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="password" class="inputtext_long" name="password" id="txtPw" placeholder="비밀번호를 입력해주세요" onkeydown="onKeyDown()" required>
+					<input type="password" class="inputtext_long" name="password" id="txtPw" placeholder="비밀번호를 입력해주세요" onkeydown="onKeyDown()" required onkeypress="caps_lock(event)">
+					<div id="capsdiv">
+						<p id="capslock"> 
+						    &nbsp;<b>CapsLock</b> 키가 눌려있습니다.&nbsp;
+						</p>
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
 					 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-		                 <p style="color: red; font-size: small; padding-left: 4px;">아이디 혹은 비밀번호를 다시 확인해 주세요.
+		                 <p id="loginfail">아이디 혹은 비밀번호를 다시 확인해 주세요.
 <%-- 		                  ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} --%>
 						</p>
 		                 <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
@@ -193,6 +198,36 @@ function getCookie(cookie_name) {
     }
 }
 </script>
+
+<!-- capslock 상태체크 -->
+<script type="text/javascript">
+ 	$(document).ready(function(){
+		$("#capslock").hide();
+	}); 
+
+    function caps_lock(e) {
+            var keyCode = 0;
+            var shiftKey = false;
+            keyCode = e.keyCode;
+            shiftKey = e.shiftKey;
+            if (((keyCode >= 65 && keyCode <= 90) && !shiftKey)
+                    || ((keyCode >= 97 && keyCode <= 122) && shiftKey)) {
+                show_caps_lock();
+                setTimeout("hide_caps_lock()", 3500);
+            } else {
+                hide_caps_lock();
+            }
+        }
+ 
+    function show_caps_lock() {
+         $("#capslock").show();
+    }
+ 
+    function hide_caps_lock() {
+         $("#capslock").hide();
+    }
+</script>
+
 
 
 

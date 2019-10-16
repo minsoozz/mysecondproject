@@ -6,6 +6,10 @@
     color: #505050;
     /* margin-bottom: 10px; */
     padding-bottom: 16px;
+    position: relative;
+    top: 106px;
+    border: solid 2px;
+    padding: 13px;
 }
 .findidtext_s, .findidtext_s_id{
 	font-family: sans-serif;

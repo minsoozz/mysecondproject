@@ -13,7 +13,7 @@ public interface MemberService{
 	public int getIDCheck(MemberDTO mem);
 	
 	// 일반회원가입 insert
-	public void getAddmem(MemBean bean);
+	public boolean getAddmem(MemBean bean);
 	
 	// 사업자번호 체크
 	public String getCRCheck(SellerCRnumDTO crdto);

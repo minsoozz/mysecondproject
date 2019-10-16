@@ -68,7 +68,6 @@
 	                        </c:if>
 
 	                        <c:if test="${prc ne 'anonymousUser' }">
-                        		<c:if test="${userloginid ne null}">
 		                        	<div class="">
 		                        		<span>안녕하세요 ${userloginid } 님  &nbsp;</span>
 		                        	</div>
@@ -81,12 +80,11 @@
 			                        	Logout
 		                        		</span>
 		                        	</div>
-                        		</c:if>
 	                        </c:if>
 	                        
 	                        <c:if test="${prc ne 'anonymousUser' }">
 								<c:forEach items="${prc.authorities  }" var="auth">
-									<c:if test="${auth eq 'ROLE_ADMIN' }">
+									<c:if test="${auth eq 'ROLE_ADMIN' || auth eq 'ROLE_SELLER' }">
 			                       		&nbsp;&nbsp;<a href="/admin/main">admin</a>
 			                       	</c:if>
 								</c:forEach>
