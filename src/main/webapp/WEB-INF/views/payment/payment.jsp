@@ -54,7 +54,7 @@
 	<fmt:formatNumber value="${basketList[i.index].p_price * basketList[i.index].quantity }" />원
 	<input type="hidden" name="stock_seq" value="${basketList[i.index].stock_seq }">
 	<input type="hidden" name="quantity" value="${basketList[i.index].quantity }">
-	<input type="hidden" name="stock_quantity" value="${i.index +1 }">
+	<input type="hidden" name="stock_quantity" value="${fn:length(basketList) }">
 	</td>
 </tr>
 <tr>
