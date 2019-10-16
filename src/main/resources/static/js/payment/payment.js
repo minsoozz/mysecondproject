@@ -239,11 +239,11 @@ function paymens(){
 	var coupon_use_func_num = $("#coupon_use_func_num").val();
 	
 	var send_name = $("#send_name").val();
-	var send_phone = $("#send_phone1").val() + $("#send_phone2").val() + $("#send_phone3").val();
+	var send_phone = $("#send_phone1").val() + "-" + $("#send_phone2").val() + "-" + $("#send_phone3").val();
 	var send_email = $("#send_email").val();
 
 	var receive_name = $("#receive_name").val();
-	var receive_phone = $("#receive_phone1").val() + $("#receive_phone2").val() + $("#receive_phone3").val();
+	var receive_phone = $("#receive_phone1").val() + "-" + $("#receive_phone2").val() + "-" + $("#receive_phone3").val();
 	var receive_postnum = $("#sample6_postcode").val();
 	var receive_address = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
 	var receive_address_request = $("#receive_address_request").val();

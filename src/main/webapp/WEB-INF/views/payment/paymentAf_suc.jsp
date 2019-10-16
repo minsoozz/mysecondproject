@@ -84,8 +84,8 @@ if(pay_method.equals("card")){
 
 
 
-<div class="paymentAf_wrap" style="text-align: center; margin-left: 40%; background-color: yellow;">
-<div class="paymentAf_payment_title" style="background-color: red; width: 100%;">
+<div class="paymentAf_wrap" style="text-align: center; /* background-color: yellow; */">
+<div class="paymentAf_payment_title">
 결제방법
 </div>
 <div class="paymentAf_payment_content">
@@ -99,23 +99,57 @@ if(pay_method.equals("card")){
 <tr>
 	<td>${dto.totalprice }원</td>
 	<td>${dto.payment_code }</td>
-	<td>${dto.payment_status }</td>
-	<td>${dto.payment_method }</td>
+	<td>
+	<c:if test="${dto.payment_status ne ready }">
+	미결제
+	</c:if>
+	</td>
+	<td>
+	<%-- <c:out value="${fn:trim(dto.payment_method) }"/> --%>
+	<c:if test="${fn:trim(dto.payment_method) ne vbank }">
+	무통장입금
+	</c:if>
+	</td>
+
+<%-- 	<c:if test="${dto.payment_status eq ready }">
+		<td>미결제</td>
+	</c:if>
+	<c:if test="${dto.payment_status eq paid }">
+		<td>결제완료</td>
+	</c:if>
+	<c:if test="${dto.payment_status eq cancelled }">
+		<td>결제취소</td>
+	</c:if>
+	<c:if test="${dto.payment_method eq card }">
+		<td>신용카드</td>
+	</c:if>
+	<c:if test="${dto.payment_method eq trans }">
+		<td>실시간계좌이체</td>
+	</c:if>
+	<c:if test="${dto.payment_method eq vbank }">
+		<td>무통장입금</td>
+	</c:if>
+	<c:if test="${dto.payment_method eq phone }">
+		<td>휴대폰소액결제</td>
+	</c:if>
+	<c:if test="${dto.payment_method eq point }">
+		<td>카카오페이</td>
+	</c:if> --%>
 </tr>
 </table>
 </div>
 <br><br>
 
-<div class="paymentAf_delivery_title" style="background-color: red; width: 100%;">
+<div class="paymentAf_delivery_title">
 배송지 정보
 </div>
 <div class="paymentAf_delivery_content">
 <table class="paymentAf_tb" border="1" style="width: 100%;">
 <tr>
 	<th>이름</th>
-	<td>${dto.send_name }</td>
+	<td>${dto.receive_name }</td>
 	<th>연락처</th>
-	<td>${dto.send_phone }</td>
+	<td>${dto.receive_phone }</td>
 </tr>
 <tr>
 	<th>우편번호</th>
@@ -135,16 +169,13 @@ if(pay_method.equals("card")){
 <b style="text-align: center;">
 ${dto.send_name }님의 주문이 완료되었습니다<br>
 고객님의 주문번호는 ${dto.payment_code }입니다.<br>
-제품 구입의 따른 적립금 2020원은 배송완료 후 적립됩니다.<br>
+제품 구입의 따른 적립금 ${dto.add_point }원은 배송완료 후 적립됩니다.<br>
 주문해주신 제품 확인 후 보내드리겠습니다.<br>
 구매해주셔서 감사합니다.<br>
 <c:if test="${fn:length(vbank_num) eq 14 }">
 무통장 입금&nbsp;:&nbsp;${dtoAf.vbank_name }&nbsp;&nbsp;${dtoAf.vbank_num }<br>
 &nbsp;&nbsp;(예금주:${dtoAf.vbank_holder })&nbsp;&nbsp;${dto.send_name }<br>
 ${dtoAf.vbank_date }까지 ${dto.totalprice }원 입금해주세요${dto.receive_address_request }
-</c:if>
-<c:if test="${fn:length(vbank_num) ne 14 }">
-${dto.totalprice }원 ${dto.payment_method } 결제로 ${dto.payment_status } 상태입니다
 </c:if>
 </b>
 </div>
