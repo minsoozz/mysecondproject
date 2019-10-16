@@ -1,4 +1,4 @@
-package com.rhymes.app.payment.serviceImpl;
+package com.rhymes.app.payment.service.impl;
 
 import java.util.List;
 

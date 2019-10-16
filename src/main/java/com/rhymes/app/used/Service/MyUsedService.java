@@ -23,7 +23,7 @@ public interface MyUsedService {
 
 	List<NotesDto> getrecvnotes(String name);
 
-	NotesDto getnotesdetail(String seq);
+	NotesDto getnotesdetail(Map<String, Object> map);
 
 	boolean notesdelete(NotesDto ndto);
 

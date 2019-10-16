@@ -46,12 +46,12 @@
 		<tr>
 			<th>보낸사람</th><th>내용</th><th>날짜</th><th>삭제</th>					
 		</tr>
-		<c:forEach items="${slist }" var="notes" varStatus="i">
+		<c:forEach items="${rlist }" var="notes" varStatus="i">
 			<c:if test="${notes.recv_del eq 'N' }">
 		<tr>
 			<td align="center"><a href="#none" seq="${notes.seq }" onclick="notesdetail(this)">${notes.send_id }</a></td>
 			<td><div id="_content"><a href="#none"  seq="${notes.seq }" onclick="notesdetail(this)">${notes.content }</a></div></td>
-			<td>${notes.data_send }</td><td><button type="button" value="${notes.seq }">삭제</button></td>	
+			<td>${notes.data_send }</td><td><button type="button" id="rbtn" value="${notes.seq }" send_id="${notes.send_id }">삭제</button></td>	
 		</tr>	
 			</c:if>
 		</c:forEach>
@@ -73,12 +73,12 @@
 		<tr>
 			<th>받는사람</th><th>내용</th><th>날짜</th><th>삭제</th>					
 		</tr>
-		<c:forEach items="${rlist }" var="notes" varStatus="i">
+		<c:forEach items="${slist }" var="notes" varStatus="i">
 			<c:if test="${notes.send_del eq 'N' }">
 		<tr>
 			<td align="center"><a href="#none" seq="${notes.seq }" onclick="notesdetail(this)">${notes.recv_id }</a></td>
 			<td><div id="_content"><a href="#none"  seq="${notes.seq }" onclick="notesdetail(this)">${notes.content }</a></div></td>
-			<td>${notes.data_send }</td><td><button type="button" value="${notes.seq }">삭제</button></td>	
+			<td>${notes.data_send }</td><td><button type="button" id="sbtn" value="${notes.seq }" recv_id="${notes.recv_id }">삭제</button></td>	
 		</tr>	
 			</c:if>
 		</c:forEach>

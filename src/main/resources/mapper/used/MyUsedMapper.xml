@@ -13,18 +13,20 @@
 	ORDER BY CHAR_LENGTH(id)
 </select>
 
+<!-- 보낸 쪽지함 -->
 <select id="getsendnotes" parameterType="java.lang.String" resultType="com.rhymes.app.used.model.NotesDto">
-	SELECT *
-	FROM rhy_used_notes
-	WHERE recv_id=#{name}
-</select>
-
-<select id="getrecvnotes" parameterType="java.lang.String" resultType="com.rhymes.app.used.model.NotesDto">
-	SELECT *
+	SELECT seq,send_id,recv_id,content,data_send,data_read,recv_read,send_del,recv_del,readcount
 	FROM rhy_used_notes
 	WHERE send_id=#{name}
+	ORDER BY data_send desc
 </select>
-
+<!-- 받은 쪽지함 -->
+<select id="getrecvnotes" parameterType="java.lang.String" resultType="com.rhymes.app.used.model.NotesDto">
+		SELECT *
+	FROM rhy_used_notes
+	WHERE recv_id=#{name}
+	ORDER BY data_send desc
+</select>
 
 <select id="getsubscribe" resultType="java.lang.Integer"> <!-- 수신 여부 조회 -->
 	SELECT subscribe
@@ -64,6 +66,13 @@
 	WHERE SEQ=#{seq}
 </select>
 
+<update id="readcount" parameterType="java.lang.Integer">
+	UPDATE rhy_used_notes
+	SET readcount = 1, recv_read ='Y', data_read=now()
+	WHERE seq=#{seq}
+</update>
+
+
 <!-- 쪽지 삭제 -->
 <update id="notesdelete" parameterType="com.rhymes.app.used.model.NotesDto">
 	UPDATE rhy_used_notes
@@ -72,6 +81,7 @@
 	AND send_id=#{send_id}
 	AND seq=#{seq}
 </update>
+
 <!-- 쪽지 삭제 -->
 <update id="notesdelete2" parameterType="com.rhymes.app.used.model.NotesDto">
 	UPDATE rhy_used_notes

@@ -37,11 +37,11 @@ public class myUsedController {
 	public String getNotesList(Model model, Principal prc) {
 		P_MemberDTO dto = usedService.getMemberDto(prc.getName());	// 회원 정보를 얻는다
 		
-		System.out.println(prc.getName());
+		
 		List<NotesDto> slist = MyusedService.getsendnotes(prc.getName());	// 회원 정보로 쪽지목록을 얻는다
 		List<NotesDto> rlist = MyusedService.getrecvnotes(prc.getName());	// 회원 정보로 쪽지목록을 얻는다
-		System.out.println("slist" + slist.toString());
-		System.out.println("rlist" + rlist.toString());
+		
+
 		
 		model.addAttribute("slist", slist);
 		model.addAttribute("rlist", rlist);
@@ -54,8 +54,13 @@ public class myUsedController {
 	
 	@GetMapping(value = "/notesdetail") // 쪽지 내용 보기
 	public String notesdetail(Model model, Principal prc, String seq) {
-		System.out.println(seq);
-		NotesDto ndto = MyusedService.getnotesdetail(seq);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("seq", seq);
+		map.put("loginid", prc.getName());
+		
+		NotesDto ndto = MyusedService.getnotesdetail(map);
 		
 		model.addAttribute("dto", ndto);
 		
@@ -78,17 +83,16 @@ public class myUsedController {
 			
 		}
 		
-		System.out.println(ndto.toString());
 		
 		boolean b = MyusedService.sendnotes(ndto);
 		
 		if(b) {
-			System.out.println("성공");
+			
 		} else {
-			System.out.println("실패");
+			
 		}
 		
-		return "";
+		return "redirect:/notes";
 	}
 
 	@GetMapping(value = "/json") // 쪽지 보내기 자동 검색
@@ -102,7 +106,7 @@ public class myUsedController {
 		
 		List<String> member = MyusedService.getMemberid(map);
 
-		System.out.println(member.toString());
+	
 
 		return member;
 	}
@@ -119,30 +123,29 @@ public class myUsedController {
 	
 	@GetMapping(value="/notesdelete")	// 쪽지 삭제
 	public String notesdelete(NotesDto ndto) {
-		System.out.println(ndto.toString());
-		
+
 		boolean b = MyusedService.notesdelete(ndto);
 		
 		if(b) {
-			System.out.println("삭제 성공");
+			
 		} else {
-			System.out.println("실패");
+			
 		}
-		return "redirect:/notes";
+		return "redirect:/mypage/notes";
 	}
 	
 	@GetMapping(value="/notesdelete2")	// 쪽지 삭제2
 	public String notesdelete2(NotesDto ndto) {
-		System.out.println(ndto.toString());
+		
 		
 		boolean b = MyusedService.notesdelete2(ndto);
 		
 		if(b) {
-			System.out.println("삭제 성공");
+			
 		} else {
-			System.out.println("실패");
+			
 		}
-		return "redirect:/notes";
+		return "redirect:/mypage/notes";
 	}
 	
 	
@@ -157,7 +160,7 @@ public class myUsedController {
 	@GetMapping(value = "/subscribe")
 	@ResponseBody
 	public String subscribe(String subscribe, String id) {
-		System.out.println(subscribe);
+		
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -166,7 +169,7 @@ public class myUsedController {
 		
 		 boolean b = MyusedService.getsubscribe(map);	// 수신 여부 확인
 		 
-		 System.out.println(b);
+		 
 		 
 		 int num;	// ajax 리턴 변수
 		 if(b) {	// 회원의 좋아요 여부 확인

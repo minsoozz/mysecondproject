@@ -1,4 +1,4 @@
-package com.rhymes.app.payment.daoImpl;
+package com.rhymes.app.payment.dao.impl;
 
 import java.util.List;
 
