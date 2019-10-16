@@ -365,7 +365,7 @@ public class StoreController {
        if (ip == null || ip.length()==  0 || "unknown".equalsIgnoreCase(ip)) { 
            ip = request.getRemoteAddr(); 
        }
-	   
+	   log.info("CLIENT IP : " + ip);
 	   List<BasketDto> cBasketList = new ArrayList<BasketDto>();
 	   List<BasketDto> cBasketList2 = new ArrayList<BasketDto>();
 	   
