@@ -1,3 +1,5 @@
+var count = 0;
+
 $(function() {
 	$("#autocomplete").autocomplete({
 		source : function(request, response) {
@@ -53,11 +55,70 @@ function save() {
 
 }
 
+function check(){
+	var id =  $("#autocomplete").val();
+	
+	$.ajax({
+		url:"/mypage/idcheck",
+		type:"get",
+		data:{
+			id : id
+		},
+		success:function(num){
+			if(num == 1){
+				$("#idcheck").html("<b id='suc'>전송가능</b>");
+				count = 1;
+			} else {
+				$("#idcheck").html("<b id='error'>발신이 불가능합니다</b>");
+				count = 0;
+			}
+		},
+		error:function(){
+		}
+
+	});
+}
+
+
+
 $(document).ready(function() {
+	
+/*    $("#autocomplete").keyup(function() {
+    	var text = $(this).val();
+    
+    	$.ajax({
+    		url:"/mypage/idcheck",
+    		type:"get",
+    		data:{
+    			id : text
+    		},
+    		success:function(num){
+    			if(num == 1){
+    				
+    			} else {
+    				
+    			}
+    		},
+    		error:function(){
+    		}
+
+    	});
+    })*/
+	
+	
 	$("#_send").click(function() {
+		
+		if(count == 0){
+			alert("받는사람을 확인하세요");
+			return;
+		}
+		if( $("#autocomplete").val() == "" ||  $("#autocomplete").val() == null  ){
+			alert("내용을 작성해주세요");
+			return;
+		}	
 		$("#_notesform").attr("action","/mypage/noteswriteAf");
 		$("#_notesform").submit();
-		alert("전송이 완료되었습니다~");
+		window.opener.location.reload();
 		window.close();
 	});
 })

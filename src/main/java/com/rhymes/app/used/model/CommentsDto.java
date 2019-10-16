@@ -17,7 +17,7 @@ public class CommentsDto implements Serializable {
 	private int seq;		// 시퀀스
 	private String id;		// 아이디
 	private String comments;	// 댓글
-	private Date date;		// 등록일
+	private String date;		// 등록일
 	private String parent;	// 부모글
 	private int ref;		// 시퀀스랑 동일
 	private int step;		// 길이

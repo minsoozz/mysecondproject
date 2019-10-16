@@ -71,19 +71,34 @@ a:hover {
 }
 
 #product_main {
-	width: 20%;
-	height: 20%;
-	float: left;
+	display:inline-block;
+   border: 1px solid #E3E3E3;
+   width: 290px;
+   height:400px;
+   float:left;
+   margin-bottom:8px;
+   margin-top: 2%;
+   margin-left:2%;
+   margin-right:1%;
+   text-align: center;
+
 }
 
 #product_img {
-	height: 200px;
-	width: 200px;
+	
+margin:0 auto;
+   display:table;
+   width:90%;
+   height:auto;
+   text-align: center;
+   vertical-align: middle;
+   left:50%;
+   align:center;
 }
 
-#img {
-	height: 200px;
-	width: 200px;
+#used_list_img {
+	height: 250px;
+	width: 250px;
 }
 
 #_hr {

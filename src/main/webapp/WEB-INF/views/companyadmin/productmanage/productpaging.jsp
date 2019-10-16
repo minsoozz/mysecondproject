@@ -52,9 +52,9 @@
 	
 %>
 
-<div style="float: left; width: 96%; text-align: center; margin-top: 30px">
+<div style="float: right; width: 100%; text-align: center;">
 	<!-- << -->
-	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
+	<span>
 	<a href="#none" title="처음페이지" onclick="goPage('0')">
 		<img alt="" src="../img/customer-img/arrow_first.gif" style="width: 9px; height: 9px">
 	</a>
@@ -64,7 +64,7 @@
 	<%
 	if(screenStartPageIndex > 1){
 		%>
-		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
+		<span>
 		<a href="#none" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1 %>')">
 			<img alt="" src="../img/customer-img/arrow_back.gif" style="width: 9px; height: 9px">
 		</a>
@@ -79,13 +79,13 @@
 	for(int i = screenStartPageIndex; i<screenEndPageIndex; i++){
 		if(i == pageNumber){	// 현재페이지
 		%>
-		<span style="font-size: 12pt; color: #000000;background-color:#F6FFCC; border:#D8D8D8 1px solid; padding: 5px">
+		<span>
 			<%=i+1 %>
 		</span>
 		<% 
 		}else{	// 그외의 페이지들
 			%>
-			<span style="font-size: 12pt; color: #000000;border:#D8D8D8 1px solid; padding: 5px">
+			<span>
 			<a href="#none" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>)">
 				<%=i+1 %>
 			</a>
@@ -99,10 +99,8 @@
 	<%
 	if(screenEndPageIndex < totalPageCount){	// [11][12][13] >
 		%>
-		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-
-		<a href="#" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>);return false;">
-
+		<span>
+		<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>)">
 			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
 		</a>
 		</span>
@@ -114,7 +112,7 @@
 	}
 	%>
 	<!-- >> -->
-	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
+	<span>
 	<a href="#none" title="마지막페이지" onclick="goPage(<%=end_page %>)">
 		<img alt="" src="../img/customer-img/arrow_end.gif" style="width: 9px; height: 9px;">
 	</a>

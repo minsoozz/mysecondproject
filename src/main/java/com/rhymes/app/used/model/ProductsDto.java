@@ -28,7 +28,7 @@ public class ProductsDto implements Serializable {
 	private String division;
 	private int likes;
 	private int readcount;
-	private Date rdate;
+	private String rdate;
 	
 	private String photo_list[];
 	private String photo_originlist[];
@@ -52,7 +52,7 @@ public class ProductsDto implements Serializable {
 
 
 	public ProductsDto(int seq, String s_id, String category, String title, String content, int price, int quantity,
-			String place, String photo, String photo_sys, String division, int likes, int readcount, Date rdate) {
+			String place, String photo, String photo_sys, String division, int likes, int readcount, String rdate) {
 		super();
 		this.seq = seq;
 		this.s_id = s_id;
