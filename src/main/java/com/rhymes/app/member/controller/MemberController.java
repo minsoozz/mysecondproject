@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,11 +102,11 @@ public class MemberController {
 
 	// 일반회원가입
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addmem")
-	public String addmem(MemBean bean) {
+	public String addmem(MemBean bean, HttpServletRequest req) {
 		System.out.println("addmem mem: " + bean.toString());
 
-		memService.getAddmem(bean);
-
+		boolean b = memService.getAddmem(bean);
+		
 		return "rhyregisuc";
 	}
 

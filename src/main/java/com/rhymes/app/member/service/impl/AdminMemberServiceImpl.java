@@ -55,4 +55,23 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		return adminMemberDAO.getmem_c_Count(param);
 	}
 
+	@Override
+	public void getMemLock(MemBean bean) {
+		
+	
+		for (int i = 0; i < bean.getChecklen(); i++) {
+			if(bean.getCheckid() != null || bean.getCheckid() != "") {
+				String check[] = bean.getCheckid().split(",");
+				MemBean mb = new MemBean();
+				mb.setUserid(check[i]);
+				
+				adminMemberDAO.getMemLock(mb);
+			}
+			
+		}
+		
+		
+		
+	}
+
 }

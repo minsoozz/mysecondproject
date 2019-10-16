@@ -1,4 +1,10 @@
 
+
+/* table{
+	position: relative;
+	left: 60px;
+}
+ */
 .inputtext_s{
 	word-break: break-all;
 	box-sizing: border-box;
@@ -59,7 +65,10 @@
     margin: 0px 9px;
     width: 299px;
 }
-
+.memBtn{
+    /* padding: 10px; */
+    margin: 16px 0px 5px;
+}
 .page-container {
     width: 100%;
     height: 100%;
@@ -790,10 +799,7 @@ table tr td {
 /*     border-top: 1px solid rgba(120, 130, 140, 0.13) !important; */
     
 }
-.memBtn{
-    /* padding: 10px; */
-    margin: 16px 0px 5px;
-}
+
 .td_margin{
 	margin-left: 6px;	
 }

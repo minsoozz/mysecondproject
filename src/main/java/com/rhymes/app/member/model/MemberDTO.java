@@ -20,7 +20,7 @@ public class MemberDTO implements Serializable {
 	
 	private boolean isAccountNonExpired = true;
 	private boolean isAccountNonLock = true;
-	private boolean isCredentialsIsNonExpired = true;	
+	private boolean isCredentialsIsNonExpired = true;
 	private boolean enabled;
 	private List<AuthoritiesDTO> authList;
 	private Date rdate;

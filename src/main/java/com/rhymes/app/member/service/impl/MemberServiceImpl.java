@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 
 	// 회원가입
 	@Override
-	public void getAddmem(MemBean bean) {
+	public boolean getAddmem(MemBean bean) {
 		
 		// 공통
 		MemberDTO mem = new MemberDTO( 
@@ -66,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		
-		
+		return b;
 		
 		
 	}

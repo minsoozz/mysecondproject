@@ -16,6 +16,7 @@ public interface MemberDAO {
 	
 	public MemberDTO getOneMemberByMemberId(String id);
 	
+	
 	// 아이디 체크
 	public int getIDCheck(MemberDTO mem);
 	

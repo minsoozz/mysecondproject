@@ -1,6 +1,7 @@
 package com.rhymes.app.security;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		});
 		
 		log.warn("ROLE NAMES : " + roleNames);
-
+		
 		if (roleNames.contains("ROLE_ADMIN")) {			
 			resp.sendRedirect("/main");
 			return;
