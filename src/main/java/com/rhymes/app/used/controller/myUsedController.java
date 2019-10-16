@@ -145,6 +145,14 @@ public class myUsedController {
 		return "redirect:/notes";
 	}
 	
+	
+	@GetMapping(value="/notesanswer")
+	public String notesanswer(NotesDto ndto,Model model) {
+		
+		model.addAttribute("dto", ndto);
+		
+		return "notesanswer.tiles";
+	}
 
 	@GetMapping(value = "/subscribe")
 	@ResponseBody
