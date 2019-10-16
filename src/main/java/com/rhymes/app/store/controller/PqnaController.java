@@ -1,26 +1,24 @@
 package com.rhymes.app.store.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
+
+import com.rhymes.app.store.model.DetailParam;
 import com.rhymes.app.store.model.PqnaDto;
 import com.rhymes.app.store.service.PqnaService;
+
+
 import com.rhymes.app.customer.model.CustomerParam;
-import com.rhymes.app.customer.model.FaqDto;
-import com.rhymes.app.customer.util.FUpUtil;
+
 
 @Controller
 @RequestMapping("/productqna")
@@ -30,15 +28,10 @@ public class PqnaController {
 	private PqnaService PqnaService;
 	
 	
-	//상품문의 글쓰기가기
-	@GetMapping("/pqnawrite")
-	public String pqnawrite(Model model) {
-		
-		return "pqnawrite.tiles";
-	}
 	
+	//상품문의 리스트
 	@RequestMapping(value = "/pqnalist", method = {RequestMethod.GET, RequestMethod.POST})
-	public String faqlist(Model model, CustomerParam param){
+	public String faqlist(Model model, DetailParam param){
 		
 		///////////////////상품문의부분////////////////
 		//페이징
@@ -49,8 +42,11 @@ public class PqnaController {
 		param.setStart(start);
 		param.setEnd(end);
 		
+		//System.out.println("현재p_seq"+param.getP_seq());
 		List<PqnaDto> pqnalist = PqnaService.getPqnaList(param);
 		
+		
+		model.addAttribute("pp_seq", param.getP_seq());
 		//글의 총수
 		int totalRecordCount = PqnaService.getPqnaCount(param);	
 		model.addAttribute("pqnalist", pqnalist);
@@ -62,19 +58,30 @@ public class PqnaController {
 		return "pqnalist.tiles";
 	}
 	
+
+	//상품문의 글쓰기가기
+	@GetMapping("/pqnawrite")
+	public String pqnawrite(Model model, DetailParam param,HttpServletRequest request) {
+		String referer1 = request.getHeader("Referer");
+		model.addAttribute("referer1", referer1);
+		model.addAttribute("pqnalist", param);
+		return "pqnawrite.tiles";
+	}
 	
 	//상품문의 글작성완료
 	@RequestMapping(value = "/pqnaupload", method = {RequestMethod.GET, RequestMethod.POST})
-	public String qpanupload(PqnaDto pqnadto) {
+	public String qpanupload(PqnaDto pqnadto,String referer1) {
 		
 		PqnaService.PqnaUpload(pqnadto);
 		
-		return "redirect:/productqna/pqnalist";
+		 return "redirect:"+ referer1;
 	}
 
 	//상품문의 글수정가기
 	@GetMapping("/pqnaupdate")
-	public String pqnaupdate(int seq, Model model) {
+	public String pqnaupdate(int seq, Model model, HttpServletRequest request) {
+		String referer1 = request.getHeader("Referer");
+		model.addAttribute("referer1", referer1);
 		
 		PqnaDto pqnadto = PqnaService.getPqnaDetail(seq);
 		model.addAttribute("pqnadto",pqnadto);
@@ -84,33 +91,37 @@ public class PqnaController {
 	
 	//상품문의 글수정하기
 	@RequestMapping(value = "/pqnaupdateAf", method = {RequestMethod.GET, RequestMethod.POST})
-	public String pqnaupdateAf(PqnaDto pqnadto) {
+	public String pqnaupdateAf(PqnaDto pqnadto,String referer1) {
 		
 		PqnaService.PqnaUpdateAf(pqnadto);
 		
-		return "redirect:/productqna/pqnalist";
+		return "redirect:"+ referer1;
 	}
 	
 	//상품문의 삭제하기
 	@GetMapping("/pqnadelete")
-	public String pqnadelete(int seq) {
+	public String pqnadelete(int seq, HttpServletRequest request) {
 		
+		String referer = request.getHeader("Referer");
 		
 		PqnaService.PqnaDelete(seq);
 		
-		return "redirect:/productqna/pqnalist";
+		return "redirect:"+ referer;
 	}
 		
 	//상품 문의 답글 가기 
 	@GetMapping(value = "/pqnaanswer")
-	public String answerwrite(int seq, Model model) {			
+	public String answerwrite(int seq, Model model, HttpServletRequest request, DetailParam param) {			
+		String referer1 = request.getHeader("Referer");
+		model.addAttribute("referer1", referer1);
+		model.addAttribute("pqnalist", param);
 		model.addAttribute("seq", seq);
 		
 		return "pqnaanswer.tiles";
 	}
 	//상품 문의 답글작성
 	@RequestMapping(value = "/pqnaanswerAf", method= RequestMethod.POST)
-	public String pqnaanswerAf(PqnaDto pqnadto){		
+	public String pqnaanswerAf(PqnaDto pqnadto,String referer1){		
 		
 		try {
 			PqnaService.PqnaAnswer(pqnadto);
@@ -119,7 +130,7 @@ public class PqnaController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/productqna/pqnalist";
+		return "redirect:"+ referer1;
 		
 	}
 	

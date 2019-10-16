@@ -11,6 +11,9 @@
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css"   
    href="<%=request.getContextPath() %>/css/store/silde.css">
+   <link rel="stylesheet" href="/css/store/productDetail.css">
+   
+   
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -28,7 +31,7 @@
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<link rel="stylesheet" href="/css/store/productDetail.css">
+
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -38,8 +41,9 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 </script>
 
- 
-<!-- qna -->
+<!-- 상품후기 -->
+<script type="text/javascript" src="<%=ctx%>/js/store/productreview.js"></script> 
+<!-- 상품qna -->
 <script type="text/javascript" src="<%=ctx%>/js/store/productqna.js"></script>
 
 </head>
@@ -47,23 +51,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 <input type="hidden" id="hdnPseq" value="${productDto.p_seq }">
 
 <div id="body_wrap">
-<div id="middle_wrap">
-<%-- 
-<div id="body_wrap">
-   <div id="productdetail_img_wrap">
-      <div class="mainImg">
-         <img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
-      </div>
-      <div>
-         <img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
-      </div>
-   </div>
- --%>
-      
-
 
 <div id="wrapper">
       <div id="slider-wrap">
@@ -158,6 +145,7 @@ $(document).ajaxSend(function(e, xhr, options) {
     </div>
 </div>
 </div>
+</div>
 
 
 <!-- 메시지 영역 -->
@@ -168,6 +156,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 </div>
 
 <!-- 재입고 모달 영역-->
+
 <div class="restockModal">
 	<div class="restockModal-content">
 		<div>
@@ -231,6 +220,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 		</div>
 	</div>
 </div>
+
 
 <!-- 구매하기 form -->
 <form action="/payment" id="orderFrm" method="post">
@@ -393,10 +383,9 @@ $(document).ajaxSend(function(e, xhr, options) {
          </li>         
       </ul>
     </div> 
+</div>
 
-
-
-
+<!-- 후기 -->
 <br><br>
 <ul class="goods-view-infomation-tab-group">
    <li class="goods-view-infomation-tab">
@@ -414,7 +403,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <div class="goods-view-infomation-content" id="goods_review">
 <div id="_product_review_wrap" >
       <div  id="_product_review" >
-         <script type="text/javascript">getProductReview(0);</script>
+         <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
       </div><!-- 작성한후기 탭 끝 -->
 </div>
 </div>
@@ -422,7 +411,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 
-
+<!-- 상품qna -->
 <br><br>
 <ul class="goods-view-infomation-tab-group">
    <li class="goods-view-infomation-tab">
@@ -443,13 +432,13 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <div id="_product_qna_wrap" >
       <div  id="_product_qna" >
-         <script type="text/javascript">getProductQna(0);</script>
+         <script type="text/javascript">getProductQna(0,${productDto.p_seq });</script>
       </div><!-- 작성한후기 탭 끝 -->
 </div>
 
 
 </div>
-</div>
+
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
 

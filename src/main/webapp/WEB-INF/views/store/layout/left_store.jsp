@@ -36,8 +36,10 @@
 </c:if>
 <c:if test="${empty keyword}">
     <a href="#"><b>BEST</b></a>
+<<<<<<< HEAD
     <a href="/store/productList?c1_name=${c1_name}&key=newarrival">NEW ARRIVAL</a>
 </c:if>    
+
   <c:forEach items="${cate2list }" var="cate2" varStatus="vs">
 	  <input type="hidden" value="${cate2.c2_name }">
 	  <button class="dropdown-btn" id="cate2Btn${cate2.c2_seq }" onclick="bring3cate(${cate2.c2_seq})" value="${cate2.c2_name }">
@@ -127,16 +129,6 @@
 
 <!--------------------- SCRIPTZONE ----------------------------------->
 <script type="text/javascript">
-
-
-//NEW ARRIVAL
-
-$(document).on('click', '.newArrival', function(){
-	alert("new");
-	var c1_name = "${c_name}";
-	alert(c1_name);
-});
-
 
 //카테고리 없이 검색어바로 들어올시 1차카테고리 생성 후 
 //1차 카테고리 클릭 -> 2차 카테고리 불러오기

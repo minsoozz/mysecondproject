@@ -17,9 +17,10 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
 
-<form id="_frmForm" action="faqupload" method="post">
+<form id="_frmForm" action="faquploadAf" method="post">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <input type="hidden" name="seq" value="${pqnadto.seq }">
+<input type="hidden" name="referer1" value="${referer1 }"/> <!-- 이전페이지 -->
 
 <table class="detail_table">
 <col width="100"><col width="200"><col width="100"><col width="300">

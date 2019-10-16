@@ -21,7 +21,6 @@
 	
    <div id="body_wrap" style="width: 80%">
 	   
-	    
 		      <tiles:insertAttribute name="body"/> <!-- body -->
 	  
     </div>

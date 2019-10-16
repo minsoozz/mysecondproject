@@ -3,6 +3,11 @@
 
 <mapper namespace="store">
 
+<select id="search_auto" resultType="String">
+	SELECT a.P_NAME, b_
+	FROM rhy_store_product a INNER JOIN rhy_mem_c b
+	
+</select>
 
 <select id="getCompanyList" resultType="String">
 	SELECT C_NAME FROM rhy_mem_c

@@ -5,6 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
+import com.rhymes.app.store.model.DetailParam;
+
+
+
+
 import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.store.dao.PqnaDao;
 import com.rhymes.app.store.model.PqnaDto;
@@ -18,14 +25,14 @@ public class PqnaServiceImpl implements PqnaService {
 	
 	//Pqna list
 	@Override
-	public List<PqnaDto> getPqnaList(CustomerParam param) {
+	public List<PqnaDto> getPqnaList(DetailParam param) {
 	
 		return PqnaDao.getPqnaList(param);
 	}
 
 	//Pqna count
 	@Override
-	public int getPqnaCount(CustomerParam param) {
+	public int getPqnaCount(DetailParam param) {
 		
 		return PqnaDao.getPqnaCount(param);
 	}

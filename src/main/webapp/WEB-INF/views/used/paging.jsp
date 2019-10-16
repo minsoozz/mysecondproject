@@ -52,7 +52,7 @@
 	
 %>
 
-<div style="float: left; width: 96%; text-align: center;">
+<div style="float: left; width: 96%; text-align: center; margin-top: 30px">
 	<!-- << -->
 	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
 	<a href="#none" title="처음페이지" onclick="goPage('0')">
@@ -100,7 +100,9 @@
 	if(screenEndPageIndex < totalPageCount){	// [11][12][13] >
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-		<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>)">
+
+		<a href="#" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>);return false;">
+
 			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
 		</a>
 		</span>

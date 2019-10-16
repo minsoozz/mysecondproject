@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.dao.PaymentDAO;
 import com.rhymes.app.payment.model.OrderDTO;
+import com.rhymes.app.payment.model.PaymentAfDTO;
+import com.rhymes.app.payment.model.PaymentDTO;
 
 @Repository
 public class PaymentDAOImpl implements PaymentDAO {
@@ -45,8 +47,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 	// 결제페이지에서 사용자의 유효 쿠폰 개수 가져오기
 	@Override
 	public int getCountCoupon(String userid) {
-
-		System.out.println("PaymentDAOIMPL userid : " + userid);
 		
 		int countCoupon = 0;
 		try {
@@ -67,6 +67,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 		MemberCouponDTO dto = new MemberCouponDTO();
 		dto.setTitle("쿠폰없음");
 		coupon.add(dto);
+		
 		try {
 			coupon = SqlSession.selectList(p + "getAllCoupon", userid);
 		}catch(Exception e) {}
@@ -80,6 +81,53 @@ public class PaymentDAOImpl implements PaymentDAO {
 		}
 		
 		return coupon;
+	}
+
+	// 결제한 후 상품 수량 차감
+	@Override
+	public boolean disc_stock_quantity(String stock_seq, String quantity) {
+		
+		PaymentAfDTO dto = new PaymentAfDTO(stock_seq, quantity);
+		
+		int count = SqlSession.update(p + "disc_stock_quantity", dto);
+		
+		return count>0?true:false;
+	}
+
+	// 결제한 후 사용 포인트 차감
+	@Override
+	public boolean disc_point(PaymentDTO dto) {
+		
+		int count = SqlSession.update(p + "disc_point", dto);
+		
+		return count>0?true:false;
+	}
+
+	// 결제 내역 저장
+	@Override
+	public boolean payment_save(PaymentDTO dto) {
+
+		int count = SqlSession.insert(p + "payment_save", dto);
+
+		return count>0?true:false;
+	}
+
+	// 결제시 사용한 쿠폰을 사용으로 변환
+	@Override
+	public boolean update_isused_coupon(PaymentDTO dto) {
+		
+		int count = SqlSession.delete(p + "update_isused_coupon", dto);
+		
+		return count>0?true:false;
+	}
+
+	// 결제 후 배송 내역 저장
+	@Override
+	public boolean delivery_save(PaymentDTO dto) {
+		
+		int count = SqlSession.insert(p + "delivery_save", dto);
+
+		return count>0?true:false;
 	}
 
 }

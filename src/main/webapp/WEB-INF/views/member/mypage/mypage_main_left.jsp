@@ -36,7 +36,7 @@
 		<div align="left" class="btn_inner_title">쿠폰</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
 	</button>
-	<button type="button" class="btn btn-default" onclick="location.href='#';">
+	<button type="button" class="btn btn-default" onclick="location.href='<%=ctx%>/mypage/notes';">
 		<div align="left" class="btn_inner_title">쪽지함</div>
 		<div align="right" class="btn_inner_ico"><i class="fas fa-angle-right"></i></div>		
 	</button>
