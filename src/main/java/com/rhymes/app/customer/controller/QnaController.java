@@ -2,6 +2,7 @@ package com.rhymes.app.customer.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,9 +76,11 @@ public class QnaController {
 	
 	//qnawrite
 	@GetMapping("/qnawrite")
-	public String qnawrite(Model model) {
+	public String qnawrite(Model model,Principal pcp) {
 		model.addAttribute("doc_title", "1:1문의");
 		
+		String id = pcp.getName();
+		model.addAttribute("id",id);
 		
 		return "qnawrite.tiles";
 	} 

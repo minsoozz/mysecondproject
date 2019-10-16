@@ -19,4 +19,11 @@ public class MemberOrderDTO {
 	private String img;			//대표이미지
 	private String rdate;		//결제일
 	private String review_written; //후기작성여부
+	
+	/* 상품페이지로 이동하기 위한 정보 */
+	///store/productDetail?p_seq=1041&c1_name=MEN&c2_name=OUTER&c3_name=COAT
+	private int p_seq;	//상품아이디
+	private String c1_name;	//상품대분류
+	private String c2_name;	//중분류
+	private String c3_name;	//소분류
 }

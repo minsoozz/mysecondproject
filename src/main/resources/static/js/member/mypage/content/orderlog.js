@@ -24,7 +24,7 @@ $(function(){
 	});
 	
 	//주문상세페이지 이동
-	$(".order_title").click(function(){
+	$(".order_title, .btn_write_review").click(function(){
 		location.href = '/mypage/orderlog/showdetail?payment_code=' + $(this).attr('accesskey');
 	});
 });

@@ -36,6 +36,20 @@ $(function(){
 		
 		var isDone = deleteWishitem(p_seq);
 	});
+	
+	//선택된 아이템 다수 삭제 버튼 클릭 이벤트. Ajax 통신
+	$("#_btn_delete_all").click(function(){
+		var idString = '';
+		$(".body_wishlist").children().each(function(index, item){ 
+			rowId = $(".body_wishlist").children().eq(index).attr('id');
+			if( $("#" + rowId + " .chk_item").is(":checked") === true ){
+				idString += rowId.split('_')[1] + ',';
+			} 			
+		});
+		
+		console.log(idString);
+		deleteMultiWishitems(idString);
+	});
 });
 
 //p_seq에 해당하는 아이템을 삭제하여 완료여부를 리턴하는 함수
@@ -43,10 +57,7 @@ function deleteWishitem(p_seq){
 	// 배열 초기화
 	var viewData = {};
 	// data[키] = 밸류
-	viewData["userid"] = $("#_frm_userid").val();
-	viewData["pd_seq"] = $("#_frm_seq").val();
-	viewData["title"] = $("#_review_title").val();
-	viewData["content"] = myEditor.getData();
+	viewData["pd_seq"] = p_seq;
 
 	$.ajax({
 		contentType : 'application/json',
@@ -58,12 +69,46 @@ function deleteWishitem(p_seq){
 		success : function( resp ) {
 			var result = resp + '';
 			if(result === '1'){
-				alert('저장이 완료되었습니다. ');
-				location.href= ctx + '/review';
+				alert('삭제가 완료되었습니다. ');
+				$("#itemrow_" + p_seq).remove();
 			}else{
 				console.log('세상에...0이라니..' + result);
 			}
-			
+		},
+		error : function() {
+			alert('오류 발생. 고객센터로 문의하세요.');
+		}
+	});
+}
+
+//wishlist 다중삭제 함수
+function deleteMultiWishitems(seqArr){
+	// 배열 초기화
+	var viewData = {};
+	// data[키] = 밸류
+	viewData["pd_seq"] = seqArr;
+	var seqArrStr = seqArr.split(',');
+	
+	$.ajax({
+		contentType : 'application/json',
+		dataType : 'json',
+		url : ctx + '/wishlist/delete/multiitem',
+		type : 'post',
+		async : false,
+		data : JSON.stringify(viewData),
+		success : function( resp ) {
+			var result = resp + '';
+			if(result === '1'){
+				alert('삭제가 완료되었습니다. ');
+				$.each(seqArrStr, function(index, item){
+					$("#itemrow_" + item).remove();					
+					if( $(".body_wishlist").children().length < 1 ){
+						$(".body_wishlist").append("<div class='col-md-12 chk_wishlist_item'>찜한 물품이 없습니다.</div>");
+					}
+				});
+			}else{
+				console.log('세상에...0이라니..' + result);
+			}			
 		},
 		error : function() {
 			alert('오류 발생. 고객센터로 문의하세요.');

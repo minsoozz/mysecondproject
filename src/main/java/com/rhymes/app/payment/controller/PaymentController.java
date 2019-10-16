@@ -240,9 +240,11 @@ public class PaymentController {
 		// -- 배송내역 저장 -- 운송장번호 어떻게?
 		
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("dtoAf", dtoAf);
 
-		return "";
-		//return "/payment/paymentAf";
+		return "/payment/paymentAf";
 	}
 	
 	/** 자바 메일 발송 *

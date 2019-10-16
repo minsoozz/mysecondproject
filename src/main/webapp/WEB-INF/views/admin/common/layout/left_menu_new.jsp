@@ -60,11 +60,10 @@
     </a>
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">------</h6>
-        <a class="collapse-item" href="utilities-color.html">-</a>
-        <a class="collapse-item" href="utilities-border.html">-</a>
-        <a class="collapse-item" href="utilities-animation.html">-</a>
-        <a class="collapse-item" href="utilities-other.html">-</a>
+        <h6 class="collapse-header">CHART</h6>
+        <a class="collapse-item" href="/admin/chart/sales">매출 통계</a>
+        <a class="collapse-item" href="/admin/chart/member">회원 통계</a>
+        <a class="collapse-item" href="/admin/chart/product">상품 통계</a>
       </div>
     </div>
   </li>
@@ -99,7 +98,25 @@
     </div>
   </li>
 
-  <!-- Nav Item - Charts -->
+	<!-- 주문관리 -->
+	<li class="nav-item">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_payment" aria-expanded="true" aria-controls="collapsePages">
+			<i class="fas fa-fw fa-folder"></i>
+				<span>주문관리</span>
+		</a>
+		<div id="admin_payment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<h6 class="collapse-header">PAYMENT MANAGE</h6>
+				<a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
+				<a class="collapse-item" href="/admin/payment/refund">환불관리</a>
+				<a class="collapse-item" href="/admin/payment/cancel">결제취소</a>
+				<a class="collapse-item" href="/admin/payment/success">결제성공</a>
+				<a class="collapse-item" href="/admin/payment/finish">결제완료</a>
+			</div>
+		</div>
+	</li>
+
+	<!-- Nav Item - Charts -->
   <li class="nav-item">
     <a class="nav-link" href="charts.html">
       <i class="fas fa-fw fa-chart-area"></i>

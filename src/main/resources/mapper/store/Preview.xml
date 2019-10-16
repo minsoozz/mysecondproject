@@ -14,7 +14,8 @@
 	<select id="getPreviewCount" parameterType="com.rhymes.app.store.model.DetailParam"
 		resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)AS CNT
-		FROM RHY_PRODUCT_REVIEW
+		FROM RHY_PRODUCT_REVIEW A,RHY_PAYMENT_DETAILS B, RHY_STORE_STOCK C, RHY_STORE_PRODUCT D
+				WHERE B.S_SEQ = C.STOCK_SEQ AND C.P_SEQ = D.P_SEQ  AND A.PD_SEQ = B.SEQ AND C.P_SEQ=#{p_seq}
 		
 	</select>
 </mapper>
