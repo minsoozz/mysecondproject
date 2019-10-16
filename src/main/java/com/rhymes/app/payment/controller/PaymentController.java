@@ -234,6 +234,13 @@ public class PaymentController {
 		boolean b5 = PaymentService.delivery_save(dto);
 		System.out.println("배송 내역 저장 ----- " + b5);
 
+		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
+		// rhy_store_basket 에서 구매한 id를 삭제
+		if(dtoAf.getBasket_del() == 1) {
+			boolean b6 = PaymentService.delete_basket(pcp.getName());
+			System.out.println("장바구니 내역 지우기 ---- " + b6);
+		}
+
 		// 이메일로 결제내역을 보낸다 -- 폼 필요
 		try {
 			mailSender(dto);
@@ -258,7 +265,7 @@ public class PaymentController {
 		
 		// -- 배송내역 저장 -- 운송장번호 어떻게?
 		
-		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
+		// -- 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("dtoAf", dtoAf);

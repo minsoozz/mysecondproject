@@ -90,5 +90,11 @@ public class PaymentServiceImpl implements PaymentService {
 	public boolean delivery_save(PaymentDTO dto) {
 		return PaymentDao.delivery_save(dto);
 	}
+	
+	// 결제 후 장바구니 내역 삭제
+	@Override
+	public boolean delete_basket(String id) {
+		return PaymentDao.delete_basket(id);
+	}
 
 }

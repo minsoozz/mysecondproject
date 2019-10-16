@@ -46,5 +46,8 @@ public interface PaymentDAO {
 	// 결제 후 배송 내역 저장
 	public boolean delivery_save(PaymentDTO dto);
 	
+	// 결제 후 장바구니 내역 삭제
+	public boolean delete_basket(String id);
+	
 	
 }
