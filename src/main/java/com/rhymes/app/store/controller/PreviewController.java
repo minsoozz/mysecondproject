@@ -1,4 +1,4 @@
-package com.rhymes.app.Store.controller;
+package com.rhymes.app.store.controller;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.rhymes.app.Store.model.DetailParam;
-import com.rhymes.app.Store.model.PreviewDto;
-import com.rhymes.app.Store.service.PreviewService;
+import com.rhymes.app.store.model.DetailParam;
+import com.rhymes.app.store.model.PreviewDto;
+import com.rhymes.app.store.service.PreviewService;
 import com.rhymes.app.customer.model.CustomerParam;
 
 @Controller

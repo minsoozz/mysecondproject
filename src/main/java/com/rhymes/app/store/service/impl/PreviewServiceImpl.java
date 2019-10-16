@@ -1,14 +1,14 @@
-package com.rhymes.app.Store.service.impl;
+package com.rhymes.app.store.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rhymes.app.Store.dao.PreviewDao;
-import com.rhymes.app.Store.model.DetailParam;
-import com.rhymes.app.Store.model.PreviewDto;
-import com.rhymes.app.Store.service.PreviewService;
+import com.rhymes.app.store.dao.PreviewDao;
+import com.rhymes.app.store.model.DetailParam;
+import com.rhymes.app.store.model.PreviewDto;
+import com.rhymes.app.store.service.PreviewService;
 
 @Service
 public class PreviewServiceImpl implements PreviewService {
