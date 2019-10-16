@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
+<%--
 // 결제금액
 String paid_amount = request.getParameter("paid_amount");
 // 아임포트 거래 고유 번호
@@ -72,7 +72,7 @@ if(pay_method.equals("card")){
 }else if(pay_method.equals("point")){
 	pay_method = "카카오페이";
 }
-%>
+--%>
 
 <!DOCTYPE html>
 <html>
@@ -97,10 +97,10 @@ if(pay_method.equals("card")){
 	<th>결제수단</th>
 </tr>
 <tr>
-	<td><%=paid_amount %>원</td>
-	<td><%=imp_uid %></td>
-	<td><%=status %></td>
-	<td><%=pay_method %></td>
+	<td>${dto.totalprice }원</td>
+	<td>${dto.payment_code }</td>
+	<td>${dto.payment_status }</td>
+	<td>${dto.payment_method }</td>
 </tr>
 </table>
 </div>
@@ -113,19 +113,19 @@ if(pay_method.equals("card")){
 <table class="paymentAf_tb" border="1" style="width: 100%;">
 <tr>
 	<th>이름</th>
-	<td><%=buyer_name %></td>
+	<td>${dto.send_name }</td>
 	<th>연락처</th>
-	<td><%=buyer_tel %></td>
+	<td>${dto.send_phone }</td>
 </tr>
 <tr>
 	<th>우편번호</th>
-	<td><%=buyer_postcode %></td>
+	<td>${dto.receive_postnum }</td>
 	<th>주소</th>
-	<td><%=buyer_addr %></td>
+	<td>${dto.receive_address }</td>
 </tr>
 <tr>
 	<th>주문시 요청사항</th>
-	<td colspan="3"></td>
+	<td colspan="3">${dto.receive_address_request }</td>
 </tr>
 </table>
 </div>
@@ -133,18 +133,18 @@ if(pay_method.equals("card")){
 
 <div class="paymentAf_result">
 <b style="text-align: center;">
-<%=buyer_name %>님의 주문이 완료되었습니다<br>
-고객님의 주문번호는 <%=imp_uid %>입니다.<br>
+${dto.send_name }님의 주문이 완료되었습니다<br>
+고객님의 주문번호는 ${dto.payment_code }입니다.<br>
 제품 구입의 따른 적립금 2020원은 배송완료 후 적립됩니다.<br>
 주문해주신 제품 확인 후 보내드리겠습니다.<br>
 구매해주셔서 감사합니다.<br>
 <c:if test="${fn:length(vbank_num) eq 14 }">
-무통장 입금&nbsp;:&nbsp;<%=vbank_name %>&nbsp;&nbsp;<%=vbank_num %><br>
-&nbsp;&nbsp;(예금주:<%=vbank_holder %>)&nbsp;&nbsp;<%=buyer_name %><br>
-<%=vbank_date %>까지 <%=paid_amount %>원 입금해주세요<%=buyer_addr_request %>
+무통장 입금&nbsp;:&nbsp;${dtoAf.vbank_name }&nbsp;&nbsp;${dtoAf.vbank_num }<br>
+&nbsp;&nbsp;(예금주:${dtoAf.vbank_holder })&nbsp;&nbsp;${dto.send_name }<br>
+${dtoAf.vbank_date }까지 ${dto.totalprice }원 입금해주세요${dto.receive_address_request }
 </c:if>
 <c:if test="${fn:length(vbank_num) ne 14 }">
-<%=paid_amount %>원 <%=pay_method %> 결제로 <%=status %> 상태입니다
+${dto.totalprice }원 ${dto.payment_method } 결제로 ${dto.payment_status } 상태입니다
 </c:if>
 </b>
 </div>
@@ -152,7 +152,7 @@ if(pay_method.equals("card")){
 <input type="button" onclick="location.href='/main'" value="메인으로">
 <!-- <input type="button" onclick="location.href='/mypage/orderlog'" value="주문내역확인"><br> -->
 <input type="button" onclick="location.href='/ordercheck/ordercheck_nomembership_confirm'" value="주문내역확인"><br>
-<a href="${receipt_url }">매출전표 확인하기</a>
+<a href="${dtoAf.receipt_url }">매출전표 확인하기</a>
 </div>
 </div>
 
