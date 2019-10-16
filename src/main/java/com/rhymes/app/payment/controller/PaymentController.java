@@ -185,42 +185,41 @@ public class PaymentController {
 	// 주문페이지에서 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
-		//System.out.println("daraepaymentAf");
-		//dto.setUserid( pcp.getName() );
-		//System.out.println("dto : " + dto.toString());
-		//System.out.println("dtoAf : " + dtoAf.toString());
+		System.out.println("daraepaymentAf");
+		dto.setUserid( pcp.getName() );
+		System.out.println("dto : " + dto.toString());
+		System.out.println("dtoAf : " + dtoAf.toString());
 		
 		// 상품의 재고번호를 ,를 기준으로 가져온다
-		//String[] stock_seq = dtoAf.getStock_seq().split(",");
-		//String[] quantity = dtoAf.getQuantity().split(",");
+		String[] stock_seq = dtoAf.getStock_seq().split(",");
+		String[] quantity = dtoAf.getQuantity().split(",");
 		
 		for (int i = 0; i < dtoAf.getStock_quantity(); i++) {
-			//System.out.println(stock_seq[i]);
-			//System.out.println(quantity[i]);
+			System.out.println(stock_seq[i]);
+			System.out.println(quantity[i]);
 
 			// 주문한 상품수량만큼 재고수량에서 차감한다
-			//boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
-			//System.out.println("재고수량 차감 ----- " + (i+1) + "번째 상품 차감 : " + b);
+			boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
+			System.out.println("재고수량 차감 ----- " + (i+1) + "번째 상품 차감 : " + b);
 		}
 		
-		// 적립금 차감한다 아직
-		//boolean b = PaymentService.disc_point(dto);
-		//System.out.println("사용 포인트 차감 ----- " + b);
+		// 적립금 차감한다 -- 아직
+		boolean b = PaymentService.disc_point(dto);
+		System.out.println("사용 포인트 차감 ----- " + b);
 
 		// db에 결제내역을 저장한다
-		//boolean b = PaymentService.payment_save(dto);
-		//System.out.println("결제 내역 저장 ----- " + b);
+		boolean b2 = PaymentService.payment_save(dto);
+		System.out.println("결제 내역 저장 ----- " + b2);
 
 		// 사용한 쿠폰을 사용으로 변환
-		//boolean b2 = PaymentService.update_isused_coupon(dto);
-		//System.out.println("사용한 쿠폰을 사용으로 변환 ----- " + b2);
+		boolean b3 = PaymentService.update_isused_coupon(dto);
+		System.out.println("사용한 쿠폰을 사용으로 변환 ----- " + b3);
 
-		// 배송내역 저장
-		//boolean b3 = PaymentService.delivery_save(dto);
-		//System.out.println("배송 내역 저장 ----- " + b3);
+		// 배송내역 저장 -- 운송장번호 어떻게?
+		boolean b4 = PaymentService.delivery_save(dto);
+		System.out.println("배송 내역 저장 ----- " + b4);
 
-		// -- 이메일로 결제내역을 보낸다
-		
+		// 이메일로 결제내역을 보낸다 -- 폼 필요
 		try {
 			mailSender(dto);
 		} catch (MessagingException e) {
@@ -228,7 +227,7 @@ public class PaymentController {
 		}
 		
 		
-		// -- 이메일로 결제내역을 보낸다
+		// -- 이메일로 결제내역을 보낸다 -- 폼 필요
 		
 		// 적립금 차감한다 -- 아직
 		
@@ -341,7 +340,7 @@ public class PaymentController {
 	
 	// 결제페이지에서 쿠폰 가져오기
 	@RequestMapping(value = "/payment_coupon", method = RequestMethod.GET)
-	public String payment_coupon(Model model, Principal pcp) {
+	public String payment_coupon(Model model, Principal pcp, String product_price, String delivery_price, String disc_point) {
 		System.out.println("쿠폰 컨트롤러");
 		String userid = pcp.getName();
 		
@@ -349,6 +348,17 @@ public class PaymentController {
 		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
 
 		model.addAttribute("coupon_code", coupon_code);
+		if(disc_point == "") {
+			model.addAttribute("disc_point", "0");
+		}else {
+			model.addAttribute("disc_point", disc_point);
+		}
+
+		if(delivery_price == "0") {
+			model.addAttribute("product_price", product_price);
+		}else {
+			model.addAttribute("product_price", Integer.parseInt(product_price) + 3000);
+		}
 		
 		return "/payment/coupon";
 	}
