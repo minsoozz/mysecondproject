@@ -3,12 +3,17 @@ package com.rhymes.app.member.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemBean implements Serializable {
 
 	
@@ -39,42 +44,8 @@ public class MemBean implements Serializable {
 	
 	private String social;	// 소셜 로그인 구분
 	
-	public MemBean() {}
+	// 
 
-	public MemBean(String userid, String userpw, Date rdate, int seq, boolean isAccountNonExpired,
-			boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled, String username,
-			String postcode, String address, String detailAddress, String phone, String useremail, String gender,
-			String birth, int count, String authority) {
-		super();
-		this.userid = userid;
-		this.userpw = userpw;
-		this.rdate = rdate;
-		this.seq = seq;
-		this.isAccountNonExpired = isAccountNonExpired;
-		this.isAccountNonLocked = isAccountNonLocked;
-		this.isCredentialsNonExpired = isCredentialsNonExpired;
-		this.isEnabled = isEnabled;
-		this.username = username;
-		this.postcode = postcode;
-		this.address = address;
-		this.detailAddress = detailAddress;
-		this.phone = phone;
-		this.useremail = useremail;
-		this.gender = gender;
-		this.birth = birth;
-		this.count = count;
-		this.authority = authority;
-	}
-
-	@Override
-	public String toString() {
-		return "MemBean [userid=" + userid + ", userpw=" + userpw + ", rdate=" + rdate + ", seq=" + seq
-				+ ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked=" + isAccountNonLocked
-				+ ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", isEnabled=" + isEnabled + ", username="
-				+ username + ", postcode=" + postcode + ", address=" + address + ", detailAddress=" + detailAddress
-				+ ", phone=" + phone + ", useremail=" + useremail + ", gender=" + gender + ", birth=" + birth
-				+ ", count=" + count + ", authority=" + authority + "]";
-	}
 
 	public MemBean(String userid, String userpw, String username, String useremail, String authority, String social) {
 		super();

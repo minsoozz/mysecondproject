@@ -10,6 +10,7 @@ import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.MemberParam;
 import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.service.AdminMemberService;
 
 @Service
@@ -40,6 +41,18 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	@Override
 	public void getAdMemAf(P_MemberDTO pmem) {
 		adminMemberDAO.getAdMemAf(pmem);
+	}
+
+	// 업체 리스트
+	@Override
+	public List<SellerBean> getmem_c_list(MemberParam param) {
+		return adminMemberDAO.getmem_c_list(param);
+	}
+
+	// 업체 리스트 count
+	@Override
+	public int getmem_c_Count(MemberParam param) {
+		return adminMemberDAO.getmem_c_Count(param);
 	}
 
 }

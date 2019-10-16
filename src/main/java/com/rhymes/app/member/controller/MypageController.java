@@ -127,13 +127,7 @@ public class MypageController {
 		
 		return "member/mypage/orderlog/detail";
 	}
-	
-	@GetMapping(value = "/wishlist")
-	public String showWishList() {
-		log.info("show wishlist");
-		return "member/mypage/wishlist";
-	}
-	
+		
 	/**적립금 현황 뷰를 보여주는 메소드
 	 * @param model
 	 * @param pcp
@@ -198,9 +192,7 @@ public class MypageController {
 			couponDetailList = mypageCouponService.getDetailsOnConditions(pDto);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
-		
-		System.out.println("listsize" + couponDetailList.size() + ", " + pDto.toString());
+		}	
 		
 		/* 저장된 값들을 뷰로 전송 */
 		model.addAttribute("myCoupons", myCoupons);

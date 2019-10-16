@@ -16,11 +16,9 @@ public class AdminController {
 	HttpSession session;
 
 	// 회원가입 선택 창
-	@GetMapping("/main")
-	public String regimain() {
-		log.info("show admin main");
+	@GetMapping("main")
+	public String newMain() {
 		return "AdminMain";
 	}
-	
 	
 }
