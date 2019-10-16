@@ -1,9 +1,9 @@
-package com.rhymes.app.Store.dao;
+package com.rhymes.app.store.dao;
 
 import java.util.List;
 
-import com.rhymes.app.Store.model.DetailParam;
-import com.rhymes.app.Store.model.PreviewDto;
+import com.rhymes.app.store.model.DetailParam;
+import com.rhymes.app.store.model.PreviewDto;
 
 public interface PreviewDao {
 

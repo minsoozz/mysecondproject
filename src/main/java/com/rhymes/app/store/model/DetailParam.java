@@ -1,4 +1,4 @@
-package com.rhymes.app.Store.model;
+package com.rhymes.app.store.model;
 
 import java.io.Serializable;
 
