@@ -5,6 +5,23 @@ $(document).ready(function() {
 
 	    popupOpen();	//Popup Open 함수
 	});
+	
+	$("#rbtn").click(function() {	// 받은 쪽지함 삭제
+		var seq = $(this).val();
+		var recv_id =  $("#_loginid").val();
+		var send_id = $(this).attr('send_id');
+		location.href="notesdelete2?recv_id="+recv_id+"&send_id="+send_id+"&seq="+seq;
+		
+	})
+	
+	$("#sbtn").click(function() {	// 보낸 쪽지함 삭제
+		var seq = $(this).val();
+		var send_id =  $("#_loginid").val();
+		var recv_id = $(this).attr('recv_id');
+		location.href="notesdelete?recv_id="+recv_id+"&send_id="+send_id+"&seq="+seq;;
+
+	})
+
 })
 
 function popupOpen(){
