@@ -21,7 +21,8 @@ public class P_MemberDTO {
    private String usergender; // 성별
    private String userbirth; // 생일
    private int count; // 인증횟수
-
+   private int subscribe;
+   
    private boolean islike; // 중고 상품 , 각 게시글마다 좋아요 클릭 여부 확인..
 
    public P_MemberDTO() {
@@ -60,7 +61,7 @@ public class P_MemberDTO {
 
 
    public P_MemberDTO(String userid, String username, String postcode, String address, String detailAddress,
-         String phone, String useremail, String usergender, String userbirth, int count) {
+         String phone, String useremail, String usergender, String userbirth, int count,int subscribe) {
       super();
       this.userid = userid;
       this.username = username;
@@ -72,20 +73,36 @@ public class P_MemberDTO {
       this.usergender = usergender;
       this.userbirth = userbirth;
       this.count = count;
+      this.subscribe = subscribe;
    }
-
-   @Override
-   public String toString() {
-      return "P_MemberDTO [userid=" + userid + ", username=" + username + ", postcode=" + postcode + ", address="
-            + address + ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail=" + useremail
-            + ", usergender=" + usergender + ", userbirth=" + userbirth + ", count=" + count + "]";
-   }
-
+   
+   public P_MemberDTO(String userid, String username, String postcode, String address, String detailAddress,
+	         String phone, String useremail, String usergender, String userbirth, int count) {
+	      super();
+	      this.userid = userid;
+	      this.username = username;
+	      this.postcode = postcode;
+	      this.address = address;
+	      this.detailAddress = detailAddress;
+	      this.phone = phone;
+	      this.useremail = useremail;
+	      this.usergender = usergender;
+	      this.userbirth = userbirth;
+	      this.count = count;
+	   }
 
 	public String toJSONString() {
 		return "userid=" + userid + ", username=" + username + ", postcode=" + postcode + ", address=" + address
 				+ ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail=" + useremail + ", usergender="
 				+ usergender + ", userbirth=" + userbirth + ", count=" + count;
+	}
+
+	@Override
+	public String toString() {
+		return "P_MemberDTO [seq=" + seq + ", userid=" + userid + ", username=" + username + ", postcode=" + postcode
+				+ ", address=" + address + ", detailAddress=" + detailAddress + ", phone=" + phone + ", useremail="
+				+ useremail + ", usergender=" + usergender + ", userbirth=" + userbirth + ", count=" + count
+				+ ", subscribe=" + subscribe + ", islike=" + islike + "]";
 	}
 
 

@@ -81,7 +81,7 @@
 		                        		</span>
 		                        	</div>
 	                        </c:if>
-	                        
+	                        <div class="admin">
 	                        <c:if test="${prc ne 'anonymousUser' }">
 								<c:forEach items="${prc.authorities  }" var="auth">
 									<c:if test="${auth eq 'ROLE_ADMIN' || auth eq 'ROLE_SELLER' }">
@@ -89,6 +89,7 @@
 			                       	</c:if>
 								</c:forEach>
 							</c:if>
+							</div>
 	  
 	  						<c:if test="${prc ne 'anonymousUser' }">
 	                            <div class="mypage">
@@ -106,22 +107,6 @@
 	                            </div>
  						<%-- </c:if> --%>
                         </div>
-                        
-                        <!-- 
-                         Search Button Area
-                        <div class="search_button">
-                            <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>
-                        
-                        Search Form
-                        <div class="search-hidden-form">
-                            <form action="#" method="get">
-                                <input type="search" name="search" id="search-anything" placeholder="검색어를 입력하세요...">
-                                <input type="submit" value="" class="d-none">
-                                <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
-                            </form>
-                        </div>
-                         -->
                     </div>
                 </div>
             </div>

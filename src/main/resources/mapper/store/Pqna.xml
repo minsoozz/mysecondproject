@@ -3,7 +3,8 @@
 
 <mapper namespace="Pqna">
 	<!-- pqnalist -->
-	<select id="getPqnaList" parameterType="com.rhymes.app.customer.model.CustomerParam"  resultType="com.rhymes.app.Store.model.PqnaDto">
+
+	<select id="getPqnaList" parameterType="com.rhymes.app.store.model.DetailParam"  resultType="com.rhymes.app.store.model.PqnaDto">
        SELECT SEQ, ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT
       FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC)AS RNUM,
 					SEQ, ID, P_SEQ,WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT
@@ -11,30 +12,32 @@
 					WHERE 1=1  
 					)A 
 			WHERE RNUM BETWEEN ${start} AND ${end}	
+			AND P_SEQ =${p_seq}
 			ORDER BY REF DESC, STEP ASC
     </select>
 	<!--pqna 글의 총 수  -->
-	<select id="getPqnaCount" parameterType="com.rhymes.app.customer.model.CustomerParam"
+	<select id="getPqnaCount" parameterType="com.rhymes.app.store.model.DetailParam"
 		resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)AS CNT
 		FROM RHY_STORE_PRODUCTQNA
+		WHERE P_SEQ =${p_seq}
 	</select>
 	
 	<!-- pqna 올리기 -->
-	<insert id="PqnaUpload" parameterType="com.rhymes.app.Store.model.PqnaDto">
+	<insert id="PqnaUpload" parameterType="com.rhymes.app.store.model.PqnaDto">
 	INSERT INTO RHY_STORE_PRODUCTQNA(ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT)
 	VALUES(#{ id}, #{p_seq}, now(),#{secret},(SELECT IFNULL(MAX(REF), 0)+1 FROM RHY_STORE_PRODUCTQNA ALIAS_FOR_SUBQUERY),0,0,#{title}, #{content})
 	</insert>
 	
 	<!-- pqna디테일 -->
-	 <select id="getPqnaDetail" parameterType="java.lang.Integer" resultType="com.rhymes.app.Store.model.PqnaDto">
+	 <select id="getPqnaDetail" parameterType="java.lang.Integer" resultType="com.rhymes.app.store.model.PqnaDto">
        SELECT * 
        FROM RHY_STORE_PRODUCTQNA
        WHERE SEQ = #{seq}
     </select>
     
     <!-- pqna 수정 -->
-	<update id="PqnaUpdateAf" parameterType="com.rhymes.app.Store.model.PqnaDto">
+	<update id="PqnaUpdateAf" parameterType="com.rhymes.app.store.model.PqnaDto">
 	UPDATE RHY_STORE_PRODUCTQNA
 	SET TITLE=#{title}, CONTENT=#{content}, SECRET=#{secret}
 	WHERE SEQ=#{seq}
@@ -47,13 +50,13 @@
 	</delete>
 	
 	<!-- pqna 답글 -->
-	<update id="PqnaAnswer" parameterType="com.rhymes.app.Store.model.PqnaDto">
+	<update id="PqnaAnswer" parameterType="com.rhymes.app.store.model.PqnaDto">
 	UPDATE RHY_STORE_PRODUCTQNA
 		SET STEP = (STEP+1)     
 			WHERE REF= #{ref}
 			AND STEP> #{step}
 	</update>
-	<insert id="PqnaAnswerAf" parameterType="com.rhymes.app.Store.model.PqnaDto">
+	<insert id="PqnaAnswerAf" parameterType="com.rhymes.app.store.model.PqnaDto">
 	     INSERT INTO RHY_STORE_PRODUCTQNA(ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT)
 	     VALUES(#{id},#{p_seq}, NOW(),#{secret},
 	     				#{ref},

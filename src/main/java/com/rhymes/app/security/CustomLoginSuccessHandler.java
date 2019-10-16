@@ -47,7 +47,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			return;
 		}
 		if (roleNames.contains("ROLE_SELLER")) {
-			resp.sendRedirect("/mypage/personal");
+			resp.sendRedirect("/admin/company/main");
 			return;
 		}
 

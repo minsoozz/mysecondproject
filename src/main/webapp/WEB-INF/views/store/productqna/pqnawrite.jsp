@@ -20,7 +20,9 @@
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <table class="detail_table">
 <col width="100"><col width="200"><col width="100"><col width="300">
-<input type="hidden" name="p_seq" value="12434"/> <!-- 주문번호 -->
+<input type="hidden" name="p_seq" value="${pqnalist.p_seq }"/> <!-- 주문번호 -->
+<input type="hidden" name="referer1" value="${referer1 }"/> <!-- 이전페이지 -->
+
 <tr>
 	<th>제목</th>
 	<td colspan="3">

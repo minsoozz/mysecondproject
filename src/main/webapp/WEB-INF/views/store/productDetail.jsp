@@ -11,6 +11,9 @@
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css"   
    href="<%=request.getContextPath() %>/css/store/silde.css">
+   <link rel="stylesheet" href="/css/store/productDetail.css">
+   
+   
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -28,7 +31,7 @@
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<link rel="stylesheet" href="/css/store/productDetail.css">
+
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -38,8 +41,9 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 </script>
 
- 
-<!-- qna -->
+<!-- 상품후기 -->
+<script type="text/javascript" src="<%=ctx%>/js/store/productreview.js"></script> 
+<!-- 상품qna -->
 <script type="text/javascript" src="<%=ctx%>/js/store/productqna.js"></script>
 
 </head>
@@ -47,23 +51,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 <input type="hidden" id="hdnPseq" value="${productDto.p_seq }">
 
 <div id="body_wrap">
-<div id="middle_wrap">
-<%-- 
-<div id="body_wrap">
-   <div id="productdetail_img_wrap">
-      <div class="mainImg">
-         <img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
-      </div>
-      <div>
-         <img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
-      </div>
-   </div>
- --%>
-      
-
 
 <div id="wrapper">
       <div id="slider-wrap">
@@ -158,6 +145,7 @@ $(document).ajaxSend(function(e, xhr, options) {
     </div>
 </div>
 </div>
+</div>
 
 
 <!-- 메시지 영역 -->
@@ -168,6 +156,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 </div>
 
 <!-- 재입고 모달 영역-->
+
 <div class="restockModal">
 	<div class="restockModal-content">
 		<div>
@@ -189,18 +178,20 @@ $(document).ajaxSend(function(e, xhr, options) {
 			</div>
 			<br>
 			<hr width = "100%" color = "#DADCE0"><br>
-			<div id="restock-size">
+			<div id="restock-size" style="margin-top: -10px;">
 				<div>
-					<div style="float:left; margin-right: 50%;">
+					<div style="float:left;">
 						<strong>사이즈</strong>
 					</div>
-					<div>
+					<div class="_putrsSize">
 						<label style="color:grey; font-size: 12px;" class="restockLabel">사이즈를 선택하세요.</label> &nbsp;
 						<input type="hidden" id="restockseq-hdn">
+					</div>
+					<div>	
 						<a href="#">변경</a>
 					</div>
 				</div>
-				<div style="margin-top: 5px;">
+				<div style="margin-top: 30px;">
 				<c:forEach items="${sizelist }" var="size" varStatus="vs">
 					<c:if test="${size.quantity eq 0 }">
 						<input type="radio" name='restockRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display: none"
@@ -209,10 +200,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 						style="cursor: pointer; background-color: white;"><strong>${size.size }</strong></label>
 					</c:if>
 					<c:if test="${size.quantity ne 0 }">
-						<input type="radio" name='restockRadio' id="chooseSize${vs.count }" disabled="disabled" class="_chooseSize${index.count }" style="display: none"
-							value="${size.size }" value2="${size.stock_seq }">
-						<label for="chooseSize${vs.count }" id="_sizeRestock"
-							style="cursor: pointer; background-color: #DADCE0; color: grey;">${size.size }</label>
+						<label id="_sizeRestock" style="background-color: #DADCE0; color: grey;" >${size.size }</label>
 					</c:if>
 				</c:forEach>
 				</div>
@@ -221,8 +209,8 @@ $(document).ajaxSend(function(e, xhr, options) {
 				<input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="&quot;-&quot;&nbsp;없이 숫자만 입력해 주세요." id="restockPhone">	
 				<br><br>
 				<div style="font-size: 12px;">
-				<input type="checkbox" id="restockInfoChk" style="margin-bottom: 15px">
-					<a href="#" style="color:black"><b>개인정보 수집,</b></a> 이용에 동의합니다.
+				<input type="checkbox" name="personinfoChk" id="restockInfoChk" style="margin-bottom: 15px; cursor: pointer;">
+					&nbsp;<a href="#" style="color:black"><b>개인정보 수집,</b></a> 이용에 동의합니다.
 				</div><br>
 				<div align="center">
 					<input type="button" value="입고 알림 신청" id="rsFinish-btn">
@@ -232,6 +220,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 		</div>
 	</div>
 </div>
+
 
 <!-- 구매하기 form -->
 <form action="/payment" id="orderFrm" method="post">
@@ -394,10 +383,9 @@ $(document).ajaxSend(function(e, xhr, options) {
          </li>         
       </ul>
     </div> 
+</div>
 
-
-
-
+<!-- 후기 -->
 <br><br>
 <ul class="goods-view-infomation-tab-group">
    <li class="goods-view-infomation-tab">
@@ -415,7 +403,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <div class="goods-view-infomation-content" id="goods_review">
 <div id="_product_review_wrap" >
       <div  id="_product_review" >
-         <script type="text/javascript">getProductReview(0);</script>
+         <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
       </div><!-- 작성한후기 탭 끝 -->
 </div>
 </div>
@@ -423,7 +411,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 
-
+<!-- 상품qna -->
 <br><br>
 <ul class="goods-view-infomation-tab-group">
    <li class="goods-view-infomation-tab">
@@ -444,13 +432,13 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <div id="_product_qna_wrap" >
       <div  id="_product_qna" >
-         <script type="text/javascript">getProductQna(0);</script>
+         <script type="text/javascript">getProductQna(0,${productDto.p_seq });</script>
       </div><!-- 작성한후기 탭 끝 -->
 </div>
 
 
 </div>
-</div>
+
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
 
@@ -482,30 +470,69 @@ $(document).on('click', '#rsFinish-btn', function(){
 	
 	var phone = $("#restockPhone").val();
 	var stock_seq = $("#restockseq-hdn").val();
+	var pinfoChk = $("input:checkbox[name='personinfoChk']").prop("checked");
 	
-	 $.ajax({
-         type:"get",
-         data: "phone=" + phone + "&stock_seq=" + stock_seq,
-         url:"/store/restockNotify_insert",
-         success:function( data ){
-          // 닫고 초기화
-          $(".restockModal").fadeOut();
-	      $(".restockLabel").html("사이즈를 선택하세요.");
-	      $("#restockPhone").val("");
-	      $("input:radio[name='restockRadio']").prop("checked", false);
-	      $(".restock_label").attr('style', 'background-color:white');
-          // 성공 메시지
-	      $("#msg").html("<strong>입고 알림신청이 완료되었습니다.</strong>")
-	      $(".wModal").fadeIn();
-	      setTimeout(function() {
-	         $(".wModal").fadeOut();
-	      },2500);
-          
-       },
-         error:function(){
-            alert("error!!"); 
-         }
-    }) 
+	if(stock_seq == ""){
+		$("#msg").html("<strong>사이즈를 선택해주세요.</strong>");
+	      	 $(".wModal").fadeIn();
+	     	 setTimeout(function() {
+	         	$(".wModal").fadeOut();
+	         },800);
+    }else{
+		if(phone.length == 11){
+			 
+			if(pinfoChk){
+				$.ajax({
+			         type:"get",
+			         data: "phone=" + phone + "&stock_seq=" + stock_seq,
+			         url:"/store/restockNotify_insert",
+			         success:function( data ){
+			        	 if(data == "already"){
+			        		 $("#msg").html("<strong>이미 입고 알림신청이 된 상태입니다.</strong>");
+			   		      	 $(".wModal").fadeIn();
+			   		     	 setTimeout(function() {
+			   		         	$(".wModal").fadeOut();
+			   		         },2500);
+			   		     	$(".restockLabel").html("사이즈를 선택하세요.");
+			   		        $("input:radio[name='restockRadio']").prop("checked", false);
+					        $(".restock_label").attr('style', 'background-color:white'); 
+			   		     	 
+			        	 }
+			        	 else if(data == "insert"){
+					          // 닫고 초기화
+					          $(".restockModal").fadeOut();
+						      $("#restockPhone").val("");
+						      $("input:radio[name='restockRadio']").prop("checked", false);
+						      $(".restock_label").attr('style', 'background-color:white');
+						      $(".restockLabel").html("사이즈를 선택하세요.");
+					          // 성공 메시지
+						      $("#msg").html("<strong>입고 알림신청이 완료되었습니다.</strong>")
+						      $(".wModal").fadeIn();
+						      setTimeout(function() {
+						         $(".wModal").fadeOut();
+						      },2500);
+			        	 }          
+			       },
+			         error:function(){
+			            alert("error!!"); 
+			         }
+			     })
+			}else{
+				 $("#msg").html("<strong>입고 알림 신청을 위해 개인정보 수집에 동의해주세요.</strong>");
+   		      	 $(".wModal").fadeIn();
+   		     	 setTimeout(function() {
+   		         	$(".wModal").fadeOut();
+   		         },2000);
+			}   
+		  }else{
+			  $("#msg").html("<strong>휴대폰 번호를 정확하게 입력해주세요</strong>");
+		      	 $(".wModal").fadeIn();
+		     	 setTimeout(function() {
+		         	$(".wModal").fadeOut();
+		         },2000);
+		     	$("#restockPhone").focus();
+		   }
+    	}
 });
 
 
@@ -523,7 +550,7 @@ $(document).on('click', '.restock_label', function(){
 	//alert(stock_seq);
 	//alert(stock_size);
 	$("#restockseq-hdn").val(stock_seq);
-	$(".restockLabel").html(stock_size);
+	$(".restockLabel").html("<strong>"+stock_size+"</strong>");
 	
 });
 
@@ -535,12 +562,12 @@ $('body').click(function(e){
         if(!$('.restockModal, .restockModal').has(e.target).length) { 
         	//$(".modal").css("display", "none");
         	$(".restockModal").fadeOut();
-        	$(".restockLabel").html("사이즈를 선택하세요.");
         	$("#restockPhone").val("");
+        	$("#restockseq-hdn").val("");
         	
         	$("input:radio[name='restockRadio']").prop("checked", false);
         	$(".restock_label").attr('style', 'background-color:white');
-        	
+        	$(".restockLabel").html("사이즈를 선택하세요.");
          } 
  	 }
 });

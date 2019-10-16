@@ -19,7 +19,7 @@ public class BlacklistDto implements Serializable {
 	private String b_id;
 	private String reporter;
 	private String content;
-	private Date rdate;
+	private String rdate;
 	private int review;
 }
 

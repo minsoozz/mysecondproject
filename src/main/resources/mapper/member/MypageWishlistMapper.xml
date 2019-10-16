@@ -8,6 +8,10 @@
 	<select id="getWishlistById" parameterType="java.lang.String"
 	 resultType="com.rhymes.app.member.model.mypage.MemberWishlistDTO">
 		<include refid="getWishlistByIdSql"/></select>
+		
+	<!-- 매개변수로 받은 ID와 p_seq에 맞는 찜 아이템 삭제 -->
+	<delete id="deleteWishItemByIdAndP_Seq" parameterType="com.rhymes.app.member.model.mypage.MemberWishlistDTO">
+		<include refid="deleteWishItemByIdAndP_SeqSql"/></delete>
 			
 	<!-- QUERY --> 	
  	<!-- 매개변수로 받은 ID의 주문상세내역을 리턴 -->
@@ -16,6 +20,12 @@
 		FROM RHY_STORE_PRODUCT A, RHY_STORE_WISHLIST B
 		WHERE A.P_SEQ = B.P_SEQ AND B.ID = #{userid};
  	</sql>
+ 	
+ 	<!-- 매개변수로 받은 ID와 p_seq에 맞는 찜 아이템 삭제 -->
+	<sql id="deleteWishItemByIdAndP_SeqSql" >
+		DELETE FROM RHY_STORE_WISHLIST
+		WHERE ID=#{userid} AND P_SEQ=#{p_seq}
+	</sql>
 </mapper>
 
 

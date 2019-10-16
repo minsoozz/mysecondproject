@@ -36,5 +36,5 @@ h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 .paymentAf_tb th{ padding: 10px 10px 10px 10px; background-color: #d7fd75; }
 .paymentAf_tb td{ padding: 10px 10px 10px 10px; }
 .paymentAf_result{ border: 1px solid #dbdbdb; width: 100%; }
-
+.paymentAf_wrap{ padding-top: 10px; width: 100%; }
 

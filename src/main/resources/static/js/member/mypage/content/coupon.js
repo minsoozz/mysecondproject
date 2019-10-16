@@ -29,12 +29,15 @@ $(function() {
 			async : false,
 			data : JSON.stringify(viewData),
 			success : function( resp ) {
+				
 				var result = resp;
+				console.log(result);
 				if( result === 0 ){
 					alert('잘못된 쿠폰번호입니다. 다시 확인해 주세요.');
 				}else if ( result === 1 ){
 					alert('쿠폰 적용 완료.');
-					location.href= ctx + '/coupon#_mypage_top';
+					location.reload();
+					//location.href= ctx + '/coupon#_mypage_top';
 					return;
 				}else{
 					alert('쿠폰 등록 오류. 고객센터로 문의하세요.');

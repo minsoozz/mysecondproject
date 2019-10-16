@@ -15,7 +15,7 @@ spring:
   #db config
   datasource: 
     hikari:
-      jdbc-url: jdbc:mysql://112.169.197.59:23306/rhymes?characterEncoding=UTF-8&serverTimezone=UTC
+      jdbc-url: jdbc:mysql://112.169.197.59:23306/rhymes?characterEncoding=UTF-8&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
       pool-name: hikari-cp
       maximum-pool-size: 30
       minimum-idle: 2
