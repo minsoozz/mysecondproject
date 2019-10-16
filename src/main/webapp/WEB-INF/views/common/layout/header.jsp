@@ -57,52 +57,56 @@
                 <div class="col-7 col-xs-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
                         <div class="login_register_area d-flex">
-							<c:if test="${userloginid eq null}">    
+
+							<c:if test="${prc eq 'anonymousUser' }">
 	                            <div class="login">
 	                                <a href="/member/login">Login</a>
 	                            </div>
 	                            <div class="join">
 	                                <a href="/member/regiMain">Join</a>
 	                            </div>
-	                            
 	                        </c:if>
-	                        
-	                        <c:if test="${userloginid ne null}">
-	                        
-	                        	<div class="">
-	                        		<span>안녕하세요 ${userloginid } 님  &nbsp;</span>
-	                        	</div>
-	                        	&nbsp;&nbsp;
-	                        	<div class="logout">
-		                        	<form action="/logout" method='post' id="_logfrm">
-										<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
-									</form>
-		                        	<span class="_logout" style="margin-right: 13px; border-right: 2px solid #c2c2c2;padding-right: 13px;font-size: 13px; color: #222; font-weight: 500;">
-		                        	Logout
-	                        		</span>
-	                        		
-	                        	</div>
-	                            
-	                        </c:if>
+
 	                        <c:if test="${prc ne 'anonymousUser' }">
+                        		<c:if test="${userloginid ne null}">
+		                        	<div class="">
+		                        		<span>안녕하세요 ${userloginid } 님  &nbsp;</span>
+		                        	</div>
+		                        	&nbsp;&nbsp;
+		                        	<div class="logout">
+			                        	<form action="/logout" method='post' id="_logfrm">
+										<input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+										</form>
+			                        	<span class="_logout" style="margin-right: 13px; border-right: 2px solid #c2c2c2;padding-right: 13px;font-size: 13px; color: #222; font-weight: 500;">
+			                        	Logout
+		                        		</span>
+		                        	</div>
+                        		</c:if>
+	                        </c:if>
 	                        
+	                        <c:if test="${prc ne 'anonymousUser' }">
 								<c:forEach items="${prc.authorities  }" var="auth">
 									<c:if test="${auth eq 'ROLE_ADMIN' }">
 			                       		&nbsp;&nbsp;<a href="/admin/main">admin</a>
 			                       	</c:if>
 								</c:forEach>
-							
-								
 							</c:if>
 	  
-                            <div class="mypage">
-                                <a href="/mypage/orderlog">Mypage</a>
-                            </div>
-                            <c:if test="${userloginid ne null}">
-                            <div class="cart">
-                                <a href="/store/basket">Cart</a>
-                            </div>
-							</c:if>
+	  						<c:if test="${prc ne 'anonymousUser' }">
+	                            <div class="mypage">
+	                                <a href="/mypage/orderlog">Mypage</a>
+	                            </div>
+                            </c:if>
+                            <c:if test="${prc eq 'anonymousUser' }">
+	                            <div class="mypage">
+	                                <a href="/member/login">Mypage</a>
+	                            </div>
+                            </c:if>
+                       <%-- <c:if test="${userloginid ne null}"> --%>
+	                            <div class="cart">
+	                                <a href="/store/basket">Cart</a>
+	                            </div>
+ 						<%-- </c:if> --%>
                         </div>
                         
                         <!-- 

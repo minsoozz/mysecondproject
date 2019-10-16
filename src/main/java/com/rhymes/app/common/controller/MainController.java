@@ -21,21 +21,6 @@ public class MainController {
 	public String mainPage(Principal prc, HttpSession session) {
 		log.info("mainpage");
 		
-		/*
-		 * String username = prc.getName(); if(username == null) { return "rhymain";
-		 * 
-		 * }else { return "main";
-		 * 
-		 * }
-		 */
-		
-		/*
-		 * if(prc.getName() == null) { return "main"; }else {
-		 * 
-		 * session.setAttribute("userloginid", prc.getName());
-		 * 
-		 * return "main"; }
-		 */
 		return "main";
 		
 	}

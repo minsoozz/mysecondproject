@@ -22,7 +22,7 @@
 		  mem.id as userid, pw as userpw, enabled, authority
 		FROM 
 		  RHY_MEM mem LEFT OUTER JOIN AUTHORITIES auth on mem.id = auth.id 
-		WHERE mem.id = #{userid} AND mem.enabled='true'
+		WHERE mem.id = #{userid} AND mem.enabled='true' AND mem.isAccountNonLock='true'
  	</select>
  	
  	
