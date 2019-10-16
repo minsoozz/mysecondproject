@@ -30,7 +30,7 @@
 					<img alt="" src="<%=ctx %>/upload/store/${detail.img }"/>
 				</div>					
 				<div class="col-md-6 detail-item-col">
-					<div class="item_name"><a href="#"><h4>${detail.p_name }</h4></a></div>
+					<div class="item_name"><a href="<%=ctx %>/store/productDetail?p_seq=${detail.p_seq }&c1_name=${detail.c1_name}&c2_name=${detail.c2_name}&c3_name=${detail.c3_name}"><h4>${detail.p_name }</h4></a></div>
 					<div class="item_desc">
 						<span><fmt:formatNumber value="${detail.p_price }" pattern="###,###,###" />원</span>
 						<a>${detail.ea }개 구매</a>

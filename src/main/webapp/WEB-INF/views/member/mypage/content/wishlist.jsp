@@ -68,8 +68,8 @@
 					<div class="col-md-2 img_wishlist_item" align="left">
 						<img src="<%=ctx %>/upload/store/${dto.photo1_file }" onerror="this.src='https://i.ytimg.com/vi/vWMCCZEkrKg/maxresdefault.jpg'">
 					</div>
-					<div class="col-md-6 detail_wishlist_item">
-						<div class="form-row">${dto.p_name }</div>
+					<div class="col-md-6 detail_wishlist_item" onclick="location.href='<%=ctx %>/store/productDetail?p_seq=${dto.p_seq }&c1_name=${dto.c1_name}&c2_name=${dto.c2_name}&c3_name=${dto.c3_name}'">
+						<div class="form-row"><h5>${dto.p_name }</h5></div>
 						<div class="form-row">${dto.p_title }</div>
 						<div class="form-row"><fmt:formatNumber value="${dto.p_price }" pattern="###,###,###" />원</div>
 					</div>

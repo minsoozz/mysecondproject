@@ -308,23 +308,23 @@ public class MypageController {
 			//비밀번호 확인이 완료되면 상세회원정보를 map타입으로 리턴 
 			List<String> authorities = mypagePersonalService.getAuthorities(userid);			
 			if(authorities.contains("ROLE_MEMBER")) {
-				log.info("개인회원");
+				//log.info("개인회원");
 				//개인회원인 경우
 				hm.put("role","member");
 				//개인회원 상세정보 get
 				P_MemberDTO pMem = mypagePersonalService.getOnePersonalMemberById(userid);
-				log.info("멤버세팅끝  : " + pMem.toString());
+				//log.info("멤버세팅끝  : " + pMem.toString());
 				String[] memDetails = pMem.toJSONString().split(",");
-				log.info("pMem : " + pMem.toJSONString());
+				//log.info("pMem : " + pMem.toJSONString());
 				for(String detail : memDetails) {
-					log.info("d : " + detail);
+					//log.info("d : " + detail);
 					hm.put(detail.split("=")[0].trim(), detail.split("=")[1]);
 				}
 			} else if(authorities.contains("ROLE_SELLER")) {
 				//기업회원인 경우
 				hm.put("role", "seller");
 			}
-			log.info("ok : " + ok + ",pw : " +  pw);
+			//log.info("ok : " + ok + ",pw : " +  pw);
 		}catch (Exception e) {
 			hm.put("result", "0");
 			e.printStackTrace();

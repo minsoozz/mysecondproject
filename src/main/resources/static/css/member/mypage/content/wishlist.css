@@ -40,6 +40,7 @@
 
 .detail_wishlist_item{
 	left: 3%;
+	cursor: pointer;
 }
 
 .wishlist_body_btns{

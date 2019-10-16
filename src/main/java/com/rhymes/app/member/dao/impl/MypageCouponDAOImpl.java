@@ -75,7 +75,8 @@ public class MypageCouponDAOImpl implements MypageCouponDAO {
 	 * @param cDDto
 	 * @return
 	 */
-	@CacheEvict(key = "#userid", value = {"getAmountOfPointById", "getAmountOfExpiredPointById", "getCountOnConditions"})
+	@CacheEvict(key = "#userid", value = "getCountOnConditions", allEntries = true)
+//	@CacheEvict(key = "#userid", value = {"getAmountOfPointById", "getAmountOfExpiredPointById", "getCountOnConditions"})
 	@Override
 	public int regiNewCoupon(MemberCouponDetailDTO cDDto) {
 		return sqlSession.update(ns + "regiNewCoupon", cDDto);
