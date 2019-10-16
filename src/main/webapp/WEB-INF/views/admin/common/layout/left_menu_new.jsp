@@ -40,7 +40,7 @@
 		<hr class="sidebar-divider">
 		  <!-- Heading -->
 		  <div class="sidebar-heading">
-		    Interface
+		    MANAGEMENT
 		  </div>
 		  
   		<!-- Nav Item - Pages Collapse Menu -->
@@ -59,7 +59,16 @@
 		    </div>
 		  </li>
 
-			  <!-- Nav Item - Utilities Collapse Menu -->
+		</c:if>
+  	</c:forEach>
+  </c:if>
+  <!-- Divider -->
+  <hr class="sidebar-divider"/>
+
+  <!-- Nav Item - Utilities Collapse Menu -->
+  	<c:if test="${prc ne 'anonymousUser' }">
+		<c:forEach items="${prc.authorities  }" var="auth">
+			<c:if test="${auth eq 'ROLE_ADMIN' }">
 			  <li class="nav-item">
 			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
 			      <i class="fas fa-fw fa-chart-area"></i>
@@ -67,116 +76,70 @@
 			    </a>
 			    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			      <div class="bg-white py-2 collapse-inner rounded">
-			        <h6 class="collapse-header">------</h6>
-			        <a class="collapse-item" href="utilities-color.html">-</a>
-			        <a class="collapse-item" href="utilities-border.html">-</a>
-			        <a class="collapse-item" href="utilities-animation.html">-</a>
-			        <a class="collapse-item" href="utilities-other.html">-</a>
+			        <h6 class="collapse-header">CHART</h6>
+			        <a class="collapse-item" href="/admin/chart/sales">매출 통계</a>
+			        <a class="collapse-item" href="/admin/chart/member">회원 통계</a>
+			        <a class="collapse-item" href="/admin/chart/product">상품 통계</a>
 			      </div>
 			    </div>
 			  </li>
-		</c:if>
-  	</c:forEach>
-  </c:if>
-  <!-- Divider -->
-  <hr class="sidebar-divider"/>
+			
+			  <!-- Divider -->
+			  <hr class="sidebar-divider"/>
+			
+			  <!-- Heading -->
+			  <div class="sidebar-heading">
+			    	${c_name }
+			  </div>
+			</c:if>
+		</c:forEach>
+	</c:if>
+	
+	<!-- Nav Item - Pages Collapse Menu -->
 	<c:if test="${prc ne 'anonymousUser' }">
 		<c:forEach items="${prc.authorities  }" var="auth">
 			<c:if test="${auth eq 'ROLE_SELLER' }">
-			  <!-- Heading -->
-			  <div class="sidebar-heading">
-			    Addons
-			  </div>
-			
-			  <!-- Nav Item - Pages Collapse Menu -->
 			  <li class="nav-item">
 			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
 			      <i class="fas fa-fw fa-folder"></i>
-			      <span>Pages</span>
+			      <span>상품관리</span>
 			    </a>
 			    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 			      <div class="bg-white py-2 collapse-inner rounded">
-			        <h6 class="collapse-header">Login Screens:</h6>
-			        <a class="collapse-item" href="login.html">Login</a>
-			        <a class="collapse-item" href="register.html">Register</a>
-			        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-			        <div class="collapse-divider"></div>
+			        <h6 class="collapse-header">PRODUCT MANAGE</h6>
+			        <a class="collapse-item" href="/admin/company/register">상품등록</a>
+			        <a class="collapse-item" href="/admin/company/productlist">상품조회</a>
+			        <a class="collapse-item" href="/admin/company/productoperlist">상품수정/삭제</a>
+			        <a class="collapse-item" href="login.html">재고관리</a>
+			        
+			        <!-- <div class="collapse-divider"></div>
 			        <h6 class="collapse-header">Other Pages:</h6>
 			        <a class="collapse-item" href="404.html">404 Page</a>
-			        <a class="collapse-item" href="blank.html">Blank Page</a>
+			        <a class="collapse-item" href="blank.html">Blank Page</a> -->
 			      </div>
 			    </div>
 			  </li>
- 		 </c:if>
-  	</c:forEach>
-  </c:if>
-
-
-  <!-- Nav Item - Utilities Collapse Menu -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>통계</span>
-    </a>
-    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">CHART</h6>
-        <a class="collapse-item" href="/admin/chart/sales">매출 통계</a>
-        <a class="collapse-item" href="/admin/chart/member">회원 통계</a>
-        <a class="collapse-item" href="/admin/chart/product">상품 통계</a>
-      </div>
-    </div>
-  </li>
-
-  <!-- Divider -->
-  <hr class="sidebar-divider"/>
-
-  <!-- Heading -->
-  <div class="sidebar-heading">
-    	${c_name }
-  </div>
-
-  <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-      <i class="fas fa-fw fa-folder"></i>
-      <span>상품관리</span>
-    </a>
-    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">PRODUCT MANAGE</h6>
-        <a class="collapse-item" href="/admin/company/register">상품등록</a>
-        <a class="collapse-item" href="/admin/company/productlist">상품조회</a>
-        <a class="collapse-item" href="/admin/company/productoperlist">상품수정/삭제</a>
-        <a class="collapse-item" href="login.html">재고관리</a>
-        
-        <!-- <div class="collapse-divider"></div>
-        <h6 class="collapse-header">Other Pages:</h6>
-        <a class="collapse-item" href="404.html">404 Page</a>
-        <a class="collapse-item" href="blank.html">Blank Page</a> -->
-      </div>
-    </div>
-  </li>
->>>>>>> master
-
-	<!-- 주문관리 -->
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_payment" aria-expanded="true" aria-controls="collapsePages">
-			<i class="fas fa-fw fa-folder"></i>
-				<span>주문관리</span>
-		</a>
-		<div id="admin_payment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">PAYMENT MANAGE</h6>
-				<a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
-				<a class="collapse-item" href="/admin/payment/refund">환불관리</a>
-				<a class="collapse-item" href="/admin/payment/cancel">결제취소</a>
-				<a class="collapse-item" href="/admin/payment/success">결제성공</a>
-				<a class="collapse-item" href="/admin/payment/finish">결제완료</a>
-			</div>
-		</div>
-	</li>
-
+			
+				<!-- 주문관리 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_payment" aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+							<span>주문관리</span>
+					</a>
+					<div id="admin_payment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">PAYMENT MANAGE</h6>
+							<a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
+							<a class="collapse-item" href="/admin/payment/refund">환불관리</a>
+							<a class="collapse-item" href="/admin/payment/cancel">결제취소</a>
+							<a class="collapse-item" href="/admin/payment/success">결제성공</a>
+							<a class="collapse-item" href="/admin/payment/finish">결제완료</a>
+						</div>
+					</div>
+				</li>
+			</c:if>
+		</c:forEach>
+	</c:if>
 	<!-- Nav Item - Charts -->
   <li class="nav-item">
     <a class="nav-link" href="charts.html">
