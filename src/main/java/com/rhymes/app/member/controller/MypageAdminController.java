@@ -11,9 +11,17 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = "/admin/mypage/*")
 public class MypageAdminController {
 
+	/**관리자-마이페이지 메인 뷰
+	 * @return
+	 */
 	@GetMapping(value = "/main")
 	public String showMypageAdminMain() {
 		log.info("showMypageAdminMain(");
 		return "admin/member/mypage";
+	}
+	
+	@GetMapping(value = "/coupon")
+	public String showMypageAdminCoupon() {
+		return "admin/member/mypage/coupon";
 	}
 }

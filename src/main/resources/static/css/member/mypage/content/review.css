@@ -25,6 +25,9 @@
 	width: 90px;
 	height: 100px;
 }
+.detail_waiting_item{
+	cursor: pointer;
+}
 
 .detail_waiting_item div{
 	margin-bottom: 5px;

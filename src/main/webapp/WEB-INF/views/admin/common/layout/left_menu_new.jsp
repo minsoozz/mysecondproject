@@ -51,6 +51,22 @@
       </div>
     </div>
   </li>
+  
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEvent" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-folder"></i>
+      <span>이벤트관리</span>
+    </a>
+    <div id="collapseEvent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Events</h6>
+        <a class="collapse-item" href="/admin/memlist">쿠폰 관리</a>
+        <a class="collapse-item" href="/admin/mem_c_list">적립금</a>
+        <a class="collapse-item" href="/admin/mem_c_list">이벤트</a>
+      </div>
+    </div>
+  </li>
 
   <!-- Nav Item - Utilities Collapse Menu -->
   <li class="nav-item">
