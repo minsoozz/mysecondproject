@@ -41,7 +41,7 @@
 					</div>
 				</div>
 				<!-- 검색 -->
-				<div class="col-sm-12 col-md-6">
+				<div class="col-sm-12 col-md-6" align="right">
 					<div id="dataTable_filter"
 						class="searchPosition dataTables_filter">
 						<select id="_s_category" name="cond" onchange="conditionChanged();" class="custome-select border-0 pr-3 searchSelect">

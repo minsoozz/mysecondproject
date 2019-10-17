@@ -41,7 +41,7 @@
 					</div>
 				</div>
 				<!-- 검색 -->
-				<div class="col-sm-12 col-md-6">
+				<div class="col-sm-12 col-md-6" align="right">
 					<div id="dataTable_filter"
 						class="searchPosition dataTables_filter">
 						
