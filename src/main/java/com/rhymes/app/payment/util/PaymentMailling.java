@@ -18,18 +18,17 @@ import com.rhymes.app.payment.model.PaymentDTO;
 public class PaymentMailling {
 	
 	// 결제 후 주문한 이메일로 결제내역 보내기
-	@RequestMapping(value = "/mailSender")
-	public void mailSender(PaymentDTO dto) throws AddressException, MessagingException {
+	public static void mailSender(PaymentDTO dto) throws AddressException, MessagingException {
 		System.out.println("메일발송 컨트롤러");
 		
 		// 네이버일 경우 smtp.naver.com 을 입력합니다.
 		// Google일 경우 smtp.gmail.com 을 입력합니다.
 		String host = "smtp.naver.com";
 		
-		//final String username = "ogbgt5"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-		//final String password = "!1finalproject"; //네이버 이메일 비밀번호를 입력해주세요.
-		final String username = "ysujin17"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-		final String password = "rhymes127"; //네이버 이메일 비밀번호를 입력해주세요.
+		final String username = "ogbgt5"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
+		final String password = "!1finalproject"; //네이버 이메일 비밀번호를 입력해주세요.
+		//final String username = "ysujin17"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
+		//final String password = "rhymes127"; //네이버 이메일 비밀번호를 입력해주세요.
 		int port=465; //포트번호
 		
 		// 메일 내용
@@ -39,7 +38,7 @@ public class PaymentMailling {
 		//받는 사람의 메일주소를 입력해주세요.
 		String subject = "메일테스트"; //메일 제목 입력해주세요.
 		String body = username+"님으로 부터 "+dto.getTotalprice()+"원 결제 메일을 받았습니다."; //메일 내용 입력해주세요.
-		
+
 		
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
 		
@@ -67,6 +66,10 @@ public class PaymentMailling {
 		mimeMessage.setText(body); //내용셋팅
 		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
 	}
+	
+
+	
+	
 	
 	
 	/**

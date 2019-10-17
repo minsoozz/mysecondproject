@@ -31,6 +31,7 @@ import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.model.PaymentDetailsDTO;
 import com.rhymes.app.payment.service.PaymentService;
 import com.rhymes.app.payment.util.Coolsms;
+import com.rhymes.app.payment.util.PaymentEmail;
 import com.rhymes.app.payment.util.PaymentMailling;
 
 @Controller
@@ -88,9 +89,11 @@ public class PaymentController {
 		// DB 쿠폰 가져오기
 		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
 
-
+		// 장바구니 내역 지울 수 있는 변수
+		int basket_del = 0;
 		
 
+		model.addAttribute("basket_del", basket_del);
 		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("point_amount", point_amount);
 		model.addAttribute("coupon_count", coupon_count);
@@ -264,10 +267,12 @@ public class PaymentController {
 		}
 
 		// 이메일로 결제내역을 보낸다 -- 폼 필요
+		//PaymentMailling mail = new PaymentMailling();
+		//mail.mailSender(dto);
+		PaymentEmail mail = new PaymentEmail();
 		try {
-			PaymentMailling mail = new PaymentMailling();
-			mail.mailSender(dto);
-		} catch (MessagingException e) {
+			mail.PaymentEmailSend(dto);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

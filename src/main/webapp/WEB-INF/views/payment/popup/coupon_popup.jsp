@@ -110,24 +110,26 @@ $(function(){
 		var disc_point = $("#disc_point").val();
 		var product_price = $("#product_price").val();
 		
-		if(func == ""){
-			alert("쿠폰을 선택해주세요");
-			return;
-		}
-		
 		if(func_measure == "default"){
-			opener.document.getElementById("coupon_use").value = "";
-			opener.document.getElementById("coupon_use_func").value = "";
-			opener.document.getElementById("coupon_use_func_num").value = "";
-			opener.document.getElementById("coupon_use_func_measure").value = "";
-			opener.document.getElementById("disc_coupon").value = 0;
-			opener.document.getElementById("_discprice").value = 0;
-			opener.document.getElementById("__totalprice").value = parseInt(product_price) - parseInt(disc_point);
-			window.close();
+			var result = confirm("쿠폰을 적용하지 않고 결제를 하시겠습니까?");
+			
+			if(result){			
+				opener.document.getElementById("coupon_use").value = "";
+				opener.document.getElementById("coupon_use_func").value = "";
+				opener.document.getElementById("coupon_use_func_num").value = "";
+				opener.document.getElementById("coupon_use_func_measure").value = "";
+				opener.document.getElementById("disc_coupon").value = 0;
+				opener.document.getElementById("_discprice").value = 0;
+				opener.document.getElementById("__totalprice").value = parseInt(product_price) - parseInt(disc_point);
+				window.close();
+			}else{
+				
+			}
+
 			return;
 		}
 		
-		alert(func + func_num + func_measure + coup_code);
+		//alert(func + func_num + func_measure + coup_code);
 		
 		// 할인, 적립 동시적용
 		opener.document.getElementById("coupon_use").value = coup_code;

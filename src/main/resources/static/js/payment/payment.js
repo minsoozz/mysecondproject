@@ -124,7 +124,7 @@ function result_price() {
 	//var totalprice = $("#_totalprice").text();
 	var totalprice = $("#__totalprice").val();
 	
-	alert(product_price + ", " + delivery_price + ", " + disc_price + ", " + totalprice);
+	//alert(product_price + ", " + delivery_price + ", " + disc_price + ", " + totalprice);
 
 	$("#__totalprice").val( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_price) );
 }
@@ -137,16 +137,26 @@ function result_price() {
 
 // 적립금
 function price_change() {
-	//alert("적립금");
+	alert("적립금");
 	
 	var point_amount = $("#point_amount").val();
 	var disc_point = $("#disc_point").val();
 	var _discprice = $("#_discprice").val();
 	var disc_coupon = $("#disc_coupon").val();
 
-	//if( disc_point.trim().length == 0 ) {
-	//	$("#disc_point").text( "0" );
-	//}
+	if( disc_point.trim() == "" ) {
+		$("#disc_point").val( "0" );
+		$("#_discprice").val( parseInt(disc_coupon) );
+		result_price();
+		return;
+	}
+	
+	if(disc_point.length < 4) {
+		alert("1000원부터 사용 가능합니다");
+		$("#disc_point").val( "0" );
+		result_price();
+		return;
+	}
 	
 	var _point_amount = parseInt(point_amount);
 	var _disc_point = parseInt(disc_point);
@@ -168,7 +178,7 @@ function price_change() {
 
 // 결제 페이지에서 배송할 주소 검색
 function sample6_execDaumPostcode() {
-	alert("주소찾기");	
+	//alert("주소찾기");	
 	
     new daum.Postcode({
         oncomplete: function(data) {

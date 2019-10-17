@@ -269,24 +269,6 @@
 </div>
 
 
-<script type="text/javascript">
-$(function(){
-/* 	console.log("최초 실행");
-	$("#coupon_use").change(function() {
-		
-		alert("쿠폰사용");
-	});
-	
-	if($("#coupon_use").val() != ""){
-		console.log(" 바뀜 ");
-	} */
-	
-});
-
-
-</script>
-
-
 
 </body>
 </html>
