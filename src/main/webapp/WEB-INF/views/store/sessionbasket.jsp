@@ -246,9 +246,6 @@ opacity:0.9;
 	width: 100%; /* Full width */
 	height: 40%; /* Full height */
 	overflow: hidden; /* Enable scroll if needed */
-	/* background-color: rgb(0,0,0); Fallback color
-	background-color: rgba(0,0,0,0.4); */ /* Black w/ opacity */
-	/* background-color:green; */
 }
 	
 /* Modal Content/Box */
@@ -284,10 +281,9 @@ opacity:0.9;
 <c:if test="${blist ne null }">
 <div id="product-select-all"><a href="#" class="allDeleteBtn" style="color:black">전체삭제</a></div>
 <c:forEach items="${blist }" var="ba" varStatus="vs">
-	<div id=sub1Container" class="sub1_${ba.b_seq }">
+	<div id=sub1Container" class="sub1_${ba.stock_seq }">
 		<div class="product-opt_basket">
 			<div class="item-info">
-				<%-- <span class="img_wrap"><a href="/store/productDetail?p_seq=${ba.p_seq }"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></a></span> --%>
 				<span class="img_wrap"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></span>
 				<div class="info_wrap">
 					<div style="margin-top:8px; font-size: 15px;" class="pname_wrap"><a >${ba.c_name }</a></div>
@@ -295,7 +291,7 @@ opacity:0.9;
 					<div class="info2_warp">
 					사이즈 : <span>${ba.size }</span><br>
 					<c:if test="${ba.quantity ne 0 }">
-					<div style="margin-top:3px;">수량 : <span class="eachPq${ba.b_seq }" id="eachPq${vs.count }">${ba.p_quantity }</span></div>
+					<div style="margin-top:3px;">수량 : <span class="eachPq${ba.stock_seq }" id="eachPq${vs.count }">${ba.p_quantity }</span></div>
 					<div style="margin-top:3px;">단가 : <span><fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price}" /></span></div>
 					</c:if>
 					<c:if test="${ba.quantity eq 0 }">
@@ -304,7 +300,7 @@ opacity:0.9;
 					</c:if>										
 					</div>
 				</div>
-				<div class="optionchange_wrap">
+				<%-- <div class="optionchange_wrap">
 					<c:if test="${ba.quantity ne 0 }">
 					<a onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
 					<div class="pqSelect">
@@ -313,12 +309,12 @@ opacity:0.9;
 						<span class="plus_btn" style="cursor:pointer;" value="${ba.b_seq }">+</span>
 					</div>
 					</c:if>
-				</div>
+				</div> --%>
 				<div class="price_wrap">
-					<input type="hidden" value="${ba.p_price }" id="eachPrice${ba.b_seq }">											
-					<input type="hidden" value="${ba.p_price * ba.p_quantity}" id="pMq${ba.b_seq }">
+					<input type="hidden" value="${ba.p_price }" id="eachPrice${ba.stock_seq }">											
+					<input type="hidden" value="${ba.p_price * ba.p_quantity}" id="pMq${ba.stock_seq }">
 					<c:if test="${ba.quantity ne 0 }">
-						<span class="eachMultiple${ba.b_seq }">
+						<span class="eachMultiple${ba.stock_seq }">
 						<fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price * ba.p_quantity}" />
 						</span> 원
 					</c:if>
@@ -327,7 +323,7 @@ opacity:0.9;
 					</c:if>
 				</div>
 				<div class="delete_wrap">
-					<label class="delete_btn" value="${ba.b_seq }">X</label>
+					<label class="delete_btn" value="${ba.stock_seq }">X</label>
 				</div>
 			</div>
 		</div>
@@ -456,34 +452,36 @@ $(document).on('click', '.orderBtn', function(){
 		$("#bOrderFrm").submit();
 	}
 });
-
+//장바구니 전체 삭제
 $(document).on('click', '.allDeleteBtn', function(){
+	
 	$.ajax({
         type:"get",
-        url:"/store/deleteBasketAll",
+        url:"/store/deleteSessionBasketAll",
         success:function( data ){
-        	$("#cntProduct_wrap").remove();
-    		$("#product-select-all").remove();
-    		$(".sub2Container").remove();
-    		$("#sub1Container").remove();
-    		$(".product-opt_basket").remove();
-    		
-        	var str = "";
-    		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
-    		str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
-    		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
-    		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
-    		
-    		
-    		$("#mainContainer").append(str); 
+        	if(data === "DELETE"){
+	        	$("#cntProduct_wrap").remove();
+	    		$("#product-select-all").remove();
+	    		$(".sub2Container").remove();
+	    		$("#sub1Container").remove();
+	    		$(".product-opt_basket").remove();
+	    		
+	        	var str = "";
+	    		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
+	    		str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
+	    		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
+	    		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
+	    		
+	    		$("#mainContainer").append(str);
+        	}
         },
         error:function(){
            alert("error!!"); 
         }
-	})	
+	})
 });
 
-/* 수량변경 */
+// 수량 변경
 function changeQ(stock_seq, b_seq){
 	//alert(b_seq);
 	var p_quantity = Number($("#pqCnt"+b_seq).html());
@@ -500,7 +498,6 @@ function changeQ(stock_seq, b_seq){
         data: "stock_seq=" + stock_seq + "&p_quantity=" + p_quantity + "&b_seq=" + b_seq,
         url:"/store/updateBasketQ",
         success:function( data ){
-			//alert(data);
         	$(".eachPq"+b_seq).html(p_quantity);
         	$(".eachMultiple"+b_seq).html(numberWithCommas(udtQ));
         	$("#pMq"+b_seq).val(udtQ);
@@ -526,9 +523,9 @@ function changeQ(stock_seq, b_seq){
         }
 	})
 }
+// 장바구니 수량 UP
 $(document).on('click', '.plus_btn', function(){
 	var b_seq = $(this).attr("value");
-	//alert(b_seq);
 	var cnt = Number($("#pqCnt" + b_seq).html());
 	if(cnt<9){
 		$("#pqCnt" + b_seq).html(cnt+1);	
@@ -540,7 +537,7 @@ $(document).on('click', '.plus_btn', function(){
     	},700);
 	}
 });
-
+// 장바구니 수량 DOWN
 $(document).on('click', '.minus_Btn', function(){
 	var b_seq = $(this).attr("value");
 	var cnt = Number($("#pqCnt" + b_seq).html());
@@ -550,22 +547,18 @@ $(document).on('click', '.minus_Btn', function(){
 	}	 
 });
 
-</script>
-<script>
+// 장바구니 삭제
 $(document).on('click', '.delete_btn', function(){
-	var b_seq = $(this).attr("value");
+	var stock_seq = $(this).attr("value");
 				
 		$.ajax({
 	        type:"get",
-	        data: "b_seq=" + b_seq,
-	        url:"/store/deleteBasket",
+	        data: "stock_seq=" + stock_seq,
+	        url:"/store/deleteSessionBasket",
 	        success:function( data ){
-	            $(".sub1_" + b_seq).remove();
-	            //alert("삭제 후 총 결제금액 : " + data);
-			    /* var udtTotal = numberWithCommas(data);
-			    alert("변환 총액 : " + udtTotal); */
+	           
+	           $(".sub1_" + stock_seq).remove();
 	            var postfee = $(".post_price").attr("value");
-	            //alert("배송비 : " + postfee);
 	            
 	            if(isNaN(data)){
 	            	//alert("장바구니 아무것도 없음");	
@@ -578,11 +571,8 @@ $(document).on('click', '.delete_btn', function(){
 	            	
 	            /* 1.배송비 부과될 때 */	           	
 	            	if(data<10000){
-	            		//alert("배송비O");
-	            		/* 수정된 총 결제 예상 금액 */
 	            		udtPp = data + 3000;
 	            		      				    		
-	            		/* 상품금액 */
 	            		$("#totalP_price").html(numberWithCommas(data));
 	            		
 	            		if(data>0){
@@ -603,7 +593,6 @@ $(document).on('click', '.delete_btn', function(){
 	            		$(".pay_price").html(numberWithCommas(udtPp));
 	            	}
 	            /* 3.장바구니 리스트 없을 때 */	
-	            	//alert("allCnt -1 : " + (allCnt-1));
 	            	
 	            	$("#_allCnt").text(allCnt-1);
 	            	allCnt--;
@@ -616,20 +605,21 @@ $(document).on('click', '.delete_btn', function(){
 	            		var str = "";
 	            		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
 	            		str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
-	            		//str += "<label class='nothingLabel' value='장바구니에 담긴 상품이 없습니다.'></label>";
 	            		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
 	            		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
 	            		
 	            		$("#mainContainer").append(str); 
 	            	}
 	            }
-	            //minusallCnt();
 	            
 	            $("#msg").html("<b>장바구니에서 삭제되었습니다.</b>")
 	        	$(".wModal").fadeIn();
 	        	setTimeout(function() {
 	        		$(".wModal").fadeOut();
 	        	},700);
+	           
+	           
+	           
 	        },
 	        error:function(){
 	           alert("error!!"); 

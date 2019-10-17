@@ -249,10 +249,6 @@ $(document).ajaxSend(function(e, xhr, options) {
    <input type='hidden' name="blist_pQuantity" id="blist_pQuantity" value="">
 </form>
 
-<!-- 장바구니 페이지이동 form -->
-<form action="/store/basket" method="get" id="moveBasketFrm"></form>
-
-
 <div id="aa"></div>
 
 <ul class="goods-view-infomation-tab-group">
@@ -766,14 +762,14 @@ function showBasketList(arrLen, arr){
 $(document).on('click', '._basketOrderBtn', function(){
    	var stockseq = $("#blist_stockseq").val();
    	var quantity = $("#blist_pQuantity").val();
-	alert(stockseq);
-	alert(quantity);
+	//alert(stockseq);
+	//alert(quantity);
 	$("#bOrderFrm").submit();      
 });
 
 /* 장바구니 페이지 이동버튼 클릭 */
 $(document).on('click', '.moveBasketBtn', function(){
-   $("#moveBasketFrm").submit();   
+	location.href="/store/basket";	
 });
 
 /* 미니장바구니 삭제버튼 클릭 */
