@@ -284,7 +284,7 @@ opacity:0.9;
 <c:if test="${blist ne null }">
 <div id="product-select-all"><a href="#" class="allDeleteBtn" style="color:black">전체삭제</a></div>
 <c:forEach items="${blist }" var="ba" varStatus="vs">
-	<div id=sub1Container" class="sub1_${ba.b_seq }">
+	<div id=sub1Container" class="sub1_${ba.stock_seq }">
 		<div class="product-opt_basket">
 			<div class="item-info">
 				<%-- <span class="img_wrap"><a href="/store/productDetail?p_seq=${ba.p_seq }"><img alt="사진x" src="/upload/store/${ba.photo1_file }" style="width:100px;height:100px;"></a></span> --%>
@@ -295,7 +295,7 @@ opacity:0.9;
 					<div class="info2_warp">
 					사이즈 : <span>${ba.size }</span><br>
 					<c:if test="${ba.quantity ne 0 }">
-					<div style="margin-top:3px;">수량 : <span class="eachPq${ba.b_seq }" id="eachPq${vs.count }">${ba.p_quantity }</span></div>
+					<div style="margin-top:3px;">수량 : <span class="eachPq${ba.stock_seq }" id="eachPq${vs.count }">${ba.p_quantity }</span></div>
 					<div style="margin-top:3px;">단가 : <span><fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price}" /></span></div>
 					</c:if>
 					<c:if test="${ba.quantity eq 0 }">
@@ -304,7 +304,7 @@ opacity:0.9;
 					</c:if>										
 					</div>
 				</div>
-				<div class="optionchange_wrap">
+				<%-- <div class="optionchange_wrap">
 					<c:if test="${ba.quantity ne 0 }">
 					<a onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
 					<div class="pqSelect">
@@ -313,12 +313,12 @@ opacity:0.9;
 						<span class="plus_btn" style="cursor:pointer;" value="${ba.b_seq }">+</span>
 					</div>
 					</c:if>
-				</div>
+				</div> --%>
 				<div class="price_wrap">
-					<input type="hidden" value="${ba.p_price }" id="eachPrice${ba.b_seq }">											
-					<input type="hidden" value="${ba.p_price * ba.p_quantity}" id="pMq${ba.b_seq }">
+					<input type="hidden" value="${ba.p_price }" id="eachPrice${ba.stock_seq }">											
+					<input type="hidden" value="${ba.p_price * ba.p_quantity}" id="pMq${ba.stock_seq }">
 					<c:if test="${ba.quantity ne 0 }">
-						<span class="eachMultiple${ba.b_seq }">
+						<span class="eachMultiple${ba.stock_seq }">
 						<fmt:formatNumber type="currency" currencySymbol="" value="${ba.p_price * ba.p_quantity}" />
 						</span> 원
 					</c:if>
@@ -327,7 +327,7 @@ opacity:0.9;
 					</c:if>
 				</div>
 				<div class="delete_wrap">
-					<label class="delete_btn" value="${ba.b_seq }">X</label>
+					<label class="delete_btn" value="${ba.stock_seq }">X</label>
 				</div>
 			</div>
 		</div>
@@ -500,7 +500,6 @@ function changeQ(stock_seq, b_seq){
         data: "stock_seq=" + stock_seq + "&p_quantity=" + p_quantity + "&b_seq=" + b_seq,
         url:"/store/updateBasketQ",
         success:function( data ){
-			//alert(data);
         	$(".eachPq"+b_seq).html(p_quantity);
         	$(".eachMultiple"+b_seq).html(numberWithCommas(udtQ));
         	$("#pMq"+b_seq).val(udtQ);
@@ -553,14 +552,15 @@ $(document).on('click', '.minus_Btn', function(){
 </script>
 <script>
 $(document).on('click', '.delete_btn', function(){
-	var b_seq = $(this).attr("value");
+	var stock_seq = $(this).attr("value");
 				
 		$.ajax({
 	        type:"get",
-	        data: "b_seq=" + b_seq,
-	        url:"/store/deleteBasket",
+	        data: "stock_seq=" + stock_seq,
+	        url:"/store/deleteSessionBasket",
 	        success:function( data ){
-	            $(".sub1_" + b_seq).remove();
+	           
+	           $(".sub1_" + stock_seq).remove();
 	            //alert("삭제 후 총 결제금액 : " + data);
 			    /* var udtTotal = numberWithCommas(data);
 			    alert("변환 총액 : " + udtTotal); */
@@ -630,6 +630,9 @@ $(document).on('click', '.delete_btn', function(){
 	        	setTimeout(function() {
 	        		$(".wModal").fadeOut();
 	        	},700);
+	           
+	           
+	           
 	        },
 	        error:function(){
 	           alert("error!!"); 
