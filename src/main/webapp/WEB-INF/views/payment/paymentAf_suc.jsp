@@ -31,18 +31,7 @@
 	<td>${dto.totalprice }원</td>
 	<td>${dto.payment_code }</td>
 	<td>
-	<c:if test="${dto.payment_status ne ready }">
-	미결제
-	</c:if>
-	</td>
-	<td>
-	<%-- <c:out value="${fn:trim(dto.payment_method) }"/> --%>
-	<c:if test="${fn:trim(dto.payment_method) ne vbank }">
-	무통장입금
-	</c:if>
-	</td>
-
-<%-- <c:if test="${dto.payment_status eq ready }">
+	<c:if test="${dto.payment_status eq ready }">
 		<td>미결제</td>
 	</c:if>
 	<c:if test="${dto.payment_status eq paid }">
@@ -50,6 +39,11 @@
 	</c:if>
 	<c:if test="${dto.payment_status eq cancelled }">
 		<td>결제취소</td>
+	</c:if>
+	</td>
+	<td>
+	<c:if test="${dto.payment_method eq vbank }">
+	무통장입금
 	</c:if>
 	<c:if test="${dto.payment_method eq card }">
 		<td>신용카드</td>
@@ -65,7 +59,9 @@
 	</c:if>
 	<c:if test="${dto.payment_method eq point }">
 		<td>카카오페이</td>
-	</c:if> --%>
+	</c:if>
+	</td>
+
 </tr>
 </table>
 </div>

@@ -16,8 +16,22 @@
 <!-- 보낸 쪽지함 -->
 <select id="getsendnotes" parameterType="com.rhymes.app.used.model.NotesSendParam" resultType="com.rhymes.app.used.model.NotesDto">
 	SELECT seq,send_id,recv_id,content,data_send,data_read,recv_read,send_del,recv_del,readcount
-	FROM rhy_used_notes
-	WHERE send_id=#{id}
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY data_send desc) as RNUM,
+		seq,send_id,recv_id,content,data_send,data_read,recv_read,send_del,recv_del,readcount
+		FROM rhy_used_notes
+		WHERE 1=1
+			<if test="s_select != null and s_keyword != null">
+         <if test="s_select == 's_content'">
+            AND CONTENT LIKE CONCAT('%',#{s_keyword},'%')
+         </if>
+         <if test="s_select == 's_id'">
+            AND recv_id LIKE CONCAT('%',#{s_keyword},'%')
+         </if>
+      </if>
+      ) A
+    WHERE RNUM BETWEEN ${s_start} AND ${s_end}
+	AND send_id=#{id}
+	AND send_del='N'
 	ORDER BY data_send desc
 </select>
 
@@ -32,13 +46,14 @@
          <if test="r_select == 'r_content'">
             AND CONTENT LIKE CONCAT('%',#{r_keyword},'%')
          </if>
-         <if test="r_select == 'id'">
+         <if test="r_select == 'r_id'">
             AND SEND_ID LIKE LIKE CONCAT('%',#{r_keyword},'%')
          </if>
       </if>
       ) A
     WHERE RNUM BETWEEN ${r_start} AND ${r_end}
 	AND recv_id=#{id}
+	AND recv_del='N'
 	ORDER BY data_send desc
 </select>
 
@@ -63,7 +78,16 @@
 <select id="getSendNotesCount" parameterType="com.rhymes.app.used.model.NotesSendParam" resultType="java.lang.Integer">
 	SELECT COUNT(*)
 	FROM rhy_used_notes
-	WHERE send_id=#{id}
+	WHERE 1=1
+	<if test="s_select != null and s_keyword != null">
+         <if test="s_select == 's_content'">
+            AND CONTENT LIKE CONCAT('%',#{s_keyword},'%')
+         </if>
+       <if test="s_select == 's_id'">
+            AND RECV_ID LIKE CONCAT('%',#{s_keyword},'%')
+       	</if>
+      </if>
+	AND send_id=#{id}
 	AND send_del='N'
 </select>
 

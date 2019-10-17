@@ -89,11 +89,7 @@ VALUES(#{s_seq}, #{ea}, #{price}, #{payment_code}, SYSDATE())
 
 <!-- 적립금 차감한다 -->
 <update id="disc_point" parameterType="com.rhymes.app.payment.model.PaymentDTO">
-
-SELECT *
-FROM RHY_MEM_POINT
-WHERE ID=#{userid}
-ORDER BY RDATE ASC
+<!-- 이거 어떻게 해 ㅠㅠ -->
 </update>
 
 <!-- 결제내역 저장 -->

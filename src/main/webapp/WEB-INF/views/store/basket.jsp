@@ -270,10 +270,18 @@ opacity:0.9;
 <br><br>
 <div id="cart_wrap">
 <h2><b>장바구니</b></h2>
+
 <div id="cntProduct_wrap"><label id="_allCnt">${fn:length(blist) }</label>개 상품</div>
 </div>
 
 <div id="mainContainer">
+<c:if test="${blist eq null }">
+<div id=sub1Container">
+	<h1>장바구니에 담긴 상품이 없습니다.</h1>
+</div>
+</c:if>
+
+<c:if test="${blist ne null }">
 <div id="product-select-all"><a href="#" class="allDeleteBtn" style="color:black">전체삭제</a></div>
 <c:forEach items="${blist }" var="ba" varStatus="vs">
 	<div id=sub1Container" class="sub1_${ba.b_seq }">
@@ -388,7 +396,9 @@ opacity:0.9;
 	</div>
 	
 <div>
-</div>	
+</div>
+</c:if>
+	
 </div>
 <!-- 메시지 영역 -->
 <div class="wModal">
