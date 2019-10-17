@@ -84,4 +84,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public boolean chkRestockN(RestockNotifyDto restock) throws Exception {
 		return purchase.chkRestockN(restock);
 	}
+
+	@Override
+	public BasketListDto getSessionBasketDto(int stock_seq) throws Exception {
+		return purchase.getSessionBasketDto(stock_seq);
+	}
 }

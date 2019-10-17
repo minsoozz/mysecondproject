@@ -13,6 +13,7 @@ public class BasketDto {
 	private int p_quantity;		// 장바구니 상품수량
 	private String rdate;		// 장바구니에 담은 날짜
 	
+	private int quantity;		// 재고 수량
 	
 	public int getB_seq() {
 		return b_seq;
@@ -43,6 +44,12 @@ public class BasketDto {
 	}
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	
