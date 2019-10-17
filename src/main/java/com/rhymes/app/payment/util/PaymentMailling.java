@@ -20,8 +20,6 @@ public class PaymentMailling {
 	// 결제 후 주문한 이메일로 결제내역 보내기
 	public static void mailSender(PaymentDTO dto) throws AddressException, MessagingException {
 		System.out.println("메일발송 컨트롤러");
-		System.out.println("메일발송 컨트롤러111");
-		System.out.println("메일발송 컨트롤러222");
 		
 		// 네이버일 경우 smtp.naver.com 을 입력합니다.
 		// Google일 경우 smtp.gmail.com 을 입력합니다.
