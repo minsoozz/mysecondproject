@@ -36,7 +36,7 @@ public class NoticeController {
 	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 
 	@Autowired
-	private NoticeService NoticeService;
+	private NoticeService noticeService;
 	
 	
 	
@@ -56,10 +56,10 @@ public class NoticeController {
 		param.setStart(start);
 		param.setEnd(end);
 		
-		List<NoticeDto> noticelist = NoticeService.getNoticeList(param);
+		List<NoticeDto> noticelist = noticeService.getNoticeList(param);
 		
 		//글의 총수
-		int totalRecordCount = NoticeService.getNoticeCount(param);
+		int totalRecordCount = noticeService.getNoticeCount(param);
 		model.addAttribute("noticelist", noticelist);
 		
 		model.addAttribute("pageNumber", sn);
@@ -83,15 +83,15 @@ public class NoticeController {
 		model.addAttribute("doc_sub", "라임의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.");
 		
 		
-		NoticeService.NoticeUpRead(seq);
-		NoticeDto noticedto = NoticeService.getNoticeDetail(seq);
+		noticeService.NoticeUpRead(seq);
+		NoticeDto noticedto = noticeService.getNoticeDetail(seq);
 		
 		model.addAttribute("noticedto", noticedto);
 		
 		//이전글 가져오기
 		NoticeDto beforedto = null;
 			for (int i = 1; i <= 10; i++) {
-					beforedto = NoticeService.getNoticeDetail(seq-i);
+					beforedto = noticeService.getNoticeDetail(seq-i);
 				if (beforedto != null) {
 					break;
 				}	
@@ -101,7 +101,7 @@ public class NoticeController {
 		//다음글 가져오기
 		NoticeDto afterdto = null;
 			for (int j = 1; j <= 20; j++) {
-					afterdto = NoticeService.getNoticeDetail(seq+j);
+					afterdto = noticeService.getNoticeDetail(seq+j);
 				if (afterdto != null) {	
 					break;
 				}
@@ -156,7 +156,7 @@ public class NoticeController {
 			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
 			
 			// db
-			NoticeService.NoticeUpload(noticedto);
+			noticeService.NoticeUpload(noticedto);
 			
 			
 		} catch (IOException e) {
@@ -175,7 +175,7 @@ public class NoticeController {
 		model.addAttribute("doc_sub", "라임의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.");
 		
 		
-		NoticeDto noticedto = NoticeService.getNoticeDetail(seq);
+		NoticeDto noticedto = noticeService.getNoticeDetail(seq);
 		
 		model.addAttribute("noticedto", noticedto);
 		
@@ -191,7 +191,7 @@ public class NoticeController {
 		
 		if (file1.isEmpty()) {
 			
-			NoticeService.NoticeUpdateAf(noticedto);
+			noticeService.NoticeUpdateAf(noticedto);
 		}else {
 			
 			String filename = file1.getOriginalFilename();	//mydata
@@ -218,7 +218,7 @@ public class NoticeController {
 				FileUtils.writeByteArrayToFile(file, file1.getBytes());
 				
 				// db
-				NoticeService.NoticeUpdateAf(noticedto);
+				noticeService.NoticeUpdateAf(noticedto);
 				
 				
 			} catch (IOException e) {
@@ -237,12 +237,12 @@ public class NoticeController {
 	@GetMapping("/noticedelete")
 	public String noticedelete(int seq, HttpServletRequest req) {
 		
-		String filename = NoticeService.getfilename(seq);
+		String filename = noticeService.getfilename(seq);
 		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		FileDelete.main(fupload + "/" + filename);
 		 
 		
-		boolean b = NoticeService.NoticeDelete(seq);
+		boolean b = noticeService.NoticeDelete(seq);
 		if(b) {
 			return "redirect:/customercenter/noticelist";
 		}
