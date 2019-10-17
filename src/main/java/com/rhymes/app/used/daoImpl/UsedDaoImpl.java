@@ -11,6 +11,7 @@ import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.dao.UsedDao;
 import com.rhymes.app.used.model.BbsParam;
 import com.rhymes.app.used.model.CommentsDto;
+import com.rhymes.app.used.model.NotesRecvParam;
 import com.rhymes.app.used.model.ProductsDto;
 
 @Repository
@@ -183,7 +184,5 @@ public class UsedDaoImpl implements UsedDao {
 		
 		return n > 0 ? true :false;
 	}
-	
-	
 
 }

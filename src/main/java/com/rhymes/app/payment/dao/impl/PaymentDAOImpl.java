@@ -158,4 +158,13 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return count>0?true:false;
 	}
 
+	// 결제 후 장바구니 내역 삭제
+	@Override
+	public boolean delete_basket(String id) {
+
+		int count = SqlSession.delete(p + "delete_basket", id);
+
+		return count>0?true:false;
+	}
+
 }

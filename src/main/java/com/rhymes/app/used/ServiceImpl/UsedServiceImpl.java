@@ -11,6 +11,7 @@ import com.rhymes.app.used.Service.UsedService;
 import com.rhymes.app.used.dao.UsedDao;
 import com.rhymes.app.used.model.BbsParam;
 import com.rhymes.app.used.model.CommentsDto;
+import com.rhymes.app.used.model.NotesRecvParam;
 import com.rhymes.app.used.model.ProductsDto;
 
 @Service
@@ -148,6 +149,5 @@ public class UsedServiceImpl implements UsedService {
 		// TODO Auto-generated method stub
 		return usedDao.setblackList(map);
 	}
-	
 	
 }

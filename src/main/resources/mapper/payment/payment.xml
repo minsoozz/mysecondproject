@@ -127,6 +127,11 @@ INSERT INTO RHY_DELIVERY
 VALUES(#{payment_code}, #{receive_name}, '우체국', '배송 준비중', #{receive_postnum}, #{receive_address_request}, null)
 </insert>
 
+<!-- 결제 후 장바구니 내역 삭제 -->
+<delete id="delete_basket" parameterType="java.lang.String">
+DELETE FROM RHY_STORE_BASKET
+WHERE ID=#{id}
+</delete>
 
 
 
