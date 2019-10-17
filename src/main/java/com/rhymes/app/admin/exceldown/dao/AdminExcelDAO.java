@@ -1,10 +1,10 @@
-package com.rhymes.app.exceldown.dao;
+package com.rhymes.app.admin.exceldown.dao;
 
 import java.util.List;
 
-import com.rhymes.app.exceldown.model.DtestDTO;
+import com.rhymes.app.admin.exceldown.model.DtestDTO;
 
-public interface ExcelDao {
+public interface AdminExcelDAO {
 	
 	public List<DtestDTO> listExcelDownload() throws Exception;
 

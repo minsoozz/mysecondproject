@@ -1,4 +1,4 @@
-package com.rhymes.app.payment.service;
+package com.rhymes.app.admin.payment.service;
 
 public interface AdminPaymentService {
 

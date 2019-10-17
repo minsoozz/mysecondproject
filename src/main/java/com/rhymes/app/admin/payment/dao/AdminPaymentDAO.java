@@ -1,4 +1,4 @@
-package com.rhymes.app.payment.dao;
+package com.rhymes.app.admin.payment.dao;
 
 public interface AdminPaymentDAO {
 

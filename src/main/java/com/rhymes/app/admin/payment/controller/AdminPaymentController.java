@@ -1,4 +1,4 @@
-package com.rhymes.app.payment.controller;
+package com.rhymes.app.admin.payment.controller;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

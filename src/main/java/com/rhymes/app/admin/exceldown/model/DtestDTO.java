@@ -1,4 +1,4 @@
-package com.rhymes.app.exceldown.model;
+package com.rhymes.app.admin.exceldown.model;
 
 import java.io.Serializable;
 
@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
+@SuppressWarnings("serial")
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtestDTO implements Serializable {
-	
 	private String id;
 	private String name;
 	private String address;
@@ -23,5 +23,4 @@ public class DtestDTO implements Serializable {
 	private String gender;
 	private String birth;
 	private String count;
-
 }
