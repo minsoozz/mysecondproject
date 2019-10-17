@@ -441,6 +441,18 @@ public class StoreController {
          }   
         return cBasketList4;
      }
+   		
+	   // 장바구니 전체삭제 EVENT(AJAX)
+	  @ResponseBody
+	  @GetMapping("/deleteSessionBasketAll")
+	  public String deleteSessionBasketAll(Principal prc, HttpServletRequest request) throws Exception{      
+		  HttpSession session = request.getSession();
+		  String ip = null;
+		  ip = getClientIpAddress(request);
+		  session.removeAttribute(ip);
+	      
+	      return "DELETE";
+	   }	
    
    	  // SESSION 장바구니 DELETE EVENT(AJAX)
 	  @ResponseBody
@@ -648,7 +660,8 @@ public class StoreController {
    @ResponseBody
    @GetMapping("/deleteBasketAll")
    public String deleteBasket(Principal prc) throws Exception{      
-      String userId = "";
+       String str = "";
+	   String userId = "";
       if(prc != null) {
          userId = prc.getName();
       }
@@ -660,12 +673,13 @@ public class StoreController {
          int n = purchase.deleteBasektAll(basket);
          if(n>1) {
             log.info("장바구니전체삭제 성공");
+            str = "DELETE";
          }
          
       }catch(Exception e) {
          e.printStackTrace();
       }
-      return "";
+      return str;
    }
    
    // 장바구니 수량변경 EVENT(AJAX)
