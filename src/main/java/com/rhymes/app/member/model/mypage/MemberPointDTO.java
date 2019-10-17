@@ -22,6 +22,8 @@ public class MemberPointDTO implements Serializable {
 	private String edate;
 	private String isExpired;
 	
+	private String coup_code;
+	
 	public String getAmountStr() {
 		String s = "";
 		try {
@@ -48,6 +50,19 @@ public class MemberPointDTO implements Serializable {
 		this.userid = userid;
 		this.comment = comment;
 		this.amount = amount;
+	}
+	
+	/**for insert new point by coupon
+	 * @param userid
+	 * @param comment
+	 * @param amount
+	 */
+	@Builder
+	public MemberPointDTO(String userid, String comment, int amount, String coup_code) {
+		this.userid = userid;
+		this.comment = comment;
+		this.amount = amount;
+		this.coup_code = coup_code;
 	}
 
 	@Builder
