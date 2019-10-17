@@ -61,9 +61,9 @@
     <div id="collapseEvent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Events</h6>
-        <a class="collapse-item" href="/admin/memlist">쿠폰 관리</a>
-        <a class="collapse-item" href="/admin/mem_c_list">적립금</a>
-        <a class="collapse-item" href="/admin/mem_c_list">이벤트</a>
+        <a class="collapse-item" href="/admin/mypage/coupon">쿠폰 관리</a>
+        <a class="collapse-item" href="/admin/mypage/points">적립금</a>
+        <a class="collapse-item" href="/admin/events">이벤트</a>
       </div>
     </div>
   </li>
