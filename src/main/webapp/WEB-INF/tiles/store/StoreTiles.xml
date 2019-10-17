@@ -28,6 +28,12 @@
        <put-attribute name="body" value="/WEB-INF/views/store/basket.jsp"/>
        <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
     </definition>
+<!--SESSION 장바구니 --> 
+    <definition name="sessionbasket.tiles" template="/WEB-INF/views/store/layout/store_template2.jsp">
+       <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
+       <put-attribute name="body" value="/WEB-INF/views/store/sessionbasket.jsp"/>
+       <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
+    </definition>    
 
 </tiles-definitions>
 

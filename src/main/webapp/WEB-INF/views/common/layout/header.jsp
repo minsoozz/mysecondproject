@@ -101,11 +101,9 @@
 	                                <a href="/member/login">Mypage</a>
 	                            </div>
                             </c:if>
-                       <%-- <c:if test="${userloginid ne null}"> --%>
 	                            <div class="cart">
 	                                <a href="/store/basket">Cart</a>
 	                            </div>
- 						<%-- </c:if> --%>
                         </div>
                     </div>
                 </div>
