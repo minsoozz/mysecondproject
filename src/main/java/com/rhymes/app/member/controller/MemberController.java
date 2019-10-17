@@ -1,7 +1,6 @@
 package com.rhymes.app.member.controller;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -9,10 +8,9 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
@@ -34,7 +31,6 @@ import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.member.service.MemberService;
 import com.rhymes.app.member.service.impl.KakaoAPI;
 import com.rhymes.app.member.util.Coolsms;
-import com.rhymes.app.member.util.NaverLoginBO;
 import com.rhymes.app.member.util.RhymesMailling;
 
 @Controller
@@ -106,11 +102,11 @@ public class MemberController {
 
 	// 일반회원가입
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addmem")
-	public String addmem(MemBean bean) {
+	public String addmem(MemBean bean, HttpServletRequest req) {
 		System.out.println("addmem mem: " + bean.toString());
 
-		memService.getAddmem(bean);
-
+		boolean b = memService.getAddmem(bean);	// 공통, 추가, 권한, 쿠폰 insert
+		
 		return "rhyregisuc";
 	}
 

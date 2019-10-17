@@ -13,17 +13,60 @@
 	ORDER BY CHAR_LENGTH(id)
 </select>
 
-<select id="getsendnotes" parameterType="java.lang.String" resultType="com.rhymes.app.used.model.NotesDto">
-	SELECT *
+<!-- 보낸 쪽지함 -->
+<select id="getsendnotes" parameterType="com.rhymes.app.used.model.NotesSendParam" resultType="com.rhymes.app.used.model.NotesDto">
+	SELECT seq,send_id,recv_id,content,data_send,data_read,recv_read,send_del,recv_del,readcount
 	FROM rhy_used_notes
-	WHERE recv_id=#{name}
+	WHERE send_id=#{id}
+	ORDER BY data_send desc
 </select>
 
-<select id="getrecvnotes" parameterType="java.lang.String" resultType="com.rhymes.app.used.model.NotesDto">
-	SELECT *
-	FROM rhy_used_notes
-	WHERE send_id=#{name}
+<!-- 받은 쪽지함 -->
+<select id="getrecvnotes" parameterType="com.rhymes.app.used.model.NotesRecvParam" resultType="com.rhymes.app.used.model.NotesDto">
+		SELECT seq,send_id,recv_id,content,data_send,data_read,recv_read,send_del,recv_del,readcount
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY data_send desc) as RNUM,
+		seq,send_id,recv_id,content,data_send,data_read,recv_read,send_del,recv_del,readcount
+		FROM rhy_used_notes
+		WHERE 1=1
+			<if test="r_select != null and r_keyword != null">
+         <if test="r_select == 'r_content'">
+            AND CONTENT LIKE CONCAT('%',#{r_keyword},'%')
+         </if>
+         <if test="r_select == 'id'">
+            AND SEND_ID LIKE LIKE CONCAT('%',#{r_keyword},'%')
+         </if>
+      </if>
+      ) A
+    WHERE RNUM BETWEEN ${r_start} AND ${r_end}
+	AND recv_id=#{id}
+	ORDER BY data_send desc
 </select>
+
+<!-- 받은 쪽지함 갯수 -->
+<select id="getRecvNotesCount" parameterType="com.rhymes.app.used.model.NotesRecvParam" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM rhy_used_notes
+	WHERE 1=1
+	  <if test="r_select != null and r_keyword != null">
+         <if test="r_select == 'r_content'">
+            AND CONTENT LIKE CONCAT('%',#{r_keyword},'%')
+         </if>
+       <if test="r_select == 'id'">
+            AND SEND_ID LIKE LIKE CONCAT('%',#{r_keyword},'%')
+       	</if>
+      </if>
+	AND recv_id=#{id}
+	AND recv_del='N'
+</select>
+
+<!-- 보낸 쪽지함 갯수 -->
+<select id="getSendNotesCount" parameterType="com.rhymes.app.used.model.NotesSendParam" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM rhy_used_notes
+	WHERE send_id=#{id}
+	AND send_del='N'
+</select>
+
 
 
 <select id="getsubscribe" resultType="java.lang.Integer"> <!-- 수신 여부 조회 -->
@@ -64,6 +107,13 @@
 	WHERE SEQ=#{seq}
 </select>
 
+<update id="readcount" parameterType="java.lang.Integer">
+	UPDATE rhy_used_notes
+	SET readcount = 1, recv_read ='Y', data_read=now()
+	WHERE seq=#{seq}
+</update>
+
+
 <!-- 쪽지 삭제 -->
 <update id="notesdelete" parameterType="com.rhymes.app.used.model.NotesDto">
 	UPDATE rhy_used_notes
@@ -72,6 +122,7 @@
 	AND send_id=#{send_id}
 	AND seq=#{seq}
 </update>
+
 <!-- 쪽지 삭제 -->
 <update id="notesdelete2" parameterType="com.rhymes.app.used.model.NotesDto">
 	UPDATE rhy_used_notes

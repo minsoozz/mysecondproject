@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.rhymes.app.used.model.NotesDto;
+import com.rhymes.app.used.model.NotesRecvParam;
+import com.rhymes.app.used.model.NotesSendParam;
 
 public interface MyUsedDao {
 
-	List<String>getMemberid(Map<String, Object> map);
+	List<String> getMemberid(Map<String, Object> map);
 
 	boolean getsubscribe(Map<String, Object> map);
 
@@ -19,14 +21,18 @@ public interface MyUsedDao {
 
 	boolean sendnotes(NotesDto ndto);
 
-	List<NotesDto> getsendnotes(String name);
+	List<NotesDto> getsendnotes(NotesSendParam param);
 
-	List<NotesDto> getrecvnotes(String name);
+	List<NotesDto> getrecvnotes(NotesRecvParam param);
 
-	NotesDto getnotesdetail(String seq);
+	NotesDto getnotesdetail(Map<String, Object> map);
 
 	boolean notesdelete(NotesDto ndto);
 
 	boolean notesdelete2(NotesDto ndto);
+
+	int getRecvNotesCount(NotesRecvParam param);
+
+	int getSendNotesCount(NotesSendParam sparam);
 
 }

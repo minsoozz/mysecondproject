@@ -22,6 +22,8 @@ import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.Service.MyUsedService;
 import com.rhymes.app.used.Service.UsedService;
 import com.rhymes.app.used.model.NotesDto;
+import com.rhymes.app.used.model.NotesRecvParam;
+import com.rhymes.app.used.model.NotesSendParam;
 
 @RequestMapping(value = "mypage/*")
 @Controller
@@ -34,19 +36,57 @@ public class myUsedController {
 	UsedService usedService;
 
 	@GetMapping(value = "/notes") // 쪽지 메인 View
-	public String getNotesList(Model model, Principal prc) {
+	public String getNotesList(Model model, Principal prc, NotesRecvParam rparam,NotesSendParam sparam) {
 		P_MemberDTO dto = usedService.getMemberDto(prc.getName());	// 회원 정보를 얻는다
+		System.out.println(rparam.toString());
+		sparam.setId(prc.getName());
+		rparam.setId(prc.getName());
 		
-		System.out.println(prc.getName());
-		List<NotesDto> slist = MyusedService.getsendnotes(prc.getName());	// 회원 정보로 쪽지목록을 얻는다
-		List<NotesDto> rlist = MyusedService.getrecvnotes(prc.getName());	// 회원 정보로 쪽지목록을 얻는다
-		System.out.println("slist" + slist.toString());
-		System.out.println("rlist" + rlist.toString());
+		int rtotalRecordCount = MyusedService.getRecvNotesCount(rparam);	// 받은쪽지함 페이징을 위한 갯수
+		int stotalRecordCount = MyusedService.getSendNotesCount(sparam);	// 보낸쪽지함 페이징을 위한 갯수
 		
-		model.addAttribute("slist", slist);
-		model.addAttribute("rlist", rlist);
+		int r_sn = rparam.getR_pageNumber(); // 0 , 1, 2
+		int r_start = r_sn * rparam.getR_recordCountPerPage() + 1; // 0 -> 1 , 1 - > 11		1   11
+		int r_end = (r_sn + 1) * rparam.getR_recordCountPerPage(); // 0 - > 10, 1 - > 20		10  20
+		
+		rparam.setR_start(r_start);
+		rparam.setR_end(r_end);
+		
+		int s_sn = sparam.getPageNumber(); // 0 , 1, 2
+		int s_start = s_sn * sparam.getRecordCountPerPage() + 1; // 0 -> 1 , 1 - > 11		1   11
+		int s_end = (s_sn + 1) * sparam.getRecordCountPerPage(); // 0 - > 10, 1 - > 20		10  20
+		
+		sparam.setStart(s_start);
+		sparam.setEnd(s_end);
+		
+		
+		
+		
 		model.addAttribute("dto", dto);
-
+		
+		// 받은거..
+		List<NotesDto> rlist = MyusedService.getrecvnotes(rparam);	// 회원 정보로 쪽지목록을 얻는다
+		model.addAttribute("rlist", rlist);
+		model.addAttribute("r_select",rparam.getR_select());
+		model.addAttribute("r_keyword",rparam.getR_keyword());
+		
+		model.addAttribute("r_pageNumber",r_sn); // 현재 페이지 넘버
+		model.addAttribute("r_pageCountPerScreen",10);
+		model.addAttribute("r_recordCountPerPage",rparam.getR_recordCountPerPage());
+		model.addAttribute("r_totalRecordCount", rtotalRecordCount);
+		
+		// 보낸거..
+		List<NotesDto> slist = MyusedService.getsendnotes(sparam);	// 회원 정보로 쪽지목록을 얻는다
+		model.addAttribute("slist", slist);
+		model.addAttribute("s_select",sparam.getSelect());
+		model.addAttribute("s_keyword",sparam.getKeyword());
+		
+		model.addAttribute("s_pageNumber",s_sn); // 현재 페이지 넘버
+		model.addAttribute("s_pageCountPerScreen",10);
+		model.addAttribute("s_recordCountPerPage",sparam.getRecordCountPerPage());
+		model.addAttribute("s_totalRecordCount", stotalRecordCount);
+		
+		
 		return "notes.tiles";
 		
 	}
@@ -54,8 +94,13 @@ public class myUsedController {
 	
 	@GetMapping(value = "/notesdetail") // 쪽지 내용 보기
 	public String notesdetail(Model model, Principal prc, String seq) {
-		System.out.println(seq);
-		NotesDto ndto = MyusedService.getnotesdetail(seq);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("seq", seq);
+		map.put("loginid", prc.getName());
+		
+		NotesDto ndto = MyusedService.getnotesdetail(map);
 		
 		model.addAttribute("dto", ndto);
 		
@@ -78,17 +123,16 @@ public class myUsedController {
 			
 		}
 		
-		System.out.println(ndto.toString());
 		
 		boolean b = MyusedService.sendnotes(ndto);
 		
 		if(b) {
-			System.out.println("성공");
+			
 		} else {
-			System.out.println("실패");
+			
 		}
 		
-		return "";
+		return "redirect:/notes";
 	}
 
 	@GetMapping(value = "/json") // 쪽지 보내기 자동 검색
@@ -102,7 +146,7 @@ public class myUsedController {
 		
 		List<String> member = MyusedService.getMemberid(map);
 
-		System.out.println(member.toString());
+	
 
 		return member;
 	}
@@ -119,30 +163,29 @@ public class myUsedController {
 	
 	@GetMapping(value="/notesdelete")	// 쪽지 삭제
 	public String notesdelete(NotesDto ndto) {
-		System.out.println(ndto.toString());
-		
+
 		boolean b = MyusedService.notesdelete(ndto);
 		
 		if(b) {
-			System.out.println("삭제 성공");
+			
 		} else {
-			System.out.println("실패");
+			
 		}
-		return "redirect:/notes";
+		return "redirect:/mypage/notes";
 	}
 	
 	@GetMapping(value="/notesdelete2")	// 쪽지 삭제2
 	public String notesdelete2(NotesDto ndto) {
-		System.out.println(ndto.toString());
+		
 		
 		boolean b = MyusedService.notesdelete2(ndto);
 		
 		if(b) {
-			System.out.println("삭제 성공");
+			
 		} else {
-			System.out.println("실패");
+			
 		}
-		return "redirect:/notes";
+		return "redirect:/mypage/notes";
 	}
 	
 	
@@ -157,7 +200,7 @@ public class myUsedController {
 	@GetMapping(value = "/subscribe")
 	@ResponseBody
 	public String subscribe(String subscribe, String id) {
-		System.out.println(subscribe);
+		
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -166,7 +209,7 @@ public class myUsedController {
 		
 		 boolean b = MyusedService.getsubscribe(map);	// 수신 여부 확인
 		 
-		 System.out.println(b);
+		 
 		 
 		 int num;	// ajax 리턴 변수
 		 if(b) {	// 회원의 좋아요 여부 확인

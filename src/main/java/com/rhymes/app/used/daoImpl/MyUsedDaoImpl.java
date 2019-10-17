@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.used.dao.MyUsedDao;
 import com.rhymes.app.used.model.NotesDto;
+import com.rhymes.app.used.model.NotesRecvParam;
+import com.rhymes.app.used.model.NotesSendParam;
 
 @Repository
 public class MyUsedDaoImpl implements MyUsedDao {
@@ -24,13 +26,13 @@ public class MyUsedDaoImpl implements MyUsedDao {
 	}
 
 	@Override
-	public boolean getsubscribe(Map<String, Object> map) {
+	public boolean getsubscribe(Map<String, Object> map) {	// 쪽지 수신여부 확인
 		int count = sqlSession.selectOne(ns + "getsubscribe", map);
 		return count > 0 ? true : false;
 	}
 
 	@Override
-	public boolean deletesubscribe(Map<String, Object> map) {
+	public boolean deletesubscribe(Map<String, Object> map) { // 쪽지 수신
 		int count = sqlSession.update(ns + "deletesubscribe", map);
 
 		return count > 0 ? true : false;
@@ -38,20 +40,20 @@ public class MyUsedDaoImpl implements MyUsedDao {
 	}
 
 	@Override
-	public boolean addsubscribe(Map<String, Object> map) {
+	public boolean addsubscribe(Map<String, Object> map) { // 쪽지 수신거부
 		int count = sqlSession.update(ns + "addsubscribe", map);
 		return count > 0 ? true : false;
 
 	}
 
 	@Override
-	public int idcheck(String id) {
+	public int idcheck(String id) {	// ajax 아이디 체크
 		int count = sqlSession.selectOne(ns + "idcheck", id);
 		return count;
 	}
 
 	@Override
-	public boolean sendnotes(NotesDto ndto) {
+	public boolean sendnotes(NotesDto ndto) {	// 쪽지를 보낸다
 		int count = sqlSession.insert(ns + "sendnotes", ndto);
 		return count > 0 ? true : false;
 	}
@@ -59,36 +61,60 @@ public class MyUsedDaoImpl implements MyUsedDao {
 
 
 	@Override
-	public List<NotesDto> getsendnotes(String name) {
-		List<NotesDto> slist = sqlSession.selectList(ns + "getsendnotes", name);
+	public List<NotesDto> getsendnotes(NotesSendParam param) {	// 보낸 쪽지함 리스트
+		List<NotesDto> slist = sqlSession.selectList(ns + "getsendnotes", param);
 		return slist;
 	}
 
 	@Override
-	public List<NotesDto> getrecvnotes(String name) {
-		List<NotesDto> rlist = sqlSession.selectList(ns + "getrecvnotes", name);
+	public List<NotesDto> getrecvnotes(NotesRecvParam param) {	// 받은 쪽지함 리스트
+		List<NotesDto> rlist = sqlSession.selectList(ns + "getrecvnotes", param);
 		return rlist;
 	}
 
 	@Override
-	public NotesDto getnotesdetail(String seq) {
-		NotesDto ndto = sqlSession.selectOne(ns + "getnotesdetail", seq);
+	public NotesDto getnotesdetail(Map<String, Object> map) {	// 쪽지 상세보기 		
 		
+		NotesDto ndto = sqlSession.selectOne(ns + "getnotesdetail", map);
+		
+		String send_id = ndto.getSend_id();
+		String login_id = (String) map.get("loginid");
+		
+		if(!send_id.equals(login_id) && ndto.getReadcount() == 0) {
+			sqlSession.update(ns + "readcount", ndto);
+		}
+
 		return ndto;
 	}
 
 	@Override
-	public boolean notesdelete(NotesDto ndto) {
+	public boolean notesdelete(NotesDto ndto) {		// 보낸쪽지함 삭제
 		int count = sqlSession.update(ns + "notesdelete", ndto);
 		
 		return count > 0 ? true : false;
 	}
 	
 	@Override
-	public boolean notesdelete2(NotesDto ndto) {
+	public boolean notesdelete2(NotesDto ndto) {	// 받은 쪽지함 삭제
 		int count = sqlSession.update(ns + "notesdelete2", ndto);
 		
 		return count > 0 ? true : false;
 	}
+	
+	@Override
+	public int getRecvNotesCount(NotesRecvParam rparam) {
+		int count = sqlSession.selectOne(ns + "getRecvNotesCount", rparam);
+		
+		return count;
+	}
+
+	@Override
+	public int getSendNotesCount(NotesSendParam sparam) {
+		// TODO Auto-generated method stub
+		int count = sqlSession.selectOne(ns + "getSendNotesCount", sparam);
+		return count;
+	}
+	
+	
 	
 }

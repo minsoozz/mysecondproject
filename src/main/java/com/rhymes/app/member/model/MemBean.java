@@ -22,10 +22,10 @@ public class MemBean implements Serializable {
 	private String userpw;		// 비밀번호
 	private Date rdate;		// 등록일
 	private int seq;		// 고유번호
-	private boolean isAccountNonExpired;		// 만료여부
-	private boolean isAccountNonLocked;			// 잠김여부
-	private boolean isCredentialsNonExpired;	// 만료여부
-	private boolean isEnabled;					// 사용가능여부
+	private String isAccountNonExpired;		// 만료여부
+	private String isAccountNonLocked;			// 잠김여부
+	private String isCredentialsNonExpired;	// 만료여부
+	private String isEnabled;					// 사용가능여부
 	
 	// P_MemberDto
 	private String username;		// 이름
@@ -44,8 +44,10 @@ public class MemBean implements Serializable {
 	
 	private String social;	// 소셜 로그인 구분
 	
-	// 
-
+	// 관리자 회원정지
+	private String checkid;		// 체크된 회원 아이디
+	private int checklen;		// 체크 수
+	
 
 	public MemBean(String userid, String userpw, String username, String useremail, String authority, String social) {
 		super();
@@ -56,6 +58,8 @@ public class MemBean implements Serializable {
 		this.authority = authority;
 		this.social = social;
 	}
+
+
 	
 	/*
 	public String getAddress() {

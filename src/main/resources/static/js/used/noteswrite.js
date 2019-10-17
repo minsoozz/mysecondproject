@@ -112,7 +112,7 @@ $(document).ready(function() {
 			alert("받는사람을 확인하세요");
 			return;
 		}
-		if( $("#autocomplete").val() == "" ||  $("#autocomplete").val() == null  ){
+		if( $("#content").val() == "" ||  $("#content").val() == null  ){
 			alert("내용을 작성해주세요");
 			return;
 		}	

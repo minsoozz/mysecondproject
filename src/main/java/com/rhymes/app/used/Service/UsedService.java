@@ -9,6 +9,7 @@ import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.model.BbsParam;
 import com.rhymes.app.used.model.CommentsDto;
+import com.rhymes.app.used.model.NotesRecvParam;
 import com.rhymes.app.used.model.ProductsDto;
 
 public interface UsedService {

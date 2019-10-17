@@ -30,7 +30,22 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="password" class="inputtext_long" name="password" id="txtPw" placeholder="비밀번호를 입력해주세요" onkeydown="onKeyDown()" required>
+					<input type="password" class="inputtext_long" name="password" id="txtPw" placeholder="비밀번호를 입력해주세요" onkeydown="onKeyDown()" required onkeypress="caps_lock(event)">
+					<div id="capsdiv">
+						<p id="capslock"> 
+						    &nbsp;<b>CapsLock</b> 키가 눌려있습니다.&nbsp;
+						</p>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					 <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+		                 <p id="loginfail">아이디 혹은 비밀번호를 다시 확인해 주세요.
+<%-- 		                  ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} --%>
+						</p>
+		                 <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
+			        </c:if>
 				</td>
 			</tr>
 			<tr>
@@ -48,6 +63,7 @@
 				    </div>
 			    </td>
 			</tr>
+			
 			<tr>
 				<td colspan="2">
 				<br>
@@ -70,19 +86,20 @@
 
 <!--     <div class="text-center"> -->
 <br>
-	<div align="center">
-	    <c:if test="${userId eq null}">
+	<div align="center" style="height: 10px">
 	        <a href="https://kauth.kakao.com/oauth/authorize?client_id=7941c0b534b8b053634f144ea1b326ea&redirect_uri=http://localhost:18080/member/kakaoLogin&response_type=code">
-	            <img src="/img/member-img/kakao_account_login_btn_medium_wide.png" style="width: 232px; height: 51px">
-	        </a>
-	    </c:if>
-	    
+	            <img src="/img/member-img/kakao_login_btn_logo.png" style="height: 50px; width: 51px;" id="kakaoIdLogin">
+	            <span class="snslogin">카카오 로그인</span>
+	        </a>	    
 	</div>
-	
 	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-	<div id="naverIdLogin" align="center" style="position: relative; top: 10px;"></div>
-	
-	
+	<!-- <div id="naverIdLogin" align="center" style="position: relative;  left: -124px; top: -40px">
+	</div> -->
+	<div align="center">
+		<a href="javascript:snsAuthPopup('naver');" class="openid naver" id="naverIdLogin" style="position: relative;  left: -124px; top: 50px">
+			<span class="snsNaverlogin">네이버 로그인</span>
+		</a>
+	</div>
 <!-- </div> -->
 </div>
 
@@ -96,7 +113,7 @@
 			clientId: "6tOlbeGI_v71dSverLKi",
 			callbackUrl: "http://localhost:18080/member/callback",
 			isPopup: false, /* 팝업을 통한 연동처리 여부 */
-			loginButton: {color: "green", type: 3, height: 50, width: 60} /* 로그인 버튼의 타입을 지정 */
+			loginButton: {color: "green", type: 1, height: 50, width: 60} /* 로그인 버튼의 타입을 지정 */
 		}
 	);
 // 	console.log(naverLogin);
@@ -106,6 +123,21 @@
 	
 </script>
 
+<!-- 네이버 로그인 text클릭 -->
+<script type="text/javascript">
+$(".snsNaverlogin").click(function(){
+	var naverLogin = new naver.LoginWithNaverId(
+			{
+				clientId: "6tOlbeGI_v71dSverLKi",
+				callbackUrl: "http://localhost:18080/member/callback",
+			}
+		);
+});
+$(".snsNaverlogin").mouseover(function(){
+	$(this).css("cursor", "pointer");
+});
+
+</script>
 
 
 <script type="text/javascript">
@@ -182,6 +214,36 @@ function getCookie(cookie_name) {
     }
 }
 </script>
+
+<!-- capslock 상태체크 -->
+<script type="text/javascript">
+ 	$(document).ready(function(){
+		$("#capslock").hide();
+	}); 
+
+    function caps_lock(e) {
+            var keyCode = 0;
+            var shiftKey = false;
+            keyCode = e.keyCode;
+            shiftKey = e.shiftKey;
+            if (((keyCode >= 65 && keyCode <= 90) && !shiftKey)
+                    || ((keyCode >= 97 && keyCode <= 122) && shiftKey)) {
+                show_caps_lock();
+                setTimeout("hide_caps_lock()", 3500);
+            } else {
+                hide_caps_lock();
+            }
+        }
+ 
+    function show_caps_lock() {
+         $("#capslock").show();
+    }
+ 
+    function hide_caps_lock() {
+         $("#capslock").hide();
+    }
+</script>
+
 
 
 

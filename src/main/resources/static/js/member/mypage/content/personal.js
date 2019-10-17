@@ -44,7 +44,7 @@ function pwChk(){
 		async : false,
 		data : queryString,
 		success : function( resp ) {
-			console.log('성공' + resp.result);
+			//console.log('성공' + resp.result);
 			
 			if( resp.result === '1'){
 				$(".confirm_frm_wrap").remove();
@@ -53,10 +53,10 @@ function pwChk(){
 				//파라미터 추가
 				var memInfo = '';
 				$.each(resp, function(index, item){
-					console.log('index:' + index + ' , item:' + item);
+					//console.log('index:' + index + ' , item:' + item);
 					memInfo += index + '=' + item + '&';
 				});
-				console.log(memInfo);
+				//console.log(memInfo);
 				$(".frm_personalform").load('/mypage/personalform', memInfo);
 				
 			}else{
