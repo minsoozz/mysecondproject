@@ -71,7 +71,8 @@
 						<div class="order_body_btns" align="center">
 							<c:choose>
 								<c:when test="${orderlog.review_written == 'false' }">
-									<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 쓰기"><br>	
+									<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 쓰기"
+									 	accesskey="${fn:substring(orderlog.payment_code,4,16) }"/><br>	
 								</c:when>
 								<c:otherwise>
 									<input type="button" class="btn btn-default btn_show_written_review" value="작성한 후기 보러가기"><br>

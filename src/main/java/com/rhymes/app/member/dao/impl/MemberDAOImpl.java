@@ -28,6 +28,8 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne( ns + "getOneMemberByMemberId", id);
 	}
 	
+	
+	
 	// id체크
 		@Override
 		public int getIDCheck(MemberDTO mem) {
@@ -40,15 +42,21 @@ public class MemberDAOImpl implements MemberDAO {
 			int n = sqlSession.insert(ns+"getAddmem", mem);
 			return n>0?true:false;			
 		}
-		
+		// 회원가입 추가정보
 		@Override
 		public void getPAddmem(P_MemberDTO pmem) {
 			sqlSession.insert(ns+"getPAddmem", pmem);		
 		}
-		
+		// 회원가입 권한
 		@Override
 		public void getAuthAddmem(AuthoritiesDTO amem) {
 			sqlSession.insert(ns+"getAuthAddmem", amem);			
+		}
+		// 웰컴쿠폰
+		@Override
+		public void getmem_cp(String userid) {
+			sqlSession.insert(ns+"getmem_cp", userid);
+			
 		}
 
 		// 사업자번호 체크
@@ -130,6 +138,12 @@ public class MemberDAOImpl implements MemberDAO {
 			sqlSession.insert(ns+"getsnsregi_p", mb);
 			
 		}
+
+
+
+
+
+		
 
 		
 

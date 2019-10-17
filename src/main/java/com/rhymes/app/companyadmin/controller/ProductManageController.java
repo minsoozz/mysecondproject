@@ -42,44 +42,44 @@ public class ProductManageController {
 	@Autowired
 	PurchaseDao store_purchase;
 	
-	//상품 수정
-	//상품 상세조회로 이동
-		@GetMapping("/productupdate")
-		public String productDetailList(Principal prc, Model model, ProductDto product)throws Exception{
-			
-			String url = "";
-		    String c_id = "";
-		 	String c_name = "";
-			
-		 	if(prc != null) {
-		     	  c_id = prc.getName();
-		     	  SellerDTO seller = new SellerDTO();
-		     	  seller.setId(c_id); 
-		     	  seller = manage.getCname(seller);
-		     	  c_name = seller.getC_name();
-		     	  log.info("업체이름:" + c_name);
-		     	 
-		     	  if(!c_name.equals("") && c_name!=null) {
-		     		  
-		     		  product = store_purchase.getProductDetail(product.getP_seq());
-		     		  
-		     		  model.addAttribute("c_name", c_name);
-		     		  model.addAttribute("pDto", product);
-		     		  	
-		     		  url ="productupdate";
-		     		  
-		     	  }else if(c_name.equals("") || c_name==null) {
-		     		 url = "redirect:/main";
-		     	  }
-		      }else{
-		    	  url = "redirect:/main";
-		      }
-		      
-		     return url;
-			
-		}
+	//3(2).상품 수정
 	
-	//상품 상세조회로 이동
+	@GetMapping("/productupdate")
+	public String productDetailList(Principal prc, Model model, ProductDto product)throws Exception{
+	
+	String url = "";
+    String c_id = "";
+ 	String c_name = "";
+	
+ 	if(prc != null) {
+     	  c_id = prc.getName();
+     	  SellerDTO seller = new SellerDTO();
+     	  seller.setId(c_id); 
+     	  seller = manage.getCname(seller);
+     	  c_name = seller.getC_name();
+     	  log.info("업체이름:" + c_name);
+     	 
+     	  if(!c_name.equals("") && c_name!=null) {
+     		  
+     		  product = store_purchase.getProductDetail(product.getP_seq());
+     		  
+     		  model.addAttribute("c_name", c_name);
+     		  model.addAttribute("pDto", product);
+     		  	
+     		  url ="productupdate";
+     		  
+     	  }else if(c_name.equals("") || c_name==null) {
+     		 url = "redirect:/main";
+     	  }
+      }else{
+    	  url = "redirect:/main";
+      }
+      
+     return url;
+	
+}
+	
+	//2(2).상품 상세조회로 이동
 	@GetMapping("/stocklist")
 	public String productDetailList(Principal prc, Model model, StockDto stock)throws Exception{
 		log.info("STOCKLIST P_SEQ : " + stock.getP_seq()+"");
@@ -109,7 +109,7 @@ public class ProductManageController {
 	     		  model.addAttribute("c_name", c_name);
 	     		  model.addAttribute("pDto", pDto);
 	     		  model.addAttribute("slist", slist);	
-	     		  url ="stocklist";
+	     		  url ="CompanyAdminStocklist";
 	     		  
 	     	  }else if(c_name.equals("") || c_name==null) {
 	     		 url = "redirect:/main";
@@ -117,13 +117,11 @@ public class ProductManageController {
 	      }else{
 	    	  url = "redirect:/main";
 	      }
-	      
 	     return url;
-		
 	}
 	
 	
-	//상품 조회로 이동
+	//2.상품 조회로 이동
     @GetMapping("/productlist")
 	public String productlist(Principal prc, Model model, ProductManageDto pParam)throws Exception{
 	  /* ProductParam param = new ProductParam(); */
@@ -131,8 +129,6 @@ public class ProductManageController {
       String url = "";
       String c_id = "";
  	  String c_name = "";
-      
-	  
 	   
  	  if(prc != null) {
      	  c_id = prc.getName();
@@ -156,7 +152,7 @@ public class ProductManageController {
      		 plist = manage.getProductList(pParam);
      		 log.info("상품리스트 길이:"+plist.size()+"");	
      		 log.info("상품총갯수:"+totalRecordCount+"");
-     		  
+     		 // 페이징
      		 model.addAttribute("pageNumber", sn);
      		 model.addAttribute("pageCountPerScreen", 10);
      		 model.addAttribute("recordCountPerPage", 10);
@@ -166,7 +162,7 @@ public class ProductManageController {
      		 model.addAttribute("c_name", c_name);
      		 model.addAttribute("plist", plist);
      		  
-     		 url = "productlist";
+     		 url = "CompanyAdminProductlist";
      	  }else if(c_name.equals("") || c_name==null) {
      		 url = "redirect:/main";
      	  }
@@ -179,9 +175,9 @@ public class ProductManageController {
     }
 	
 	
-	//상품등록 페이지로 이동
+	//1.상품등록 페이지로 이동
     @GetMapping("/register")
-    public String register(Principal prc)throws Exception{
+    public String register(Principal prc, Model model)throws Exception{
       
 	   String c_id = "";
 	   String c_name = "";
@@ -195,40 +191,42 @@ public class ProductManageController {
        }
        System.out.println("업체 이름 : " + c_name);
 	   
-	   
-	   return "productregister";
+	   model.addAttribute("c_name", c_name); 
+       
+	   return "CompanyAdminProductregister";
 	 }
 	
-	//상품등록 처리
+	//1-2.상품등록 처리
 	@RequestMapping(value="/registerInsert", method = RequestMethod.POST)
     public String registerInsert(Model model, ProductDto product, StockDto stock,
       MultipartHttpServletRequest multi, HttpServletRequest req, Principal prc) throws Exception{
       
-	   String c_id = "";
-	   String c_name = "";
-	      if(prc != null) {
-	    	  System.out.println("업체 아이디 : " + c_id);
-	    	  c_id = prc.getName();
-	    	  
-	    	  SellerDTO seller = new SellerDTO();
-	    	  seller = manage.getCname(seller);
-	    	  c_name = seller.getC_name();
-	      }
-	   
-	   product.setC_name(c_name);
+	 /*
+	  String c_id = "";
+	  String c_name = "";
+      if(prc != null) {
+    	  System.out.println("업체 아이디 : " + c_id);
+    	  c_id = prc.getName();
+    	  
+    	  SellerDTO seller = new SellerDTO();
+    	  seller = manage.getCname(seller);
+    	  c_name = seller.getC_name();
+      }
+      
+	 product.setC_name(c_name);
+	 */
       
      int p_seq = manage.getPseq();
            
-      String path = req.getServletContext().getRealPath("/upload/store");
-      System.out.println("path : " + path);
-      String fileName = "";
+     String path = req.getServletContext().getRealPath("/upload/store");
+     System.out.println("path : " + path);
+     String fileName = "";
       
-      File dir = new File(path);
-      if(!dir.isDirectory()) {
-         dir.mkdir();
-      }
+     File dir = new File(path);
+     if(!dir.isDirectory()) {
+        dir.mkdir();
+     }
       Iterator<String> files = multi.getFileNames();
-      
       
       int cnt = 0;
       while(files.hasNext()) {
@@ -298,8 +296,8 @@ public class ProductManageController {
       }
       return "redirect:/admin/company/main";
    }
-  // 상품 수정/삭제로 이동
-	//상품 조회로 이동
+	
+	// 2.상품 수정/삭제로 이동
     @GetMapping("/productoperlist")
 	public String productoperlist(Principal prc, Model model, ProductManageDto pParam)throws Exception{
 	  /* ProductParam param = new ProductParam(); */
@@ -307,8 +305,6 @@ public class ProductManageController {
       String url = "";
       String c_id = "";
  	  String c_name = "";
-      
-	  
 	   
  	  if(prc != null) {
      	  c_id = prc.getName();
@@ -342,7 +338,7 @@ public class ProductManageController {
      		 model.addAttribute("c_name", c_name);
      		 model.addAttribute("plist", plist);
      		  
-     		 url = "productopertlist";
+     		 url = "CompanyAdminProductOpertlist";
      	  }else if(c_name.equals("") || c_name==null) {
      		 url = "redirect:/main";
      	  }

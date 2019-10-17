@@ -24,6 +24,8 @@ public class NotesDto implements Serializable {
 	private String recv_read;	// 받는이가 쪽지를 읽은 여부
 	private String send_del;	// 보낸이가 보낸 쪽지함에서 삭제 여부
 	private String recv_del;	// 받는이가 받은 쪽지함에서 삭제 여부
+	
+	private int readcount; // 수신확인을 위한 컬럼
 }
 /*
 create table rhy_used_notes(

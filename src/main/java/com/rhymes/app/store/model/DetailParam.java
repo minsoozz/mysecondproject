@@ -17,10 +17,10 @@ public class DetailParam implements Serializable{
 
 	
 	// paging
-	private int pageNumber = 0;	//���� ������ 0���� ����
-	private int recordCountPerPage = 10;	//ǥ���� �� �������� �ۼ�
+	private int pageNumber = 0;	//시작
+	private int recordCountPerPage = 10;	//
 	
-	// [1]�������� -> 1~10 �� ���� �ҷ��;��� DB��
+	// [1 1~10 
 	private int start = 1;
 	private int end = 10;
 	

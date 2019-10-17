@@ -11,9 +11,6 @@
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" type="text/css"   
    href="<%=request.getContextPath() %>/css/store/silde.css">
-   <link rel="stylesheet" href="/css/store/productDetail.css">
-   
-   
    
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,7 +28,7 @@
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-
+<link rel="stylesheet" href="/css/store/productDetail.css">
 
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -51,6 +48,23 @@ $(document).ajaxSend(function(e, xhr, options) {
 <input type="hidden" id="hdnPseq" value="${productDto.p_seq }">
 
 <div id="body_wrap">
+<div id="middle_wrap">
+<%-- 
+<div id="body_wrap">
+   <div id="productdetail_img_wrap">
+      <div class="mainImg">
+         <img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
+      </div>
+      <div>
+         <img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
+         <img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
+         <img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
+         <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
+      </div>
+   </div>
+ --%>
+      
+
 
 <div id="wrapper">
       <div id="slider-wrap">
@@ -143,7 +157,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!-- 미니 장바구니 영역 -->
     <div class="basket" style="overflow: scroll;">
     </div>
-</div>
 </div>
 </div>
 
@@ -383,7 +396,8 @@ $(document).ajaxSend(function(e, xhr, options) {
          </li>         
       </ul>
     </div> 
-</div>
+
+
 
 <!-- 후기 -->
 <br><br>
@@ -438,7 +452,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 </div>
-
+</div>
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
 
@@ -656,17 +670,8 @@ $(document).on('click', '.wishBtn', function(){
 //장바구니 클릭
 $(document).on('click', '.basketBtn', function(){   
    var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-   
-   if(id==""){
-      $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
-      $(".wModal").fadeIn();
-      setTimeout(function() {
-         $(".wModal").fadeOut();
-      },1500);
+   var cnt = Number($("#pqCnt").html());
       
-      location.href="/member/login";
-      
-   }else{
       if(isNaN(stock_seq)){
          $("#msg").html("<b>사이즈를 선택해주세요.</b>")
          $(".wModal").fadeIn();
@@ -674,29 +679,45 @@ $(document).on('click', '.basketBtn', function(){
             $(".wModal").fadeOut();
          },700);
       }else{
-         var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-         var cnt = Number($("#pqCnt").html());
-         if(isNaN(stock_seq)){
-            alert("사이즈를 선택해주세요.");
-         }else{
-            $.ajax({
-                 type:"get",
-                 data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-                 url:"/store/insertBasket",
-                 success:function( data ){
-                    var obj = JSON.stringify(data);
-                  var arr = JSON.parse(obj);
-                  //alert(arr[0].total_price);
-                  var arrLen = arr.length;
-                    showBasketList(arrLen, arr);
-                 },
-                 error:function(){
-                    alert("error!!"); 
-                 }
-               })
-         }
+    	  // 로그인X
+    	  if(id==""){
+    		   
+    		   $.ajax({
+    	           type:"get",
+    	           data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+    	           url:"/store/insertSessionBasket",
+    	           success:function( data ){
+    	              var obj = JSON.stringify(data);
+    	            var arr = JSON.parse(obj);
+    	            //alert(arr[0].total_price);
+    	            var arrLen = arr.length;
+    	              showBasketList(arrLen, arr);
+    	           },
+    	           error:function(){
+    	              alert("error!!"); 
+    	           }
+    	         })
+    	   }
+    	  //로그인O
+    	  else{
+    		   $.ajax({
+                   type:"get",
+                   data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+                   url:"/store/insertBasket",
+                   success:function( data ){
+                      var obj = JSON.stringify(data);
+                    var arr = JSON.parse(obj);
+                    //alert(arr[0].total_price);
+                    var arrLen = arr.length;
+                      showBasketList(arrLen, arr);
+                   },
+                   error:function(){
+                      alert("error!!"); 
+                   }
+                 })
+    	   }
       }
-   }   
+      
 });
 
 /* 미니 장바구니 리스트 */
@@ -713,18 +734,22 @@ function showBasketList(arrLen, arr){
       str += "<label>" + arr[i].p_name + "</label><br>";
       str += "<label>사이즈 : " + arr[i].size + "</label><br>";
       str += "<label>수량 : " + arr[i].p_quantity + "</label><br>";
-      str += "<label>&#8361;" + arr[i].p_price2 + "</label>";
+      if(arr[i].p_price2 != 'SOLD OUT'){
+      	str += "<label>&#8361;" + arr[i].p_price2 + "</label>";
+	      blist_stockseq += arr[i].stock_seq;
+	      blist_stockseq += "/";
+	      blist_pQuantity += arr[i].p_quantity;
+	      blist_pQuantity += "/";
+	      
+      }else if(arr[i].p_price2 === 'SOLD OUT'){
+    	str  += "<label style='color:red;'>" + arr[i].p_price2 + "</label>";   
+      }      
       str += "<hr width = '100%' color='white'>";
       
-      blist_stockseq += arr[i].stock_seq;
-      blist_stockseq += "/";
-      blist_pQuantity += arr[i].p_quantity;
-      blist_pQuantity += "/";
    }
          
       str += "<label class='moveBasketBtn'>장바구니 가기</label><br>";
       str += "<label class='_basketOrderBtn'>바로구매</label>";
-      /* str += "<input type='buttn' class='_basketOrderBtn' value='바로구매'>"; */
       str += "<br><br><b><label value='"+arr[0].total_price+"' class='_bTotalPrice'>총 상품금액 : " + arr[0].total_price + "</b>원</label><br><br>";
       str += "</div>";
       
@@ -739,7 +764,11 @@ function showBasketList(arrLen, arr){
 
 /* 미니장바구니 전체 구매버튼 클릭 */
 $(document).on('click', '._basketOrderBtn', function(){
-   $("#bOrderFrm").submit();      
+   	var stockseq = $("#blist_stockseq").val();
+   	var quantity = $("#blist_pQuantity").val();
+	alert(stockseq);
+	alert(quantity);
+	$("#bOrderFrm").submit();      
 });
 
 /* 장바구니 페이지 이동버튼 클릭 */

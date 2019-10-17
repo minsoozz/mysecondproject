@@ -7,6 +7,7 @@
 		<id property="userid" column="userid"/>
 		<result property="userid" column="userid"/>
 		<result property="userpw" column="userpw"/>
+<!-- 		<result property="isAccountNonLock" column="isAccountNonLock"/> -->
 		<collection property="authList" resultMap="authMap">
 		</collection> 
 	</resultMap>
@@ -21,8 +22,9 @@
 		  mem.id as userid, pw as userpw, enabled, authority
 		FROM 
 		  RHY_MEM mem LEFT OUTER JOIN AUTHORITIES auth on mem.id = auth.id 
-		WHERE mem.id = #{userid} AND mem.enabled='true'
+		WHERE mem.id = #{userid} AND mem.enabled='true' AND mem.isAccountNonLock='true'
  	</select>
+ 	
  	
  	<!-- id중복확인 -->
  	<select id="getIDCheck" parameterType="com.rhymes.app.member.model.MemberDTO" resultType="java.lang.Integer">
@@ -47,6 +49,12 @@
     <insert id="getAuthAddmem" parameterType="com.rhymes.app.member.model.AuthoritiesDTO">
     	INSERT INTO AUTHORITIES(ID, AUTHORITY)
     	VALUES(#{userid}, #{authority})
+    </insert>
+    
+    <!-- 웰컴쿠폰 -->
+    <insert id="getmem_cp" parameterType="java.lang.String">
+    	INSERT INTO
+    	VALUES()
     </insert>
     
     <!-- 사업자번호체크 -->

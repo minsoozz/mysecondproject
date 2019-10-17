@@ -11,6 +11,22 @@ function save() {
 	if ($("#_save").prop('checked') == true) 
 		$("#_save").prop('checked', false);
     else 
-		$("#_save").prop('checked', true);
-
+		$("#_save").prop('checked', true); 
 }
+
+$(document).ready(function() {
+	$("#_send").click(function() {
+		
+		if( $("#content").val() == "" ||  $("#content").val() == null  ){
+			alert("내용을 작성해주세요");
+			return;
+		}	
+		$("#_notesform").attr("action","/mypage/noteswriteAf");
+		$("#_notesform").submit();
+		window.opener.opener.location.reload();
+		window.opener.close();
+		window.close();
+		
+	});
+});
+

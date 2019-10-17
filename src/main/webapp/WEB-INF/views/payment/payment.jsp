@@ -54,7 +54,7 @@
 	<fmt:formatNumber value="${basketList[i.index].p_price * basketList[i.index].quantity }" />원
 	<input type="hidden" name="stock_seq" value="${basketList[i.index].stock_seq }">
 	<input type="hidden" name="quantity" value="${basketList[i.index].quantity }">
-	<input type="hidden" name="stock_quantity" value="${i.index +1 }">
+	<input type="hidden" name="stock_quantity" value="${fn:length(basketList) }">
 	</td>
 </tr>
 <tr>
@@ -175,9 +175,9 @@
 	<td>+</td>
 	<td id="delivery_price">${delivery_price }</td>
 	<td>-</td>
-	<td id="discprice"><input type="text" id="_discprice" value="0"></td>
+	<td><input type="text" id="_discprice" value="0"></td>
 	<td>=</td>
-	<td id="_totalprice"><input type="text" id="__totalprice"></td>
+	<td><input type="text" id="total_price"></td>
 </tr>
 
 <c:if test="${coupon_count eq 0 }">
@@ -267,24 +267,6 @@
 
 <input type="button" id="paymentBtn" value="결제하기" onclick="paymens()"><br><br>
 </div>
-
-
-<script type="text/javascript">
-$(function(){
-/* 	console.log("최초 실행");
-	$("#coupon_use").change(function() {
-		
-		alert("쿠폰사용");
-	});
-	
-	if($("#coupon_use").val() != ""){
-		console.log(" 바뀜 ");
-	} */
-	
-});
-
-
-</script>
 
 
 

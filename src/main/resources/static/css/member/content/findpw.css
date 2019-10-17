@@ -115,17 +115,17 @@
 	border: 1px solid #d7fd75;
 } */
 .regibutton_b{
-    border-radius: 5px;
+	border-radius: 0px 3px 3px 0px;
     border: solid 1px #c5c5c5;
     background-color: #ffffff;
     color: #545454;
     font-weight: bolder;
-    height: 41px;
+    height: 54px;
     padding: 0px 30px 0px 30px;
     margin: 5px 5px 30px 5px;
     position: relative;
-	top: -57.5px;
-    left: 157.5px;
+    top: -64px;
+    left: 165px;
 }
 .regibutton_b:hover, .sendbutton_b:hover, .regibutton_b_long:hover, .regibutton_long:hover{
 /* 	color: #dfff8c; */
@@ -134,17 +134,17 @@
 	border-color: #c2fb2d;
 }
 .sendbutton_b{
-    border-radius: 5px;
+    border-radius: 0px 3px 3px 0px;
     border: solid 1px #c5c5c5;
     background-color: #ffffff;
     color: #545454;
     font-weight: bolder;
-    height: 41px;
+    height: 54px;
     padding: 0px 30px 0px 30px;
     margin: 5px 5px 30px 5px;
     position: relative;
-    top: -82.5px;
-    left: 124.5px;
+    top: -89.5px;
+    left: 131.5px;
 }
 .findNum{
 	border-radius: 5px;

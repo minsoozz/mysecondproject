@@ -62,7 +62,7 @@
 	<tr>
 	<td colspan="2">
 	<button type="button" id="ranswer">답장</button>
-	<button type="button" id="rdelete" value="">삭제</button>
+	<button type="button" id="rdelete" value="${dto.seq }">삭제</button>
 	<button type="button" id="close">닫기</button>
 	</td>
 	</tr>
@@ -71,7 +71,7 @@
 	</c:if>
 	<script type="text/javascript">
 	
-$("#sdelete").click(function() {
+$("#sdelete").click(function() {	// 보낸 쪽지함 삭제
 	
 		var seq = $(this).val();
 		var recv_id = "${dto.recv_id}";
@@ -82,10 +82,11 @@ $("#sdelete").click(function() {
 		window.close();
 	});
 
-$("#rdelete").click(function() {
+$("#rdelete").click(function() {	// 받은 쪽지함 삭제
 	var seq = $(this).val();
+	alert(seq);
 	var recv_id = "${userloginid}";
-	var send_id = "${dto.send_id}"
+	var send_id = "${dto.send_id}";
 	
 	location.href="notesdelete2?recv_id="+recv_id+"&send_id="+send_id+"&seq="+seq;;
 	window.opener.location.reload();
@@ -108,7 +109,8 @@ $("#ranswer").click(function() {
     
     var popupOption= "width="+winWidth+", height="+winHeight + ", left="+ popupX + ", top="+ popupY;    //팝업창 옵션(optoin)
 	window.open(url,"",popupOption);
-    
+//	window.close();
+
 });
 
 

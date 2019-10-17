@@ -29,6 +29,6 @@ public class PreviewDto {
 	private int parent;		//부모글 번호(seq)
 	
 	private String rdate;	//등록일
-	private String p_name;
+	private String p_name;	//상품이름
 	
 }

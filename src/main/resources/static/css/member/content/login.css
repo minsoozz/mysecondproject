@@ -71,3 +71,68 @@ a:active {
     /* margin-bottom: 10px; */
     padding-bottom: 16px;
 }
+#capslock{
+ 	font-size: 11px;
+    line-height: 14px;
+    position: static;
+    margin-top: 8px;
+    padding: 9px 9px 7px;
+    letter-spacing: -1px;
+    color: #777;
+    border: solid 1px #d8d1aa;
+    background: #fffadc;
+    z-index: 10;
+ 	position: absolute;
+ 	zoom: 1;
+}
+#capsdiv{
+	position: relative;
+    top: -9px;
+    left: 4px;
+}
+#loginfail{
+	color: red; 
+	font-size: small; 
+	padding-left: 4px;
+	display: block;
+	
+}
+#kakaoIdLogin{
+	position: relative;
+    left: -125px;
+/*     border-radius: 5px; */
+}
+.snslogin{
+	display: block;
+    height: 50px;
+    width: 247px;
+    line-height: 43px;
+    margin-left: 50px;
+    background-color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 16px;
+    color: #525252;
+    font-weight: bold;
+    position: relative;
+    left: -1px;
+    border: solid 1px #f7e318;
+    top: -50px;
+}
+.snsNaverlogin{
+    display: block;
+    height: 50px;
+    width: 247px;
+    line-height: 43px;
+    margin-left: 50px;
+    background-color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 16px;
+    color: #525252;
+    font-weight: bold;
+    position: relative;
+    left: 477px;
+    border: solid 1px #1ec800;
+    top: -90px;
+}

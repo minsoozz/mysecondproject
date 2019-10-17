@@ -12,7 +12,7 @@
 </head>
 
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container-fluid" align="center">
 
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">회원관리</h1>

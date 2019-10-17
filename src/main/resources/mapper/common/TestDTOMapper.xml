@@ -23,5 +23,6 @@
   	MEMBER_TEST mem LEFT OUTER JOIN AUTH_TEST auth on mem.id = auth.id 
 	WHERE mem.id = #{userid} 
   </select>
+  
 
 </mapper>

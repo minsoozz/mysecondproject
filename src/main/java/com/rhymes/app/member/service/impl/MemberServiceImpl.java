@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 
 	// 회원가입
 	@Override
-	public void getAddmem(MemBean bean) {
+	public boolean getAddmem(MemBean bean) {
 		
 		// 공통
 		MemberDTO mem = new MemberDTO( 
@@ -63,10 +63,12 @@ public class MemberServiceImpl implements MemberService {
 		if(b) {
 			memberdao.getPAddmem(pmem);
 			memberdao.getAuthAddmem(amem);
+			
+			memberdao.getmem_cp(pmem.getUserid());	// 웰컴쿠폰
 		}
 		
 		
-		
+		return b;
 		
 		
 	}
@@ -242,6 +244,7 @@ public class MemberServiceImpl implements MemberService {
 		memberdao.getAuthAddmem(amem);
 		
 	}
+
 
 
 

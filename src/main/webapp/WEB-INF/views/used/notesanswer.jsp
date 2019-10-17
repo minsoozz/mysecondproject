@@ -1,15 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String ctx = request.getContextPath(); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="<%=ctx %>/js/used/notesanswer.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/used/noteswrite.css">
 </head>
 <body>
 	<div>
 	<form id="_notesform">
 		<input type="hidden" value="${userloginid }" name="send_id">
+		<input type="hidden" value="${dto.send_id }" name="recv_id">
 		받는사람 :&nbsp;${dto.send_id }
 		<hr>
     	<textarea id="content" name="content" cols="60" rows="14" maxlength="1000"></textarea>
