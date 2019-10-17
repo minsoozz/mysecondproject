@@ -80,6 +80,21 @@
 			      </div>
 			    </div>
 			  </li>
+			 <!-- 고객센터 --> 
+		<li class="nav-item">
+		    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer" aria-expanded="true" aria-controls="collapseTwo">
+		      <i class="fas fa-fw fa-folder"></i>
+		      <span>고객센터</span>
+		    </a>
+		    <div id="collapseCustomer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+		      <div class="bg-white py-2 collapse-inner rounded">
+		        <h6 class="collapse-header">Customer Center</h6>
+		        <a class="collapse-item" href="/admin/memlist">공지사항</a>
+		        <a class="collapse-item" href="/admin/mem_c_list">자주하는질문</a>
+		        <a class="collapse-item" href="/admin/mem_c_list">1:1질문</a>
+		      </div>
+		    </div>
+		  </li>
 			
 			  <!-- Divider -->
 			  <hr class="sidebar-divider"/>

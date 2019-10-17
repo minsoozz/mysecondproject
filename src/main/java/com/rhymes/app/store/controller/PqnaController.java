@@ -1,5 +1,6 @@
 package com.rhymes.app.store.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,10 +62,13 @@ public class PqnaController {
 
 	//상품문의 글쓰기가기
 	@GetMapping("/pqnawrite")
-	public String pqnawrite(Model model, DetailParam param,HttpServletRequest request) {
+	public String pqnawrite(Model model, DetailParam param,HttpServletRequest request,Principal pcp) {
 		String referer1 = request.getHeader("Referer");
 		model.addAttribute("referer1", referer1);
 		model.addAttribute("pqnalist", param);
+		
+		String id = pcp.getName();
+		model.addAttribute("id",id);
 		return "pqnawrite.tiles";
 	}
 	
