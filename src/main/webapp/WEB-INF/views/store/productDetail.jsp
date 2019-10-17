@@ -671,32 +671,7 @@ $(document).on('click', '.wishBtn', function(){
 $(document).on('click', '.basketBtn', function(){   
    var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
    var cnt = Number($("#pqCnt").html());
-   if(id==""){
-	   
-	   $.ajax({
-           type:"get",
-           data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-           url:"/store/insertSessionBasket",
-           success:function( data ){
-              var obj = JSON.stringify(data);
-            var arr = JSON.parse(obj);
-            //alert(arr[0].total_price);
-            var arrLen = arr.length;
-              showBasketList(arrLen, arr);
-           },
-           error:function(){
-              alert("error!!"); 
-           }
-         })
       
-/* 	  $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
-      $(".wModal").fadeIn();
-      setTimeout(function() {
-         $(".wModal").fadeOut();
-      },1500);
-      
-      location.href="/member/login"; */
-   }else{
       if(isNaN(stock_seq)){
          $("#msg").html("<b>사이즈를 선택해주세요.</b>")
          $(".wModal").fadeIn();
@@ -704,29 +679,45 @@ $(document).on('click', '.basketBtn', function(){
             $(".wModal").fadeOut();
          },700);
       }else{
-         var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-         var cnt = Number($("#pqCnt").html());
-         if(isNaN(stock_seq)){
-            alert("사이즈를 선택해주세요.");
-         }else{
-            $.ajax({
-                 type:"get",
-                 data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-                 url:"/store/insertBasket",
-                 success:function( data ){
-                    var obj = JSON.stringify(data);
-                  var arr = JSON.parse(obj);
-                  //alert(arr[0].total_price);
-                  var arrLen = arr.length;
-                    showBasketList(arrLen, arr);
-                 },
-                 error:function(){
-                    alert("error!!"); 
-                 }
-               })
-         }
+    	  // 로그인X
+    	  if(id==""){
+    		   
+    		   $.ajax({
+    	           type:"get",
+    	           data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+    	           url:"/store/insertSessionBasket",
+    	           success:function( data ){
+    	              var obj = JSON.stringify(data);
+    	            var arr = JSON.parse(obj);
+    	            //alert(arr[0].total_price);
+    	            var arrLen = arr.length;
+    	              showBasketList(arrLen, arr);
+    	           },
+    	           error:function(){
+    	              alert("error!!"); 
+    	           }
+    	         })
+    	   }
+    	  //로그인O
+    	  else{
+    		   $.ajax({
+                   type:"get",
+                   data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+                   url:"/store/insertBasket",
+                   success:function( data ){
+                      var obj = JSON.stringify(data);
+                    var arr = JSON.parse(obj);
+                    //alert(arr[0].total_price);
+                    var arrLen = arr.length;
+                      showBasketList(arrLen, arr);
+                   },
+                   error:function(){
+                      alert("error!!"); 
+                   }
+                 })
+    	   }
       }
-   }   
+      
 });
 
 /* 미니 장바구니 리스트 */
@@ -743,18 +734,22 @@ function showBasketList(arrLen, arr){
       str += "<label>" + arr[i].p_name + "</label><br>";
       str += "<label>사이즈 : " + arr[i].size + "</label><br>";
       str += "<label>수량 : " + arr[i].p_quantity + "</label><br>";
-      str += "<label>&#8361;" + arr[i].p_price2 + "</label>";
+      if(arr[i].p_price2 != 'SOLD OUT'){
+      	str += "<label>&#8361;" + arr[i].p_price2 + "</label>";
+	      blist_stockseq += arr[i].stock_seq;
+	      blist_stockseq += "/";
+	      blist_pQuantity += arr[i].p_quantity;
+	      blist_pQuantity += "/";
+	      
+      }else if(arr[i].p_price2 === 'SOLD OUT'){
+    	str  += "<label style='color:red;'>" + arr[i].p_price2 + "</label>";   
+      }      
       str += "<hr width = '100%' color='white'>";
       
-      blist_stockseq += arr[i].stock_seq;
-      blist_stockseq += "/";
-      blist_pQuantity += arr[i].p_quantity;
-      blist_pQuantity += "/";
    }
          
       str += "<label class='moveBasketBtn'>장바구니 가기</label><br>";
       str += "<label class='_basketOrderBtn'>바로구매</label>";
-      /* str += "<input type='buttn' class='_basketOrderBtn' value='바로구매'>"; */
       str += "<br><br><b><label value='"+arr[0].total_price+"' class='_bTotalPrice'>총 상품금액 : " + arr[0].total_price + "</b>원</label><br><br>";
       str += "</div>";
       
@@ -769,7 +764,11 @@ function showBasketList(arrLen, arr){
 
 /* 미니장바구니 전체 구매버튼 클릭 */
 $(document).on('click', '._basketOrderBtn', function(){
-   $("#bOrderFrm").submit();      
+   	var stockseq = $("#blist_stockseq").val();
+   	var quantity = $("#blist_pQuantity").val();
+	alert(stockseq);
+	alert(quantity);
+	$("#bOrderFrm").submit();      
 });
 
 /* 장바구니 페이지 이동버튼 클릭 */

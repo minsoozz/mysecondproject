@@ -98,6 +98,13 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		return n>0?true:false;
 	}
 
+	@Override
+	public BasketListDto getSessionBasketDto(int stock_seq) throws Exception {
+		BasketListDto basketlistDto = new BasketListDto();
+		basketlistDto = sqlSession.selectOne(ns + "getSessionBasketDto", stock_seq);
+		return basketlistDto;
+	}
+
 	
 
 
