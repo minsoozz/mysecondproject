@@ -270,6 +270,7 @@ function paymens(){
 	var disc_point = $("#disc_point").val();
 	var total_price = $("#total_price").val();
 	
+	// form으로 submit 할 때 보내는 총 결제금액
 	$("#totalprice").val( total_price );
 	
 	

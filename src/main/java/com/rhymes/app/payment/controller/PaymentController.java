@@ -5,15 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
@@ -32,7 +23,6 @@ import com.rhymes.app.payment.model.PaymentDetailsDTO;
 import com.rhymes.app.payment.service.PaymentService;
 import com.rhymes.app.payment.util.Coolsms;
 import com.rhymes.app.payment.util.PaymentEmail;
-import com.rhymes.app.payment.util.PaymentMailling;
 
 @Controller
 public class PaymentController {
@@ -40,16 +30,7 @@ public class PaymentController {
 	@Autowired
 	private PaymentService PaymentService;
 
-	// 처음
-	@RequestMapping("/daraewelcome")
-	public String welcome() {
-		System.out.println("daraewelcome");
-
-		return "/payment/welcome";
-	}
-
 	// 단일제품 구매
-	// @GetMapping("/payment")
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
 	public String payment(Model model, String stock_seq, String p_quantity, Principal pcp) throws Exception {
 		
@@ -67,17 +48,13 @@ public class PaymentController {
 		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
 		basketList.get(0).setId(pcp.getName());
 		
+		// 총금액 계산
 		String totalprice = basketList.get(0).getP_price() * basketList.get(0).getQuantity() + "";
 
 		int delivery_price = 0;
 		if(Integer.parseInt(totalprice) < 10000) {
 			delivery_price = 3000;
 		}
-
-		for (OrderDTO _dto : basketList) {
-			System.out.println("단일구매 : " + _dto.toString());
-		}
-		
 		
 		
 		// DB 적립금 가져오기
