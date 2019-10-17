@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.hssf.record.PageBreakRecord.Break;
 import org.apache.commons.io.FileDeleteStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,12 +88,24 @@ public class NoticeController {
 		
 		model.addAttribute("noticedto", noticedto);
 		
-		//이전글
-		NoticeDto beforedto = NoticeService.getNoticeDetail(seq-1);
+		//이전글 가져오기
+		NoticeDto beforedto = null;
+			for (int i = 1; i <= 10; i++) {
+					beforedto = NoticeService.getNoticeDetail(seq-i);
+				if (beforedto != null) {
+					break;
+				}	
+			}
 		model.addAttribute("beforedto", beforedto);
 		
-		//다음글
-		NoticeDto afterdto = NoticeService.getNoticeDetail(seq+1);
+		//다음글 가져오기
+		NoticeDto afterdto = null;
+			for (int j = 1; j <= 20; j++) {
+					afterdto = NoticeService.getNoticeDetail(seq+j);
+				if (afterdto != null) {	
+					break;
+				}
+			}
 		model.addAttribute("afterdto", afterdto);
 
 		return "noticedetail.tiles";
