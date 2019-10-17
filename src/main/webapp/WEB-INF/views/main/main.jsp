@@ -16,40 +16,139 @@
     <link href="/css/main/responsive/responsive.css" rel="stylesheet">
 </head> 
 
-
+ 
  
 <body>
-
+    <div align="center" id="haribo">
+    <video src="/img/main-img/bg-img/main0vid_1.mp4" width="90%" height="10%" loop="loop" autoplay="autoplay"></video>
+     
+   </div>
     <!-- main area start -->
     <!-- 메인 이미지....style.css에서 변경하세용 75번째줄 -->    
-        <section id="banner"></section>
+     <!--    <section id="banner"></section> -->
 
-<br><br>
+
+<br><br><br><br><br><br>
+
+
+
+<h4 style="margin-left: 60px; color: gray">NEW ARRIVAL</h4>
+<br>
+<!-- ****** Welcome Post Area Start ****** -->
+    <section class="welcome-post-sliders owl-carousel">
+
+        <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/img/main-img/slide-img/789.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+
+        <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/img/main-img/slide-img/789.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+
+        <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/img/main-img/slide-img/789.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+
+        <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/img/main-img/slide-img/789.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title"> 
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+
+        <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/img/main-img/slide-img/789.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+ 
+    </section>
+    <!-- ****** Welcome Area End ****** -->
+
+
+<br><br><br><br><br><br>
+    
+    
     <!-- ****** Categories Area Start 카테고리 바로가기 부분 ****** -->
     <section class="categories_area clearfix" id="about">
-    <div style="margin-left: 50px;margin-right: 50px">
+    <div style="margin-left: 20px"> 
         
-            <div class="row">
-               <div class="col-12 col-xs-6 col-lg-4">
+            <div class="row" id="category_123">
+               <div>
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
-                        <a href="women.jsp">
-                       <img src="/img/main-img/catagory-img/1.png" alt="">                        
-                       </a>                       
+                        <a href="store/productList?c1_name=WOMEN">
+                       <img src="/img/main-img/catagory-img/1.jpg" width="600px" height="600px">                        
+                       </a>  
                     </div>
                 </div>
                 
-                <div class="col-12 col-xs-6 col-lg-4">
+                <div>
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
-                        <a href="women.jsp">
-                       <img src="/img/main-img/catagory-img/2.png" alt="">                        
+                        <a href="store/productList?c1_name=MEN">
+                       <img src="/img/main-img/catagory-img/2.jpg" width="600px" height="600px">                        
                        </a>                       
                     </div>
                 </div>
                 
-                <div class="col-12 col-xs-6 col-lg-4">
+                <div>
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
                         <a href="women.jsp">
-                       <img src="/img/main-img/catagory-img/3.png" alt="">                        
+                       <img src="/img/main-img/catagory-img/3.png" width="600px" height="600px">                        
                        </a>                       
                     </div>
                 </div>
@@ -57,11 +156,13 @@
         </div>
     </section>
     <!-- ****** Categories Area End ****** -->
+  <br><br><br><br>
+
 
 
     <!-- 추천 상품 메인픽  -->
    <div align="center">
-     <section id="mainpick">
+     <section id="mainpick1">
      </section>
      <h1>둥굴레차</h1>
      <br>
@@ -71,23 +172,25 @@
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br>
+     <br><br><br><br>
    
-    <div align="center" id="haribo">
-   <iframe width="1800" height="700" src="https://www.youtube.com/embed/k2LhNhZVE3I?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    
+    <div align="center">
+    <video src="/img/main-img/bg-img/main2vid.mp4" width="90%" height="50%" loop="loop" autoplay="autoplay"></video>
      <br><br>
-     <h1 style="color: red">HARIBO</h1>
-     <br>
-     <p>Haribo macht Kinder froh und Erwachsene ebenso!</p>
-	<p>"하리보는 아이들을 즐겁게 합니다. 그리고 어른들도요."</p>
+     <h3 style="color: black">BARCELONA</h3>
+     <br> 
+	<p style="font-size: 15px">빈티지 무드에서 영감을 받은 정라운드 실루엣, 군더더기 없는 깔끔한 메탈라인이 매력적인 바르셀로나</p>
     
-     <br>
+     <br> 
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br>
-   
+     <br><br><br><br>
+       <br><br><br><br>
+       
+       
    <div align="center">
-     <section id="mainpick">
+     <section id="mainpick2">
      </section>
      <h1>둥굴레차</h1>
      <br>
@@ -97,125 +200,24 @@
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br>
+     <br><br><br><br>
    
-    <div align="center">
-    <iframe width="1800" height="700" src="https://www.youtube.com/embed/J4oepdgxul8?autohide=1&autoplay=1&modestbranding=1&showinfo=0&rel=0&loop=1&controls=0&" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <br><br>
-    <h1 style="color: pink">MACARON</h1>
-     <br>
-     <p>짱구 영상 질려서 바꿨다</p>
-      <p>하리보도 두개나 되길래 걍 바꿈 귀여운 마카롱으로</p>
-      <p>데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴데굴</p>
-
-    
-     <br>
+   
+  <div align="center">
+    <video src="/img/main-img/bg-img/main3vid.mp4" width="90%" height="50%" loop="loop" autoplay="autoplay"></video>
+     <br><br>
+     <h3 style="color: black">☆★패딩사세요☆★</h3>
+     <br> 
+	<p style="font-size: 15px">털달린 패딩입니다 따순 패딩 사세용~~~~~~~ </p>
+  
+  <br>
      <a href="#haribo" class="mainbuybtn">구매하기</a>
      <!-- a href에 #넣고 아이디적으면 글루 이동한다!~ 디테일에서 써먹기 ~! -->
    </div>
-   <br><br>
+   <br><br>  <br><br><br><br>
     <!-- 추천 상품 끝 -->
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-<!-- 나중에
-    ******12345슬라이드바 ******
-    <br><br><br>
-    <div>
-    <h4 style="margin-left: 60px; color: gray;">NEW ARRIVAL</h4>
-    </div>
-    <section class="welcome-post-sliders owl-carousel">
-
-        Single Slide
-        <div class="welcome-single-slide">        
-            Post Thumb
-            <img src="img/bg-img/slide-1.png" alt="">
-            Overlay Text
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">여기는</a>
-                    <a href="#">1번</a>
-                </div>
-                <a href="#">
-                    <h5>1번슬라이드배너</h5>
-                </a>
-            </div>
-        </div>
-
-        Single Slide
-        <div class="welcome-single-slide">
-            Post Thumb
-            <img src="img/bg-img/slide-2.png" alt="">
-            Overlay Text
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">여기는</a>
-                    <a href="#">2번</a>
-                </div>
-                <a href="#">
-                    <h5>2번슬라이드배너</h5>
-                </a>
-            </div>
-        </div>
-
-        Single Slide
-        <div class="welcome-single-slide">
-            Post Thumb
-            <img src="img/bg-img/slide-3.png" alt="">
-            Overlay Text
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">여기는</a>
-                    <a href="#">3번</a>             
-                </div>
-                <a href="#">
-                    <h5>3번슬라이드배너</h5>
-                </a>
-            </div>
-        </div>
-
-        Single Slide
-        <div class="welcome-single-slide">
-            Post Thumb
-            <img src="img/bg-img/slide-4.png" alt="">
-            Overlay Text
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">여기는</a>
-                    <a href="#">4번</a>
-                </div>
-                <a href="#">
-                    <h5>4번슬라이드배너</h5>
-                </a>
-            </div>
-        </div>
-
-        Single Slide
-        <div class="welcome-single-slide">
-            Post Thumb
-            <img src="img/bg-img/slide-5.png" alt="">
-            Overlay Text
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">여기는</a>
-                    <a href="#">5번</a>
-                </div>
-                <a href="#">
-                    <h5>5번슬라이드배너</h5>
-                </a>
-            </div>
-        </div>
-
-    </section>
-   슬라이더 끝  -->
        
     
 <!--  나중에,.,.
