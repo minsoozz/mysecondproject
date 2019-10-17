@@ -31,6 +31,8 @@ import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.model.PaymentDetailsDTO;
 import com.rhymes.app.payment.service.PaymentService;
 import com.rhymes.app.payment.util.Coolsms;
+import com.rhymes.app.payment.util.PaymentEmail;
+import com.rhymes.app.payment.util.PaymentMailling;
 
 @Controller
 public class PaymentController {
@@ -50,6 +52,8 @@ public class PaymentController {
 	// @GetMapping("/payment")
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
 	public String payment(Model model, String stock_seq, String p_quantity, Principal pcp) throws Exception {
+		
+		String userid = pcp.getName();
 
 		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
 
@@ -65,13 +69,37 @@ public class PaymentController {
 		
 		String totalprice = basketList.get(0).getP_price() * basketList.get(0).getQuantity() + "";
 
+		int delivery_price = 0;
+		if(Integer.parseInt(totalprice) < 10000) {
+			delivery_price = 3000;
+		}
+
+		for (OrderDTO _dto : basketList) {
+			System.out.println("단일구매 : " + _dto.toString());
+		}
+		
+		
+		
+		// DB 적립금 가져오기
+		int point_amount = PaymentService.getPoint(userid);
+		
+		// DB 쿠폰 개수 가져오기
+		int coupon_count = PaymentService.getCountCoupon(userid);
+		
+		// DB 쿠폰 가져오기
+		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
+
+		// 장바구니 내역 지울 수 있는 변수
+		int basket_del = 0;
+		
+
+		model.addAttribute("basket_del", basket_del);
+		model.addAttribute("coupon_code", coupon_code);
+		model.addAttribute("point_amount", point_amount);
+		model.addAttribute("coupon_count", coupon_count);
 		model.addAttribute("basketList", basketList);
 		model.addAttribute("totalprice", totalprice);
-
-		
-		for (OrderDTO _dto : basketList) {
-			System.out.println("장바구니 : " + _dto.toString());
-		}
+		model.addAttribute("delivery_price", delivery_price);
 
 		if (true) {
 			// 로그인 되어있으면 결제 페이지로 이동
@@ -160,10 +188,7 @@ public class PaymentController {
 		int delivery_price = 0;
 		if(totalprice < 10000) {
 			delivery_price = 3000;
-		}else {
-			delivery_price = 0;
 		}
-		
 
 		model.addAttribute("basket_del", basket_del);
 		model.addAttribute("coupon_code", coupon_code);
@@ -242,85 +267,22 @@ public class PaymentController {
 		}
 
 		// 이메일로 결제내역을 보낸다 -- 폼 필요
+		//PaymentMailling mail = new PaymentMailling();
+		//mail.mailSender(dto);
+		PaymentEmail mail = new PaymentEmail();
 		try {
-			mailSender(dto);
-		} catch (MessagingException e) {
+			mail.PaymentEmailSend(dto);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
-		// -- 이메일로 결제내역을 보낸다 -- 폼 필요
-		
 		// 적립금 차감한다 -- 아직
-		
-		// -- 사용한 쿠폰을 지운다
-		
-		// -- 주문한 상품수량만큼 재고수량에서 차감한다
-		
-		// -- 결제내역 디테일 저장
-		
-		// -- db에 결제내역을 저장한다
-		
-		// -- db에 결제 애프터 내역을 저장한다
-		
-		// -- 배송내역 저장 -- 운송장번호 어떻게?
-		
-		// -- 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("dtoAf", dtoAf);
 
 		return "/payment/paymentAf";
-	}
-	
-	/** 자바 메일 발송 *
-	 * @throws MessagingException
-	 * @throws AddressException **/
-	@RequestMapping(value = "/mailSender")
-	public void mailSender(PaymentDTO dto) throws AddressException, MessagingException {
-		System.out.println("메일발송 컨트롤러");
-		
-		// 네이버일 경우 smtp.naver.com 을 입력합니다.
-		// Google일 경우 smtp.gmail.com 을 입력합니다.
-		String host = "smtp.naver.com";
-		
-		final String username = "ogbgt5"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-		final String password = "!1finalproject"; //네이버 이메일 비밀번호를 입력해주세요.
-		int port=465; //포트번호
-		
-		// 메일 내용
-		System.out.println("메일 발송 : " + dto.getSend_email().trim());
-		String recipient = dto.getSend_email().trim();
-
-		//받는 사람의 메일주소를 입력해주세요.
-		String subject = "메일테스트"; //메일 제목 입력해주세요.
-		String body = username+"님으로 부터 "+dto.getTotalprice()+"원 결제 메일을 받았습니다."; //메일 내용 입력해주세요.
-		
-		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
-		
-		// SMTP 서버 정보 설정
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", port);
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.ssl.enable", "true");
-		props.put("mail.smtp.ssl.trust", host);
-		
-		//Session 생성
-		//Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			String un=username;
-			String pw=password;
-			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-				return new javax.mail.PasswordAuthentication(un, pw);
-			}
-		});
-		session.setDebug(true); //for debug
-		Message mimeMessage = new MimeMessage(session); //MimeMessage 생성
-		mimeMessage.setFrom(new InternetAddress("ogbgt5@naver.com")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다. 이때는 이메일 풀 주소를 다 작성해주세요.
-		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
-		mimeMessage.setSubject(subject); //제목셋팅
-		mimeMessage.setText(body); //내용셋팅
-		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
 	}
 
 		
@@ -382,7 +344,7 @@ public class PaymentController {
 			model.addAttribute("disc_point", disc_point);
 		}
 
-		if(delivery_price == "0") {
+		if(delivery_price.equals("0")) {
 			model.addAttribute("product_price", product_price);
 		}else {
 			model.addAttribute("product_price", Integer.parseInt(product_price) + 3000);

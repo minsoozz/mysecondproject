@@ -86,19 +86,20 @@
 
 <!--     <div class="text-center"> -->
 <br>
-	<div align="center">
-	    <c:if test="${userId eq null}">
+	<div align="center" style="height: 10px">
 	        <a href="https://kauth.kakao.com/oauth/authorize?client_id=7941c0b534b8b053634f144ea1b326ea&redirect_uri=http://localhost:18080/member/kakaoLogin&response_type=code">
-	            <img src="/img/member-img/kakao_account_login_btn_medium_wide.png" style="width: 232px; height: 51px">
-	        </a>
-	    </c:if>
-	    
+	            <img src="/img/member-img/kakao_login_btn_logo.png" style="height: 50px; width: 51px;" id="kakaoIdLogin">
+	            <span class="snslogin">카카오 로그인</span>
+	        </a>	    
 	</div>
-	
 	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-	<div id="naverIdLogin" align="center" style="position: relative; top: 10px;"></div>
-	
-	
+	<!-- <div id="naverIdLogin" align="center" style="position: relative;  left: -124px; top: -40px">
+	</div> -->
+	<div align="center">
+		<a href="javascript:snsAuthPopup('naver');" class="openid naver" id="naverIdLogin" style="position: relative;  left: -124px; top: 50px">
+			<span class="snsNaverlogin">네이버 로그인</span>
+		</a>
+	</div>
 <!-- </div> -->
 </div>
 
@@ -112,7 +113,7 @@
 			clientId: "6tOlbeGI_v71dSverLKi",
 			callbackUrl: "http://localhost:18080/member/callback",
 			isPopup: false, /* 팝업을 통한 연동처리 여부 */
-			loginButton: {color: "green", type: 3, height: 50, width: 60} /* 로그인 버튼의 타입을 지정 */
+			loginButton: {color: "green", type: 1, height: 50, width: 60} /* 로그인 버튼의 타입을 지정 */
 		}
 	);
 // 	console.log(naverLogin);
@@ -122,6 +123,21 @@
 	
 </script>
 
+<!-- 네이버 로그인 text클릭 -->
+<script type="text/javascript">
+$(".snsNaverlogin").click(function(){
+	var naverLogin = new naver.LoginWithNaverId(
+			{
+				clientId: "6tOlbeGI_v71dSverLKi",
+				callbackUrl: "http://localhost:18080/member/callback",
+			}
+		);
+});
+$(".snsNaverlogin").mouseover(function(){
+	$(this).css("cursor", "pointer");
+});
+
+</script>
 
 
 <script type="text/javascript">

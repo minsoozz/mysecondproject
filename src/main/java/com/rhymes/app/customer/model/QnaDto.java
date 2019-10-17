@@ -22,7 +22,7 @@ public class QnaDto {
 	private String title;
 	private String content;
 	private String wdate;
-	private int orderno;
+	private String orderno;
 	private String filename;
 	
 }

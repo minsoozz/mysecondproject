@@ -14,7 +14,7 @@ public class AdminPaymentController {
 	SqlSession SqlSession;
 	
 	@Autowired
-	private AdminPaymentService AdminPaymentService;
+	private AdminPaymentService adminPaymentService;
 	
 	// 관리자 페이지 교환관리
 	@RequestMapping("/admin/payment/exchange")

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.customer.model.QnaDto;
+import com.rhymes.app.customer.model.QnaOrderDto;
 
 public interface QnaService {
 
@@ -12,6 +13,9 @@ public interface QnaService {
 	
 	//qna count
 	public int getQnaCount(CustomerParam param);
+	
+	//qna orderlist 가져오기
+	public List<QnaOrderDto> getQnaOrderList(String id);
 	
 	//qna 디테일 가져오기
 	public QnaDto getQnaDetail(int seq);

@@ -58,7 +58,6 @@
 									<option value="">판매량순</option>																	
 								</select>
 								
-								
 						</div>
 					</div>
 					<!-- 검색 -->
@@ -116,12 +115,13 @@
 							<!-- 10 -->
 							<th class="sorting">등록일</th>
 							<!-- 11 -->
-							<th class="sorting">총 수량</th>
+							<th class="sorting">찜</th>
 							<!-- 12 -->
-							<th class="sorting">판매량</th>
+							<th class="sorting">총 수량</th>
 							<!-- 13 -->
-							<th class="sorting">판매상태</th>
+							<th class="sorting">판매량</th>
 							<!-- 14 -->
+							<th class="sorting">판매상태</th>
 						</tr>
 					</thead>
 
@@ -148,22 +148,24 @@
 									<fmt:formatNumber type="currency" currencySymbol="" value="${pro.p_price}" /> 원
 								</td>
 								<!-- 5 -->
-								<td class="list_email">${pro.c1_name}</td>
+								<td class="">${pro.c1_name}</td>
 								<!-- 6 -->
-								<td class="list_phone">${pro.c2_name}</td>
+								<td class="">${pro.c2_name}</td>
 								<!-- 7 -->
-								<td class="list_social">${pro.c3_name}</td>
+								<td class="">${pro.c3_name}</td>
 								<!-- 8 -->
-								<td class="list_rdate">${pro.p_color }</td>
+								<td class="">${pro.p_color }</td>
 								<!-- 9 -->
-								<td class="list_rdate">${pro.cp_code }</td>
+								<td class="">${pro.cp_code }</td>
 								<!-- 10 -->
-								<td class="list_rdate">${pro.rdate }</td>
+								<td class="">${pro.rdate }</td>
 								<!-- 11 -->
-								<td class="list_rdate">${pro.sum }</td>
+								<td class="">${pro.wish }</td>
 								<!-- 12 -->
-								<td class="list_rdate">~</td>
+								<td class="">${pro.sum }</td>
 								<!-- 13 -->
+								<td class="">~</td>
+								<!-- 14 -->
 								<c:if test="${pro.sum ne 0}">
 									<td class="list_rdate"><font style="color:green">판매중</font></td>
 								</c:if>

@@ -25,6 +25,8 @@ public interface MemberDAO {
 	public void getPAddmem(P_MemberDTO pmem);		// 추가
 	public void getAuthAddmem(AuthoritiesDTO amem);	// 권한
 	
+	public void getmem_cp(String userid);
+	
 	// 사업자번호 체크
 	public String getCRCheck(SellerCRnumDTO crdto);
 	

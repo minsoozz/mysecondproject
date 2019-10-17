@@ -34,7 +34,7 @@
 				<div class="col-md-2 img_waiting_item">
 					<img src="<%=ctx %>/upload/store/${dto.img }" onerror="this.src='https://i.ytimg.com/vi/vWMCCZEkrKg/maxresdefault.jpg'">
 				</div>
-				<div class="col-md-5 detail_waiting_item">
+				<div class="col-md-5 detail_waiting_item" onclick="location.href='<%=ctx %>/store/productDetail?p_seq=${dto.p_seq }&c1_name=${dto.c1_name}&c2_name=${dto.c2_name}&c3_name=${dto.c3_name}';">
 					<div class="form-row">${dto.p_name }</div>
 					<div class="form-row">${dto.p_title }</div>
 					<div class="form-row">${dto.ea }개 구매</div>
@@ -45,7 +45,8 @@
 				<div class="col-md-2 writenew_waiting_item">
 					<c:choose>
 						<c:when test="${dto.review_written == 'true' }">
-							<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 확인"><br>
+							<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 확인"
+							 onclick="location.href='<%=ctx %>/store/productDetail?p_seq=${dto.p_seq }&c1_name=${dto.c1_name}&c2_name=${dto.c2_name}&c3_name=${dto.c3_name}#goods_review';"><br>
 						</c:when>
 						<c:otherwise>
 							<input type="button" class="btn btn-default btn_order_body btn_write_review" value="후기 쓰기"

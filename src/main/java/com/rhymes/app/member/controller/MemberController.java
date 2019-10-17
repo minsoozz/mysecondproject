@@ -105,7 +105,7 @@ public class MemberController {
 	public String addmem(MemBean bean, HttpServletRequest req) {
 		System.out.println("addmem mem: " + bean.toString());
 
-		boolean b = memService.getAddmem(bean);
+		boolean b = memService.getAddmem(bean);	// 공통, 추가, 권한, 쿠폰 insert
 		
 		return "rhyregisuc";
 	}

@@ -33,6 +33,13 @@
   </li>
 
   <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Interface
+  </div>
+
   <c:if test="${prc ne 'anonymousUser' }">
 	<c:forEach items="${prc.authorities  }" var="auth">
 		<c:if test="${auth eq 'ROLE_ADMIN' }">
@@ -58,18 +65,8 @@
 		      </div>
 		    </div>
 		  </li>
-
-		</c:if>
-  	</c:forEach>
-  </c:if>
-  <!-- Divider -->
-  <hr class="sidebar-divider"/>
-
-  <!-- Nav Item - Utilities Collapse Menu -->
-  	<c:if test="${prc ne 'anonymousUser' }">
-		<c:forEach items="${prc.authorities  }" var="auth">
-			<c:if test="${auth eq 'ROLE_ADMIN' }">
-			  <li class="nav-item">
+		  
+		  <li class="nav-item">
 			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
 			      <i class="fas fa-fw fa-chart-area"></i>
 			      <span>통계</span>
@@ -91,9 +88,27 @@
 			  <div class="sidebar-heading">
 			    	${c_name }
 			  </div>
-			</c:if>
-		</c:forEach>
-	</c:if>
+
+			<!-- Nav Item - Pages Collapse Menu -->
+		  <li class="nav-item">
+		    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEvent" aria-expanded="true" aria-controls="collapseTwo">
+		      <i class="fas fa-fw fa-folder"></i>
+		      <span>이벤트관리</span>
+		    </a>
+		    <div id="collapseEvent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+		      <div class="bg-white py-2 collapse-inner rounded">
+		        <h6 class="collapse-header">Events</h6>
+		        <a class="collapse-item" href="/admin/mypage/coupon">쿠폰 관리</a>
+		        <a class="collapse-item" href="/admin/mypage/points">적립금</a>
+		        <a class="collapse-item" href="/admin/events">이벤트</a>
+		      </div>
+		    </div>
+		  </li>
+
+		</c:if>
+  	</c:forEach>
+  </c:if> 
+
 	
 	<!-- Nav Item - Pages Collapse Menu -->
 	<c:if test="${prc ne 'anonymousUser' }">

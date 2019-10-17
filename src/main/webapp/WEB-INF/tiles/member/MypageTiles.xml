@@ -47,6 +47,11 @@
 	    <put-attribute name="content_main" value="/WEB-INF/views/member/mypage/admin/main.jsp" />
 	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
+	
+	<!-- mypage admin  -->
+	<definition name="admin/member/mypage/*" extends="admin/member/mypage">
+	    <put-attribute name="content_main" value="/WEB-INF/views/member/mypage/admin/{1}.jsp" />	    
+	</definition>
 
 
 </tiles-definitions>

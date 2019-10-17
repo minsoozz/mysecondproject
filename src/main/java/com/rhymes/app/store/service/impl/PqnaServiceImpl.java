@@ -21,55 +21,55 @@ import com.rhymes.app.store.service.PqnaService;
 public class PqnaServiceImpl implements PqnaService {
 
 	@Autowired
-	private PqnaDao PqnaDao;
+	private PqnaDao pqnaDao;
 	
 	//Pqna list
 	@Override
 	public List<PqnaDto> getPqnaList(DetailParam param) {
 	
-		return PqnaDao.getPqnaList(param);
+		return pqnaDao.getPqnaList(param);
 	}
 
 	//Pqna count
 	@Override
 	public int getPqnaCount(DetailParam param) {
 		
-		return PqnaDao.getPqnaCount(param);
+		return pqnaDao.getPqnaCount(param);
 	}
 
 	//Pqna 업로드
 	@Override
 	public boolean PqnaUpload(PqnaDto dto) {
 	
-		return PqnaDao.PqnaUpload(dto);
+		return pqnaDao.PqnaUpload(dto);
 	}
 
 	//Pqna 디테일
 	@Override
 	public PqnaDto getPqnaDetail(int seq) {
 		
-		return PqnaDao.getPqnaDetail(seq);
+		return pqnaDao.getPqnaDetail(seq);
 	}
 
 	//Pqna 수정
 	@Override
 	public boolean PqnaUpdateAf(PqnaDto dto) {
 		
-		return PqnaDao.PqnaUpdateAf(dto);
+		return pqnaDao.PqnaUpdateAf(dto);
 	}
 
 	//Pqna 삭제
 	@Override
 	public boolean PqnaDelete(int seq) {
 		
-		return PqnaDao.PqnaDelete(seq);
+		return pqnaDao.PqnaDelete(seq);
 	}
 
 	//Pqna 답글
 	@Override
 	public boolean PqnaAnswer(PqnaDto dto) throws Exception {
 		
-		return PqnaDao.PqnaAnswer(dto);
+		return pqnaDao.PqnaAnswer(dto);
 	}
 
 	

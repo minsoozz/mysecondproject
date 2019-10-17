@@ -46,6 +46,7 @@
 <tr class="detail" id='detail${review.seq}'>
 	<td colspan="5" align="left">
 	<div>
+	${review.p_name }
 	${review.content }
 	</div>
 	</td>
