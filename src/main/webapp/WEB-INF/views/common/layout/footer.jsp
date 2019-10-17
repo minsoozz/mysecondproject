@@ -27,7 +27,7 @@
 <body>
 
 	<!-- ****** Footer Menu Area Start ****** -->
-	<div id="footer_wrap">
+	<div id="footer_wrap" style="background-color: #eaeaea">
 		<footer id="footer_wrap" style="align-content: center;">
 			<div class="container" style="align-content: center;">
 				<div class="row " style="align-content: center;">
