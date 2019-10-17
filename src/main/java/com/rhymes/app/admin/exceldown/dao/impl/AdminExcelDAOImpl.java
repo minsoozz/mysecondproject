@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/rhymes/app/exceldown/daoImpl/ExcelDaoImpl.java
-package com.rhymes.app.exceldown.daoimpl;
-=======
 package com.rhymes.app.admin.exceldown.dao.impl;
->>>>>>> master:src/main/java/com/rhymes/app/admin/exceldown/dao/impl/AdminExcelDAOImpl.java
 
 import java.util.List;
 
