@@ -38,9 +38,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 		try {
 			point = SqlSession.selectOne(p + "getPoint", userid);
 		}catch (Exception e) {	}
-		 
-		
-		System.out.println("PaymentDAOIMPL point : " + point);
 		
 		return point;
 	}
@@ -53,8 +50,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 		try {
 			countCoupon = SqlSession.selectOne(p + "getCountCoupon", userid);
 		}catch(Exception e) {}
-		
-		System.out.println("PaymentDAOIMPL countCoupon : " + countCoupon);
 
 		return countCoupon;
 	}
@@ -74,12 +69,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 		}catch(Exception e) {}
 		
 		int countCoupon = SqlSession.selectOne(p + "getCountCoupon", userid);
-		
-		System.out.println("PaymentDAOIMPL 쿠폰 개수 : " + countCoupon);
-
-		for (MemberCouponDTO _dto : coupon) {
-			System.out.println("PaymentDAOIMPL 쿠폰 정보 : " + _dto.toString());
-		}
 		
 		return coupon;
 	}
