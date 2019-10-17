@@ -55,7 +55,7 @@
 <div style="float: left; width: 96%; text-align: center; margin-top: 30px">
 	<!-- << -->
 	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-	<a href="#none" title="처음페이지" onclick="rgoPage('0')">
+	<a href="#none" title="처음페이지" onclick="sgoPage('0')">
 		<img alt="" src="../img/customer-img/arrow_first.gif" style="width: 9px; height: 9px">
 	</a>
 	</span>
@@ -65,7 +65,7 @@
 	if(screenStartPageIndex > 1){
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-		<a href="#none" title="이전페이지" onclick="rgoPage('<%=screenStartPageIndex-1 %>')">
+		<a href="#none" title="이전페이지" onclick="sgoPage('<%=screenStartPageIndex-1 %>')">
 			<img alt="" src="../img/customer-img/arrow_back.gif" style="width: 9px; height: 9px">
 		</a>
 		</span>
@@ -86,7 +86,7 @@
 		}else{	// 그외의 페이지들
 			%>
 			<span style="font-size: 12pt; color: #000000;border:#D8D8D8 1px solid; padding: 5px">
-			<a href="#none" title="<%=i+1 %>페이지" onclick="rgoPage(<%=i %>)">
+			<a href="#none" title="<%=i+1 %>페이지" onclick="sgoPage(<%=i %>)">
 				<%=i+1 %>
 			</a>
 			</span>
@@ -101,7 +101,7 @@
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
 
-		<a href="#" title="다음페이지" onclick="rgoPage(<%=screenEndPageIndex %>);return false;">
+		<a href="#" title="다음페이지" onclick="sgoPage(<%=screenEndPageIndex %>);return false;">
 
 			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
 		</a>
@@ -115,7 +115,7 @@
 	%>
 	<!-- >> -->
 	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-	<a href="#none" title="마지막페이지" onclick="rgoPage(<%=end_page %>)">
+	<a href="#none" title="마지막페이지" onclick="sgoPage(<%=end_page %>)">
 		<img alt="" src="../img/customer-img/arrow_end.gif" style="width: 9px; height: 9px;">
 	</a>
 	</span>

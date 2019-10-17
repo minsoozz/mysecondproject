@@ -10,8 +10,8 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
+@Getter
 @ToString
 public class NotesRecvParam implements Serializable {
 
@@ -25,7 +25,6 @@ public class NotesRecvParam implements Serializable {
 	// paging
 	private int r_pageNumber = 0; // 현재 페이지
 	private int r_recordCountPerPage = 10; // 표현하려는 한 페이지의 글 수
-
 	// [1] -> 1 ~ 10
 	// [2] -> 11 ~ 20
 	// [3] -> 21 ~ 30 , DB용 변수

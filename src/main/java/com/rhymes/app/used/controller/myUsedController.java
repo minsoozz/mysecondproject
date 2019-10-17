@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.member.model.P_MemberDTO;
@@ -36,9 +37,10 @@ public class myUsedController {
 	UsedService usedService;
 
 	@GetMapping(value = "/notes") // 쪽지 메인 View
-	public String getNotesList(Model model, Principal prc, NotesRecvParam rparam,NotesSendParam sparam) {
+	public String getNotesList(Model model, Principal prc, NotesRecvParam rparam, NotesSendParam sparam,
+			@RequestParam(value="tapcount", defaultValue = "0") int tapcount) {
+		
 		P_MemberDTO dto = usedService.getMemberDto(prc.getName());	// 회원 정보를 얻는다
-		System.out.println(rparam.toString());
 		sparam.setId(prc.getName());
 		rparam.setId(prc.getName());
 		
@@ -52,12 +54,12 @@ public class myUsedController {
 		rparam.setR_start(r_start);
 		rparam.setR_end(r_end);
 		
-		int s_sn = sparam.getPageNumber(); // 0 , 1, 2
-		int s_start = s_sn * sparam.getRecordCountPerPage() + 1; // 0 -> 1 , 1 - > 11		1   11
-		int s_end = (s_sn + 1) * sparam.getRecordCountPerPage(); // 0 - > 10, 1 - > 20		10  20
+		int s_sn = sparam.getS_pageNumber(); // 0 , 1, 2
+		int s_start = s_sn * sparam.getS_recordCountPerPage() + 1; // 0 -> 1 , 1 - > 11		1   11
+		int s_end = (s_sn + 1) * sparam.getS_recordCountPerPage(); // 0 - > 10, 1 - > 20		10  20
 		
-		sparam.setStart(s_start);
-		sparam.setEnd(s_end);
+		sparam.setS_start(s_start);
+		sparam.setS_end(s_end);
 		
 		
 		
@@ -70,6 +72,9 @@ public class myUsedController {
 		model.addAttribute("r_select",rparam.getR_select());
 		model.addAttribute("r_keyword",rparam.getR_keyword());
 		
+		System.out.println(rlist.toString());
+		
+		
 		model.addAttribute("r_pageNumber",r_sn); // 현재 페이지 넘버
 		model.addAttribute("r_pageCountPerScreen",10);
 		model.addAttribute("r_recordCountPerPage",rparam.getR_recordCountPerPage());
@@ -78,14 +83,16 @@ public class myUsedController {
 		// 보낸거..
 		List<NotesDto> slist = MyusedService.getsendnotes(sparam);	// 회원 정보로 쪽지목록을 얻는다
 		model.addAttribute("slist", slist);
-		model.addAttribute("s_select",sparam.getSelect());
-		model.addAttribute("s_keyword",sparam.getKeyword());
+		model.addAttribute("s_select",sparam.getS_select());
+		model.addAttribute("s_keyword",sparam.getS_keyword());
+		
+		model.addAttribute("tapcount", tapcount);
+		
 		
 		model.addAttribute("s_pageNumber",s_sn); // 현재 페이지 넘버
 		model.addAttribute("s_pageCountPerScreen",10);
-		model.addAttribute("s_recordCountPerPage",sparam.getRecordCountPerPage());
+		model.addAttribute("s_recordCountPerPage",sparam.getS_recordCountPerPage());
 		model.addAttribute("s_totalRecordCount", stotalRecordCount);
-		
 		
 		return "notes.tiles";
 		
