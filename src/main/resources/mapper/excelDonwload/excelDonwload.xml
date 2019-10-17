@@ -3,7 +3,7 @@
 <!-- <mapper namespace="com.mde.app.common.dao"> -->
 
 <mapper namespace="excelDown">
-    <select id="getAllExcel" resultType="com.rhymes.app.exceldown.model.DtestDTO">
+    <select id="getAllExcel" resultType="com.rhymes.app.admin.exceldown.model.DtestDTO">
         SELECT * FROM RHY_MEM_P
     </select>
 </mapper>
