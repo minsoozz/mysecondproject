@@ -105,7 +105,7 @@ a:active {
 .snslogin{
 	display: block;
     height: 50px;
-    width: 247px;
+    width: 255px;
     line-height: 43px;
     margin-left: 50px;
     background-color: #fff;
@@ -118,11 +118,15 @@ a:active {
     left: -1px;
     border: solid 1px #f7e318;
     top: -50px;
+    border-left-width: 9px;
+}
+.snslogin:hover{
+	color: #f7e318;
 }
 .snsNaverlogin{
     display: block;
     height: 50px;
-    width: 247px;
+    width: 254px;
     line-height: 43px;
     margin-left: 50px;
     background-color: #fff;
@@ -132,7 +136,15 @@ a:active {
     color: #525252;
     font-weight: bold;
     position: relative;
-    left: 477px;
+/*     left: -2px; */
     border: solid 1px #1ec800;
-    top: -90px;
+    top: -58px;
+    border-left-width: 8px;
+}
+.snsNaverlogin:hover {
+	color: #1ec800;
+}
+#kakaowrap{
+	position: relative;
+	top: -44px;
 }

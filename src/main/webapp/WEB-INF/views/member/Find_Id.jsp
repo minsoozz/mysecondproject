@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -160,8 +162,8 @@ function checkIt() {
   <div id="tabs-2">
     <div class="section_login">
 		<div class="section_login_email" align="center">
-			<form action="/member/getFindID" name="userinput" method="get" onsubmit="return checkIt()">
-				
+			<form action="/member/getFindID" name="userinput" method="post" onsubmit="return checkIt()">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>	
 				<div class="textdiv">
 					<span class="text">등록된 내 회원정보로 찾을 수 있습니다.</span>
 				</div>
@@ -184,8 +186,8 @@ function checkIt() {
   <div id="tabs-1">
     <div class="section_login">
 		<div class="section_login_email" align="center">
-			<form action="/member/getFindID_seller" name="userinput" method="get" onsubmit="return checkIt()">			
-			
+			<form action="/member/getFindID_seller" name="userinput" method="post" onsubmit="return checkIt()">			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<div class="textdiv">
 				<span class="text">가입 시 입력한 상호명, 사업자번호로 아이디를 찾을 수 있습니다.</span>
 			</div>
