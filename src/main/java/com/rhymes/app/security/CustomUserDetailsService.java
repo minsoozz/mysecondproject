@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.rhymes.app.member.dao.MemberDAO;
+import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.security.domain.CustomUser;
 
@@ -25,14 +26,15 @@ public class CustomUserDetailsService implements UserDetailsService{
 	
 	@Autowired
 	private HttpSession session;
-		
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		log.warn("Load User By UserId : " + username);
 		
 		session.setAttribute("userloginid", username);
 		
-		MemberDTO dto = memDAO.getOneMemberByMemberId(username);				
+		MemberDTO dto = memDAO.getOneMemberByMemberId(username);
+		
 		
 		return dto == null ? null : new CustomUser(dto);
 	}	

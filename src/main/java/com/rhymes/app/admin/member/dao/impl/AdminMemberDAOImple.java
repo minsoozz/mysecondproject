@@ -1,4 +1,4 @@
-package com.rhymes.app.member.dao.impl;
+package com.rhymes.app.admin.member.dao.impl;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.rhymes.app.member.dao.AdminMemberDAO;
+import com.rhymes.app.admin.member.dao.AdminMemberDAO;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberParam;
 import com.rhymes.app.member.model.P_MemberDTO;
@@ -50,9 +50,17 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 		return sqlSession.selectOne(ns+"getAdMem", id);
 	}
 
+	// 회원정보 수정
 	@Override
 	public void getAdMemAf(P_MemberDTO pmem) {
 		sqlSession.update(ns+"getAdMemAf", pmem);
+	}
+
+	// 회원 정지
+	@Override
+	public void getMemLock(MemBean mb) {
+		sqlSession.update(ns+"getMemLock", mb);
+		
 	}
 
 

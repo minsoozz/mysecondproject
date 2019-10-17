@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.rhymes.app.used.model.NotesDto;
+import com.rhymes.app.used.model.NotesRecvParam;
+import com.rhymes.app.used.model.NotesSendParam;
 
 public interface MyUsedService {
 
@@ -19,9 +21,9 @@ public interface MyUsedService {
 
 	boolean sendnotes(NotesDto ndto);
 
-	List<NotesDto> getsendnotes(String name);
+	List<NotesDto> getsendnotes(NotesSendParam sparam);
 
-	List<NotesDto> getrecvnotes(String name);
+	List<NotesDto> getrecvnotes(NotesRecvParam rparam);
 
 	NotesDto getnotesdetail(Map<String, Object> map);
 
@@ -29,4 +31,7 @@ public interface MyUsedService {
 
 	boolean notesdelete2(NotesDto ndto);
 
+	public int getRecvNotesCount(NotesRecvParam param);
+
+	public int getSendNotesCount(NotesSendParam sparam);
 }

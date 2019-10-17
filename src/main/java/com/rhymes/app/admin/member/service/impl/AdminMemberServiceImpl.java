@@ -1,17 +1,17 @@
-package com.rhymes.app.member.service.impl;
+package com.rhymes.app.admin.member.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rhymes.app.member.dao.AdminMemberDAO;
+import com.rhymes.app.admin.member.dao.AdminMemberDAO;
+import com.rhymes.app.admin.member.service.AdminMemberService;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.MemberParam;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
-import com.rhymes.app.member.service.AdminMemberService;
 
 @Service
 public class AdminMemberServiceImpl implements AdminMemberService {
@@ -53,6 +53,25 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	@Override
 	public int getmem_c_Count(MemberParam param) {
 		return adminMemberDAO.getmem_c_Count(param);
+	}
+
+	@Override
+	public void getMemLock(MemBean bean) {
+		
+	
+		for (int i = 0; i < bean.getChecklen(); i++) {
+			if(bean.getCheckid() != null || bean.getCheckid() != "") {
+				String check[] = bean.getCheckid().split(",");
+				MemBean mb = new MemBean();
+				mb.setUserid(check[i]);
+				
+				adminMemberDAO.getMemLock(mb);
+			}
+			
+		}
+		
+		
+		
 	}
 
 }

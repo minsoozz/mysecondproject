@@ -84,7 +84,7 @@
 	<tr style="height:40px;">
 		<td>판매가</td>
 		<td><input type="text" id="_pprice" style="width:115px; height:15px; text-align: center;" 
-			onchange="numberWithCommas(this.value)"
+			onchange="numberWithCommas(this.value)"			
 			onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">&nbsp;원</td>
 			<!-- onchange='this.value=this.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");' -->
 	</tr>
@@ -230,6 +230,8 @@
 
 <form action="/admin/company/registerInsert" enctype="multipart/form-data" method="post">
 	
+	<input type="hidden" name="c_name" value=${c_name }>
+	
 	<!-- ★ csrf 예방을 위한 코드추가 -->
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	
@@ -279,7 +281,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!-- 금액 comma -->
 <script>
 function numberWithCommas(x) {
-    $("#_pprice").val(x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+	$("#_pprice").val(x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     $("#p_price").val(parseInt(x));
     //alert($("#p_price").val());
 }

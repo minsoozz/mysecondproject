@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.used.dao.MyUsedDao;
 import com.rhymes.app.used.model.NotesDto;
+import com.rhymes.app.used.model.NotesRecvParam;
+import com.rhymes.app.used.model.NotesSendParam;
 
 @Repository
 public class MyUsedDaoImpl implements MyUsedDao {
@@ -59,14 +61,14 @@ public class MyUsedDaoImpl implements MyUsedDao {
 
 
 	@Override
-	public List<NotesDto> getsendnotes(String name) {	// 보낸 쪽지함 리스트
-		List<NotesDto> slist = sqlSession.selectList(ns + "getsendnotes", name);
+	public List<NotesDto> getsendnotes(NotesSendParam param) {	// 보낸 쪽지함 리스트
+		List<NotesDto> slist = sqlSession.selectList(ns + "getsendnotes", param);
 		return slist;
 	}
 
 	@Override
-	public List<NotesDto> getrecvnotes(String name) {	// 받은 쪽지함 리스트
-		List<NotesDto> rlist = sqlSession.selectList(ns + "getrecvnotes", name);
+	public List<NotesDto> getrecvnotes(NotesRecvParam param) {	// 받은 쪽지함 리스트
+		List<NotesDto> rlist = sqlSession.selectList(ns + "getrecvnotes", param);
 		return rlist;
 	}
 
@@ -98,5 +100,21 @@ public class MyUsedDaoImpl implements MyUsedDao {
 		
 		return count > 0 ? true : false;
 	}
+	
+	@Override
+	public int getRecvNotesCount(NotesRecvParam rparam) {
+		int count = sqlSession.selectOne(ns + "getRecvNotesCount", rparam);
+		
+		return count;
+	}
+
+	@Override
+	public int getSendNotesCount(NotesSendParam sparam) {
+		// TODO Auto-generated method stub
+		int count = sqlSession.selectOne(ns + "getSendNotesCount", sparam);
+		return count;
+	}
+	
+	
 	
 }
