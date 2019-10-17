@@ -14,49 +14,49 @@ import com.rhymes.app.customer.service.FaqService;
 public class FaqServiceImpl implements FaqService {
 
 	@Autowired
-	private FaqDao FaqDao;
+	private FaqDao faqDao;
 
 
 	//faq list
 	@Override
 	public List<FaqDto> getFaqList(CustomerParam param) {
 		
-		return FaqDao.getFaqList(param);
+		return faqDao.getFaqList(param);
 	}
 
 	//faq count
 	@Override
 	public int getFaqCount(CustomerParam param) {
 		
-		return FaqDao.getFaqCount(param);
+		return faqDao.getFaqCount(param);
 	}
 
 	//faq detail 가져오기
 	@Override
 	public FaqDto getFaqDetail(int seq) {
 		
-		return FaqDao.getFaqDetail(seq);
+		return faqDao.getFaqDetail(seq);
 	}
 
 	//faq upload
 	@Override
 	public boolean FaqUpload(FaqDto dto) {
 		
-		return FaqDao.FaqUpload(dto);
+		return faqDao.FaqUpload(dto);
 	}
 
 	//faq 수정
 	@Override
 	public boolean FaqUpdateAf(FaqDto dto) {
 		
-		return FaqDao.FaqUpdateAf(dto);
+		return faqDao.FaqUpdateAf(dto);
 	}
 
 	//faq 삭제
 	@Override
 	public boolean FaqDelete(int seq) {
 		
-		return FaqDao.FaqDelete(seq);
+		return faqDao.FaqDelete(seq);
 	}
 	
 	
