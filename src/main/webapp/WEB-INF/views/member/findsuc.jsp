@@ -10,7 +10,7 @@
 <body>
 
 <div align="center">
-		<span class="findidtext">${text }</span>
+		<span class="findidtext" style="position: relative; top: 100px;">${text }</span>
 </div>
 
 </body>

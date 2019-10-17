@@ -52,7 +52,7 @@
 				<td width="130px" style="padding: 0px;">
 					<div class="rememberCheck">
 				        <input class="rememberCheck-input" type="checkbox" id="chk_save_id" >
-				        <label class="rememberCheck-label" for="gridCheck1" style="font-size: small;">Remember Me</label>
+				        <label class="rememberCheck-label" for="gridCheck1" style="font-size: small;" id="rememberme">Remember Me</label>
 				    </div>
 			    </td>
 			    <td style="padding: 0px;">
@@ -86,28 +86,38 @@
 
 <!--     <div class="text-center"> -->
 <br>
-	<div align="center" style="height: 10px">
+
+	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
+	<!-- 
+	<div id="naverIdLogin" align="center" style="position: relative;  left: -124px; top: -40px">
+	</div>
+	 -->
+	 
+	<div align="center" id="loginWrap">
+	<a id="naverIdLogin" class="naverIdLogin" style="position: relative;  left: -120px; top: -8px; z-index: 0">
+	</a>
+		<span class="snsNaverlogin">네이버 로그인</span>
+	</div>
+ 
+	<div align="center" style="height: 10px" id="kakaowrap">
 	        <a href="https://kauth.kakao.com/oauth/authorize?client_id=7941c0b534b8b053634f144ea1b326ea&redirect_uri=http://localhost:18080/member/kakaoLogin&response_type=code">
 	            <img src="/img/member-img/kakao_login_btn_logo.png" style="height: 50px; width: 51px;" id="kakaoIdLogin">
 	            <span class="snslogin">카카오 로그인</span>
 	        </a>	    
 	</div>
-	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-	<!-- <div id="naverIdLogin" align="center" style="position: relative;  left: -124px; top: -40px">
-	</div> -->
-	<div align="center">
-		<a href="javascript:snsAuthPopup('naver');" class="openid naver" id="naverIdLogin" style="position: relative;  left: -124px; top: 50px">
-			<span class="snsNaverlogin">네이버 로그인</span>
-		</a>
-	</div>
-<!-- </div> -->
 </div>
-
+	
 </body>
 
 
 <!-- 네이버아디디로로그인 초기화 Script -->
 <script type="text/javascript">
+$(function(){
+	$(".snsNaverlogin").click(function(){
+		console.log(12124);
+		$("#naverIdLogin_loginButton img").trigger("click");	
+	});	
+});
 	var naverLogin = new naver.LoginWithNaverId(
 		{
 			clientId: "6tOlbeGI_v71dSverLKi",
@@ -119,20 +129,35 @@
 // 	console.log(naverLogin);
 	
 	/* 설정정보를 초기화하고 연동을 준비 */
-	naverLogin.init();
+	naverLogin.init();	
+</script>
+
+<!-- 네이버아디디로로그인 초기화 Script -->
+<script type="text/javascript">
+	var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "6tOlbeGI_v71dSverLKi",
+			callbackUrl: "http://localhost:18080/member/callback",
+			isPopup: false, /* 팝업을 통한 연동처리 여부 */
+			loginButton: {color: "green", type: 1, height: 50, width: 60} /* 로그인 버튼의 타입을 지정 */
+		}
+	);
 	
+	/* 설정정보를 초기화하고 연동을 준비 */
+	naverLogin.init();
 </script>
 
 <!-- 네이버 로그인 text클릭 -->
 <script type="text/javascript">
+//$("#loginWrap").click(function(){
+//	location.href="javascript:snsAuthPopup('naver');";
+//});
 $(".snsNaverlogin").click(function(){
-	var naverLogin = new naver.LoginWithNaverId(
-			{
-				clientId: "6tOlbeGI_v71dSverLKi",
-				callbackUrl: "http://localhost:18080/member/callback",
-			}
-		);
+	//document.querySelector("#loginWrap > a.openid.naver");
+// 	$("#naverIdLogin").trigger("click");
+			
 });
+
 $(".snsNaverlogin").mouseover(function(){
 	$(this).css("cursor", "pointer");
 });
@@ -180,6 +205,15 @@ $(document).ready(function() {
         
         
     });
+    
+    
+    $("#rememberme").click(function(){
+    	$("#chk_save_id").trigger("click");
+    });
+    $("#rememberme").mouseover(function(){
+    	$("#rememberme").css("cursor", "pointer");
+    });
+    
 });
 
 //쿠키값 Set
@@ -242,6 +276,7 @@ function getCookie(cookie_name) {
     function hide_caps_lock() {
          $("#capslock").hide();
     }
+
 </script>
 
 
