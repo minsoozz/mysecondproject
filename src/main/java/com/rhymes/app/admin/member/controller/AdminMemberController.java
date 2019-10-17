@@ -1,4 +1,4 @@
-package com.rhymes.app.member.controller;
+package com.rhymes.app.admin.member.controller;
 
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rhymes.app.admin.member.service.AdminMemberService;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberParam;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
-import com.rhymes.app.member.service.AdminMemberService;
 
 import lombok.extern.slf4j.Slf4j;
 

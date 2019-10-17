@@ -45,3 +45,45 @@
     width: 320px;
     margin: 10px 5px 5px 5px;
 }
+.welcp {
+
+}
+.topwrap{
+	position: relative;
+	top: 100px;
+}
+.loginwrap{
+	position: relative;
+	top: 360px;	
+}
+.goBtn:hover{
+	color: #93c93f;
+    border-color: #93c93f;
+}
+
+.cpwrap{
+	position: relative;
+	top: 87px;	
+}
+.cptext{
+	position: relative;
+	
+}
+.welcpText{
+	color: #6d6d6d;
+	font-weight: bold;
+	position: relative;
+    top: -26px;
+    left: -32px;
+}
+.regisucwrap{
+	
+}
+.hrline{
+	width: 400px;
+	border-color: #8a8a8a;
+}
+#footer_wrap{
+	position: relative;
+	top: 130px;
+}

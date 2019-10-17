@@ -24,17 +24,5 @@
 	WHERE mem.id = #{userid} 
   </select>
   
-  <!-- 회원 전체 리스트 -->
-  <select id="getAllMemberList" resultType="java.lang.Integer">
-  	SELECT COUNT(*)
-  	FROM RHY_MEM
-  </select>
-  
-  <!-- 오늘 가입한 회원 count -->
-  <select id="getNewMemCount" resultType="java.lang.Integer" parameterType="java.lang.String">
-  	SELECT COUNT(*)
-  	FROM RHY_MEM
-  	WHERE RDATE LIKE '%' #{mTime} '%'
-  </select> 
 
 </mapper>
