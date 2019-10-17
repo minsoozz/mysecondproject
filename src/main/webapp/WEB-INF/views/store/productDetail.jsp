@@ -676,7 +676,7 @@ $(document).on('click', '.basketBtn', function(){
 	   $.ajax({
            type:"get",
            data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-           url:"/store/insertCookieBasket",
+           url:"/store/insertSessionBasket",
            success:function( data ){
               var obj = JSON.stringify(data);
             var arr = JSON.parse(obj);

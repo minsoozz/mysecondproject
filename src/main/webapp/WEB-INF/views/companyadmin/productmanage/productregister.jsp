@@ -230,6 +230,8 @@
 
 <form action="/admin/company/registerInsert" enctype="multipart/form-data" method="post">
 	
+	<input type="hidden" name="c_name" value=${c_name }>
+	
 	<!-- ★ csrf 예방을 위한 코드추가 -->
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	
