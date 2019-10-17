@@ -1,4 +1,4 @@
-package com.rhymes.app.exceldown.controller;
+package com.rhymes.app.admin.exceldown.controller;
 
 import java.util.List;
 
@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
 
-import com.rhymes.app.exceldown.model.DtestDTO;
-import com.rhymes.app.exceldown.service.ExcelService;
-import com.rhymes.app.exceldown.util.listExcelDownload;
+import com.rhymes.app.admin.exceldown.model.DtestDTO;
+import com.rhymes.app.admin.exceldown.service.AdminExcelService;
+import com.rhymes.app.admin.exceldown.util.listExcelDownload;
 
 @Controller
 @RequestMapping("/Rhymes")
-public class ExcelController {
+public class AdminExcelController {
 	
 	@Autowired
-	ExcelService excelService;
+	AdminExcelService excelService;
 	
 	// 엑셀 다운로드 페이지로 이동
 	@GetMapping("/excel")
