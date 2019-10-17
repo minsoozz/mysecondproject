@@ -63,6 +63,8 @@ public class MemberServiceImpl implements MemberService {
 		if(b) {
 			memberdao.getPAddmem(pmem);
 			memberdao.getAuthAddmem(amem);
+			
+			memberdao.getmem_cp(pmem.getUserid());	// 웰컴쿠폰
 		}
 		
 		
@@ -242,6 +244,7 @@ public class MemberServiceImpl implements MemberService {
 		memberdao.getAuthAddmem(amem);
 		
 	}
+
 
 
 

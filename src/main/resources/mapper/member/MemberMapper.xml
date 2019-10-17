@@ -51,6 +51,12 @@
     	VALUES(#{userid}, #{authority})
     </insert>
     
+    <!-- 웰컴쿠폰 -->
+    <insert id="getmem_cp" parameterType="java.lang.String">
+    	INSERT INTO
+    	VALUES()
+    </insert>
+    
     <!-- 사업자번호체크 -->
     <select id="getCRCheck" parameterType="com.rhymes.app.member.model.SellerCRnumDTO" resultType="java.lang.String">  
     	SELECT CRNAME

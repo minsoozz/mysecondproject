@@ -7,7 +7,11 @@
  <!-- test -->
  
  
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+<!-- <script src="/js/store/jquery-3.4.1.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+
 
 <input type="hidden" class="_c1name" value="${c1_name }">
 <input type="hidden" class="_keyword" value="${keyword }">
@@ -36,7 +40,6 @@
 </c:if>
 <c:if test="${empty keyword}">
     <a href="#"><b>BEST</b></a>
-<<<<<<< HEAD
     <a href="/store/productList?c1_name=${c1_name}&key=newarrival">NEW ARRIVAL</a>
 </c:if>    
 
@@ -95,7 +98,7 @@
 			<input type="radio" name='mwChk' id="wChk" class="_mwChk" style="display:none" value="WOMEN">
 			<label for="wChk" class="mwRadioL" style="cursor: pointer; background-color: white;">WOMEN</label>
 			
-			<input type="text" id="searchWord" style="widht:500px;" placeholder="SEARCH" onkeypress="if( event.keyCode==13 ){search();}">
+			<input type="text" id="searchWord" style="widht:500px;" placeholder="SEARCH" onkeypress="if( event.keyCode==13 ){search();}" autocomplete="searchWord">
 
 			<img src="https://cdn0.iconfinder.com/data/icons/it-hardware/100/search-512.png" style="width:40px; height:40px; cursor:pointer;" onclick="search()">  <!-- id="m_search_btn" -->&nbsp;
 		</div>
@@ -401,7 +404,13 @@ for (i = 0; i < dropdown.length; i++) {
 	    }
 	  });
 	}
+$(document).on('keyup', '#searchWord', function(){
+	 var autocomplete_text = ["자동완성기능","Autocomplete","개발로짜","국이"];
+     $("#searchWord").autocomplete({
+        source: autocomplete_text
+     });
+});
 
-
+	
 </script>
 </body>

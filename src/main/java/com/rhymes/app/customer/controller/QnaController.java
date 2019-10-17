@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.customer.model.QnaDto;
+import com.rhymes.app.customer.model.QnaOrderDto;
 import com.rhymes.app.customer.service.QnaService;
 import com.rhymes.app.customer.util.FUpUtil;
 import com.rhymes.app.customer.util.FileDelete;
@@ -78,9 +79,13 @@ public class QnaController {
 	@GetMapping("/qnawrite")
 	public String qnawrite(Model model,Principal pcp) {
 		model.addAttribute("doc_title", "1:1문의");
-		
+	
 		String id = pcp.getName();
+		
+		List<QnaOrderDto> orderlist = QnaService.getQnaOrderList(id);
+		
 		model.addAttribute("id",id);
+		model.addAttribute("orderlist",orderlist);
 		
 		return "qnawrite.tiles";
 	} 

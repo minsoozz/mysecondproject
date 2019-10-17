@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,7 +30,6 @@ import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
 import com.rhymes.app.member.model.mypage.MemberOrderDTO;
 import com.rhymes.app.member.model.mypage.MemberOrderPagingDTO;
-import com.rhymes.app.member.model.mypage.MemberPaymentDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
 import com.rhymes.app.member.model.mypage.MemberReviewPagingDTO;
 import com.rhymes.app.member.service.MypageCouponService;
@@ -72,9 +70,6 @@ public class MypageController {
 	
 	@Autowired//비밀번호 인코더
 	BCryptPasswordEncoder bc;
-	
-	@Autowired
-	SqlSession ss;
 	
 	/**마이페이지메뉴의 랜딩페이지
 	 * 로그인한 회원의 주문내역을 보여준다

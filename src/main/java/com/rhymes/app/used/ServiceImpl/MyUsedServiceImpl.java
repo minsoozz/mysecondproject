@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.rhymes.app.used.Service.MyUsedService;
 import com.rhymes.app.used.dao.MyUsedDao;
 import com.rhymes.app.used.model.NotesDto;
+import com.rhymes.app.used.model.NotesRecvParam;
+import com.rhymes.app.used.model.NotesSendParam;
 
 @Service
 public class MyUsedServiceImpl implements MyUsedService {
@@ -57,16 +59,16 @@ public class MyUsedServiceImpl implements MyUsedService {
 	}
 
 	@Override
-	public List<NotesDto> getsendnotes(String name) {
+	public List<NotesDto> getsendnotes(NotesSendParam param) {
 		// TODO Auto-generated method stub
-		return myUsedDao.getsendnotes(name);
+		return myUsedDao.getsendnotes(param);
 	}
 
 
 	@Override
-	public List<NotesDto> getrecvnotes(String name) {
+	public List<NotesDto> getrecvnotes(NotesRecvParam param) {
 		// TODO Auto-generated method stub
-		return myUsedDao.getrecvnotes(name);
+		return myUsedDao.getrecvnotes(param);
 	}
 
 
@@ -88,6 +90,17 @@ public class MyUsedServiceImpl implements MyUsedService {
 	public boolean notesdelete2(NotesDto ndto) {
 		// TODO Auto-generated method stub
 		return myUsedDao.notesdelete2(ndto);
+	}
+	@Override
+	public int getRecvNotesCount(NotesRecvParam param) {
+		// TODO Auto-generated method stub
+		return myUsedDao.getRecvNotesCount(param);
+	}
+
+	@Override
+	public int getSendNotesCount(NotesSendParam sparam) {
+		// TODO Auto-generated method stub
+		return myUsedDao.getSendNotesCount(sparam);
 	}
 	
 }

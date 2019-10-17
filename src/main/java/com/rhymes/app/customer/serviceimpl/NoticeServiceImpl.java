@@ -14,7 +14,7 @@ import com.rhymes.app.customer.service.NoticeService;
 public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
-	private NoticeDao NoticeDao;
+	private NoticeDao noticeDao;
 	
 	
 	//notice list
@@ -22,14 +22,14 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<NoticeDto> getNoticeList(CustomerParam param){
 		
 
-		return NoticeDao.getNoticeList(param);
+		return noticeDao.getNoticeList(param);
 	}
 
 	//get count
 	@Override
 	public int getNoticeCount(CustomerParam param) {
 		
-		return NoticeDao.getNoticeCount(param);
+		return noticeDao.getNoticeCount(param);
 	}
 
 
@@ -38,7 +38,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public NoticeDto getNoticeDetail(int seq) {
 		
-		return NoticeDao.getNoticeDetail(seq);
+		return noticeDao.getNoticeDetail(seq);
 	}
 
 	
@@ -49,7 +49,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public boolean NoticeUpRead(int seq) {
 		
-		return NoticeDao.NoticeUpRead(seq);
+		return noticeDao.NoticeUpRead(seq);
 	}
 
 
@@ -58,7 +58,7 @@ public class NoticeServiceImpl implements NoticeService {
 	public boolean NoticeUpload(NoticeDto dto) {
 		
 		
-		return NoticeDao.NoticeUpload(dto);
+		return noticeDao.NoticeUpload(dto);
 	}
 
 
@@ -66,7 +66,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public boolean NoticeUpdateAf(NoticeDto dto) {
 		
-		return NoticeDao.NoticeUpdateAf(dto);
+		return noticeDao.NoticeUpdateAf(dto);
 	}
 
 
@@ -75,7 +75,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public String getfilename(int seq) {
 		
-		return NoticeDao.getfilename(seq);
+		return noticeDao.getfilename(seq);
 	}
 
 
@@ -83,7 +83,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public boolean NoticeDelete(int seq) {
 	
-		return NoticeDao.NoticeDelete(seq);
+		return noticeDao.NoticeDelete(seq);
 	}
 	
 	

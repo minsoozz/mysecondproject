@@ -14,20 +14,20 @@ import com.rhymes.app.store.service.PreviewService;
 public class PreviewServiceImpl implements PreviewService {
 
 	@Autowired
-	private PreviewDao PreviewDao;
+	private PreviewDao previewDao;
 	
 	//preview list
 	@Override
 	public List<PreviewDto> getPreviewList(DetailParam param) {
 		
-		return PreviewDao.getPreviewList(param);
+		return previewDao.getPreviewList(param);
 	}
 
 	//preview count
 	@Override
 	public int getPreviewCount(DetailParam param) {
 		
-		return PreviewDao.getPreviewCount(param);
+		return previewDao.getPreviewCount(param);
 	}
 
 }

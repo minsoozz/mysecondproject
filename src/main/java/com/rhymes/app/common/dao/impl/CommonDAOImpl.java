@@ -15,17 +15,5 @@ public class CommonDAOImpl implements CommonDAO {
 	
 	private String ns = "common.";
 
-	// 회원 전체 count
-	@Override
-	public int getAllMemberList() {
-		return sqlSession.selectOne(ns+"getAllMemberList");
-	}
-
-	//오늘 가입한 회원 count
-	@Override
-	public int getNewMemCount(String mTime) {
-		return sqlSession.selectOne(ns+"getNewMemCount", mTime);
-	}
-
 
 }

@@ -73,7 +73,6 @@ public class UsedController {
 		
 		int totalRecordCount = usedService.getBbsCount(param);
 		
-		System.out.println("게시글의 수 : " + totalRecordCount);
 		
 		// pageNumber 취득
 		int sn = param.getPageNumber(); // 0 , 1, 2

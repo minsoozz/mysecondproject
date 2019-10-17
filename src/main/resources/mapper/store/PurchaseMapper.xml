@@ -6,7 +6,7 @@
 
  <!-- 상품디테일 -->
  <select id="getProductDetail" parameterType="Integer" resultType="com.rhymes.app.store.model.ProductDto">
- 	SELECT P_SEQ, C_NAME, P_NAME, P_TITLE, P_PRICE, P_COLOR, NATION, MDATE, DETAIL, PHOTO1_FILE, PHOTO2_FILE, PHOTO3_FILE, PHOTO4_FILE, PHOTO5_FILE, C1_NAME, CP_CODE 
+ 	SELECT P_SEQ, C_NAME, P_NAME, P_TITLE, P_PRICE, P_COLOR, NATION, MDATE, DETAIL, PHOTO1_FILE, PHOTO2_FILE, PHOTO3_FILE, PHOTO4_FILE, PHOTO5_FILE, CP_CODE, C1_NAME, C2_NAME, C3_NAME, RDATE
  	FROM rhy_store_product
  	WHERE P_SEQ = #{p_seq}
  </select>

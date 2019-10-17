@@ -4,9 +4,12 @@ import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.WebSocketContainer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,8 +64,34 @@ public class StoreController {
    
    DecimalFormat formatter = new DecimalFormat("###,###");
    
-     
-      
+   
+   private static final String[] IP_HEADER_CANDIDATES = { 
+		    "X-Forwarded-For",
+		    "Proxy-Client-IP",
+		    "WL-Proxy-Client-IP",
+		    "HTTP_X_FORWARDED_FOR",
+		    "HTTP_X_FORWARDED",
+		    "HTTP_X_CLUSTER_CLIENT_IP",
+		    "HTTP_CLIENT_IP",
+		    "HTTP_FORWARDED_FOR",
+		    "HTTP_FORWARDED",
+		    "HTTP_VIA",
+		    "REMOTE_ADDR" };
+
+	public static String getClientIpAddress(HttpServletRequest request) {
+	    for (String header : IP_HEADER_CANDIDATES) {
+	        String ip = request.getHeader(header);
+	        if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+	            return ip;
+	        }
+	    }
+	    return request.getRemoteAddr();
+	}
+   
+   
+   
+   
+   // 상품리스트   
    @GetMapping("/productList")
    public String productList(Model model, ProductParam param) throws Exception{
 	  
@@ -148,6 +177,7 @@ public class StoreController {
       return "productList.tiles";
    }
    
+   // 2차카테고리 AJAX(SORTING left-navi)
    @ResponseBody
    @GetMapping("/kCate2List")
    public List<Category2Dto> getkCate2List(ProductParam param) throws Exception{
@@ -155,7 +185,7 @@ public class StoreController {
       System.out.println("ggggggggggggggggggggggggg");
       return cate2list;
    }
-      
+   // 3차카테고리 AJAX(SORTING left-navi)   
    @ResponseBody
    @GetMapping("/kCate3List")
    public List<Category3Dto> getkCate3List(ProductParam param) throws Exception{
@@ -163,6 +193,7 @@ public class StoreController {
       return cate3list;
    }
    
+   // 2차카테고리 AJAX(COMPANY ADMIN X 일반left-navi)
    @ResponseBody
    @GetMapping("/cate2List")
    public List<Category2Dto> getCate2List(int c1_seq) throws Exception{
@@ -170,13 +201,14 @@ public class StoreController {
       return cate2list;
    }
    
+   // 3차카테고리 AJAX(COMPANY ADMIN X 일반left-navi)
    @ResponseBody
    @GetMapping("/cate3List")
    public List<Category3Dto> getCate3List(int c2_seq) throws Exception{
       List<Category3Dto> cate3list = productmanage.getCate3List(c2_seq);
       return cate3list;
    }
-   
+   // 2차카테고리 선택 -> 해당 카테고리 사이즈단위 생성 AJAX
    @ResponseBody
    @GetMapping("/sizeUnit")
    public List<String> sizeUnit(String c2_seq) throws Exception{
@@ -190,9 +222,7 @@ public class StoreController {
       return list;
    }
    
-   
-   
-   //@PostMapping("/store/productDetail")
+   // 상품 상세정보
    @RequestMapping(value="/productDetail", method = RequestMethod.GET)
    public String productDetail(Model model, ProductDto product, Principal prc, HttpServletRequest req) throws Exception{
       
@@ -206,7 +236,7 @@ public class StoreController {
       ProductDto productDto = purchase.getProductDetail(product.getP_seq());
       productDto.setP_price2(formatter.format(productDto.getP_price()));
       
-   //위시리스트 체크 여부
+    // 위시리스트 중복 체크
        WishlistDto wish = new WishlistDto();
        //세션에서 가져와야함
        wish.setId(userId);
@@ -238,6 +268,7 @@ public class StoreController {
       return "productDetail.tiles";
    }
    
+   // 찜 AJAX
    @ResponseBody
    @GetMapping("/operWishlist")
    public String insertWishlist(WishlistDto wish, Principal prc) throws Exception {
@@ -275,10 +306,12 @@ public class StoreController {
       return str;
    }
    
+   //일반 장바구니 AJAX
    @ResponseBody
    @GetMapping("/insertBasket")
    public List<BasketListDto> insertBasket(BasketDto basket, Principal prc)throws Exception{
-      
+	  
+	  
       String userId = "";
       if(prc != null) {
          userId = prc.getName();
@@ -287,22 +320,23 @@ public class StoreController {
       basket.setId(userId);
       
       String str = "";
+      // 장바구니 중복 체크
       boolean bool1 = purchase.chkBasket(basket);
+      	
       if(bool1) {
-         //str="이미 장바구니에 등록된 상품입니다.";
+         
          log.info("장바구니에 이미 들어있음ㅋ");
          
+         // 이미 STOCK SEQ를 접속 ID가 가지고 DB테이블에서 가지고 있다면 수량UPDATE 
          int n = purchase.updateBaksetQ(basket);
-         log.info("수정된 수량 : " + basket.getP_quantity() + "");
-         log.info("수정대상 stock_seq : " + basket.getStock_seq() + "");
          if(n==1) {
-            log.info("장바구니 수량 수정됨");
+            log.info("장바구니 수량 UPDATE 성공");
          }
       }else {
          try {
             boolean bool2 = purchase.insertBasket(basket);
             if(bool2) {
-               //str = "장바구니에 담았습니다.";
+            	log.info("장바구니 INSERT 성공");
             }
          }catch(Exception e) {
             e.printStackTrace();
@@ -327,7 +361,76 @@ public class StoreController {
       return blist;
    }
    
+   // 비회원 장바구니 AJAX
+   @ResponseBody
+   @GetMapping("/insertSessionBasket")
+   public List<BasketListDto> insertCookieBasket(BasketDto basket, Principal prc,
+		   HttpServletRequest request)throws Exception{
+	   log.info("~~세션 장바구니 컨트롤러~~");
+	   System.out.println("stock_seq:" + basket.getStock_seq());
+	   HttpSession session = request.getSession();
+	   
+	   String ip = null;
+       ip = getClientIpAddress(request);
+	   
+       log.info("CLIENT IP : " + ip);
+	   
+       List<BasketDto> cBasketList = new ArrayList<BasketDto>();
+	   List<BasketDto> cBasketList2 = new ArrayList<BasketDto>();
+	   
+	   Boolean test = true;
+
+	   if(prc == null) {
+            // 클라이언트IP SESSION 리스트가 존재하지 않을 때, 생성하면서 INSERT
+            if((List<BasketDto>)session.getAttribute(ip) == null) {
+               cBasketList.add(basket);
+                //SESSION 생성,저장
+               session.setAttribute(ip, cBasketList);
+            // SESSION 리스트가 존재할 때, 기존 SESSION 리스트를 새롭게 생성한 저장 SESSION 리스트에 옮겨담고 INSERT
+            } else {
+               cBasketList = (List<BasketDto>)session.getAttribute(ip);
+               //SESSION 전체 옮겨담기
+               cBasketList2.addAll(cBasketList);
+               
+               // 기존 SESSION 리스트에 이미 담겨있는 STOCK SEQ가 있는 체크
+               for (int i = 0; i < cBasketList2.size(); i++) {
+                  int stock_seq = cBasketList2.get(i).getStock_seq();
+
+                  // 이미 담겨있는 STOCK SEQ가 존재할 때, 수량 UPDATE하고 저장 SESSION 리스트로 DTO 옮겨담기
+                  if(stock_seq == basket.getStock_seq()) {
+                     cBasketList2.get(i).setP_quantity(basket.getP_quantity());
+                 test = false;
+                  }
+              }
+               // 기존 SESSION 리스트에 STOCK_SEQ가 담겨있지 않는 경우   
+               
+               if(test == true) {  
+                  cBasketList2.add(basket);
+               }
+    
+               // 기존 SESSION 제거
+               session.removeAttribute(ip);
+               // 다시 SESSION 생성하고 옮겨담은 리스트를 저장 
+               session.setAttribute(ip, cBasketList2);
+               
+            }
+            
+            
+            
+            // final 
+            List<BasketDto> cBasketList3 = new ArrayList<BasketDto>();
+            cBasketList3 = (List<BasketDto>)session.getAttribute(ip);
+            
+            System.out.println("세션리스트 사이즈 : " + cBasketList3.size());
+            
+            for(BasketDto ba : cBasketList3) {
+            	 System.out.println("세션 장바구니 SEQ : " + ba.getStock_seq() + ", 수량 : " + ba.getP_quantity());
+            }
+         }   
+        return null;
+     }
    
+   // 장바구니 페이지로 이동
    @GetMapping("/basket")
    public String basket(Model model, Principal prc)throws Exception {
       String userId = "";
@@ -364,6 +467,7 @@ public class StoreController {
       return "basket.tiles";
    }
    
+   // 장바구니 DELETE AJAX
    @ResponseBody
    @GetMapping("/deleteBasket")
    public int deleteBasket(int b_seq, Principal prc) throws Exception{      
@@ -398,6 +502,7 @@ public class StoreController {
       return total_price;
    }
    
+   // 장바구니 전체삭제 AJAX
    @ResponseBody
    @GetMapping("/deleteBasketAll")
    public String deleteBasket(Principal prc) throws Exception{      
@@ -422,6 +527,7 @@ public class StoreController {
       return "";
    }
    
+   // 장바구니 수량변경 AJAX
    @ResponseBody
    @GetMapping("/updateBasketQ")
    public int updateBasketQ(BasketDto basket, Principal prc) throws Exception{
