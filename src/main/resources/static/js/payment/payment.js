@@ -1,5 +1,6 @@
 $(function(){
 	alert("결제");
+	// 결제 페이지로 처음 들어갔을 때부터 총 결제예상금액을 계산해서 넣는다
 	result_price();
 
 	
@@ -117,16 +118,16 @@ $(function(){
 
 
 // 결제금액 계산
+// 총 금액 = 상품금액 + 배송비 - 할인금액
 function result_price() {
 	var product_price = $("#product_price").text();
 	var delivery_price = $("#delivery_price").text();
 	var disc_price = $("#_discprice").val();
-	//var totalprice = $("#_totalprice").text();
-	var totalprice = $("#__totalprice").val();
+	var total_price = $("#total_price").val();
 	
-	//alert(product_price + ", " + delivery_price + ", " + disc_price + ", " + totalprice);
+	//alert(product_price + ", " + delivery_price + ", " + disc_price + ", " + total_price);
 
-	$("#__totalprice").val( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_price) );
+	$("#total_price").val( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_price) );
 }
 
 
@@ -144,6 +145,7 @@ function price_change() {
 	var _discprice = $("#_discprice").val();
 	var disc_coupon = $("#disc_coupon").val();
 
+	// text에 값이 아예 없을 경우
 	if( disc_point.trim() == "" ) {
 		$("#disc_point").val( "0" );
 		$("#_discprice").val( parseInt(disc_coupon) );
@@ -151,6 +153,7 @@ function price_change() {
 		return;
 	}
 	
+	// 1000원부터 적립금 사용 가능
 	if(disc_point.length < 4) {
 		alert("1000원부터 사용 가능합니다");
 		$("#disc_point").val( "0" );
@@ -161,7 +164,7 @@ function price_change() {
 	var _point_amount = parseInt(point_amount);
 	var _disc_point = parseInt(disc_point);
 	
-	
+	// 적립금보다 text에 적은 숫자가 클 경우
 	if( _point_amount < _disc_point ) {
 		alert( $("#point_amount").val() + "원까지 사용가능합니다" );
 		$("#disc_point").val("0");
@@ -265,11 +268,9 @@ function paymens(){
 		
 	var add_point = $("#add_point").val()
 	var disc_point = $("#disc_point").val();
-	//var totalprice = $("#_totalprice").text();
-	var totalprice = $("#__totalprice").val();
-	//alert("totalprice : " + totalprice);
+	var total_price = $("#total_price").val();
 	
-	$("#totalprice").val( totalprice );
+	$("#totalprice").val( total_price );
 	
 	
 	var disc_coupon = $("#disc_coupon").val();
@@ -277,7 +278,7 @@ function paymens(){
 	var add_point = $("#add_point").val();
 	
 	$("#payment_method").val( radioVal );
-	add_point = parseInt(totalprice) * 0.02;
+	add_point = parseInt(total_price) * 0.02;
 	
 	//alert("적립금1 : --- " + add_point );
 	

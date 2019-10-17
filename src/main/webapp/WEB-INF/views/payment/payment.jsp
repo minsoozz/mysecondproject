@@ -175,9 +175,9 @@
 	<td>+</td>
 	<td id="delivery_price">${delivery_price }</td>
 	<td>-</td>
-	<td id="discprice"><input type="text" id="_discprice" value="0"></td>
+	<td><input type="text" id="_discprice" value="0"></td>
 	<td>=</td>
-	<td id="_totalprice"><input type="text" id="__totalprice"></td>
+	<td><input type="text" id="total_price"></td>
 </tr>
 
 <c:if test="${coupon_count eq 0 }">
