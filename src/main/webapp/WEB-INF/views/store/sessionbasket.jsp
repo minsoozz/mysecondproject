@@ -300,16 +300,23 @@ opacity:0.9;
 					</c:if>										
 					</div>
 				</div>
-				<%-- <div class="optionchange_wrap">
+				
+			
+				
+				<div class="optionchange_wrap">
 					<c:if test="${ba.quantity ne 0 }">
 					<a onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
 					<div class="pqSelect">
 						<span class="minus_Btn" style="cursor:pointer;" value="${ba.b_seq }">-</span>&nbsp;&nbsp;&nbsp;
-							<label id="pqCnt${ba.b_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
-						<span class="plus_btn" style="cursor:pointer;" value="${ba.b_seq }">+</span>
+						
+						<label id="pqCnt${ba.stock_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
+						
+						<span class="plus_btn" style="cursor:pointer;" value="${ba.stock_seq }">+</span>
 					</div>
 					</c:if>
-				</div> --%>
+				</div>
+				
+				
 				<div class="price_wrap">
 					<input type="hidden" value="${ba.p_price }" id="eachPrice${ba.stock_seq }">											
 					<input type="hidden" value="${ba.p_price * ba.p_quantity}" id="pMq${ba.stock_seq }">
@@ -482,25 +489,24 @@ $(document).on('click', '.allDeleteBtn', function(){
 });
 
 // 수량 변경
-function changeQ(stock_seq, b_seq){
-	//alert(b_seq);
-	var p_quantity = Number($("#pqCnt"+b_seq).html());
-	//alert(p_quantity);
+function changeQ(stock_seq){
+	var p_quantity = Number($("#pqCnt"+stock_seq).html());
+	alert(p_quantity);
 	
-	var eachPrice =  $("#eachPrice"+b_seq).val();
-	//alert(eachPrice);
+	var eachPrice =  $("#eachPrice"+stock_seq).val();
+	alert(eachPrice);
 	
 	var udtQ = p_quantity * eachPrice;
-	//alert(udtQ);
+	alert(udtQ);
 	
-	$.ajax({
+	/* $.ajax({
         type:"get",
-        data: "stock_seq=" + stock_seq + "&p_quantity=" + p_quantity + "&b_seq=" + b_seq,
-        url:"/store/updateBasketQ",
+        data: "stock_seq=" + stock_seq + "&p_quantity=" + p_quantity,
+        url:"/store/updateSessionBasketQ",
         success:function( data ){
-        	$(".eachPq"+b_seq).html(p_quantity);
-        	$(".eachMultiple"+b_seq).html(numberWithCommas(udtQ));
-        	$("#pMq"+b_seq).val(udtQ);
+        	$(".eachPq"+stock_seq).html(p_quantity);
+        	$(".eachMultiple"+stock_seq).html(numberWithCommas(udtQ));
+        	$("#pMq"+stock_seq).val(udtQ);
         	
         	$("#msg").html("<b>수량이 변경되었습니다.</b>")
         	$(".wModal").fadeIn();
@@ -521,7 +527,7 @@ function changeQ(stock_seq, b_seq){
         error:function(){
            alert("error!!"); 
         }
-	})
+	}) */
 }
 // 장바구니 수량 UP
 $(document).on('click', '.plus_btn', function(){

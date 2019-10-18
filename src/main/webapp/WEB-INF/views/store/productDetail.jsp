@@ -116,7 +116,7 @@ $(document).ajaxSend(function(e, xhr, options) {
       <c:forEach items="${sizelist }" var="size" varStatus="vs">
          <c:if test="${size.quantity ne 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
-         <label for="chooseSize${vs.count }" id="_sizeChoo" class="sizeLabel" style="cursor: pointer; background-color: white;">${size.size }</label>
+         <label for="chooseSize${vs.count }" id="_sizeChoo" class="sizeLabel" style="cursor: pointer; background-color: white;" value="${size.stock_seq }">${size.size }</label>
          </c:if>
          <c:if test="${size.quantity eq 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" disabled="disabled" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
@@ -124,7 +124,11 @@ $(document).ajaxSend(function(e, xhr, options) {
          </c:if>
       </c:forEach>
    </div>
-
+   <div id="fewSizeDiv">
+   		<label id="fewSizeNotice" style="display:none;">
+   			어쩌구저쩌구 어저쩌구 저쩌구
+   		</label>
+   </div>
    수량&nbsp;
    <span class="pqSelect">
       <span class="minus_Btn" style="cursor:pointer;">-</span>&nbsp;&nbsp;&nbsp;
@@ -616,6 +620,29 @@ $('body').click(function(e){
 $(document).on('click', '.sizeLabel', function(){
    $(".sizeLabel").attr('style', 'background-color:white');
    $(this).attr('style', 'background-color:#d7fd75');
+   
+   var stock_seq = $(this).attr("value");
+   
+   $.ajax({
+		type:"get",
+        data: "stock_seq=" + stock_seq,
+        url:"/store/stockCheck",
+        success:function( data ){
+       		$("#fewSizeNotice").show();
+       		if(data >= 1  && data <6){
+       			$("#fewSizeNotice").html("ONLY "+ data + " LEFT");
+       		}else if(data >=6 && data < 10){
+       			$("#fewSizeNotice").html("ONLY FEW LEFT");
+       		}else{
+       			$("#fewSizeNotice").hide();
+       		}
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+	});
+   
+   
 });
 
 /* 위시리스트 클릭 */
@@ -795,8 +822,8 @@ function buying(){
       
    }else{
    
-   var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-   //alert(stock_seq);
+   	  var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
+   	  //alert(stock_seq);
    
       if(isNaN(stock_seq)){
          $("#msg").html("<b>사이즈를 선택해주세요.</b>")
@@ -805,13 +832,35 @@ function buying(){
             $(".wModal").fadeOut();
          },700);
       }else{
-         
-         $("#stock_seq").val(Number(stock_seq));
-         
          var cnt = Number($("#pqCnt").html());
-         $("#p_quantity").val(Number(cnt));
-         $("#orderFrm").submit();
-               
+		
+         $.ajax({
+     		type:"get",
+             data: "stock_seq=" + stock_seq,
+             url:"/store/stockCheck",
+             success:function( data ){
+             	// 변경될 수량이 재고수량보다 많을 때
+             	if(cnt>data){
+             		$("#msg").html("<b>구매수량이 재고수량보다 많습니다.<br>해당 상품의 재고수량은 "+data+"입니다.</b>");
+                 	$(".wModal").fadeIn();
+                 	setTimeout(function() {
+                 		$(".wModal").fadeOut();
+                 	},1500);
+                 	$("#pqCnt").html("1");
+             	}
+             	// 변경될 수량이 재고수량보다 적거나 같을 때
+             	else{
+             		$("#p_quantity").val(Number(cnt));
+                    $("#stock_seq").val(Number(stock_seq));
+                    $("#orderFrm").submit();
+             	}
+             },
+             error:function(){
+                alert("error!!"); 
+             }
+     		
+     	}); 
+         
          //alert(typeof $("#p_quantity").val());
          //alert(typeof $("#stock_seq").val());
       }
@@ -822,17 +871,20 @@ function buying(){
 /* 구매 수량 */
 $(document).on('click', '.plus_btn', function(){
 var cnt = Number($("#pqCnt").html());
-if(cnt<9){
-   $("#pqCnt").html(cnt+1);   
-}else{
+	
+	if(cnt<9){
+	   $("#pqCnt").html(cnt+1);   
+	}else{
+	
+	   $("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
+	   $(".wModal").fadeIn();
+	   setTimeout(function() {
+	      $(".wModal").fadeOut();
+	   },900);
+	}
 
-   $("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
-   $(".wModal").fadeIn();
-   setTimeout(function() {
-      $(".wModal").fadeOut();
-   },900);
-}
-
+	
+	
 });
 
 $(document).on('click', '.minus_Btn', function(){
