@@ -125,7 +125,6 @@ public class BasketController{
 		   
 		   String ip = null;
 	       ip = getClientIpAddress(request);
-	       log.info("CLIENT IP : " + ip);
 		   
 	       // 최초 생성 SESSION 리스트
 	       List<BasketDto> cBasketList = new ArrayList<BasketDto>();
@@ -141,6 +140,7 @@ public class BasketController{
 		   Boolean test = true;
 
 		   if(prc == null) {
+			    log.info("CLIENT IP : " + ip);
 	            // 클라이언트IP SESSION 리스트가 존재하지 않을 때, 생성하면서 INSERT
 	            if((List<BasketDto>)session.getAttribute(ip) == null) {
 	               cBasketList.add(basket);
@@ -215,12 +215,12 @@ public class BasketController{
 	        return cBasketList4;
 	     }
 	   		
-		   // 장바구니 전체삭제 EVENT(AJAX)
+		   // SESSION 장바구니 전체삭제 EVENT(AJAX)
 		  @ResponseBody
 		  @GetMapping("/deleteSessionBasketAll")
 		  public String deleteSessionBasketAll(Principal prc, HttpServletRequest request) throws Exception{      
 			  HttpSession session = request.getSession();
-			  String ip = null;
+			  String ip = "";
 			  ip = getClientIpAddress(request);
 			  session.removeAttribute(ip);
 		      
@@ -299,6 +299,11 @@ public class BasketController{
 			    		total_price += (unitPrice * basketPcnt);
 			    	}
 			     }
+			   
+			   if(sessionList3.size()==0) {
+				   log.info("장바구니 SESSION REMOVE");
+				   session.removeAttribute(ip);
+			   }
 			  
 			  return total_price;
 		  }
@@ -312,9 +317,16 @@ public class BasketController{
 	      HttpSession session = request.getSession();
 	      String ip = null;
 	      ip = getClientIpAddress(request);
-	      log.info("IP : " + ip);
+	      log.info("PRC : " + prc);
 	  
-
+	   //세션 확인 
+	     List<BasketDto> chklist= new ArrayList<BasketDto>();
+	     if(session.getAttribute(ip)!=null) {
+	    	 chklist = (List<BasketDto>)session.getAttribute(ip);
+	    	 log.info("기존 SESSIN장바구니 사이즈 : " + chklist.size()+"");
+	     }
+	      
+	      
 	   //1.로그인O(회원 : 일반 장바구니 리스트(ID로 DB에서 PRODUCT,STOCK정보를 담은 DTO를 담을 리스트) 
 	   //   OR 
 	   //2.로그인X(비회원 : SESSION 리스트2-DTO(리스트1 STOCKSEQ로 DB에서 PRODUCT,STOCK정보를 담은 DTO를 담을 리스트)   
@@ -333,19 +345,17 @@ public class BasketController{
 	      }
 	      //로그인X
 	      else{
-	    	  if(session.getAttribute(ip) != null) {
+	    	  log.info("비회원 IP : " + ip);
+	    	  if(session.getAttribute(ip) != null && chklist.size()!=0) {
 		          sessionList1 = (List<BasketDto>)session.getAttribute(ip);
-		          log.info("session.getAttribute(ip) != null");
 		    	  
 		    	  for (int i = 0; i < sessionList1.size(); i++) {
 		          	basketlistDto = purchase.getSessionBasketDto(sessionList1.get(i).getStock_seq());
 		          	basketlistDto.setP_quantity(sessionList1.get(i).getP_quantity());
 		          	blist.add(basketlistDto);
-		          	
-		          	
 				  }
-	    	  }else if(session.getAttribute(ip) == null) {
-	    		  log.info("session.getAttribute(ip) == null");
+	    	  }else if(session.getAttribute(ip) == null || chklist.size()==0) {
+	    		  // SESSION BASKET이 존재하지 않으면 null로 초기화 해서, 바로 밑에 금액연산 IF문을 타지 않게 막아준다.
 	    		  blist = null;
 	    	  }
 	      }
@@ -380,9 +390,9 @@ public class BasketController{
 	      
 	      model.addAttribute("blist", blist);
 	      
-	      if(session.getAttribute(ip) != null && prc != null) {
+	      if(prc != null) {
 	    	  url = "basket.tiles";    	  
-	      }else if(session.getAttribute(ip) == null || prc == null) {
+	      }else if(prc == null) {
 	    	  url = "sessionbasket.tiles";
 	      }
 	      return url;
@@ -423,7 +433,7 @@ public class BasketController{
 	      return total_price;
 	   }
 	   
-	   // 장바구니 전체삭제 EVENT(AJAX)
+	   // 일반 장바구니 전체삭제 EVENT(AJAX)
 	   @ResponseBody
 	   @GetMapping("/deleteBasketAll")
 	   public String deleteBasket(Principal prc) throws Exception{      
@@ -449,7 +459,7 @@ public class BasketController{
 	      return str;
 	   }
 	   
-	   // 장바구니 수량변경 EVENT(AJAX)
+	   // 회원 장바구니 수량변경 EVENT(AJAX)
 	   @ResponseBody
 	   @GetMapping("/updateBasketQ")
 	   public int updateBasketQ(BasketDto basket, Principal prc) throws Exception{
@@ -491,6 +501,13 @@ public class BasketController{
 	      return total_price;
 	   }
 	
+	   //재고체크 : 장바구니 수량 변경시
+	   @ResponseBody
+	   @GetMapping("/stockCheck")
+	   public int stockCheck(int stock_seq)throws Exception{
+		   int stock_quantity = purchase.stockCheck(stock_seq);
+		   return stock_quantity;
+	   }
 	
 	
 	

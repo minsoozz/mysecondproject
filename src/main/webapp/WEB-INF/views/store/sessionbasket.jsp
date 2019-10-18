@@ -300,16 +300,23 @@ opacity:0.9;
 					</c:if>										
 					</div>
 				</div>
-				<%-- <div class="optionchange_wrap">
+				
+			
+				
+				<div class="optionchange_wrap">
 					<c:if test="${ba.quantity ne 0 }">
-					<a onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
+					<a onclick="stockCheck(${ba.stock_seq })"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
 					<div class="pqSelect">
 						<span class="minus_Btn" style="cursor:pointer;" value="${ba.b_seq }">-</span>&nbsp;&nbsp;&nbsp;
-							<label id="pqCnt${ba.b_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
-						<span class="plus_btn" style="cursor:pointer;" value="${ba.b_seq }">+</span>
+						
+						<label id="pqCnt${ba.stock_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
+						
+						<span class="plus_btn" style="cursor:pointer;" value="${ba.stock_seq }">+</span>
 					</div>
 					</c:if>
-				</div> --%>
+				</div>
+				
+				
 				<div class="price_wrap">
 					<input type="hidden" value="${ba.p_price }" id="eachPrice${ba.stock_seq }">											
 					<input type="hidden" value="${ba.p_price * ba.p_quantity}" id="pMq${ba.stock_seq }">
@@ -481,47 +488,43 @@ $(document).on('click', '.allDeleteBtn', function(){
 	})
 });
 
-// 수량 변경
-function changeQ(stock_seq, b_seq){
-	//alert(b_seq);
-	var p_quantity = Number($("#pqCnt"+b_seq).html());
-	//alert(p_quantity);
-	
-	var eachPrice =  $("#eachPrice"+b_seq).val();
-	//alert(eachPrice);
-	
+// 재고 수량확인
+function stockCheck(stock_seq){
+	var p_quantity = Number($("#pqCnt"+stock_seq).html());
+	var eachPrice =  $("#eachPrice"+stock_seq).val();
 	var udtQ = p_quantity * eachPrice;
-	//alert(udtQ);
 	
 	$.ajax({
-        type:"get",
-        data: "stock_seq=" + stock_seq + "&p_quantity=" + p_quantity + "&b_seq=" + b_seq,
-        url:"/store/updateBasketQ",
+		type:"get",
+        data: "stock_seq=" + stock_seq,
+        url:"/store/stockCheck",
         success:function( data ){
-        	$(".eachPq"+b_seq).html(p_quantity);
-        	$(".eachMultiple"+b_seq).html(numberWithCommas(udtQ));
-        	$("#pMq"+b_seq).val(udtQ);
-        	
-        	$("#msg").html("<b>수량이 변경되었습니다.</b>")
-        	$(".wModal").fadeIn();
-        	setTimeout(function() {
-        		$(".wModal").fadeOut();
-        	},700);
-        	
-        	if(data>=10000){
-        		$("#totalP_price").html(numberWithCommas(data));
-        		$(".pay_price").html(numberWithCommas(data));
-        		$(".post_price").html("0");
-        	}else if(data<10000){
-        		$("#totalP_price").html(numberWithCommas(data));
-        		$(".pay_price").html(numberWithCommas(data+3000));
-        		$(".post_price").html("3,000");
+        	// 변경될 수량이 재고수량보다 많을 때
+        	if(p_quantity>data){
+        		$("#msg").html("<b>변경수량이 재고수량보다 많습니다.</b>");
+            	$(".wModal").fadeIn();
+            	setTimeout(function() {
+            		$(".wModal").fadeOut();
+            	},1500);
+            	
+            	var eachPq = $(".eachPq" + stock_seq).html();
+            	$("#pqCnt" + stock_seq).html(eachPq);
+            	
+        	}
+        	// 변경될 수량이 재고수량보다 적거나 같을 때
+        	else{
+        		
         	}
         },
         error:function(){
            alert("error!!"); 
         }
-	})
+		
+	});
+	
+	
+	
+	
 }
 // 장바구니 수량 UP
 $(document).on('click', '.plus_btn', function(){

@@ -16,7 +16,7 @@ public class AdminNoticeDaoImpl implements AdminNoticeDao {
 
 	@Autowired
 	SqlSession sqlSession;
-	String ns = "Notice.";
+	String ns = "AdminNotice.";
 	
 	//notice list 가져오기
 	@Override

@@ -13,8 +13,12 @@
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- payment.js -->
+<!-- java script -->
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/payment.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/mem_info.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/delivery.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/account.js"></script>
+
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
@@ -80,7 +84,7 @@
 						<input type="button" id="enterBtn" value="확인">
 						<input type="text" name="text" id="text">
 						<!-- 인증번호를 히든으로 저장해서 보낸다 -->
-						<input type="text" id="_text_confirm"></td>
+						<input type="text" id="text_confirm"></td>
 				</tr>
 				<tr>
 					<th>보내는 분 *</th>
@@ -95,8 +99,7 @@
 				</tr>
 				<tr>
 					<th>이메일 *</th>
-					<td><input type="text" id="send_email" name="send_email" size="26">
-						<input type="hidden" onclick="location.href='/mailSender'" value="메일발송"></td>
+					<td><input type="text" id="send_email" name="send_email" size="26"></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -127,8 +130,7 @@
 				</tr>
 				<tr>
 					<th>수령인 이름 *</th>
-					<td><input type="text" size="26" id="receive_name"
-						name="receive_name"></td>
+					<td><input type="text" size="26" id="receive_name" name="receive_name"></td>
 				</tr>
 				<tr>
 					<th>휴대폰 *</th>
@@ -156,7 +158,9 @@
 					<th></th>
 					<th>배송비</th>
 					<th></th>
-					<th>할인금액</th>
+					<th>사용 포인트</th>
+					<th></th>
+					<th>쿠폰 할인액</th>
 					<th></th>
 					<th>결제 예정금액</th>
 				</tr>
@@ -172,7 +176,7 @@
 					<!-- submit으로 controller에 보내는 쿠폰 할인액  -->
 					<td><input type="text" name="disc_coupon" id="disc_coupon" value="0"></td>
 					<td>=</td>
-					<td><input type="text" name="totalprice" id="totalprice"></td>
+					<td><input type="text" name="totalprice" id="totalprice" value="0"></td>
 				</tr>
 
 				<c:if test="${coupon_count eq 0 }">
@@ -209,29 +213,12 @@
 						<td colspan="8">
 							<input type="text" id="input_disc_point" onchange="price_change()" value="0">원 &nbsp;&nbsp;사용가능
 							적립금 : <fmt:formatNumber value="${point_amount }" />원
-							&nbsp;&nbsp;(1,000원 단위로 사용가능합니다)</td>
+							&nbsp;&nbsp;(1,000원부터 사용가능합니다)</td>
 					</c:if>
 				</tr>
 			</table>
 		</div>
 		<br><br><br><br><br><br>
-
-
-		
-		<!-- submit으로 보낼 데이터 -->
-		<input type="hidden" name="payment_method" id="payment_method">
-		<input type="hidden" name="payment_status" id="payment_status">
-		<input type="hidden" name="delivery_price" value="${delivery_price }">
-		<input type="hidden" name="add_point" id="add_point" value="0">
-		<input type="hidden" name="basket_del" value="${basket_del }">
-
-		<input type="hidden" name="payment_code" id="payment_code">
-		<input type="hidden" name="receipt_url" id="receipt_url">
-		<input type="hidden" name="vbank_num" id="vbank_num">
-		<input type="hidden" name="vbank_name" id="vbank_name">
-		<input type="hidden" name="vbank_date" id="vbank_date">
-		<input type="hidden" name="vbank_holder" id="vbank_holder">
-		<input type="hidden" name="card_apply_num" id="card_apply_num">
 
 
 
@@ -240,11 +227,11 @@
 			<table class="payment_tb">
 				<tr style="background-color: #fafafa">
 					<th>결제 수단 선택</th>
-					<td>신용카드 <input type="radio" name="payment" value="card">&nbsp;&nbsp;&nbsp;&nbsp;
-						무통장입금 <input type="radio" name="payment" value="vbank">&nbsp;&nbsp;&nbsp;&nbsp;
-						카카오페이 <input type="radio" name="payment" value="kakaopay">&nbsp;&nbsp;&nbsp;&nbsp;
-						실시간 계좌이체 <input type="radio" name="payment" value="trans">&nbsp;&nbsp;&nbsp;&nbsp;
-						휴대요금 결제 <input type="radio" name="payment" value="phone">
+					<td>신용카드 <input type="radio" name="payment_method" value="card">&nbsp;&nbsp;&nbsp;&nbsp;
+						무통장입금 <input type="radio" name="payment_method" value="vbank">&nbsp;&nbsp;&nbsp;&nbsp;
+						카카오페이 <input type="radio" name="payment_method" value="kakaopay">&nbsp;&nbsp;&nbsp;&nbsp;
+						실시간 계좌이체 <input type="radio" name="payment_method" value="trans">&nbsp;&nbsp;&nbsp;&nbsp;
+						휴대요금 결제 <input type="radio" name="payment_method" value="phone">
 					</td>
 				</tr>
 				<tr>
@@ -254,13 +241,28 @@
 			</table>
 			<br>
 		</div>
-	</form>
+
+		<input type="button" id="paymentBtn" value="결제하기" onclick="paymens()"><br><br>
 
 
 
-	<input type="button" id="paymentBtn" value="결제하기" onclick="paymens()"><br>
-	<br>
-</div>
+
+
+		<!-- submit으로 보낼 데이터 -->
+		<input type="hidden" name="payment_status" id="payment_status">
+		<input type="hidden" name="delivery_price" value="${delivery_price }">
+		<input type="hidden" name="add_point" id="add_point" value="0">
+		<input type="hidden" name="basket_del" value="${basket_del }">
+		<input type="hidden" name="payment_code" id="payment_code">
+		<input type="hidden" name="receipt_url" id="receipt_url">
+		<input type="hidden" name="vbank_num" id="vbank_num">
+		<input type="hidden" name="vbank_name" id="vbank_name">
+		<input type="hidden" name="vbank_date" id="vbank_date">
+		<input type="hidden" name="vbank_holder" id="vbank_holder">
+		<input type="hidden" name="card_apply_num" id="card_apply_num">
+
+		</form>
+	</div>
 
 
 
