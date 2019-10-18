@@ -9,9 +9,9 @@ $(document).ready(function () {
 	$("#coupon_btn").click(function () {
 		var product_price = $("#product_price").text();
 		var delivery_price = $("#delivery_price").text();
-		var disc_point = $("#disc_point").val();
+		var input_disc_point = $("#input_disc_point").val();
 
-		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&disc_point="+disc_point, "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
+		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&input_disc_point="+input_disc_point, "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
 	});
 
 	
@@ -25,36 +25,34 @@ function price_change() {
 	alert("적립금");
 	
 	var point_amount = $("#point_amount").val();
-	var disc_point = $("#disc_point").val();
-	var _discprice = $("#_discprice").val();
 	var disc_coupon = $("#disc_coupon").val();
+	var input_disc_point = $("#input_disc_point").val();
 
 	// text에 값이 아예 없을 경우
-	if( disc_point.trim() == "" ) {
-		$("#disc_point").val( "0" );
-		$("#_discprice").val( parseInt(disc_coupon) );
-		result_price();
-		return;
+	if( input_disc_point.trim() == "" ) {
+		$("#input_disc_point").val( "0" );
 	}
 	
 	// 1000원부터 적립금 사용 가능
-	if(disc_point.length < 4) {
+	if(input_disc_point.length < 4) {
 		alert("1000원부터 사용 가능합니다");
-		$("#disc_point").val( "0" );
-		result_price();
-		return;
+		$("#input_disc_point").val( "0" );
 	}
-	
-	var _point_amount = parseInt(point_amount);
-	var _disc_point = parseInt(disc_point);
+
 	
 	// 적립금보다 text에 적은 숫자가 클 경우
-	if( _point_amount < _disc_point ) {
+	if( parseInt(point_amount) < parseInt(input_disc_point) ) {
 		alert( $("#point_amount").val() + "원까지 사용가능합니다" );
-		$("#disc_point").val("0");
+		$("#input_disc_point").val("0");
 	}
 	
-	$("#_discprice").val( parseInt(disc_coupon) + _disc_point);
+	// 앞이 0이면서 2자리수 이상인 경우 0을 뺀다 예) 00900 -> 900으로 변경
+	if(input_disc_point.length > 2) {
+		while(input_disc_point.) {
+			
+		}
+	}
+	
 	result_price();
 }
 

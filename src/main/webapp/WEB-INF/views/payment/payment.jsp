@@ -99,8 +99,7 @@
 				</tr>
 				<tr>
 					<th>이메일 *</th>
-					<td><input type="text" id="send_email" name="send_email" size="26">
-						<input type="hidden" onclick="location.href='/mailSender'" value="메일발송"></td>
+					<td><input type="text" id="send_email" name="send_email" size="26"></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -223,23 +222,6 @@
 		<br><br><br><br><br><br>
 
 
-		
-		<!-- submit으로 보낼 데이터 -->
-		<input type="hidden" name="payment_method" id="payment_method">
-		<input type="hidden" name="payment_status" id="payment_status">
-		<input type="hidden" name="delivery_price" value="${delivery_price }">
-		<input type="hidden" name="add_point" id="add_point" value="0">
-		<input type="hidden" name="basket_del" value="${basket_del }">
-
-		<input type="hidden" name="payment_code" id="payment_code">
-		<input type="hidden" name="receipt_url" id="receipt_url">
-		<input type="hidden" name="vbank_num" id="vbank_num">
-		<input type="hidden" name="vbank_name" id="vbank_name">
-		<input type="hidden" name="vbank_date" id="vbank_date">
-		<input type="hidden" name="vbank_holder" id="vbank_holder">
-		<input type="hidden" name="card_apply_num" id="card_apply_num">
-
-
 
 		<div class="divback">
 			<h4>결제 수단</h4>
@@ -260,13 +242,29 @@
 			</table>
 			<br>
 		</div>
-	</form>
+
+		<input type="button" id="paymentBtn" value="결제하기" onclick="paymens()"><br><br>
 
 
 
-	<input type="button" id="paymentBtn" value="결제하기" onclick="paymens()"><br>
-	<br>
-</div>
+
+
+		<!-- submit으로 보낼 데이터 -->
+		<input type="hidden" name="payment_method" id="payment_method">
+		<input type="hidden" name="payment_status" id="payment_status">
+		<input type="hidden" name="delivery_price" value="${delivery_price }">
+		<input type="hidden" name="add_point" id="add_point" value="0">
+		<input type="hidden" name="basket_del" value="${basket_del }">
+		<input type="hidden" name="payment_code" id="payment_code">
+		<input type="hidden" name="receipt_url" id="receipt_url">
+		<input type="hidden" name="vbank_num" id="vbank_num">
+		<input type="hidden" name="vbank_name" id="vbank_name">
+		<input type="hidden" name="vbank_date" id="vbank_date">
+		<input type="hidden" name="vbank_holder" id="vbank_holder">
+		<input type="hidden" name="card_apply_num" id="card_apply_num">
+
+		</form>
+	</div>
 
 
 

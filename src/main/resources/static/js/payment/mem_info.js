@@ -53,7 +53,7 @@ $(document).ready(function () {
 	
 	
 	
-	/* 내가 작성한 번호와 인증번호를 비교한다 */
+	// 내가 작성한 번호와 인증번호를 비교한다
 	$("#enterBtn").click(function() {
 		alert( $("#text").val() );
 		var userNum = $("#userNum").val();
