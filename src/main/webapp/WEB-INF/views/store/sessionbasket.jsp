@@ -305,9 +305,9 @@ opacity:0.9;
 				
 				<div class="optionchange_wrap">
 					<c:if test="${ba.quantity ne 0 }">
-					<a onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
+					<a onclick="stockCheck(${ba.stock_seq })"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
 					<div class="pqSelect">
-						<span class="minus_Btn" style="cursor:pointer;" value="${ba.b_seq }">-</span>&nbsp;&nbsp;&nbsp;
+						<span class="minus_Btn" style="cursor:pointer;" value="${ba.stock_seq }">-</span>&nbsp;&nbsp;&nbsp;
 						
 						<label id="pqCnt${ba.stock_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
 						
@@ -488,18 +488,44 @@ $(document).on('click', '.allDeleteBtn', function(){
 	})
 });
 
-// 수량 변경
-function changeQ(stock_seq){
+// 재고 수량확인
+function stockCheck(stock_seq){
 	var p_quantity = Number($("#pqCnt"+stock_seq).html());
-	alert(p_quantity);
-	
 	var eachPrice =  $("#eachPrice"+stock_seq).val();
-	alert(eachPrice);
-	
 	var udtQ = p_quantity * eachPrice;
-	alert(udtQ);
 	
-	/* $.ajax({
+	$.ajax({
+		type:"get",
+        data: "stock_seq=" + stock_seq,
+        url:"/store/stockCheck",
+        success:function( data ){
+        	// 변경될 수량이 재고수량보다 많을 때
+        	if(p_quantity>data){
+        		$("#msg").html("<b>변경수량이 재고수량보다 많습니다.</b>");
+            	$(".wModal").fadeIn();
+            	setTimeout(function() {
+            		$(".wModal").fadeOut();
+            	},1500);
+            	
+            	var eachPq = $(".eachPq" + stock_seq).html();
+            	$("#pqCnt" + stock_seq).html(eachPq);
+            	
+        	}
+        	// 변경될 수량이 재고수량보다 적거나 같을 때
+        	else{
+        		changeQ(stock_seq, p_quantity, eachPrice, udtQ);
+        	}
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+	});
+}
+
+// 장바구니 수량변경
+function changeQ(stock_seq, p_quantity, eachPrice, udtQ){
+	
+	$.ajax({
         type:"get",
         data: "stock_seq=" + stock_seq + "&p_quantity=" + p_quantity,
         url:"/store/updateSessionBasketQ",
@@ -523,18 +549,23 @@ function changeQ(stock_seq){
         		$(".pay_price").html(numberWithCommas(data+3000));
         		$(".post_price").html("3,000");
         	}
+			
         },
         error:function(){
            alert("error!!"); 
         }
-	}) */
+	})
+	
 }
+ 
+
+
 // 장바구니 수량 UP
 $(document).on('click', '.plus_btn', function(){
-	var b_seq = $(this).attr("value");
-	var cnt = Number($("#pqCnt" + b_seq).html());
+	var stock_seq = $(this).attr("value");
+	var cnt = Number($("#pqCnt" + stock_seq).html());
 	if(cnt<9){
-		$("#pqCnt" + b_seq).html(cnt+1);	
+		$("#pqCnt" + stock_seq).html(cnt+1);	
 	}else{
 		$("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
     	$(".wModal").fadeIn();
@@ -545,11 +576,11 @@ $(document).on('click', '.plus_btn', function(){
 });
 // 장바구니 수량 DOWN
 $(document).on('click', '.minus_Btn', function(){
-	var b_seq = $(this).attr("value");
-	var cnt = Number($("#pqCnt" + b_seq).html());
+	var stock_seq = $(this).attr("value");
+	var cnt = Number($("#pqCnt" + stock_seq).html());
 	
 	if(cnt!=1){
-		$("#pqCnt" + b_seq).html(cnt-1);
+		$("#pqCnt" + stock_seq).html(cnt-1);
 	}	 
 });
 

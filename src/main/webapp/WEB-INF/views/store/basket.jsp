@@ -453,7 +453,7 @@ $(document).on('click', '.orderBtn', function(){
 		$("#bOrderFrm").submit();
 	}
 });
-
+// 장바구니 전체 삭제
 $(document).on('click', '.allDeleteBtn', function(){
 	$.ajax({
         type:"get",
@@ -480,7 +480,7 @@ $(document).on('click', '.allDeleteBtn', function(){
 	})	
 });
 
-/* 수량변경 전 체크*/
+// 수량변경 전 체크
 function stockCheck(stock_seq, b_seq){
 	var p_quantity = Number($("#pqCnt"+b_seq).html());
 	
@@ -513,6 +513,7 @@ function stockCheck(stock_seq, b_seq){
 	});
 }
 
+// 장바구니 수량 변경
 function changeQ(stock_seq, b_seq){
 	
 	var p_quantity = Number($("#pqCnt"+b_seq).html());

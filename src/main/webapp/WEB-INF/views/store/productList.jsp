@@ -49,12 +49,14 @@ pageNumber : ${pageNumber }<br>
 			</c:if>
 		</div>
 		 		
+
 		<div class="sortingDiv">
 			<label onclick="sortingBy('NEW')" class="sortingBy" style="${sorting == 'NEW'? 'color:black;font-weight:bolder;':'' }">NEW</label>
 			<label class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
 			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
 			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
 		</div>
+
 		
 	</div>
 	</c:if>

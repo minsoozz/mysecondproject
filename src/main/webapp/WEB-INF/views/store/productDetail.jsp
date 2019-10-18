@@ -108,11 +108,14 @@ $(document).ajaxSend(function(e, xhr, options) {
    <p style="color: gray;font-size: 15px">${ productDto.p_title}</p><br>
    
  
-   <p style="color: gray;font-size: 15px;margin-bottom: -5px;">· MADE IN ${productDto.nation}</p>
+ 	
+   <p style="color: gray;font-size: 15px;margin-bottom: 5px;">· MADE IN ${productDto.nation}</p>
+   <p style="color: gray;font-size: 15px;margin-bottom: 5px;">· Color : ${productDto.p_color}</p>
    <p style="color: gray;font-size: 15px">· SKU : ${productDto.cp_code}</p>
    
-   <div class='' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
-      사이즈 선택<br>
+   <div class='' style="cursor:pointer; width: 450px;" onclick="detail(${pro.p_seq })"> 
+      <p style="color: gray;font-size: 15px">· 사이즈 선택</p>
+      
       <c:forEach items="${sizelist }" var="size" varStatus="vs">
          <c:if test="${size.quantity ne 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
@@ -124,6 +127,9 @@ $(document).ajaxSend(function(e, xhr, options) {
          </c:if>
       </c:forEach>
    </div>
+
+<br>
+
    <div id="fewSizeDiv">
    		<label id="fewSizeNotice" style="display:none;">
    			어쩌구저쩌구 어저쩌구 저쩌구
@@ -257,13 +263,16 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <ul class="goods-view-infomation-tab-group">
    <li class="goods-view-infomation-tab">
-   <a href="#goods_info" class="goods-view-infomation-tab-anchor __active">INFOMATION</a>
+   <a href="#goods_info" class="goods-view-infomation-tab-anchor __active" style="border: 1px solid #CFEC40; border-bottom: none;">Information</a>
    </li>
    <li class="goods-view-infomation-tab">
-   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor">Review</a>
    </li>
    <li class="goods-view-infomation-tab">
-   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q & A</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_de" class="goods-view-infomation-tab-anchor">Delivery / Exchange</a>
    </li>
    <li class="goods-view-infomation-tab-group:after"></li>
 </ul>
@@ -288,7 +297,92 @@ $(document).ajaxSend(function(e, xhr, options) {
      </div> 
       
       
-      <div style="font-size: 12px;">
+      
+
+
+
+<!-- 후기 review -->
+<br><br>
+<ul class="goods-view-infomation-tab-group">
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor __active" style="border: 1px solid #CFEC40; border-bottom: none;">REVIEW</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+   </li>
+      <li class="goods-view-infomation-tab">
+   <a href="#goods_de" class="goods-view-infomation-tab-anchor">Delivery / Exchange</a>
+   </li>
+   <li class="goods-view-infomation-tab-group:after"></li>
+</ul>
+
+<div class="goods-view-infomation-content" id="goods_review">
+<div id="_product_review_wrap" >
+      <div  id="_product_review" >
+         <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
+      </div>
+      
+</div>
+</div>
+<!-- 후기 끝 -->
+
+
+
+<!-- 상품qna -->
+<br><br>
+<ul class="goods-view-infomation-tab-group">
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor __active" style="border: 1px solid #CFEC40; border-bottom: none;">Q&A</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_de" class="goods-view-infomation-tab-anchor">Delivery / Exchange</a>
+   </li>
+   <li class="goods-view-infomation-tab-group:after"></li>
+</ul>
+
+
+<div class="goods-view-infomation-content" id="goods_qna">
+<div id="_product_qna_wrap" >
+      <div  id="_product_qna" >
+         <script type="text/javascript">getProductQna(0,${productDto.p_seq });</script>
+      </div>
+</div>
+</div>
+<!-- 리뷰 끝 -->
+
+
+<!-- 배송 교환 안내  -->
+<br><br>
+<ul class="goods-view-infomation-tab-group">
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_de" class="goods-view-infomation-tab-anchor __active" style="border: 1px solid #CFEC40; border-bottom: none;" >Delivery / Exchange</a>
+   </li>
+   <li class="goods-view-infomation-tab-group:after"></li>
+</ul>
+
+
+<div class="goods-view-infomation-content" id="goods_de">
+<div id="_product_de_wrap" >
+      <div  id="_product_de" >
+         <div style="font-size: 12px;">
       <p>
       <strong>Tax&nbsp;Information</strong>
       </p>
@@ -397,61 +491,13 @@ $(document).ajaxSend(function(e, xhr, options) {
       </ul>
     </div> 
 
-
-
-<!-- 후기 -->
-<br><br>
-<ul class="goods-view-infomation-tab-group">
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
-   </li>
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_review" class="goods-view-infomation-tab-anchor __active">REVIEW</a>
-   </li>
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
-   </li>
-   <li class="goods-view-infomation-tab-group:after"></li>
-</ul>
-
-<div class="goods-view-infomation-content" id="goods_review">
-<div id="_product_review_wrap" >
-      <div  id="_product_review" >
-         <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
-      </div><!-- 작성한후기 탭 끝 -->
+      </div>
 </div>
 </div>
+<!-- 배송교환안내 끝 -->
 
 
 
-
-<!-- 상품qna -->
-<br><br>
-<ul class="goods-view-infomation-tab-group">
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
-   </li>
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
-   </li>
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_qna" class="goods-view-infomation-tab-anchor __active">Q&A</a>
-   </li>
-   <li class="goods-view-infomation-tab-group:after"></li>
-</ul>
-
-
-<div class="goods-view-infomation-content" id="goods_qna">
-
-
-<div id="_product_qna_wrap" >
-      <div  id="_product_qna" >
-         <script type="text/javascript">getProductQna(0,${productDto.p_seq });</script>
-      </div><!-- 작성한후기 탭 끝 -->
-</div>
-
-
-</div>
 </div>
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
@@ -696,52 +742,84 @@ $(document).on('click', '.basketBtn', function(){
    var cnt = Number($("#pqCnt").html());
       
       if(isNaN(stock_seq)){
-         $("#msg").html("<b>사이즈를 선택해주세요.</b>")
+    	 $("#msg").html("<b>사이즈를 선택해주세요.</b>")
          $(".wModal").fadeIn();
          setTimeout(function() {
             $(".wModal").fadeOut();
          },700);
       }else{
-    	  // 로그인X
-    	  if(id==""){
-    		   
-    		   $.ajax({
-    	           type:"get",
-    	           data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-    	           url:"/store/insertSessionBasket",
-    	           success:function( data ){
-    	              var obj = JSON.stringify(data);
-    	            var arr = JSON.parse(obj);
-    	            //alert(arr[0].total_price);
-    	            var arrLen = arr.length;
-    	              showBasketList(arrLen, arr);
-    	           },
-    	           error:function(){
-    	              alert("error!!"); 
-    	           }
-    	         })
-    	   }
-    	  //로그인O
-    	  else{
-    		   $.ajax({
-                   type:"get",
-                   data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-                   url:"/store/insertBasket",
-                   success:function( data ){
-                      var obj = JSON.stringify(data);
-                    var arr = JSON.parse(obj);
-                    //alert(arr[0].total_price);
-                    var arrLen = arr.length;
-                      showBasketList(arrLen, arr);
-                   },
-                   error:function(){
-                      alert("error!!"); 
-                   }
-                 })
-    	   }
+    	  
+    	  $.ajax({
+    			type:"get",
+    	        data: "stock_seq=" + stock_seq,
+    	        url:"/store/stockCheck",
+    	        success:function( data ){
+    	        	// 변경될 수량이 재고수량보다 많을 때
+    	        	if(cnt>data){
+    	        		$("#msg").html("<b>재고수량보다 많습니다.</b>");
+    	            	$(".wModal").fadeIn();
+    	            	setTimeout(function() {
+    	            		$(".wModal").fadeOut();
+    	            	},1500);
+    	            	
+    	            	$("#pqCnt").html("1");
+    	            	
+    	        	}
+    	        	// 변경될 수량이 재고수량보다 적거나 같을 때
+    	        	else{
+    	        		if(id==""){
+    	        			insertSessionBasket(stock_seq, cnt);
+    	        		}else{
+    	        			insertBasket(stock_seq, cnt);
+    	        		}
+    	        	}
+    	        },
+    	        error:function(){
+    	           alert("error!!"); 
+    	        }
+    			
+    		});
       }
       
 });
+
+function insertSessionBasket(stock_seq, cnt){
+	   $.ajax({
+           type:"get",
+           data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+           url:"/store/insertSessionBasket",
+           success:function( data ){
+              var obj = JSON.stringify(data);
+            var arr = JSON.parse(obj);
+            //alert(arr[0].total_price);
+            var arrLen = arr.length;
+              showBasketList(arrLen, arr);
+           },
+           error:function(){
+              alert("error!!"); 
+           }
+         })
+} 
+
+function insertBasket(stock_seq, cnt){
+	$.ajax({
+        type:"get",
+        data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+        url:"/store/insertBasket",
+        success:function( data ){
+           var obj = JSON.stringify(data);
+         var arr = JSON.parse(obj);
+         //alert(arr[0].total_price);
+         var arrLen = arr.length;
+           showBasketList(arrLen, arr);
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+      })
+}
+
+
 
 /* 미니 장바구니 리스트 */
 function showBasketList(arrLen, arr){
