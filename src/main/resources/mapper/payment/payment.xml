@@ -9,7 +9,7 @@
 
 
 
-<!-- 장바구니에서 주문페이지로 갈 때 -->
+<!-- 장바구니에서 결제페이지로 갈 때 -->
 
 <!-- 장바구니에서 결제페이지로 주문한 상품정보 가져오기 -->
 <select id="getOrder" parameterType="com.rhymes.app.payment.model.OrderDTO"
