@@ -307,7 +307,7 @@ opacity:0.9;
 					<c:if test="${ba.quantity ne 0 }">
 					<a onclick="stockCheck(${ba.stock_seq })"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
 					<div class="pqSelect">
-						<span class="minus_Btn" style="cursor:pointer;" value="${ba.b_seq }">-</span>&nbsp;&nbsp;&nbsp;
+						<span class="minus_Btn" style="cursor:pointer;" value="${ba.stock_seq }">-</span>&nbsp;&nbsp;&nbsp;
 						
 						<label id="pqCnt${ba.stock_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
 						
@@ -513,25 +513,59 @@ function stockCheck(stock_seq){
         	}
         	// 변경될 수량이 재고수량보다 적거나 같을 때
         	else{
-        		
+        		changeQ(stock_seq, p_quantity, eachPrice, udtQ);
         	}
         },
         error:function(){
            alert("error!!"); 
         }
-		
 	});
+}
+
+// 장바구니 수량변경
+function changeQ(stock_seq, p_quantity, eachPrice, udtQ){
 	
-	
-	
+	$.ajax({
+        type:"get",
+        data: "stock_seq=" + stock_seq + "&p_quantity=" + p_quantity,
+        url:"/store/updateSessionBasketQ",
+        success:function( data ){
+        	$(".eachPq"+stock_seq).html(p_quantity);
+        	$(".eachMultiple"+stock_seq).html(numberWithCommas(udtQ));
+        	$("#pMq"+stock_seq).val(udtQ);
+        	
+        	$("#msg").html("<b>수량이 변경되었습니다.</b>")
+        	$(".wModal").fadeIn();
+        	setTimeout(function() {
+        		$(".wModal").fadeOut();
+        	},700);
+        	
+        	if(data>=10000){
+        		$("#totalP_price").html(numberWithCommas(data));
+        		$(".pay_price").html(numberWithCommas(data));
+        		$(".post_price").html("0");
+        	}else if(data<10000){
+        		$("#totalP_price").html(numberWithCommas(data));
+        		$(".pay_price").html(numberWithCommas(data+3000));
+        		$(".post_price").html("3,000");
+        	}
+			
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+	})
 	
 }
+ 
+
+
 // 장바구니 수량 UP
 $(document).on('click', '.plus_btn', function(){
-	var b_seq = $(this).attr("value");
-	var cnt = Number($("#pqCnt" + b_seq).html());
+	var stock_seq = $(this).attr("value");
+	var cnt = Number($("#pqCnt" + stock_seq).html());
 	if(cnt<9){
-		$("#pqCnt" + b_seq).html(cnt+1);	
+		$("#pqCnt" + stock_seq).html(cnt+1);	
 	}else{
 		$("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
     	$(".wModal").fadeIn();
@@ -542,11 +576,11 @@ $(document).on('click', '.plus_btn', function(){
 });
 // 장바구니 수량 DOWN
 $(document).on('click', '.minus_Btn', function(){
-	var b_seq = $(this).attr("value");
-	var cnt = Number($("#pqCnt" + b_seq).html());
+	var stock_seq = $(this).attr("value");
+	var cnt = Number($("#pqCnt" + stock_seq).html());
 	
 	if(cnt!=1){
-		$("#pqCnt" + b_seq).html(cnt-1);
+		$("#pqCnt" + stock_seq).html(cnt-1);
 	}	 
 });
 
