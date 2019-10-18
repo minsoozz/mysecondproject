@@ -125,10 +125,10 @@
 		<!-- 페이징 -->
  		<div id="paging_wrap">
 			<jsp:include page="/WEB-INF/views/used/recvpaging.jsp" flush="false"> 	
-				<jsp:param name="pageNumber" value="${r_pageNumber }" />
-				<jsp:param name="totalRecordCount" value="${r_totalRecordCount }" />
-				<jsp:param name="pageCountPerScreen" value="${r_pageCountPerScreen }" /> 
-				<jsp:param name="recordCountPerPage" value="${r_recordCountPerPage }" />
+				<jsp:param name="rpageNumber" value="${r_pageNumber }" />
+				<jsp:param name="rtotalRecordCount" value="${r_totalRecordCount }" />
+				<jsp:param name="rpageCountPerScreen" value="${r_pageCountPerScreen }" /> 
+				<jsp:param name="rrecordCountPerPage" value="${r_recordCountPerPage }" />
 			</jsp:include>
 		</div>
 		</div>
@@ -191,10 +191,10 @@
 						<!-- 페이징 -->
  		<div id="paging_wrap">
 			<jsp:include page="/WEB-INF/views/used/sendpaging.jsp" flush="false"> 	
-				<jsp:param name="pageNumber" value="${s_pageNumber }" />
-				<jsp:param name="totalRecordCount" value="${s_totalRecordCount }" />
-				<jsp:param name="pageCountPerScreen" value="${s_pageCountPerScreen }" /> 
-				<jsp:param name="recordCountPerPage" value="${s_recordCountPerPage }" />
+				<jsp:param name="spageNumber" value="${s_pageNumber }" />
+				<jsp:param name="stotalRecordCount" value="${s_totalRecordCount }" />
+				<jsp:param name="spageCountPerScreen" value="${s_pageCountPerScreen }" /> 
+				<jsp:param name="srecordCountPerPage" value="${s_recordCountPerPage }" />
 			</jsp:include> 
 		
 		</div>		
