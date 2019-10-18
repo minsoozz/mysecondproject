@@ -696,52 +696,84 @@ $(document).on('click', '.basketBtn', function(){
    var cnt = Number($("#pqCnt").html());
       
       if(isNaN(stock_seq)){
-         $("#msg").html("<b>사이즈를 선택해주세요.</b>")
+    	 $("#msg").html("<b>사이즈를 선택해주세요.</b>")
          $(".wModal").fadeIn();
          setTimeout(function() {
             $(".wModal").fadeOut();
          },700);
       }else{
-    	  // 로그인X
-    	  if(id==""){
-    		   
-    		   $.ajax({
-    	           type:"get",
-    	           data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-    	           url:"/store/insertSessionBasket",
-    	           success:function( data ){
-    	              var obj = JSON.stringify(data);
-    	            var arr = JSON.parse(obj);
-    	            //alert(arr[0].total_price);
-    	            var arrLen = arr.length;
-    	              showBasketList(arrLen, arr);
-    	           },
-    	           error:function(){
-    	              alert("error!!"); 
-    	           }
-    	         })
-    	   }
-    	  //로그인O
-    	  else{
-    		   $.ajax({
-                   type:"get",
-                   data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-                   url:"/store/insertBasket",
-                   success:function( data ){
-                      var obj = JSON.stringify(data);
-                    var arr = JSON.parse(obj);
-                    //alert(arr[0].total_price);
-                    var arrLen = arr.length;
-                      showBasketList(arrLen, arr);
-                   },
-                   error:function(){
-                      alert("error!!"); 
-                   }
-                 })
-    	   }
+    	  
+    	  $.ajax({
+    			type:"get",
+    	        data: "stock_seq=" + stock_seq,
+    	        url:"/store/stockCheck",
+    	        success:function( data ){
+    	        	// 변경될 수량이 재고수량보다 많을 때
+    	        	if(cnt>data){
+    	        		$("#msg").html("<b>재고수량보다 많습니다.</b>");
+    	            	$(".wModal").fadeIn();
+    	            	setTimeout(function() {
+    	            		$(".wModal").fadeOut();
+    	            	},1500);
+    	            	
+    	            	$("#pqCnt").html("1");
+    	            	
+    	        	}
+    	        	// 변경될 수량이 재고수량보다 적거나 같을 때
+    	        	else{
+    	        		if(id==""){
+    	        			insertSessionBasket(stock_seq, cnt);
+    	        		}else{
+    	        			insertBasket(stock_seq, cnt);
+    	        		}
+    	        	}
+    	        },
+    	        error:function(){
+    	           alert("error!!"); 
+    	        }
+    			
+    		});
       }
       
 });
+
+function insertSessionBasket(stock_seq, cnt){
+	   $.ajax({
+           type:"get",
+           data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+           url:"/store/insertSessionBasket",
+           success:function( data ){
+              var obj = JSON.stringify(data);
+            var arr = JSON.parse(obj);
+            //alert(arr[0].total_price);
+            var arrLen = arr.length;
+              showBasketList(arrLen, arr);
+           },
+           error:function(){
+              alert("error!!"); 
+           }
+         })
+} 
+
+function insertBasket(stock_seq, cnt){
+	$.ajax({
+        type:"get",
+        data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+        url:"/store/insertBasket",
+        success:function( data ){
+           var obj = JSON.stringify(data);
+         var arr = JSON.parse(obj);
+         //alert(arr[0].total_price);
+         var arrLen = arr.length;
+           showBasketList(arrLen, arr);
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+      })
+}
+
+
 
 /* 미니 장바구니 리스트 */
 function showBasketList(arrLen, arr){
