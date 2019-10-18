@@ -57,8 +57,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
 	@Override
 	public int updateBaksetQ(BasketDto basket) throws Exception {
 		int n = sqlSession.update(ns + "updateBasketQ", basket);
-		System.out.println("다오 수정된 수량 : " + basket.getP_quantity());
-		System.out.println("다오 수정대상 : " + basket.getStock_seq());
 		return n;
 	}
 

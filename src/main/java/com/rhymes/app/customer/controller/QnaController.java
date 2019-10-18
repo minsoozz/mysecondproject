@@ -29,7 +29,7 @@ import com.rhymes.app.customer.util.FileDelete;
 public class QnaController {
 
 	@Autowired
-	private QnaService QnaService;
+	private QnaService qnaService;
 	
 	//qna list
 	@RequestMapping(value = "/qnalist", method = {RequestMethod.GET, RequestMethod.POST})
@@ -46,10 +46,10 @@ public class QnaController {
 		param.setStart(start);
 		param.setEnd(end);
 		
-		List<QnaDto> qnalist = QnaService.getQnaList(param);
+		List<QnaDto> qnalist = qnaService.getQnaList(param);
 		
 		//글의 총수
-		int totalRecordCount = QnaService.getQnaCount(param);
+		int totalRecordCount = qnaService.getQnaCount(param);
 
 		model.addAttribute("qnalist", qnalist);
 		
@@ -68,7 +68,7 @@ public class QnaController {
 		
 		model.addAttribute("doc_title", "1:1 문의");
 		
-		QnaDto qnadto = QnaService.getQnaDetail(seq);
+		QnaDto qnadto = qnaService.getQnaDetail(seq);
 		
 		model.addAttribute("qna", qnadto);
 
@@ -82,7 +82,7 @@ public class QnaController {
 	
 		String id = pcp.getName();
 		
-		List<QnaOrderDto> orderlist = QnaService.getQnaOrderList(id);
+		List<QnaOrderDto> orderlist = qnaService.getQnaOrderList(id);
 		
 		model.addAttribute("id",id);
 		model.addAttribute("orderlist",orderlist);
@@ -120,7 +120,7 @@ public class QnaController {
 			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
 			
 			// db
-			QnaService.QnaUpload(qnadto);
+			qnaService.QnaUpload(qnadto);
 			
 			
 		} catch (IOException e) {
@@ -138,7 +138,7 @@ public class QnaController {
 		model.addAttribute("doc_title", "1:1문의");
 		
 		
-		QnaDto qnadto = QnaService.getQnaDetail(seq);
+		QnaDto qnadto = qnaService.getQnaDetail(seq);
 		
 		model.addAttribute("qna", qnadto);
 		
@@ -154,7 +154,7 @@ public class QnaController {
 		
 		if (file1.isEmpty()) {
 			
-			QnaService.QnaUpdateAf(qnadto);
+			qnaService.QnaUpdateAf(qnadto);
 		}else {
 			
 			String filename = file1.getOriginalFilename();	//mydata
@@ -181,7 +181,7 @@ public class QnaController {
 				FileUtils.writeByteArrayToFile(file, file1.getBytes());
 				
 				// db
-				QnaService.QnaUpdateAf(qnadto);
+				qnaService.QnaUpdateAf(qnadto);
 				
 				
 			} catch (IOException e) {
@@ -200,12 +200,12 @@ public class QnaController {
 	@GetMapping("/qnadelete")
 	public String qnadelete(int seq, HttpServletRequest req) {
 		
-		String filename = QnaService.getfilename(seq);
+		String filename = qnaService.getfilename(seq);
 		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		FileDelete.main(fupload + "/" + filename);
 		 
 		
-		boolean b = QnaService.QnaDelete(seq);
+		boolean b = qnaService.QnaDelete(seq);
 		if(b) {
 			return "redirect:/customercenter/qnalist";
 		}
@@ -258,7 +258,7 @@ public class QnaController {
 		
 		// db 
 		try {
-			boolean b = QnaService.QnaAnswer(dto);
+			boolean b = qnaService.QnaAnswer(dto);
 			if(b) {
 				
 				return "redirect:/customercenter/qnalist";

@@ -416,6 +416,7 @@ opacity:0.9;
 
 <!----------------- SCRIPT ZONE ----------------->
 <script>
+var id = "${userloginid}";
 var allCnt = ${fn:length(blist) };
 
 // 가격 콤마
@@ -553,87 +554,88 @@ $(document).on('click', '.minus_Btn', function(){
 <script>
 $(document).on('click', '.delete_btn', function(){
 	var b_seq = $(this).attr("value");
-	//alert(b_seq);
-	$.ajax({
-        type:"get",
-        data: "b_seq=" + b_seq,
-        url:"/store/deleteBasket",
-        success:function( data ){
-            $(".sub1_" + b_seq).remove();
-            //alert("삭제 후 총 결제금액 : " + data);
-		    /* var udtTotal = numberWithCommas(data);
-		    alert("변환 총액 : " + udtTotal); */
-            var postfee = $(".post_price").attr("value");
-            //alert("배송비 : " + postfee);
-            
-            if(isNaN(data)){
-            	//alert("장바구니 아무것도 없음");	
-            }else{
-            	//alert("총 결제금액 : " + (data + Number(postfee)));
-            	
-            	//배송비 + (총금액-삭제금액)
-            	var udtPp = data + Number(postfee);
-            	$("#flexTotal").val(udtPp);
-            	
-            /* 1.배송비 부과될 때 */	           	
-            	if(data<10000){
-            		//alert("배송비O");
-            		/* 수정된 총 결제 예상 금액 */
-            		udtPp = data + 3000;
-            		      				    		
-            		/* 상품금액 */
-            		$("#totalP_price").html(numberWithCommas(data));
-            		
-            		if(data>0){
-            		/* 예상 배송비 */
-	            		$(".post_price").attr("value", "3000");
-	            		$(".post_price").html("3,000");
-	            		/* 총 결제 예정 금액 */
+				
+		$.ajax({
+	        type:"get",
+	        data: "b_seq=" + b_seq,
+	        url:"/store/deleteBasket",
+	        success:function( data ){
+	            $(".sub1_" + b_seq).remove();
+	            //alert("삭제 후 총 결제금액 : " + data);
+			    /* var udtTotal = numberWithCommas(data);
+			    alert("변환 총액 : " + udtTotal); */
+	            var postfee = $(".post_price").attr("value");
+	            //alert("배송비 : " + postfee);
+	            
+	            if(isNaN(data)){
+	            	//alert("장바구니 아무것도 없음");	
+	            }else{
+	            	//alert("총 결제금액 : " + (data + Number(postfee)));
+	            	
+	            	//배송비 + (총금액-삭제금액)
+	            	var udtPp = data + Number(postfee);
+	            	$("#flexTotal").val(udtPp);
+	            	
+	            /* 1.배송비 부과될 때 */	           	
+	            	if(data<10000){
+	            		//alert("배송비O");
+	            		/* 수정된 총 결제 예상 금액 */
+	            		udtPp = data + 3000;
+	            		      				    		
+	            		/* 상품금액 */
+	            		$("#totalP_price").html(numberWithCommas(data));
+	            		
+	            		if(data>0){
+	            		/* 예상 배송비 */
+		            		$(".post_price").attr("value", "3000");
+		            		$(".post_price").html("3,000");
+		            		/* 총 결제 예정 금액 */
+		            		$(".pay_price").html(numberWithCommas(udtPp));
+	            		}else if(data == 0){
+	                		$(".post_price").html("0");
+	                		$(".pay_price").html("0");
+	                	}
+	            		
+	            	}
+	            /* 2.무료배송 */	
+	            	else if(data>=10000){
+	            		$("#totalP_price").html(numberWithCommas(udtPp));
 	            		$(".pay_price").html(numberWithCommas(udtPp));
-            		}else if(data == 0){
-                		$(".post_price").html("0");
-                		$(".pay_price").html("0");
-                	}
-            		
-            	}
-            /* 2.무료배송 */	
-            	else if(data>=10000){
-            		$("#totalP_price").html(numberWithCommas(udtPp));
-            		$(".pay_price").html(numberWithCommas(udtPp));
-            	}
-            /* 3.장바구니 리스트 없을 때 */	
-            	//alert("allCnt -1 : " + (allCnt-1));
-            	
-            	$("#_allCnt").text(allCnt-1);
-            	allCnt--;
-            	
-            	if(allCnt == 0){
-         			$("#cntProduct_wrap").remove();
-            		$("#product-select-all").remove();
-            		$(".sub2Container").remove();
-            		
-            		var str = "";
-            		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
-            		str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
-            		//str += "<label class='nothingLabel' value='장바구니에 담긴 상품이 없습니다.'></label>";
-            		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
-            		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
-            		
-            		$("#mainContainer").append(str); 
-            	}
-            }
-            //minusallCnt();
-            
-            $("#msg").html("<b>장바구니에서 삭제되었습니다.</b>")
-        	$(".wModal").fadeIn();
-        	setTimeout(function() {
-        		$(".wModal").fadeOut();
-        	},700);
-        },
-        error:function(){
-           alert("error!!"); 
-        }
-   })
+	            	}
+	            /* 3.장바구니 리스트 없을 때 */	
+	            	//alert("allCnt -1 : " + (allCnt-1));
+	            	
+	            	$("#_allCnt").text(allCnt-1);
+	            	allCnt--;
+	            	
+	            	if(allCnt == 0){
+	         			$("#cntProduct_wrap").remove();
+	            		$("#product-select-all").remove();
+	            		$(".sub2Container").remove();
+	            		
+	            		var str = "";
+	            		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
+	            		str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
+	            		//str += "<label class='nothingLabel' value='장바구니에 담긴 상품이 없습니다.'></label>";
+	            		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
+	            		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
+	            		
+	            		$("#mainContainer").append(str); 
+	            	}
+	            }
+	            //minusallCnt();
+	            
+	            $("#msg").html("<b>장바구니에서 삭제되었습니다.</b>")
+	        	$(".wModal").fadeIn();
+	        	setTimeout(function() {
+	        		$(".wModal").fadeOut();
+	        	},700);
+	        },
+	        error:function(){
+	           alert("error!!"); 
+	        }
+	   })
+	   //ajax 끝
 	
 });
 </script>

@@ -10,7 +10,10 @@ import javax.mail.internet.MimeMessage;
 
 import com.rhymes.app.payment.model.PaymentDTO;
 
+import lombok.extern.slf4j.Slf4j;
+
 // 결제 후 주문한 이메일로 결제내역 보내기 폼도 있는 것
+@Slf4j
 public class PaymentEmail {
 	
     static final String FROM = "ysujin17@naver.com";
@@ -128,12 +131,12 @@ public class PaymentEmail {
         Transport transport = session.getTransport();
  
         try {
-            System.out.println("Sending...");
+            log.warn("메일 발송 중 ...");
             
             transport.connect(HOST, SMTP_USERNAME, SMTP_PASSWORD);
             transport.sendMessage(msg, msg.getAllRecipients());
- 
-            System.out.println("Email sent!");
+
+            log.warn("메일 발송 성공");
         } catch (Exception ex) {
             ex.printStackTrace();
  
