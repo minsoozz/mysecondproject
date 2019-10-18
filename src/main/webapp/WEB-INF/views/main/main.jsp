@@ -20,7 +20,7 @@
  
 <body>
     <div align="center" id="haribo">
-    <video src="/img/main-img/bg-img/main0vid_1.mp4" width="90%" height="10%" loop="loop" autoplay="autoplay"></video>
+    <video src="/img/main-img/bg-img/main0vid_2.mp4" width="90%" height="10%" loop="loop" autoplay="autoplay"></video>
      
    </div>
     <!-- main area start -->
@@ -131,15 +131,15 @@
             <div class="row" id="category_123">
                <div>
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
-                        <a href="store/productList?c1_name=WOMEN">
-                       <img src="/img/main-img/catagory-img/1.jpg" width="600px" height="600px">                        
+                        <a href="store/productList?c1_name=WOMEN&c2_name=BOTTOM&c3_name=PANTS">
+                       <img src="/img/main-img/catagory-img/1.jpg" width="600px" height="600px" style="margin-left: 10px">                        
                        </a>  
                     </div>
                 </div>
                 
                 <div>
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
-                        <a href="store/productList?c1_name=MEN">
+                        <a href="store/productList?c1_name=MEN&c2_name=TOP&c3_name=SHIRT">
                        <img src="/img/main-img/catagory-img/2.jpg" width="600px" height="600px">                        
                        </a>                       
                     </div>
@@ -148,7 +148,7 @@
                 <div>
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
                         <a href="women.jsp">
-                       <img src="/img/main-img/catagory-img/3.png" width="600px" height="600px">                        
+                       <img src="/img/main-img/catagory-img/3.jpg" width="600px" height="600px">                        
                        </a>                       
                     </div>
                 </div>
@@ -171,7 +171,6 @@
      <p>둥굴레둥굴레둥굴레둥굴레,둥굴레둥굴레둥굴레둥굴레둥굴레둥굴레.</p>
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
-   <br><br><br><br>
      <br><br><br><br>
    
     <div align="center">
@@ -184,9 +183,8 @@
      <br> 
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
-   <br><br>
      <br><br><br><br>
-       <br><br><br><br>
+
        
        
    <div align="center">
@@ -200,8 +198,7 @@
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br>
-     <br><br><br><br>
-   
+
    
   <div align="center">
     <video src="/img/main-img/bg-img/main3vid.mp4" width="90%" height="50%" loop="loop" autoplay="autoplay"></video>
@@ -214,7 +211,7 @@
      <a href="#haribo" class="mainbuybtn">구매하기</a>
      <!-- a href에 #넣고 아이디적으면 글루 이동한다!~ 디테일에서 써먹기 ~! -->
    </div>
-   <br><br>  <br><br><br><br>
+<br><br><br><br>
     <!-- 추천 상품 끝 -->
     
     

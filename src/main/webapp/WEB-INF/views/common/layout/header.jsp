@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 
 
+
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
 <!-- Core Stylesheet -->
@@ -32,8 +33,10 @@
 </head> 
 
 <body>
-    <!-- ****** Top Header Area Start ****** -->
-    
+    <!-- ****** Top Header Area Strt ****** -->
+<!--     <div class="top_header_event_area">
+    	
+    </div> -->
     <div class="top_header_area">
         <div class="container">
             <div class="row">
@@ -43,9 +46,9 @@
                     
                     <!--  맨위에 sns 아이콘들 -->
                     <div class="top_social_bar">
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="https://www.instagram.com/rhymesstore/?igshid=16e3i1e5qn8aq"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"style="color: #C5E917;" ></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"style="color: #C5E917"></i></a>
+                        <a href="https://www.instagram.com/rhymesstore/?igshid=16e3i1e5qn8aq"><i class="fa fa-instagram" aria-hidden="true" style="color: #C5E917"></i></a>
 
                     </div>
 
@@ -69,7 +72,7 @@
 
 	                        <c:if test="${prc ne 'anonymousUser' }">
 		                        	<div class="">
-		                        		<span>안녕하세요 ${userloginid } 님  &nbsp;</span>
+		                        		<span style="font-size: 14px">안녕하세요 ${userloginid } 님  &nbsp;</span>
 		                        	</div>
 		                        	&nbsp;&nbsp;
 		                        	<div class="logout">
@@ -85,7 +88,7 @@
 	                        <c:if test="${prc ne 'anonymousUser' }">
 								<c:forEach items="${prc.authorities  }" var="auth">
 									<c:if test="${auth eq 'ROLE_ADMIN' || auth eq 'ROLE_SELLER' }">
-			                       		&nbsp;&nbsp;<a href="/admin/main">admin</a>
+			                       		<a href="/admin/main">Admin</a>
 			                       	</c:if>
 								</c:forEach>
 							</c:if>

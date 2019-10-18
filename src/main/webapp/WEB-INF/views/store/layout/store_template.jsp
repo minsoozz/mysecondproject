@@ -19,7 +19,6 @@
   <tiles:insertAttribute name="header"/> <!--  /WEB-INF/views/common/layout/header.jsp -->
    
    <div id="body_wrap">
-      
        <div id="middle_wrap">
           <div id="sidebar_wrap"> 
             <tiles:insertAttribute name="left_menu"/>
@@ -27,14 +26,11 @@
          <div id="content_wrap"> 
             <tiles:insertAttribute name="body"/> <!-- body -->
           </div>  
-       </div>  
-       
-       <div id="footer_wrap">
+       </div>
+    </div>
+    <div id="footer_wrap">
          <tiles:insertAttribute name="footer"/> <!-- /WEB-INF/views/common/layout/footer.jsp -->
       </div>
-     
-    </div>
-    
     
   </body>
 </html>

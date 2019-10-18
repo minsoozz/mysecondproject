@@ -34,12 +34,12 @@
 		      <tiles:insertAttribute name="body"/> <!-- body -->
 	    	</div>  
 	    </div>  
-	    <div id="footer_wrap">
-	      <tiles:insertAttribute name="footer"/> <!-- /WEB-INF/views/common/layout/footer.jsp -->
-	   </div>
+	   
 	  
     </div>
-    
+     <div id="footer_wrap">
+	      <tiles:insertAttribute name="footer"/> <!-- /WEB-INF/views/common/layout/footer.jsp -->
+	   </div>
     
   </body>
 </html>
