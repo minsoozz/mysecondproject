@@ -19,7 +19,7 @@ import com.rhymes.app.customer.service.FaqService;
 public class FaqController {
 
 	@Autowired
-	private FaqService FaqService;
+	private FaqService faqService;
 	
 	
 	@RequestMapping(value = "/faqlist", method = {RequestMethod.GET, RequestMethod.POST})
@@ -36,10 +36,10 @@ public class FaqController {
 		param.setStart(start);
 		param.setEnd(end);
 		
-		List<FaqDto> faqlist = FaqService.getFaqList(param);
+		List<FaqDto> faqlist = faqService.getFaqList(param);
 		
 		//글의 총수 
-		int totalRecordCount = FaqService.getFaqCount(param);	
+		int totalRecordCount = faqService.getFaqCount(param);	
 		model.addAttribute("faqlist", faqlist);
 		
 		model.addAttribute("pageNumber", sn);
@@ -68,7 +68,7 @@ public class FaqController {
 	@GetMapping("/faqupload")
 	public String faqupload(FaqDto faqdto) {
 		
-		FaqService.FaqUpload(faqdto);
+		faqService.FaqUpload(faqdto);
 		
 		return "redirect:/customercenter/faqlist";
 	}
@@ -79,7 +79,7 @@ public class FaqController {
 		model.addAttribute("doc_title", "자주하는 질문");
 		model.addAttribute("doc_sub", "고객님들께서 가장 자주하시는 질문을 모두 모았습니다.");
 		
-		FaqDto faqdto = FaqService.getFaqDetail(seq);
+		FaqDto faqdto = faqService.getFaqDetail(seq);
 		model.addAttribute("faqdto",faqdto);
 		
 		return "faqupdate.tiles";
@@ -89,7 +89,7 @@ public class FaqController {
 	@GetMapping("/faqupdateAf")
 	public String faqupdateAf(FaqDto faqdto) {
 		
-		FaqService.FaqUpdateAf(faqdto);
+		faqService.FaqUpdateAf(faqdto);
 		
 		return "redirect:/customercenter/faqlist";
 	}
@@ -99,7 +99,7 @@ public class FaqController {
 	public String faqdelete(int seq) {
 		
 		
-		FaqService.FaqDelete(seq);
+		faqService.FaqDelete(seq);
 		
 		return "redirect:/customercenter/faqlist";
 	}

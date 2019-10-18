@@ -5,15 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
@@ -32,24 +23,17 @@ import com.rhymes.app.payment.model.PaymentDetailsDTO;
 import com.rhymes.app.payment.service.PaymentService;
 import com.rhymes.app.payment.util.Coolsms;
 import com.rhymes.app.payment.util.PaymentEmail;
-import com.rhymes.app.payment.util.PaymentMailling;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class PaymentController {
 
 	@Autowired
 	private PaymentService PaymentService;
 
-	// 처음
-	@RequestMapping("/daraewelcome")
-	public String welcome() {
-		System.out.println("daraewelcome");
-
-		return "/payment/welcome";
-	}
-
 	// 단일제품 구매
-	// @GetMapping("/payment")
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
 	public String payment(Model model, String stock_seq, String p_quantity, Principal pcp) throws Exception {
 		
@@ -67,17 +51,13 @@ public class PaymentController {
 		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
 		basketList.get(0).setId(pcp.getName());
 		
-		String totalprice = basketList.get(0).getP_price() * basketList.get(0).getQuantity() + "";
+		// 총금액 계산
+		String product_price = basketList.get(0).getP_price() * basketList.get(0).getQuantity() + "";
 
 		int delivery_price = 0;
-		if(Integer.parseInt(totalprice) < 10000) {
+		if(Integer.parseInt(product_price) < 10000) {
 			delivery_price = 3000;
 		}
-
-		for (OrderDTO _dto : basketList) {
-			System.out.println("단일구매 : " + _dto.toString());
-		}
-		
 		
 		
 		// DB 적립금 가져오기
@@ -98,7 +78,7 @@ public class PaymentController {
 		model.addAttribute("point_amount", point_amount);
 		model.addAttribute("coupon_count", coupon_count);
 		model.addAttribute("basketList", basketList);
-		model.addAttribute("totalprice", totalprice);
+		model.addAttribute("product_price", product_price);
 		model.addAttribute("delivery_price", delivery_price);
 
 		if (true) {
@@ -114,7 +94,6 @@ public class PaymentController {
 	// 장바구니 리스트 구매
 	@RequestMapping("/payment/basketOrder")
 	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity, Principal pcp) throws Exception {
-		System.out.println("================= 여기부터 payment ==================");
 
 		String userid = pcp.getName();
 		// 장바구니에서 문자열로 데이터를 가져왔다
@@ -162,10 +141,6 @@ public class PaymentController {
 			basketList.get(i).setId(userid);
 		}
 		
-		for (OrderDTO dto : basketList) {
-			System.out.println("장바구니 : " + dto.toString());
-		}
-		
 		
 		
 		// DB 적립금 가져오기
@@ -180,13 +155,13 @@ public class PaymentController {
 		// 장바구니 내역 지울 수 있는 변수
 		int basket_del = 1;
 
-		int totalprice = 0;
+		int product_price = 0;
 		for (OrderDTO dto : basketList) {
-			totalprice += dto.getP_price() * dto.getQuantity();
+			product_price += dto.getP_price() * dto.getQuantity();
 		}
 		
 		int delivery_price = 0;
-		if(totalprice < 10000) {
+		if(product_price < 10000) {
 			delivery_price = 3000;
 		}
 
@@ -195,7 +170,7 @@ public class PaymentController {
 		model.addAttribute("point_amount", point_amount);
 		model.addAttribute("coupon_count", coupon_count);
 		model.addAttribute("basketList", basketList);
-		model.addAttribute("totalprice", totalprice);
+		model.addAttribute("product_price", product_price);
 		model.addAttribute("delivery_price", delivery_price);
 
 		if (true) {
@@ -208,62 +183,59 @@ public class PaymentController {
 
 	}
 
-	// 주문페이지에서 결제 후 결제완료창으로 이동
+	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
-		System.out.println("daraepaymentAf");
 		dto.setUserid( pcp.getName() );
-		System.out.println("dto : " + dto.toString());
-		System.out.println("dtoAf : " + dtoAf.toString());
 		
 		// 상품 재고번호와 수량을 ,를 기준으로 가져온다
 		String[] stock_seq = dtoAf.getStock_seq().split(",");
 		String[] quantity = dtoAf.getQuantity().split(",");
 		
 		for (int i = 0; i < dtoAf.getStock_quantity(); i++) {
-			System.out.println(stock_seq[i]);
-			System.out.println(quantity[i]);
+			log.warn(stock_seq[i]);
+			log.warn(quantity[i]);
 
 			// 주문한 상품수량만큼 재고수량에서 차감한다
 			boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
-			System.out.println("재고수량 차감 ----- " + (i+1) + "번째 상품 차감 : " + b);
+			log.warn("재고수량 차감 ----- " + (i+1) + "번째 상품 차감 : " + b);
 			
 			// 상품의 가격
 			int price = PaymentService.getPrice(Integer.parseInt(stock_seq[i]));
-			System.out.println("price : " + price);
+			log.warn("price : " + price);
 			
 			// db에 결제 디테일을 저장한다(후기 여부는 false)
 			PaymentDetailsDTO dtoDt = new PaymentDetailsDTO(Integer.parseInt(stock_seq[i]), Integer.parseInt(quantity[i]), price, dto.getPayment_code());
 			
 			boolean b3 = PaymentService.payment_detail_save(dtoDt);
-			System.out.println("결제 내역 디테일 저장 ---- " + b3);
+			log.warn("결제 내역 디테일 저장 ---- " + b3);
 		}
 		
 		// 적립금 차감한다 -- 아직
 		boolean b = PaymentService.disc_point(dto);
-		System.out.println("사용 포인트 차감 ----- " + b);
+		log.warn("사용 포인트 차감 ----- " + b);
 
 		// rhy_payment db에 결제내역을 저장한다
 		boolean b2 = PaymentService.payment_save(dto);
-		System.out.println("결제 내역 저장 ----- " + b2);
+		log.warn("결제 내역 저장 ----- " + b2);
 		
 		// rhy_payment_after db에 결제내역을 저장한다
 		boolean b3 = PaymentService.payment_after(dtoAf);
-		System.out.println("결제 애프터 저장 ---- " + b3);
+		log.warn("결제 애프터 저장 ---- " + b3);
 
 		// 사용한 쿠폰을 사용으로 변환
 		boolean b4 = PaymentService.update_isused_coupon(dto);
-		System.out.println("사용한 쿠폰을 사용으로 변환 ----- " + b4);
+		log.warn("사용한 쿠폰을 사용으로 변환 ----- " + b4);
 
 		// 배송내역 저장 -- 운송장번호 어떻게?
 		boolean b5 = PaymentService.delivery_save(dto);
-		System.out.println("배송 내역 저장 ----- " + b5);
+		log.warn("배송 내역 저장 ----- " + b5);
 
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 		// rhy_store_basket 에서 구매한 id를 삭제
 		if(dtoAf.getBasket_del() == 1) {
 			boolean b6 = PaymentService.delete_basket(pcp.getName());
-			System.out.println("장바구니 내역 지우기 ---- " + b6);
+			log.warn("장바구니 내역 지우기 ---- " + b6);
 		}
 
 		// 이메일로 결제내역을 보낸다 -- 폼 필요
@@ -285,14 +257,12 @@ public class PaymentController {
 		return "/payment/paymentAf";
 	}
 
-		
-	// 주문페이지에서 비회원으로 주문할때 본인인증
+	// 결제 페이지에서 비회원으로 주문할때 본인인증
 	@ResponseBody
 	@RequestMapping(value = "/sendsms", method = RequestMethod.GET)
 	public String sendSms(HttpServletRequest request) throws Exception {
-		System.out.println("본인인증");
-		System.out.println("받는번호 : " + (String) request.getParameter("to"));
-		System.out.println("인증번호 : " + (String) request.getParameter("text"));
+		log.warn("받는번호 : " + (String) request.getParameter("to"));
+		log.warn("인증번호 : " + (String) request.getParameter("text"));
 
 		String api_key = "NCS4ZFTWNHGBIKUM";
 		String api_secret = "TPH57XEIXFFDAUXJV3EBNDDS633YNFG2";
@@ -306,49 +276,44 @@ public class PaymentController {
 		set.put("text", "안녕하세요 인증번호는 [" + (String) request.getParameter("text") + "]입니다"); // 문자내용
 		set.put("type", "sms"); // 문자 타입
 
-		System.out.println(set);
+		log.warn(set+"");
 
 		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 
 		if ((boolean) result.get("status") == true) {
 			// 메시지 보내기 성공 및 전송결과 출력
-			System.out.println("성공");
-			System.out.println(result.get("group_id")); // 그룹아이디
-			System.out.println(result.get("result_code")); // 결과코드
-			System.out.println(result.get("result_message")); // 결과 메시지
-			System.out.println(result.get("success_count")); // 메시지아이디
-			System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
+			log.warn("성공");
+			log.warn(result.get("group_id")+"");			// 그룹아이디
+			log.warn(result.get("result_code")+"");			// 결과코드
+			log.warn(result.get("result_message")+"");		// 결과 메시지
+			log.warn(result.get("success_count")+"");		// 메시지아이디
+			log.warn(result.get("error_count")+"");			// 여러개 보낼시 오류난 메시지 수
 		} else {
 			// 메시지 보내기 실패
-			System.out.println("실패");
-			System.out.println(result.get("code")); // REST API 에러코드
-			System.out.println(result.get("message")); // 에러메시지
+			log.warn("실패");
+			log.warn(result.get("code")+"");				// REST API 에러코드
+			log.warn(result.get("message")+"");				// 에러메시지
 		}
 
 		return "success";
 	}
 	
-	// 결제페이지에서 쿠폰 가져오기
+	// 결제페이지에서 window.open으로 쿠폰 가져오기
 	@RequestMapping(value = "/payment_coupon", method = RequestMethod.GET)
 	public String payment_coupon(Model model, Principal pcp, String product_price, String delivery_price, String disc_point) {
-		System.out.println("쿠폰 컨트롤러");
 		String userid = pcp.getName();
 		
-		// DB 쿠폰 가져오기
+		// DB 유효 쿠폰 전부 가져오기
 		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
 
-		model.addAttribute("coupon_code", coupon_code);
-		if(disc_point == "") {
-			model.addAttribute("disc_point", "0");
-		}else {
-			model.addAttribute("disc_point", disc_point);
+		// 배송비
+		if(!delivery_price.equals("0")) {
+			product_price = (Integer.parseInt(product_price) + 3000) + "";
 		}
 
-		if(delivery_price.equals("0")) {
-			model.addAttribute("product_price", product_price);
-		}else {
-			model.addAttribute("product_price", Integer.parseInt(product_price) + 3000);
-		}
+		model.addAttribute("coupon_code", coupon_code);
+		model.addAttribute("disc_point", disc_point);
+		model.addAttribute("product_price", product_price);
 		
 		return "/payment/coupon";
 	}

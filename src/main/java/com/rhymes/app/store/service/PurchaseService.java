@@ -24,4 +24,6 @@ public interface PurchaseService {
 	public boolean deleteWishlist(WishlistDto wish) throws Exception;
 	public boolean insertRestockN(RestockNotifyDto restock) throws Exception;
 	public boolean chkRestockN(RestockNotifyDto restock) throws Exception;
+	
+	public BasketListDto getSessionBasketDto(int stock_seq)throws Exception;
 }
