@@ -94,5 +94,11 @@
 		WHERE ID = #{id} AND STOCK_SEQ=#{stock_seq}
 	 </select>
 <!-- 재입고 알림 끝 -->	 
+
+<!-- 재고 확인(장바구니 수량변경 / 상품구매 수량선택시 -->
+	<select id="stockCheck" parameterType="Integer" resultType="Integer">
+		SELECT QUANTITY FROM rhy_store_stock
+		WHERE STOCK_SEQ = #{stock_seq}
+	</select>
  
 </mapper>

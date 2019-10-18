@@ -300,7 +300,7 @@ public class PaymentController {
 	
 	// 결제페이지에서 window.open으로 쿠폰 가져오기
 	@RequestMapping(value = "/payment_coupon", method = RequestMethod.GET)
-	public String payment_coupon(Model model, Principal pcp, String product_price, String delivery_price, String disc_point) {
+	public String payment_coupon(Model model, Principal pcp, String product_price, String delivery_price, String input_disc_point) {
 		String userid = pcp.getName();
 		
 		// DB 유효 쿠폰 전부 가져오기
@@ -312,7 +312,7 @@ public class PaymentController {
 		}
 
 		model.addAttribute("coupon_code", coupon_code);
-		model.addAttribute("disc_point", disc_point);
+		model.addAttribute("input_disc_point", input_disc_point);
 		model.addAttribute("product_price", product_price);
 		
 		return "/payment/coupon";

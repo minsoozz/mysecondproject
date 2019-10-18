@@ -149,14 +149,6 @@ tr{
 	font: Open Sans 30px;
 	color: black; 
 }
-<<<<<<< HEAD
-/* 
-#ctable tr:nth-child(2n) {
-  border-top:red;
-}
-
- */
- 
  #ctr2{
  border-top: none;
  }
@@ -164,12 +156,10 @@ tr{
 #dtable{
 	width:661px;
 	text-align: center;
-=======
-
-
+	
+	
 .basketBtn:hover{
 	opacity:0.5;
->>>>>>> c13122f6ee053da8824fe6a0d5aeaeb60d637db8
 }
 
 

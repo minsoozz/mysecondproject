@@ -80,7 +80,7 @@
   	 <div id="b_btn">
   	 <input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
   	 <button type="button" class="wishBtn" style="cursor:pointer;">
-  	 찜하기
+  	 
   	<!-- 좋아요 기능 시작!!! -->
   	<c:choose>
   		<c:when test="${userloginid ne null }">
@@ -223,8 +223,22 @@
 <script type="text/javascript">
 
 $("#_notesbtn").click(function() {
-	alert("점검중입니다");
-})
+	var send_id =  "${dto.s_id}";
+	
+	var url= "/mypage/notesanswer?send_id="+send_id;    //팝업창 페이지 URL
+	var winWidth = 500;
+    var winHeight = 400;
+    
+    var popupX = (window.screen.width / 2) - (580 / 2);
+ 	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+ 	var popupY= (window.screen.height / 2) - (500 / 2);
+ 	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+    
+    
+    var popupOption= "width="+winWidth+", height="+winHeight + ", left="+ popupX + ", top="+ popupY;    //팝업창 옵션(optoin)
+	window.open(url,"",popupOption);
+});
 
 function gologin(){
 	 var con_test = confirm("로그인이 필요합니다 로그인 페이지로 이동하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
@@ -434,19 +448,18 @@ $(function(){
 				var arrow = "<img src='/img/used-img/arrow.png' width='10px' height='10px'/>";
 				
 				if(depth > 0){
-					html += "<tr class='ctr'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
-					html += "<tr class='test'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
-
+					html += "<tr><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+			
 						
 				} else {
-					html += "<tr class='ctr'><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+					html += "<tr><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
 						
 				}
 				
 				// html += "<tr><td>"+data[i].id+"</td><td><a href='#none' onclick='answer_comment(this,"+seq+","+ref+")''>답글</a></td><td>"+data[i].rdate+"</td>";
 				
 				if(loginid.trim() == id.trim()){
-					html += "<td><div><a href='#none' onclick='update_comment(this,"+seq+")'>수정</a> | <a href='javascript: delete_comment(${dto.seq},"+seq+")'>삭제</a></div></td></tr>";				
+					html += "<td><div><a href='#none' onclick='update_comment(this,"+seq+")'>수정</a> | <a href='javascript: delete_comment(${dto.seq},"+seq+","+depth+","+ref+")'>삭제</a></div></td></tr>";				
 				} else {
 					html +="<td></td></tr>";	
 				}
@@ -651,8 +664,10 @@ $(function(){
 	 })
  }
  
- function delete_comment(parent,seq){
-	 count = 0;	 
+ function delete_comment(parent,seq,depth,ref){
+
+	 var depth = depth;
+	 var ref = ref;
 	 var con_test = confirm("댓글을 삭제하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
 	 
 	 if(con_test == true){
@@ -663,7 +678,9 @@ $(function(){
 		 type:'get',
 		 data:{
 			 parent:parent,
-			 seq:seq
+			 seq:seq,
+			 depth:depth,
+			 ref:ref
 		 },
 		 success:function(data){
 			 getCommentList();

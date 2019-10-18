@@ -46,18 +46,7 @@ public class UsedController {
 	
 	@GetMapping("/hello") 
 	public String test(HttpServletRequest req,Principal prc) {
-		// 아직 구축이 제대로 안되서 임의로 로그인 아이디 설정해 놓음
-		/*
-		System.out.println(prc.getName());
-		
-		String userid = prc.getName();
-		
-		P_MemberDTO Mdto = usedService.getMemberDto(userid);
-		
-		System.out.println(Mdto.toString());
-		
-		req.getSession().setAttribute("login", Mdto);
-		*/
+
 		return "used/test";
 	}
 	
@@ -73,6 +62,7 @@ public class UsedController {
 		
 		int totalRecordCount = usedService.getBbsCount(param);
 		
+		System.out.println(totalRecordCount);
 		
 		// pageNumber 취득
 		int sn = param.getPageNumber(); // 0 , 1, 2
@@ -83,6 +73,8 @@ public class UsedController {
 		param.setEnd(end);
 			
 		List<ProductsDto> list = usedService.getUsedList(param);
+		
+		// 페이징을 위한 attribute
 		
 		model.addAttribute("list", list);
 		model.addAttribute("select",param.getSelect());
@@ -98,7 +90,7 @@ public class UsedController {
 		return "usedlist.tiles";
 	}
 	
-	@GetMapping("useddetail")
+	@GetMapping("useddetail")	// 중고상품 디테일
 	public String useddetail(Model model,int seq, HttpServletRequest req) {
 		boolean c = usedService.updateReadCount(seq);	// 조회수 증가
 		
@@ -128,7 +120,9 @@ public class UsedController {
 				 ((P_MemberDTO)req.getSession().getAttribute("login")).setIslike(false);
 			 }
 		 }
-
+		 
+		// 사진을 , 단위로 끊어서 배열에 저장해준다. 
+		 
 		String str = dto.getPhoto_sys();
 		String arr[] = str.split(",");
 		dto.setPhoto_list(arr);
@@ -140,7 +134,7 @@ public class UsedController {
 		
 	}
 	
-	@GetMapping(value="updateProduct")
+	@GetMapping(value="updateProduct")	// 중고상품 수정
 	public String updateProduct(int seq,Model model) {
 		
 		ProductsDto dto =  usedService.getUsedDetail(seq);
@@ -159,21 +153,15 @@ public class UsedController {
 		return "usedupdate.tiles";
 	}
 	
-	@GetMapping(value="deleteProduct")
+	@GetMapping(value="deleteProduct")	// 제품 삭제
 	public String deleteProduct(int seq,Model model) {
 		
 		boolean b = usedService.deleteProduct(seq);
 		
-		if(b) {
-			System.out.println("성공");
-		} else {
-			System.out.println("실패");
-		}
-		
 		return "redirect:usedlist";
 	}
 	
-	@GetMapping(value="/getCommentsList",produces = "application/json; charset=utf8")
+	@GetMapping(value="/getCommentsList",produces = "application/json; charset=utf8")	// ajax로 댓글을 불러온다
 	@ResponseBody
 	public ResponseEntity getCommentsList(int seq) throws Exception{
 		
@@ -203,7 +191,7 @@ public class UsedController {
 		return new ResponseEntity(json.toString(), responseHeaders , HttpStatus.CREATED);
 	};
 	
-	@GetMapping("/addComments")
+	@GetMapping("/addComments")	// 댓글 작성
 	@ResponseBody
 	public String addComments(int parent,String comments,String userid) {
 		
@@ -220,7 +208,7 @@ public class UsedController {
 		return "suc";
 	}
 	
-	@GetMapping("/updateComment")
+	@GetMapping("/updateComment")	// 댓글 수정
 	@ResponseBody
 	public String updateComment(int parent, int seq,String comments) {
 		
@@ -237,7 +225,7 @@ public class UsedController {
 		return "suc";
 	}
 	
-	@GetMapping("/insertanswer")
+	@GetMapping("/insertanswer")	// 답글 작성
 	@ResponseBody
 	public String insertanswer(int parent, int seq, String comments, String userid, int ref) {
 			
@@ -256,21 +244,23 @@ public class UsedController {
 		return "suc";
 	}
 	
-	@GetMapping("/deleteComment")
+	@GetMapping("/deleteComment")	// 답글 삭제
 	@ResponseBody
-	public String deleteComment(int parent,int seq) {
-		
+	public String deleteComment(int parent,int seq,int depth,int ref) {
+	
 	Map<String,Object> map = new HashMap<String, Object>();
 		
 		map.put("parent", parent);
 		map.put("seq", seq);
+		map.put("depth",depth);
+		map.put("ref", ref);
 		
 		boolean b = usedService.deleteComment(map);
 	
 		return "suc";
 	}
 	
-	@GetMapping("popup")
+	@GetMapping("popup")	// 휴대폰 인증팝업
 	public String popup(Principal prc,Model model,HttpServletRequest req) {
 		
 		String name = prc.getName();
@@ -283,7 +273,7 @@ public class UsedController {
 		return "popup";
 	}
 	
-	@PostMapping("popupAf")
+	@PostMapping("popupAf")	// 인증 완료 후 도착하는 컨트롤러
 	public void popupAf(String s_id, @RequestParam(required = false, defaultValue="") String postcode,
 			@RequestParam(required = false, defaultValue="") String address, @RequestParam(required = false, defaultValue="") String detailaddress,
 			HttpServletRequest req) {
@@ -314,13 +304,13 @@ public class UsedController {
 		
 	}
 	
-	@GetMapping("usedwrite")
+	@GetMapping("usedwrite")	// 중고상품 글 쓰기
 	public String usedwrite(HttpServletRequest req, Model model) {
 		
 		return "usedwrite.tiles";
 	}
 	
-	@RequestMapping(value="usedwriteAf", method = RequestMethod.POST)
+	@RequestMapping(value="usedwriteAf", method = RequestMethod.POST)	// 중고상품 글 쓰고 난 후 컨트롤러
 	public String usedwriteAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
 			HttpServletRequest req) throws Exception {
 		
@@ -385,7 +375,7 @@ public class UsedController {
 
 	}
 	
-	@RequestMapping(value="usedupdateAf", method = RequestMethod.POST)
+	@RequestMapping(value="usedupdateAf", method = RequestMethod.POST)	// 중고상품 글쓰기 수정 
 	public String usedupdateAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
 			HttpServletRequest req, String[] originfile) throws Exception {
 		
@@ -481,7 +471,7 @@ public class UsedController {
 		return "redirect:/used/hello";
 	}
 	
-	@GetMapping(value="/addlikes")
+	@GetMapping(value="/addlikes")	// 좋아요 추가,삭제
 	@ResponseBody
 		public String addlikes(int bno, String mname) {
 		
@@ -503,7 +493,7 @@ public class UsedController {
 		return num+"";
 	}
 		
-	@GetMapping(value="/likeCount")
+	@GetMapping(value="/likeCount")	// 각 게시글 마다 좋아요 개수 구하기
 	@ResponseBody
 		public String likeCount(int bno) {
 		
@@ -511,7 +501,7 @@ public class UsedController {
 		return count+"";
 	}
 	
-	@GetMapping(value="/getSeller")
+	@GetMapping(value="/getSeller")	// 셀러 여부 확인
 	@ResponseBody
 	public String getSeller(String s_id,Principal prc) {
 		
@@ -520,7 +510,7 @@ public class UsedController {
 		return count+"";
 	}
 	
-	@GetMapping(value="/blacklist")
+	@GetMapping(value="/blacklist")	// 블랙리스트, 신고하기 기능
 	@ResponseBody
 	public String blacklist(String str,int seq,String id,String b_id) {
 		System.out.println(id);
@@ -541,7 +531,7 @@ public class UsedController {
 		return count;
 	}
 	
-	@GetMapping(value = "/SendSms")
+	@GetMapping(value = "/SendSms")	// 문자 전송 api
 	@ResponseBody
 	  public String sendSms(HttpServletRequest request) throws Exception {
 	

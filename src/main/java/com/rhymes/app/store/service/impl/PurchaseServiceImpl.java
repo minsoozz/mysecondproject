@@ -89,4 +89,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public BasketListDto getSessionBasketDto(int stock_seq) throws Exception {
 		return purchase.getSessionBasketDto(stock_seq);
 	}
+
+	@Override
+	public int stockCheck(int stock_seq) throws Exception {
+		return purchase.stockCheck(stock_seq);
+	}
 }
