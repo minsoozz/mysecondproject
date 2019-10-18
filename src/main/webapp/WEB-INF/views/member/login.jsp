@@ -115,7 +115,7 @@
 $(function(){
 	$(".snsNaverlogin").click(function(){
 		console.log(12124);
-		$("#naverIdLogin_loginButton img").trigger("click");	
+		$("#loginWrap img").trigger("click");	
 	});	
 });
 	var naverLogin = new naver.LoginWithNaverId(
