@@ -84,7 +84,7 @@
 						<input type="button" id="enterBtn" value="확인">
 						<input type="text" name="text" id="text">
 						<!-- 인증번호를 히든으로 저장해서 보낸다 -->
-						<input type="text" id="_text_confirm"></td>
+						<input type="text" id="text_confirm"></td>
 				</tr>
 				<tr>
 					<th>보내는 분 *</th>
@@ -130,8 +130,7 @@
 				</tr>
 				<tr>
 					<th>수령인 이름 *</th>
-					<td><input type="text" size="26" id="receive_name"
-						name="receive_name"></td>
+					<td><input type="text" size="26" id="receive_name" name="receive_name"></td>
 				</tr>
 				<tr>
 					<th>휴대폰 *</th>
@@ -159,9 +158,9 @@
 					<th></th>
 					<th>배송비</th>
 					<th></th>
-					<th>할인금액</th>
+					<th>사용 포인트</th>
 					<th></th>
-					<th></th>
+					<th>쿠폰 할인액</th>
 					<th></th>
 					<th>결제 예정금액</th>
 				</tr>
@@ -214,7 +213,7 @@
 						<td colspan="8">
 							<input type="text" id="input_disc_point" onchange="price_change()" value="0">원 &nbsp;&nbsp;사용가능
 							적립금 : <fmt:formatNumber value="${point_amount }" />원
-							&nbsp;&nbsp;(1,000원 단위로 사용가능합니다)</td>
+							&nbsp;&nbsp;(1,000원부터 사용가능합니다)</td>
 					</c:if>
 				</tr>
 			</table>
@@ -228,11 +227,11 @@
 			<table class="payment_tb">
 				<tr style="background-color: #fafafa">
 					<th>결제 수단 선택</th>
-					<td>신용카드 <input type="radio" name="payment" value="card">&nbsp;&nbsp;&nbsp;&nbsp;
-						무통장입금 <input type="radio" name="payment" value="vbank">&nbsp;&nbsp;&nbsp;&nbsp;
-						카카오페이 <input type="radio" name="payment" value="kakaopay">&nbsp;&nbsp;&nbsp;&nbsp;
-						실시간 계좌이체 <input type="radio" name="payment" value="trans">&nbsp;&nbsp;&nbsp;&nbsp;
-						휴대요금 결제 <input type="radio" name="payment" value="phone">
+					<td>신용카드 <input type="radio" name="payment_method" value="card">&nbsp;&nbsp;&nbsp;&nbsp;
+						무통장입금 <input type="radio" name="payment_method" value="vbank">&nbsp;&nbsp;&nbsp;&nbsp;
+						카카오페이 <input type="radio" name="payment_method" value="kakaopay">&nbsp;&nbsp;&nbsp;&nbsp;
+						실시간 계좌이체 <input type="radio" name="payment_method" value="trans">&nbsp;&nbsp;&nbsp;&nbsp;
+						휴대요금 결제 <input type="radio" name="payment_method" value="phone">
 					</td>
 				</tr>
 				<tr>
@@ -250,7 +249,6 @@
 
 
 		<!-- submit으로 보낼 데이터 -->
-		<input type="hidden" name="payment_method" id="payment_method">
 		<input type="hidden" name="payment_status" id="payment_status">
 		<input type="hidden" name="delivery_price" value="${delivery_price }">
 		<input type="hidden" name="add_point" id="add_point" value="0">
