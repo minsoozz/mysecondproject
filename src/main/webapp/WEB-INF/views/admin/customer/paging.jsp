@@ -59,7 +59,7 @@
 
 
 <div align="center">
-	<nav aria-label="Page navigation example">
+	<nav aria-label="Page navigation example" >
 	
 	<!-- << -->
 	<ul class="pagination justify-content-center">
@@ -90,7 +90,7 @@
 	for(int i = screenStartPageIndex; i<screenEndPageIndex; i++){
 		if(i == pageNumber){	// 현재페이지
 		%>
-		<li class="#none"><a class="page-link" style="color: #000000;background-color:#F6FFCC;"><%=i+1 %></a></li>
+		<li class="#none"><a class="page-link" style="color: #000000;"><%=i+1 %></a></li>
 		
 		<% 
 		}else{	// 그외의 페이지들
