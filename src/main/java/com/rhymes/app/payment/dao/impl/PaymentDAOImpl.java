@@ -68,8 +68,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 			coupon = SqlSession.selectList(p + "getAllCoupon", userid);
 		}catch(Exception e) {}
 		
-		int countCoupon = SqlSession.selectOne(p + "getCountCoupon", userid);
-		
 		return coupon;
 	}
 
