@@ -13,8 +13,12 @@
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- payment.js -->
+<!-- java script -->
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/payment.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/mem_info.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/delivery.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/account.js"></script>
+
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
@@ -158,6 +162,8 @@
 					<th></th>
 					<th>할인금액</th>
 					<th></th>
+					<th></th>
+					<th></th>
 					<th>결제 예정금액</th>
 				</tr>
 				<!-- result_price = 상품금액 + 배송비 - 사용 포인트 - 쿠폰 할인액  -->
@@ -172,7 +178,7 @@
 					<!-- submit으로 controller에 보내는 쿠폰 할인액  -->
 					<td><input type="text" name="disc_coupon" id="disc_coupon" value="0"></td>
 					<td>=</td>
-					<td><input type="text" name="totalprice" id="totalprice"></td>
+					<td><input type="text" name="totalprice" id="totalprice" value="0"></td>
 				</tr>
 
 				<c:if test="${coupon_count eq 0 }">
