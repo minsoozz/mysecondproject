@@ -59,7 +59,7 @@
 <div align="center" id="ff">
 	<nav aria-label="Page navigation example">
 	<!-- << -->
-	<ul class="pagination">
+	<ul class="pagination justify-content-center">
 		<li class="page-item">
 	      <a href="#_product_qna" class="page-link"  title="처음페이지" onclick="getProductQna('0')">
 	        <span aria-hidden="true">&laquo;</span>
