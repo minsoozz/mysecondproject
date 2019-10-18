@@ -459,7 +459,7 @@ public class BasketController{
 	      return str;
 	   }
 	   
-	   // 장바구니 수량변경 EVENT(AJAX)
+	   // 회원 장바구니 수량변경 EVENT(AJAX)
 	   @ResponseBody
 	   @GetMapping("/updateBasketQ")
 	   public int updateBasketQ(BasketDto basket, Principal prc) throws Exception{
@@ -501,6 +501,13 @@ public class BasketController{
 	      return total_price;
 	   }
 	
+	   //재고체크 : 장바구니 수량 변경시
+	   @ResponseBody
+	   @GetMapping("/stockCheck")
+	   public int stockCheck(int stock_seq)throws Exception{
+		   int stock_quantity = purchase.stockCheck(stock_seq);
+		   return stock_quantity;
+	   }
 	
 	
 	

@@ -103,6 +103,16 @@ public class PurchaseDaoImpl implements PurchaseDao {
 		return basketlistDto;
 	}
 
+	@Override
+	public int stockCheck(int stock_seq) throws Exception {
+		int stock_quantity = sqlSession.selectOne(ns+"stockCheck", stock_seq); 
+		return stock_quantity;
+	}
+
+	
+
+
+
 	
 
 
