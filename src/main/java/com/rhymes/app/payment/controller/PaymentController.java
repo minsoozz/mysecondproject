@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.model.OrderDTO;
 import com.rhymes.app.payment.model.PaymentAfDTO;
@@ -38,58 +39,39 @@ public class PaymentController {
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
 	public String payment(Model model, String stock_seq, String p_quantity, Principal pcp) throws Exception {
 		
+		// 회원 비회원 구분
 		String userid = pcp.getName();
 
 		OrderDTO order_dto = new OrderDTO();
 		order_dto.setStock_seq(Integer.parseInt(stock_seq));
 
-		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
+		List<OrderDTO> basketList = new ArrayList<OrderDTO>();		
+		PaymentParamDTO payment_param = new PaymentParamDTO();
 		
-		// db 상품 정보 가져오기
-		basketList.add(PaymentService.getOrder(order_dto));
-		
-		// db에는 재고수량이 있고 주문수량은 없다 매개변수로 받은 주문수량을 직접 넣는다
-		basketList.get(0).setQuantity(Integer.parseInt(p_quantity));
 
-		// 리스트에 구매회원 id를 직접 넣는다
-		basketList.get(0).setId(pcp.getName());
-
-		
-		
-		// 총금액 계산
-		int product_price = basketList.get(0).getP_price() * basketList.get(0).getQuantity();
-
-		// 총금액이 10,000원 미만이면 배송비 = 3,000원이다
-		int delivery_price = 0;
-		if(product_price < 10000) {
-			delivery_price = 3000;
-		}
-		
-		
+		// db 상품 정보 가져오기 + 주문수량 + 구매회원 id
+		basketList.add(PaymentService.getOrder(order_dto, Integer.parseInt(p_quantity), userid));
 
 		// DB 적립금, 쿠폰 개수 가져오기
-		// int point_amount = PaymentService.getPointAndCountCoupon(userid);
-		int point_amount = PaymentService.getPoint(userid);
-		
-		// DB 쿠폰 개수 가져오기
-		int coupon_count = PaymentService.getCountCoupon(userid);
-		
-		// DB 쿠폰 가져오기
-		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
-
-		// 장바구니 내역 지울 수 있는 변수
-		int basket_del = 0;
+		payment_param = PaymentService.getPointAndCountCoupon(userid, basketList);
 
 		
+		// 총 상품 금액, 유효 쿠폰 개수, 유효 적립금, 배송비, 장바구니로 왔는지 구분자(장바구니면 1)
+		payment_param = new PaymentParamDTO(payment_param.getProduct_price(),
+											payment_param.getCoupon_count(),
+											payment_param.getPoint_amount(),
+											payment_param.getDelivery_price(),
+											0);
 		
-		// 총 상품 금액, 유효 쿠폰 개수, 유효 적립금, 배송비, 장바구니로 왔는니 구분자
-		PaymentParamDTO param_dto = new PaymentParamDTO(product_price, coupon_count, point_amount, delivery_price, basket_del);
-
+		// 회원이면 주문자 정보에 자동 입력하기 위해서
+		if(userid != null) {
+			log.warn("123");
+			P_MemberDTO p_mem = PaymentService.getMemberInfo(userid);
+			model.addAttribute("p_mem", p_mem);
+		}
 		
-		
-		model.addAttribute("param_dto", param_dto);
-		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("basketList", basketList);
+		model.addAttribute("payment_param", payment_param);
 
 		return "/payment/payment";
 	}
@@ -125,54 +107,40 @@ public class PaymentController {
 			// 데이터를 가져오기 위해서 주문한 상품의 재고번호를 dto에 담고 매개변수로 DB에 보낸다
 			order_dto.setStock_seq(stockseq_arr[i]);
 
-			// DB 주문한 상품의 정보 가져오기
-			// 장바구니로 데이터를 가져갈 리스트에 넣는다
-			basketList.add(PaymentService.getOrder(order_dto));
-
-			// db로 받을 수 있는 건 재고수량이다
-			// 주문수량은 매개변수로만 받을 수 있어서 직접 dto에 넣는다
-			basketList.get(i).setQuantity(pQuantity_arr[i]);
-			basketList.get(i).setId(userid);
+			// DB 주문한 상품의 정보 가져오기 장바구니로 데이터를 가져갈 리스트에 넣는다
+			// db 상품 정보 가져오기 + 주문수량 + 구매회원 id
+			basketList.add(PaymentService.getOrder(order_dto, pQuantity_arr[i], pcp.getName()));
 		}
 			
 
 
 		// 총금액 계산
 		int product_price = 0;
-		for (OrderDTO dto : basketList) {
-			product_price += dto.getP_price() * dto.getQuantity();
-		}
+		for (OrderDTO dto : basketList) { product_price += dto.getP_price() * dto.getQuantity(); }
 
 		// 총금액이 10,000원 미만이면 배송비 = 3,000원이다
 		int delivery_price = 0;
-		if(product_price < 10000) {
-			delivery_price = 3000;
+		if(product_price < 10000) { delivery_price = 3000; }
+		
+		// DB 적립금, 쿠폰 개수 가져오기
+		PaymentParamDTO dto = PaymentService.getPointAndCountCoupon(userid, basketList);
+
+		// 총 상품 금액, 유효 쿠폰 개수, 유효 적립금, 배송비, 장바구니로 왔는지 구분자(장바구니면 1)
+		PaymentParamDTO payment_param = new PaymentParamDTO(product_price, dto.getCoupon_count(), dto.getPoint_amount(), delivery_price, 1);
+		
+
+		
+		// 회원이면 주문자 정보에 자동 입력하기 위해서
+		if(userid != null) {
+			P_MemberDTO p_mem = PaymentService.getMemberInfo(userid);
+			model.addAttribute("p_mem", p_mem);
+			log.warn("123");
+			log.warn("p_mem : " + p_mem.toString());
+			//회원정보 가져오기 다시
 		}
 		
-		
-		
-		// DB 적립금 가져오기
-		int point_amount = PaymentService.getPoint(userid);
-		
-		// DB 쿠폰 개수 가져오기
-		int coupon_count = PaymentService.getCountCoupon(userid);
-		
-		// DB 쿠폰 가져오기
-		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
-		
-		// 장바구니 내역 지울 수 있는 변수
-		int basket_del = 1;
-		
-		
-
-		// 총 상품 금액, 유효 쿠폰 개수, 유효 적립금, 배송비, 장바구니로 왔는니 구분자
-		PaymentParamDTO param_dto = new PaymentParamDTO(product_price, coupon_count, point_amount, delivery_price, basket_del);
-		
-		
-
-		model.addAttribute("param_dto", param_dto);
-		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("basketList", basketList);
+		model.addAttribute("payment_param", payment_param);
 
 		return "/payment/payment";
 	}
@@ -301,9 +269,7 @@ public class PaymentController {
 		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
 
 		// 배송비
-		if(!delivery_price.equals("0")) {
-			product_price = (Integer.parseInt(product_price) + 3000) + "";
-		}
+		if(!delivery_price.equals("0")) { product_price = (Integer.parseInt(product_price) + 3000) + ""; }
 
 		model.addAttribute("coupon_code", coupon_code);
 		model.addAttribute("input_disc_point", input_disc_point);

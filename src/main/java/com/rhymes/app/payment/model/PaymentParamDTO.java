@@ -20,4 +20,10 @@ public class PaymentParamDTO implements Serializable {
 	private int point_amount;				// 유효 적립금 금액
 	private int delivery_price;				// 배송비
 	private int basket_del;					// 장바구니로 왔는지 구분자
+	
+	public PaymentParamDTO(int coupon_count, int point_amount) {
+		super();
+		this.coupon_count = coupon_count;
+		this.point_amount = point_amount;
+	}
 }

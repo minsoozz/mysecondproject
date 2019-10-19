@@ -60,6 +60,13 @@ FROM (
 ]]>
 </select>
 
+<!-- 이름, 번호, 이메일 회원정보 가져오기 -->
+<select id="getMemberInfo" parameterType="java.lang.String" resultType="com.rhymes.app.member.model.P_MemberDTO">
+SELECT NAME as username, PHONE as phone, EMAIL as useremail
+FROM RHY_MEM_P
+WHERE ID=#{userid}
+</select>
+
 
 
 
