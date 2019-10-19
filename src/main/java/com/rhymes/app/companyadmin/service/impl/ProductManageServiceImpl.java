@@ -72,6 +72,12 @@ public class ProductManageServiceImpl implements ProductManageService {
 	public List<StockDto> getStockList(StockDto stock) throws Exception {
 		return manage.getStockList(stock);
 	}
+
+	@Override
+	public boolean productBasicInfoUpdate(ProductDto product) throws Exception {
+		return manage.productBasicInfoUpdate(product);
+	}
+
 	
 	
 }

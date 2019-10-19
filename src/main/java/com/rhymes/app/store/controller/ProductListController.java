@@ -97,6 +97,7 @@ public class ProductListController {
 	      }
 	      
 	      // OPTIONS
+	      model.addAttribute("key", param.getKey());
 	      model.addAttribute("sorting", param.getSorting());
 	      model.addAttribute("criterion", param.getCriterion());
 	      model.addAttribute("keyword", param.getKeyword());
