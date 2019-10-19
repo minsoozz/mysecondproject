@@ -120,8 +120,9 @@
 <!-- 상품등록 끝 --> 	
 
 <!-- 3.상품 수정/삭제 -->
-
-<delete id="productDelete">
-	
-</delete>
+ <update id="cAdminProductBasicinfoUpdate" parameterType="com.rhymes.app.store.model.ProductDto">
+ 	UPDATE rhy_store_product
+ 	SET P_NAME = #{p_name}, CP_CODE = #{cp_code}, P_PRICE = #{p_price}, P_COLOR = #{p_color}, MDATE = #{mdate}, C1_NAME = #{c1_name}, C2_NAME = #{c2_name}, C3_NAME = #{c3_name} 
+ 	WHERE P_SEQ = #{p_seq}
+ </update>
 </mapper>

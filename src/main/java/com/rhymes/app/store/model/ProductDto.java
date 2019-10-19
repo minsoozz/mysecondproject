@@ -32,6 +32,10 @@ public class ProductDto {
 	private int sum;				// 관리자쪽에서 확인하기 위한 총합 : 해당P_SEQ에 대한 STOCK 총합
 	private int wish;				// 관리자쪽에서 확인하기 위한 찜cnt
 	
+	private String madeYear;
+	private String madeMonth;
+	
+	
 	public String getP_price2() {
 		return p_price2;
 	}
@@ -220,8 +224,38 @@ public class ProductDto {
 	public void setWish(int wish) {
 		this.wish = wish;
 	}
-	
 
+	public String getMadeMonth() {
+		return madeMonth;
+	}
+
+	public void setMadeMonth(String madeMonth) {
+		this.madeMonth = madeMonth;
+	}
+
+	public String getMadeYear() {
+		return madeYear;
+	}
+
+	public void setMadeYear(String madeYear) {
+		this.madeYear = madeYear;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductDto [p_seq=" + p_seq + ", c_name=" + c_name + ", p_name=" + p_name + ", p_title=" + p_title
+				+ ", cp_code=" + cp_code + ", p_price=" + p_price + ", p_color=" + p_color + ", c1_name=" + c1_name
+				+ ", c2_name=" + c2_name + ", c3_name=" + c3_name + ", nation=" + nation + ", mdate=" + mdate
+				+ ", detail=" + detail + ", photo1_file=" + photo1_file + ", photo2_file=" + photo2_file
+				+ ", photo3_file=" + photo3_file + ", photo4_file=" + photo4_file + ", photo5_file=" + photo5_file
+				+ ", rdate=" + rdate + ", p_price2=" + p_price2 + ", rnum=" + rnum + ", sum=" + sum + ", wish=" + wish
+				+ ", madeYear=" + madeYear + ", madeMonth=" + madeMonth + "]";
+	}
+	
+	
+	
+	
+	
 	
 	
 }

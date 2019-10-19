@@ -77,6 +77,7 @@ pageNumber : ${pageNumber }<br>
 </div>
 
 <!-- paging zone -->
+<c:if test="${key ne 'newarrival' }">
 <div id="paging_wrap" style="border: 0px solid red; width:90%%; height:50px; text-align: center;">
 	<jsp:include page="/WEB-INF/views/store/productPaging.jsp" flush="false">
 		<jsp:param name="pageNumber" value="${pageNumber }"/>
@@ -85,6 +86,7 @@ pageNumber : ${pageNumber }<br>
 		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }"/>
 	</jsp:include>
 </div>
+</c:if>
                
 <form action="/store/productDetail" id="moveFrm" method="get">
 	<%-- <!-- ★ csrf 예방을 위한 코드추가 -->

@@ -162,7 +162,7 @@
  		AND (a.C1_NAME = #{c1_name} AND b.C1_SEQ = #{c1_seq})	 
  </select>
  
-  <!--3차 카테고리 -->
+  <!--3차 카테고리 AJAX -->
  <select id="kCate3list" resultType="com.rhymes.app.store.model.category.Category3Dto" parameterType="com.rhymes.app.store.model.ProductParam">	 	
  	SELECT DISTINCT(C3_NAME) FROM rhy_store_product
  	WHERE (C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} '%') 
