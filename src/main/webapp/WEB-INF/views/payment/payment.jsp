@@ -110,18 +110,6 @@
 			</c:if>
 			<c:if test="${ not empty p_mem }">
 				<tr>
-					<th>휴대폰 번호</th>
-					<td><input type="text" id="to" placeholder="전화번호 입력">
-						<!-- 인증번호 받을사람 휴대폰 번호 -->
-						<input type="button" id="oneselfConfirmBtn" value="본인인증">&nbsp;비회원으로 구매를 원하시면, 본인인증이 필요합니다.<br>
-						<input type="text" id="userNum" placeholder="인증번호 입력">
-						<!-- 인증번호 입력창 -->
-						<input type="button" id="enterBtn" value="확인">
-						<input type="text" name="text" id="text">
-						<!-- 인증번호를 히든으로 저장해서 보낸다 -->
-						<input type="text" id="text_confirm"></td>
-				</tr>
-				<tr>
 					<th>보내는 분 *</th>
 					<td><input type="text" size="26" id="send_name" name="send_name" readonly="readonly" value="${p_mem.username }"></td>
 				</tr>
