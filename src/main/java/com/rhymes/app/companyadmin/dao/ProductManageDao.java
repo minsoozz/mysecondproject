@@ -28,4 +28,7 @@ public interface ProductManageDao extends Serializable {
 	public int getProductCnt(ProductManageDto pParam) throws Exception;
 	// 상품 상세조회(stocklist)
 	public List<StockDto> getStockList(StockDto stock) throws Exception;
+
+// 3. 상품 수정/삭제
+	public boolean productBasicInfoUpdate(ProductDto product) throws Exception; 
 }
