@@ -120,9 +120,38 @@
 <!-- 상품등록 끝 --> 	
 
 <!-- 3.상품 수정/삭제 -->
+ <!-- 3(1).상품기본정보 수정 -->
  <update id="cAdminProductBasicinfoUpdate" parameterType="com.rhymes.app.store.model.ProductDto">
  	UPDATE rhy_store_product
- 	SET P_NAME = #{p_name}, CP_CODE = #{cp_code}, P_PRICE = #{p_price}, P_COLOR = #{p_color}, MDATE = #{mdate}, C1_NAME = #{c1_name}, C2_NAME = #{c2_name}, C3_NAME = #{c3_name} 
+ 	SET P_NAME = #{p_name},
+ 		CP_CODE = #{cp_code},
+ 		P_PRICE = #{p_price},
+ 		P_COLOR = #{p_color},
+ 		MDATE = #{mdate},
+ 		C1_NAME = #{c1_name},
+ 		C2_NAME = #{c2_name},
+ 		C3_NAME = #{c3_name} 
+ 	WHERE P_SEQ = #{p_seq}
+ </update>
+ <!-- 3(2).상품이미지 수정 -->
+ <update id="cAdminProductImgUpdate" parameterType="com.rhymes.app.store.model.ProductDto">
+ 	UPDATE rhy_store_product
+ 	SET
+ 		<if test="photo1_file != '' and photo1_file != null">
+ 			PHOTO1_FILE = #{photo1_file}
+ 		</if>
+ 		<if test="photo2_file != '' and photo2_file != null">
+ 			PHOTO2_FILE = #{photo2_file}
+ 		</if>
+ 		<if test="photo3_file != '' and photo3_file != null">
+ 			PHOTO3_FILE = #{photo3_file}
+ 		</if>
+ 		<if test="photo4_file != '' and photo4_file != null">
+ 			PHOTO4_FILE = #{photo4_file}
+ 		</if>
+ 		<if test="photo5_file != '' and photo5_file != null">
+ 			PHOTO5_FILE = #{photo5_file}
+ 		</if>
  	WHERE P_SEQ = #{p_seq}
  </update>
 </mapper>

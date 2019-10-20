@@ -82,8 +82,13 @@ public class ProductManageDaoImpl implements ProductManageDao{
 	@Override
 	public boolean productBasicInfoUpdate(ProductDto product) throws Exception {
 		int n = sqlSession.update(ns + "cAdminProductBasicinfoUpdate", product);
-		System.out.println("------------업데이트 컬럼 갯수 : " + n);
 		return n>0?true:false;
+	}
+
+	@Override
+	public boolean productImgUpdate(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductImgUpdate", product);
+		return false;
 	}
 
 	
