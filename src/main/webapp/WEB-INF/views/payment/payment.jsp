@@ -146,7 +146,7 @@
 				<tr>
 					<th></th>
 					<td><input type="text" size="20" id="sample6_postcode" name="receive_postnum" placeholder="우편번호">
-						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						<input type="button" id="postcode_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 						<input type="text" size="67" id="sample6_address" placeholder="지번주소"><br>
 						<input type="text" size="30" id="sample6_detailAddress" placeholder="상세주소">
 						<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목">
