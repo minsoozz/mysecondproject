@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.admin.member.dao.AdminMemberDAO;
 import com.rhymes.app.member.model.MemBean;
-import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.MemberParam;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;

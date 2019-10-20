@@ -7,19 +7,19 @@
 	int pageCountPerScreen;	// 스크린당 페이지 수 = 10
 	int recordCountPerPage;	// 페이지당 글 수 = 10
 	
-	String st1 = request.getParameter("totalRecordCount");
+	String st1 = request.getParameter("rtotalRecordCount");
 	if(st1 == null) totalRecordCount = 0;
 	else			totalRecordCount = Integer.parseInt(st1);
 	
-	String st2 = request.getParameter("pageNumber");
+	String st2 = request.getParameter("rpageNumber");
 	if(st2 == null) pageNumber = 0;
 	else			pageNumber = Integer.parseInt(st2);
 	
-	String st3 = request.getParameter("pageCountPerScreen");
+	String st3 = request.getParameter("rpageCountPerScreen");
 	if(st3 == null) pageCountPerScreen = 0;
 	else			pageCountPerScreen = Integer.parseInt(st3);
 	
-	String st4 = request.getParameter("recordCountPerPage");
+	String st4 = request.getParameter("rrecordCountPerPage");
 	if(st4 == null) recordCountPerPage = 0;
 	else			recordCountPerPage = Integer.parseInt(st4);
 	
@@ -55,7 +55,7 @@
 <div style="float: left; width: 96%; text-align: center; margin-top: 30px">
 	<!-- << -->
 	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-	<a href="#none" title="처음페이지" onclick="goPage('0')">
+	<a href="#none" title="처음페이지" onclick="rgoPage('0')">
 		<img alt="" src="../img/customer-img/arrow_first.gif" style="width: 9px; height: 9px">
 	</a>
 	</span>
@@ -65,7 +65,7 @@
 	if(screenStartPageIndex > 1){
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-		<a href="#none" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1 %>')">
+		<a href="#none" title="이전페이지" onclick="rgoPage('<%=screenStartPageIndex-1 %>')">
 			<img alt="" src="../img/customer-img/arrow_back.gif" style="width: 9px; height: 9px">
 		</a>
 		</span>
@@ -86,7 +86,7 @@
 		}else{	// 그외의 페이지들
 			%>
 			<span style="font-size: 12pt; color: #000000;border:#D8D8D8 1px solid; padding: 5px">
-			<a href="#none" title="<%=i+1 %>페이지" onclick="goPage(<%=i %>)">
+			<a href="#none" title="<%=i+1 %>페이지" onclick="rgoPage(<%=i %>)">
 				<%=i+1 %>
 			</a>
 			</span>
@@ -101,7 +101,7 @@
 		%>
 		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
 
-		<a href="#" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>);return false;">
+		<a href="#" title="다음페이지" onclick="rgoPage(<%=screenEndPageIndex %>);return false;">
 
 			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
 		</a>
@@ -115,7 +115,7 @@
 	%>
 	<!-- >> -->
 	<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-	<a href="#none" title="마지막페이지" onclick="goPage(<%=end_page %>)">
+	<a href="#none" title="마지막페이지" onclick="rgoPage(<%=end_page %>)">
 		<img alt="" src="../img/customer-img/arrow_end.gif" style="width: 9px; height: 9px;">
 	</a>
 	</span>

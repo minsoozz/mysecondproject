@@ -23,10 +23,7 @@ $(document).ready(function() {
 		}	
 		$("#_notesform").attr("action","/mypage/noteswriteAf");
 		$("#_notesform").submit();
-		window.opener.opener.location.reload();
-		window.opener.close();
-		window.close();
-		
+		window.close();	
 	});
 });
 

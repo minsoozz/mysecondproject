@@ -239,16 +239,13 @@ opacity:0.9;
 .wModal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
+	z-index: 9999; /* Sit on top */
 	left: 0;
 	margin:auto;
-	top: 0;
+	top: 300px;
 	width: 100%; /* Full width */
-	height: 40%; /* Full height */
+	height: 50%; /* Full height */
 	overflow: hidden; /* Enable scroll if needed */
-	/* background-color: rgb(0,0,0); Fallback color
-	background-color: rgba(0,0,0,0.4); */ /* Black w/ opacity */
-	/* background-color:green; */
 }
 	
 /* Modal Content/Box */
@@ -270,10 +267,18 @@ opacity:0.9;
 <br><br>
 <div id="cart_wrap">
 <h2><b>장바구니</b></h2>
+
 <div id="cntProduct_wrap"><label id="_allCnt">${fn:length(blist) }</label>개 상품</div>
 </div>
 
 <div id="mainContainer">
+<c:if test="${blist eq null }">
+<div id=sub1Container">
+	<h1>장바구니에 담긴 상품이 없습니다.</h1>
+</div>
+</c:if>
+
+<c:if test="${blist ne null }">
 <div id="product-select-all"><a href="#" class="allDeleteBtn" style="color:black">전체삭제</a></div>
 <c:forEach items="${blist }" var="ba" varStatus="vs">
 	<div id=sub1Container" class="sub1_${ba.b_seq }">
@@ -298,7 +303,7 @@ opacity:0.9;
 				</div>
 				<div class="optionchange_wrap">
 					<c:if test="${ba.quantity ne 0 }">
-					<a onclick="changeQ(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
+					<a onclick="stockCheck(${ba.stock_seq }, ${ba.b_seq } )"><font style="color:#4374D9; cursor: pointer">수량 변경</font></a><br>
 					<div class="pqSelect">
 						<span class="minus_Btn" style="cursor:pointer;" value="${ba.b_seq }">-</span>&nbsp;&nbsp;&nbsp;
 							<label id="pqCnt${ba.b_seq }">${ba.p_quantity }</label>&nbsp;&nbsp;&nbsp;
@@ -388,7 +393,9 @@ opacity:0.9;
 	</div>
 	
 <div>
-</div>	
+</div>
+</c:if>
+	
 </div>
 <!-- 메시지 영역 -->
 <div class="wModal">
@@ -406,6 +413,7 @@ opacity:0.9;
 
 <!----------------- SCRIPT ZONE ----------------->
 <script>
+var id = "${userloginid}";
 var allCnt = ${fn:length(blist) };
 
 // 가격 콤마
@@ -445,7 +453,7 @@ $(document).on('click', '.orderBtn', function(){
 		$("#bOrderFrm").submit();
 	}
 });
-
+// 장바구니 전체 삭제
 $(document).on('click', '.allDeleteBtn', function(){
 	$.ajax({
         type:"get",
@@ -472,17 +480,45 @@ $(document).on('click', '.allDeleteBtn', function(){
 	})	
 });
 
-/* 수량변경 */
-function changeQ(stock_seq, b_seq){
-	//alert(b_seq);
+// 수량변경 전 체크
+function stockCheck(stock_seq, b_seq){
 	var p_quantity = Number($("#pqCnt"+b_seq).html());
-	//alert(p_quantity);
 	
+	$.ajax({
+		type:"get",
+        data: "stock_seq=" + stock_seq,
+        url:"/store/stockCheck",
+        success:function( data ){
+        	// 변경될 수량이 재고수량보다 많을 때
+        	if(p_quantity>data){
+        		$("#msg").html("<b>변경수량이 재고수량보다 많습니다.</b>");
+            	$(".wModal").fadeIn();
+            	setTimeout(function() {
+            		$(".wModal").fadeOut();
+            	},1500);
+            	
+            	var eachPq = $(".eachPq" + b_seq).html();
+            	$("#pqCnt" + b_seq).html(eachPq);
+            	
+        	}
+        	// 변경될 수량이 재고수량보다 적거나 같을 때
+        	else{
+        		changeQ(stock_seq, b_seq);
+        	}
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+		
+	});
+}
+
+// 장바구니 수량 변경
+function changeQ(stock_seq, b_seq){
+	
+	var p_quantity = Number($("#pqCnt"+b_seq).html());
 	var eachPrice =  $("#eachPrice"+b_seq).val();
-	//alert(eachPrice);
-	
 	var udtQ = p_quantity * eachPrice;
-	//alert(udtQ);
 	
 	$.ajax({
         type:"get",
@@ -515,6 +551,7 @@ function changeQ(stock_seq, b_seq){
         }
 	})
 }
+
 $(document).on('click', '.plus_btn', function(){
 	var b_seq = $(this).attr("value");
 	//alert(b_seq);
@@ -543,87 +580,88 @@ $(document).on('click', '.minus_Btn', function(){
 <script>
 $(document).on('click', '.delete_btn', function(){
 	var b_seq = $(this).attr("value");
-	//alert(b_seq);
-	$.ajax({
-        type:"get",
-        data: "b_seq=" + b_seq,
-        url:"/store/deleteBasket",
-        success:function( data ){
-            $(".sub1_" + b_seq).remove();
-            //alert("삭제 후 총 결제금액 : " + data);
-		    /* var udtTotal = numberWithCommas(data);
-		    alert("변환 총액 : " + udtTotal); */
-            var postfee = $(".post_price").attr("value");
-            //alert("배송비 : " + postfee);
-            
-            if(isNaN(data)){
-            	//alert("장바구니 아무것도 없음");	
-            }else{
-            	//alert("총 결제금액 : " + (data + Number(postfee)));
-            	
-            	//배송비 + (총금액-삭제금액)
-            	var udtPp = data + Number(postfee);
-            	$("#flexTotal").val(udtPp);
-            	
-            /* 1.배송비 부과될 때 */	           	
-            	if(data<10000){
-            		//alert("배송비O");
-            		/* 수정된 총 결제 예상 금액 */
-            		udtPp = data + 3000;
-            		      				    		
-            		/* 상품금액 */
-            		$("#totalP_price").html(numberWithCommas(data));
-            		
-            		if(data>0){
-            		/* 예상 배송비 */
-	            		$(".post_price").attr("value", "3000");
-	            		$(".post_price").html("3,000");
-	            		/* 총 결제 예정 금액 */
+				
+		$.ajax({
+	        type:"get",
+	        data: "b_seq=" + b_seq,
+	        url:"/store/deleteBasket",
+	        success:function( data ){
+	            $(".sub1_" + b_seq).remove();
+	            //alert("삭제 후 총 결제금액 : " + data);
+			    /* var udtTotal = numberWithCommas(data);
+			    alert("변환 총액 : " + udtTotal); */
+	            var postfee = $(".post_price").attr("value");
+	            //alert("배송비 : " + postfee);
+	            
+	            if(isNaN(data)){
+	            	//alert("장바구니 아무것도 없음");	
+	            }else{
+	            	//alert("총 결제금액 : " + (data + Number(postfee)));
+	            	
+	            	//배송비 + (총금액-삭제금액)
+	            	var udtPp = data + Number(postfee);
+	            	$("#flexTotal").val(udtPp);
+	            	
+	            /* 1.배송비 부과될 때 */	           	
+	            	if(data<10000){
+	            		//alert("배송비O");
+	            		/* 수정된 총 결제 예상 금액 */
+	            		udtPp = data + 3000;
+	            		      				    		
+	            		/* 상품금액 */
+	            		$("#totalP_price").html(numberWithCommas(data));
+	            		
+	            		if(data>0){
+	            		/* 예상 배송비 */
+		            		$(".post_price").attr("value", "3000");
+		            		$(".post_price").html("3,000");
+		            		/* 총 결제 예정 금액 */
+		            		$(".pay_price").html(numberWithCommas(udtPp));
+	            		}else if(data == 0){
+	                		$(".post_price").html("0");
+	                		$(".pay_price").html("0");
+	                	}
+	            		
+	            	}
+	            /* 2.무료배송 */	
+	            	else if(data>=10000){
+	            		$("#totalP_price").html(numberWithCommas(udtPp));
 	            		$(".pay_price").html(numberWithCommas(udtPp));
-            		}else if(data == 0){
-                		$(".post_price").html("0");
-                		$(".pay_price").html("0");
-                	}
-            		
-            	}
-            /* 2.무료배송 */	
-            	else if(data>=10000){
-            		$("#totalP_price").html(numberWithCommas(udtPp));
-            		$(".pay_price").html(numberWithCommas(udtPp));
-            	}
-            /* 3.장바구니 리스트 없을 때 */	
-            	//alert("allCnt -1 : " + (allCnt-1));
-            	
-            	$("#_allCnt").text(allCnt-1);
-            	allCnt--;
-            	
-            	if(allCnt == 0){
-         			$("#cntProduct_wrap").remove();
-            		$("#product-select-all").remove();
-            		$(".sub2Container").remove();
-            		
-            		var str = "";
-            		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
-            		str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
-            		//str += "<label class='nothingLabel' value='장바구니에 담긴 상품이 없습니다.'></label>";
-            		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
-            		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
-            		
-            		$("#mainContainer").append(str); 
-            	}
-            }
-            //minusallCnt();
-            
-            $("#msg").html("<b>장바구니에서 삭제되었습니다.</b>")
-        	$(".wModal").fadeIn();
-        	setTimeout(function() {
-        		$(".wModal").fadeOut();
-        	},700);
-        },
-        error:function(){
-           alert("error!!"); 
-        }
-   })
+	            	}
+	            /* 3.장바구니 리스트 없을 때 */	
+	            	//alert("allCnt -1 : " + (allCnt-1));
+	            	
+	            	$("#_allCnt").text(allCnt-1);
+	            	allCnt--;
+	            	
+	            	if(allCnt == 0){
+	         			$("#cntProduct_wrap").remove();
+	            		$("#product-select-all").remove();
+	            		$(".sub2Container").remove();
+	            		
+	            		var str = "";
+	            		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
+	            		str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
+	            		//str += "<label class='nothingLabel' value='장바구니에 담긴 상품이 없습니다.'></label>";
+	            		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
+	            		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
+	            		
+	            		$("#mainContainer").append(str); 
+	            	}
+	            }
+	            //minusallCnt();
+	            
+	            $("#msg").html("<b>장바구니에서 삭제되었습니다.</b>")
+	        	$(".wModal").fadeIn();
+	        	setTimeout(function() {
+	        		$(".wModal").fadeOut();
+	        	},700);
+	        },
+	        error:function(){
+	           alert("error!!"); 
+	        }
+	   })
+	   //ajax 끝
 	
 });
 </script>

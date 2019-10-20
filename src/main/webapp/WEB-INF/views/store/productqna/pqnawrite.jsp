@@ -33,8 +33,7 @@
 <tr>
 	<th>작성자</th>
 	<td colspan="3">
-		<input type="text" name="id" size="50">
-		<!--readonly value="${login.id }"  -->
+		<input type="text" name="id" size="50" value="${id }" readonly>
 	</td>
 </tr>
 <tr>

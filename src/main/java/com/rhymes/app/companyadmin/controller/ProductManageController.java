@@ -10,14 +10,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rhymes.app.companyadmin.model.ProductManageDto;
 import com.rhymes.app.companyadmin.service.ProductManageService;
@@ -25,6 +30,9 @@ import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.dao.PurchaseDao;
 import com.rhymes.app.store.model.ProductDto;
 import com.rhymes.app.store.model.StockDto;
+import com.rhymes.app.store.model.category.Category2Dto;
+import com.rhymes.app.store.model.category.Category3Dto;
+import com.rhymes.app.store.service.StoreService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,50 +44,153 @@ public class ProductManageController {
 
 	DecimalFormat formatter = new DecimalFormat("###,###");
 	
-	@Autowired
-	ProductManageService manage;
+	@Autowired ProductManageService manage;
+	@Autowired PurchaseDao store_purchase;
+	@Autowired StoreService store;
+		
 	
-	@Autowired
-	PurchaseDao store_purchase;
+	//3(2).상품 수정 페이지로 이동
+	@GetMapping("/productupdate")
+	public String productDetailList(Principal prc, Model model, ProductDto product)throws Exception{
 	
-	//상품 수정
-	//상품 상세조회로 이동
-		@GetMapping("/productupdate")
-		public String productDetailList(Principal prc, Model model, ProductDto product)throws Exception{
+	String url = "";
+    String c_id = "";
+ 	String c_name = "";
+	
+ 	if(prc != null) {
+     	  c_id = prc.getName();
+     	  SellerDTO seller = new SellerDTO();
+     	  seller.setId(c_id); 
+     	  seller = manage.getCname(seller);
+     	  c_name = seller.getC_name();
+     	  log.info("업체이름:" + c_name);
+     	 
+     	  if(!c_name.equals("") && c_name!=null) {
+     		  
+     		product = store_purchase.getProductDetail(product.getP_seq());
+     		String madeYear = product.getMdate().substring(0,4);
+     		String madeMonth = product.getMdate().substring(4);
+     		product.setMadeYear(madeYear);
+     		product.setMadeMonth(madeMonth);
+     		
+     		// 2차 카테고리 리스트 초기화
+    	     List<Category2Dto> cate2list = new ArrayList<Category2Dto>();
+    	     List<Category3Dto> cate3list = new ArrayList<Category3Dto>();
+    	     
+    	     int c2_seq = 0;
+     		//*카테고리 리스트 GET
+			//2차 카테고리 리스트	
+			if(product.getC1_name().equals("MEN")) { 
+				  cate2list = manage.getCate2List(1);
+				  c2_seq = cate2list.get(0).getC2_seq();
+			}else if(product.getC1_name().equals("WOMEN")) { 
+				  cate2list = manage.getCate2List(2);
+				  c2_seq = cate2list.get(0).getC2_seq();
+			}
 			
-			String url = "";
-		    String c_id = "";
-		 	String c_name = "";
+						
+			//ProductParam param = new ProductParam();
+			//param.setC1_name(product.getC1_name());
+			//param.setC2_name(product.getC2_name());
 			
-		 	if(prc != null) {
-		     	  c_id = prc.getName();
-		     	  SellerDTO seller = new SellerDTO();
-		     	  seller.setId(c_id); 
-		     	  seller = manage.getCname(seller);
-		     	  c_name = seller.getC_name();
-		     	  log.info("업체이름:" + c_name);
-		     	 
-		     	  if(!c_name.equals("") && c_name!=null) {
-		     		  
-		     		  product = store_purchase.getProductDetail(product.getP_seq());
-		     		  
-		     		  model.addAttribute("c_name", c_name);
-		     		  model.addAttribute("pDto", product);
-		     		  	
-		     		  url ="productupdate";
-		     		  
-		     	  }else if(c_name.equals("") || c_name==null) {
-		     		 url = "redirect:/main";
-		     	  }
-		      }else{
-		    	  url = "redirect:/main";
-		      }
-		      
-		     return url;
+			//3차 카테고리 리스트
+			cate3list = manage.getCate3List(c2_seq);
 			
+			model.addAttribute("cate2list", cate2list);
+			model.addAttribute("cate3list", cate3list);
+     		model.addAttribute("c_name", c_name);
+     		model.addAttribute("pDto", product);
+     		  	
+     		url ="CompanyAdminProductupdate";
+     		  
+     	  }else if(c_name.equals("") || c_name==null) {
+     		 url = "redirect:/main";
+     	  }
+      }else{
+    	  url = "redirect:/main";
+      }
+      
+     return url;
+	
+    }
+	
+	//3(2-1). 상품 기본정보 업데이트
+	@RequestMapping(value="/productupdateAf", method = RequestMethod.POST)
+	public String productupdateAf(Model model, ProductDto product, RedirectAttributes redirect)throws Exception {
+		String url = "";
+		
+		product.setMdate(product.getMadeYear() + product.getMadeMonth());
+		
+		try {
+			boolean bool = manage.productBasicInfoUpdate(product);
+			if(bool) {
+				
+				redirect.addAttribute("p_seq", product.getP_seq());
+				log.info("UPDATE O");
+				url = "redirect:/admin/company/productupdate";				
+			}else {
+				log.info("UPDATE X");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		return url;
+	}
 	
-	//상품 상세조회로 이동
+	//3(2-2). 상품 이미지 업데이트
+	@ResponseBody
+	@PostMapping("/productimgupdate")
+	public String productimgupdate(HttpServletRequest req, ProductDto product, int photoNumber,
+		@RequestParam(value="fileload", required = false)MultipartFile fileload)throws Exception{
+		String msg = "안녕하세요";
+		
+		log.info("------------------------------------이미지 번호 : " + photoNumber + "" );
+		String path = req.getServletContext().getRealPath("/upload/store");
+		String fileName = fileload.getOriginalFilename();	// mydata
+		
+		String timeFileName = System.currentTimeMillis() + fileName;
+		File file = new File(path + "/" + timeFileName);
+		
+		if(photoNumber == 1) {
+			product.setPhoto1_file(timeFileName);
+		}
+		if (photoNumber == 2) {
+			product.setPhoto2_file(timeFileName);
+		}
+		if (photoNumber == 3) {
+			product.setPhoto3_file(timeFileName);
+		}
+		if (photoNumber == 4) {
+			product.setPhoto4_file(timeFileName);
+		}
+		if (photoNumber == 5) {
+			product.setPhoto5_file(timeFileName);
+		}
+		
+		try {
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+		
+			boolean bool = manage.productImgUpdate(product);
+			if(bool) {
+				msg = "ㅠㅠㅠㅠ";
+				log.info("상품이미지 업데이트 실패");
+			}else {
+				log.info("상품이미지 업데이트 성공");
+				msg = "수정이 완료되었습니다.";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return msg;
+	}
+	
+	
+	
+	//2(2).상품 상세조회로 이동
 	@GetMapping("/stocklist")
 	public String productDetailList(Principal prc, Model model, StockDto stock)throws Exception{
 		log.info("STOCKLIST P_SEQ : " + stock.getP_seq()+"");
@@ -117,13 +228,11 @@ public class ProductManageController {
 	      }else{
 	    	  url = "redirect:/main";
 	      }
-	      
 	     return url;
-		
 	}
 	
 	
-	//상품 조회로 이동
+	//2.상품 조회로 이동
     @GetMapping("/productlist")
 	public String productlist(Principal prc, Model model, ProductManageDto pParam)throws Exception{
 	  /* ProductParam param = new ProductParam(); */
@@ -131,8 +240,6 @@ public class ProductManageController {
       String url = "";
       String c_id = "";
  	  String c_name = "";
-      
-	  
 	   
  	  if(prc != null) {
      	  c_id = prc.getName();
@@ -156,7 +263,7 @@ public class ProductManageController {
      		 plist = manage.getProductList(pParam);
      		 log.info("상품리스트 길이:"+plist.size()+"");	
      		 log.info("상품총갯수:"+totalRecordCount+"");
-     		  
+     		 // 페이징
      		 model.addAttribute("pageNumber", sn);
      		 model.addAttribute("pageCountPerScreen", 10);
      		 model.addAttribute("recordCountPerPage", 10);
@@ -179,7 +286,7 @@ public class ProductManageController {
     }
 	
 	
-	//상품등록 페이지로 이동
+	//1.상품등록 페이지로 이동
     @GetMapping("/register")
     public String register(Principal prc, Model model)throws Exception{
       
@@ -187,20 +294,17 @@ public class ProductManageController {
 	   String c_name = "";
        if(prc != null) {
     	  c_id = prc.getName();
-    	  System.out.println("업체 아이디 : " + c_id);
     	  SellerDTO seller = new SellerDTO();
     	  seller.setId(c_id); 
     	  seller = manage.getCname(seller);
     	  c_name = seller.getC_name();
        }
-       System.out.println("업체 이름 : " + c_name);
-	   
 	   model.addAttribute("c_name", c_name); 
        
 	   return "CompanyAdminProductregister";
 	 }
 	
-	//상품등록 처리
+	//1-2.상품등록 처리
 	@RequestMapping(value="/registerInsert", method = RequestMethod.POST)
     public String registerInsert(Model model, ProductDto product, StockDto stock,
       MultipartHttpServletRequest multi, HttpServletRequest req, Principal prc) throws Exception{
@@ -209,7 +313,6 @@ public class ProductManageController {
 	  String c_id = "";
 	  String c_name = "";
       if(prc != null) {
-    	  System.out.println("업체 아이디 : " + c_id);
     	  c_id = prc.getName();
     	  
     	  SellerDTO seller = new SellerDTO();
@@ -223,7 +326,6 @@ public class ProductManageController {
      int p_seq = manage.getPseq();
            
      String path = req.getServletContext().getRealPath("/upload/store");
-     System.out.println("path : " + path);
      String fileName = "";
       
      File dir = new File(path);
@@ -232,16 +334,15 @@ public class ProductManageController {
      }
       Iterator<String> files = multi.getFileNames();
       
-      
       int cnt = 0;
       while(files.hasNext()) {
          String uploadFile = files.next();
          
          MultipartFile mFile = multi.getFile(uploadFile);
          fileName = mFile.getOriginalFilename();
-         System.out.println("파일이름 : " + fileName);
+         //System.out.println("파일이름 : " + fileName);
          String timeFileName = System.currentTimeMillis() + fileName;
-         System.out.println("시간파일이름 : " + timeFileName);
+        //System.out.println("시간파일이름 : " + timeFileName);
          cnt++;
          
          if(cnt == 1) {
@@ -263,13 +364,12 @@ public class ProductManageController {
          try {
             FileOutputStream fs = new FileOutputStream(path + "/" + timeFileName);
             fs.write(mFile.getBytes());
-            System.out.println("cnt : " + cnt);
             fs.close();
             
             product.setP_seq(p_seq);
             stock.setP_seq(p_seq);
             
-            System.out.println("!!");
+           // System.out.println("!!");
          }catch(Exception e) {
             e.printStackTrace();
          }
@@ -279,7 +379,7 @@ public class ProductManageController {
          // product INSERT
          boolean bool1 = manage.insertProduct(product);
          if (bool1) {
-            System.out.println("product insert 성공!!");
+           // System.out.println("product insert 성공!!");
 
             // stock INSERT
             String sizeArr[] = stock.getP_size().split("/");
@@ -290,19 +390,19 @@ public class ProductManageController {
                stock.setP_quantity(Integer.parseInt(quArr[i]));
                boolean bool2 = manage.insertStock(stock);
                if (bool2) {
-                  System.out.println("[" + sizeArr[i] + "사이즈] stock insert 성공!!");
+             //     System.out.println("[" + sizeArr[i] + "사이즈] stock insert 성공!!");
                }
             }
          } else {
-            System.out.println("product insert 실패");	
+           // System.out.println("product insert 실패");	
          }
       } catch (Exception e) {
          e.printStackTrace();
       }
       return "redirect:/admin/company/main";
    }
-  // 상품 수정/삭제로 이동
-	//상품 조회로 이동
+	
+	// 2.상품 수정/삭제로 이동
     @GetMapping("/productoperlist")
 	public String productoperlist(Principal prc, Model model, ProductManageDto pParam)throws Exception{
 	  /* ProductParam param = new ProductParam(); */
@@ -310,8 +410,6 @@ public class ProductManageController {
       String url = "";
       String c_id = "";
  	  String c_name = "";
-      
-	  
 	   
  	  if(prc != null) {
      	  c_id = prc.getName();

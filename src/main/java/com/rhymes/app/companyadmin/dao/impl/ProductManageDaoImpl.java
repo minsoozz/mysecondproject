@@ -77,6 +77,20 @@ public class ProductManageDaoImpl implements ProductManageDao{
 	public List<StockDto> getStockList(StockDto stock) throws Exception {
 		return sqlSession.selectList(ns + "getAdminStockList", stock);
 	}
+
+	// 상품 기본정보 수정
+	@Override
+	public boolean productBasicInfoUpdate(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductBasicinfoUpdate", product);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean productImgUpdate(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductImgUpdate", product);
+		return false;
+	}
+
 	
 	
 	

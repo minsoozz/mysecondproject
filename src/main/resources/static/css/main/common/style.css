@@ -14,6 +14,14 @@
 @import '../others/pe-icon-7-stroke.css';
 
 
+input:focus {
+   box-shadow: none;
+}
+
+
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -66,8 +74,18 @@ p {
 +		position: relative;
 	}
 	
-	#mainpick {
-		background-image: url("/img/main-img/bg-img/lime.png");
+	#mainpick1 {
+		background-image: url("/img/main-img/bg-img/main.jpg");
+		background-position: center center;
+		background-size: cover;
+		height: 40em;
+		text-align: center;
+		margin : 50px;
+		position: relative;
+	}
+	
+	#mainpick2 {
+		background-image: url("/img/main-img/bg-img/ex.jpg");
 		background-position: center center;
 		background-size: cover;
 		height: 40em;
@@ -319,11 +337,18 @@ li {
 /* --------------------
 :: 2.0 Top Header Area CSS
 -------------------- */
+.top_header_event_area {
+    width: 100%;
+    height: 40px;
+    border-bottom: 0px solid #ebebeb;
+    background-color: #d7fd75;
+}
 
 .top_header_area {
     width: 100%;
     height: 40px;
     border-bottom: 1px solid #ebebeb;
+    
 }
 
 .top_header_area .top_social_bar {
@@ -541,7 +566,7 @@ li {
     z-index: 3;
     background: rgba(203,252,63,0.7);
     padding: 30px;
-    width: 100%;
+    width: 400px;
     height: auto;
     -webkit-transition-duration: 750ms;
     transition-duration: 750ms;
@@ -578,7 +603,7 @@ li {
     right: -14px;
     z-index: 2;
     background-color: #fff;
-}
+}  
 
 
 .welcome-post-sliders {
@@ -594,7 +619,7 @@ li {
     height: 100%;
     top: 0;
     left: 0;
-    cursor: url("http://localhost:18080/img/core-img/back.png"), auto !important;
+    cursor: url("/img/main-img/core-img/back.png"), auto !important;
     z-index: 9;
 }
 /* 오른쪽화살표 */
@@ -605,15 +630,22 @@ li {
     height: 100%;
     top: 0;
     right: 0;
-    cursor: url("http://localhost:18080/img/core-img/next.png"), auto !important;
+    cursor: url("/img/main-img/core-img/next.png"), auto !important;
 }
+
+
+
 
 /* --------------------
 :: 5.0 Top Feature Area CSS 
 -------------------- */
 
 .categories_area {
-    padding: 10px 0 10px 0;
+
+}
+
+#category_123{
+	margin-left: 30px;
 }
 
 .single_catagory {
@@ -624,11 +656,14 @@ li {
 
 .single_catagory img {
     /* border-radius: 20px; */
+    
+    
+    padding: 20px;
 }
 
 .catagory-title {
-    width: 200px;
-    height: 50px;
+    width: 600px;
+    height: 600px;
     background-color: #fff;
     position: absolute;
     top: 50%;

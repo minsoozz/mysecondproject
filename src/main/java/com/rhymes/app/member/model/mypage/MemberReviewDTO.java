@@ -32,6 +32,12 @@ public class MemberReviewDTO {
 	
 	private String review_written;	//후기작성여부
 	
+	/* 상품정보로 이동하기 위한 정보 */
+	private int p_seq;	//상품ID
+	private String c1_name;	//대분류
+	private String c2_name;	//중분류
+	private String c3_name;	//소분류
+	
 	public MemberReviewDTO() { }
 	
 	/**결제상태와 배송상태에 따른 최종 상태

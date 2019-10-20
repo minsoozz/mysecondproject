@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <% String ctx = request.getContextPath(); %>
+<%int count = (Integer)request.getAttribute("tapcount"); %>
+
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="<%=ctx %>/js/used/notes.js"></script>
@@ -26,38 +28,75 @@
 <div class="review_main_wrap">
 	<ul class="nav nav-tabs" id="review_main_nav_tab" role="tablist">
 		<li class="nav-item review_main_nav_tab_item">
+			
+					<%
+		if(count == 0){
+			%>
 			<a class="nav-link active" id="waiting_items-tab" data-toggle="tab" href="#_waiting_items" role="tab" 
 			aria-controls="_waiting_items" aria-selected="true">받은 쪽지함</a>
+		<%
+		} else{
+			%>
+			<a class="nav-link" id="waiting_items-tab" data-toggle="tab" href="#_waiting_items" role="tab" 
+			aria-controls="_waiting_items" aria-selected="true">받은 쪽지함</a>
+			<%
+		}
+		%>
 		</li>
+		
 		<li class="nav-item review_main_nav_tab_item">
+			
+								<%
+		if(count == 1){
+			%>
+			<a class="nav-link active" id="written_reviews-tab" data-toggle="tab" href="#_written_reviews" role="tab" 
+			aria-controls="_written_reviews" aria-selected="false">보낸 쪽지함</a>
+		<%
+		} else{
+			%>
 			<a class="nav-link" id="written_reviews-tab" data-toggle="tab" href="#_written_reviews" role="tab" 
 			aria-controls="_written_reviews" aria-selected="false">보낸 쪽지함</a>
+			<%
+		}
+		%>
+			
+			
+
+		
+		
 		</li>		
 	</ul>
 
 	<!-- Tab panes -->
-	<div class="tab-content">
-	
-	
+	<div class="tab-content">	
 		<!-- 받은 쪽지함 탭 시작 -->
 		
-
-		<div class="tab-pane active" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">
+		<%
+		if(count == 0){
+			%>
+			<div class="tab-pane active" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">	
+		<%
+		} else{
+			%>
+			<div class="tab-pane" id="_waiting_items" role="tabpanel" aria-labelledby="waiting_items-tab">
+			<%
+		}
+		%>
 		<br><br>
 		
-	<form id="_rform">
-		<select id="r_select">
-			<option value="r_content" <c:out value="${select == 'content'? 'selected':'' }"/>>내용</option>
-			<option value="r_id" <c:out value="${select == 'id'? 'selected':'' }"/>>보낸사람</option>
+	<form id="_rform">	
+		<select id="r_select" name="r_select">
+			<option value="r_content" <c:out value="${r_select == 'r_content'? 'selected':'' }"/>>내용</option>
+			<option value="r_id" <c:out value="${r_select == 'r_id'? 'selected':'' }"/>>보낸사람</option>
 		</select>
-		<input type="text" name="keyword" id="r_keyword" value="${keyword }">					
+		<input type="text" name="r_keyword" id="r_keyword" value="${r_keyword }">					
 		<input type="button" value="검색" id="_rformbtn" name="formbtn">	
-		
+		<input type="hidden" value="0" name="tapcount">
 		<input type="hidden" name="r_pageNumber" id="_rpageNumber" value="${(empty pageNumber)?0:r_pageNumber }">
 		<input type="hidden" name="r_recordCountPerPage" id="_recordCountPerPage" value="${(empty r_recordCountPerPage ? 0 : r_recordCountPerPage)}">	
-		<input type="hidden" name="r_category" value="${category }">
 		<input type="hidden" id="_loginid" name="loginid" value="${userloginid }">
 	</form>
+	
 		<br>
 		
 		<table border="1" id="_ntable">
@@ -76,27 +115,22 @@
 		</c:forEach>
 		</table>
 		
-				<!-- 페이징 -->
- 		<div id="paging_wrap">
-			<jsp:include page="/WEB-INF/views/used/recvpaging.jsp" flush="false"> 	
-				<jsp:param name="pageNumber" value="${r_pageNumber }" />
-				<jsp:param name="totalRecordCount" value="${r_totalRecordCount }" />
-				<jsp:param name="pageCountPerScreen" value="${r_pageCountPerScreen }" /> 
-				<jsp:param name="recordCountPerPage" value="${r_recordCountPerPage }" />
-			</jsp:include> 
-		
-		</div>
-				
-		
 		<c:if test="${empty rlist }">
 		<table>
-		<tr><td colspan="4" align="center">
-		받은 쪽지가 없습니다</td>
+		<tr><td colspan="4" align="center">받은 쪽지가 없습니다</td>
 		</tr>					
 		</table>
 		</c:if>
-		
-
+				
+		<!-- 페이징 -->
+ 		<div id="paging_wrap">
+			<jsp:include page="/WEB-INF/views/used/recvpaging.jsp" flush="false"> 	
+				<jsp:param name="rpageNumber" value="${r_pageNumber }" />
+				<jsp:param name="rtotalRecordCount" value="${r_totalRecordCount }" />
+				<jsp:param name="rpageCountPerScreen" value="${r_pageCountPerScreen }" /> 
+				<jsp:param name="rrecordCountPerPage" value="${r_recordCountPerPage }" />
+			</jsp:include>
+		</div>
 		</div>
 		<!-- 받은 쪽지함 탭 끝 -->
 		
@@ -105,8 +139,32 @@
 		
 		
 		<!-- 보낸 쪽지함 탭 시작 -->
-		<div class="tab-pane" id="_written_reviews" role="tabpanel" aria-labelledby="written_reviews-tab">
+		<%
+		if(count == 1){
+		%>
+			<div class="tab-pane active" id="_written_reviews" role="tabpanel" aria-labelledby="written_reviews-tab">
+		<%	
+		} else{
+			%>
+			<div class="tab-pane" id="_written_reviews" role="tabpanel" aria-labelledby="written_reviews-tab">			
+			<%
+		}
+		%>
 				<br><br>
+				
+			<form id="_sform">
+		<select id="s_select" name="s_select">
+			<option value="s_content" <c:out value="${s_select == 's_content'? 'selected':'' }"/>>내용</option>
+			<option value="s_id" <c:out value="${s_select == 's_id'? 'selected':'' }"/>>받는사람</option>
+		</select>
+		<input type="text" name="s_keyword" id="s_keyword" value="${s_keyword }">					
+		<input type="button" value="검색" id="_sformbtn" name="formbtn">	
+		<input type="hidden" value="1" name="tapcount">
+		<input type="hidden" name="s_pageNumber" id="_spageNumber" value="${(empty pageNumber)?0:s_pageNumber }">
+		<input type="hidden" name="s_recordCountPerPage" id="_recordCountPerPage" value="${(empty s_recordCountPerPage ? 0 : s_recordCountPerPage)}">	
+	</form>
+		<br>		
+				
 		<table border="1" id="_ntable">
 		<col width="150"><col width="400"><col width="150"><col width="40">
 		<tr>
@@ -121,14 +179,26 @@
 		</tr>	
 			</c:if>
 		</c:forEach>
+		</table>
 		
 		<c:if test="${empty slist }">
+		<table>
 		<tr><td colspan="4" align="center">
 		보낸 쪽지가 없습니다</td>
-		</tr>					
+		</tr>
+		</table>					
 		</c:if>					
+						<!-- 페이징 -->
+ 		<div id="paging_wrap">
+			<jsp:include page="/WEB-INF/views/used/sendpaging.jsp" flush="false"> 	
+				<jsp:param name="spageNumber" value="${s_pageNumber }" />
+				<jsp:param name="stotalRecordCount" value="${s_totalRecordCount }" />
+				<jsp:param name="spageCountPerScreen" value="${s_pageCountPerScreen }" /> 
+				<jsp:param name="srecordCountPerPage" value="${s_recordCountPerPage }" />
+			</jsp:include> 
 		
-		</table>
+		</div>		
+
 		</div><!-- 보낸 쪽지함 탭 끝 -->
 	</div>
 </div>
@@ -137,19 +207,35 @@
 
 <script type="text/javascript">
 
-function goPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
+function rgoPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
 	$("#_rpageNumber").val(pageNumber);
 	
-	$("#_rform").attr("action","notes").submit();
+	$("#_rform").attr("action","/mypage/notes").submit();
 }
 
 $("#_rformbtn").click(function() {
 	
-
+	var tapcount = 0;
     var keyword = $("#r_keyword").val();
 	var select = $("#r_select").val();
+
+	location.href="/mypage/notes?r_keyword="+keyword+"&r_select="+select+"&tapcount="+tapcount; 
 	
-	location.href="/mypage/notes?r_keyword="+keyword+"&r_select="+select; 
+});
+
+function sgoPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
+	$("#_spageNumber").val(pageNumber);
+	
+	$("#_sform").attr("action","notes").submit();
+}
+
+$("#_sformbtn").click(function() {
+	
+	var tapcount = 1;
+    var keyword = $("#s_keyword").val();
+	var select = $("#s_select").val();
+	
+	location.href="/mypage/notes?s_keyword="+keyword+"&s_select="+select+"&tapcount="+tapcount; 
 	
 });
 

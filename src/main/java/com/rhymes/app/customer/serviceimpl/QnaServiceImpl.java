@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.customer.model.QnaDto;
+import com.rhymes.app.customer.model.QnaOrderDto;
 import com.rhymes.app.customer.service.QnaService;
 import com.rhymes.app.customer.dao.QnaDao;
 
@@ -14,62 +15,69 @@ import com.rhymes.app.customer.dao.QnaDao;
 public class QnaServiceImpl implements QnaService {
 
 	@Autowired
-	private QnaDao QnaDao;
+	private QnaDao qnaDao;
 
 	//qna list
 	@Override
 	public List<QnaDto> getQnaList(CustomerParam param) {
 		
-		return QnaDao.getQnaList(param);
+		return qnaDao.getQnaList(param);
 	}
 
 	//qna count
 	@Override
 	public int getQnaCount(CustomerParam param) {
 		
-		return QnaDao.getQnaCount(param);
+		return qnaDao.getQnaCount(param);
+	}
+
+	//qna orderlist 가져오기
+	@Override
+	public List<QnaOrderDto> getQnaOrderList(String id) {
+		
+		return qnaDao.getQnaOrderList(id);
 	}
 
 	//qna detail
 	@Override
 	public QnaDto getQnaDetail(int seq) {
 		
-		return QnaDao.getQnaDetail(seq);
+		return qnaDao.getQnaDetail(seq);
 	}
 
 	//qna 글쓰기
 	@Override
 	public boolean QnaUpload(QnaDto dto) {
 		
-		return QnaDao.QnaUpload(dto);
+		return qnaDao.QnaUpload(dto);
 	}
 
 	//qna 수정
 	@Override
 	public boolean QnaUpdateAf(QnaDto dto) {
 		
-		return QnaDao.QnaUpdateAf(dto);
+		return qnaDao.QnaUpdateAf(dto);
 	}
 
 	//qna 파일명가져오기
 	@Override
 	public String getfilename(int seq) {
 		
-		return QnaDao.getfilename(seq);
+		return qnaDao.getfilename(seq);
 	}
 
 	//qna 삭제
 	@Override
 	public boolean QnaDelete(int seq) {
 		
-		return QnaDao.QnaDelete(seq);
+		return qnaDao.QnaDelete(seq);
 	}
 
 	//qna 답글
 	@Override
 	public boolean QnaAnswer(QnaDto dto) throws Exception {
 		
-		return QnaDao.QnaAnswer(dto);
+		return qnaDao.QnaAnswer(dto);
 	}
 	
 	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.rhymes.app.customer.dao.QnaDao;
 import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.customer.model.QnaDto;
+import com.rhymes.app.customer.model.QnaOrderDto;
 
 @Repository
 public class QnaDaoImpl implements QnaDao {
@@ -33,6 +34,15 @@ public class QnaDaoImpl implements QnaDao {
 	public int getQnaCount(CustomerParam param) {
 		
 		return sqlSession.selectOne(ns+"getQnaCount", param);
+	}
+
+	//qna orderlist 가져오기
+	@Override
+	public List<QnaOrderDto> getQnaOrderList(String id) {
+		List<QnaOrderDto> list = new ArrayList<QnaOrderDto>();
+		list = sqlSession.selectList(ns +"getQnaOrderList", id);
+		
+		return list;
 	}
 
 	//qna detail

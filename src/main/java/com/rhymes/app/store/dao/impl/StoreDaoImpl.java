@@ -33,16 +33,12 @@ public class StoreDaoImpl implements StoreDao {
 
 	@Override
 	public List<ProductDto> getProductList(ProductParam param) throws Exception {
-		System.out.println("----------------"+param.getKey());
 		return sqlSession.selectList(ns + "getProductList", param);
 	}
 
 	@Override
 	public int getProductCnt(ProductParam param) throws Exception {
 		int cnt = sqlSession.selectOne(ns + "productCnt", param);
-		System.out.println("키워드 : " + param.getKeyword());
-		System.out.println("기준 : " + param.getCriterion());
-		System.out.println("총 상품갯수" + cnt);
 		return cnt;
 	}
 
@@ -53,9 +49,6 @@ public class StoreDaoImpl implements StoreDao {
 
 	@Override
 	public List<Category2Dto> getkCate2List(ProductParam param) throws Exception {
-		System.out.println("@다오임플 c1_seq : " + param.getC1_seq());
-		System.out.println("@다오임플 c1_name : " + param.getC1_name());
-		System.out.println("@다오임플 keyword : " + param.getKeyword());
 		return sqlSession.selectList(ns + "kCate2list", param);
 	}
 

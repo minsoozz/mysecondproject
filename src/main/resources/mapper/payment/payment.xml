@@ -9,7 +9,7 @@
 
 
 
-<!-- 장바구니에서 주문페이지로 갈 때 -->
+<!-- 장바구니에서 결제페이지로 갈 때 -->
 
 <!-- 장바구니에서 결제페이지로 주문한 상품정보 가져오기 -->
 <select id="getOrder" parameterType="com.rhymes.app.payment.model.OrderDTO"
@@ -60,6 +60,13 @@ FROM (
 ]]>
 </select>
 
+<!-- 이름, 번호, 이메일 회원정보 가져오기 -->
+<select id="getMemberInfo" parameterType="java.lang.String" resultType="com.rhymes.app.member.model.P_MemberDTO">
+SELECT NAME as username, PHONE as phone, EMAIL as useremail
+FROM RHY_MEM_P
+WHERE ID=#{userid}
+</select>
+
 
 
 
@@ -89,11 +96,7 @@ VALUES(#{s_seq}, #{ea}, #{price}, #{payment_code}, SYSDATE())
 
 <!-- 적립금 차감한다 -->
 <update id="disc_point" parameterType="com.rhymes.app.payment.model.PaymentDTO">
-
-SELECT *
-FROM RHY_MEM_POINT
-WHERE ID=#{userid}
-ORDER BY RDATE ASC
+<!-- 이거 어떻게 해 ㅠㅠ -->
 </update>
 
 <!-- 결제내역 저장 -->

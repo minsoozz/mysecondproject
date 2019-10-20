@@ -180,10 +180,30 @@
 
 <!-- 댓글 삭제 -->
 <delete id="deleteComment" parameterType="hashmap">
+
 	DELETE FROM rhy_used_Comments
-	WHERE parent=#{parent}
-	AND seq=#{seq}
+	
+	<include refid="deletedepth"/>
+	
 </delete>
+	
+<sql id="deletedepth">
+	<where>
+		<if test="depth == 0">
+		parent=#{parent}
+		and ref in (
+					select ref 
+					from ( select ref 
+							 from rhy_used_Comments
+							 where seq = #{seq}) as tmp )
+		</if>
+			
+		<if test="depth > 0">
+		parent=#{parent}
+		and seq=#{seq}
+		</if>
+	</where>
+</sql>
 
 <delete id="deleteProduct" parameterType="java.lang.Integer">
 	DELETE FROM rhy_used_Products

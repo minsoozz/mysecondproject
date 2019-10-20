@@ -37,7 +37,7 @@
 <div align="right" style="margin-top: 20px">
 	<form id="_frmFormSearch">
 		<select id="s_select">
-			<option value="title" <c:out value="${select == 't itle'? 'selected':'' }"/>>제목</option>
+			<option value="title" <c:out value="${select == 'title'? 'selected':'' }"/>>제목</option>
 			<option value="content" <c:out value="${select == 'content'? 'selected':'' }"/>>내용</option>
 			<option value="s_id" <c:out value="${select == 'id'? 'selected':'' }"/>>작성자</option>
 		</select>

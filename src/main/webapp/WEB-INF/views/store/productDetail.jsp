@@ -108,15 +108,18 @@ $(document).ajaxSend(function(e, xhr, options) {
    <p style="color: gray;font-size: 15px">${ productDto.p_title}</p><br>
    
  
-   <p style="color: gray;font-size: 15px;margin-bottom: -5px;">· MADE IN ${productDto.nation}</p>
+ 	
+   <p style="color: gray;font-size: 15px;margin-bottom: 5px;">· MADE IN ${productDto.nation}</p>
+   <p style="color: gray;font-size: 15px;margin-bottom: 5px;">· Color : ${productDto.p_color}</p>
    <p style="color: gray;font-size: 15px">· SKU : ${productDto.cp_code}</p>
    
-   <div class='' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
-      사이즈 선택<br>
+   <div class='' style="cursor:pointer; width: 450px;" onclick="detail(${pro.p_seq })"> 
+      <p style="color: gray;font-size: 15px">· 사이즈 선택</p>
+      
       <c:forEach items="${sizelist }" var="size" varStatus="vs">
          <c:if test="${size.quantity ne 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
-         <label for="chooseSize${vs.count }" id="_sizeChoo" class="sizeLabel" style="cursor: pointer; background-color: white;">${size.size }</label>
+         <label for="chooseSize${vs.count }" id="_sizeChoo" class="sizeLabel" style="cursor: pointer; background-color: white;" value="${size.stock_seq }">${size.size }</label>
          </c:if>
          <c:if test="${size.quantity eq 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" disabled="disabled" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
@@ -125,6 +128,13 @@ $(document).ajaxSend(function(e, xhr, options) {
       </c:forEach>
    </div>
 
+<br>
+
+   <div id="fewSizeDiv">
+   		<label id="fewSizeNotice" style="display:none;">
+   			어쩌구저쩌구 어저쩌구 저쩌구
+   		</label>
+   </div>
    수량&nbsp;
    <span class="pqSelect">
       <span class="minus_Btn" style="cursor:pointer;">-</span>&nbsp;&nbsp;&nbsp;
@@ -249,21 +259,20 @@ $(document).ajaxSend(function(e, xhr, options) {
    <input type='hidden' name="blist_pQuantity" id="blist_pQuantity" value="">
 </form>
 
-<!-- 장바구니 페이지이동 form -->
-<form action="/store/basket" method="get" id="moveBasketFrm"></form>
-
-
 <div id="aa"></div>
 
 <ul class="goods-view-infomation-tab-group">
    <li class="goods-view-infomation-tab">
-   <a href="#goods_info" class="goods-view-infomation-tab-anchor __active">INFOMATION</a>
+   <a href="#goods_info" class="goods-view-infomation-tab-anchor __active" style="border: 1px solid #CFEC40; border-bottom: none;">Information</a>
    </li>
    <li class="goods-view-infomation-tab">
-   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor">Review</a>
    </li>
    <li class="goods-view-infomation-tab">
-   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q & A</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_de" class="goods-view-infomation-tab-anchor">Delivery / Exchange</a>
    </li>
    <li class="goods-view-infomation-tab-group:after"></li>
 </ul>
@@ -288,7 +297,92 @@ $(document).ajaxSend(function(e, xhr, options) {
      </div> 
       
       
-      <div style="font-size: 12px;">
+      
+
+
+
+<!-- 후기 review -->
+<br><br>
+<ul class="goods-view-infomation-tab-group">
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor __active" style="border: 1px solid #CFEC40; border-bottom: none;">REVIEW</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+   </li>
+      <li class="goods-view-infomation-tab">
+   <a href="#goods_de" class="goods-view-infomation-tab-anchor">Delivery / Exchange</a>
+   </li>
+   <li class="goods-view-infomation-tab-group:after"></li>
+</ul>
+
+<div class="goods-view-infomation-content" id="goods_review">
+<div id="_product_review_wrap" >
+      <div  id="_product_review" >
+         <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
+      </div>
+      
+</div>
+</div>
+<!-- 후기 끝 -->
+
+
+
+<!-- 상품qna -->
+<br><br>
+<ul class="goods-view-infomation-tab-group">
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor __active" style="border: 1px solid #CFEC40; border-bottom: none;">Q&A</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_de" class="goods-view-infomation-tab-anchor">Delivery / Exchange</a>
+   </li>
+   <li class="goods-view-infomation-tab-group:after"></li>
+</ul>
+
+
+<div class="goods-view-infomation-content" id="goods_qna">
+<div id="_product_qna_wrap" >
+      <div  id="_product_qna" >
+         <script type="text/javascript">getProductQna(0,${productDto.p_seq });</script>
+      </div>
+</div>
+</div>
+<!-- 리뷰 끝 -->
+
+
+<!-- 배송 교환 안내  -->
+<br><br>
+<ul class="goods-view-infomation-tab-group">
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
+   </li>
+   <li class="goods-view-infomation-tab">
+   <a href="#goods_de" class="goods-view-infomation-tab-anchor __active" style="border: 1px solid #CFEC40; border-bottom: none;" >Delivery / Exchange</a>
+   </li>
+   <li class="goods-view-infomation-tab-group:after"></li>
+</ul>
+
+
+<div class="goods-view-infomation-content" id="goods_de">
+<div id="_product_de_wrap" >
+      <div  id="_product_de" >
+         <div style="font-size: 12px;">
       <p>
       <strong>Tax&nbsp;Information</strong>
       </p>
@@ -397,61 +491,13 @@ $(document).ajaxSend(function(e, xhr, options) {
       </ul>
     </div> 
 
-
-
-<!-- 후기 -->
-<br><br>
-<ul class="goods-view-infomation-tab-group">
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
-   </li>
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_review" class="goods-view-infomation-tab-anchor __active">REVIEW</a>
-   </li>
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_qna" class="goods-view-infomation-tab-anchor">Q&A</a>
-   </li>
-   <li class="goods-view-infomation-tab-group:after"></li>
-</ul>
-
-<div class="goods-view-infomation-content" id="goods_review">
-<div id="_product_review_wrap" >
-      <div  id="_product_review" >
-         <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
-      </div><!-- 작성한후기 탭 끝 -->
+      </div>
 </div>
 </div>
+<!-- 배송교환안내 끝 -->
 
 
 
-
-<!-- 상품qna -->
-<br><br>
-<ul class="goods-view-infomation-tab-group">
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_info" class="goods-view-infomation-tab-anchor">INFOMATION</a>
-   </li>
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_review" class="goods-view-infomation-tab-anchor">REVIEW</a>
-   </li>
-   <li class="goods-view-infomation-tab">
-   <a href="#goods_qna" class="goods-view-infomation-tab-anchor __active">Q&A</a>
-   </li>
-   <li class="goods-view-infomation-tab-group:after"></li>
-</ul>
-
-
-<div class="goods-view-infomation-content" id="goods_qna">
-
-
-<div id="_product_qna_wrap" >
-      <div  id="_product_qna" >
-         <script type="text/javascript">getProductQna(0,${productDto.p_seq });</script>
-      </div><!-- 작성한후기 탭 끝 -->
-</div>
-
-
-</div>
 </div>
 
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->   
@@ -620,6 +666,29 @@ $('body').click(function(e){
 $(document).on('click', '.sizeLabel', function(){
    $(".sizeLabel").attr('style', 'background-color:white');
    $(this).attr('style', 'background-color:#d7fd75');
+   
+   var stock_seq = $(this).attr("value");
+   
+   $.ajax({
+		type:"get",
+        data: "stock_seq=" + stock_seq,
+        url:"/store/stockCheck",
+        success:function( data ){
+       		$("#fewSizeNotice").show();
+       		if(data >= 1  && data <6){
+       			$("#fewSizeNotice").html("ONLY "+ data + " LEFT");
+       		}else if(data >=6 && data < 10){
+       			$("#fewSizeNotice").html("ONLY FEW LEFT");
+       		}else{
+       			$("#fewSizeNotice").hide();
+       		}
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+	});
+   
+   
 });
 
 /* 위시리스트 클릭 */
@@ -671,8 +740,50 @@ $(document).on('click', '.wishBtn', function(){
 $(document).on('click', '.basketBtn', function(){   
    var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
    var cnt = Number($("#pqCnt").html());
-   if(id==""){
-	   
+      
+      if(isNaN(stock_seq)){
+    	 $("#msg").html("<b>사이즈를 선택해주세요.</b>")
+         $(".wModal").fadeIn();
+         setTimeout(function() {
+            $(".wModal").fadeOut();
+         },700);
+      }else{
+    	  
+    	  $.ajax({
+    			type:"get",
+    	        data: "stock_seq=" + stock_seq,
+    	        url:"/store/stockCheck",
+    	        success:function( data ){
+    	        	// 변경될 수량이 재고수량보다 많을 때
+    	        	if(cnt>data){
+    	        		$("#msg").html("<b>재고수량보다 많습니다.</b>");
+    	            	$(".wModal").fadeIn();
+    	            	setTimeout(function() {
+    	            		$(".wModal").fadeOut();
+    	            	},1500);
+    	            	
+    	            	$("#pqCnt").html("1");
+    	            	
+    	        	}
+    	        	// 변경될 수량이 재고수량보다 적거나 같을 때
+    	        	else{
+    	        		if(id==""){
+    	        			insertSessionBasket(stock_seq, cnt);
+    	        		}else{
+    	        			insertBasket(stock_seq, cnt);
+    	        		}
+    	        	}
+    	        },
+    	        error:function(){
+    	           alert("error!!"); 
+    	        }
+    			
+    		});
+      }
+      
+});
+
+function insertSessionBasket(stock_seq, cnt){
 	   $.ajax({
            type:"get",
            data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
@@ -688,46 +799,27 @@ $(document).on('click', '.basketBtn', function(){
               alert("error!!"); 
            }
          })
-      
-/* 	  $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
-      $(".wModal").fadeIn();
-      setTimeout(function() {
-         $(".wModal").fadeOut();
-      },1500);
-      
-      location.href="/member/login"; */
-   }else{
-      if(isNaN(stock_seq)){
-         $("#msg").html("<b>사이즈를 선택해주세요.</b>")
-         $(".wModal").fadeIn();
-         setTimeout(function() {
-            $(".wModal").fadeOut();
-         },700);
-      }else{
-         var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-         var cnt = Number($("#pqCnt").html());
-         if(isNaN(stock_seq)){
-            alert("사이즈를 선택해주세요.");
-         }else{
-            $.ajax({
-                 type:"get",
-                 data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
-                 url:"/store/insertBasket",
-                 success:function( data ){
-                    var obj = JSON.stringify(data);
-                  var arr = JSON.parse(obj);
-                  //alert(arr[0].total_price);
-                  var arrLen = arr.length;
-                    showBasketList(arrLen, arr);
-                 },
-                 error:function(){
-                    alert("error!!"); 
-                 }
-               })
-         }
-      }
-   }   
-});
+} 
+
+function insertBasket(stock_seq, cnt){
+	$.ajax({
+        type:"get",
+        data: "stock_seq=" + stock_seq + "&p_quantity=" + cnt,
+        url:"/store/insertBasket",
+        success:function( data ){
+           var obj = JSON.stringify(data);
+         var arr = JSON.parse(obj);
+         //alert(arr[0].total_price);
+         var arrLen = arr.length;
+           showBasketList(arrLen, arr);
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+      })
+}
+
+
 
 /* 미니 장바구니 리스트 */
 function showBasketList(arrLen, arr){
@@ -743,18 +835,22 @@ function showBasketList(arrLen, arr){
       str += "<label>" + arr[i].p_name + "</label><br>";
       str += "<label>사이즈 : " + arr[i].size + "</label><br>";
       str += "<label>수량 : " + arr[i].p_quantity + "</label><br>";
-      str += "<label>&#8361;" + arr[i].p_price2 + "</label>";
+      if(arr[i].p_price2 != 'SOLD OUT'){
+      	str += "<label>&#8361;" + arr[i].p_price2 + "</label>";
+	      blist_stockseq += arr[i].stock_seq;
+	      blist_stockseq += "/";
+	      blist_pQuantity += arr[i].p_quantity;
+	      blist_pQuantity += "/";
+	      
+      }else if(arr[i].p_price2 === 'SOLD OUT'){
+    	str  += "<label style='color:red;'>" + arr[i].p_price2 + "</label>";   
+      }      
       str += "<hr width = '100%' color='white'>";
       
-      blist_stockseq += arr[i].stock_seq;
-      blist_stockseq += "/";
-      blist_pQuantity += arr[i].p_quantity;
-      blist_pQuantity += "/";
    }
          
       str += "<label class='moveBasketBtn'>장바구니 가기</label><br>";
       str += "<label class='_basketOrderBtn'>바로구매</label>";
-      /* str += "<input type='buttn' class='_basketOrderBtn' value='바로구매'>"; */
       str += "<br><br><b><label value='"+arr[0].total_price+"' class='_bTotalPrice'>총 상품금액 : " + arr[0].total_price + "</b>원</label><br><br>";
       str += "</div>";
       
@@ -769,12 +865,16 @@ function showBasketList(arrLen, arr){
 
 /* 미니장바구니 전체 구매버튼 클릭 */
 $(document).on('click', '._basketOrderBtn', function(){
-   $("#bOrderFrm").submit();      
+   	var stockseq = $("#blist_stockseq").val();
+   	var quantity = $("#blist_pQuantity").val();
+	//alert(stockseq);
+	//alert(quantity);
+	$("#bOrderFrm").submit();      
 });
 
 /* 장바구니 페이지 이동버튼 클릭 */
 $(document).on('click', '.moveBasketBtn', function(){
-   $("#moveBasketFrm").submit();   
+	location.href="/store/basket";	
 });
 
 /* 미니장바구니 삭제버튼 클릭 */
@@ -800,8 +900,8 @@ function buying(){
       
    }else{
    
-   var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
-   //alert(stock_seq);
+   	  var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
+   	  //alert(stock_seq);
    
       if(isNaN(stock_seq)){
          $("#msg").html("<b>사이즈를 선택해주세요.</b>")
@@ -810,13 +910,35 @@ function buying(){
             $(".wModal").fadeOut();
          },700);
       }else{
-         
-         $("#stock_seq").val(Number(stock_seq));
-         
          var cnt = Number($("#pqCnt").html());
-         $("#p_quantity").val(Number(cnt));
-         $("#orderFrm").submit();
-               
+		
+         $.ajax({
+     		type:"get",
+             data: "stock_seq=" + stock_seq,
+             url:"/store/stockCheck",
+             success:function( data ){
+             	// 변경될 수량이 재고수량보다 많을 때
+             	if(cnt>data){
+             		$("#msg").html("<b>구매수량이 재고수량보다 많습니다.<br>해당 상품의 재고수량은 "+data+"입니다.</b>");
+                 	$(".wModal").fadeIn();
+                 	setTimeout(function() {
+                 		$(".wModal").fadeOut();
+                 	},1500);
+                 	$("#pqCnt").html("1");
+             	}
+             	// 변경될 수량이 재고수량보다 적거나 같을 때
+             	else{
+             		$("#p_quantity").val(Number(cnt));
+                    $("#stock_seq").val(Number(stock_seq));
+                    $("#orderFrm").submit();
+             	}
+             },
+             error:function(){
+                alert("error!!"); 
+             }
+     		
+     	}); 
+         
          //alert(typeof $("#p_quantity").val());
          //alert(typeof $("#stock_seq").val());
       }
@@ -827,17 +949,20 @@ function buying(){
 /* 구매 수량 */
 $(document).on('click', '.plus_btn', function(){
 var cnt = Number($("#pqCnt").html());
-if(cnt<9){
-   $("#pqCnt").html(cnt+1);   
-}else{
+	
+	if(cnt<9){
+	   $("#pqCnt").html(cnt+1);   
+	}else{
+	
+	   $("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
+	   $(".wModal").fadeIn();
+	   setTimeout(function() {
+	      $(".wModal").fadeOut();
+	   },900);
+	}
 
-   $("#msg").html("<b>최대 구매수량을 초과했습니다.</b>")
-   $(".wModal").fadeIn();
-   setTimeout(function() {
-      $(".wModal").fadeOut();
-   },900);
-}
-
+	
+	
 });
 
 $(document).on('click', '.minus_Btn', function(){
