@@ -138,6 +138,15 @@
 				// 할인일 때
 				disc_coupon = parseInt(product_price) * (parseInt(func_num) / 100);
 				console.log(disc_coupon);
+				
+				if(parseInt(product_price) - parseInt(disc_point) - disc_coupon < 0){
+					opener.document.getElementById("disc_point").value = "0";
+					opener.document.getElementById("input_disc_point").value = "0";
+					opener.document.getElementById("disc_coupon").value = disc_coupon;
+					opener.document.getElementById("totalprice").value = parseInt(product_price) - disc_coupon;
+					window.close();
+					return;
+				}
 
 				// 쿠폰으로 할인 된 금액
 				opener.document.getElementById("disc_coupon").value = disc_coupon;
