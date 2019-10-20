@@ -10,12 +10,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,7 +29,6 @@ import com.rhymes.app.companyadmin.service.ProductManageService;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.dao.PurchaseDao;
 import com.rhymes.app.store.model.ProductDto;
-import com.rhymes.app.store.model.ProductParam;
 import com.rhymes.app.store.model.StockDto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
@@ -44,8 +47,6 @@ public class ProductManageController {
 	@Autowired ProductManageService manage;
 	@Autowired PurchaseDao store_purchase;
 	@Autowired StoreService store;
-	
-	
 		
 	
 	//3(2).상품 수정 페이지로 이동
@@ -122,7 +123,6 @@ public class ProductManageController {
 		
 		try {
 			boolean bool = manage.productBasicInfoUpdate(product);
-			log.info("~~~~~~~~~~~~~");
 			if(bool) {
 				
 				redirect.addAttribute("p_seq", product.getP_seq());
@@ -138,6 +138,56 @@ public class ProductManageController {
 		
 		return url;
 	}
+	
+	//3(2-2). 상품 이미지 업데이트
+	@ResponseBody
+	@PostMapping("/productimgupdate")
+	public String productimgupdate(HttpServletRequest req, ProductDto product, int photoNumber,
+		@RequestParam(value="fileload", required = false)MultipartFile fileload)throws Exception{
+		String msg = "안녕하세요";
+		
+		log.info("------------------------------------이미지 번호 : " + photoNumber + "" );
+		String path = req.getServletContext().getRealPath("/upload/store");
+		String fileName = fileload.getOriginalFilename();	// mydata
+		
+		String timeFileName = System.currentTimeMillis() + fileName;
+		File file = new File(path + "/" + timeFileName);
+		
+		if(photoNumber == 1) {
+			product.setPhoto1_file(timeFileName);
+		}
+		if (photoNumber == 2) {
+			product.setPhoto2_file(timeFileName);
+		}
+		if (photoNumber == 3) {
+			product.setPhoto3_file(timeFileName);
+		}
+		if (photoNumber == 4) {
+			product.setPhoto4_file(timeFileName);
+		}
+		if (photoNumber == 5) {
+			product.setPhoto5_file(timeFileName);
+		}
+		
+		try {
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+		
+			boolean bool = manage.productImgUpdate(product);
+			if(bool) {
+				msg = "ㅠㅠㅠㅠ";
+				log.info("상품이미지 업데이트 실패");
+			}else {
+				log.info("상품이미지 업데이트 성공");
+				msg = "수정이 완료되었습니다.";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return msg;
+	}
+	
 	
 	
 	//2(2).상품 상세조회로 이동
@@ -314,7 +364,6 @@ public class ProductManageController {
          try {
             FileOutputStream fs = new FileOutputStream(path + "/" + timeFileName);
             fs.write(mFile.getBytes());
-           // System.out.println("cnt : " + cnt);
             fs.close();
             
             product.setP_seq(p_seq);
