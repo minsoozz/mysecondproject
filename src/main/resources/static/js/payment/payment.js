@@ -137,6 +137,7 @@ function paymens(){
 	        $("#vbank_holder").val( rsp.vbank_holder );
 	        $("#card_apply_num").val( rsp.apply_num );
 	        $("#payment_status").val( rsp.status );
+	        $("#receive_address").val( rsp.buyer_addr );
 
 	        
 	        
