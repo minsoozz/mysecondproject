@@ -872,7 +872,6 @@ $(document).on('click', '._bDeleteBtn', function(){
 /* 구매버튼 클릭 */
 function buying(){
    
-   
    	  var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
    	  //alert(stock_seq);
    
@@ -911,7 +910,6 @@ function buying(){
              }
      		
      	}); 
-         
          //alert(typeof $("#p_quantity").val());
          //alert(typeof $("#stock_seq").val());
       }

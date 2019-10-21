@@ -35,7 +35,7 @@ button{
 /* 기본정보수정 modal table */
 #basicinfo_udt-table{
 	font-family: 'Alegreya Sans SC', sans-serif;
-	width:90%;
+	width:95%;
 	margin: 20px;	
 }
 #basicinfo_udt-table tr{

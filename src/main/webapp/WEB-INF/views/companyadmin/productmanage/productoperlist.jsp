@@ -149,7 +149,7 @@
 								<c:if test="${pro.sum eq 0}">
 									<td class="list_rdate"><font style="color:red"><b>픔절</b></font></td>
 								</c:if>
-								<td>
+								<td id="saleRegi-td${pro.p_seq }">
 									<c:if test="${pro.bfs_price eq 0 }">
 									<button type="button" class="sale_register-btn" value="${pro.p_seq }"
 									style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white; font-size: 12px;">
@@ -258,6 +258,7 @@
       <span id="msg"></span>
    </div>
 </div>
+
 </div>	
 <!-- End of Main Content -->
 
@@ -284,12 +285,15 @@ $('#saleregister-finishBtn').click(function(){
         	
         	//sale_price
         	$("#plist_pprice" + p_seq).html(numberWithCommas(Number(sale_price)));
+        	//<td id="saleRegi-td${pro.p_seq }">
+        	$("#saleRegi-td" + p_seq).html("<font style='color:red'>SALE</font>");
         	
         	//메시지 모달
 		     $("#msg").html("<strong>상품가격이 수정되었습니다.</strong>");
 	      	 $(".msgModal").fadeIn();
 	     	 setTimeout(function() {
 	     		$(".productsale_modal").fadeOut();
+	     		$(".msgModal").fadeOut();
 	         },800);			
         },
         error:function(){
