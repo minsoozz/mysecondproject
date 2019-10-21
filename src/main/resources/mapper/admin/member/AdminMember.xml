@@ -29,7 +29,10 @@
 					</if>
 				</if>
 					)B
-			WHERE RNUM BETWEEN ${start} AND ${end}	
+			WHERE RNUM BETWEEN ${start} AND ${end}
+			<if test="rdate != null">
+				AND RDATE LIKE '%' #{rdate} '%'
+			</if>
 			ORDER BY #{sorting} DESC
 	</select>
 
@@ -53,9 +56,11 @@
 				</if>
 				<if test="s_category == '04'">
 					AND P.PHONE '%' #{s_keyword} '%'
-				</if>
-					
+				</if>					
 			</if>
+		<if test="rdate != null">
+			AND M.RDATE LIKE '%' #{rdate} '%'
+		</if>
 	</select>
 
 	<!-- 업체 리스트 -->

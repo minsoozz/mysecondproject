@@ -63,7 +63,7 @@ public class AdminNoticeController {
 		model.addAttribute("s_keyword",param.getS_keyword());
 				
 		
-		return "noticelist.tiles";
+		return "adminnoticelist.tiles";
 	}
 	
 	
@@ -99,7 +99,7 @@ public class AdminNoticeController {
 			}
 		model.addAttribute("afterdto", afterdto);
 
-		return "noticedetail.tiles";
+		return "adminnoticedetail.tiles";
 	}
 	
 	@GetMapping("/noticewrite")
@@ -110,7 +110,7 @@ public class AdminNoticeController {
 
 		String id = pcp.getName();
 		model.addAttribute("id",id);
-		return "noticewrite.tiles";
+		return "adminnoticewrite.tiles";
 	} 
 	
 	//글저장 
@@ -155,7 +155,7 @@ public class AdminNoticeController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/customercenter/noticelist";
+		return "redirect:/admin/customercenter/noticelist";
 	}
 	
 	//글수정가기
@@ -170,7 +170,7 @@ public class AdminNoticeController {
 		
 		model.addAttribute("noticedto", noticedto);
 		
-		return "noticeupdate.tiles";
+		return "adminnoticeupdate.tiles";
 	}
 	
 	//글수정하기
@@ -220,7 +220,7 @@ public class AdminNoticeController {
 		
 		
 		
-		return "redirect:/customercenter/noticelist";
+		return "redirect:/admin/customercenter/noticelist";
 	}
 	
 	
@@ -235,10 +235,10 @@ public class AdminNoticeController {
 		
 		boolean b = noticeService.NoticeDelete(seq);
 		if(b) {
-			return "redirect:/customercenter/noticelist";
+			return "redirect:/admin/customercenter/noticelist";
 		}
 		
-		return "redirect:/customercenter/noticelist";
+		return "redirect:/admin/customercenter/noticelist";
 	}
 	
 }

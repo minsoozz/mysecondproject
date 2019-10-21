@@ -46,24 +46,13 @@ public class UsedController {
 	
 	@GetMapping("/hello") 
 	public String test(HttpServletRequest req,Principal prc) {
-		// 아직 구축이 제대로 안되서 임의로 로그인 아이디 설정해 놓음
-		/*
-		System.out.println(prc.getName());
-		
-		String userid = prc.getName();
-		
-		P_MemberDTO Mdto = usedService.getMemberDto(userid);
-		
-		System.out.println(Mdto.toString());
-		
-		req.getSession().setAttribute("login", Mdto);
-		*/
+
 		return "used/test";
 	}
 	
 	@GetMapping("usedlist")
 	public String usedlist(Model model,BbsParam param,Principal prc, HttpServletRequest req) {
-			System.out.println(param.toString());
+	
 		
 		if(prc != null) {
 			P_MemberDTO Pdto = usedService.getMemberDto(prc.getName());
@@ -84,6 +73,8 @@ public class UsedController {
 			
 		List<ProductsDto> list = usedService.getUsedList(param);
 		
+		// 페이징을 위한 attribute
+		
 		model.addAttribute("list", list);
 		model.addAttribute("select",param.getSelect());
 		model.addAttribute("category",param.getCategory());
@@ -98,7 +89,7 @@ public class UsedController {
 		return "usedlist.tiles";
 	}
 	
-	@GetMapping("useddetail")
+	@GetMapping("useddetail")	// 중고상품 디테일
 	public String useddetail(Model model,int seq, HttpServletRequest req) {
 		boolean c = usedService.updateReadCount(seq);	// 조회수 증가
 		
@@ -128,7 +119,9 @@ public class UsedController {
 				 ((P_MemberDTO)req.getSession().getAttribute("login")).setIslike(false);
 			 }
 		 }
-
+		 
+		// 사진을 , 단위로 끊어서 배열에 저장해준다. 
+		 
 		String str = dto.getPhoto_sys();
 		String arr[] = str.split(",");
 		dto.setPhoto_list(arr);
@@ -140,7 +133,7 @@ public class UsedController {
 		
 	}
 	
-	@GetMapping(value="updateProduct")
+	@GetMapping(value="updateProduct")	// 중고상품 수정
 	public String updateProduct(int seq,Model model) {
 		
 		ProductsDto dto =  usedService.getUsedDetail(seq);
@@ -159,28 +152,27 @@ public class UsedController {
 		return "usedupdate.tiles";
 	}
 	
-	@GetMapping(value="deleteProduct")
+	@GetMapping(value="deleteProduct")	// 제품 삭제
 	public String deleteProduct(int seq,Model model) {
 		
 		boolean b = usedService.deleteProduct(seq);
 		
-		if(b) {
-			System.out.println("성공");
-		} else {
-			System.out.println("실패");
-		}
-		
 		return "redirect:usedlist";
 	}
 	
-	@GetMapping(value="/getCommentsList",produces = "application/json; charset=utf8")
+	@GetMapping(value="/getCommentsList",produces = "application/json; charset=utf8")	// ajax로 댓글을 불러온다
 	@ResponseBody
-	public ResponseEntity getCommentsList(int seq) throws Exception{
-		
+	public ResponseEntity getCommentsList(CommentsDto cDto) throws Exception{
+	
 		HttpHeaders responseHeaders = new HttpHeaders();
 		ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
 		
-		List<CommentsDto> clist = usedService.getComments(seq);
+		cDto.setStart( (cDto.getRpagenumber() -1) * 10 );
+
+		
+		List<CommentsDto> clist = usedService.getComments(cDto);
+		
+
 		
 		if(clist.size() > 0) {
 			for(int i = 0 ; i < clist.size() ; i++) {
@@ -203,7 +195,38 @@ public class UsedController {
 		return new ResponseEntity(json.toString(), responseHeaders , HttpStatus.CREATED);
 	};
 	
-	@GetMapping("/addComments")
+	@GetMapping(value="/getCommentCount",produces = "application/json; charset=utf8") // 죄송합니다 하드코딩 댓글 append...
+	@ResponseBody
+	public ResponseEntity getCommentCount(CommentsDto cDto) {
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
+		
+		cDto.setStart( (cDto.getRpagenumber() -1 )* 10 );
+		List<CommentsDto> clist = usedService.getComments(cDto);
+		
+		if(clist.size() > 0) {
+			for(int i = 0 ; i < clist.size() ; i++) {
+				HashMap hm = new HashMap();
+				hm.put("seq", clist.get(i).getSeq());
+				hm.put("comments", clist.get(i).getComments());
+				hm.put("id", clist.get(i).getId());
+				hm.put("rdate", clist.get(i).getDate());
+				hm.put("ref", clist.get(i).getRef());
+				hm.put("depth", clist.get(i).getDepth());
+				
+				hmlist.add(hm);
+			}
+		}
+		
+		JSONArray json = new JSONArray(hmlist);
+		
+		
+		
+		return new ResponseEntity(json.toString(), responseHeaders , HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/addComments")	// 댓글 작성
 	@ResponseBody
 	public String addComments(int parent,String comments,String userid) {
 		
@@ -220,7 +243,7 @@ public class UsedController {
 		return "suc";
 	}
 	
-	@GetMapping("/updateComment")
+	@GetMapping("/updateComment")	// 댓글 수정
 	@ResponseBody
 	public String updateComment(int parent, int seq,String comments) {
 		
@@ -237,7 +260,7 @@ public class UsedController {
 		return "suc";
 	}
 	
-	@GetMapping("/insertanswer")
+	@GetMapping("/insertanswer")	// 답글 작성
 	@ResponseBody
 	public String insertanswer(int parent, int seq, String comments, String userid, int ref) {
 			
@@ -256,21 +279,23 @@ public class UsedController {
 		return "suc";
 	}
 	
-	@GetMapping("/deleteComment")
+	@GetMapping("/deleteComment")	// 답글 삭제
 	@ResponseBody
-	public String deleteComment(int parent,int seq) {
-		
+	public String deleteComment(int parent,int seq,int depth,int ref) {
+	
 	Map<String,Object> map = new HashMap<String, Object>();
 		
 		map.put("parent", parent);
 		map.put("seq", seq);
+		map.put("depth",depth);
+		map.put("ref", ref);
 		
 		boolean b = usedService.deleteComment(map);
 	
 		return "suc";
 	}
 	
-	@GetMapping("popup")
+	@GetMapping("popup")	// 휴대폰 인증팝업
 	public String popup(Principal prc,Model model,HttpServletRequest req) {
 		
 		String name = prc.getName();
@@ -283,7 +308,7 @@ public class UsedController {
 		return "popup";
 	}
 	
-	@PostMapping("popupAf")
+	@PostMapping("popupAf")	// 인증 완료 후 도착하는 컨트롤러
 	public void popupAf(String s_id, @RequestParam(required = false, defaultValue="") String postcode,
 			@RequestParam(required = false, defaultValue="") String address, @RequestParam(required = false, defaultValue="") String detailaddress,
 			HttpServletRequest req) {
@@ -292,9 +317,7 @@ public class UsedController {
 				detailaddress.equals("") || detailaddress == null) {
 			boolean b  = usedService.setSellerMember(s_id);
 			if(b) {
-				System.out.println("등록 완료");
 			} else {
-				System.out.println("등록 실패");
 			}
 		
 		} else {
@@ -306,21 +329,19 @@ public class UsedController {
 			boolean b = usedService.setSellerMember((P_MemberDTO)req.getSession().getAttribute("login"));		// 오버라이딩해서 매개변수를 다르게 설정해주었다 (복습)
 			
 			if(b) {
-				System.out.println("등록 완료");
 			} else {
-				System.out.println("등록 실패");
 			}
 		}
 		
 	}
 	
-	@GetMapping("usedwrite")
+	@GetMapping("usedwrite")	// 중고상품 글 쓰기
 	public String usedwrite(HttpServletRequest req, Model model) {
 		
 		return "usedwrite.tiles";
 	}
 	
-	@RequestMapping(value="usedwriteAf", method = RequestMethod.POST)
+	@RequestMapping(value="usedwriteAf", method = RequestMethod.POST)	// 중고상품 글 쓰고 난 후 컨트롤러
 	public String usedwriteAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
 			HttpServletRequest req) throws Exception {
 		
@@ -376,16 +397,14 @@ public class UsedController {
 		boolean b = usedService.UsedWrite(dto);
 		
 		if(b) {
-			System.out.println("성공~~");
 		} else {
-			System.out.println("공부하자..");
 		}
 		
 		return "redirect:/used/usedlist";		
 
 	}
 	
-	@RequestMapping(value="usedupdateAf", method = RequestMethod.POST)
+	@RequestMapping(value="usedupdateAf", method = RequestMethod.POST)	// 중고상품 글쓰기 수정 
 	public String usedupdateAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
 			HttpServletRequest req, String[] originfile) throws Exception {
 		
@@ -414,7 +433,6 @@ public class UsedController {
 		
 		for (int i = 0; i < originfile.length; i++) {
 			oldfile[i] = originfile[i];
-			System.out.println("oldfile : " + oldfile[i]);
 		}
 		Iterator<String> files = mfreq.getFileNames();
 		
@@ -432,7 +450,6 @@ public class UsedController {
 	
 				if (originFileName == null || originFileName == "" || originFileName.length() == 0) {
 				originFileName = oldfile[size-1];
-				System.out.println(originFileName);
 				 String systemFileName = System.currentTimeMillis() + originFileName;	            
 		         
 		            photo += originFileName + ",";
@@ -473,15 +490,13 @@ public class UsedController {
 		boolean b = usedService.UsedUpdate(dto);
 		
 		if(b) {
-			System.out.println("성공~~");
 		} else {
-			System.out.println("공부하자..");
 		}
 		
 		return "redirect:/used/hello";
 	}
 	
-	@GetMapping(value="/addlikes")
+	@GetMapping(value="/addlikes")	// 좋아요 추가,삭제
 	@ResponseBody
 		public String addlikes(int bno, String mname) {
 		
@@ -503,7 +518,7 @@ public class UsedController {
 		return num+"";
 	}
 		
-	@GetMapping(value="/likeCount")
+	@GetMapping(value="/likeCount")	// 각 게시글 마다 좋아요 개수 구하기
 	@ResponseBody
 		public String likeCount(int bno) {
 		
@@ -511,7 +526,7 @@ public class UsedController {
 		return count+"";
 	}
 	
-	@GetMapping(value="/getSeller")
+	@GetMapping(value="/getSeller")	// 셀러 여부 확인
 	@ResponseBody
 	public String getSeller(String s_id,Principal prc) {
 		
@@ -520,10 +535,10 @@ public class UsedController {
 		return count+"";
 	}
 	
-	@GetMapping(value="/blacklist")
+	@GetMapping(value="/blacklist")	// 블랙리스트, 신고하기 기능
 	@ResponseBody
 	public String blacklist(String str,int seq,String id,String b_id) {
-		System.out.println(id);
+		
 		String count = "";
 		
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -541,7 +556,7 @@ public class UsedController {
 		return count;
 	}
 	
-	@GetMapping(value = "/SendSms")
+	@GetMapping(value = "/SendSms")	// 문자 전송 api
 	@ResponseBody
 	  public String sendSms(HttpServletRequest request) throws Exception {
 	
@@ -570,7 +585,6 @@ public class UsedController {
 	    
 	    if ((boolean)result.get("status") == true) {
 	      // 메시지 보내기 성공 및 전송결과 출력
-	      System.out.println("성공");
 	      System.out.println(result.get("group_id")); // 그룹아이디
 	      System.out.println(result.get("result_code")); // 결과코드
 	      System.out.println(result.get("result_message")); // 결과 메시지
@@ -578,7 +592,6 @@ public class UsedController {
 	      System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
 	    } else {
 	      // 메시지 보내기 실패
-	      System.out.println("실패");
 	      System.out.println(result.get("code")); // REST API 에러코드
 	      System.out.println(result.get("message")); // 에러메시지
 	    }

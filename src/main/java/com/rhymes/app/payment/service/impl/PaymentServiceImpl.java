@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.dao.PaymentDAO;
 import com.rhymes.app.payment.model.OrderDTO;
 import com.rhymes.app.payment.model.PaymentAfDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.model.PaymentDetailsDTO;
+import com.rhymes.app.payment.model.PaymentParamDTO;
 import com.rhymes.app.payment.service.PaymentService;
 
 @Service
@@ -21,20 +23,38 @@ public class PaymentServiceImpl implements PaymentService {
 
 	// 결제페이지에서 상품정보 가져오기
 	@Override
-	public OrderDTO getOrder(OrderDTO dto) {
-		return PaymentDao.getOrder(dto);
-	}
+	public OrderDTO getOrder(OrderDTO dto, int p_quantity, String userid) {
+		
+		OrderDTO order = PaymentDao.getOrder(dto);
+		
+		// db에는 재고수량이 있고 주문수량은 없다 매개변수로 받은 주문수량을 직접 넣는다
+		order.setQuantity(p_quantity);
 
-	// 결제페이지에서 적립금 가져오기
-	@Override
-	public int getPoint(String userid) {
-		return PaymentDao.getPoint(userid);
+		// 리스트에 구매회원 id를 직접 넣는다
+		order.setId(userid);
+		
+		return order;
 	}
-
-	// 결제페이지에서 쿠폰 개수 가져오기
+	
+	// 결제페이지 전 적립금과 쿠폰 개수 가져오기
 	@Override
-	public int getCountCoupon(String userid) {
-		return PaymentDao.getCountCoupon(userid);
+	public PaymentParamDTO getPointAndCountCoupon(String userid, List<OrderDTO> basketList) {
+		
+		PaymentParamDTO pay_dto = PaymentDao.getPointAndCountCoupon(userid);
+
+		// 총금액 계산
+		int product_price = basketList.get(0).getP_price() * basketList.get(0).getQuantity();
+
+		// 총금액이 10,000원 미만이면 배송비 = 3,000원이다
+		int delivery_price = 0;
+		if(product_price < 10000) {
+			delivery_price = 3000;
+		}
+		
+		pay_dto.setProduct_price(product_price);
+		pay_dto.setDelivery_price(delivery_price);
+		
+		return pay_dto;
 	}
 
 	// 결제페이지에서 쿠폰 세부사항 가져오기
@@ -42,6 +62,14 @@ public class PaymentServiceImpl implements PaymentService {
 	public List<MemberCouponDTO> getAllCoupon(String userid) {
 		return PaymentDao.getAllCoupon(userid);
 	}
+
+	// 회원이면 주문자 정보에 자동 입력하기 위해서
+	@Override
+	public P_MemberDTO getMemberInfo(String userid) {
+		return PaymentDao.getMemberInfo(userid);
+	}
+	
+	
 
 	// 결제한 후 결제 디테일에 넣기위한 상품 개당 가격 가져오기
 	@Override

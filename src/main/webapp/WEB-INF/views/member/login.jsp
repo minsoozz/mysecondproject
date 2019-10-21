@@ -13,6 +13,7 @@
 <body>
 
 <br>
+
 <div class="login_wrap">
 	<form action="/login" method="post">
 		<!-- csrf 예방을 위한 코드추가 -->
@@ -87,23 +88,24 @@
 <br>
 
 	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-	<!-- 
+	 <!-- 
 	<div id="naverIdLogin" align="center" style="position: relative;  left: -124px; top: -40px">
 	</div>
-	 -->
-	 
-	<div align="center" id="loginWrap">
-	<a id="naverIdLogin" class="naverIdLogin" style="position: relative;  left: -120px; top: -8px; z-index: 0">
-	</a>
-		<span class="snsNaverlogin">네이버 로그인</span>
-	</div>
+	  -->
  
+	<div align="center" id="loginWrap">
+	<a id="naverIdLogin" class="naverIdLogin" >
+	</a>
+<!-- 		<span class="snsNaverlogin">네이버 로그인</span> -->
+	</div>
+
 	<div align="center" style="height: 10px" id="kakaowrap">
 	        <a href="https://kauth.kakao.com/oauth/authorize?client_id=7941c0b534b8b053634f144ea1b326ea&redirect_uri=http://localhost:18080/member/kakaoLogin&response_type=code">
 	            <img src="/img/member-img/kakao_login_btn_logo.png" style="height: 50px; width: 51px;" id="kakaoIdLogin">
 	            <span class="snslogin">카카오 로그인</span>
 	        </a>	    
 	</div>
+	
 </div>
 	
 </body>
@@ -112,10 +114,8 @@
 <!-- 네이버아디디로로그인 초기화 Script -->
 <script type="text/javascript">
 $(function(){
-	$(".snsNaverlogin").click(function(){
-		console.log(12124);
-		$("#loginWrap img").trigger("click");	
-	});	
+// 	$("#naverIdLogin_loginButton img").attr('src', '/upload/editor/15707000000.JPG');
+	$("#naverIdLogin_loginButton img").attr('src', '/img/member-img/KakaoTalk_login2.png');
 });
 	var naverLogin = new naver.LoginWithNaverId(
 		{

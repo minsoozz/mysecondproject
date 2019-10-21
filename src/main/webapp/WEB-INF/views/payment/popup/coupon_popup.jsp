@@ -12,6 +12,8 @@
 <title>Insert title here</title>
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- java script -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/payment/coupon_popup.js"></script>
 </head>
 <body>
 
@@ -76,8 +78,8 @@
 			<tr>
 				<td colspan="4">
 					<!-- 할인할 때 계산을 위해 부모창에서 가져온 데이터 -->
-					<input type="hidden" id="product_price" value="${product_price }">
-					<input type="hidden" id="disc_point" value="${disc_point }">
+					<input type="text" id="product_price" value="${product_price }">
+					<input type="text" id="disc_point" value="${input_disc_point }">
 					<input type="button" id="coupon_popup_btn" value="확인">
 					<input type="button" value="취소" onclick="self.close();">
 				</td>
@@ -85,73 +87,6 @@
 		</table>
 	</div>
 </div>
-
-
-
-<script type="text/javascript">
-	$(function() {
-
-		$("#coupon_popup_btn").click(function() {
-			// func : 적립 or 할인, func_num : 적립포인트 or 할인율, func_measure : % or 원, coup_code : 쿠폰 고유 코드
-			var func = $("#coupon_popup_select option:selected").attr("func");
-			var func_num = $("#coupon_popup_select option:selected").attr("func_num");
-			var func_measure = $("#coupon_popup_select option:selected").attr("func_measure");
-			var coup_code = $("#coupon_popup_select option:selected").attr("coup_code");
-			
-			// 부모창에서 가져온 사용 적립금 (사용자가 입력하지 않았으면 0)
-			var disc_point = $("#disc_point").val();
-			// 부모창에서 가져온 총 상품금액
-			var product_price = $("#product_price").val();
-
-
-			
-			// 사용안함을 클릭하고 쿠폰을 적용하지 않을 때
-			if (func_measure == "default") {
-				var result = confirm("쿠폰을 적용하지 않고 결제를 하시겠습니까?");
-
-				if (result) {
-					// 쿠폰코드와 상세설명을 ""로
-					opener.document.getElementById("coupon_code").value = "";
-					opener.document.getElementById("coupon_func").value = "";
-
-					// 쿠폰으로 할인된 금액과 총 할인 된 금액을 0으로
-					opener.document.getElementById("disc_coupon").value = "0";
-
-					// 총 금액을 다시 계산
-					opener.document.getElementById("totalprice").value = parseInt(product_price) - parseInt(disc_point);
-					window.close();
-				} else {
-
-				}
-
-				return;
-			}
-
-
-
-			// 할인 or 적립 쿠폰을 적용 했을 때
-			// 쿠폰 고유 코드와 상세설명을 부모창으로 보낸다
-			opener.document.getElementById("coupon_code").value = coup_code;
-			opener.document.getElementById("coupon_func").value = func + " " + func_num + " " + func_measure;
-
-			if (func_measure == "%") {
-				// 할인일 때
-
-				// 쿠폰으로 할인 된 금액
-				opener.document.getElementById("disc_coupon").value = parseInt(product_price) * (parseInt(func_num) / 100);
-			} else {
-				// 적립일 때
-				
-				// 쿠폰으로 할인 된 금액 = 0
-				opener.document.getElementById("disc_coupon").value = "0";
-				opener.document.getElementById("totalprice").value = parseInt(product_price) - parseInt(disc_point);
-			}
-
-			window.close();
-		});
-
-	});
-</script>
 
 
 

@@ -10,9 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
 
-
-
+</style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -80,7 +80,7 @@
   	 <div id="b_btn">
   	 <input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
   	 <button type="button" class="wishBtn" style="cursor:pointer;">
-  	 찜하기
+  	 
   	<!-- 좋아요 기능 시작!!! -->
   	<c:choose>
   		<c:when test="${userloginid ne null }">
@@ -137,10 +137,9 @@
 		</td>
 	</tr>
 	</table>
-	<div id="_addcomments">
+	<div id="_addcomments"></div>
+	<div id="more_btn_div" align="center"></div>
 	</div>
-	</div>
-
 
 
 
@@ -223,8 +222,22 @@
 <script type="text/javascript">
 
 $("#_notesbtn").click(function() {
-	alert("점검중입니다");
-})
+	var send_id =  "${dto.s_id}";
+	
+	var url= "/mypage/notesanswer?send_id="+send_id;    //팝업창 페이지 URL
+	var winWidth = 500;
+    var winHeight = 400;
+    
+    var popupX = (window.screen.width / 2) - (580 / 2);
+ 	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+ 	var popupY= (window.screen.height / 2) - (500 / 2);
+ 	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+    
+    
+    var popupOption= "width="+winWidth+", height="+winHeight + ", left="+ popupX + ", top="+ popupY;    //팝업창 옵션(optoin)
+	window.open(url,"",popupOption);
+});
 
 function gologin(){
 	 var con_test = confirm("로그인이 필요합니다 로그인 페이지로 이동하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
@@ -350,6 +363,8 @@ var mydiv_backup2;		// 답글 html 백업
 
 var count = 0;
 
+var rpagenumber = 1;
+
 $("#_deletebtn").click(function() {
 	var seq = "${dto.seq}";
 	location.href="/used/deleteProduct?seq="+seq;
@@ -413,11 +428,13 @@ $(function(){
 		url:"/used/getCommentsList",
 		type:'get',
 		data: {
-			seq : "${dto.seq}"
+			seq : "${dto.seq}",
+			rpagenumber:1
 		},
 		success:function(data){
 			
 			var html = "";
+			var html2 = "";
 			var cnt =  data.length;
 
 			if(data.length > 0){
@@ -435,8 +452,7 @@ $(function(){
 				
 				if(depth > 0){
 					html += "<tr class='ctr'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
-					html += "<tr class='test'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
-
+			
 						
 				} else {
 					html += "<tr class='ctr'><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
@@ -446,17 +462,22 @@ $(function(){
 				// html += "<tr><td>"+data[i].id+"</td><td><a href='#none' onclick='answer_comment(this,"+seq+","+ref+")''>답글</a></td><td>"+data[i].rdate+"</td>";
 				
 				if(loginid.trim() == id.trim()){
-					html += "<td><div><a href='#none' onclick='update_comment(this,"+seq+")'>수정</a> | <a href='javascript: delete_comment(${dto.seq},"+seq+")'>삭제</a></div></td></tr>";				
+					html += "<td><div><a href='#none' onclick='update_comment(this,"+seq+")'>수정</a> | <a href='javascript: delete_comment(${dto.seq},"+seq+","+depth+","+ref+")'>삭제</a></div></td></tr>";				
 				} else {
 					html +="<td></td></tr>";	
 				}
 				
 				
 				
-				html += "<tr><td  id='ctr2' colspan='4'>"+data[i].comments+"</td></tr>";
+				html += "<tr><td colspan='4'>"+data[i].comments+"</td></tr>";
 				html += "</div>";
 	
 			} 
+/* 				if(data.length >= 5){
+					
+					html += "<tr align='center'><td colspan='4'><a href='#none' onclick='append_comment(this)'>더보기</a></td></tr>";
+				} */
+				
 				html += "</table>";
 			
 			} else {
@@ -467,15 +488,87 @@ $(function(){
 				html += "</table>";
 				
 			}
-			
-			$("#_addcomments").html(html);
+			html2 += "<a href='#none' onclick='append_comment(this)'>더보기</a>";
 				
+			$("#_addcomments").html(html);
+			$("#more_btn_div").html(html2);
+			
+			rpagenumber = 1;
 		},
 		error:function(r,s,e){
 			alert("실패..");
 		}
 	 });
  };
+ 
+ function append_comment(th){
+
+	rpagenumber++;
+	
+	var my = th
+	
+	//$(my).parent().parent().remove();
+	
+	$.ajax({
+		url:"/used/getCommentCount",
+		type:"get",
+		data:{
+			seq:"${dto.seq}",
+			rpagenumber:rpagenumber
+		},
+		success:function(data){
+			
+			if(data.length > 0){
+				var html = "";
+				
+				for(i=0;i<data.length;i++){
+					var seq = data[i].seq;
+					var id = data[i].id ;
+					var loginid = "${login.userid}";
+					var ref = data[i].ref;
+					var depth = data[i].depth;
+				
+					var arrow = "<img src='/img/used-img/arrow.png' width='10px' height='10px'/>";
+					
+					if(depth > 0){
+						html += "<tr class='ctr'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+				
+							
+					} else {
+						html += "<tr class='ctr'><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+							
+					}
+					
+					// html += "<tr><td>"+data[i].id+"</td><td><a href='#none' onclick='answer_comment(this,"+seq+","+ref+")''>답글</a></td><td>"+data[i].rdate+"</td>";
+					
+					if(loginid.trim() == id.trim()){
+						html += "<td><div><a href='#none' onclick='update_comment(this,"+seq+")'>수정</a> | <a href='javascript: delete_comment(${dto.seq},"+seq+","+depth+","+ref+")'>삭제</a></div></td></tr>";				
+					} else {
+						html +="<td></td></tr>";	
+					}
+					
+					
+					
+					html += "<tr><td colspan='4'>"+data[i].comments+"</td></tr>";
+					html += "</div>";
+				
+				}
+				var tbl = $("#ctable");
+				
+				$(tbl).find('tr:last').after(html);
+			}
+			
+			else {
+				alert("더 이상 댓글이 없습니다");
+				return;
+			}
+		},
+		error(e){
+			alert("에러")
+		}
+	});
+	
+ }
  
  function addComment(seq){
 	 
@@ -504,7 +597,7 @@ $(function(){
 			userid:"${login.userid}"
 		},
 		success:function(data){
-			$("#_comments").val("")
+			$("#_comments").val("");
 			getCommentList();
 		},
 		error(e){
@@ -651,8 +744,10 @@ $(function(){
 	 })
  }
  
- function delete_comment(parent,seq){
-	 count = 0;	 
+ function delete_comment(parent,seq,depth,ref){
+	
+	 var depth = depth;
+	 var ref = ref;
 	 var con_test = confirm("댓글을 삭제하시겠습니까?");	/* 문자를 보낼껀지 물어본다 */
 	 
 	 if(con_test == true){
@@ -663,7 +758,9 @@ $(function(){
 		 type:'get',
 		 data:{
 			 parent:parent,
-			 seq:seq
+			 seq:seq,
+			 depth:depth,
+			 ref:ref
 		 },
 		 success:function(data){
 			 getCommentList();

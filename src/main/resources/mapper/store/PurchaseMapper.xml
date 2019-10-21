@@ -6,7 +6,7 @@
 
  <!-- 상품디테일 -->
  <select id="getProductDetail" parameterType="Integer" resultType="com.rhymes.app.store.model.ProductDto">
- 	SELECT P_SEQ, C_NAME, P_NAME, P_TITLE, P_PRICE, P_COLOR, NATION, MDATE, DETAIL, PHOTO1_FILE, PHOTO2_FILE, PHOTO3_FILE, PHOTO4_FILE, PHOTO5_FILE, CP_CODE, C1_NAME, C2_NAME, C3_NAME, RDATE
+ 	SELECT P_SEQ, C_NAME, P_NAME, P_TITLE, P_PRICE, P_COLOR, NATION, MDATE, DETAIL, PHOTO1_FILE, PHOTO2_FILE, PHOTO3_FILE, PHOTO4_FILE, PHOTO5_FILE, CP_CODE, C1_NAME, C2_NAME, C3_NAME, RDATE, BFS_PRICE
  	FROM rhy_store_product
  	WHERE P_SEQ = #{p_seq}
  </select>
@@ -94,5 +94,11 @@
 		WHERE ID = #{id} AND STOCK_SEQ=#{stock_seq}
 	 </select>
 <!-- 재입고 알림 끝 -->	 
+
+<!-- 재고 확인(장바구니 수량변경 / 상품구매 수량선택시 -->
+	<select id="stockCheck" parameterType="Integer" resultType="Integer">
+		SELECT QUANTITY FROM rhy_store_stock
+		WHERE STOCK_SEQ = #{stock_seq}
+	</select>
  
 </mapper>

@@ -49,12 +49,14 @@ pageNumber : ${pageNumber }<br>
 			</c:if>
 		</div>
 		 		
+
 		<div class="sortingDiv">
 			<label onclick="sortingBy('NEW')" class="sortingBy" style="${sorting == 'NEW'? 'color:black;font-weight:bolder;':'' }">NEW</label>
 			<label class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
 			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
 			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
 		</div>
+
 		
 	</div>
 	</c:if>
@@ -67,14 +69,19 @@ pageNumber : ${pageNumber }<br>
 			</div>
 			<font size="4px"><b>${pro.p_name }</b></font><br>
 			<font size="3px">${pro.c_name }</font><br>
-			<font size="3px">&#8361;${pro.p_price2 }</font><br>
-			<font size="2px">(${pro.p_color })</font>
+			<font size="2px">
+			<c:if test="${pro.bfs_price ne 0 }">
+				&#8361;<font style="text-decoration: line-through;">${pro.bfs_price2 }</font>
+			</c:if>			
+			&#8361;${pro.p_price2 }</font>
+			<br><font size="2px">(${pro.p_color })</font>
 		</div>	
 		</c:forEach>
 	</div>
 </div>
 
 <!-- paging zone -->
+<c:if test="${key ne 'newarrival' }">
 <div id="paging_wrap" style="border: 0px solid red; width:90%%; height:50px; text-align: center;">
 	<jsp:include page="/WEB-INF/views/store/productPaging.jsp" flush="false">
 		<jsp:param name="pageNumber" value="${pageNumber }"/>
@@ -83,6 +90,7 @@ pageNumber : ${pageNumber }<br>
 		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }"/>
 	</jsp:include>
 </div>
+</c:if>
                
 <form action="/store/productDetail" id="moveFrm" method="get">
 	<%-- <!-- ★ csrf 예방을 위한 코드추가 -->

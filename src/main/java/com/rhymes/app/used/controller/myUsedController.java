@@ -41,11 +41,14 @@ public class myUsedController {
 			@RequestParam(value="tapcount", defaultValue = "0") int tapcount) {
 		
 		P_MemberDTO dto = usedService.getMemberDto(prc.getName());	// 회원 정보를 얻는다
-		sparam.setId(prc.getName());
-		rparam.setId(prc.getName());
+		sparam.setId(dto.getUserid());
+		rparam.setId(dto.getUserid());
 		
 		int rtotalRecordCount = MyusedService.getRecvNotesCount(rparam);	// 받은쪽지함 페이징을 위한 갯수
 		int stotalRecordCount = MyusedService.getSendNotesCount(sparam);	// 보낸쪽지함 페이징을 위한 갯수
+		
+		System.out.println(stotalRecordCount);
+		
 		
 		int r_sn = rparam.getR_pageNumber(); // 0 , 1, 2
 		int r_start = r_sn * rparam.getR_recordCountPerPage() + 1; // 0 -> 1 , 1 - > 11		1   11
@@ -61,10 +64,9 @@ public class myUsedController {
 		sparam.setS_start(s_start);
 		sparam.setS_end(s_end);
 		
-		
-		
-		
 		model.addAttribute("dto", dto);
+		System.out.println(rparam);
+		System.out.println(sparam);
 		
 		// 받은거..
 		List<NotesDto> rlist = MyusedService.getrecvnotes(rparam);	// 회원 정보로 쪽지목록을 얻는다
@@ -72,8 +74,7 @@ public class myUsedController {
 		model.addAttribute("r_select",rparam.getR_select());
 		model.addAttribute("r_keyword",rparam.getR_keyword());
 		
-		System.out.println(rlist.toString());
-		
+	
 		
 		model.addAttribute("r_pageNumber",r_sn); // 현재 페이지 넘버
 		model.addAttribute("r_pageCountPerScreen",10);
@@ -196,7 +197,7 @@ public class myUsedController {
 	}
 	
 	
-	@GetMapping(value="/notesanswer")
+	@GetMapping(value="/notesanswer")	// 쪽지 답장
 	public String notesanswer(NotesDto ndto,Model model) {
 		
 		model.addAttribute("dto", ndto);
@@ -206,7 +207,7 @@ public class myUsedController {
 
 	@GetMapping(value = "/subscribe")
 	@ResponseBody
-	public String subscribe(String subscribe, String id) {
+	public String subscribe(String subscribe, String id) {	// 쪽지 수신여부
 		
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -228,5 +229,11 @@ public class myUsedController {
 		 }
 
 		return num+"";
+	}
+	
+	@GetMapping(value="/myused")
+	public String myused(Model model) {
+		
+		return "myused.tiles";
 	}
 }

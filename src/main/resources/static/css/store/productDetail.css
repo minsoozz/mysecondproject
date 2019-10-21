@@ -14,7 +14,6 @@
 body{
 	font: Open Sans;
 	min-height: 100%;
-	padding: 30px;
 	box-sizing: border-box;
 	overflow-x:hidden;
 	
@@ -45,7 +44,7 @@ body{
 	
 }
 .pqSelect{
-	border-radius: 10px;
+	border-radius: 5px;
 	width:100px;
 	border: 1px solid #DADCE0;
 	display:inline-block;
@@ -60,15 +59,22 @@ body{
 	text-align: center;
 }
 
+
+/* 그림자없애기
+	outline: 0; */
+	
 #buyBtn{
-	border-radius: 30px;
+	border-radius: 10px;
 	margin-top:13px;
 	margin-bottom:10px;
 	width:270px;
 	height:55px;
-	background: #d7fd75;	
+	background: #CFEC40;	
 	font: Open Sans 30px;
 	color: black; 
+	outline: 0;
+	border: 0px solid gray; 
+
 }
 
 #buyBtn:hover{
@@ -76,44 +82,54 @@ body{
 }
 
 #b_btn{
-	font-size: 13px;
+	font-size: 15px;
 	
 }
 
 .basketBtn{
-	border-radius: 30px;
+	border-radius: 10px;
 	margin-top:5px;
 	width:135px;
 	height:45px;
 	background: white;
 	font: Open Sans 30px;
 	color: black; 
+	outline: 0;
+	border: 1px solid #cccccc; 
 }
-.wishBtn{
-	border-radius: 30px;
-	margin-top:5px;
-	width:135px;
-	height:45px;
-	background: white;
-	font: Open Sans 30px;
-	color: black; 
-}
-
-
 .basketBtn:hover{
 	opacity:0.5;
 }
+
+.wishBtn{
+	border-radius: 10px;
+	margin-top:5px;
+	width:135px;
+	height:45px;
+	background: white;
+	font: Open Sans 30px;
+	color: black;
+	outline: 0;
+	border: 1px solid #cccccc; 
+}
+.wishBtn:hover{
+	opacity:0.5;
+}
+
+
 #_sizeChoo{
+	
+	
    font: 100 14px Open Sans;
    font-style: inherit;
    border-radius: 10px;
-   width: 65px;
+   width: 80px;
    height:35px;
    display : inline-block;
    text-align: center;
    border: 1px solid #DADCE0;
-   /* padding-top: 5px;
-   margin-top: 5px; */
+   padding-top: 5px;
+   margin-top: 5px;
 }
 
 
@@ -167,11 +183,12 @@ opacity: 0.9;
 
 
 #side_goods{
+	background-color:
 	position:absolute;
-	width: 1250px;
+	width: 500px;
 	height: auto;
 	font-size: 15px;
-	margin-left: 800px;
+	margin-left: 700px;
 	margin-top: 46px;
 	
 }
@@ -184,6 +201,7 @@ opacity: 0.9;
 }
 .goods-view-infomation-tab-group{
 	border-bottom:1px solid #e2e2e2;
+	width: 1345px;
 }
 .goods-view-infomation-tab-group:after{
 	display:block;
@@ -192,27 +210,30 @@ opacity: 0.9;
 }
 .goods-view-infomation-tab{
 	float:left;
-	vertical-align:top
+	vertical-align:top;
+	width:258px;
 }
 .goods-view-infomation-tab:first-child .goods-view-infomation-tab-anchor{
 	border-left:1px solid #e2e2e2;
-	width:170px
+	width:258px
 }
 .goods-view-infomation-tab-anchor{
 	position:relative;
 	top:1px;
-	width:168px;
+	width:258px;
 	height:46px;
 	line-height:46px;
 	text-align:center;
 	display:block;
-	color:#949494;
+	color:black;
 	font-size:14px;
 	font-family:"Noto Sans";
-	background-color:#e7ffab;
-	border:1px solid #e2e2e2;
+	background-color:#CFEC40;
+	border:1px solid #ffffff;
 	border-bottom:0;
-	border-left:none}
+	border-left:none
+	}
+	
 .goods-view-infomation-tab-anchor span{
 	font-size:12px;
 	color:#e2e2e2
@@ -236,7 +257,7 @@ opacity: 0.9;
 }
 	
 .goods-view-infomation-content.__active{
-	margin-left :50px;
+	margin-left :0px;
 	display:block
 }
 .goods-view-infomation-board{

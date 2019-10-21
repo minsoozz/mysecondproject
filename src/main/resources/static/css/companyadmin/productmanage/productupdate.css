@@ -61,9 +61,67 @@ button{
 	text-align: center;
 	font-size: 12px;
 }
+/* 상품이미지 modal div */
+.udtimg-div{
+	margin-bottom: 0%;	
+}
+#udtimg-hr{
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+.imgUdt-finishBtn{
+	color:green;
+	font-weight: bolder;
+}
 
 /* 기본정보 수정 modal */
 .basicinfo_modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: hidden; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.basicinfo_modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 10% from the top and centered */
+	margin-left: 35%;
+	padding: 20px;
+	height:auto;
+	border: 1px solid #888;
+	width: 30%; /* Could be more or less, depending on screen size */                          
+}
+/* 상품이미지 수정 modal */
+.imgudt_modal {
+		color:black;
+		display: none; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow: scroll; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.imgudt_modal-content {
+	border: 1px solid #888;
+	background-color: #fefefe;
+	margin: 15% auto; /* 10% from the top and centered */
+	margin-left: 30% auto;
+	margin-top:3%;
+	padding: 20px;
+	height:70% auto;
+	width: 50%; /* Could be more or less, depending on screen size */                          
+}
+/* 상세정보 수정 modal */
+.detailinfo_modal {
 		display: none; /* Hidden by default */
 		position: fixed; /* Stay in place */
 		z-index: 1; /* Sit on top */
@@ -75,12 +133,46 @@ button{
 		background-color: rgb(0,0,0); /* Fallback color */
 		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-.basicinfo_modal-content {
+.detailnfo_modal-content-content {
 	background-color: #fefefe;
 	margin: 15% auto; /* 10% from the top and centered */
 	margin-left: 35%;
 	padding: 20px;
-	height:auto;
+	height:500px;
 	border: 1px solid #888;
 	width: 30%; /* Could be more or less, depending on screen size */                          
+}
+
+
+/* msg Modal */
+.msgModal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 9999; /* Sit on top */
+	left: 0;
+	margin:auto;
+	top: 300px;
+	width: 100%; /* Full width */
+	height: 50%; /* Full height */
+	overflow: hidden; /* Enable scroll if needed */
+	/* background-color: rgb(0,0,0); Fallback color
+	background-color: rgba(0,0,0,0.4); */ /* Black w/ opacity */
+	/* background-color:green; */
+}
+
+/* Modal Content/Box */
+.msg-content {
+	color:white;
+	font-weight:bold;
+	font-size:30px;
+	position:fixed;
+    background-color: #4375DB;
+    margin:3%;
+    padding: 20px;
+    opacity:0.7;
+    border: 0px solid #888;
+    width: 100%;
+    height: auto;
+    margin: 8% auto;
+    text-align: center;
 }

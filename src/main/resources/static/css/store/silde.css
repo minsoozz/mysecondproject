@@ -7,7 +7,7 @@ body, hmtl{background: #ecf0f1; font-family: 'Anton', sans-serif;}
 
 
 #aa{
-	margin-top: 600px;
+	margin-top: 100px;
 }
 
 #wrapper{
@@ -15,7 +15,7 @@ margin-top:600px;
     width:600px;
     margin:50px auto;
     margin-left:400px;
-    height:400px;
+    height:0px;
     position:absolute;
     color:#fff;
     text-shadow:rgba(0,0,0,0.1) 2px 2px 0px;    

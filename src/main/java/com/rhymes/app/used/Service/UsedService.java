@@ -35,7 +35,7 @@ public interface UsedService {
 
 	public boolean deletelikes(Map<String, Object> map);
 
-	public List<CommentsDto> getComments(int seq);
+	public List<CommentsDto> getComments(CommentsDto cDto);
 
 	public boolean addComments(Map<String, Object> map);
 
@@ -56,5 +56,7 @@ public interface UsedService {
 	public boolean deleteProduct(int seq);
 
 	public boolean setblackList(Map<String, Object> map);
+
+	public int getCommentCount(CommentsDto cDto);
 
 }
