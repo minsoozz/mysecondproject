@@ -24,6 +24,7 @@
 			
 			FROM rhy_store_product a INNER JOIN rhy_store_stock b ON a.P_SEQ = b.P_SEQ				
 			WHERE a.C_NAME = #{c_name}
+				<!-- 검색 -->
 				<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">	
 					<if test="criterion == 'all_search'">
 						AND (a.P_NAME LIKE '%' #{keyword} '%' or a.CP_CODE LIKE '%' #{keyword} '%') 
@@ -34,7 +35,10 @@
 					<if test="criterion == 'cpcode_search'">
 						AND a.CP_CODE LIKE '%' #{keyword} '%'
 					</if>
-				</if>	
+				</if>
+				<if test="key == 'sale'">
+					AND a.BFS_PRICE != 0
+				</if> 	
 			GROUP BY a.P_SEQ			
 			) A
 	<!-- WHERE RNUM BETWEEN 1 AND 10 -->
@@ -158,6 +162,12 @@
  <update id="cAdminProductSalePriceUpdate" parameterType="com.rhymes.app.store.model.ProductDto">
  	UPDATE rhy_store_product
  	SET P_PRICE = #{p_price}, BFS_PRICE = #{bfs_price}
+ 	WHERE P_SEQ = #{p_seq}
+ </update>
+ <!-- 3(3).SALE 적용 -->
+ <update id="cAdminProductSalePriceUpdateCancel" parameterType="com.rhymes.app.store.model.ProductDto">
+ 	UPDATE rhy_store_product
+ 	SET P_PRICE = #{p_price}, BFS_PRICE = 0
  	WHERE P_SEQ = #{p_seq}
  </update>
 </mapper>
