@@ -1,6 +1,12 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 
+#ctable {
+	border-collapse:collapse
+}
+.ctr{
+	border-bottom: hidden;
+}
 
 .slider_wrap{
 	position: absolute;
@@ -161,7 +167,6 @@ tr{
 .basketBtn:hover{
 	opacity:0.5;
 }
-
 
 
 

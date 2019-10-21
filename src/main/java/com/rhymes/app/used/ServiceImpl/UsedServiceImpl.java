@@ -85,9 +85,9 @@ public class UsedServiceImpl implements UsedService {
 	}
 
 	@Override
-	public List<CommentsDto> getComments(int seq) {
+	public List<CommentsDto> getComments(CommentsDto cDto) {
 		// TODO Auto-generated method stub
-		return usedDao.getComments(seq);
+		return usedDao.getComments(cDto);
 	}
 
 	@Override
@@ -149,5 +149,12 @@ public class UsedServiceImpl implements UsedService {
 		// TODO Auto-generated method stub
 		return usedDao.setblackList(map);
 	}
+
+	@Override
+	public int getCommentCount(CommentsDto cDto) {
+		// TODO Auto-generated method stub
+		return usedDao.getCommentCount(cDto);
+	}
+	
 	
 }

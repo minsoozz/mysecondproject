@@ -157,12 +157,26 @@
 </insert>
 
 <!-- 댓글 불러오기 -->
-<select id="getComments" parameterType="java.lang.Integer" resultType="com.rhymes.app.used.model.CommentsDto">
-	SELECT seq,id,comments,wdate as date,parent,ref,step,depth
-	FROM rhy_used_Comments
-	where parent=#{seq}
+<select id="getComments" parameterType="com.rhymes.app.used.model.CommentsDto" resultType="com.rhymes.app.used.model.CommentsDto">
+	SELECT seq,id,comments,date,parent,ref,step,depth
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY ref desc, step asc) as RNUM,
+						seq,id,comments,wdate as date,parent,ref,step,depth
+		  FROM rhy_used_Comments				
+	) A
+	<!-- WHERE RNUM BETWEEN #{start} AND #{end} AND parent=#{seq} -->
+	WHERE parent = #{seq}
 	order by ref desc, step asc
+	LIMIT #{start}, 10
 </select>
+<!-- <select id="getCommentCount" parameterType="com.rhymes.app.used.model.CommentsDto" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY ref desc, step asc) as RNUM,
+						seq,id,comments,wdate as date,parent,ref,step,depth
+		  FROM rhy_used_Comments				
+	) A
+	WHERE parent = #{seq}
+	LIMIT #{start}, 10
+</select> -->
 
 <!-- 댓글 작성 -->
 <insert id="addComments" parameterType="hashmap">
