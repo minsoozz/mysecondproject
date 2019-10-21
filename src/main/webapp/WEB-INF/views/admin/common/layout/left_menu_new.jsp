@@ -134,6 +134,7 @@
 			        <a class="collapse-item" href="/admin/company/register">상품등록</a>
 			        <a class="collapse-item" href="/admin/company/productlist">상품조회</a>
 			        <a class="collapse-item" href="/admin/company/productoperlist">상품수정/삭제</a>
+			        <a class="collapse-item" href="/admin/company/saleproductmanage">SALE상품관리</a>
 			        <a class="collapse-item" href="login.html">재고관리</a>
 			        
 			        <!-- <div class="collapse-divider"></div>

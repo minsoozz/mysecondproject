@@ -82,6 +82,11 @@ public class ProductManageServiceImpl implements ProductManageService {
 		return manage.productImgUpdate(product);
 	}
 
+	@Override
+	public boolean productSalePriceUpdate(ProductDto product) throws Exception {
+		return manage.productSalePriceUpdate(product);
+	}
+
 	
 	
 }

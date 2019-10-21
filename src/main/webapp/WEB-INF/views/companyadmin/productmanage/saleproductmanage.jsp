@@ -128,7 +128,7 @@
 					<tbody>
 						<c:if test="${empty plist }">
 							<tr align="center">
-								<td colspan="14" align="center">등록된 상품이 없습니다.</td>
+								<td colspan="12" align="center">등록된 상품이 없습니다.</td>
 							</tr>
 						</c:if>
 						<c:forEach var="pro" items="${plist }" varStatus="vs">
@@ -216,37 +216,6 @@
 <!-- End of Main Content -->
 
 <!--------------------------------- SCRIPT ZONE --------------------------------->
-<script>
-// 검색
-$(document).on('click', '#_btnSearch', function(){
-	var criterion = $("#_select").val();
-	var keyword = $("#keyword").val();
-	var sorting = $("#sorting").val();
-	$("#frm_criterion").val(criterion);
-	$("#frm_keyword").val(keyword);
-	$("#frm_sorting").val(sorting);
-		
-	$("#plistFrm").submit();
-});
-// 정렬
-function sorting(sorting){
-	var criterion = $("#_select").val();
-	var keyword = $("#keyword").val();
-	var sorting = $("#sorting").val();
-	$("#frm_criterion").val(criterion);
-	$("#frm_keyword").val(keyword);
-	$("#form_sorting").val(sorting);
-		
-	$("#plistFrm").submit();	
-}
-// 페이지 이동
-function goPage( pageNumber ) {
-	$("#_pageNumber").val(pageNumber);
-	$("#plistFrm").submit();
-}
-
-
-</script>
 
 
 
