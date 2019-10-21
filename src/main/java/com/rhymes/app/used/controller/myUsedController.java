@@ -230,4 +230,10 @@ public class myUsedController {
 
 		return num+"";
 	}
+	
+	@GetMapping(value="/myused")
+	public String myused(Model model) {
+		
+		return "myused.tiles";
+	}
 }
