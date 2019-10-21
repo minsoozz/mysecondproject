@@ -103,47 +103,31 @@ public class PaymentDAOImpl implements PaymentDAO {
 	// 결제한 후 사용 포인트 차감
 	@Override
 	public boolean disc_point(PaymentDTO dto) {
-		log.warn("userid : " + dto.getUserid());
-		int inputDiscPoint = dto.getDisc_point();
-		log.warn("inputDiscPoint : " + inputDiscPoint);
-		
+		int inputDiscPoint = dto.getDisc_point();		
 		int count = 0;
 		int result = 0;
 
 		while(true) {
 			List<PaymentXmlParamDTO> list = new ArrayList<PaymentXmlParamDTO>();
 			PaymentXmlParamDTO xmlDTO = new PaymentXmlParamDTO(dto.getUserid(), count, 0, 0);
-			log.warn("xmlDTO : " + xmlDTO.toString());
 
 			// 만료 예정인 유효 적립금 하나를 가져온다
 			list = SqlSession.selectList(p + "getPointLastById", xmlDTO);
 			xmlDTO.setSeq(list.get(0).getSeq());
 			xmlDTO.setPoint(list.get(0).getPoint());
-			log.warn("xmlDTO : " + xmlDTO.toString());
 			
 			// 사용 적립금에서 빼준다
-			log.warn(inputDiscPoint + ", " + xmlDTO.getPoint());
 			inputDiscPoint = inputDiscPoint - xmlDTO.getPoint();
 
 			// 적립금 차감
-			// 사용 적립금이 0보다 작거나 같으면
-			if(inputDiscPoint < 0) {
-				xmlDTO.setPoint(inputDiscPoint + xmlDTO.getPoint());
-				log.warn("xmlDTO : " + xmlDTO.toString());
-				
-				result = SqlSession.update(p + "discPointByid", xmlDTO);
-				log.warn("result : " + result);
-				break;
-			}else {
-				result = SqlSession.update(p + "discPointByid", xmlDTO);
-				log.warn("result : " + result);
-				
-				count++;
-				log.warn("count : " + count);
-			}
+			// 사용 적립금 1000, 유효 적립금 1400
+			// 가장 최신 적립금이 400원 남았다
+			if(inputDiscPoint < 0) { xmlDTO.setPoint(inputDiscPoint + xmlDTO.getPoint()); result = SqlSession.update(p + "discPointByid", xmlDTO); break; }
+			// 사용 적립금 1000, 유효 적립금 400
+			// 사용 적립금 600,  유효 적립금 1500
+			// 가장 최신 적립금은 400 전부 사용했고 (used_amount = 400), 그 다음 최신 적립금은 900원 남았다
+			else { result = SqlSession.update(p + "discPointByid", xmlDTO); count++; }
 		}
-
-		log.warn("while문 끝");
 		
 		return result>0?true:false;
 	}

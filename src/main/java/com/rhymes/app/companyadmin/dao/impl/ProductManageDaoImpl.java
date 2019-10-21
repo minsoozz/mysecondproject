@@ -97,6 +97,12 @@ public class ProductManageDaoImpl implements ProductManageDao{
 		return n>0?true:false;
 	}
 
+	@Override
+	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductSalePriceUpdateCancel", product);
+		return false;
+	}
+
 	
 	
 	

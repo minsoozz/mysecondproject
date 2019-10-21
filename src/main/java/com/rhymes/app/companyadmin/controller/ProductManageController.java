@@ -66,6 +66,7 @@ public class ProductManageController {
 	     	  c_name = seller.getC_name();
 	     	  log.info("업체이름:" + c_name);
 	     	 pParam.setC_name(c_name);
+	     	 pParam.setKey("sale");
 	     	 
 	     	  if(!c_name.equals("") && c_name!=null) {
 	   
@@ -90,7 +91,7 @@ public class ProductManageController {
 	     		 model.addAttribute("c_name", c_name);
 	     		 model.addAttribute("plist", plist);
 	     		  
-	     		 url = "CompanyAdminProductlist";
+	     		 url = "CompanyAdminSaleProduct";
 	     	  }else if(c_name.equals("") || c_name==null) {
 	     		 url = "redirect:/main";
 	     	  }
@@ -246,6 +247,19 @@ public class ProductManageController {
 		}
     	return msg;
     }
+	//3(2-3).상품 SALE 취소
+	@ResponseBody
+    @GetMapping("/salepriceupdatecancel")
+    public String salepriceupdatecancel(ProductDto product)throws Exception {
+		String msg = "";
+		boolean bool = manage.productSalePriceUpdateCancel(product);
+		if(bool) {
+			log.info("SALE적용 취소");
+			msg = "SUCCESS";
+		}
+    	return msg;
+    }
+	
 	
 	
 	//2(2).상품 상세조회로 이동

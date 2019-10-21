@@ -40,12 +40,15 @@ public class PaymentController {
 	public String payment(Model model, String stock_seq, String p_quantity, Principal pcp) throws Exception {
 		
 		// 회원 비회원 구분
-		String userid = pcp.getName();
+		String userid = "";
+		if(pcp != null) {
+			userid = pcp.getName();
+		}
 
 		OrderDTO order_dto = new OrderDTO();
 		order_dto.setStock_seq(Integer.parseInt(stock_seq));
 
-		List<OrderDTO> basketList = new ArrayList<OrderDTO>();		
+		List<OrderDTO> basketList = new ArrayList<OrderDTO>();
 		PaymentParamDTO payment_param = new PaymentParamDTO();
 		
 
@@ -80,7 +83,10 @@ public class PaymentController {
 	@RequestMapping("/payment/basketOrder")
 	public String basketOrder(Model model, String blist_stockseq, String blist_pQuantity, Principal pcp) throws Exception {
 
-		String userid = pcp.getName();
+		String userid = "";
+		if(pcp != null) {
+			userid = pcp.getName();
+		}
 		// 장바구니에서 문자열로 데이터를 가져왔다
 		// 예) 신발/청바지/티셔츠			// blist_stockseq : 주문한 상품의 재고번호
 		// 예) 2/5/1					// blist_pQuantity : 주문 수량
@@ -109,7 +115,7 @@ public class PaymentController {
 
 			// DB 주문한 상품의 정보 가져오기 장바구니로 데이터를 가져갈 리스트에 넣는다
 			// db 상품 정보 가져오기 + 주문수량 + 구매회원 id
-			basketList.add(PaymentService.getOrder(order_dto, pQuantity_arr[i], pcp.getName()));
+			basketList.add(PaymentService.getOrder(order_dto, pQuantity_arr[i], userid));
 		}
 			
 
@@ -134,8 +140,6 @@ public class PaymentController {
 		if(userid != null) {
 			P_MemberDTO p_mem = PaymentService.getMemberInfo(userid);
 			model.addAttribute("p_mem", p_mem);
-			log.info("123");
-			log.warn("p_mem : " + p_mem.toString());
 			//회원정보 가져오기 다시
 		}
 		
@@ -148,67 +152,62 @@ public class PaymentController {
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
-		dto.setUserid( pcp.getName() );
+
+		String userid = "";
+		if(pcp != null) {
+			userid = pcp.getName();
+		}
+		
+		dto.setUserid( userid );
 		
 		// 상품 재고번호와 수량을 ,를 기준으로 가져온다
 		String[] stock_seq = dtoAf.getStock_seq().split(",");
 		String[] quantity = dtoAf.getQuantity().split(",");
 		
 		for (int i = 0; i < dtoAf.getStock_quantity(); i++) {
-			log.warn(stock_seq[i]);
-			log.warn(quantity[i]);
 
 			// 주문한 상품수량만큼 재고수량에서 차감한다
 			boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
-			log.warn("재고수량 차감 ----- " + (i+1) + "번째 상품 차감 : " + b);
 			
 			// 상품의 가격
 			int price = PaymentService.getPrice(Integer.parseInt(stock_seq[i]));
-			log.warn("price : " + price);
 			
 			// db에 결제 디테일을 저장한다(후기 여부는 false)
 			PaymentDetailsDTO dtoDt = new PaymentDetailsDTO(Integer.parseInt(stock_seq[i]), Integer.parseInt(quantity[i]), price, dto.getPayment_code());
 			
 			boolean b3 = PaymentService.payment_detail_save(dtoDt);
-			log.warn("결제 내역 디테일 저장 ---- " + b3);
 		}
-		
-		// 적립금 차감한다 -- 아직
-		boolean b = PaymentService.disc_point(dto);
-		log.warn("사용 포인트 차감 ----- " + b);
 
 		// rhy_payment db에 결제내역을 저장한다
 		boolean b2 = PaymentService.payment_save(dto);
-		log.warn("결제 내역 저장 ----- " + b2);
 		
 		// rhy_payment_after db에 결제내역을 저장한다
 		boolean b3 = PaymentService.payment_after(dtoAf);
-		log.warn("결제 애프터 저장 ---- " + b3);
+		
+		if(pcp != null) {
+			// 적립금 차감한다
+			boolean b = PaymentService.disc_point(dto);
 
-		// 사용한 쿠폰을 사용으로 변환
-		boolean b4 = PaymentService.update_isused_coupon(dto);
-		log.warn("사용한 쿠폰을 사용으로 변환 ----- " + b4);
+			// 사용한 쿠폰을 사용으로 변환
+			boolean b4 = PaymentService.update_isused_coupon(dto);
+		}
 
 		// 배송내역 저장 -- 운송장번호 어떻게?
 		boolean b5 = PaymentService.delivery_save(dto);
-		log.warn("배송 내역 저장 ----- " + b5);
 
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 		// rhy_store_basket 에서 구매한 id를 삭제
 		if(dtoAf.getBasket_del() == 1) {
-			boolean b6 = PaymentService.delete_basket(pcp.getName());
-			log.warn("장바구니 내역 지우기 ---- " + b6);
+			boolean b6 = PaymentService.delete_basket(userid);
 		}
 
-		// 이메일로 결제내역을 보낸다 -- 폼 필요
+		// 이메일로 결제내역을 보낸다
 		PaymentEmail mail = new PaymentEmail();
 		try {
 			//mail.PaymentEmailSend(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		
+		}		
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("dtoAf", dtoAf);
@@ -260,7 +259,10 @@ public class PaymentController {
 	// 결제페이지에서 window.open으로 쿠폰 가져오기
 	@RequestMapping(value = "/payment_coupon", method = RequestMethod.GET)
 	public String payment_coupon(Model model, Principal pcp, String product_price, String delivery_price, String input_disc_point) {
-		String userid = pcp.getName();
+		String userid = "";
+		if(pcp != null) {
+			userid = pcp.getName();
+		}
 		
 		// DB 유효 쿠폰 전부 가져오기
 		List<MemberCouponDTO> coupon_code = PaymentService.getAllCoupon(userid);
