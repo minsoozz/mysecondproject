@@ -134,7 +134,7 @@ public class PaymentController {
 		if(userid != null) {
 			P_MemberDTO p_mem = PaymentService.getMemberInfo(userid);
 			model.addAttribute("p_mem", p_mem);
-			log.warn("123");
+			log.info("123");
 			log.warn("p_mem : " + p_mem.toString());
 			//회원정보 가져오기 다시
 		}
@@ -201,17 +201,14 @@ public class PaymentController {
 		}
 
 		// 이메일로 결제내역을 보낸다 -- 폼 필요
-		//PaymentMailling mail = new PaymentMailling();
-		//mail.mailSender(dto);
 		PaymentEmail mail = new PaymentEmail();
 		try {
-			mail.PaymentEmailSend(dto);
+			//mail.PaymentEmailSend(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
-		// 적립금 차감한다 -- 아직
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("dtoAf", dtoAf);

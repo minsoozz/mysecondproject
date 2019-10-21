@@ -94,9 +94,23 @@ INSERT INTO RHY_PAYMENT_DETAILS(S_SEQ, EA, PRICE, PAYMENT_CODE, RDATE)
 VALUES(#{s_seq}, #{ea}, #{price}, #{payment_code}, SYSDATE())
 </insert>
 
+<!-- 적립금을 차감 하기위해 오래된 순으로 point 금액을 알아낸다 -->
+<select id="getPointLastById" parameterType="com.rhymes.app.payment.model.PaymentXmlParamDTO" resultType="com.rhymes.app.payment.model.PaymentXmlParamDTO">
+SELECT 
+	(AMOUNT - USED_AMOUNT) AS POINT, SEQ
+FROM RHY_MEM_POINT 
+	WHERE 
+		ID = #{userid} AND RDATE >= date_add(now(), interval -12 month)
+		ORDER BY RDATE DESC
+		limit #{count}, 1
+</select>
+
 <!-- 적립금 차감한다 -->
-<update id="disc_point" parameterType="com.rhymes.app.payment.model.PaymentDTO">
-<!-- 이거 어떻게 해 ㅠㅠ -->
+<update id="discPointByid" parameterType="com.rhymes.app.payment.model.PaymentXmlParamDTO">
+UPDATE RHY_MEM_POINT
+SET USED_AMOUNT = USED_AMOUNT + #{point}
+WHERE
+	ID=#{userid} AND SEQ=#{seq}
 </update>
 
 <!-- 결제내역 저장 -->
