@@ -3,7 +3,14 @@
 <!-- <mapper namespace="com.mde.app.common.dao"> -->
 
 <mapper namespace="excel">
-    <select id="getAllExcel" resultType="com.rhymes.app.admin.excel.model.DtestDTO">
-        SELECT * FROM RHY_MEM_P
+
+	<!--  -->
+<!--     <select id="getExcelDown" resultType="com.rhymes.app.payment.model.PaymentDTO">
+        SELECT * FROM RHY_PAYMENT
     </select>
+    
+    결제내역 다운로드
+    <select id="getExcelDown" resultType="com.rhymes.app.payment.model.PaymentDTO">
+        SELECT * FROM RHY_PAYMENT
+    </select> -->
 </mapper>

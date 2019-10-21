@@ -7,12 +7,11 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- java script -->
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/excel/excel.js"></script>
-</head>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/chart/chart.js"></script>
 <body>
 
-<input type="button" value="다운로드" id="excelDownLoad"/>
-<input type="button" value="전체 다운로드 " id="allDownLoad"/>
+salary_chart.jsp
+
 
 </body>
 </html>

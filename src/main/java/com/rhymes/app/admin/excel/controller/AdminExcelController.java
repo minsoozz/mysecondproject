@@ -11,6 +11,7 @@ import org.springframework.web.servlet.View;
 import com.rhymes.app.admin.excel.model.DtestDTO;
 import com.rhymes.app.admin.excel.service.AdminExcelService;
 import com.rhymes.app.admin.excel.util.listExcelDownload;
+import com.rhymes.app.payment.model.PaymentDTO;
 
 
 @Controller
@@ -33,6 +34,16 @@ public class AdminExcelController {
 	    model.addAttribute("list", list);
 	    
 	    return new listExcelDownload();
+	}
+	
+	// 데이터 전체 다운로드
+	@RequestMapping("/admin/excel/all")
+	public View all(Model model) throws Exception {
+		
+	    List<PaymentDTO> payment_list = excelService.getPaymentExcelDown();
+	    model.addAttribute("payment_list", payment_list);
+	    
+		return new listExcelDownload();
 	}
 	
 }
