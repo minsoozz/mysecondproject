@@ -10,14 +10,6 @@
 <body>
 
 <input type="button" value="엑셀 다운로드 " onclick="javascript:ExcelDownload();"/>
- 
-<script>
-function ExcelDownload() {
-	//alert("함수");
-
-    location.href = "/Rhymes/exceldownloadDown";
-};
-</script>
 
 </body>
 </html>
