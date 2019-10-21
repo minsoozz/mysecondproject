@@ -124,7 +124,7 @@
 				
 		<!-- 페이징 -->
  		<div id="paging_wrap">
-			<jsp:include page="/WEB-INF/views/used/recvpaging.jsp" flush="false"> 	
+			<jsp:include page="/WEB-INF/views/member/mypage/content/sub/recvpaging.jsp" flush="false"> 	
 				<jsp:param name="rpageNumber" value="${r_pageNumber }" />
 				<jsp:param name="rtotalRecordCount" value="${r_totalRecordCount }" />
 				<jsp:param name="rpageCountPerScreen" value="${r_pageCountPerScreen }" /> 
@@ -133,10 +133,6 @@
 		</div>
 		</div>
 		<!-- 받은 쪽지함 탭 끝 -->
-		
-		
-		
-		
 		
 		<!-- 보낸 쪽지함 탭 시작 -->
 		<%
@@ -190,7 +186,7 @@
 		</c:if>					
 						<!-- 페이징 -->
  		<div id="paging_wrap">
-			<jsp:include page="/WEB-INF/views/used/sendpaging.jsp" flush="false"> 	
+			<jsp:include page="/WEB-INF/views/member/mypage/content/sub/sendpaging.jsp" flush="false"> 	
 				<jsp:param name="spageNumber" value="${s_pageNumber }" />
 				<jsp:param name="stotalRecordCount" value="${s_totalRecordCount }" />
 				<jsp:param name="spageCountPerScreen" value="${s_pageCountPerScreen }" /> 

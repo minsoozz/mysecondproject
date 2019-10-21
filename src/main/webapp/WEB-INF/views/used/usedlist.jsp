@@ -24,16 +24,6 @@
 <body>
 <div>
 	
-<div>
-	<button type="button" id="_all" name="all" class="sbtn">전체</button>
-	<button type="button" id="_man" name="man" class="sbtn" value="남성의류">남성의류</button>
-	<button type="button" id="_woman" name="woman" class="sbtn" value="여성의류">여성의류</button>
-	<button type="button" id="_stuff" name="stuff" class="sbtn" value="패션잡화">패션잡화</button>
-	<button type="button" id="_beauty" name="beauty" class="sbtn" value="뷰티/미용">뷰티/미용</button>
-	<button type="button" id="_free" name="free" class="sbtn" value="무료나눔">무료나눔</button>
-	</div>
-	
-	
 <div align="right" style="margin-top: 20px">
 	<form id="_frmFormSearch">
 		<select id="s_select">
@@ -110,18 +100,6 @@ $(document).ready(function() {
 		
 		location.href="/used/useddetail?seq="+seq;
 	})
-	
-	$(".sbtn").click(function() {
-		var category = $(this).val();
-	
-	    var keyword = $("#_keyword").val();
-		var select = $("#s_select").val();
-		
-		location.href="usedlist?category="+category+"&keyword="+keyword+"&select="+select;
-		
-		
-		
-	});
 	
 	$("#_formbtn").click(function() {
 		

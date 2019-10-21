@@ -37,22 +37,21 @@
 		<put-attribute name="body" value="/WEB-INF/views/used/usedupdate.jsp"/>       
    </definition>
    
-   	<!-- 쪽지 메인 -->
-	<definition name="notes.tiles" extends="member/mypage">
-     <put-attribute name="mypage_content" value="/WEB-INF/views/used/notes.jsp" />
-   </definition>
+   
    <!-- 쪽지 보내기  -->
    
    <!-- 팝업창  -->
-   <definition name="notesWrite.tiles" template="/WEB-INF/views/used/noteswrite.jsp">  
+   <definition name="notesWrite.tiles" template="/WEB-INF/views/member/mypage/content/sub/noteswrite.jsp">  
    </definition>
    
    <!-- 팝업창  -->
-   <definition name="notesdetail.tiles" template="/WEB-INF/views/used/notesdetail.jsp">  
+   <definition name="notesdetail.tiles" template="/WEB-INF/views/member/mypage/content/sub/notesdetail.jsp">  
    </definition>
-   
+    
    <!-- 팝업창  -->
-   <definition name="notesanswer.tiles" template="/WEB-INF/views/used/notesanswer.jsp">  
+   <definition name="notesanswer.tiles" template="/WEB-INF/views/member/mypage/content/sub/notesanswer.jsp">  
    </definition>
+	
+   
    
 </tiles-definitions>

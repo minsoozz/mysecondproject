@@ -43,7 +43,6 @@ public class myUsedController {
 		int rtotalRecordCount = MyusedService.getRecvNotesCount(rparam);	// 받은쪽지함 페이징을 위한 갯수
 		int stotalRecordCount = MyusedService.getSendNotesCount(sparam);	// 보낸쪽지함 페이징을 위한 갯수
 		
-		System.out.println(stotalRecordCount);
 		
 		
 		int r_sn = rparam.getR_pageNumber(); // 0 , 1, 2
@@ -61,8 +60,6 @@ public class myUsedController {
 		sparam.setS_end(s_end);
 		
 		model.addAttribute("dto", dto);
-		System.out.println(rparam);
-		System.out.println(sparam);
 		
 		// 받은거..
 		List<NotesDto> rlist = MyusedService.getrecvnotes(rparam);	// 회원 정보로 쪽지목록을 얻는다
@@ -91,7 +88,7 @@ public class myUsedController {
 		model.addAttribute("s_recordCountPerPage",sparam.getS_recordCountPerPage());
 		model.addAttribute("s_totalRecordCount", stotalRecordCount);
 		
-		return "notes.tiles";
+		return "member/mypage/notes";
 		
 	}
 	
@@ -233,7 +230,6 @@ public class myUsedController {
 		mparam.setId(id);
 		
 		int totalRecordCount = MyusedService.MyusedCount(mparam);
-		System.out.println(totalRecordCount);
 		// pageNumber 취득
 		int sn = mparam.getPageNumber(); // 0 , 1, 2
 		int start = sn * mparam.getRecordCountPerPage() + 1; // 0 -> 1 , 1 - > 11		1   11
@@ -244,7 +240,6 @@ public class myUsedController {
 		
 		
 		List<ProductsDto> plist = MyusedService.getMyUsedList(mparam);
-		System.out.println(plist.toString());
 		model.addAttribute("plist", plist);
 		model.addAttribute("select",mparam.getSelect());
 		
