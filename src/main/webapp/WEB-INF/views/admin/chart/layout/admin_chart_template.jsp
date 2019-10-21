@@ -7,8 +7,8 @@
 <title>RHYMES</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">        
 <!-- Favicon -->
-<!-- <link rel="icon" href="/img/main-img/core-img/favicon.ico"> -->      
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/excel/excel.css">
+<!-- <link rel="icon" href="/img/main-img/core-img/favicon.ico"> -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/admin/chart/chart.css">
 <tiles:insertAttribute name="ex_resources"/><!-- 외부리소스 -->
 </head>
 <body id="page-top">
