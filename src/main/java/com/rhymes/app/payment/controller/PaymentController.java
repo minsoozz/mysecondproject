@@ -155,60 +155,47 @@ public class PaymentController {
 		String[] quantity = dtoAf.getQuantity().split(",");
 		
 		for (int i = 0; i < dtoAf.getStock_quantity(); i++) {
-			log.warn(stock_seq[i]);
-			log.warn(quantity[i]);
 
 			// 주문한 상품수량만큼 재고수량에서 차감한다
 			boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
-			log.warn("재고수량 차감 ----- " + (i+1) + "번째 상품 차감 : " + b);
 			
 			// 상품의 가격
 			int price = PaymentService.getPrice(Integer.parseInt(stock_seq[i]));
-			log.warn("price : " + price);
 			
 			// db에 결제 디테일을 저장한다(후기 여부는 false)
 			PaymentDetailsDTO dtoDt = new PaymentDetailsDTO(Integer.parseInt(stock_seq[i]), Integer.parseInt(quantity[i]), price, dto.getPayment_code());
 			
 			boolean b3 = PaymentService.payment_detail_save(dtoDt);
-			log.warn("결제 내역 디테일 저장 ---- " + b3);
 		}
 		
-		// 적립금 차감한다 -- 아직
+		// 적립금 차감한다
 		boolean b = PaymentService.disc_point(dto);
-		log.warn("사용 포인트 차감 ----- " + b);
 
 		// rhy_payment db에 결제내역을 저장한다
 		boolean b2 = PaymentService.payment_save(dto);
-		log.warn("결제 내역 저장 ----- " + b2);
 		
 		// rhy_payment_after db에 결제내역을 저장한다
 		boolean b3 = PaymentService.payment_after(dtoAf);
-		log.warn("결제 애프터 저장 ---- " + b3);
 
 		// 사용한 쿠폰을 사용으로 변환
 		boolean b4 = PaymentService.update_isused_coupon(dto);
-		log.warn("사용한 쿠폰을 사용으로 변환 ----- " + b4);
 
 		// 배송내역 저장 -- 운송장번호 어떻게?
 		boolean b5 = PaymentService.delivery_save(dto);
-		log.warn("배송 내역 저장 ----- " + b5);
 
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 		// rhy_store_basket 에서 구매한 id를 삭제
 		if(dtoAf.getBasket_del() == 1) {
 			boolean b6 = PaymentService.delete_basket(pcp.getName());
-			log.warn("장바구니 내역 지우기 ---- " + b6);
 		}
 
-		// 이메일로 결제내역을 보낸다 -- 폼 필요
+		// 이메일로 결제내역을 보낸다
 		PaymentEmail mail = new PaymentEmail();
 		try {
 			//mail.PaymentEmailSend(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		
+		}		
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("dtoAf", dtoAf);
