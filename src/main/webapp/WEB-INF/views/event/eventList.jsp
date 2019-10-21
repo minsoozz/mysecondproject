@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>EventList</title>
 </head>
 <body>
 이벤트페이지이다
