@@ -15,7 +15,7 @@
 
 	<!-- 이동 -->
 	<definition name="excel" extends="excel.tiles">
-		<put-attribute name="body" value="/WEB-INF/views/exceldownload/exceldownload.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/excel/excel.jsp" />
 	</definition>
 
  	<!-- 액셀 다운로드 -->
