@@ -53,29 +53,5 @@
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<input type="submit" value="로그아웃" class="btn btn-rhy-full">
 </form>
-<script>
-function checkused() {
-	
-	var id ="${userloginid}";	// js파일에서는 el tag를 스크립트창에서 사용하지 못하여 이렇게 했습니다ㅠㅠ
-	$.ajax({
-		url:"/used/getSeller",
-		type:"get",
-		data:{
-			s_id:id
-		},
-		success:function(data){
-			var count = parseInt(data);
-			if(count > 0){
-				location.href="myused";
-			} else {
-				alert("판매자 등록이 필요합니다");
-			}
-		},
-		error:function(e){
-			alert(e);
-		}	
-	})		
-}
-</script>
 </html>
 
