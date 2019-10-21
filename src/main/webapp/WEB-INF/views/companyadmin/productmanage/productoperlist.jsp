@@ -33,9 +33,6 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-6">
 						<div class="dataTables_length" id="dataTable_length">
-								<button type="button" onclick="location.href='/admin/company/productlist'"
-								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
-								전체 조회</button>
 								<select id="sorting" class="custome-select border-0 pr-3 searchSelect" onchange="sorting(this.value)" 
 									style="width:auto; border-color: black; cursor:pointer; text-align: center;" >
 									<option selected="selected" value="SEQ"
@@ -45,6 +42,15 @@
 									<option value="PRICEDOWN"
 										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
 								</select>
+								<button type="button" onclick="location.href='/admin/company/productoperlist'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; color:white; background-color: #5587ED;">
+								전체 조회</button>&nbsp;
+								<button type="button" onclick="location.href='/admin/company/productoperlist?criterion=c1_search&c1_name=MEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								MEN</button>
+								<button type="button" onclick="location.href='/admin/company/productoperlist?criterion=c1_search&c1_name=WOMEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								WOMEN</button>
 								
 						</div>
 					</div>
@@ -147,7 +153,7 @@
 									<td class="list_rdate"><font style="color:green">판매중</font></td>
 								</c:if>
 								<c:if test="${pro.sum eq 0}">
-									<td class="list_rdate"><font style="color:red"><b>픔절</b></font></td>
+									<td class="list_rdate"><font style="color:red">픔절</font></td>
 								</c:if>
 								<td id="saleRegi-td${pro.p_seq }">
 									<c:if test="${pro.bfs_price eq 0 }">
@@ -201,7 +207,7 @@
 
 </div>
 <!-- 상품리스트 검색/정렬/페이징 -->
-<form action="/admin/company/productlist" method="get" id="plistFrm">
+<form action="/admin/company/productoperlist" method="get" id="plistFrm">
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="${pageNumber }">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 	<input type="hidden" name="criterion" id="frm_criterion" value="${param.criterion }">
