@@ -18,7 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <!-- <script type="text/javascript" src="https://base/js/jquery.form.min.js"></script> -->
- 
+
 <script src="http://malsup.github.com/jquery.form.js"></script> 	
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -62,7 +62,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 			</div>
 			<div align='center'>
 			<table border='0' id="basicinfo_udt-table">
-				<colgroup><col width="40%"><col width="60%"></colgroup>
+				<colgroup><col width="30%"><col width="70%"></colgroup>
 				<tr>
 					<th>상품명</th>
 					<td><input type="text" value="${pDto.p_name }" name="p_name" id="_p_name"></td>
@@ -73,13 +73,27 @@ $(document).ajaxSend(function(e, xhr, options) {
 				</tr>
 				<tr>
 					<th>상품 가격</th>
+					<c:if test="${pDto.bfs_price eq 0}">
 					<td>
 						<input type="text" class="upt_price" style="width:70%;" 
 							onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 							onchange="numberWithCommas(this.value)"
 							value="<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" />"
-							<%-- value="<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" /> --%>">&nbsp;원
+							>&nbsp;원
 					</td>
+					</c:if>
+					<c:if test="${pDto.bfs_price ne 0}">
+					<td style="margin-top: 100px;">
+						<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" />&#8361;
+						<c:if test="${pDto.bfs_price ne 0}">
+						<font style="text-decoration: line-through; color:red;">
+						<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.bfs_price}" />&#8361;
+						</font>
+						<img src="https://icon-library.net/images/sale-icon-png/sale-icon-png-14.jpg" style="width:20px;height:20px;">
+						</c:if>
+						<br><strong style="color:red; font-size: 12px;">SALE적용 취소 후 가격 수정이 가능합니다.</strong>
+					<td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>상품 색상</th>
@@ -284,8 +298,18 @@ $(document).ajaxSend(function(e, xhr, options) {
 				</tr>
 				<tr>
 					<th>상품 가격</th>
-					<td><fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" />원</td>
+					<td><fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" />원&nbsp;
+						<c:if test="${pDto.bfs_price ne 0}">
+						<font style="text-decoration: line-through; color:red;">
+						<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.bfs_price}" />원
+						</font>
+						<img src="https://icon-library.net/images/sale-icon-png/sale-icon-png-14.jpg" style="width:20px;height:20px;">
+						</c:if>
+					</td>
 				</tr>
+				
+				
+				
 				<tr>
 					<th>상품 색상</th>
 					<td>${pDto.p_color }</td>
@@ -594,7 +618,6 @@ $(document).on('click', '#basicinfoUdt-finishBtn', function(){
 });
 
 function numberWithCommas(x) {
-	
     $(".upt_price").val(x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     $("#udt-pprice").val(x);
     
@@ -687,19 +710,11 @@ function addCate3(arr, arrLen) {
 	str = "";
 	str = "<option class='cate3option' value=''> ~SELECTION~ </option>"; 
 	for (var i = 0; i < arrLen; i++) {
-		
-		/* str += "<div class='c2Div'><label for='check2' style='cursor:pointer' background-color: white;' value='" + arr[i].c2_seq + "' value2='"+ arr[i].c2_name +"' class='c2sel'>";
-		str += arr[i].c2_name;
-		str += "</label><br></div>"; */
-		
-		/* <option class="cate2option" <c:out value="${c2.c2_name == pDto.c2_name ? 'selected':'' }"/>>${c2.c2_name }</option> */
-		
 		str += "<option class='cate3option' value='"+arr[i].c3_name+"'>";
 		str += arr[i].c3_name;
 		str += "</option>";
 	}
 	$("#cate3").append(str);	
-	
 }
 
 function cate3Change(){
@@ -721,7 +736,6 @@ $('body').click(function(e){
          } 
  	 }
 });
-
 </script>
 
 

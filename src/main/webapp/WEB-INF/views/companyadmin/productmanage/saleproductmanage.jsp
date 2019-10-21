@@ -11,6 +11,7 @@
 	href="<%=request.getContextPath()%>/css/admin/member/memberlist.css">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/admin/member/paging.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/companyadmin/productmanage/saleproductmanage.css">	
 </head>
 
 <!-- Begin Page Content -->
@@ -24,7 +25,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">상품 관리 > 상품조회</h6>
+			<h6 class="m-0 font-weight-bold text-primary">상품 관리 > SALE상품관리</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -82,9 +83,7 @@
 					<!-- /검색 -->
 
 				</div>
-
-
-
+				
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<colgroup>
 						
@@ -94,34 +93,31 @@
 							<!-- <th class="list_checkbox"><input type="checkbox"
 								name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 							</th> -->
-							<!-- 1 -->
-							<th class="sorting">번호</th>
 							<!-- 2 -->
-							<th class="sorting">상품 번호</th>
+							<th class="">상품 번호</th>
 							<!-- 3 -->
-							<th class="sorting">상품명</th>
-							<!-- 4 -->
-							<th class="sorting">가격</th>
-							<!-- 5 -->
-							<th class="sorting">대분류</th>
-							<!-- 6 -->
-							<th class="sorting">중분류</th>
-							<!-- 7 -->
-							<th class="sorting">소분류</th>
+							<th class="">상품명</th>
+							<th class="">상품 코드</th>
+							<th class="">대분류</th>
 							<!-- 8 -->
-							<th class="sorting">색상</th>
+							<th class="">중분류</th>
 							<!-- 9 -->
-							<th class="sorting">상품 코드</th>
-							<!-- 10 -->
-							<th class="sorting">등록일</th>
-							<!-- 11 -->
-							<th class="sorting">찜</th>
+							<th class="">소분류</th>
 							<!-- 12 -->
-							<th class="sorting">총 수량</th>
+							<!-- 10 -->
+							<th class="">색상</th>
+							<th class="">등록일</th>
+							<!-- 4 -->
+							<th class="">현재 가격</th>
+							<!-- 5 -->
+							<th class="">SALE전 가격</th>
+							<!-- 6 -->
+							<th>할인율</th>
+							<!-- 7 -->
+							<!-- 11 -->
+							
 							<!-- 13 -->
-							<th class="sorting">판매량</th>
-							<!-- 14 -->
-							<th class="sorting">판매상태</th>
+							<th class="">SALE취소</th>
 						</tr>
 					</thead>
 
@@ -132,10 +128,10 @@
 							</tr>
 						</c:if>
 						<c:forEach var="pro" items="${plist }" varStatus="vs">
-							<tr align="center">
+							<tr align="center" id="plist-tr${pro.p_seq }">
 								<%-- <td class="list_checkbox"><input type="checkbox"name='allck' value="${p.seq }"></td> --%>
-								<!-- 1 -->
-								<td class="list_name">${pro.rnum }</td>
+								<%-- <!-- 1 -->
+								<td class="list_name">${pro.rnum }</td> --%>
 								<!-- 2 -->
 								<td class="list_rdate">${pro.p_seq }</td>
 								<!-- 3 -->
@@ -143,35 +139,35 @@
 									<a href="/admin/company/stocklist?p_seq=${pro.p_seq }">
 									<strong>${pro.p_name }</strong></a>
 								</td>
+								<td class="">${pro.cp_code }</td>
+								<!-- 7 -->
+								<td class="">${pro.c1_name}</td>
+								<!-- 8 -->
+								<td class="">${pro.c2_name}</td>
+								<!-- 9 -->
+								<td class="">${pro.c3_name}</td>
+								<!-- 10 -->
+								<td class="">${pro.p_color }</td>
+								<!-- 12 -->
+								<td class="">${pro.rdate }</td>
 								<!-- 4 -->
-								<td class="list_address">
+								<td>
 									<fmt:formatNumber type="currency" currencySymbol="" value="${pro.p_price}" /> 원
 								</td>
 								<!-- 5 -->
-								<td class="">${pro.c1_name}</td>
+								<td id="originPrice${pro.p_seq }" value="${pro.bfs_price}">
+									<fmt:formatNumber type="currency" currencySymbol="" value="${pro.bfs_price}" /> 원
+								</td>
 								<!-- 6 -->
-								<td class="">${pro.c2_name}</td>
-								<!-- 7 -->
-								<td class="">${pro.c3_name}</td>
-								<!-- 8 -->
-								<td class="">${pro.p_color }</td>
-								<!-- 9 -->
-								<td class="">${pro.cp_code }</td>
-								<!-- 10 -->
-								<td class="">${pro.rdate }</td>
+								<td class="" style="color:red;">
+									<fmt:formatNumber value="${(1-(pro.p_price/pro.bfs_price))*100}"></fmt:formatNumber>%
+								</td>
 								<!-- 11 -->
-								<td class="">${pro.wish }</td>
-								<!-- 12 -->
-								<td class="">${pro.sum }</td>
+								
 								<!-- 13 -->
-								<td class="">~</td>
-								<!-- 14 -->
-								<c:if test="${pro.sum ne 0}">
-									<td class="list_rdate"><font style="color:green">판매중</font></td>
-								</c:if>
-								<c:if test="${pro.sum eq 0}">
-									<td class="list_rdate"><font style="color:red"><b>픔절</b></font></td>
-								</c:if>
+								<td>
+									<button type='button' class="salecancel-btn" value="${pro.p_seq }">취소</button>									
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -209,14 +205,48 @@
 	<input type="hidden" name="keyword" id="frm_keyword" value="${param.keyword }">
 	<input type="hidden" name="sorting" id="form_sorting" value="${param.sorting }">	
 </form>
-
+<!-- 메시지 MODAL영역 -->
+<div class="msgModal">
+   <div class="msg-content">
+      <span id="msg"></span>
+   </div>
+</div>
 
 <!-- /.container-fluid -->
 
 <!-- End of Main Content -->
 
 <!--------------------------------- SCRIPT ZONE --------------------------------->
+<script>
 
+$('.salecancel-btn').click(function(){
+	var p_seq = $(this).val();
+	var p_price = $("#originPrice" + p_seq).attr("value");
+		
+	$.ajax({
+        type:"get",
+        data: "p_seq=" + p_seq + "&p_price=" + p_price,
+        url:"/admin/company/salepriceupdatecancel",
+        success:function( data ){
+			 
+        	$("#plist-tr" + p_seq).remove();
+        	
+        	//메시지 모달
+		     $("#msg").html("<strong>SALE적용이 취소되었습니다.</strong>");
+	      	 $(".msgModal").fadeIn();
+	     	 setTimeout(function() {
+	     		$(".msgModal").fadeOut();    	
+	         },500);			 
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+    })
+	
+	
+});
+
+</script>
 
 
 </html>
