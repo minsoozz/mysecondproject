@@ -1,7 +1,5 @@
 package com.rhymes.app.admin.events.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,13 +29,17 @@ public class AdminPointsController {
 	 */
 	@RequestMapping(value = "/points", method = {RequestMethod.POST, RequestMethod.GET})
 	public String showMypageAdminPoints(Model model, AdminPointsPagingDTO pDto) {
-		log.info("오자마자pDto : " + pDto);
+		log.info("showMypageAdminPoints()");
+		//log.info("오자마자pDto : " + pDto);
+		//테이블 컬럼 문자열
+		String[] cols = {"No", "ID", "내용", "적립액", "사용금액", "사용가능금액", "만료일", "쿠폰번호"};
 		
 		pDto.setTotalSize(adminPointsService.getTotalCountOfPoints(pDto));
 		
 		
-		log.info("pDto : " + pDto);
+		//log.info("pDto : " + pDto);
 		
+		model.addAttribute("cols", cols);
 		model.addAttribute("pDto", pDto);
 		model.addAttribute("pointsList", adminPointsService.getPointsLogByConditions(pDto));
 		

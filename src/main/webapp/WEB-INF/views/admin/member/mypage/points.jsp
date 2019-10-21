@@ -7,6 +7,9 @@
 <html>
 
 <script type="text/javascript" src="<%=ctx %>/js/admin/events/points.js"></script>
+<script type="text/javascript" src="<%=ctx %>/js/admin/events/sub/points_detail.js"></script>
+
+<link rel="stylesheet" href="<%=ctx%>/css/admin/events/sub/points_detail.css">
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -60,23 +63,19 @@
 				</div>				
 				</form><!-- /검색 -->				
 			</div>
-		
 			
-			
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">			
+			<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">			
 				<thead>
 					<tr align="center">
-						<th class="list_checkbox"><input type="checkbox"
-							name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
+						<th class="list_checkbox"><input type="checkbox" name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 						</th>
-						<th class="sorting">No<input type="hidden" name="sorting" id="_sorting"></th>
-						<th class="sorting">ID</th>
-						<th class="sorting">내용</th>
-						<th class="sorting">적립액</th>
-						<th class="sorting">사용금액</th>
-						<th class="sorting">사용가능금액</th>
-						<th class="sorting">만료일</th>
-						<th class="sorting">쿠폰번호</th>
+						<!-- String[] cols = {"No", "ID", "내용", "적립액", "사용금액", "사용가능금액", "만료일", "쿠폰번호"}; -->
+						<c:forEach items="${cols }" var="col" varStatus="i">							
+							<c:if test="col == 'No'">
+								<th class="sorting">${col }<input type="hidden" name="sorting" id="_sorting"></th>	
+							</c:if>
+							<th class="sorting">${col }</th>
+						</c:forEach>						
 					</tr>
 				</thead>
 
@@ -87,11 +86,11 @@
 						</tr>
 					</c:if>
 					<c:forEach var="c" items="${pointsList }" varStatus="vs">
-						<tr align="center">
+						<tr align="center" class="points_row">
 							<td class="list_checkbox"><input type="checkbox"
 								name='allck' value="${c.seq }"></td>
 							<td>${c.seq }</td>	
-							<td class="list_id"><a href="mem_update?id=${c.id }">${c.id }</a></td>
+							<td class="list_id">${c.id }</td>
 							<td>${c.comment }</td>							
 							<td>${c.amount }</td>
 							<td>${c.used_amount }</td>
@@ -138,5 +137,10 @@
 </div>
 
 </div><!-- /.container-fluid -->
+
+<!-- modal 영역 -->
+<div class="points_detail_modal modal fade" id="_points_detail_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<jsp:include page="./sub/points_detail.jsp"></jsp:include>
+</div>
 
 </html>

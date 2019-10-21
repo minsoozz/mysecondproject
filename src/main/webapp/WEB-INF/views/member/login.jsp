@@ -13,7 +13,6 @@
 <body>
 
 <br>
-
 <div class="login_wrap">
 	<form action="/login" method="post">
 		<!-- csrf 예방을 위한 코드추가 -->
