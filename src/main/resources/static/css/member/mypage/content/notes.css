@@ -9,11 +9,11 @@
 	text-overflow:ellipsis; 
 	white-space:nowrap;
 }
-#footer_wrap{
+/* #footer_wrap{
 	position:absolute;
 	top:700px;
 }
-
+ */
 #_ntable th{
 	text-align: center;
 }
