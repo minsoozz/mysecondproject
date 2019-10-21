@@ -15,7 +15,7 @@
 		</div>
 		<div class="modal-body">
 			<form id="_detail_frm">
-				<c:forEach items="${cols }" var="col" varStatus="i" step="1" >
+				<c:forEach items="${cols }" var="col" varStatus="i" step="1">
 					<div class="col-md-8" align="center">
 						<div class="input-group frm-input-row">
 					        <div class="input-group-prepend">
@@ -23,10 +23,10 @@
 					        </div>
 					        <c:choose>
 					        	<c:when test="${i.index > 1 && i.index < 5 }">
-					        		<input type="text" class="form-control detail-input-items" id="_detail_${col }">
+					        		<input type="text" class="form-control detail-input-items" id="_detail_${i.index }">
 					        	</c:when>
 					        	<c:otherwise>
-					        		<input type="text" class="form-control detail-input-items" id="_detail_${col }" readonly>
+					        		<input type="text" class="form-control detail-input-items" id="_detail_${i.index }" readonly>
 					        	</c:otherwise>					        
 					        </c:choose>
 					    </div>
@@ -36,7 +36,7 @@
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Save changes</button>
+			<button type="button" class="btn btn-primary" id="_frm_btn_save" disabled>저장</button>
 		</div>
 	</div>
 </div>

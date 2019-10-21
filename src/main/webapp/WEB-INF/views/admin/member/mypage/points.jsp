@@ -5,7 +5,8 @@
 <% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
-
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <script type="text/javascript" src="<%=ctx %>/js/admin/events/points.js"></script>
 <script type="text/javascript" src="<%=ctx %>/js/admin/events/sub/points_detail.js"></script>
 
@@ -23,7 +24,7 @@
 		<h6 class="m-0 font-weight-bold text-primary">적립금 목록</h6>
 	</div>
 	<div class="card-body">
-		<div class="table-responsive">
+		<div class="table-wrap">
 			<div class="row">
 				<div class="col-sm-12 col-md-6">
 					<div class="dataTables_length" id="dataTable_length">
@@ -107,7 +108,7 @@
 				<div class="dataTables_paginate paging_simple_numbers"
 					id="dataTable_paginate">
 					<!-- 페이징 -->
-					<div id="paging_wrap">
+					<div id="paging_wrap" align="center">
 						<nav aria-label="Page navigation example">
 						  <ul class="pagination">
 						    <li class="page-item">

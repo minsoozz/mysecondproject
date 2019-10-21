@@ -1,13 +1,22 @@
 package com.rhymes.app.admin.events.controller;
 
+import java.security.Principal;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.admin.events.model.AdminPointsPagingDTO;
+import com.rhymes.app.admin.events.model.PointsDTO;
 import com.rhymes.app.admin.events.service.AdminPointsService;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
+import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,5 +53,43 @@ public class AdminPointsController {
 		model.addAttribute("pointsList", adminPointsService.getPointsLogByConditions(pDto));
 		
 		return "admin/member/mypage/points";
+	}
+	
+	/**Ajax 통신을 통해 적립금 내용 수정
+	 * @param model
+	 * @param jsMap
+	 * @param pcp
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/points/updatedetail", method = RequestMethod.POST)
+	public String updatePointDetail(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
+		log.info("updatePointDetail()");
+		log.info( jsMap.get("seq") + "" );
+		log.info( jsMap.get("comment") + "" );
+		log.info( jsMap.get("amount") + "" );
+		log.info( jsMap.get("used_amount") + "" );
+		/* 선언부 */
+		PointsDTO pDto = PointsDTO.builder().seq( Integer.parseInt(jsMap.get("seq") + "") )
+											.comment( jsMap.get("comment") + "" )
+											.amount( Integer.parseInt(jsMap.get("amount") + "" ) )
+											.used_amount( Integer.parseInt(jsMap.get("used_amount") + "") ).build();
+		log.info(pDto.toString());
+		
+		
+		/* 수행부 */
+		//업데이트 완료되면 1리턴, 오류발생하면 0리턴
+		int updateResult = 0;
+		try {
+			updateResult = adminPointsService.updatePointsDetail(pDto);
+			
+			switch(updateResult) {
+				case 1 : return "1";
+				default : return "0";
+			}
+			
+		}catch (Exception e) {
+			return "0";
+		}		
 	}
 }

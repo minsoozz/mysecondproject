@@ -39,4 +39,12 @@ public class AdminPointsDAO {
 	public List<PointsDTO> getPointsLogByConditions(AdminPointsPagingDTO aPPDto){
 		return sqlSession.selectList(ns + "getPointsLogByConditions", aPPDto);
 	}
+	
+	/**매개변수로 받은 내용대로 적립금 디테일 수정
+	 * @param pDto
+	 * @return
+	 */
+	public int updatePointsDetail(PointsDTO pDto) {
+		return sqlSession.update(ns +"updatePointsDetail", pDto);
+	}
 }

@@ -12,6 +12,9 @@
 		resultType="com.rhymes.app.admin.events.model.PointsDTO">
 		<include refid="getPointsLogByConditionsSql"/></select>
 
+	<!-- 매개변수로 받은 내용대로 적립금 디테일 수정 -->
+	<update id="updatePointsDetail" parameterType="com.rhymes.app.admin.events.model.PointsDTO">
+		<include refid="updatePointsDetailSql"/></update>
 
 
 	<!-- 쿼리정보 -->
@@ -40,6 +43,17 @@
 			<if test="cond == 1">ID LIKE '%' #{keyword} '%'</if>
 			<if test="cond == 2">COUP_CODE LIKE '%' #{keyword} '%'</if>
 		</where>
+	</sql>
+	
+	<!-- 매개변수로 받은 내용대로 적립금 디테일 수정 -->
+	<sql id="updatePointsDetailSql">
+		UPDATE RHY_MEM_POINT
+		<set>
+			<if test="comment != null and comment != ''">COMMENT = #{comment}</if>
+			<if test="amount != null">, AMOUNT = #{amount}</if>
+			<if test="used_amount != null">, USED_AMOUNT = #{used_amount}</if>
+		</set> 
+		WHERE SEQ=#{seq};
 	</sql>
 	
 </mapper>
