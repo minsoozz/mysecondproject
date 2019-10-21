@@ -41,9 +41,9 @@ public class PaymentController {
 		
 		// 회원 비회원 구분
 		String userid = "";
-//		if(pcp != null) {
-//			userid = pcp.getName();
-//		}
+		if(pcp != null) {
+			userid = pcp.getName();
+		}
 
 		OrderDTO order_dto = new OrderDTO();
 		order_dto.setStock_seq(Integer.parseInt(stock_seq));
