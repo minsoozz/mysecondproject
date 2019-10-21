@@ -95,8 +95,6 @@
 
 </div>
 
-
-
 <script type="text/javascript">
 function goPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
 	$("#_pageNumber").val(pageNumber);

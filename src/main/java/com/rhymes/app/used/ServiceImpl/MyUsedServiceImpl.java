@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.rhymes.app.used.Service.MyUsedService;
 import com.rhymes.app.used.dao.MyUsedDao;
+import com.rhymes.app.used.model.MyUsedParam;
 import com.rhymes.app.used.model.NotesDto;
 import com.rhymes.app.used.model.NotesRecvParam;
 import com.rhymes.app.used.model.NotesSendParam;
+import com.rhymes.app.used.model.ProductsDto;
 
 @Service
 public class MyUsedServiceImpl implements MyUsedService {
@@ -102,5 +104,28 @@ public class MyUsedServiceImpl implements MyUsedService {
 		// TODO Auto-generated method stub
 		return myUsedDao.getSendNotesCount(sparam);
 	}
+
+
+	@Override
+	public List<ProductsDto> getMyUsedList(MyUsedParam mparam) {
+		// TODO Auto-generated method stub
+		return myUsedDao.getMyUsedList(mparam);
+	}
+
+
+	@Override
+	public boolean updatedivision(ProductsDto pDto) {
+		// TODO Auto-generated method stub
+		return myUsedDao.updatedivision(pDto);
+	}
+
+
+	@Override
+	public int MyusedCount(MyUsedParam mparam) {
+		// TODO Auto-generated method stub
+		return myUsedDao.MyusedCount(mparam);
+	}
+	
+	
 	
 }

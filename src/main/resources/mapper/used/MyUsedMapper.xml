@@ -158,4 +158,53 @@
 	AND seq=#{seq}
 </update>
 
+<!-- 판매자가 판매하는 상품 목록을 불러온다 -->
+<select id="getMyUsedList" parameterType="com.rhymes.app.used.model.MyUsedParam" resultType="com.rhymes.app.used.model.ProductsDto">
+	SELECT seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes,readcount,rdate
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY RDATE DESC) AS RNUM, 
+			seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes,readcount,rdate
+		  FROM rhy_used_products
+		  WHERE 1=1
+	
+	<if test="select != null and keyword != null">
+		<if test="select == 'title'">
+            AND TITLE LIKE CONCAT('%',#{keyword},'%')         
+         </if>
+         <if test="select == 'content'">
+            AND CONTENT LIKE CONCAT('%',#{keyword},'%')       
+         </if>
+         <if test="select == 'id'">
+            AND S_ID LIKE LIKE CONCAT('%',#{keyword},'%')        
+         </if>
+      </if>
+   ) A
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	AND s_id=#{id}
+	<!-- AND CATEGORY LIKE CONCAT('%',#{category},'%') -->
+	ORDER BY RDATE DESC
+</select>
+
+<!--판매현황 수정  -->
+<update id="updatedivision" parameterType="com.rhymes.app.used.model.ProductsDto">
+	UPDATE rhy_used_products
+	SET division=#{division}
+	WHERE seq =#{seq}
+</update>
+
+
+<!-- 내 판매목록 글 개수  -->
+<select id="MyusedCount" parameterType="com.rhymes.app.used.model.MyUsedParam" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM rhy_used_products
+		WHERE 1=1
+	<if test="select != null and keyword != null">
+         <if test="select == 'content'">
+            AND content LIKE CONCAT('%',#{keyword},'%')
+         </if>
+       <if test="select == 'title'">
+            AND title LIKE CONCAT('%',#{keyword},'%')
+       	</if>
+      </if>
+	AND s_id=#{id}
+</select>	 
 </mapper> 

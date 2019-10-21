@@ -11,8 +11,8 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="<%=ctx %>/js/used/notes.js"></script>
+<link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/notes.css">
-
 </head>
 <body>
 <button type="button" id="_send" name="send">쪽지 보내기</button>
@@ -166,7 +166,7 @@
 		<br>		
 				
 		<table border="1" id="_ntable">
-		<col width="150"><col width="400"><col width="150"><col width="40">
+		<col width="150"><col width="400"><col width="150"><col width="50">
 		<tr>
 			<th>받는사람</th><th>내용</th><th>날짜</th><th>삭제</th>					
 		</tr>
