@@ -241,18 +241,16 @@ $("#_idbtn").click(function(){
 			type:"get",
 			data:{id:$("#_userid").val()},
 			success:function(msg){
-	 			alert("suc");
+// 	 			alert("suc");
 				if(msg == 'YES'){
-		 			alert("확인");	// id있음	
+		 			alert("확인되었습니다.");	// id있음	
 		 		$("#to").focus();
 		 			$("#IdText").val($("#_userid").val());
 		 		
 				}else{
 		 		alert("없는 아이디입니다.");			// 없음
 		 		$("#_userid").val("");
-		 //		$("#_userid").val($("#_id").val());
 		 		$("#_userid").focus();
-	 	// 		idcheck = true;
 				}
 			},
 			error:function(request,status,error){
@@ -286,16 +284,10 @@ $(document).ready(function() {
 	       var to = $("#to").val();
 	       var frontnum = $("#telSelect").val();
 	       
-// 	       alert("to:" + to);
-// 	       alert("frontnum:" + frontnum);
-// 	       alert(frontnum+to);
 		   var usernum = frontnum + to;
-		   alert("usernum: " + usernum);
+
  	       $("#_frontto").val(usernum);
- 	      
-// 	       alert("usernum " + usernum);
-	       
-	       
+
 	       if(to == "" || to == null){
 	           alert("번호를 입력해 주세요");
 	           $("#to").focus();
@@ -317,7 +309,7 @@ $(document).ready(function() {
 		                success:function(){
 		                  alert("해당 휴대폰으로 인증번호를 발송했습니다");
 		                  count++;
-		                  alert(count);
+// 		                  alert(count);
 		                  },
 		                  error(){}
 		               });
@@ -346,7 +338,7 @@ $(document).ready(function() {
       else{
           
           if(userNum.trim() == sysNum.trim()){
-             alert("성공");
+//              alert("성공");
              $("#textresult").val(sysNum);
           }
           else {

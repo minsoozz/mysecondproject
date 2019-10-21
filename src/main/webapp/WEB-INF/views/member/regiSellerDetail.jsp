@@ -433,15 +433,17 @@ function checkIt() {
 				<input type="text" name="ic_email1" class="inputtext_email" id="_ic_email1">
 				@
 				<input type="text" name="ic_email2" class="inputtext_email" id="_email2">
+				<span>
 				<select name="ic_email3" class="inputtext_email eposition" id="_emailSelect" onchange="changeEmail()">
 					<option value="x">직접입력</option>
 					<option value="naver.com">naver.com</option>
 					<option value="hanmail.net">hanmail.net</option>
 					<option value="gmail.com">gmail.com</option>
 				</select>
-				<input type="button" id="_emailBtn" value="이메일 인증" class="regibutton eposition epbtn">
-				<input type="text" id="_emailText" class="inputtext_s" minlength="6" maxlength="6" placeholder="인증번호 입력">
-				<input type="button" id="_emailNumBtn" value="인증번호 확인" class="regibutton">
+				</span>
+				<input type="button" id="_emailBtn" value="이메일 인증" class="regibutton epbtn"/><br>
+				<input type="text" id="_emailText" class="inputtext_s" minlength="6" maxlength="6" placeholder="인증번호 입력"/>
+				<input type="button" id="_emailNumBtn" value="인증번호 확인" class="regibutton"/>
 							<input type="hidden" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
 							<input type="hidden" id="_checkCode" name="checkCode" placeholder="이메일 인증했는지 체크">
 				<p id="emailNumText"></p>
@@ -675,7 +677,7 @@ $(document).ready(function() {
                   alert("해당 휴대폰으로 인증번호를 발송했습니다");
                   count++;
                   
-                  alert(count);
+//                   alert(count);
                   },
                   error(){}
                });

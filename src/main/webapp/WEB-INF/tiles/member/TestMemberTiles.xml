@@ -10,7 +10,6 @@
    <definition name="rhylogin" template="/WEB-INF/views/member/layout/login_template.jsp">
        <put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp" />
        <put-attribute name="member_top" value="/WEB-INF/views/member/layout/member_main_top.jsp" />
-<!-- <put-attribute name="mypage_top" value="/WEB-INF/views/member/mypage/mypage_main_top.jsp" /> -->
        <put-attribute name="mypage_content" value="/WEB-INF/views/member/login.jsp" />
        <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
    </definition>
@@ -45,6 +44,11 @@
 	<!-- id찾기AF -->
 	<definition name="rhyfindAf" extends="rhylogin">
 		<put-attribute name="mypage_content" value="/WEB-INF/views/member/Find_IdAf.jsp"/>
+	</definition>
+	
+	<!-- 사업자 id찾기Af -->
+	<definition name="rhyfindsellefAf" extends="rhylogin">
+		<put-attribute name="mypage_content" value="/WEB-INF/views/member/Find_IdAf_seller.jsp"/>
 	</definition>
 	
 	<!-- 찾기완료 view이동 -->

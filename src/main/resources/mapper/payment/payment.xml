@@ -9,7 +9,7 @@
 
 
 
-<!-- 장바구니에서 주문페이지로 갈 때 -->
+<!-- 장바구니에서 결제페이지로 갈 때 -->
 
 <!-- 장바구니에서 결제페이지로 주문한 상품정보 가져오기 -->
 <select id="getOrder" parameterType="com.rhymes.app.payment.model.OrderDTO"
@@ -58,6 +58,13 @@ FROM (
 	WHERE USERID=#{userid} AND DATE_FORMAT(EXPDATE,'%Y-%m-%d') > CURDATE()
 	GROUP BY USERID;
 ]]>
+</select>
+
+<!-- 이름, 번호, 이메일 회원정보 가져오기 -->
+<select id="getMemberInfo" parameterType="java.lang.String" resultType="com.rhymes.app.member.model.P_MemberDTO">
+SELECT NAME as username, PHONE as phone, EMAIL as useremail
+FROM RHY_MEM_P
+WHERE ID=#{userid}
 </select>
 
 

@@ -245,7 +245,7 @@ th{
     color: #545454;
     font-size:small;
     width: 129px;
-    height: 43.5px;
+    height: 44px;
     margin-bottom: 10px;
     position: relative;
     left: -137px;
@@ -319,13 +319,13 @@ th{
 }
 .eposition{
 	position: relative;
-	top: -54px;
-	left: 350px;
+/* 	top: -54px; */
+	left: -30px;
 }
 .epbtn{
 	position: relative;
-	top: -54px;
-	left: 340px;
+	top: -49px;
+	left: 373px;
 }
 .inputtext_email{
 	word-break: break-all;
@@ -336,7 +336,7 @@ th{
 	max-width: 100%;
 	font-family: 'Noto Sans';
 	color: #333;
-    width: 150px;
+    width: 114px;
     height: 44px;
 	padding: 0 19px;
 	border: 1px solid #ccc;

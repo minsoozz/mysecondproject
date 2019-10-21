@@ -2,26 +2,32 @@ package com.rhymes.app.payment.service;
 
 import java.util.List;
 
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.model.OrderDTO;
 import com.rhymes.app.payment.model.PaymentAfDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.model.PaymentDetailsDTO;
+import com.rhymes.app.payment.model.PaymentParamDTO;
 
 public interface PaymentService {
 	
+	//////////// 결제페이지 전
 	// 결제페이지에서 상품정보 가져오기
-	public OrderDTO getOrder(OrderDTO dto);
+	public OrderDTO getOrder(OrderDTO dto, int p_quantity, String userid);
 	
-	// 결제페이지에서 적립금 가져오기
-	public int getPoint(String userid);
-	
-	// 결제페이지에서 쿠폰 개수 가져오기
-	public int getCountCoupon(String userid);
+	// 결제 전 적립금, 쿠폰 개수 가져오기
+	public PaymentParamDTO getPointAndCountCoupon(String userid, List<OrderDTO> basketList);
 	
 	// 결제페이지에서 쿠폰 가져오기
 	public List<MemberCouponDTO> getAllCoupon(String userid);
+
+	// 회원이면 주문자 정보에 자동 입력하기 위해서
+	public P_MemberDTO getMemberInfo(String userid);
 	
+	
+	
+	//////////// 결제페이지 후
 	// 결제한 후 상품 수량 차감
 	public boolean disc_stock_quantity(String stock_seq, String quantity);
 	

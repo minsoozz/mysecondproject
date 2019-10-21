@@ -6,12 +6,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
-<div id="button.wrap">
-	<span class="button blue">
-		<button type="button" id="_btnWrite">공지사항쓰기</button>
-	</span>
-</div>
-
 <table class="list_table" style="width:85%" >
 <colgroup>
 	<col width="50"><col width="300"><col width="100"><col width="100"><col width="50">
@@ -105,22 +99,11 @@
 </th>
 </tr>
 
-
-
-
-
-</tbody>
+</tbody> 
 </table>
- 
 
 
-<script type="text/javascript">
 
-$("#_btnWrite").click(function () { 
-	location.href = "noticewrite";
-});
-
-</script>    
 
 <script type="text/javascript">
 

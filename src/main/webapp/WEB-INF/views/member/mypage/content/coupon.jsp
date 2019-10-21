@@ -123,7 +123,7 @@
 	</div>
 </div>
 
-<div class="mypage_paging coupon_paging" align="center">
+
 	<nav aria-label="Page navigation example">
 	  <ul class="pagination">
 	    <li class="page-item">
@@ -148,6 +148,6 @@
 	    </li>
 	  </ul>
 	</nav>
-</div>
+
 
 </html>

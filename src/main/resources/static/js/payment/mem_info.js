@@ -6,14 +6,15 @@ $(document).ready(function () {
 	// 비회원으로 결제할 때
 	var count = 0; /* 문자 중복을 막기 위한 인증번호 */
 	$("#oneselfConfirmBtn").click(function() {
-		alert("본인인증1");
+		//alert("본인인증1");
 		
+		// 난수를 만들어 보낸다
 		var number = Math.floor(Math.random() * 100000) + 100000;
 		if(number>100000){
 			number = number - 10000;
 		}
 		
-		$("#text").val(number);      /* 난수로 생성된 인증번호를 hidden id : confirmnumber 에 숨긴다 */
+		$("#text").val(number);      /* 난수로 생성된 인증번호를 hidden id : text 에 숨긴다 */
 		var text = $("#text").val();
 		var to = $("#to").val();
 		
@@ -75,5 +76,19 @@ $(document).ready(function () {
 
 
 });
+
+
+
+// 보내는 사람 연락처
+function send_phone() {
+	alert("보내는 사람 연락처");
+}
+
+
+
+// 받는 사람 연락처
+function receive_phone() {
+	alert("받는 사람 연락처");
+}
 
 

@@ -76,8 +76,8 @@
 			<tr>
 				<td colspan="4">
 					<!-- 할인할 때 계산을 위해 부모창에서 가져온 데이터 -->
-					<input type="hidden" id="product_price" value="${product_price }">
-					<input type="hidden" id="disc_point" value="${disc_point }">
+					<input type="text" id="product_price" value="${product_price }">
+					<input type="text" id="disc_point" value="${input_disc_point }">
 					<input type="button" id="coupon_popup_btn" value="확인">
 					<input type="button" value="취소" onclick="self.close();">
 				</td>
@@ -136,14 +136,27 @@
 
 			if (func_measure == "%") {
 				// 할인일 때
+				disc_coupon = parseInt(product_price) * (parseInt(func_num) / 100);
+				console.log(disc_coupon);
+				
+				if(parseInt(product_price) - parseInt(disc_point) - disc_coupon < 0){
+					opener.document.getElementById("disc_point").value = "0";
+					opener.document.getElementById("input_disc_point").value = "0";
+					opener.document.getElementById("disc_coupon").value = disc_coupon;
+					opener.document.getElementById("totalprice").value = parseInt(product_price) - disc_coupon;
+					window.close();
+					return;
+				}
 
 				// 쿠폰으로 할인 된 금액
-				opener.document.getElementById("disc_coupon").value = parseInt(product_price) * (parseInt(func_num) / 100);
+				opener.document.getElementById("disc_coupon").value = disc_coupon;
+				opener.document.getElementById("totalprice").value = parseInt(product_price) - parseInt(disc_point) - disc_coupon;
 			} else {
 				// 적립일 때
 				
-				// 쿠폰으로 할인 된 금액 = 0
+				// 쿠폰으로 할인 된 금액 = 0, add_point = 값
 				opener.document.getElementById("disc_coupon").value = "0";
+				opener.document.getElementById("add_point").value = parseInt(product_price) * 0.02;
 				opener.document.getElementById("totalprice").value = parseInt(product_price) - parseInt(disc_point);
 			}
 
