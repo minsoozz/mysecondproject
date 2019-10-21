@@ -54,6 +54,7 @@ public class ProductDetailController {
 	      
 	      ProductDto productDto = purchase.getProductDetail(product.getP_seq());
 	      productDto.setP_price2(formatter.format(productDto.getP_price()));
+	      productDto.setBfs_price2(formatter.format(productDto.getBfs_price()));
 	      
 	    // 위시리스트 중복 체크
 	       WishlistDto wish = new WishlistDto();

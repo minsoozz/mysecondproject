@@ -32,6 +32,12 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+<!-- 메시지 MODAL영역 -->
+<div class="msgModal">
+   <div class="msg-content">
+      <span id="msg"></span>
+   </div>
+</div>
 
 <!-- 상품기본정보 수정 MODAL -->
 	<form method="post" action="/admin/company/productupdateAf" id='basicinfo-submit'>
@@ -168,7 +174,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <div class="imgudt_modal">
 	<div class="imgudt_modal-content" align="center">
 		<div align="right">
-		<img src="https://cdn4.iconfinder.com/data/icons/media-controls-4/100/close-512.png" style="width:30px; height:30px; cursor:pointer;" class="modalClose">
+		<img src="https://cdn4.iconfinder.com/data/icons/media-controls-4/100/close-512.png" style="width:30px; height:30px; cursor:pointer;" class="imgudtModalClose">
 		</div>
 		<div align="center" style="border:0px solid green; height:auto; padding:20px">
 				<div class="udtimg-div">
@@ -312,11 +318,13 @@ $(document).ajaxSend(function(e, xhr, options) {
 	<div id="updateDiv">
 		<strong>상품이미지 수정</strong>
 		<div style="margin-top: 40px; margin-bottom: 40px;">
-			<img src="/upload/store/${pDto.photo1_file }"  style="width:150px; height:150px;">
-			<img src="/upload/store/${pDto.photo2_file }"  style="width:150px; height:150px;">
-			<img src="/upload/store/${pDto.photo3_file }"  style="width:150px; height:150px;">
-			<img src="/upload/store/${pDto.photo4_file }"  style="width:150px; height:150px;">
-			<img src="/upload/store/${pDto.photo5_file }"  style="width:150px; height:150px;">
+			<div align="center">
+			<img src="/upload/store/${pDto.photo1_file }"  id="oPhoto1" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo2_file }"  id="oPhoto2" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo3_file }"  id="oPhoto3" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo4_file }"  id="oPhoto4" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo5_file }"  id="oPhoto5" style="width:150px; height:150px;">
+			</div>
 		</div>
 		<div align="center">
 			<button type="button" class="img_update-btn"><b>수정</b></button>
@@ -346,6 +354,12 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!--------------------------------- SCRIPT ZONE --------------------------------->
 <script>
 var sel_file;
+
+
+
+$(document).on('click', '.imgudtModalClose', function(){
+	$(".imgudt_modal").fadeOut();
+});
 
 $(document).on('click', '.basicinfo_update-btn', function(){
 	$(".basicinfo_modal").fadeIn();
@@ -515,11 +529,16 @@ $(document).on('click', '.imgUdt-finishBtn', function(){
            },
            //timeout: 600000,
            success : function(data){
-        	   alert(data);
 	           $(".imgUdt-finishBtn").remove();
 			   $("#pZone"+photoNumber).after("<button type='button' id='btn-upload"+photoNumber+"' value='"+photoNumber+"'>수정</button>");
-			   setTimeOut(function(){ isAjaxing = false; }, 10000000);
-			 
+			   $("#oPhoto"+photoNumber).attr('src', '/upload/store/'+data);
+			   //메시지 모달
+			     $("#msg").html("<strong>수정이 완료되었습니다.</strong>");
+		      	 $(".msgModal").fadeIn();
+		     	 setTimeout(function() {
+		         	$(".msgModal").fadeOut();
+		         },800);
+			   
            },
            error : function(){
            	   alert("error!!");
@@ -693,6 +712,15 @@ $(document).on('click', '.modalClose', function(){
 	location.href="/admin/company/productupdate?p_seq="+p_seq;
 });
 
+/* 상품사진 업데이트 모달 영역 외 클릭시 close */
+$('body').click(function(e){
+	 if($(".imgudt_modal").css("display") == "block") {
+        if(!$('.imgudt_modal, .imgudt_modal').has(e.target).length) { 
+        	//$(".modal").css("display", "none");
+        	$(".imgudt_modal").fadeOut();
+         } 
+ 	 }
+});
 
 </script>
 

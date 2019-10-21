@@ -69,8 +69,12 @@ pageNumber : ${pageNumber }<br>
 			</div>
 			<font size="4px"><b>${pro.p_name }</b></font><br>
 			<font size="3px">${pro.c_name }</font><br>
-			<font size="3px">&#8361;${pro.p_price2 }</font><br>
-			<font size="2px">(${pro.p_color })</font>
+			<font size="2px">
+			<c:if test="${pro.bfs_price ne 0 }">
+				&#8361;<font style="text-decoration: line-through;">${pro.bfs_price2 }</font>
+			</c:if>			
+			&#8361;${pro.p_price2 }</font>
+			<br><font size="2px">(${pro.p_color })</font>
 		</div>	
 		</c:forEach>
 	</div>
