@@ -1,4 +1,4 @@
-package com.rhymes.app.admin.exceldown.model;
+package com.rhymes.app.admin.excel.model;
 
 import java.io.Serializable;
 

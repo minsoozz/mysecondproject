@@ -1,8 +1,8 @@
-package com.rhymes.app.admin.exceldown.dao;
+package com.rhymes.app.admin.excel.dao;
 
 import java.util.List;
 
-import com.rhymes.app.admin.exceldown.model.DtestDTO;
+import com.rhymes.app.admin.excel.model.DtestDTO;
 
 public interface AdminExcelDAO {
 	

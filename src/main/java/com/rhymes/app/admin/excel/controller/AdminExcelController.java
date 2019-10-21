@@ -1,4 +1,4 @@
-package com.rhymes.app.admin.exceldown.controller;
+package com.rhymes.app.admin.excel.controller;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
 
-import com.rhymes.app.admin.exceldown.model.DtestDTO;
-import com.rhymes.app.admin.exceldown.service.AdminExcelService;
-import com.rhymes.app.admin.exceldown.util.listExcelDownload;
+import com.rhymes.app.admin.excel.model.DtestDTO;
+import com.rhymes.app.admin.excel.service.AdminExcelService;
+import com.rhymes.app.admin.excel.util.listExcelDownload;
 
 
 @Controller
