@@ -74,7 +74,7 @@
 						</if>
 					</if>
 					<if test="key == 'sale'">
-						(AND BFS_PRICE != 0)
+						AND BFS_PRICE != 0
 					</if>
 				</if>
 			)A
