@@ -8,21 +8,23 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+<jsp:include page="./sub/coupon_card.jsp"></jsp:include>
+
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">적립금 관리</h1>
-<p class="mb-4">적립금 지급-차감 및 이력 조회</p>
+<h1 class="h3 mb-2 text-gray-800">쿠폰 관리</h1>
+<p class="mb-4">쿠폰 발급, 쿠폰 리스트</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">적립금 목록</h6>
+		<h6 class="m-0 font-weight-bold text-primary">쿠폰 목록</h6>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
 			<div class="row">
 				<div class="col-sm-12 col-md-6">
 					<div class="dataTables_length" id="dataTable_length">
-					<form action="memlist" id="_frm" method="post">					
+					<form action="memlist" id="_frm" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						 <select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable"
 						 	onchange="dataTable_length()"
@@ -39,9 +41,12 @@
 					</div>
 				</div>
 				<!-- 검색 -->
-				<div class="col-sm-12 col-md-6">
+				<div class="col-sm-12 col-md-6" align="right">
 					<div id="dataTable_filter"
 						class="searchPosition dataTables_filter">
+						
+						
+												
 						<select id="_s_category" name="s_category" onchange="categorychange()" class="custome-select border-0 pr-3 searchSelect">
 							<option value="" selected="selected">선택</option>
 							<option value="01"
@@ -64,32 +69,35 @@
 						<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 					</div>
 				</div>
-				</form><!-- /검색 -->				
+				</form><!-- /검색 -->
+				
 			</div>
 		
 			
 			
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">			
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+			
 				<thead>
 					<tr align="center">
 						<th class="list_checkbox"><input type="checkbox"
 							name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 						</th>
-						<th class="sorting">No<input type="hidden" name="sorting" id="_sorting"></th>
-						<th class="sorting">ID</th>
-						<th class="sorting">내용</th>
-						<th class="sorting">적립액</th>
-						<th class="sorting">사용금액</th>
-						<th class="sorting">사용가능금액</th>
-						<th class="sorting">만료일</th>
-						<th class="sorting">쿠폰번호</th>
+						<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting"></th>	<!-- 1 -->
+						<th class="sorting">상호</th>											<!-- 2 -->
+						<th class="sorting">사업자등록번호</th>										<!-- 3 -->
+						<th class="sorting">대표자명</th>											<!-- 4 -->
+						<th class="sorting">담당자이름</th>											<!-- 5 -->
+						<th class="sorting">회사주소</th>											<!-- 6 -->
+						<th class="sorting">담당자번호</th>											<!-- 7 -->
+						<th class="sorting">담당자메일</th>											<!-- 7 -->
+						<th class="sorting">가입일</th>											<!-- 7 -->
 					</tr>
 				</thead>
 
 				<tbody>
 					<c:if test="${empty mem_c_list }">
 						<tr align="center">
-							<td colspan="9" align="center">검색결과가 없습니다.</td>
+							<td colspan="8" align="center">검색결과가 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="c" items="${mem_c_list }" varStatus="vs">
@@ -116,8 +124,18 @@
 					id="dataTable_paginate">
 					<!-- 페이징 -->
 					<div id="paging_wrap">
-						
-					</div><!-- 페이징끝 -->					
+						<jsp:include page="/WEB-INF/views/admin/member/paging.jsp"
+							flush="false">
+							<jsp:param name="pageNumber" value="${pageNumber }" />
+							<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+							<jsp:param name="pageCountPerScreen"
+								value="${pageCountPerScreen }" />
+							<jsp:param name="recordCountPerPage"
+								value="${recordCountPerPage }" />
+						</jsp:include>
+					</div>
+					<!-- 페이징끝 -->
+					
 				</div>
 			</div>
 		</div>

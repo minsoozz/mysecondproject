@@ -11,7 +11,7 @@ public interface MypagePointsDAO {
 	 * @param mPDto
 	 * @return
 	 */
-	public int addNewPoint(MemberPointDTO mPDto);	
+	public int addNewPoint(MemberPointDTO mPDto);
 	
 	/**검색조건에 맞는 적립금 디테일의 총 개수 리턴 
 	 * @param userid
