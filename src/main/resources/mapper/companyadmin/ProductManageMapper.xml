@@ -7,7 +7,7 @@
  
  <!-- 1.상품 조회(PRODUCTLIST) -->
 <select id="getAdminProductList" parameterType="com.rhymes.app.store.model.ProductParam" resultType="com.rhymes.app.store.model.ProductDto">
-	SELECT RNUM, a.P_SEQ, a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, SUM, WISH
+	SELECT RNUM, a.P_SEQ, a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, SUM, WISH, a.BFS_PRICE
 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY
 			<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
 		 	a.P_SEQ DESC
@@ -19,7 +19,7 @@
 		 	a.P_PRICE ASC
 		 	</if>
 	     	) AS RNUM,
-			a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, a.P_SEQ, SUM(b.QUANTITY) AS SUM, a.C_NAME
+			a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, a.P_SEQ, SUM(b.QUANTITY) AS SUM, a.C_NAME, a.BFS_PRICE
 			,(SELECT COUNT(c.ID) FROM rhy_store_wishlist c WHERE c.P_SEQ = a.P_SEQ) as WISH
 			
 			FROM rhy_store_product a INNER JOIN rhy_store_stock b ON a.P_SEQ = b.P_SEQ				
@@ -94,7 +94,7 @@
  
  <insert id="insertProduct" parameterType="com.rhymes.app.store.model.ProductDto">
  	INSERT INTO rhy_store_product
- 	VALUES(#{p_seq}, #{c_name}, #{p_name}, #{p_title}, #{cp_code}, #{p_price}, #{p_color}, #{c1_name}, #{c2_name}, #{c3_name},
+ 	VALUES(#{p_seq}, #{c_name}, #{p_name}, #{p_title}, #{cp_code}, #{p_price}, 0, #{p_color}, #{c1_name}, #{c2_name}, #{c3_name},
  		#{nation}, #{mdate}, #{detail}, #{photo1_file}, #{photo2_file}, #{photo3_file}, #{photo4_file}, #{photo5_file}, NOW() )
  </insert>
  <insert id="insertStock" parameterType="com.rhymes.app.store.model.StockDto">
@@ -109,7 +109,7 @@
  </select>
 
  <select id="getProductList" parameterType="com.rhymes.app.store.model.ProductDto" resultType="com.rhymes.app.store.model.ProductDto">
- 	SELECT P_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME 		
+ 	SELECT P_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME, BFS_PRICE 		
  	FROM rhy_store_product 	 
  </select>
  
@@ -120,9 +120,44 @@
 <!-- 상품등록 끝 --> 	
 
 <!-- 3.상품 수정/삭제 -->
+ <!-- 3(1).상품기본정보 수정 -->
  <update id="cAdminProductBasicinfoUpdate" parameterType="com.rhymes.app.store.model.ProductDto">
  	UPDATE rhy_store_product
- 	SET P_NAME = #{p_name}, CP_CODE = #{cp_code}, P_PRICE = #{p_price}, P_COLOR = #{p_color}, MDATE = #{mdate}, C1_NAME = #{c1_name}, C2_NAME = #{c2_name}, C3_NAME = #{c3_name} 
+ 	SET P_NAME = #{p_name},
+ 		CP_CODE = #{cp_code},
+ 		P_PRICE = #{p_price},
+ 		P_COLOR = #{p_color},
+ 		MDATE = #{mdate},
+ 		C1_NAME = #{c1_name},
+ 		C2_NAME = #{c2_name},
+ 		C3_NAME = #{c3_name} 
+ 	WHERE P_SEQ = #{p_seq}
+ </update>
+ <!-- 3(2).상품이미지 수정 -->
+ <update id="cAdminProductImgUpdate" parameterType="com.rhymes.app.store.model.ProductDto">
+ 	UPDATE rhy_store_product
+ 	SET
+ 		<if test="photo1_file != '' and photo1_file != null">
+ 			PHOTO1_FILE = #{photo1_file}
+ 		</if>
+ 		<if test="photo2_file != '' and photo2_file != null">
+ 			PHOTO2_FILE = #{photo2_file}
+ 		</if>
+ 		<if test="photo3_file != '' and photo3_file != null">
+ 			PHOTO3_FILE = #{photo3_file}
+ 		</if>
+ 		<if test="photo4_file != '' and photo4_file != null">
+ 			PHOTO4_FILE = #{photo4_file}
+ 		</if>
+ 		<if test="photo5_file != '' and photo5_file != null">
+ 			PHOTO5_FILE = #{photo5_file}
+ 		</if>
+ 	WHERE P_SEQ = #{p_seq}
+ </update>
+ <!-- 3(3).SALE 적용 -->
+ <update id="cAdminProductSalePriceUpdate" parameterType="com.rhymes.app.store.model.ProductDto">
+ 	UPDATE rhy_store_product
+ 	SET P_PRICE = #{p_price}, BFS_PRICE = #{bfs_price}
  	WHERE P_SEQ = #{p_seq}
  </update>
 </mapper>

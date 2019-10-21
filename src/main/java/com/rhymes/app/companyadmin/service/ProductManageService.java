@@ -31,4 +31,8 @@ public interface ProductManageService extends Serializable {
 // 3. 상품 수정/삭제
 	//3-1.상품 기본정보 수정
 	public boolean productBasicInfoUpdate(ProductDto product) throws Exception;
+	//3-2.상품 이미지 수정
+	public boolean productImgUpdate(ProductDto product) throws Exception;
+	//3-3.상품 SALE가격 적용
+	public boolean productSalePriceUpdate(ProductDto product) throws Exception;
 }

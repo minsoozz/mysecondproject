@@ -35,16 +35,10 @@
   <!-- Divider -->
   <hr class="sidebar-divider">
 
-  <!-- Heading -->
-  <div class="sidebar-heading">
-    Interface
-  </div>
 
   <c:if test="${prc ne 'anonymousUser' }">
 	<c:forEach items="${prc.authorities  }" var="auth">
 		<c:if test="${auth eq 'ROLE_ADMIN' }">
-		
-		<hr class="sidebar-divider">
 		  <!-- Heading -->
 		  <div class="sidebar-heading">
 		    MANAGEMENT
@@ -140,6 +134,7 @@
 			        <a class="collapse-item" href="/admin/company/register">상품등록</a>
 			        <a class="collapse-item" href="/admin/company/productlist">상품조회</a>
 			        <a class="collapse-item" href="/admin/company/productoperlist">상품수정/삭제</a>
+			        <a class="collapse-item" href="/admin/company/saleproductmanage">SALE상품관리</a>
 			        <a class="collapse-item" href="login.html">재고관리</a>
 			        
 			        <!-- <div class="collapse-divider"></div>
@@ -171,26 +166,26 @@
 		</c:forEach>
 	</c:if>
 	<!-- Nav Item - Charts -->
-  <li class="nav-item">
+<!--   <li class="nav-item">
     <a class="nav-link" href="charts.html">
       <i class="fas fa-fw fa-chart-area"></i>
       <span>Charts</span></a>
-  </li>
+  </li> -->
 
   <!-- Nav Item - Tables -->
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a class="nav-link" href="tables.html">
       <i class="fas fa-fw fa-table"></i>
       <span>Tables</span></a>
-  </li>
+  </li> -->
 
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block"/>
 
   <!-- Sidebar Toggler (Sidebar) -->
-  <div class="text-center d-none d-md-inline">
+<!--   <div class="text-center d-none d-md-inline">
     <button class="rounded-circle border-0" id="sidebarToggle"></button>
-  </div>
+  </div> -->
 
 </ul>
 

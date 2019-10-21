@@ -2,10 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- <% String ctx = request.getContextPath(); %> --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- security ajax -->
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
 
@@ -15,6 +17,9 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+<!-- <script type="text/javascript" src="https://base/js/jquery.form.min.js"></script> -->
+ 
+<script src="http://malsup.github.com/jquery.form.js"></script> 	
 <script>
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
@@ -27,8 +32,15 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-	<!-- 상품기본정보 modal -->
-	<form method="post" action="/admin/company/productupdateAf">
+<!-- 메시지 MODAL영역 -->
+<div class="msgModal">
+   <div class="msg-content">
+      <span id="msg"></span>
+   </div>
+</div>
+
+<!-- 상품기본정보 수정 MODAL -->
+	<form method="post" action="/admin/company/productupdateAf" id='basicinfo-submit'>
 	<!-- ★ csrf 예방을 위한 코드추가 -->
  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
  	
@@ -45,16 +57,19 @@ $(document).ajaxSend(function(e, xhr, options) {
 	<input type="hidden" name="c1_name" id="udt-c3name"> -->
 	<div class="basicinfo_modal">
 		<div class="basicinfo_modal-content">
+			<div align="right">
+			<img src="https://cdn4.iconfinder.com/data/icons/media-controls-4/100/close-512.png" style="width:30px; height:30px; cursor:pointer;" class="modalClose">
+			</div>
 			<div align='center'>
 			<table border='0' id="basicinfo_udt-table">
 				<colgroup><col width="40%"><col width="60%"></colgroup>
 				<tr>
 					<th>상품명</th>
-					<td><input type="text" value="${pDto.p_name }" name="p_name"></td>
+					<td><input type="text" value="${pDto.p_name }" name="p_name" id="_p_name"></td>
 				</tr>	
 				<tr>
 					<th>상품 코드</th>
-					<td><input type="text" value="${pDto.cp_code }" name="cp_code"></td>
+					<td><input type="text" value="${pDto.cp_code }" name="cp_code" id="_cp_code"></td>
 				</tr>
 				<tr>
 					<th>상품 가격</th>
@@ -146,14 +161,92 @@ $(document).ajaxSend(function(e, xhr, options) {
 			</table>
 			
 			<div align='center'>
-				<button type="submit" id="basicinfo-udtbtn">수정 등록</button>
+				<button type="button" id="basicinfoUdt-finishBtn">수정 등록</button>
 			</div>
 			
 			</div>
 		</div>
 	</div>
 	</form>
-<!-- 기본정보 수정 MODAL 끝 -->	
+<!-- ~~상품기본정보 수정 MODAL 끝 -->	
+
+<!-- 상품이미지 수정 MODAL -->
+<div class="imgudt_modal">
+	<div class="imgudt_modal-content" align="center">
+		<div align="right">
+		<img src="https://cdn4.iconfinder.com/data/icons/media-controls-4/100/close-512.png" style="width:30px; height:30px; cursor:pointer;" class="imgudtModalClose">
+		</div>
+		<div align="center" style="border:0px solid green; height:auto; padding:20px">
+				<div class="udtimg-div">
+				<form id="imgUdt-frm1" method="POST" enctype="multipart/form-data" onSubmit="return false;">
+					<label>메인이미지</label><br>
+					<div id="pZone1">
+						<img src="/upload/store/${pDto.photo1_file }"  style="width:550px; height:550px;">
+					</div>
+					<button type="button" id="btn-upload1">수정</button>
+					<input type="file" id="fileUpload1" name="fileload" style="display: none;">
+					<input type="hidden" name="photoNumber" value='1'>
+					<input type="hidden" name="p_seq" value="${pDto.p_seq }">	
+				</form>	
+				</div>	
+				<hr width = "100%" color = "#DADCE0" id="udtimg-hr"><br>
+				<div class="udtimg-div">
+				<form id="imgUdt-frm2" method="POST" enctype="multipart/form-data" onSubmit="return false;">					
+					<label>상품이미지2</label><br>
+					<div id="pZone2">
+						<img src="/upload/store/${pDto.photo2_file }"  style="width:550px; height:550px;">
+					</div>
+					<button type="button" id="btn-upload2">수정</button>
+					<input type="file" id="fileUpload2" name="fileload" style="display: none;">
+					<input type="hidden" name="photoNumber" value='2'>
+					<input type="hidden" name="p_seq" value="${pDto.p_seq }">
+				</form>	
+				</div>
+				<hr width = "100%" color = "#DADCE0" id="udtimg-hr"><br>
+				<div class="udtimg-div">
+				<form id="imgUdt-frm3" method="POST" enctype="multipart/form-data" onSubmit="return false;">
+					<label>상품이미지3</label><br>
+					<div id="pZone3">
+						<img src="/upload/store/${pDto.photo3_file }"  style="width:550px; height:550px;">
+					</div>
+					<button type="button" id="btn-upload3">수정</button>
+					<input type="file" id="fileUpload3" name="fileload" style="display: none;">
+					<input type="hidden" name="photoNumber" value='3'>
+					<input type="hidden" name="p_seq" value="${pDto.p_seq }">
+				</form>
+				</div>
+				<hr width = "100%" color = "#DADCE0" id="udtimg-hr"><br>
+				<div class="udtimg-div">
+				<form id="imgUdt-frm4" method="POST" enctype="multipart/form-data" onSubmit="return false;">
+					<label>상품이미지4</label><br>
+					<div id="pZone4">
+						<img src="/upload/store/${pDto.photo4_file }"  style="width:550px; height:550px;">
+					</div>
+					<button type="button" id="btn-upload4">수정</button>
+					<input type="file" id="fileUpload4" name="fileload" style="display: none;">
+					<input type="hidden" name="photoNumber" value='4'>
+					<input type="hidden" name="p_seq" value="${pDto.p_seq }">
+				</form>
+				</div>
+				<hr width = "100%" color = "#DADCE0" id="udtimg-hr"><br>									
+				<div class="udtimg-div">
+				<form id="imgUdt-frm5" method="POST" enctype="multipart/form-data" onSubmit="return false;">
+					<label>상품이미지5</label><br>
+					<div id="pZone5">
+						<img src="/upload/store/${pDto.photo5_file }"  style="width:550px; height:550px;">
+					</div>
+					<button type="button" id="btn-upload5">수정</button>
+					<input type="file" id="fileUpload5" name="fileload" style="display: none;">
+					<input type="hidden" name="photoNumber" value='5'>
+					<input type="hidden" name="p_seq" value="${pDto.p_seq }">
+				</form>
+				</div>				
+		</div>
+	</div>
+</div>			
+<!-- ~~상품이미지 수정 MODAL 끝 -->
+
+
 
 	<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">
@@ -214,27 +307,37 @@ $(document).ajaxSend(function(e, xhr, options) {
 			
 			
 		</div>
-		<br><br>
-		<div align="center">
+		<br>
+		<div align="center" style="margin-top: 40px;">
 			<button type="button" class="basicinfo_update-btn"><b>수정</b></button>
 		</div>		
 	</div>
+	<!-- ~~상품기본정보 수정 끝 -->
+	
 	<!-- 상품이미지 수정 -->
 	<div id="updateDiv">
 		<strong>상품이미지 수정</strong>
-		<div>
-		
+		<div style="margin-top: 40px; margin-bottom: 40px;">
+			<div align="center">
+			<img src="/upload/store/${pDto.photo1_file }"  id="oPhoto1" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo2_file }"  id="oPhoto2" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo3_file }"  id="oPhoto3" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo4_file }"  id="oPhoto4" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo5_file }"  id="oPhoto5" style="width:150px; height:150px;">
+			</div>
 		</div>
-		<button type="button"><b>수정</b></button>
+		<div align="center">
+			<button type="button" class="img_update-btn"><b>수정</b></button>
+		</div>
 	</div>
-	
+	<!-- ~~상품이미지 수정 끝 -->
+
 	<!-- 상품 상세내용 수정 -->
 	<div id="updateDiv">
 		<strong>상품상세내용 수정</strong>
-		<div>
-		
+		<div align="center">
+		<button type="button" class="detailinfo_update-btn"><b>수정</b></button>
 		</div>
-		<button type="button"><b>수정</b></button>
 	</div>
 
 </div>
@@ -242,10 +345,252 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <!-- End of Main Content -->
 
+<!-- 상세정보 수정 MODAL -->
+<div class="detailinfo_modal">
+	
+</div>
+<!-- ~~상세정보 수정 MODAL 끝 -->
+
 <!--------------------------------- SCRIPT ZONE --------------------------------->
 <script>
+var sel_file;
+
+
+
+$(document).on('click', '.imgudtModalClose', function(){
+	$(".imgudt_modal").fadeOut();
+});
+
 $(document).on('click', '.basicinfo_update-btn', function(){
 	$(".basicinfo_modal").fadeIn();
+});
+$(document).on('click', '.detailinfo_update-btn', function(){
+	$(".detailinfo_modal").fadeIn();
+});
+
+$(document).on('click', '.img_update-btn', function(){
+	$(".imgudt_modal").fadeIn();
+});
+/* 이미지 수정버튼 동작 후 미리보기 */
+ <!-- 이미지1미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload1").on("change", handleImgsFilesSelect);
+});
+
+function handleImgsFilesSelect(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:600px;height:600px;'>";
+			$("#pZone1").html("");
+			$("#pZone1").append(img_html);
+			$("#btn-upload1").remove();
+			$("#pZone1").after("<button class='imgUdt-finishBtn' value='1'>수정 등록</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+<!-- 이미지2미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload2").on("change", handleImgsFilesSelect2);
+});
+
+function handleImgsFilesSelect2(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:300px;height:300px;'>";
+			$("#pZone2").html("");
+			$("#pZone2").append(img_html);
+			$("#btn-upload2").remove();
+			$("#pZone2").after("<button class='imgUdt-finishBtn' value='2'>수정 등록</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+<!-- 이미지3미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload3").on("change", handleImgsFilesSelect3);
+});
+
+function handleImgsFilesSelect3(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:300px;height:300px;'>";
+			$("#pZone3").html("");
+			$("#pZone3").append(img_html);
+			$("#btn-upload3").remove();
+			$("#pZone3").after("<button class='imgUdt-finishBtn' value='3'>수정 등록</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+<!-- 이미지4미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload4").on("change", handleImgsFilesSelect4);
+});
+
+function handleImgsFilesSelect4(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:300px;height:300px;'>";
+			$("#pZone4").html("");
+			$("#pZone4").append(img_html);
+			$("#btn-upload4").remove();
+			$("#pZone4").after("<button class='imgUdt-finishBtn' value='4'>수정 등록</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+<!-- 이미지5미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload5").on("change", handleImgsFilesSelect5);
+});
+
+function handleImgsFilesSelect5(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:300px;height:300px;'>";
+			$("#pZone5").html("");
+			$("#pZone5").append(img_html);
+			$("#btn-upload5").remove();
+			$("#pZone5").after("<button class='imgUdt-finishBtn' value='5'>수정 등록</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+
+/* 이미지 수정등록 버튼 */ 
+// 이미지1
+$(document).on('click', '.imgUdt-finishBtn', function(){
+//$('.imgUdt-finishBtn').click(function(){	
+	var photoNumber = $(this).val();
+	
+     $("#imgUdt-frm" + photoNumber).ajaxForm({
+           type : 'POST',
+           enctype : "multipart/form-data",
+           url : "/admin/company/productimgupdate",
+           //data : data,
+           processData : false,
+           contentType : false,
+           cache : false,
+           //dataType : formData,
+           beforeSend:function(xhr){
+        	   xhr.setRequestHeader("${_csrf.token}", "${_csrf.headerName}");
+           },
+           //timeout: 600000,
+           success : function(data){
+	           $(".imgUdt-finishBtn").remove();
+			   $("#pZone"+photoNumber).after("<button type='button' id='btn-upload"+photoNumber+"' value='"+photoNumber+"'>수정</button>");
+			   $("#oPhoto"+photoNumber).attr('src', '/upload/store/'+data);
+			   //메시지 모달
+			     $("#msg").html("<strong>수정이 완료되었습니다.</strong>");
+		      	 $(".msgModal").fadeIn();
+		     	 setTimeout(function() {
+		         	$(".msgModal").fadeOut();
+		         },800);
+			   
+           },
+           error : function(){
+           	   alert("error!!");
+           },
+       });
+
+       $("#imgUdt-frm"+photoNumber).submit();
+	
+});
+ 
+/* 이미지 수정 버튼 */
+// 이미지1	
+$(document).on('click', '#btn-upload1', function(e){	
+	e.preventDefault();
+	$('#fileUpload1').click();
+});	
+/* 이미지2 */	
+$(document).on('click', '#btn-upload2', function(e){	
+	e.preventDefault();
+	$('#fileUpload2').click();
+});
+/* 이미지3 */	
+$(document).on('click', '#btn-upload3', function(e){	
+	e.preventDefault();
+	$('#fileUpload3').click();
+});
+/* 이미지4 */	
+$(document).on('click', '#btn-upload4', function(e){	
+	e.preventDefault();
+	$('#fileUpload4').click();
+});
+/* 이미지5 */	
+$(document).on('click', '#btn-upload5', function(e){	
+	e.preventDefault();
+	$('#fileUpload5').click();
+});
+
+$(document).on('click', '#basicinfoUdt-finishBtn', function(){
+
+	var pname = $("#_p_name").val();
+	var cpcode = $("#_cp_code").val();
+	var pprice = $("#udt-pprice").val();
+	var c1name = $("#udt-c1name").val();
+	var c2name = $("#udt-c2name").val();
+	var c3name = $("#udt-c3name").val();
+	
+	if(pname === '' || cpcode === '' || pprice ==='' || c1name ==='' || c2name ==='' || c3name ===''){
+		alert("모든 항목을 기입해주세요");
+	}else{
+		$("#basicinfo-submit").submit();
+	}
+	
 });
 
 function numberWithCommas(x) {
@@ -362,6 +707,20 @@ function cate3Change(){
 	$("#udt-c3name").val(c3name);
 }
 
+$(document).on('click', '.modalClose', function(){
+	var p_seq = "${pDto.p_seq }";
+	location.href="/admin/company/productupdate?p_seq="+p_seq;
+});
+
+/* 상품사진 업데이트 모달 영역 외 클릭시 close */
+$('body').click(function(e){
+	 if($(".imgudt_modal").css("display") == "block") {
+        if(!$('.imgudt_modal, .imgudt_modal').has(e.target).length) { 
+        	//$(".modal").css("display", "none");
+        	$(".imgudt_modal").fadeOut();
+         } 
+ 	 }
+});
 
 </script>
 

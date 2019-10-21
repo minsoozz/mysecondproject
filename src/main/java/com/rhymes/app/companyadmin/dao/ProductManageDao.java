@@ -30,5 +30,10 @@ public interface ProductManageDao extends Serializable {
 	public List<StockDto> getStockList(StockDto stock) throws Exception;
 
 // 3. 상품 수정/삭제
-	public boolean productBasicInfoUpdate(ProductDto product) throws Exception; 
+	// 상품기본정보 수정
+	public boolean productBasicInfoUpdate(ProductDto product) throws Exception;
+	// 상품이미지 수정
+	public boolean productImgUpdate(ProductDto product) throws Exception;
+	// 상품SALE 적용
+	public boolean productSalePriceUpdate(ProductDto product) throws Exception;
 }

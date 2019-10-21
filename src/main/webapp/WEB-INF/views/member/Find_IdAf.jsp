@@ -17,6 +17,7 @@
 	<div>
 		<span class="findidtext">아이디 찾기</span><br>
 	</div>
+	<hr class="hrline">
 	
 	<br>
 	

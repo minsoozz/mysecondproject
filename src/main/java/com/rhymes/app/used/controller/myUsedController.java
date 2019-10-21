@@ -64,10 +64,9 @@ public class myUsedController {
 		sparam.setS_start(s_start);
 		sparam.setS_end(s_end);
 		
-		
-		
-		
 		model.addAttribute("dto", dto);
+		System.out.println(rparam);
+		System.out.println(sparam);
 		
 		// 받은거..
 		List<NotesDto> rlist = MyusedService.getrecvnotes(rparam);	// 회원 정보로 쪽지목록을 얻는다

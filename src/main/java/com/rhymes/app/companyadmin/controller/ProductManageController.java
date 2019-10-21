@@ -10,12 +10,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,7 +29,6 @@ import com.rhymes.app.companyadmin.service.ProductManageService;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.dao.PurchaseDao;
 import com.rhymes.app.store.model.ProductDto;
-import com.rhymes.app.store.model.ProductParam;
 import com.rhymes.app.store.model.StockDto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
@@ -44,9 +47,59 @@ public class ProductManageController {
 	@Autowired ProductManageService manage;
 	@Autowired PurchaseDao store_purchase;
 	@Autowired StoreService store;
-	
-	
 		
+	//4.SALE상품관리
+	@GetMapping("/saleproductmanage")
+	public String saleproductmanage(Principal prc, Model model, ProductManageDto pParam)throws Exception{
+		
+		/* ProductParam param = new ProductParam(); */
+	      List<ProductDto> plist = new ArrayList<ProductDto>();
+	      String url = "";
+	      String c_id = "";
+	 	  String c_name = "";
+		   
+	 	  if(prc != null) {
+	     	  c_id = prc.getName();
+	     	  SellerDTO seller = new SellerDTO();
+	     	  seller.setId(c_id); 
+	     	  seller = manage.getCname(seller);
+	     	  c_name = seller.getC_name();
+	     	  log.info("업체이름:" + c_name);
+	     	 pParam.setC_name(c_name);
+	     	 
+	     	  if(!c_name.equals("") && c_name!=null) {
+	   
+	     		  //페이징
+	     		 int sn = pParam.getPageNumber();	//0 1 2
+	     		 int start = sn * pParam.getRecordCountPerPage() + 1;	
+	     		 int end = (sn + 1) * pParam.getRecordCountPerPage(); 
+	     		 int totalRecordCount = manage.getProductCnt(pParam);
+	     		 pParam.setStart(start);
+	     		 pParam.setEnd(end);
+	     		 
+	     		 plist = manage.getProductList(pParam);
+	     		 log.info("상품리스트 길이:"+plist.size()+"");	
+	     		 log.info("상품총갯수:"+totalRecordCount+"");
+	     		 // 페이징
+	     		 model.addAttribute("pageNumber", sn);
+	     		 model.addAttribute("pageCountPerScreen", 10);
+	     		 model.addAttribute("recordCountPerPage", 10);
+	     		 model.addAttribute("totalRecordCount", pParam.getRecordCountPerPage());
+	     		  
+	     		 model.addAttribute("param", pParam);
+	     		 model.addAttribute("c_name", c_name);
+	     		 model.addAttribute("plist", plist);
+	     		  
+	     		 url = "CompanyAdminProductlist";
+	     	  }else if(c_name.equals("") || c_name==null) {
+	     		 url = "redirect:/main";
+	     	  }
+	      }else{
+	    	  url = "redirect:/main";
+	      }
+	      
+	     return url;
+	}
 	
 	//3(2).상품 수정 페이지로 이동
 	@GetMapping("/productupdate")
@@ -87,11 +140,6 @@ public class ProductManageController {
 				  c2_seq = cate2list.get(0).getC2_seq();
 			}
 			
-						
-			//ProductParam param = new ProductParam();
-			//param.setC1_name(product.getC1_name());
-			//param.setC2_name(product.getC2_name());
-			
 			//3차 카테고리 리스트
 			cate3list = manage.getCate3List(c2_seq);
 			
@@ -122,7 +170,6 @@ public class ProductManageController {
 		
 		try {
 			boolean bool = manage.productBasicInfoUpdate(product);
-			log.info("~~~~~~~~~~~~~");
 			if(bool) {
 				
 				redirect.addAttribute("p_seq", product.getP_seq());
@@ -138,6 +185,67 @@ public class ProductManageController {
 		
 		return url;
 	}
+	
+	//3(2-2). 상품 이미지 업데이트
+	@ResponseBody
+	@PostMapping("/productimgupdate")
+	public String productimgupdate(HttpServletRequest req, ProductDto product, int photoNumber,
+		@RequestParam(value="fileload", required = false)MultipartFile fileload)throws Exception{
+		String msg = "안녕하세요";
+		
+		log.info("------------------------------------이미지 번호 : " + photoNumber + "" );
+		String path = req.getServletContext().getRealPath("/upload/store");
+		String fileName = fileload.getOriginalFilename();	// mydata
+		
+		String timeFileName = System.currentTimeMillis() + fileName;
+		File file = new File(path + "/" + timeFileName);
+		
+		if(photoNumber == 1) {
+			product.setPhoto1_file(timeFileName);
+		}
+		if (photoNumber == 2) {
+			product.setPhoto2_file(timeFileName);
+		}
+		if (photoNumber == 3) {
+			product.setPhoto3_file(timeFileName);
+		}
+		if (photoNumber == 4) {
+			product.setPhoto4_file(timeFileName);
+		}
+		if (photoNumber == 5) {
+			product.setPhoto5_file(timeFileName);
+		}
+		
+		try {
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+		
+			boolean bool = manage.productImgUpdate(product);
+			if(bool) {
+				log.info("상품이미지 업데이트 성공");
+			}else {
+				log.info("상품이미지 업데이트 실패");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return timeFileName;
+	}
+	
+	//3(2-3).상품 SALE 적용
+	@ResponseBody
+    @GetMapping("/salepriceupdate")
+    public String salepriceupdate(ProductDto product)throws Exception {
+		String msg = "";
+		boolean bool = manage.productSalePriceUpdate(product);
+		if(bool) {
+			msg = "UPDATE O";
+		}else {
+			msg = "UPDATE X";
+		}
+    	return msg;
+    }
 	
 	
 	//2(2).상품 상세조회로 이동
@@ -314,7 +422,6 @@ public class ProductManageController {
          try {
             FileOutputStream fs = new FileOutputStream(path + "/" + timeFileName);
             fs.write(mFile.getBytes());
-           // System.out.println("cnt : " + cnt);
             fs.close();
             
             product.setP_seq(p_seq);
@@ -406,4 +513,14 @@ public class ProductManageController {
  	   
     }
 	
+    @ResponseBody
+    @GetMapping("/getProductDetail")
+    public ProductDto getProductDetail(int p_seq)throws Exception {
+    	
+    	ProductDto product = new ProductDto();
+    	product = store_purchase.getProductDetail(p_seq);
+    	
+    	return product;
+    }
+    
 }

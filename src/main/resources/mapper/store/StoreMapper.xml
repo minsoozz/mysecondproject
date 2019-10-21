@@ -17,7 +17,7 @@
 <!-- 상품리스트 -->
  <select id="getProductList" parameterType="com.rhymes.app.store.model.ProductParam" resultType="com.rhymes.app.store.model.ProductDto">
 
- 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME
+ 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME, BFS_PRICE
  	FROM (	SELECT ROW_NUMBER()OVER(ORDER BY 
  			<if test="sorting == 'NEW'">
 		 	P_SEQ DESC
@@ -31,7 +31,7 @@
 		 	P_PRICE DESC
 		 	</if>
 			) AS RNUM, 
-			P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, RDATE, C1_NAME
+			P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, RDATE, C1_NAME, BFS_PRICE
 			FROM rhy_store_product
 			WHERE 1 = 1
  			
@@ -72,6 +72,9 @@
 								AND (C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} '%') 
 							</if>
 						</if>
+					</if>
+					<if test="key == 'sale'">
+						AND BFS_PRICE != 0
 					</if>
 				</if>
 			)A

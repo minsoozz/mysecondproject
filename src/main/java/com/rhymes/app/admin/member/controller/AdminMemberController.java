@@ -39,7 +39,7 @@ public class AdminMemberController {
 	@RequestMapping(value = "/memlist", method = {RequestMethod.GET, RequestMethod.POST}) 
 	public String memlist(Model model, MemberParam param){
 		log.info("show admin memlistview");
-		
+		System.out.println("____+++++++++++++++++++++"+ param.toString());
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
 		int start = sn * param.getRecordCountPerPage() + 1;	// 1 11

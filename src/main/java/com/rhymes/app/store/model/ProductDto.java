@@ -10,6 +10,7 @@ public class ProductDto {
 	private String p_title;			// 상품 부가설명
 	private String cp_code;			// 상품 부가설명
 	private int p_price;			// 단가
+	private int bfs_price;			// SALE 적용 전 가격
 	private String p_color;			// 상품 색상
 	
 	private String c1_name; 		// 1차 카테고리 이름
@@ -26,7 +27,8 @@ public class ProductDto {
 	private String photo5_file;		// 이미지5
 	private String rdate;			// 제품등록 날짜
 	
-	private String p_price2;		// 원화 단위로 변환
+	private String p_price2;		// 콤마 단위로 변환
+	private String bfs_price2;		// 콤마 단위로 변환
 	
 	private int rnum;				// 관리자쪽에서 확인하기 위한 순번
 	private int sum;				// 관리자쪽에서 확인하기 위한 총합 : 해당P_SEQ에 대한 STOCK 총합
@@ -239,6 +241,20 @@ public class ProductDto {
 
 	public void setMadeYear(String madeYear) {
 		this.madeYear = madeYear;
+	}
+	public int getBfs_price() {
+		return bfs_price;
+	}
+
+	public void setBfs_price(int bfs_price) {
+		this.bfs_price = bfs_price;
+	}
+	public String getBfs_price2() {
+		return bfs_price2;
+	}
+
+	public void setBfs_price2(String bfs_price2) {
+		this.bfs_price2 = bfs_price2;
 	}
 
 	@Override

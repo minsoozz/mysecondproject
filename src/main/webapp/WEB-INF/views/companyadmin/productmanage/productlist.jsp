@@ -128,7 +128,7 @@
 					<tbody>
 						<c:if test="${empty plist }">
 							<tr align="center">
-								<td colspan="12" align="center">등록된 상품이 없습니다.</td>
+								<td colspan="14" align="center">등록된 상품이 없습니다.</td>
 							</tr>
 						</c:if>
 						<c:forEach var="pro" items="${plist }" varStatus="vs">
