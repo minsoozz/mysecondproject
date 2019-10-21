@@ -45,9 +45,6 @@
 									<option value="100"
 										<c:out value="${recordCountPerPage == '100'? 'selected':'' }"/>>100</option>
 								</select> --%>
-								<button type="button" onclick="location.href='/admin/company/productlist'"
-								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
-								전체 조회</button>
 								<select id="sorting" class="custome-select border-0 pr-3 searchSelect" onchange="sorting(this.value)" 
 									style="width:auto; border-color: black; cursor:pointer; text-align: center;" >
 									<option selected="selected" value="SEQ"
@@ -56,9 +53,20 @@
 										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격↑</option>
 									<option value="PRICEDOWN"
 										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
-									<option value="">판매량순</option>																	
+									<option value="SALEUP"
+										<c:out value="${param.sorting == 'SALEUP'? 'selected':'' }"/>>할인율↑</option>
+									<option value="SALEDOWN"
+										<c:out value="${param.sorting == 'SALEDOWN'? 'selected':'' }"/>>할인율↓</option>
 								</select>
-								
+									<button type="button" onclick="location.href='/admin/company/saleproductmanage'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; color:white; background-color: #5587ED;">
+								전체 조회</button>&nbsp;
+								<button type="button" onclick="location.href='/admin/company/saleproductmanage?criterion=c1_search&c1_name=MEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								MEN</button>
+								<button type="button" onclick="location.href='/admin/company/saleproductmanage?criterion=c1_search&c1_name=WOMEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								WOMEN</button>
 						</div>
 					</div>
 					<!-- 검색 -->
@@ -198,7 +206,7 @@
 
 </div>
 <!-- 상품리스트 검색/정렬/페이징 -->
-<form action="/admin/company/productlist" method="get" id="plistFrm">
+<form action="/admin/company/saleproductmanage" method="get" id="plistFrm">
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="${pageNumber }">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 	<input type="hidden" name="criterion" id="frm_criterion" value="${param.criterion }">
@@ -219,6 +227,7 @@
 <!--------------------------------- SCRIPT ZONE --------------------------------->
 <script>
 
+//SALE적용 취소
 $('.salecancel-btn').click(function(){
 	var p_seq = $(this).val();
 	var p_price = $("#originPrice" + p_seq).attr("value");
@@ -242,9 +251,35 @@ $('.salecancel-btn').click(function(){
            alert("error!!"); 
         }
     })
-	
-	
 });
+
+//검색
+$(document).on('click', '#_btnSearch', function(){
+	var criterion = $("#_select").val();
+	var keyword = $("#keyword").val();
+	var sorting = $("#sorting").val();
+	$("#frm_criterion").val(criterion);
+	$("#frm_keyword").val(keyword);
+	$("#frm_sorting").val(sorting);
+		
+	$("#plistFrm").submit();
+});
+// 정렬
+function sorting(sorting){
+	var criterion = $("#_select").val();
+	var keyword = $("#keyword").val();
+	var sorting = $("#sorting").val();
+	$("#frm_criterion").val(criterion);
+	$("#frm_keyword").val(keyword);
+	$("#form_sorting").val(sorting);
+		
+	$("#plistFrm").submit();	
+}
+// 페이지 이동
+function goPage( pageNumber ) {
+	$("#_pageNumber").val(pageNumber);
+	$("#plistFrm").submit();
+}
 
 </script>
 

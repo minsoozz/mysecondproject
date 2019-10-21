@@ -44,9 +44,7 @@
 									<option value="100"
 										<c:out value="${recordCountPerPage == '100'? 'selected':'' }"/>>100</option>
 								</select> --%>
-								<button type="button" onclick="location.href='/admin/company/productlist'"
-								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
-								전체 조회</button>
+								
 								<select id="sorting" class="custome-select border-0 pr-3 searchSelect" onchange="sorting(this.value)" 
 									style="width:auto; border-color: black; cursor:pointer; text-align: center;" >
 									<option selected="selected" value="SEQ"
@@ -57,6 +55,16 @@
 										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
 									<option value="">판매량순</option>																	
 								</select>
+								&nbsp;
+								<button type="button" onclick="location.href='/admin/company/productlist'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; color:white; background-color: #5587ED;">
+								전체 조회</button>&nbsp;
+								<button type="button" onclick="location.href='/admin/company/productlist?criterion=c1_search&c1_name=MEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								MEN</button>
+								<button type="button" onclick="location.href='/admin/company/productlist?criterion=c1_search&c1_name=WOMEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								WOMEN</button>
 								
 						</div>
 					</div>

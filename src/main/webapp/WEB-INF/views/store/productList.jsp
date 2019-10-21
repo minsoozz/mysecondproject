@@ -60,20 +60,20 @@ pageNumber : ${pageNumber }<br>
 	</div>
 	</c:if>
 	<div class='subDiv'>
-			<c:set value="${plist[0].c1_name }" var="c1name"/>
+		<c:set value="${plist[0].c1_name }" var="c1name"/>
 			<input type="hidden" class="hdnC1name" value="${c1name }">
 		<c:forEach items="${plist }" var="pro" varStatus="vs">
 		<div class='eachDiv' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
 			<div style="margin-top: 18px; margin-bottom: 13px;"><img alt="사진없음" src="/upload/store/${pro.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"><br>
 			</div>
 			<c:if test="${pro.sum > 0}">
-			<font size="4px"><b>${pro.p_name }</b></font><br>
+			<font size="3px"><b>${pro.p_name }</b></font><br>
 			</c:if>
 			<c:if test="${pro.sum eq 0}">
-			<font size="4px" style="text-decoration: line-through;"><b>${pro.p_name }</b></font><br>
+			<font size="3px" style="text-decoration: line-through;"><b>${pro.p_name }</b></font><br>
 			</c:if>
 			
-			<font size="3px">${pro.c_name }</font><br>
+			<font size="2px">${pro.c_name }</font><br>
 			<font size="2px">(${pro.p_color })</font><br>
 			<c:if test="${pro.sum > 0}">			
 				<font size="2px">
