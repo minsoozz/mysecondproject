@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rhymes.app.member.model.MemberDTO;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -61,7 +63,7 @@ public class AuthTestController {
 	@GetMapping("/login")
 	public String login(HttpServletRequest request, Model model, HttpSession session) {
 		log.info("show login view");
-		
+
 		return "rhylogin";
 	}
 

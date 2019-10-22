@@ -41,6 +41,7 @@
 <c:if test="${empty keyword}">
     <a href="#"><b>BEST</b></a>
     <a href="/store/productList?c1_name=${c1_name}&key=newarrival">NEW ARRIVAL</a>
+    <a href="/store/productList?c1_name=${c1_name}&key=sale" style="color:red">SALE</a>
 </c:if>    
 
   <c:forEach items="${cate2list }" var="cate2" varStatus="vs">

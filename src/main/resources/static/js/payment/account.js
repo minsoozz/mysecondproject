@@ -27,11 +27,13 @@ function price_change() {
 	var point_amount = $("#point_amount").val();
 	var disc_coupon = $("#disc_coupon").val();
 	var input_disc_point = $("#input_disc_point").val();
+	var totalprice = $("#totalprice").val();
 
 	// text에 값이 아예 없을 경우
 	if( input_disc_point.trim() == "" ) {
 		$("#input_disc_point").val( "0" );
 		$("#disc_point").val( "0" );
+		result_price();
 		return;
 	}
 	
@@ -40,15 +42,16 @@ function price_change() {
 		alert("1000원부터 사용 가능합니다");
 		$("#input_disc_point").val( "0" );
 		$("#disc_point").val( "0" );
+		result_price();
 		return;
 	}
 
-	
 	// 적립금보다 text에 적은 숫자가 클 경우
 	if( parseInt(point_amount) < parseInt(input_disc_point) ) {
 		alert( $("#point_amount").val() + "원까지 사용가능합니다" );
 		$("#input_disc_point").val("0");
 		$("#disc_point").val( "0" );
+		result_price();
 		return;
 	}
 	
@@ -56,10 +59,20 @@ function price_change() {
 	if(input_disc_point.trim().length >= 2 && input_disc_point.substring(0,2) == "00") {
 		$("#input_disc_point").val( "0" );
 		$("#disc_point").val( "0" );
+		result_price();
 		return;
 	}
 	
-	$("#disc_point").val( input_disc_point );
+	// 결제예상금액보다 text가 클 경우
+	if(parseInt(input_disc_point.trim()) - parseInt($("#disc_point").val()) > parseInt(totalprice)){
+		alert(parseInt(input_disc_point.trim()) + ", " + totalprice + " 사용범위를 초과하였습니다");
+		$("#input_disc_point").val( "0" );
+		$("#disc_point").val( "0" );
+		result_price();
+		return;
+	}
+	
+	$("#disc_point").val( parseInt(input_disc_point) );
 
 	result_price();
 }

@@ -69,26 +69,17 @@ public class MemberController {
 	public String regiseller() {
 		return "rhyregiseller";
 	}
-	/*
-	 * // 사업자 회원가입 창 detail
-	 * 
-	 * @GetMapping("/regiSellerDetail") public String regiSellerDetail() { return
-	 * "rhyregiSellerDetail"; }
-	 */
 
 	// id체크
 	@ResponseBody
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getIDCheck")
 	public String getIDCheck(MemberDTO mem, HttpServletRequest req) {
-		System.out.println("getIDCheck mem toString: " + mem.toString());
 
 		String userid = (String) req.getParameter("id");
-		System.out.println("userid: " + userid);
 
 		mem.setUserid(userid);
 
 		int count = memService.getIDCheck(mem);
-		System.out.println("count: " + count);
 
 		String msg = "";
 		if (count > 0) {
@@ -103,7 +94,6 @@ public class MemberController {
 	// 일반회원가입
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addmem")
 	public String addmem(MemBean bean, HttpServletRequest req) {
-		System.out.println("addmem mem: " + bean.toString());
 
 		boolean b = memService.getAddmem(bean);	// 공통, 추가, 권한, 쿠폰 insert
 		
@@ -113,7 +103,6 @@ public class MemberController {
 	// 사업자회원가입(공통)
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addseller")
 	public String addseller(HttpServletRequest req, SellerCRnumDTO crdto, Model model) {
-		System.out.println("crdto toString: " + crdto.toString());
 
 		req.getSession().setAttribute("crdto", crdto);
 
@@ -125,10 +114,6 @@ public class MemberController {
 	// 사업자회원가입(사업자 추가정보)
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addsellerdetail")
 	public String addsellerdetail(HttpServletRequest req, MemberDTO mem, SellerBean sellerbean) {
-//		SellerCRnumDTO crdto = (SellerCRnumDTO)req.getSession().getAttribute("crdto");	// session 잘 넘어왔는지 확인용
-		// System.out.println("addsellerdetail Controller crdto: " + crdto);
-
-		System.out.println("addsellerdetail Controller sellerbean: " + sellerbean);
 
 		memService.getAddSeller(sellerbean, mem); // 사업자 회원가입
 
@@ -157,7 +142,6 @@ public class MemberController {
 			while ((line = br.readLine()) != null) {
 				result = result + line + "\n";
 			}
-			System.out.println("result : " + result);
 		} catch (Exception e) {
 			System.out.println("@@e.getMessage() : " + e.getMessage());
 		}
@@ -186,7 +170,6 @@ public class MemberController {
 
 		// 사업자테이블에 있는지, 우리사이트에 등록된 사업자인지 확인
 		int count = memService.getCRCYN(crdto); // 이미 등록되어있는지 확인
-		System.out.println("count: " + count);
 
 		String crname = "";
 		String msg = "";
@@ -196,7 +179,6 @@ public class MemberController {
 		} else {
 
 			crname = memService.getCRCheck(crdto); // 사업자번호명단에 있는지 확인
-			System.out.println("crname: " + crname);
 
 			if (crname == "" || crname == null) {
 				msg = "NO";
@@ -217,13 +199,10 @@ public class MemberController {
 		String e1 = (String) req.getParameter("e1");
 		String e2 = (String) req.getParameter("e2");
 		String userEmail = e1 + "@" + e2;
-		System.out.println("userEmail: " + userEmail);
-
-//		System.out.println("RhymesMailling.getAuthorizationCode() === " + RhymesMailling.getAuthorizationCode());
 
 		String code = "";
 		code = (String) req.getParameter("code");
-		System.out.println("code: " + code);
+
 		RhymesMailling.sendMail(RhymesMailling.getAuthorizationCode(code), userEmail);
 
 		String msg = code;
@@ -237,13 +216,10 @@ public class MemberController {
 	public String getEmailCheck2(HttpServletRequest req) {
 
 		String useremail = (String) req.getParameter("useremail");
-		System.out.println("useremail: " + useremail);
-
-//			System.out.println("RhymesMailling.getAuthorizationCode() === " + RhymesMailling.getAuthorizationCode());
 
 		String code = "";
 		code = (String) req.getParameter("code");
-		System.out.println("code: " + code);
+
 		RhymesMailling.sendMail(RhymesMailling.getAuthorizationCode(code), useremail);
 
 		String msg = code;
@@ -267,9 +243,6 @@ public class MemberController {
 		set.put("from", "01068889859"); // 발신번호
 		set.put("text", "비마켓 인증번호 [" + (String) request.getParameter("text") + "]"); // 문자내용
 		set.put("type", "sms"); // 문자 타입
-
-		System.out.println(set);
-		System.out.println(set.get("to"));
 
 		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 
@@ -298,24 +271,21 @@ public class MemberController {
 	}
 
 	// id찾기
-	@GetMapping("/getFindID")
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getFindID")
 	public String getFindID(MemBean mbean, Model model) {
-		System.out.println("아이디찾기 mbean: " + mbean);
 
 		String foundId = memService.getFindID(mbean);
 		String userid = foundId; // 이메일로 아이디를 보낼 때 사용
-
-		System.out.println("id찾기 foundId : " + foundId);
 
 		String msg = "";
 		String founduserid = "";
 		if (foundId.equals("N")) { // 일치하는 아이디 없음
 			msg = "N";
+			return "redirect:/member/getfindid";
 		} else {
 			msg = foundId.substring(0, foundId.length() - 3);
 			founduserid = msg + "***";
 		}
-		System.out.println("founduserid: " + founduserid);
 
 		model.addAttribute("founduserid", founduserid);
 		model.addAttribute("userid", userid);
@@ -326,19 +296,20 @@ public class MemberController {
 
 	// id이메일로 보내기
 	@GetMapping("/getFindIDEmail")
-	public String getFindIDEmail(P_MemberDTO pmem) {
+	public String getFindIDEmail(P_MemberDTO pmem, Model model) {
 
 		String useremail = pmem.getUseremail();
 		String userid = pmem.getUserid();
 
-		System.out.println("useremail: " + useremail);
 		RhymesMailling.sendMailId(RhymesMailling.getAuthorizationid(userid), useremail);
-
-		return "redirect:/member/login";
+		
+		model.addAttribute("text", "회원님의 이메일로 id를 보냈습니다.");
+		
+		return "rhyfindsuc	";
 	}
 
 	// 사업자 아이디 찾기
-	@GetMapping("/getFindID_seller")
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getFindID_seller")
 	public String getfindid_seller(SellerBean sbean, Model model) {
 
 		SellerDTO sdto = memService.getfindid_seller(sbean);
@@ -352,12 +323,11 @@ public class MemberController {
 
 			msg = sdto.getId().substring(0, sdto.getId().length() - 3);
 			sellerid = msg + "***";
-			System.out.println("sellerid: " + sellerid);
 
 			model.addAttribute("foundsellerid", sellerid); // id***
 			model.addAttribute("sellerid", sdto.getId()); // 사업자 아이디
 			model.addAttribute("selleremail", sdto.getIc_email()); // 사업자 이메일
-			return "rhyfindAf";
+			return "rhyfindsellefAf";
 
 		}
 
@@ -370,7 +340,6 @@ public class MemberController {
 		String ic_email = sdto.getIc_email();
 		String id = sdto.getId();
 
-		System.out.println("ic_email: " + ic_email);
 		RhymesMailling.sendMailId(RhymesMailling.getAuthorizationid(id), ic_email);
 
 		model.addAttribute("text", "회원님의 이메일로 id를 보냈습니다.");
@@ -401,10 +370,9 @@ public class MemberController {
 
 	@GetMapping("/getFindPWtel")
 	public String getFindPWtel(P_MemberDTO pmem, Model model) {
-		System.out.println("phone: " + pmem.getPhone());
+		
 		String userid = memService.getusertel(pmem);
-		System.out.println("userid: " + userid);
-		System.out.println("dbuserid: " + pmem.getUserid());
+		
 		if (!userid.equals(pmem.getUserid())) {
 			return "rhyfindid";
 		} else {
@@ -431,24 +399,10 @@ public class MemberController {
 	public String kakaoLogin(@RequestParam("code") String code, HttpServletRequest req, HttpSession session,
 			Model model, MemBean mbean) {
 
-		System.out.println("kakaoLogin controller 도착");
-
-		/*
-		 * 컨트롤러에서 보낼 때(addFlashAttribute으로는 post로 보내지지않아서 주석) CsrfToken token = new
-		 * HttpSessionCsrfTokenRepository().loadToken(req);
-		 * 
-		 * redirectAttributes.addFlashAttribute(token.getParameterName(), token);
-		 * redirectAttributes.addFlashAttribute("username", mbean.getUserid());
-		 * redirectAttributes.addFlashAttribute("password", mbean.getUserpw());
-		 * 
-		 */
-
 		CsrfToken token = new HttpSessionCsrfTokenRepository().loadToken(req);
 
 		String access_Token = kakao.getAccessToken(code);
 		HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-
-		System.out.println("kakaologin Controller : " + userInfo);
 
 		mbean.setUserid((String) userInfo.get("email"));
 		mbean.setUsername((String) userInfo.get("nickname"));
@@ -539,7 +493,6 @@ public class MemberController {
 	// 네이버 callback
 	@GetMapping("/callback")
 	public String navercallback(HttpSession session) {
-		System.out.println("callback Controller 도착");
 		return "navercallback";
 	}
 	
@@ -551,25 +504,18 @@ public class MemberController {
 	// 네이버 회원가입
 	@GetMapping("/loginPostNaver")
 	public String loginPOSTNaver(Model model, HttpSession session, MemBean mbean, HttpServletRequest req) {
-		System.out.println("loginPostNaver도착");
-		
-		System.out.println("mbean useremail: " + mbean.getUseremail());	// id에 넣을 정보
-		System.out.println("mbean username: " + mbean.getUsername());	// pw에 넣을 정보
 
 		CsrfToken token = new HttpSessionCsrfTokenRepository().loadToken(req);
 		
 		boolean b = memService.getNaveruser(mbean);
 		req.getSession().setAttribute("userloginid", mbean.getUsername());
 		if(b) {
-			System.out.println("naver회원정보 있음");
 			model.addAttribute("username", mbean.getUseremail());
 			model.addAttribute("password", mbean.getUsername());
 			model.addAttribute("_csrf", token);
 			
 			return "kakaologinsuc";
 		}
-		
-		System.out.println("naver회원정보 없음");
 		
 		memService.getNaverRegi(mbean);
 		model.addAttribute("username", mbean.getUseremail());

@@ -17,83 +17,85 @@
 <!-- 상품리스트 -->
  <select id="getProductList" parameterType="com.rhymes.app.store.model.ProductParam" resultType="com.rhymes.app.store.model.ProductDto">
 
- 	SELECT P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, C1_NAME
- 	FROM (	SELECT ROW_NUMBER()OVER(ORDER BY 
+ 	SELECT a.P_SEQ, a.P_NAME, a.C_NAME, a.P_TITLE, a.P_PRICE, a.P_COLOR, a.PHOTO1_FILE, a.C1_NAME, a.BFS_PRICE, SUM
+ 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY 
  			<if test="sorting == 'NEW'">
-		 	P_SEQ DESC
+		 	a.P_SEQ DESC
 		 	</if>
 		 	<!-- 낮은 가격 순으로 표시 -->
 		 	<if test="sorting == 'PRICEDOWN'">
-		 	P_PRICE ASC
+		 	a.P_PRICE ASC
 		 	</if>
 		 	<!-- 높은 가격 순으로 표시 -->
 		 	<if test="sorting == 'PRICEUP'">
-		 	P_PRICE DESC
+		 	a.P_PRICE DESC
 		 	</if>
 			) AS RNUM, 
-			P_SEQ, P_NAME, C_NAME, P_TITLE, P_PRICE, P_COLOR, PHOTO1_FILE, RDATE, C1_NAME
-			FROM rhy_store_product
+			a.P_SEQ, a.P_NAME, a.C_NAME, a.P_TITLE, a.P_PRICE, a.P_COLOR, a.PHOTO1_FILE, a.RDATE, a.C1_NAME, a.BFS_PRICE, SUM(b.QUANTITY) AS SUM
+			FROM rhy_store_product a INNER JOIN rhy_store_stock b ON a.P_SEQ = b.P_SEQ
 			WHERE 1 = 1
  			
  			<!-- 검색시 -->
  			<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">
 				<!-- 브랜드 선택/검색 -->
 				<if test="criterion == 'company_search'">
-					AND C_NAME LIKE '%' #{keyword} '%'
+					AND a.C_NAME LIKE '%' #{keyword} '%'
 				</if>
 				<!-- 제품이름&브랜드 통합검색 -->				
 				<if test="criterion == 'all_search'">
 					<if test="c1_name != null and c1_name != ''">
-					AND C1_NAME = #{c1_name}
+					AND a.C1_NAME = #{c1_name}
 					</if>
 					
 					<if test="c1_name == null or c1_name == ''">
 						<if test="c2_name != null and c2_name != '' and c3_name != null and c3_name != ''">
-						AND C2_NAME = #{c2_name} AND C3_NAME = #{c3_name}
+						AND a.C2_NAME = #{c2_name} AND a.C3_NAME = #{c3_name}
 						</if>	
 					</if>
 					
-					AND (C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} '%')
+					AND (a.C_NAME LIKE '%' #{keyword} '%' OR a.P_NAME LIKE '%' #{keyword} '%')
 				</if>
 			</if>
 			
 			<!-- 카테고리 선택시 -->
 				<!-- 1차 카테고리만 선택시 -->
 				<if test="c1_name != null and c1_name != ''">
-					AND C1_NAME = #{c1_name}
+					AND a.C1_NAME = #{c1_name}
 					<!-- 1,2차 카테고리 선택시 -->
 					<if test="c1_name != null and c1_name != '' and c2_name != null and c2_name != ''">
-						AND C2_NAME = #{c2_name}
+						AND a.C2_NAME = #{c2_name}
 						<!-- 1,2,3차 카테고리 선택시 -->
 						<if test="c1_name != null and c1_name != '' and c2_name != null and c2_name != '' and c3_name != null and c3_name != ''" >
-						AND C3_NAME = #{c3_name}
+						AND a.C3_NAME = #{c3_name}
 							<!-- 키워드가 존재할 때 -->
 							<if test="keyword != null and keyword != ''">
-								AND (C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} '%') 
+								AND (a.C_NAME LIKE '%' #{keyword} '%' OR a.P_NAME LIKE '%' #{keyword} '%') 
 							</if>
 						</if>
 					</if>
+					<if test="key == 'sale'">
+						AND a.BFS_PRICE != 0
+					</if>
 				</if>
+			GROUP BY a.P_SEQ	
 			)A
  	WHERE RNUM BETWEEN ${start} AND #{end}
 
  		<if test="key == 'newarrival'">
- 			AND (RDATE BETWEEN DATE_ADD(NOW(),INTERVAL -1 DAY ) AND NOW())
+ 			AND (a.RDATE BETWEEN DATE_ADD(NOW(),INTERVAL -1 DAY ) AND NOW())
  		</if>	
-
-
 
  	ORDER BY 
 		 	<if test="sorting == 'NEW'">
-		 	P_SEQ DESC
+		 	a.P_SEQ DESC
 		 	</if>
 		 	<!-- 낮은 가격 순으로 표시 -->
 		 	<if test="sorting == 'PRICEDOWN'">
-		 	P_PRICE ASC
+		 	a.P_PRICE ASC
 		 	</if>
 		 	<!-- 높은 가격 순으로 표시 -->
 		 	<if test="sorting == 'PRICEUP'">
-		 	P_PRICE DESC
+		 	a.P_PRICE DESC
 		 	</if>
  </select>
  
@@ -162,7 +164,7 @@
  		AND (a.C1_NAME = #{c1_name} AND b.C1_SEQ = #{c1_seq})	 
  </select>
  
-  <!--3차 카테고리 -->
+  <!--3차 카테고리 AJAX -->
  <select id="kCate3list" resultType="com.rhymes.app.store.model.category.Category3Dto" parameterType="com.rhymes.app.store.model.ProductParam">	 	
  	SELECT DISTINCT(C3_NAME) FROM rhy_store_product
  	WHERE (C_NAME LIKE '%' #{keyword} '%' OR P_NAME LIKE '%' #{keyword} '%') 

@@ -11,6 +11,8 @@
 	href="<%=request.getContextPath()%>/css/admin/member/memberlist.css">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/admin/member/paging.css">
+	
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/companyadmin/productmanage/productoperlist.css">	
 </head>
 
 <!-- Begin Page Content -->
@@ -31,22 +33,6 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-6">
 						<div class="dataTables_length" id="dataTable_length">
-								<%-- <select style="width: 100px;"
-									name="recordCountPerPage" aria-controls="dataTable"
-									onchange="dataTable_length()"
-									class="custom-select custom-select-sm form-control form-control-sm">
-									<option value="10"
-										<c:out value="${recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
-									<option value="25"
-										<c:out value="${recordCountPerPage == '25'? 'selected':'' }"/>>25</option>
-									<option value="50"
-										<c:out value="${recordCountPerPage == '50'? 'selected':'' }"/>>50</option>
-									<option value="100"
-										<c:out value="${recordCountPerPage == '100'? 'selected':'' }"/>>100</option>
-								</select> --%>
-								<button type="button" onclick="location.href='/admin/company/productlist'"
-								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
-								전체 조회</button>
 								<select id="sorting" class="custome-select border-0 pr-3 searchSelect" onchange="sorting(this.value)" 
 									style="width:auto; border-color: black; cursor:pointer; text-align: center;" >
 									<option selected="selected" value="SEQ"
@@ -56,7 +42,15 @@
 									<option value="PRICEDOWN"
 										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
 								</select>
-								
+								<button type="button" onclick="location.href='/admin/company/productoperlist'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; color:white; background-color: #5587ED;">
+								전체 조회</button>&nbsp;
+								<button type="button" onclick="location.href='/admin/company/productoperlist?criterion=c1_search&c1_name=MEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								MEN</button>
+								<button type="button" onclick="location.href='/admin/company/productoperlist?criterion=c1_search&c1_name=WOMEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								WOMEN</button>
 								
 						</div>
 					</div>
@@ -111,11 +105,12 @@
 							<!-- 8 -->
 							<th>색상</th>
 							<!-- 9 -->
-							<th>상품 코드</th>
 							
 							<!-- 13 -->
 							<th>판매상태</th>
+							
 							<!-- 14 -->
+							<th>SALE</th>
 							<th>수정</th>
 							<th>삭제</th>
 						</tr>
@@ -140,8 +135,8 @@
 									<strong>${pro.p_name }</strong></a>
 								</td>
 								<!-- 4 -->
-								<td class="list_address">
-									<fmt:formatNumber type="currency" currencySymbol="" value="${pro.p_price}" /> 원
+								<td>
+									<span id="plist_pprice${pro.p_seq }"><fmt:formatNumber type="currency" currencySymbol="" value="${pro.p_price}" /></span> 원
 								</td>
 								<!-- 5 -->
 								<td>${pro.c1_name}</td>
@@ -152,25 +147,33 @@
 								<!-- 8 -->
 								<td>${pro.p_color }</td>
 								<!-- 9 -->
-								<td>${pro.cp_code }</td>
 								
 								<!-- 13 -->
 								<c:if test="${pro.sum ne 0}">
 									<td class="list_rdate"><font style="color:green">판매중</font></td>
 								</c:if>
 								<c:if test="${pro.sum eq 0}">
-									<td class="list_rdate"><font style="color:red"><b>픔절</b></font></td>
+									<td class="list_rdate"><font style="color:red">픔절</font></td>
 								</c:if>
-								
-								<td>
-								<button type="button" onclick="location.href='/admin/company/productupdate?p_seq=${pro.p_seq}'"
-								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
-								수정</button>
+								<td id="saleRegi-td${pro.p_seq }">
+									<c:if test="${pro.bfs_price eq 0 }">
+									<button type="button" class="sale_register-btn" value="${pro.p_seq }"
+									style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white; font-size: 12px;">
+									SALE등록</button>
+									</c:if>
+									<c:if test="${pro.bfs_price ne 0 }">
+										<label style="color:red">SALE</label>
+									</c:if>
 								</td>
 								<td>
-								<button type="button" 
-								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
-								삭제</button>
+									<button type="button" onclick="location.href='/admin/company/productupdate?p_seq=${pro.p_seq}'"
+									style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+									수정</button>
+								</td>
+								<td>
+									<button type="button" 
+									style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+									삭제</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -204,7 +207,7 @@
 
 </div>
 <!-- 상품리스트 검색/정렬/페이징 -->
-<form action="/admin/company/productlist" method="get" id="plistFrm">
+<form action="/admin/company/productoperlist" method="get" id="plistFrm">
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="${pageNumber }">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 	<input type="hidden" name="criterion" id="frm_criterion" value="${param.criterion }">
@@ -214,11 +217,124 @@
 
 
 <!-- /.container-fluid -->
+<!-- SALE상품 등록 MODAL -->
+<div class="productsale_modal">
+	<div class="productsale_modal-content" align="center">
+			<div align="right">
+			<img src="https://cdn4.iconfinder.com/data/icons/media-controls-4/100/close-512.png" style="width:30px; height:30px; cursor:pointer;" class="salemodal-Close">
+			</div>
+		<div align="center">
+			<table id="saleRegiTable" style="border: 0px solid" border='1'>
+			<colgroup><col width="40%"><col width="60%"></colgroup>
+				<tr>
+					<th>상품번호</th>
+					<td id="modal_pseq" class="sale_modal_td"></td>
+				</tr>
+				<tr>
+					<th>상품명</th>
+					<td id="modal_pname">ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹ</td>
+				</tr>
+				<tr>
+					<th>상품가격</th>
+					<td><span id="modal_pprice"></span>원</td>
+				</tr>
+				<tr>
+					<th>SALE할인률</th>
+					<td>
+						<input type='text' onchange="this.value=this.value.replace(/[^0-9]/g,'');"
+							onKeyup="applysalepercent(this.value)" id="applypercent">%
+					</td>
+				</tr>	
+				<tr>
+					<th>SALE적용 가격</th>
+					<td><span class='appliedPrice'></span>원</td>
+					<input type="hidden" id="applied_hdn_price"> 
+				</tr>			
+			</table><br>
+			<div>
+			<button type="button" id="saleregister-finishBtn">SALE 적용</button>
+			</div>
+			
+		</div>
+	</div>
 
+<!-- 메시지 MODAL영역 -->
+<div class="msgModal">
+   <div class="msg-content">
+      <span id="msg"></span>
+   </div>
+</div>
+
+</div>	
 <!-- End of Main Content -->
 
 <!--------------------------------- SCRIPT ZONE --------------------------------->
 <script>
+//가격 콤마
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+//SALE 적용 버튼
+$('#saleregister-finishBtn').click(function(){
+	//상품SEQ
+	var p_seq = $("#modal_pseq").html();
+	//적용 전 가격
+	var p_price = $("#modal_pprice").val();
+	//적용 후 가격
+	var sale_price = $("#applied_hdn_price").val();
+	
+	$.ajax({
+        type:"get",
+        data: "p_seq=" + p_seq + "&bfs_price=" + p_price + "&p_price=" + sale_price,
+        url:"/admin/company/salepriceupdate",
+        success:function( data ){
+        	
+        	//sale_price
+        	$("#plist_pprice" + p_seq).html(numberWithCommas(Number(sale_price)));
+        	//<td id="saleRegi-td${pro.p_seq }">
+        	$("#saleRegi-td" + p_seq).html("<font style='color:red'>SALE</font>");
+        	
+        	//메시지 모달
+		     $("#msg").html("<strong>상품가격이 수정되었습니다.</strong>");
+	      	 $(".msgModal").fadeIn();
+	     	 setTimeout(function() {
+	     		$(".productsale_modal").fadeOut();
+	     		$(".msgModal").fadeOut();
+	         },800);			
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+    })
+	
+});
+
+//SALE등록 MODAL SHOW
+$('.sale_register-btn').click(function(){
+	
+	$(".productsale_modal").fadeIn();
+	var p_seq = $(this).val();
+	//alert(p_seq);
+	$(".sale_modal_td").html("");
+	
+	$.ajax({
+        type:"get",
+        data: "p_seq=" + p_seq,
+        url:"/admin/company/getProductDetail",
+        success:function( data ){
+            var obj = JSON.stringify(data);
+			var arr = JSON.parse(obj);
+			$("#modal_pseq").html(arr.p_seq);
+			$("#modal_pname").html(arr.p_name);
+			$("#modal_pprice").html(numberWithCommas(arr.p_price));
+			$("#modal_pprice").val(arr.p_price);
+			
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+    })
+});
 // 검색
 $(document).on('click', '#_btnSearch', function(){
 	var criterion = $("#_select").val();
@@ -248,8 +364,40 @@ function goPage( pageNumber ) {
 }
 
 
+$(document).on('click', '.salemodal-Close', function(){
+	$(".productsale_modal").fadeOut();
+	$("#applypercent").val("");
+	$(".appliedPrice").html("");
+	
+});
+
+function applysalepercent(percent){
+	
+	var pprice = $("#modal_pprice").val();
+	var percent2 = 1-(0.01 * percent);
+	var appliedPrice = pprice * percent2;
+	
+	if(isNaN(percent)){
+		$("#applypercent").val("");
+		$(".appliedPrice").html("");
+		
+	}else{
+		if(percent.length>2){
+			var twoword = percent.substring(0,2)
+			$("#applypercent").val(twoword);
+			(".appliedPrice").html("");
+			
+		}else{
+			$(".appliedPrice").html(numberWithCommas(appliedPrice));
+			$("#applied_hdn_price").val(appliedPrice);
+		}	
+	}
+	
+	
+	
+	
+}
+
 </script>
-
-
 
 </html>

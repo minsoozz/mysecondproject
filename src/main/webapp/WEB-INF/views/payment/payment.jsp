@@ -74,6 +74,7 @@
 		<div class="divback">
 			<h4>주문자 정보</h4>
 			<table class="payment_tb">
+			<c:if test="${ empty p_mem }">
 				<tr>
 					<th>휴대폰 번호</th>
 					<td><input type="text" id="to" placeholder="전화번호 입력">
@@ -106,6 +107,29 @@
 					<td>이메일을 통해 주문처리과정을 보내드립니다.<br>이메일 주소란에는 반드시 수신가능한 이메일 주소를 입력해 주세요.
 					</td>
 				</tr>
+			</c:if>
+			<c:if test="${ not empty p_mem }">
+				<tr>
+					<th>보내는 분 *</th>
+					<td><input type="text" size="26" id="send_name" name="send_name" readonly="readonly" value="${p_mem.username }"></td>
+				</tr>
+				<tr>
+					<th>휴대폰 *</th>
+					<td><input type="text" size="5" id="send_phone1" readonly="readonly" value="${fn:substring(p_mem.phone,0,3) }">&nbsp;&nbsp;
+						<input type="text" size="5" id="send_phone2" readonly="readonly" value="${fn:substring(p_mem.phone,3,7) }">&nbsp;&nbsp;
+						<input type="text" size="5" id="send_phone3" readonly="readonly" value="${fn:substring(p_mem.phone,7,11) }">
+						<input type="hidden" name="send_phone" id="send_phone"></td>
+				</tr>
+				<tr>
+					<th>이메일 *</th>
+					<td><input type="text" id="send_email" name="send_email" size="26" readonly="readonly" value="${p_mem.useremail }"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>이메일을 통해 주문처리과정을 보내드립니다.
+					</td>
+				</tr>
+			</c:if>				
 			</table>
 		</div>
 		<br><br><br><br><br><br>
@@ -122,7 +146,7 @@
 				<tr>
 					<th></th>
 					<td><input type="text" size="20" id="sample6_postcode" name="receive_postnum" placeholder="우편번호">
-						<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						<input type="button" id="postcode_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 						<input type="text" size="67" id="sample6_address" placeholder="지번주소"><br>
 						<input type="text" size="30" id="sample6_detailAddress" placeholder="상세주소">
 						<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목">
@@ -166,9 +190,9 @@
 				</tr>
 				<!-- result_price = 상품금액 + 배송비 - 사용 포인트 - 쿠폰 할인액  -->
 				<tr>
-					<td id="product_price">${product_price }</td>
+					<td id="product_price">${payment_param.product_price }</td>
 					<td>+</td>
-					<td id="delivery_price">${delivery_price }</td>
+					<td id="delivery_price">${payment_param.delivery_price }</td>
 					<td>-</td>
 					<!-- submit으로 controller에 보내는 사용 포인트  -->
 					<td><input type="text" name="disc_point" id="disc_point" value="0"></td>
@@ -179,7 +203,7 @@
 					<td><input type="text" name="totalprice" id="totalprice" value="0"></td>
 				</tr>
 
-				<c:if test="${coupon_count eq 0 }">
+				<c:if test="${payment_param.coupon_count eq 0 }">
 					<tr>
 						<th rowspan="2">쿠폰 적용</th>
 						<td></td>
@@ -189,7 +213,7 @@
 					</tr>
 				</c:if>
 
-				<c:if test="${coupon_count ne 0 }">
+				<c:if test="${payment_param.coupon_count ne 0 }">
 					<tr>
 						<th rowspan="2">쿠폰 적용</th>
 						<td colspan="8">쿠폰 사용&nbsp;&nbsp;
@@ -199,20 +223,20 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="8">(보유쿠폰 : ${coupon_count } 개) 중복할인 안됩니다
-							<input type="hidden" id="point_amount" value="${point_amount }">
+						<td colspan="8">(보유쿠폰 : ${payment_param.coupon_count } 개) 중복할인 안됩니다
+							<input type="hidden" id="point_amount" value="${payment_param.point_amount }">
 						</td>
 					</tr>
 				</c:if>
 				<tr>
 					<th>적립금 적용</th>
-					<c:if test="${point_amount eq 0 }">
+					<c:if test="${payment_param.point_amount eq 0 }">
 						<td colspan="8">사용 가능한 적립금이 없습니다</td>
 					</c:if>
-					<c:if test="${point_amount ne 0 }">
+					<c:if test="${payment_param.point_amount ne 0 }">
 						<td colspan="8">
 							<input type="text" id="input_disc_point" onchange="price_change()" value="0">원 &nbsp;&nbsp;사용가능
-							적립금 : <fmt:formatNumber value="${point_amount }" />원
+							적립금 : <fmt:formatNumber value="${payment_param.point_amount }" />원
 							&nbsp;&nbsp;(1,000원부터 사용가능합니다)</td>
 					</c:if>
 				</tr>
@@ -250,9 +274,9 @@
 
 		<!-- submit으로 보낼 데이터 -->
 		<input type="hidden" name="payment_status" id="payment_status">
-		<input type="hidden" name="delivery_price" value="${delivery_price }">
+		<input type="hidden" name="delivery_price" value="${payment_param.delivery_price }">
 		<input type="hidden" name="add_point" id="add_point" value="0">
-		<input type="hidden" name="basket_del" value="${basket_del }">
+		<input type="hidden" name="basket_del" value="${payment_param.basket_del }">
 		<input type="hidden" name="payment_code" id="payment_code">
 		<input type="hidden" name="receipt_url" id="receipt_url">
 		<input type="hidden" name="vbank_num" id="vbank_num">

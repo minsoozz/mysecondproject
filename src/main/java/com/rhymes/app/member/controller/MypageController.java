@@ -236,7 +236,7 @@ public class MypageController {
 		couponDetailDto.setFunc_time_limit(couponDto.getFunc_time_limit());
 		
 		if( "적립".equals( couponDto.getFunc() ) ) {	//적립금 추가, 사용처리
-			mypagePointsService.addNewPoint(new MemberPointDTO(userid, couponDto.getTitle(), couponDto.getFunc_num()));
+			mypagePointsService.addNewPoint(new MemberPointDTO(userid, couponDto.getTitle(), couponDto.getFunc_num(), coup_code));
 			couponDetailDto.setCoup_type(1);
 			mypageCouponService.regiNewCoupon(couponDetailDto);	//	ss.update("coupon.regiNewCoupon", couponDetailDto);
 		}else if( "할인".equals( couponDto.getFunc() )) {	//쿠폰 등록자 정보 insert

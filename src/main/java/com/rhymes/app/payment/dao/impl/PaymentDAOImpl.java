@@ -7,13 +7,19 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.dao.PaymentDAO;
 import com.rhymes.app.payment.model.OrderDTO;
 import com.rhymes.app.payment.model.PaymentAfDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.model.PaymentDetailsDTO;
+import com.rhymes.app.payment.model.PaymentParamDTO;
+import com.rhymes.app.payment.model.PaymentXmlParamDTO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class PaymentDAOImpl implements PaymentDAO {
 	
@@ -24,34 +30,26 @@ public class PaymentDAOImpl implements PaymentDAO {
 	// 결제페이지에서 상품정보 가져오기
 	@Override
 	public OrderDTO getOrder(OrderDTO dto) {
-		
-		OrderDTO order = SqlSession.selectOne(p + "getOrder", dto);
-		
-		return order;
+		return SqlSession.selectOne(p + "getOrder", dto);
 	}
 
-	// 결제페이지에서 적립금 가져오기
+	// 결제 전 적립금, 쿠폰 개수 가져오기
 	@Override
-	public int getPoint(String userid) {
+	public PaymentParamDTO getPointAndCountCoupon(String userid) {
 
 		int point = 0;
 		try {
 			point = SqlSession.selectOne(p + "getPoint", userid);
 		}catch (Exception e) {	}
 		
-		return point;
-	}
-	
-	// 결제페이지에서 사용자의 유효 쿠폰 개수 가져오기
-	@Override
-	public int getCountCoupon(String userid) {
-		
 		int countCoupon = 0;
 		try {
 			countCoupon = SqlSession.selectOne(p + "getCountCoupon", userid);
 		}catch(Exception e) {}
+		
+		PaymentParamDTO dto = new PaymentParamDTO(countCoupon, point);
 
-		return countCoupon;
+		return dto;
 	}
 	
 
@@ -68,91 +66,104 @@ public class PaymentDAOImpl implements PaymentDAO {
 			coupon = SqlSession.selectList(p + "getAllCoupon", userid);
 		}catch(Exception e) {}
 		
-		int countCoupon = SqlSession.selectOne(p + "getCountCoupon", userid);
-		
 		return coupon;
 	}
 
+	// 회원이면 주문자 정보에 자동 입력하기 위해서
+	@Override
+	public P_MemberDTO getMemberInfo(String userid) {
+		return SqlSession.selectOne(p + "getMemberInfo", userid);
+	}
+	
+
+	
+	
+	
 	// 결제한 후 결제 디테일에 넣기위한 상품 개당 가격 가져오기
 	@Override
 	public int getPrice(int stock_seq) {
-
-		int price = SqlSession.selectOne(p + "getPrice", stock_seq);
-		
-		return price;
+		return SqlSession.selectOne(p + "getPrice", stock_seq);
 	}
 
 	// 결제한 후 결제 디테일 저장(후기여부는 false)
 	@Override
 	public boolean payment_detail_save(PaymentDetailsDTO dto) {
-
 		int count = SqlSession.insert(p + "payment_detail_save", dto);
-
 		return count>0?true:false;
 	}
 
 	// 결제한 후 상품 수량 차감
 	@Override
-	public boolean disc_stock_quantity(String stock_seq, String quantity) {
-		
-		PaymentAfDTO dto = new PaymentAfDTO(stock_seq, quantity);
-		
-		int count = SqlSession.update(p + "disc_stock_quantity", dto);
-		
+	public boolean disc_stock_quantity(String stock_seq, String quantity) {		
+		PaymentAfDTO dto = new PaymentAfDTO(stock_seq, quantity);		
+		int count = SqlSession.update(p + "disc_stock_quantity", dto);		
 		return count>0?true:false;
 	}
 
 	// 결제한 후 사용 포인트 차감
 	@Override
 	public boolean disc_point(PaymentDTO dto) {
+		int inputDiscPoint = dto.getDisc_point();		
+		int count = 0;
+		int result = 0;
+
+		while(true) {
+			List<PaymentXmlParamDTO> list = new ArrayList<PaymentXmlParamDTO>();
+			PaymentXmlParamDTO xmlDTO = new PaymentXmlParamDTO(dto.getUserid(), count, 0, 0);
+
+			// 만료 예정인 유효 적립금 하나를 가져온다
+			list = SqlSession.selectList(p + "getPointLastById", xmlDTO);
+			xmlDTO.setSeq(list.get(0).getSeq());
+			xmlDTO.setPoint(list.get(0).getPoint());
+			
+			// 사용 적립금에서 빼준다
+			inputDiscPoint = inputDiscPoint - xmlDTO.getPoint();
+
+			// 적립금 차감
+			// 사용 적립금 1000, 유효 적립금 1400
+			// 가장 최신 적립금이 400원 남았다
+			if(inputDiscPoint < 0) { xmlDTO.setPoint(inputDiscPoint + xmlDTO.getPoint()); result = SqlSession.update(p + "discPointByid", xmlDTO); break; }
+			// 사용 적립금 1000, 유효 적립금 400
+			// 사용 적립금 600,  유효 적립금 1500
+			// 가장 최신 적립금은 400 전부 사용했고 (used_amount = 400), 그 다음 최신 적립금은 900원 남았다
+			else { result = SqlSession.update(p + "discPointByid", xmlDTO); count++; }
+		}
 		
-		int count = SqlSession.update(p + "disc_point", dto);
-		
-		return count>0?true:false;
+		return result>0?true:false;
 	}
 
 	// 결제 내역 저장
 	@Override
 	public boolean payment_save(PaymentDTO dto) {
-
 		int count = SqlSession.insert(p + "payment_save", dto);
-
 		return count>0?true:false;
 	}
 
 	// 결제 애프터 내역 저장
 	@Override
 	public boolean payment_after(PaymentAfDTO dto) {
-
 		int count = SqlSession.insert(p + "payment_after", dto);
-
 		return count>0?true:false;
 	}
 
 	// 결제시 사용한 쿠폰을 사용으로 변환
 	@Override
-	public boolean update_isused_coupon(PaymentDTO dto) {
-		
+	public boolean update_isused_coupon(PaymentDTO dto) {		
 		int count = SqlSession.delete(p + "update_isused_coupon", dto);
-		
 		return count>0?true:false;
 	}
 
 	// 결제 후 배송 내역 저장
 	@Override
-	public boolean delivery_save(PaymentDTO dto) {
-		
+	public boolean delivery_save(PaymentDTO dto) {		
 		int count = SqlSession.insert(p + "delivery_save", dto);
-
 		return count>0?true:false;
 	}
 
 	// 결제 후 장바구니 내역 삭제
 	@Override
 	public boolean delete_basket(String id) {
-
 		int count = SqlSession.delete(p + "delete_basket", id);
-
 		return count>0?true:false;
 	}
 

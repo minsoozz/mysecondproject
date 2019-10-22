@@ -2,26 +2,32 @@ package com.rhymes.app.payment.dao;
 
 import java.util.List;
 
+import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.payment.model.OrderDTO;
 import com.rhymes.app.payment.model.PaymentAfDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.model.PaymentDetailsDTO;
+import com.rhymes.app.payment.model.PaymentParamDTO;
 
 public interface PaymentDAO {
 	
+	// 결제페이지 전
 	// 결제페이지에서 상품정보 가져오기
 	public OrderDTO getOrder(OrderDTO dto);
 	
-	// 결제페이지에서 적립금 가져오기
-	public int getPoint(String userid);
-	
-	// 결제페이지에서 쿠폰 개수 가져오기
-	public int getCountCoupon(String userid);
+	// 결제 전 적립금, 쿠폰 개수 가져오기
+	public PaymentParamDTO getPointAndCountCoupon(String userid);
 	
 	// 결제페이지에서 쿠폰 세부사항 가져오기
 	public List<MemberCouponDTO> getAllCoupon(String userid);
+
+	// 회원이면 주문자 정보에 자동 입력하기 위해서
+	public P_MemberDTO getMemberInfo(String userid);
 	
+
+
+	//////////// 결제페이지 후
 	// 결제한 후 결제 디테일에 넣기위한 상품 개당 가격 가져오기
 	public int getPrice(int stock_seq);
 	

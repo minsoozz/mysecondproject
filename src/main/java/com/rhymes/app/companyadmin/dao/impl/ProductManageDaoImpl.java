@@ -65,6 +65,8 @@ public class ProductManageDaoImpl implements ProductManageDao{
 //2.상품조회	
 	@Override
 	public List<ProductDto> getProductList(ProductManageDto pParam) throws Exception {
+		System.out.println("----------------------------"+pParam.getCriterion());
+		System.out.println("----------------------------"+pParam.getC1_name());
 		return sqlSession.selectList(ns + "getAdminProductList", pParam); 
 	}
 
@@ -77,6 +79,32 @@ public class ProductManageDaoImpl implements ProductManageDao{
 	public List<StockDto> getStockList(StockDto stock) throws Exception {
 		return sqlSession.selectList(ns + "getAdminStockList", stock);
 	}
+
+	// 상품 기본정보 수정
+	@Override
+	public boolean productBasicInfoUpdate(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductBasicinfoUpdate", product);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean productImgUpdate(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductImgUpdate", product);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean productSalePriceUpdate(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductSalePriceUpdate", product);
+		return n>0?true:false;
+	}
+
+	@Override
+	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductSalePriceUpdateCancel", product);
+		return false;
+	}
+
 	
 	
 	

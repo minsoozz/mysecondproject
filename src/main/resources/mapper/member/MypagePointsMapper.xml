@@ -50,7 +50,6 @@
 
 	<!-- 매개변수로 받은 ID가 갖는 적립금 중 유효한 적립금 총 합 리턴 -->
 	<select id="getAmountOfPointById" resultType="java.lang.Integer" parameterType="java.lang.String">
-	<!-- <select id="getAmountOfPointById" resultType="java.util.HashMap" parameterType="java.lang.String"> -->
 		SELECT 
 			(SUM(AMOUNT) - SUM(USED_AMOUNT)) AS RESULT
 		FROM RHY_MEM_POINT 
@@ -80,8 +79,15 @@
  	
  	<!-- 신규 적립금 ADD -->
  	<sql id="addNewPointSql">
- 		INSERT INTO RHY_MEM_POINT (ID, COMMENT, AMOUNT)
- 		VALUES (#{userid}, #{comment}, #{amount}) 		
+ 		<choose>
+ 			<when test="coup_code != null and coup_code != ''">
+ 				INSERT INTO RHY_MEM_POINT (ID, COMMENT, AMOUNT, COUP_CODE)	VALUES (#{userid}, #{comment}, #{amount}, #{coup_code})
+ 			</when>
+ 			<otherwise>
+ 				INSERT INTO RHY_MEM_POINT (ID, COMMENT, AMOUNT)	VALUES (#{userid}, #{comment}, #{amount})
+ 			</otherwise>
+ 		</choose>
+ 		
  	</sql>
 	
 

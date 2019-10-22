@@ -67,7 +67,7 @@
         <h6 class="dropdown-header">
           Alerts Center
         </h6>
-        <a class="dropdown-item d-flex align-items-center" href="#" id="alarm">
+        <a class="dropdown-item d-flex align-items-center" id="alarm">
           <div class="mr-3">
             <div class="icon-circle bg-primary">
               <i class="fas fa-file-alt text-white"></i>
@@ -76,6 +76,7 @@
           <div>
             <div class="small text-gray-500">
             	<span id="_today"></span>
+            	<input type="hidden" id="hidden_today">
             </div>
             	<font style="font-size: small;">오늘의 신규회원[${newmemcount }]</font>
           </div>
@@ -265,32 +266,36 @@ $(document).ready(function(){
 	    dd='0'+dd
 	} 
 	
+	if(mm<10) {
+	    mm='0'+mm
+	}
+	
 	var Emm;
-	if(mm==1) {
+	if(mm==01) {
 	    Emm="January";
 	}
-	if(mm==2) {
+	if(mm==02) {
 	   Emm="February";
 	}
-	if(mm==3) {
+	if(mm==03) {
 	    Emm="March";
 	}
-	if(mm==4) {
+	if(mm==04) {
 	    Emm="April";
 	}
-	if(mm==5) {
+	if(mm==05) {
 	    Emm="May";
 	}
-	if(mm==6) {
+	if(mm==06) {
 	    Emm="June";
 	}
-	if(mm==7) {
+	if(mm==07) {
 	    Emm="July";
 	}
-	if(mm==8) {
+	if(mm==08) {
 	    Emm="August";
 	}
-	if(mm==9) {
+	if(mm==09) {
 	    Emm="September";
 	}
 	if(mm==10) {
@@ -303,10 +308,26 @@ $(document).ready(function(){
 	    Emm="December";
 	}
 	
-	today = Emm+' '+dd+', '+yyyy;
-	$("#_today").text(today);
+	today = Emm+' '+dd+', '+yyyy;		// October 17, 2019
+	$("#_today").text(today);		
+	
+	
+	hiddentoday = yyyy+'-'+mm+"-"+dd;	//	2019-10-17 db에 넘길 용도
+	$("#hidden_today").text(hiddentoday);
 
 });
+
+$("#alarm").mouseover(function(){
+	$(this).css("cursor", "pointer");
+});
+
+$("#alarm").click(function(){
+	var rdate = $("#hidden_today").text();	// ex) October 17, 2019
+	
+	location.href="/admin/memlist?rdate="+rdate;	
+});
+
+
 </script>
 
 

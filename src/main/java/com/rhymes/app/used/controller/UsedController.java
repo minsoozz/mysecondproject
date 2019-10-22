@@ -52,7 +52,7 @@ public class UsedController {
 	
 	@GetMapping("usedlist")
 	public String usedlist(Model model,BbsParam param,Principal prc, HttpServletRequest req) {
-			System.out.println(param.toString());
+	
 		
 		if(prc != null) {
 			P_MemberDTO Pdto = usedService.getMemberDto(prc.getName());
@@ -62,7 +62,6 @@ public class UsedController {
 		
 		int totalRecordCount = usedService.getBbsCount(param);
 		
-		System.out.println(totalRecordCount);
 		
 		// pageNumber 취득
 		int sn = param.getPageNumber(); // 0 , 1, 2
@@ -163,12 +162,17 @@ public class UsedController {
 	
 	@GetMapping(value="/getCommentsList",produces = "application/json; charset=utf8")	// ajax로 댓글을 불러온다
 	@ResponseBody
-	public ResponseEntity getCommentsList(int seq) throws Exception{
-		
+	public ResponseEntity getCommentsList(CommentsDto cDto) throws Exception{
+	
 		HttpHeaders responseHeaders = new HttpHeaders();
 		ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
 		
-		List<CommentsDto> clist = usedService.getComments(seq);
+		cDto.setStart( (cDto.getRpagenumber() -1) * 10 );
+
+		
+		List<CommentsDto> clist = usedService.getComments(cDto);
+		
+
 		
 		if(clist.size() > 0) {
 			for(int i = 0 ; i < clist.size() ; i++) {
@@ -190,6 +194,37 @@ public class UsedController {
 		
 		return new ResponseEntity(json.toString(), responseHeaders , HttpStatus.CREATED);
 	};
+	
+	@GetMapping(value="/getCommentCount",produces = "application/json; charset=utf8") // 죄송합니다 하드코딩 댓글 append...
+	@ResponseBody
+	public ResponseEntity getCommentCount(CommentsDto cDto) {
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
+		
+		cDto.setStart( (cDto.getRpagenumber() -1 )* 10 );
+		List<CommentsDto> clist = usedService.getComments(cDto);
+		
+		if(clist.size() > 0) {
+			for(int i = 0 ; i < clist.size() ; i++) {
+				HashMap hm = new HashMap();
+				hm.put("seq", clist.get(i).getSeq());
+				hm.put("comments", clist.get(i).getComments());
+				hm.put("id", clist.get(i).getId());
+				hm.put("rdate", clist.get(i).getDate());
+				hm.put("ref", clist.get(i).getRef());
+				hm.put("depth", clist.get(i).getDepth());
+				
+				hmlist.add(hm);
+			}
+		}
+		
+		JSONArray json = new JSONArray(hmlist);
+		
+		
+		
+		return new ResponseEntity(json.toString(), responseHeaders , HttpStatus.CREATED);
+	}
 	
 	@GetMapping("/addComments")	// 댓글 작성
 	@ResponseBody
@@ -282,9 +317,7 @@ public class UsedController {
 				detailaddress.equals("") || detailaddress == null) {
 			boolean b  = usedService.setSellerMember(s_id);
 			if(b) {
-				System.out.println("등록 완료");
 			} else {
-				System.out.println("등록 실패");
 			}
 		
 		} else {
@@ -296,9 +329,7 @@ public class UsedController {
 			boolean b = usedService.setSellerMember((P_MemberDTO)req.getSession().getAttribute("login"));		// 오버라이딩해서 매개변수를 다르게 설정해주었다 (복습)
 			
 			if(b) {
-				System.out.println("등록 완료");
 			} else {
-				System.out.println("등록 실패");
 			}
 		}
 		
@@ -366,9 +397,7 @@ public class UsedController {
 		boolean b = usedService.UsedWrite(dto);
 		
 		if(b) {
-			System.out.println("성공~~");
 		} else {
-			System.out.println("공부하자..");
 		}
 		
 		return "redirect:/used/usedlist";		
@@ -404,7 +433,6 @@ public class UsedController {
 		
 		for (int i = 0; i < originfile.length; i++) {
 			oldfile[i] = originfile[i];
-			System.out.println("oldfile : " + oldfile[i]);
 		}
 		Iterator<String> files = mfreq.getFileNames();
 		
@@ -422,7 +450,6 @@ public class UsedController {
 	
 				if (originFileName == null || originFileName == "" || originFileName.length() == 0) {
 				originFileName = oldfile[size-1];
-				System.out.println(originFileName);
 				 String systemFileName = System.currentTimeMillis() + originFileName;	            
 		         
 		            photo += originFileName + ",";
@@ -463,9 +490,7 @@ public class UsedController {
 		boolean b = usedService.UsedUpdate(dto);
 		
 		if(b) {
-			System.out.println("성공~~");
 		} else {
-			System.out.println("공부하자..");
 		}
 		
 		return "redirect:/used/hello";
@@ -513,7 +538,7 @@ public class UsedController {
 	@GetMapping(value="/blacklist")	// 블랙리스트, 신고하기 기능
 	@ResponseBody
 	public String blacklist(String str,int seq,String id,String b_id) {
-		System.out.println(id);
+		
 		String count = "";
 		
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -560,7 +585,6 @@ public class UsedController {
 	    
 	    if ((boolean)result.get("status") == true) {
 	      // 메시지 보내기 성공 및 전송결과 출력
-	      System.out.println("성공");
 	      System.out.println(result.get("group_id")); // 그룹아이디
 	      System.out.println(result.get("result_code")); // 결과코드
 	      System.out.println(result.get("result_message")); // 결과 메시지
@@ -568,7 +592,6 @@ public class UsedController {
 	      System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
 	    } else {
 	      // 메시지 보내기 실패
-	      System.out.println("실패");
 	      System.out.println(result.get("code")); // REST API 에러코드
 	      System.out.println(result.get("message")); // 에러메시지
 	    }

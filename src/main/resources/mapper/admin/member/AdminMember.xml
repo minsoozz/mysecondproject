@@ -5,7 +5,7 @@
 	
 	<!-- 회원리스트 -->
 	<select id="getmemlist" parameterType="com.rhymes.app.member.model.MemberParam" resultType="com.rhymes.app.member.model.MemBean">
-		SELECT SEQ, ID AS USERID, RDATE, SOCIAL, NAME AS USERNAME, POSTCODE, ADDRESS, DETAILADDRESS, 
+		SELECT SEQ, ID AS USERID, date_format(RDATE, "%Y-%m-%d") AS RDATE, SOCIAL, NAME AS USERNAME, POSTCODE, ADDRESS, DETAILADDRESS, 
 				EMAIL AS USEREMAIL, PHONE, GENDER, BIRTH, AUTHORITY, isAccountNonLock as isAccountNonLocked
 	       FROM (SELECT ROW_NUMBER()OVER(ORDER BY #{sorting} DESC)AS RNUM,
 					M.SEQ, M.ID, M.RDATE, M.SOCIAL, P.NAME, P.POSTCODE, P.ADDRESS, P.DETAILADDRESS, 
@@ -29,7 +29,10 @@
 					</if>
 				</if>
 					)B
-			WHERE RNUM BETWEEN ${start} AND ${end}	
+			WHERE RNUM BETWEEN ${start} AND ${end}
+			<if test="rdate != null">
+				AND RDATE LIKE '%' #{rdate} '%'
+			</if>
 			ORDER BY #{sorting} DESC
 	</select>
 
@@ -53,9 +56,11 @@
 				</if>
 				<if test="s_category == '04'">
 					AND P.PHONE '%' #{s_keyword} '%'
-				</if>
-					
+				</if>					
 			</if>
+		<if test="rdate != null">
+			AND M.RDATE LIKE '%' #{rdate} '%'
+		</if>
 	</select>
 
 	<!-- 업체 리스트 -->

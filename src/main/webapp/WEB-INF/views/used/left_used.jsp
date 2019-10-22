@@ -27,12 +27,12 @@
 
 <font style="font-size: 15px;"><b>MARKET</b></font>
 <hr width = "85%" color = "#DADCE0">
-<a href="#">ALL</a>
- <a href="#">남성 의류</a>
- <a href="#">여성 의류</a>
- <a href="#">패션 잡화</a>
- <a href="#">뷰티 미용</a>
- <a href="#">무료 나눔</a>
+<a href="#none" onclick="category(this)" val="">ALL</a>
+ <a href="#none" onclick="category(this)" val="남성의류">남성 의류</a>
+ <a href="#none" onclick="category(this)" val="여성의류">여성 의류</a>
+ <a href="#none" onclick="category(this)" val="패션잡화">패션 잡화</a>
+ <a href="#none" onclick="category(this)" val="뷰티미용">뷰티 미용</a>
+ <a href="#none" onclick="category(this)" val="무료나눔">무료 나눔</a>
  
  <c:if test="${userloginid ne null}">
  <a href="#none" id="usedwrite">판매 등록</a>
@@ -50,7 +50,20 @@
 <body>
 <script>
 
+function category(th){
+
+	var category = $(th).attr('val');
+	
+    var keyword = $("#_keyword").val();
+	var select = $("#s_select").val();
+	
+	location.href="usedlist?category="+category+"&keyword="+keyword+"&select="+select;
+	
+}
+
+
 $(document).ready(function() {
+	
 	
 	$("#usedwrite").click(function() {
 		var id ="${login.userid}";

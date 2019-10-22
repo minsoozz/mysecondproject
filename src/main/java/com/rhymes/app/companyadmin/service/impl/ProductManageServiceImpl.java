@@ -10,7 +10,6 @@ import com.rhymes.app.companyadmin.model.ProductManageDto;
 import com.rhymes.app.companyadmin.service.ProductManageService;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.model.ProductDto;
-import com.rhymes.app.store.model.ProductParam;
 import com.rhymes.app.store.model.StockDto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
@@ -72,6 +71,27 @@ public class ProductManageServiceImpl implements ProductManageService {
 	public List<StockDto> getStockList(StockDto stock) throws Exception {
 		return manage.getStockList(stock);
 	}
+
+	@Override
+	public boolean productBasicInfoUpdate(ProductDto product) throws Exception {
+		return manage.productBasicInfoUpdate(product);
+	}
+
+	@Override
+	public boolean productImgUpdate(ProductDto product) throws Exception {
+		return manage.productImgUpdate(product);
+	}
+
+	@Override
+	public boolean productSalePriceUpdate(ProductDto product) throws Exception {
+		return manage.productSalePriceUpdate(product);
+	}
+
+	@Override
+	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception {
+		return manage.productSalePriceUpdate(product);
+	}
+
 	
 	
 }

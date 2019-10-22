@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.frm-input-row{
+    margin-bottom: 5px;
+    width: 300px;
+    left: 20%;
+    border: none;
+}
+
+.frm-input-row span{
+    border: none;
+}
+.frm-input-row input{
+    background-color: #FEFEFE;
+    border: none;
+}
+.frm-input-row input:focus{
+    outline: none !important;
+}

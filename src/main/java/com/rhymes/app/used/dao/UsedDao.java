@@ -34,7 +34,7 @@ public interface UsedDao {
 
 	boolean deletelikes(Map<String, Object> map);
 
-	List<CommentsDto> getComments(int seq);
+	List<CommentsDto> getComments(CommentsDto cDto);
 
 	boolean addComments(Map<String, Object> map);
 
@@ -55,5 +55,7 @@ public interface UsedDao {
 	boolean deleteProduct(int seq);
 
 	boolean setblackList(Map<String, Object> map);
+
+	int getCommentCount(CommentsDto cDto);
 	
 }

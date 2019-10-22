@@ -20,6 +20,7 @@
 http-equiv="X-UA-Compatible" content="IE=edge">
 
 <link rel="stylesheet" href="/css/store/productList.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/store/productlist.js"></script>
 
 </head>
 <body>
@@ -48,33 +49,50 @@ pageNumber : ${pageNumber }<br>
 			${c2_name }&nbsp;>&nbsp;<span id="c3fontstyle">${c3_name }</span>
 			</c:if>
 		</div>
-		 		
 		<div class="sortingDiv">
 			<label onclick="sortingBy('NEW')" class="sortingBy" style="${sorting == 'NEW'? 'color:black;font-weight:bolder;':'' }">NEW</label>
 			<label class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
 			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
 			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
 		</div>
+
 		
 	</div>
 	</c:if>
 	<div class='subDiv'>
-			<c:set value="${plist[0].c1_name }" var="c1name"/>
+		<c:set value="${plist[0].c1_name }" var="c1name"/>
 			<input type="hidden" class="hdnC1name" value="${c1name }">
 		<c:forEach items="${plist }" var="pro" varStatus="vs">
 		<div class='eachDiv' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
 			<div style="margin-top: 18px; margin-bottom: 13px;"><img alt="사진없음" src="/upload/store/${pro.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"><br>
 			</div>
-			<font size="4px"><b>${pro.p_name }</b></font><br>
-			<font size="3px">${pro.c_name }</font><br>
-			<font size="3px">&#8361;${pro.p_price2 }</font><br>
-			<font size="2px">(${pro.p_color })</font>
+			<c:if test="${pro.sum > 0}">
+			<font size="3px"><b>${pro.p_name }</b></font><br>
+			</c:if>
+			<c:if test="${pro.sum eq 0}">
+			<font size="3px" style="text-decoration: line-through;"><b>${pro.p_name }</b></font><br>
+			</c:if>
+			
+			<font size="2px">${pro.c_name }</font><br>
+			<font size="2px">(${pro.p_color })</font><br>
+			<c:if test="${pro.sum > 0}">			
+				<font size="2px">
+				<c:if test="${pro.bfs_price ne 0 }">
+					&#8361;<font style="text-decoration: line-through;">${pro.bfs_price2 }</font>
+				</c:if>			
+				&#8361;${pro.p_price2 }</font>
+			</c:if>
+			<c:if test="${pro.sum eq 0}">
+				<font style="color:red; font-weight: bolder;">SOLD OUT</font>
+			</c:if>
+			
 		</div>	
 		</c:forEach>
 	</div>
 </div>
 
 <!-- paging zone -->
+<c:if test="${key ne 'newarrival' }">
 <div id="paging_wrap" style="border: 0px solid red; width:90%%; height:50px; text-align: center;">
 	<jsp:include page="/WEB-INF/views/store/productPaging.jsp" flush="false">
 		<jsp:param name="pageNumber" value="${pageNumber }"/>
@@ -83,6 +101,7 @@ pageNumber : ${pageNumber }<br>
 		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }"/>
 	</jsp:include>
 </div>
+</c:if>
                
 <form action="/store/productDetail" id="moveFrm" method="get">
 	<%-- <!-- ★ csrf 예방을 위한 코드추가 -->
@@ -115,44 +134,7 @@ pageNumber : ${pageNumber }<br>
 	<input type="hidden" name="keyword" class="_keyword" value="${keyword }">
 </form>
 
-<!------------------ SCRIPT ZONE ------------------>
-<script>
-<!-- 상품 정렬 -->
-function sortingBy(sort){
-	$("._sorting").val(sort);
-	$("#sortingFrm").submit();
-}
 
-<!-- 상품 상세정보 이동 -->
-
-var token = $("meta[name='_csrf']").attr("content");
-var header = $("meta[name='_csrf_header']").attr("content");
-$(document).ajaxSend(function(e, xhr, options) {
-    xhr.setRequestHeader(header, token);
-});
-
-//사이즈 재고 ajax
-$(document).ready(function () {
-	function sizeBring(){
-		alert("ㅎㅇ");
-	}
-});
-
-// 상품 디테일 이동
-function detail(seq, c1name){
-	$("#p_seq").val(seq); 
-	//var c1_name = $(".hdnC1name").val();
-	//$("#moveFrm").attr("action", "/store/productList").submit();
-	$("#moveFrm").submit();
-}
-
-// 페이징 이동
-function goPage( pageNumber) {
-	$("#_pageNumber").val(pageNumber);
-	$("#_frmFormSearch").submit();
-}
-
-</script> 
 
 
 </body>
