@@ -35,6 +35,7 @@ public class AdminPointsPagingDTO {
 	public AdminPointsPagingDTO() {	}
 		
 	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	   	this.startSeq = ( ( pageNum - 1 ) * this.getRecordCountPerPage() ) ;
 	   	this.endSeq = startSeq + this.getRecordCountPerPage() - 1;
 	   	this.setNav(this.totalSize);

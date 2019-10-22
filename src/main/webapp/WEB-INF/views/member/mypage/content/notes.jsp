@@ -109,7 +109,8 @@
 		<tr>
 			<td align="center"><a href="#none" seq="${notes.seq }" onclick="notesdetail(this)">${notes.send_id }</a></td>
 			<td><div id="_content"><a href="#none"  seq="${notes.seq }" onclick="notesdetail(this)">${notes.content }</a></div></td>
-			<td>${notes.data_send }</td><td><button type="button" id="rbtn" value="${notes.seq }" send_id="${notes.send_id }">삭제</button></td>	
+			<td>${notes.data_send }</td>
+			<td><button type="button" id="rbtn" value="${notes.seq }" send_id="${notes.send_id }">삭제</button></td>	
 		</tr>	
 			</c:if>
 		</c:forEach>
@@ -162,7 +163,7 @@
 		<br>		
 				
 		<table border="1" id="_ntable">
-		<col width="150"><col width="400"><col width="150"><col width="50">
+		<col width="150"><col width="400"><col width="150"><col width="40">
 		<tr>
 			<th>받는사람</th><th>내용</th><th>날짜</th><th>삭제</th>					
 		</tr>
@@ -171,7 +172,8 @@
 		<tr>
 			<td align="center"><a href="#none" seq="${notes.seq }" onclick="notesdetail(this)">${notes.recv_id }</a></td>
 			<td><div id="_content"><a href="#none"  seq="${notes.seq }" onclick="notesdetail(this)">${notes.content }</a></div></td>
-			<td>${notes.data_send }</td><td><button type="button" id="sbtn" value="${notes.seq }" recv_id="${notes.recv_id }">삭제</button></td>	
+			<td>${notes.data_send }</td>
+			<td><button type="button" id="sbtn" value="${notes.seq }" recv_id="${notes.recv_id }">삭제</button></td>	
 		</tr>	
 			</c:if>
 		</c:forEach>
@@ -203,38 +205,6 @@
 
 <script type="text/javascript">
 
-function rgoPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
-	$("#_rpageNumber").val(pageNumber);
-	
-	$("#_rform").attr("action","/mypage/notes").submit();
-}
-
-$("#_rformbtn").click(function() {
-	
-	var tapcount = 0;
-    var keyword = $("#r_keyword").val();
-	var select = $("#r_select").val();
-
-	location.href="/mypage/notes?r_keyword="+keyword+"&r_select="+select+"&tapcount="+tapcount; 
-	
-});
-
-function sgoPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
-	$("#_spageNumber").val(pageNumber);
-	
-	$("#_sform").attr("action","notes").submit();
-}
-
-$("#_sformbtn").click(function() {
-	
-	var tapcount = 1;
-    var keyword = $("#s_keyword").val();
-	var select = $("#s_select").val();
-	
-	location.href="/mypage/notes?s_keyword="+keyword+"&s_select="+select+"&tapcount="+tapcount; 
-	
-});
-
 function subscribe_func(){
 	
 	var subscribe = "${dto.subscribe}";
@@ -261,8 +231,5 @@ function subscribe_func(){
 }
 
 </script>
-
-
 </body>
-
 </html>

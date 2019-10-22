@@ -12,7 +12,6 @@
 <script type="text/javascript" src="<%=ctx %>/js/used/notesdetail.js"></script>
 </head>
 <body>
-	
 	<c:if test="${userloginid eq dto.send_id }">	<!-- 보낸 쪽지 디테일 -->
 	<div>
 	<table>
@@ -44,8 +43,6 @@
 	</table>
 	</div>
 	</c:if>
-
-
 	<c:if test="${userloginid ne dto.send_id }">	<!--받은 쪽지 디테일  -->
 	<div>
 	<table>

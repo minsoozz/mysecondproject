@@ -1,6 +1,10 @@
 package com.rhymes.app.admin.events.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.admin.events.model.AdminPointsPagingDTO;
 import com.rhymes.app.admin.events.model.PointsDTO;
 import com.rhymes.app.admin.events.service.AdminPointsService;
-import com.rhymes.app.member.model.mypage.MemberCouponDTO;
-import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
+import com.rhymes.app.member.service.MypagePointsService;
+import com.rhymes.app.used.Service.MyUsedService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +36,12 @@ public class AdminPointsController {
 	@Autowired
 	private AdminPointsService adminPointsService;
 	
+	@Autowired
+	private MyUsedService myUsedService;
+	
+	@Autowired
+	private MypagePointsService mypagePointsService;
+	
 	/**관리자-이벤트-적립금관리 뷰
 	 * 페이징, 검색
 	 * @return
@@ -39,19 +49,15 @@ public class AdminPointsController {
 	@RequestMapping(value = "/points", method = {RequestMethod.POST, RequestMethod.GET})
 	public String showMypageAdminPoints(Model model, AdminPointsPagingDTO pDto) {
 		log.info("showMypageAdminPoints()");
-		//log.info("오자마자pDto : " + pDto);
 		//테이블 컬럼 문자열
 		String[] cols = {"No", "ID", "내용", "적립액", "사용금액", "사용가능금액", "만료일", "쿠폰번호"};
 		
 		pDto.setTotalSize(adminPointsService.getTotalCountOfPoints(pDto));
-		
-		
-		//log.info("pDto : " + pDto);
-		
+				
 		model.addAttribute("cols", cols);
 		model.addAttribute("pDto", pDto);
 		model.addAttribute("pointsList", adminPointsService.getPointsLogByConditions(pDto));
-		
+				
 		return "admin/member/mypage/points";
 	}
 	
@@ -65,17 +71,11 @@ public class AdminPointsController {
 	@RequestMapping(value = "/points/updatedetail", method = RequestMethod.POST)
 	public String updatePointDetail(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
 		log.info("updatePointDetail()");
-		log.info( jsMap.get("seq") + "" );
-		log.info( jsMap.get("comment") + "" );
-		log.info( jsMap.get("amount") + "" );
-		log.info( jsMap.get("used_amount") + "" );
 		/* 선언부 */
 		PointsDTO pDto = PointsDTO.builder().seq( Integer.parseInt(jsMap.get("seq") + "") )
 											.comment( jsMap.get("comment") + "" )
 											.amount( Integer.parseInt(jsMap.get("amount") + "" ) )
 											.used_amount( Integer.parseInt(jsMap.get("used_amount") + "") ).build();
-		log.info(pDto.toString());
-		
 		
 		/* 수행부 */
 		//업데이트 완료되면 1리턴, 오류발생하면 0리턴
@@ -91,5 +91,65 @@ public class AdminPointsController {
 		}catch (Exception e) {
 			return "0";
 		}		
+	}
+	
+	/**Ajax 통신을 통해 아이디 리턴(autocomplete)
+	 * @param model
+	 * @param value
+	 * @param pcp
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/points/getmembers", method = {RequestMethod.POST, RequestMethod.GET} )
+	public List<String> getMembers(Model model, String value, Principal prc) throws Exception{
+		log.info("getMembers()" + value);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("value", value);
+		map.put("id", prc.getName());
+		
+		return myUsedService.getMemberid(map);			
+	}
+	
+	/**Ajax 통신을 통해 권한 리턴(autocomplete)
+	 * @param model
+	 * @param value
+	 * @param pcp
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/points/getmemberauth", method = {RequestMethod.POST, RequestMethod.GET})
+	public List<String> getMemberAuth(@RequestBody String value) throws Exception{
+		String userid = value.replaceAll("=", "");
+		log.info("getMemberAuth() " + userid);
+		
+		String auth = adminPointsService.getAuthoritiesById(userid).replace("ROLE_", "");
+		
+		List<String> authorities = new ArrayList();
+		authorities.add(auth);
+		
+		return authorities;
+	}
+	
+	/**Ajax 통신을 통해 적립금 입력내용을 저장
+	 * @param model
+	 * @param value
+	 * @param pcp
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/points/insertnew", method = RequestMethod.POST)
+	public String insertPointsData(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
+		log.info("insertPointsData() size:" + jsMap.size());
+		int result = 0;
+
+		Iterator it = jsMap.keySet().iterator();
+		while( it.hasNext() ) {
+			String[] pointsDetail = (jsMap.get(it.next()) + "").split("___");
+			MemberPointDTO mPDto = new MemberPointDTO(pointsDetail[0], pointsDetail[1], Integer.parseInt( pointsDetail[2] ));
+			result = mypagePointsService.addNewPoint(mPDto);
+		}		
+		
+		return result + "";
 	}
 }
