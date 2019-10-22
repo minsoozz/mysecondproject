@@ -38,9 +38,9 @@
 									<option selected="selected" value="SEQ"
 										<c:out value="${param.sorting == 'SEQ'? 'selected':'' }"/>>상품번호순</option>
 									<option value="PRICEUP"
-										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격↑</option>
+										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격 ↑</option>
 									<option value="PRICEDOWN"
-										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
+										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격 ↓</option>
 								</select>
 								<button type="button" onclick="location.href='/admin/company/productoperlist'"
 								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; color:white; background-color: #5587ED;">
@@ -51,7 +51,6 @@
 								<button type="button" onclick="location.href='/admin/company/productoperlist?criterion=c1_search&c1_name=WOMEN'"
 								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
 								WOMEN</button>
-								
 						</div>
 					</div>
 					<!-- 검색 -->
@@ -388,12 +387,10 @@ function applysalepercent(percent){
 			(".appliedPrice").html("");
 			
 		}else{
-			$(".appliedPrice").html(numberWithCommas(appliedPrice));
-			$("#applied_hdn_price").val(appliedPrice);
+			$(".appliedPrice").html(numberWithCommas(Math.round(appliedPrice)));
+			$("#applied_hdn_price").val(Math.round(appliedPrice));
 		}	
 	}
-	
-	
 	
 	
 }
