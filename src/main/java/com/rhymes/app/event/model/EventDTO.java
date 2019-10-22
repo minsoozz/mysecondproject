@@ -18,15 +18,17 @@ import lombok.ToString;
 public class EventDTO implements Serializable {
 	
 	private int seq;
-	private String title;			// 제목
-	private String type;			// 종류
-	private String photo_banner;	// 배너 이미지
-	private String photo_banner_sys;
-	private String photo_file; 		// 파일
-	private String photo_file_sys; 		
-	private Date rdate;				// 작성일
-	private String sdate;			// 시작일
-	private String edate;			// 종료일
+	private String title;				// 제목
+	private String type;				// 종류
+	private String photo_banner;		// 배너 이미지
+	private String photo_content1;		// 파일
+	private String photo_content2; 		
+	private String photo_content3;
+	private String photo_content4;
+	private String photo_content5;
+	private Date rdate;					// 작성일
+	private String sdate;				// 시작일
+	private String edate;				// 종료일
 	private int visible;
 	
 	// 시작일

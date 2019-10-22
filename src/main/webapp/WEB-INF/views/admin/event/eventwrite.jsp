@@ -39,13 +39,13 @@
 			<table border="1">
 				<tr>
 					<th>제목</th>
-					<td>
+					<td colspan="5">
 						<input type="text" name="title" required class="inputtext">
 					</td>
 				</tr>
 				<tr>
 					<th>종류</th>
-					<td>
+					<td colspan="5">
 						<select name="type" class="inputtext">
 							<option value="">선택</option>
 							<option value="할인이벤트">할인이벤트</option>
@@ -55,13 +55,14 @@
 				</tr>
 				<tr>
 					<th>쿠폰</th>
-					<td>
+					<td colspan="5">
+						<span id="input_coupon"></span>
 						<button type="button" id="_coupon" class="eventBtn">쿠폰추가</button>
 					</td>
 				</tr>
 				<tr>
 					<th>시작일</th>
-					<td>
+					<td colspan="5">
 					<select name="syear" class="inputselect">
 						<c:forEach begin="${tyear }" end="${tyear+6 }" var="yyyy">
 							<option <c:out value="${tyear == yyyy? 'selected=selected':'' }"/> value="${yyyy }">${yyyy }</option>
@@ -94,7 +95,7 @@
 					</tr>
 					<tr>
 					<th>종료일</th>
-					<td>	
+					<td colspan="5">	
 					<select name="eyear" class="inputselect">
 						<c:forEach begin="${tyear }" end="${tyear+6 }" var="yyyy">
 							<option <c:out value="${tyear == yyyy? 'selected=selected':'' }"/> value="${yyyy }">${yyyy }</option>
@@ -124,50 +125,99 @@
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<th>배너파일</th>
-					<td colspan="2">
-						<input multiple="multiple" type="file" name="banner_file" id="fileUpload1">
-					</td>
-				</tr>
-				<tr>
-					<th>내용파일</th>	
-					<td>
-						<input type="file" name="content_file" id="_image2" class="image">
-						<button type="button" id="_add2" class="add">사진 추가</button>
-						<div id="_imglist2"></div>
-					</td>
-				</tr>
 				
 				<tr>
 					<th>
 						내용
 					</th>
-					<td>
+					<td colspan="5">
 						<textarea rows="10" cols="40" required></textarea>
 					</td>
 				</tr>
-				<tr>
-				<td colspan="2">
-					<input type="submit" value="올리기" class="eventBtn">
-					<input type="button" value="취소" class="eventBtn">
-				</td>
-				</tr>
+				
 				<tr height="100px" style="width:100%;">
-			      <td style="border: 1px solid #DADCE0;" id="pZone1" colspan="2">
-			      	<font size='2px'>이미지를 등록해주세요.</font>
-			      </td>
+					<th>배너이미지</th>					
+					<td colspan="5">
+						<div id="pZone1">
+							<font size='2px'>이미지를 등록해주세요.</font><br>
+							<input type="file" name="banner_file" id="fileUpload1">
+						</div>
+					</td>
 			   </tr>
+			   
+			   <tr height="200px" style="width:100%;">
+					<th>상세이미지</th>					
+					<td>
+						<div id="cZone1">
+							<font size='2px'>이미지를 등록해주세요.</font><br>
+							<input type="file" name="content_file" id="fileUpload2">
+						</div>
+					</td>
+					<td>
+						<div id="cZone2">
+							<font size='2px'>이미지를 등록해주세요.</font><br>
+							<input type="file" name="content_file" id="fileUpload3">						
+						</div>
+					</td>
+					<td>
+						<div id="cZone3">
+							<font size='2px'>이미지를 등록해주세요.</font><br>
+							<input type="file" name="content_file" id="fileUpload4">
+						</div>
+					</td>
+					<td>
+						<div id="cZone4">
+							<font size='2px'>이미지를 등록해주세요.</font><br>
+							<input type="file" name="content_file" id="fileUpload5">
+						</div>
+					</td>
+					<td>
+						<div id="cZone5">
+							<font size='2px' id="cZone5_font">이미지를 등록해주세요.</font><br>
+							<input type="file" name="content_file" id="fileUpload6">
+						</div>
+					</td>
+			   </tr>
+			   
 			</tbody>
 			</table>
 			
-			<table class="contenttable">
-			<tbody id="mybody2" style="border: 1px solid #DADCE0;">	<!-- 내용 -->
-			</table>
+			<br><br>
+			<input type="submit" value="올리기" class="eventBtn">
+			<input type="button" value="취소" class="eventBtn">
+		
 	
 			</form>
 			</div>
 			
+			<!-- 쿠폰정보 모달 영역-->
+			<div class="restockModal">
+				<div class="restockModal-content">
+					<table>
+					<c:if test="${empty couponlist }">
+						<tr>
+							<td align="center" colspan="3">쿠폰리스트가 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:forEach var="cou" items="${couponlist }" varStatus="vs">
+						<tr>
+						<th>${cou.title }</th>
+						<td>${cou.sub_title }</td>
+						<td>${cou.func_time_limit }</td>
+						<td>
+							<button type="button" value="${cou.title }" class="eventBtn couBtn">선택</button>
+							<input type="hidden" value="${cou.seq }" name="seq">
+						</td>
+						</tr>
+					</c:forEach>
+					
+					</table>
+					
+					<input type="button" class="closeBtn" value="닫기">
+					
+				</div>
+			</div>
+			<!-- /수정페이지 모달 영역-->
 
 		</div>
 	</div>
@@ -179,6 +229,36 @@
 
 
 <!-- End of Main Content -->
+
+<!-- 쿠폰정보 modal -->
+<script type="text/javascript">
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(document).ajaxSend(function(e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+});
+
+
+$(document).ready(function(){
+	$(".restockModal").hide();	// 모달 숨기기
+	$("#input_coupon").hide();	// 쿠폰<span>숨기기
+});
+
+// 모달 닫기
+$(".closeBtn").click(function(){
+	$(".restockModal").fadeOut();
+});
+$(document).on('click', '#_coupon', function(){
+	$(".restockModal").fadeIn();
+});
+
+$(document).on('click', ".couBtn", function(){
+	var coupon_title = $(this).val();
+	$("#input_coupon").text(coupon_title);
+	$(".restockModal").fadeOut();
+	$("#input_coupon").show();
+});
+</script>
 
 
 <script type="text/javascript">
@@ -289,92 +369,11 @@ $(document).ajaxSend(function(e, xhr, options) {
 </script>
 
 
-
-
-
-<!-- 내용 file -->
-<script type="text/javascript">
-var sel_files = [];
-
-var count = 0;
-
-$(document).ready(function() {
-
-   $(document).on("change", ".image", handleImgsFilesSelect);
-   
-   $("#_add2").click(function() {
-	   
-	   
-	   if(count >= 4){
-		   alert("사진은 최대 5장까지 추가 할 수 있습니다");
-		   return;
-	   } 
-	   else {
-		   var table = document.getElementById("tb");
-		   $('#mybody2').append("<tr><th>내용파일</th><td><input type='file' name='photo_file' id='_image2' class='image'><button type='button' id='_del2' class='del'>삭제</button></td></tr>");	  
-		   count++;
-	   }
-	   
-   });
-
-
-});
-
-$(document).on("mouseover",".img", function(e) {
-	$("#_img2").append("<span id='preview2'><img id='_preview2' src='"+ $(this).attr("src") +"'/></span>");
-});
-
-$(document).on("mouseout",".img", function(e) {
-	$("#preview2").remove();
-});
-
-function handleImgsFilesSelect(e) {
-   var files = e.target.files;
-   var filesArr = Array.prototype.slice.call(files);
-
-   var maxSize = 10485760;
-   
-   var fileSize = 0;
-   
-   
-   filesArr.forEach(function(f) {
-      if (!f.type.match("image.*")) {
-         alert("확장자는 이미지 확장자만 가능합니다.");
-         $("#_image2").val("");
-
-         return;
-
-      }
-             
-      sel_files.push(f);
-      
-      var reader = new FileReader();
-      reader.onload = function(e) {
-
-         var img_html = "<img class='img2' src=\"" + e.target.result + "\" />";
-         $("#_imglist2").append(img_html);
-      }
-      reader.readAsDataURL(f);
-   });
-}
-
-function maxLengthCheck(object){
-    if (object.value.length > object.maxLength){
-      object.value = object.value.slice(0, object.maxLength);
-    }    
-  }
-
-$(document).on("click",".del", function() {
-	$(this).parent().remove();
-	count--;
-})
-
-$("#_del2").click(function() {
-	if(count == 0) {
-		alert("사진은 최소 1장 입니다");
-	}
-})
-
+														<!-- file --> 
+ <!-- 이미지 미리보기/ 삭제 -->
+ <script type="text/javascript">
+var sel_file;
+ 
 <!-- 배너  이미지 미리보기 -->
 $(document).ready(function() {
 	$("#fileUpload1").on("change", handleImgsFilesSelect1);
@@ -393,13 +392,157 @@ function handleImgsFilesSelect1(e) {
 		sel_file = f;
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:300px;height:300px;'>";
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:600px;height:100px;'>";
 			$("#pZone1").html("");
 			$("#pZone1").append(img_html);
+			$("#pZone1").after("<button type='button' class='del'>삭제</button>");
 		}
 		reader.readAsDataURL(f);
 	});
 }
+
+<!-- 상세1 이미지 미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload2").on("change", handleImgsFilesSelect2);
+});
+
+function handleImgsFilesSelect2(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;'>";
+			$("#cZone1").html("");
+			$("#cZone1").append(img_html);
+			$("#cZone1").after("<button type='button' class='del'>삭제</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+<!-- 상세2 이미지 미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload3").on("change", handleImgsFilesSelect3);
+});
+
+function handleImgsFilesSelect3(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;'>";
+			$("#cZone2").html("");
+			$("#cZone2").append(img_html);
+			$("#cZone2").after("<button type='button' class='del'>삭제</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+<!-- 상세3 이미지 미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload4").on("change", handleImgsFilesSelect4);
+});
+
+function handleImgsFilesSelect4(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;'>";
+			$("#cZone3").html("");
+			$("#cZone3").append(img_html);
+			$("#cZone3").after("<button type='button' class='del'>삭제</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+<!-- 상세4 이미지 미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload5").on("change", handleImgsFilesSelect5);
+});
+
+function handleImgsFilesSelect5(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;'>";
+			$("#cZone4").html("");
+			$("#cZone4").append(img_html);
+			$("#cZone4").after("<button type='button' class='del'>삭제</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+<!-- 상세5 이미지 미리보기 -->
+$(document).ready(function() {
+	$("#fileUpload6").on("change", handleImgsFilesSelect6);
+});
+
+function handleImgsFilesSelect6(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			$("input_imgs").val("");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;' id='img5'>";
+			$("#cZone5").html("");
+			$("#cZone5").append(img_html);
+			$("#cZone5").after("<button type='button' id='cZone5_del'>삭제</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+// 이미지 삭제
+$(document).on("click","#cZone5_del", function() {
+	$("#img5").remove();
+	$("#cZone5_del").remove();
+	$("#cZone5").after("<input type='file' name='content_file' id='fileUpload6'>");
+	$("#cZone5_font").text("이미지를 등록해주세요.");
+});
+
 
 </script>
 </html>
