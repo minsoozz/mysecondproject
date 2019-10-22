@@ -23,7 +23,7 @@
 <!-- 권한검사 -->
 <c:set var="isSeller" value="false"/>
 <c:forEach items="${prc.authorities  }" var="auth">
-	<c:if test="${auth == 'ROLE_SELLER' }"><c:set var="isSeller" value="true"/></c:if>
+	<c:if test="${auth == 'ROLE_USEDSELLER' }"><c:set var="isSeller" value="true"/></c:if>
 </c:forEach>
 
 
