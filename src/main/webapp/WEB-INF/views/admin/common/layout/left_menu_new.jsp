@@ -14,119 +14,6 @@
 
 <!-- Sidebar -->
 
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-  <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/main">
-    <div class="sidebar-brand-icon rotate-n-15">
-      <i class="fas fa-laugh-wink"></i>
-    </div>
-    <div class="sidebar-brand-text mx-3">RHYME<sup>b</sup></div>
-  </a>
-
-  <!-- Divider -->
-  <hr class="sidebar-divider my-0">
-
-  <!-- Nav Item - Dashboard -->
-  <li class="nav-item active">
-    <a class="nav-link" href="/admin/main">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span></a>
-  </li>
-
-  <!-- Divider -->
-  <hr class="sidebar-divider">
-
-  <!-- Heading -->
-  <div class="sidebar-heading">
-    Interface
-  </div>
-
-  <c:if test="${prc ne 'anonymousUser' }">
-	<c:forEach items="${prc.authorities  }" var="auth">
-		<c:if test="${auth eq 'ROLE_ADMIN' }">
-		
-		<hr class="sidebar-divider">
-		  <!-- Heading -->
-		  <div class="sidebar-heading">
-		    MANAGEMENT
-		  </div>
-		  
-  		<!-- Nav Item - Pages Collapse Menu -->
-		  <li class="nav-item">
-		    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-		      <i class="fas fa-fw fa-folder"></i>
-		      <span>회원관리</span>
-		    </a>
-		    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-		      <div class="bg-white py-2 collapse-inner rounded">
-		        <h6 class="collapse-header">member management</h6>
-		        <a class="collapse-item" href="/admin/memlist">회원 리스트</a>
-		        <a class="collapse-item" href="/admin/mem_c_list">업체 리스트</a>
-		        
-		      </div>
-		    </div>
-		  </li>
-		  
-		  <li class="nav-item">
-			    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-			      <i class="fas fa-fw fa-chart-area"></i>
-			      <span>통계</span>
-			    </a>
-			    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			      <div class="bg-white py-2 collapse-inner rounded">
-			        <h6 class="collapse-header">CHART</h6>
-			        <a class="collapse-item" href="/admin/chart/sales">매출 통계</a>
-			        <a class="collapse-item" href="/admin/chart/member">회원 통계</a>
-			        <a class="collapse-item" href="/admin/chart/product">상품 통계</a>
-			      </div>
-			    </div>
-			  </li>
-			 <!-- 고객센터 --> 
-		<li class="nav-item">
-		    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer" aria-expanded="true" aria-controls="collapseTwo">
-		      <i class="fas fa-fw fa-folder"></i>
-		      <span>고객센터</span>
-		    </a>
-		    <div id="collapseCustomer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-		      <div class="bg-white py-2 collapse-inner rounded">
-		        <h6 class="collapse-header">Customer Center</h6>
-		        <a class="collapse-item" href="/admin/customercenter/noticelist">공지사항</a>
-		        <a class="collapse-item" href="/admin/customercenter/faqlist">자주하는질문</a>
-		        <a class="collapse-item" href="/admin/customercenter/qnalist">1:1질문</a>
-		      </div>
-		    </div>
-		  </li>
-			
-			  <!-- Divider -->
-			  <hr class="sidebar-divider"/>
-			
-			  <!-- Heading -->
-			  <div class="sidebar-heading">
-			    	${c_name }
-			  </div>
-
-			<!-- Nav Item - Pages Collapse Menu -->
-		  <li class="nav-item">
-		    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEvent" aria-expanded="true" aria-controls="collapseTwo">
-		      <i class="fas fa-fw fa-folder"></i>
-		      <span>이벤트관리</span>
-		    </a>
-		    <div id="collapseEvent" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-		      <div class="bg-white py-2 collapse-inner rounded">
-		        <h6 class="collapse-header">Events</h6>
-		        <a class="collapse-item" href="/admin/mypage/coupon">쿠폰 관리</a>
-		        <a class="collapse-item" href="/admin/mypage/points">적립금</a>
-		        <a class="collapse-item" href="/admin/events">이벤트</a>
-		      </div>
-		    </div>
-		  </li>
-
-		</c:if>
-  	</c:forEach>
-  </c:if> 
-
-
 <ul
 	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 	id="accordionSidebar">
@@ -241,7 +128,7 @@
 							<h6 class="collapse-header">Events</h6>
 							<a class="collapse-item" href="/admin/mypage/coupon">쿠폰 관리</a>
 							<a class="collapse-item" href="/admin/mypage/points">적립금</a>
-							<a class="collapse-item" href="/admin/events">이벤트</a>
+							<a class="collapse-item" href="/admin/event/eventlist">이벤트</a>
 						</div>
 					</div>
 				</li>
