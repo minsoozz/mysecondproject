@@ -1,16 +1,10 @@
 package com.rhymes.app.used.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.used.Service.MyUsedService;
 import com.rhymes.app.used.Service.UsedService;
+import com.rhymes.app.used.model.MyUsedParam;
 import com.rhymes.app.used.model.NotesDto;
 import com.rhymes.app.used.model.NotesRecvParam;
 import com.rhymes.app.used.model.NotesSendParam;
+import com.rhymes.app.used.model.ProductsDto;
 
 @RequestMapping(value = "mypage/*")
 @Controller
@@ -47,7 +43,6 @@ public class myUsedController {
 		int rtotalRecordCount = MyusedService.getRecvNotesCount(rparam);	// 받은쪽지함 페이징을 위한 갯수
 		int stotalRecordCount = MyusedService.getSendNotesCount(sparam);	// 보낸쪽지함 페이징을 위한 갯수
 		
-		System.out.println(stotalRecordCount);
 		
 		
 		int r_sn = rparam.getR_pageNumber(); // 0 , 1, 2
@@ -65,8 +60,6 @@ public class myUsedController {
 		sparam.setS_end(s_end);
 		
 		model.addAttribute("dto", dto);
-		System.out.println(rparam);
-		System.out.println(sparam);
 		
 		// 받은거..
 		List<NotesDto> rlist = MyusedService.getrecvnotes(rparam);	// 회원 정보로 쪽지목록을 얻는다
@@ -95,7 +88,7 @@ public class myUsedController {
 		model.addAttribute("s_recordCountPerPage",sparam.getS_recordCountPerPage());
 		model.addAttribute("s_totalRecordCount", stotalRecordCount);
 		
-		return "notes.tiles";
+		return "member/mypage/notes";
 		
 	}
 	
@@ -232,8 +225,39 @@ public class myUsedController {
 	}
 	
 	@GetMapping(value="/myused")
-	public String myused(Model model) {
+	public String myused(Model model,Principal prc,MyUsedParam mparam) {
+		String id = prc.getName();
+		mparam.setId(id);
 		
-		return "myused.tiles";
+		int totalRecordCount = MyusedService.MyusedCount(mparam);
+		// pageNumber 취득
+		int sn = mparam.getPageNumber(); // 0 , 1, 2
+		int start = sn * mparam.getRecordCountPerPage() + 1; // 0 -> 1 , 1 - > 11		1   11
+		int end = (sn + 1) * mparam.getRecordCountPerPage(); // 0 - > 10, 1 - > 20		10  20
+		
+		mparam.setStart(start);
+		mparam.setEnd(end);
+		
+		
+		List<ProductsDto> plist = MyusedService.getMyUsedList(mparam);
+		model.addAttribute("plist", plist);
+		model.addAttribute("select",mparam.getSelect());
+		
+		model.addAttribute("keyword",mparam.getKeyword());
+		
+		model.addAttribute("pageNumber",sn); // 현재 페이지 넘버
+		model.addAttribute("pageCountPerScreen",10);
+		model.addAttribute("recordCountPerPage",mparam.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+	
+		return "member/mypage/myused";
+	}
+	
+	@GetMapping(value="/updatedivision")
+	public String updatedivision(Model model,ProductsDto pDto) {
+		
+		boolean b = MyusedService.updatedivision(pDto);
+		
+		return "redirect:/mypage/myused";
 	}
 }

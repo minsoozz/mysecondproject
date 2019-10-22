@@ -872,17 +872,6 @@ $(document).on('click', '._bDeleteBtn', function(){
 /* 구매버튼 클릭 */
 function buying(){
    
-   if(id==""){
-      $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
-      $(".wModal").fadeIn();
-      setTimeout(function() {
-         $(".wModal").fadeOut();
-      },1500);
-      
-      location.href="/member/login";
-      
-   }else{
-   
    	  var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
    	  //alert(stock_seq);
    
@@ -921,11 +910,9 @@ function buying(){
              }
      		
      	}); 
-         
          //alert(typeof $("#p_quantity").val());
          //alert(typeof $("#stock_seq").val());
       }
-   }
    
 }
 

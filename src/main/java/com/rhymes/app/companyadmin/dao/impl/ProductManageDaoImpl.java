@@ -53,7 +53,6 @@ public class ProductManageDaoImpl implements ProductManageDao{
 
 	@Override
 	public String getSizeunit(int c2_seq) throws Exception {
-		System.out.println("c2_seq : " + c2_seq);
 		return sqlSession.selectOne(ns + "getSizeunit", c2_seq);
 	}
 
@@ -95,6 +94,12 @@ public class ProductManageDaoImpl implements ProductManageDao{
 	public boolean productSalePriceUpdate(ProductDto product) throws Exception {
 		int n = sqlSession.update(ns + "cAdminProductSalePriceUpdate", product);
 		return n>0?true:false;
+	}
+
+	@Override
+	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception {
+		int n = sqlSession.update(ns + "cAdminProductSalePriceUpdateCancel", product);
+		return false;
 	}
 
 	

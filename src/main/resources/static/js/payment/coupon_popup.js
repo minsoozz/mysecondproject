@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	alert("쿠폰 팝업창");
+	//alert("쿠폰 팝업창");
 	
 
 	$("#coupon_popup_btn").click(function() {

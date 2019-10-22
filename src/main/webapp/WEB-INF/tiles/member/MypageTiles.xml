@@ -37,6 +37,6 @@
    	<!-- patial pages(frm_personalform...) -->
    	<definition name="member/mypagepartial/personalform" template="/WEB-INF/views/member/mypage/content/personalform.jsp">
 	</definition>
-
+	
 </tiles-definitions>
 

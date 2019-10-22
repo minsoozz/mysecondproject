@@ -33,19 +33,24 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-6">
 						<div class="dataTables_length" id="dataTable_length">
-								<button type="button" onclick="location.href='/admin/company/productlist'"
-								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
-								전체 조회</button>
 								<select id="sorting" class="custome-select border-0 pr-3 searchSelect" onchange="sorting(this.value)" 
 									style="width:auto; border-color: black; cursor:pointer; text-align: center;" >
 									<option selected="selected" value="SEQ"
 										<c:out value="${param.sorting == 'SEQ'? 'selected':'' }"/>>상품번호순</option>
 									<option value="PRICEUP"
-										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격↑</option>
+										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격 ↑</option>
 									<option value="PRICEDOWN"
-										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
+										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격 ↓</option>
 								</select>
-								
+								<button type="button" onclick="location.href='/admin/company/productoperlist'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; color:white; background-color: #5587ED;">
+								전체 조회</button>&nbsp;
+								<button type="button" onclick="location.href='/admin/company/productoperlist?criterion=c1_search&c1_name=MEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								MEN</button>
+								<button type="button" onclick="location.href='/admin/company/productoperlist?criterion=c1_search&c1_name=WOMEN'"
+								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
+								WOMEN</button>
 						</div>
 					</div>
 					<!-- 검색 -->
@@ -147,9 +152,9 @@
 									<td class="list_rdate"><font style="color:green">판매중</font></td>
 								</c:if>
 								<c:if test="${pro.sum eq 0}">
-									<td class="list_rdate"><font style="color:red"><b>픔절</b></font></td>
+									<td class="list_rdate"><font style="color:red">픔절</font></td>
 								</c:if>
-								<td>
+								<td id="saleRegi-td${pro.p_seq }">
 									<c:if test="${pro.bfs_price eq 0 }">
 									<button type="button" class="sale_register-btn" value="${pro.p_seq }"
 									style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white; font-size: 12px;">
@@ -201,7 +206,7 @@
 
 </div>
 <!-- 상품리스트 검색/정렬/페이징 -->
-<form action="/admin/company/productlist" method="get" id="plistFrm">
+<form action="/admin/company/productoperlist" method="get" id="plistFrm">
 	<input type="hidden" name="pageNumber" id="_pageNumber" value="${pageNumber }">
 	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 	<input type="hidden" name="criterion" id="frm_criterion" value="${param.criterion }">
@@ -258,6 +263,7 @@
       <span id="msg"></span>
    </div>
 </div>
+
 </div>	
 <!-- End of Main Content -->
 
@@ -284,12 +290,15 @@ $('#saleregister-finishBtn').click(function(){
         	
         	//sale_price
         	$("#plist_pprice" + p_seq).html(numberWithCommas(Number(sale_price)));
+        	//<td id="saleRegi-td${pro.p_seq }">
+        	$("#saleRegi-td" + p_seq).html("<font style='color:red'>SALE</font>");
         	
         	//메시지 모달
 		     $("#msg").html("<strong>상품가격이 수정되었습니다.</strong>");
 	      	 $(".msgModal").fadeIn();
 	     	 setTimeout(function() {
 	     		$(".productsale_modal").fadeOut();
+	     		$(".msgModal").fadeOut();
 	         },800);			
         },
         error:function(){
@@ -378,12 +387,10 @@ function applysalepercent(percent){
 			(".appliedPrice").html("");
 			
 		}else{
-			$(".appliedPrice").html(numberWithCommas(appliedPrice));
-			$("#applied_hdn_price").val(appliedPrice);
+			$(".appliedPrice").html(numberWithCommas(Math.round(appliedPrice)));
+			$("#applied_hdn_price").val(Math.round(appliedPrice));
 		}	
 	}
-	
-	
 	
 	
 }

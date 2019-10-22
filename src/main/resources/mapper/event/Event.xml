@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="event">
+	
+<select id="geteventlist" resultType="com.rhymes.app.event.model.EventDTO">
+	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, PHOTO_FILE, RDATE, SDATE, EDATE
+	FROM RHY_EVENT_LIST
+</select>
+
+
+
+
+
+
+
+</mapper>
