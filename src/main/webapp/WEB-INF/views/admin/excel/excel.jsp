@@ -11,8 +11,8 @@
 </head>
 <body>
 
-<input type="button" value="다운로드" id="excelDownLoad"/>
-<input type="button" value="전체 다운로드 " id="allDownLoad"/>
+<input type="button" value="회원 정보 다운로드 " id="member_down">
+<input type="button" value="결제 내역 다운로드 " id="payment_down">
 
 </body>
 </html>

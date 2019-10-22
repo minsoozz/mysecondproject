@@ -17,10 +17,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
-import com.rhymes.app.admin.excel.model.DtestDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
-public class listExcelDownload extends AbstractXlsxView {
+public class listPaymentExcelDownload extends AbstractXlsxView {
 
 	@Override
 	protected void buildExcelDocument(Map<String, Object> modelMap, Workbook workbook, HttpServletRequest request,
@@ -121,26 +120,26 @@ public class listExcelDownload extends AbstractXlsxView {
         // 각 해당하는 셀에 값과 스타일을 넣음
         for(PaymentDTO excel : listExcel) {
             row = worksheet.createRow(rowIndex);
-            row.createCell(i++).setCellValue(excel.getSeq());
-            row.createCell(i++).setCellValue(excel.getPayment_code());
-            row.createCell(i++).setCellValue(excel.getUserid());
-            row.createCell(i++).setCellValue(excel.getSend_name());
-            row.createCell(i++).setCellValue(excel.getSend_phone());
-            row.createCell(i++).setCellValue(excel.getSend_email());
-            row.createCell(i++).setCellValue(excel.getReceive_name());
-            row.createCell(i++).setCellValue(excel.getReceive_phone());
-            row.createCell(i++).setCellValue(excel.getReceive_postnum());
-            row.createCell(i++).setCellValue(excel.getReceive_address());
-            row.createCell(i++).setCellValue(excel.getPayment_method());
-            row.createCell(i++).setCellValue(excel.getPayment_status());
-            row.createCell(i++).setCellValue(excel.getDisc_coupon());
-            row.createCell(i++).setCellValue(excel.getDelivery_price());
-            row.createCell(i++).setCellValue(excel.getCoupon_code());
-            row.createCell(i++).setCellValue(excel.getDisc_point());
-            row.createCell(i++).setCellValue(excel.getDisc_product());
-            row.createCell(i++).setCellValue(excel.getAdd_point());
-            row.createCell(i++).setCellValue(excel.getTotalprice());
-            row.createCell(i++).setCellValue(excel.getRdate());
+            row.createCell(0).setCellValue(excel.getSeq());
+            row.createCell(1).setCellValue(excel.getPayment_code());
+            row.createCell(2).setCellValue(excel.getUserid());
+            row.createCell(3).setCellValue(excel.getSend_name());
+            row.createCell(4).setCellValue(excel.getSend_phone());
+            row.createCell(5).setCellValue(excel.getSend_email());
+            row.createCell(6).setCellValue(excel.getReceive_name());
+            row.createCell(7).setCellValue(excel.getReceive_phone());
+            row.createCell(8).setCellValue(excel.getReceive_postnum());
+            row.createCell(9).setCellValue(excel.getReceive_address());
+            row.createCell(10).setCellValue(excel.getPayment_method());
+            row.createCell(11).setCellValue(excel.getPayment_status());
+            row.createCell(12).setCellValue(excel.getDisc_coupon());
+            row.createCell(13).setCellValue(excel.getDelivery_price());
+            row.createCell(14).setCellValue(excel.getCoupon_code());
+            row.createCell(15).setCellValue(excel.getDisc_point());
+            row.createCell(16).setCellValue(excel.getDisc_product());
+            row.createCell(17).setCellValue(excel.getAdd_point());
+            row.createCell(18).setCellValue(excel.getTotalprice());
+            row.createCell(19).setCellValue(excel.getRdate());
              
             rowIndex++;
         }

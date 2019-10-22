@@ -19,9 +19,4 @@
 		<put-attribute name="body" value="/WEB-INF/views/admin/excel/excel.jsp" />
 	</definition>
 
- 	<!-- 액셀 다운로드 -->
-<!--	<definition name="exceldownload" extends="excel.tiles">
-		<put-attribute name="body" value="/WEB-INF/views/exceldownload/exceldownload.jsp" />
-	</definition> -->
-
 </tiles-definitions>
