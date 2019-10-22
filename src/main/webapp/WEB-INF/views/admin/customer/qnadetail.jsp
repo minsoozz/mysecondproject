@@ -76,7 +76,7 @@
 				
 				<div>
 				<!-- 코어태그 추가하기 -->
-						<button type="button" class="clickBtn" onclick="QnaDelete('${qna.seq }')">삭제</button>
+						<button type="button" class="clickBtn" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
 					
 						<button type="button" class="clickBtn" onclick="QnaUpdate('${qna.seq }')">수정</button>
 				</div>
@@ -99,8 +99,8 @@
 
 <script type="text/javascript">
 
-function QnaDelete( seq ) {
-	location.href = "qnadelete?seq="+seq;
+function QnaDelete( seq ,step,ref ) {
+	location.href = "qnadelete?seq="+seq+"&step="+step+"&ref="+ref;
 }
 function QnaUpdate( seq ) {
 	location.href = "qnaupdate?seq="+seq;

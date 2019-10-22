@@ -65,7 +65,7 @@
 		    
 		<table style="width:100%;"class="table table-bordered" >
 		<colgroup>
-			<col width="50"><col width="150"><col width="600"><col width="150">
+			<col width="50"><col width="150"><col width="600"><col width="100">
 		</colgroup>
 		<thead>
 		<tr>
@@ -110,7 +110,7 @@
 		</table>
 		
 		<!-- 페이징 -->
-		<div id="paging_wrap"> 
+		<div id="paging_wraps" > 
 			<jsp:include page="/WEB-INF/views/admin/customer/paging.jsp" flush="false">
 				<jsp:param name="pageNumber" value="${pageNumber }"/>
 				<jsp:param name="totalRecordCount" value="${totalRecordCount }"/>
