@@ -10,6 +10,8 @@ $(document).ready(function () {
 var constraints = true;
 
 function func_constraints(){
+	//alert("제약조건");
+	
 	if($("#text_confirm").val() == "" ){
 		alert("본인인증을 해주세요");
 		$("#to").focus();
@@ -70,7 +72,7 @@ function func_constraints(){
 
 // 결제 API
 function paymens(){
-	//alert(radioVal);
+	//alert("결제");
 	
 	// api로 보낼 데이터
 	var radioVal = $("input[name='payment_method']:checked").val();
@@ -91,6 +93,7 @@ function paymens(){
 
 	}
 
+	//alert("결제2");
 	
 	
 	$("#send_phone").val( $("#send_phone1").val() + "-" + $("#send_phone2").val() + "-" + $("#send_phone3").val() );
@@ -134,6 +137,7 @@ function paymens(){
 	        $("#vbank_holder").val( rsp.vbank_holder );
 	        $("#card_apply_num").val( rsp.apply_num );
 	        $("#payment_status").val( rsp.status );
+	        $("#receive_address").val( rsp.buyer_addr );
 
 	        
 	        

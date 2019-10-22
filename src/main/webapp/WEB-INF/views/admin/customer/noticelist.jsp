@@ -36,8 +36,6 @@
 						</span>
 					</div>
 					
-					
-					
 					<!-- 검색 -->
 					<form action="" name="frmForm1" id="_frmFormSearch" method="POST">
 					<div class="box_border" style="float: right;">
@@ -60,12 +58,9 @@
 								<i class="fas fa-search fa-sm" id="_btnSearch"></i>
 							</button>
 							</span>
-							
-					
+				
 					</div>	
-					
-					
-					
+					<!-- 검색 -->
 					
 					<table style="width:100%;"class="table table-bordered" >
 					<colgroup>
@@ -102,17 +97,6 @@
 					</c:forEach>
 					
 				
-					 
-					 
-					 
-				
-					
-					
-					<!-- hidden 을 통해서 값을 넘겨주기 -->
-					<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
-					<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
-					</form>
-					</div>
 					
 					
 					</tbody> 
@@ -129,6 +113,9 @@
 						</jsp:include>
 					</div>
 					
+					<!-- hidden 을 통해서 값을 넘겨주기 -->
+					<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
+					<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 					</form>
 					<!-- 페이징끝 --> 
 					

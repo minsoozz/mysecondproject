@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <mapper namespace="com.mde.app.common.dao"> -->
+
+<mapper namespace="excel">
+
+	<!--  -->
+<!--     <select id="getExcelDown" resultType="com.rhymes.app.payment.model.PaymentDTO">
+        SELECT * FROM RHY_PAYMENT
+    </select>
+    
+    결제내역 다운로드
+    <select id="getExcelDown" resultType="com.rhymes.app.payment.model.PaymentDTO">
+        SELECT * FROM RHY_PAYMENT
+    </select> -->
+</mapper>

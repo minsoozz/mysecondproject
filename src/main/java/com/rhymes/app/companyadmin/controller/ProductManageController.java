@@ -48,6 +48,59 @@ public class ProductManageController {
 	@Autowired PurchaseDao store_purchase;
 	@Autowired StoreService store;
 		
+	//4.SALE상품관리
+	@GetMapping("/saleproductmanage")
+	public String saleproductmanage(Principal prc, Model model, ProductManageDto pParam)throws Exception{
+		
+		/* ProductParam param = new ProductParam(); */
+	      List<ProductDto> plist = new ArrayList<ProductDto>();
+	      String url = "";
+	      String c_id = "";
+	 	  String c_name = "";
+		   
+	 	  if(prc != null) {
+	     	  c_id = prc.getName();
+	     	  SellerDTO seller = new SellerDTO();
+	     	  seller.setId(c_id); 
+	     	  seller = manage.getCname(seller);
+	     	  c_name = seller.getC_name();
+	     	  log.info("업체이름:" + c_name);
+	     	 pParam.setC_name(c_name);
+	     	 pParam.setKey("sale");
+	     	 
+	     	  if(!c_name.equals("") && c_name!=null) {
+	   
+	     		  //페이징
+	     		 int sn = pParam.getPageNumber();	//0 1 2
+	     		 int start = sn * pParam.getRecordCountPerPage() + 1;	
+	     		 int end = (sn + 1) * pParam.getRecordCountPerPage(); 
+	     		 int totalRecordCount = manage.getProductCnt(pParam);
+	     		 pParam.setStart(start);
+	     		 pParam.setEnd(end);
+	     		 
+	     		 plist = manage.getProductList(pParam);
+	     		 log.info("상품리스트 길이:"+plist.size()+"");	
+	     		 log.info("상품총갯수:"+totalRecordCount+"");
+	     		 // 페이징
+	     		 model.addAttribute("pageNumber", sn);
+	     		 model.addAttribute("pageCountPerScreen", 10);
+	     		 model.addAttribute("recordCountPerPage", 10);
+	     		 model.addAttribute("totalRecordCount", pParam.getRecordCountPerPage());
+	     		  
+	     		 model.addAttribute("param", pParam);
+	     		 model.addAttribute("c_name", c_name);
+	     		 model.addAttribute("plist", plist);
+	     		  
+	     		 url = "CompanyAdminSaleProduct";
+	     	  }else if(c_name.equals("") || c_name==null) {
+	     		 url = "redirect:/main";
+	     	  }
+	      }else{
+	    	  url = "redirect:/main";
+	      }
+	      
+	     return url;
+	}
 	
 	//3(2).상품 수정 페이지로 이동
 	@GetMapping("/productupdate")
@@ -87,11 +140,6 @@ public class ProductManageController {
 				  cate2list = manage.getCate2List(2);
 				  c2_seq = cate2list.get(0).getC2_seq();
 			}
-			
-						
-			//ProductParam param = new ProductParam();
-			//param.setC1_name(product.getC1_name());
-			//param.setC2_name(product.getC2_name());
 			
 			//3차 카테고리 리스트
 			cate3list = manage.getCate3List(c2_seq);
@@ -174,19 +222,43 @@ public class ProductManageController {
 		
 			boolean bool = manage.productImgUpdate(product);
 			if(bool) {
-				msg = "ㅠㅠㅠㅠ";
-				log.info("상품이미지 업데이트 실패");
-			}else {
 				log.info("상품이미지 업데이트 성공");
-				msg = "수정이 완료되었습니다.";
+			}else {
+				log.info("상품이미지 업데이트 실패");
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return msg;
+		return timeFileName;
 	}
+	
+	//3(2-3).상품 SALE 적용
+	@ResponseBody
+    @GetMapping("/salepriceupdate")
+    public String salepriceupdate(ProductDto product)throws Exception {
+		String msg = "";
+		boolean bool = manage.productSalePriceUpdate(product);
+		if(bool) {
+			msg = "UPDATE O";
+		}else {
+			msg = "UPDATE X";
+		}
+    	return msg;
+    }
+	//3(2-3).상품 SALE 취소
+	@ResponseBody
+    @GetMapping("/salepriceupdatecancel")
+    public String salepriceupdatecancel(ProductDto product)throws Exception {
+		String msg = "";
+		boolean bool = manage.productSalePriceUpdateCancel(product);
+		if(bool) {
+			log.info("SALE적용 취소");
+			msg = "SUCCESS";
+		}
+    	return msg;
+    }
 	
 	
 	
@@ -455,4 +527,14 @@ public class ProductManageController {
  	   
     }
 	
+    @ResponseBody
+    @GetMapping("/getProductDetail")
+    public ProductDto getProductDetail(int p_seq)throws Exception {
+    	
+    	ProductDto product = new ProductDto();
+    	product = store_purchase.getProductDetail(p_seq);
+    	
+    	return product;
+    }
+    
 }

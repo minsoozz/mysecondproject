@@ -34,4 +34,8 @@ public interface ProductManageDao extends Serializable {
 	public boolean productBasicInfoUpdate(ProductDto product) throws Exception;
 	// 상품이미지 수정
 	public boolean productImgUpdate(ProductDto product) throws Exception;
+	// 상품SALE 적용
+	public boolean productSalePriceUpdate(ProductDto product) throws Exception;
+	// 상품SALE 적용취소
+	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception;
 }

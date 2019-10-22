@@ -16,7 +16,6 @@ import lombok.ToString;
 public class BbsParam implements Serializable {
 
 	// search
-
 	private String category;
 
 	private String select; // 제목, 내용, 작성자

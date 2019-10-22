@@ -92,9 +92,15 @@ public class ProductListController {
 	      List<ProductDto> plist = store.getProductList(param);
 	      
 	      for (int i = 0; i < plist.size(); i++) {
-	         int price = plist.get(i).getP_price();
-	         plist.get(i).setP_price2(formatter.format(price));
+	         int p_price = plist.get(i).getP_price();
+	         int bfs_price = plist.get(i).getBfs_price();
+	         plist.get(i).setP_price2(formatter.format(p_price));
+	         plist.get(i).setBfs_price2(formatter.format(bfs_price));
+	         
 	      }
+	      	      
+	      
+	      
 	      
 	      // OPTIONS
 	      model.addAttribute("key", param.getKey());

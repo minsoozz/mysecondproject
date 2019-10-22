@@ -3,9 +3,11 @@ package com.rhymes.app.used.Service;
 import java.util.List;
 import java.util.Map;
 
+import com.rhymes.app.used.model.MyUsedParam;
 import com.rhymes.app.used.model.NotesDto;
 import com.rhymes.app.used.model.NotesRecvParam;
 import com.rhymes.app.used.model.NotesSendParam;
+import com.rhymes.app.used.model.ProductsDto;
 
 public interface MyUsedService {
 
@@ -34,4 +36,10 @@ public interface MyUsedService {
 	public int getRecvNotesCount(NotesRecvParam param);
 
 	public int getSendNotesCount(NotesSendParam sparam);
+
+	List<ProductsDto> getMyUsedList(MyUsedParam mparam);
+
+	boolean updatedivision(ProductsDto pDto);
+
+	int MyusedCount(MyUsedParam mparam);
 }

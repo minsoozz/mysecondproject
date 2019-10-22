@@ -15,7 +15,11 @@ import com.rhymes.app.payment.model.PaymentAfDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.model.PaymentDetailsDTO;
 import com.rhymes.app.payment.model.PaymentParamDTO;
+import com.rhymes.app.payment.model.PaymentXmlParamDTO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class PaymentDAOImpl implements PaymentDAO {
 	
@@ -73,6 +77,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 	
 
 	
+	
+	
 	// 결제한 후 결제 디테일에 넣기위한 상품 개당 가격 가져오기
 	@Override
 	public int getPrice(int stock_seq) {
@@ -88,19 +94,42 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	// 결제한 후 상품 수량 차감
 	@Override
-	public boolean disc_stock_quantity(String stock_seq, String quantity) {
-		
+	public boolean disc_stock_quantity(String stock_seq, String quantity) {		
 		PaymentAfDTO dto = new PaymentAfDTO(stock_seq, quantity);		
-		int count = SqlSession.update(p + "disc_stock_quantity", dto);
-		
+		int count = SqlSession.update(p + "disc_stock_quantity", dto);		
 		return count>0?true:false;
 	}
 
 	// 결제한 후 사용 포인트 차감
 	@Override
-	public boolean disc_point(PaymentDTO dto) {		
-		int count = SqlSession.update(p + "disc_point", dto);
-		return count>0?true:false;
+	public boolean disc_point(PaymentDTO dto) {
+		int inputDiscPoint = dto.getDisc_point();		
+		int count = 0;
+		int result = 0;
+
+		while(true) {
+			List<PaymentXmlParamDTO> list = new ArrayList<PaymentXmlParamDTO>();
+			PaymentXmlParamDTO xmlDTO = new PaymentXmlParamDTO(dto.getUserid(), count, 0, 0);
+
+			// 만료 예정인 유효 적립금 하나를 가져온다
+			list = SqlSession.selectList(p + "getPointLastById", xmlDTO);
+			xmlDTO.setSeq(list.get(0).getSeq());
+			xmlDTO.setPoint(list.get(0).getPoint());
+			
+			// 사용 적립금에서 빼준다
+			inputDiscPoint = inputDiscPoint - xmlDTO.getPoint();
+
+			// 적립금 차감
+			// 사용 적립금 1000, 유효 적립금 1400
+			// 가장 최신 적립금이 400원 남았다
+			if(inputDiscPoint < 0) { xmlDTO.setPoint(inputDiscPoint + xmlDTO.getPoint()); result = SqlSession.update(p + "discPointByid", xmlDTO); break; }
+			// 사용 적립금 1000, 유효 적립금 400
+			// 사용 적립금 600,  유효 적립금 1500
+			// 가장 최신 적립금은 400 전부 사용했고 (used_amount = 400), 그 다음 최신 적립금은 900원 남았다
+			else { result = SqlSession.update(p + "discPointByid", xmlDTO); count++; }
+		}
+		
+		return result>0?true:false;
 	}
 
 	// 결제 내역 저장

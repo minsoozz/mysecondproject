@@ -4,7 +4,6 @@
     
 <!DOCTYPE html>
 <html>
-<title>121</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
@@ -49,21 +48,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <div id="body_wrap">
 <div id="middle_wrap">
-<%-- 
-<div id="body_wrap">
-   <div id="productdetail_img_wrap">
-      <div class="mainImg">
-         <img alt="사진1" src="/upload/${productDto.photo1_file }" style="width:250px;height:250px;" style="margin:3%;">
-      </div>
-      <div>
-         <img alt="사진2" src="/upload/${productDto.photo2_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진3" src="/upload/${productDto.photo3_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진4" src="/upload/${productDto.photo4_file }" style="width:250px;height:250px;" style="margin:3%;">
-         <img alt="사진5" src="/upload/${productDto.photo5_file }" style="width:250px;height:250px;" style="margin:3%;">
-      </div>
-   </div>
- --%>
-      
 
 
 <div id="wrapper">
@@ -103,19 +87,19 @@ $(document).ajaxSend(function(e, xhr, options) {
   <div id="side_goods">
   <h4>${ productDto.c_name}</h4>
    <p style="color: gray;font-size: 20px;margin-bottom: 32px;">${ productDto.p_name}</p>
-   <p style="color: gray;font-size: 20px;">&#8361;${ productDto.p_price2}</p>
-   <br>
+   <c:if test="${productDto.bfs_price ne 0 }">
+   <span style="color: gray;font-size: 17px; float: left; text-decoration: line-through; margin-top: 5px;">&#8361;${ productDto.bfs_price2}</span>&nbsp;
+   </c:if>
+   <span style="color: gray;font-size: 20px; color:orange; font-weight: bolder;">&#8361;${ productDto.p_price2}</span>
+   <br><br>
    <p style="color: gray;font-size: 15px">${ productDto.p_title}</p><br>
-   
- 
  	
    <p style="color: gray;font-size: 15px;margin-bottom: 5px;">· MADE IN ${productDto.nation}</p>
    <p style="color: gray;font-size: 15px;margin-bottom: 5px;">· Color : ${productDto.p_color}</p>
    <p style="color: gray;font-size: 15px">· SKU : ${productDto.cp_code}</p>
-   
+   <br>
    <div class='' style="cursor:pointer; width: 450px;" onclick="detail(${pro.p_seq })"> 
-      <p style="color: gray;font-size: 15px">· 사이즈 선택</p>
-      
+      <p style="color: gray;font-size: 15px; margin-bottom: 2px;"><strong>사이즈 선택</strong></p>
       <c:forEach items="${sizelist }" var="size" varStatus="vs">
          <c:if test="${size.quantity ne 0 }">
          <input type="radio" name='sizeRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display:none" value="${size.size }" value2="${size.stock_seq }">
@@ -128,20 +112,19 @@ $(document).ajaxSend(function(e, xhr, options) {
       </c:forEach>
    </div>
 
-<br>
-
-   <div id="fewSizeDiv">
+   <div id="fewSizeDiv" style="margin-bottom: 20px;">
    		<label id="fewSizeNotice" style="display:none;">
    			어쩌구저쩌구 어저쩌구 저쩌구
    		</label>
    </div>
    수량&nbsp;
    <span class="pqSelect">
-      <span class="minus_Btn" style="cursor:pointer;">-</span>&nbsp;&nbsp;&nbsp;
-         <label id="pqCnt">1</label>&nbsp;&nbsp;&nbsp;
+      <span class="minus_Btn" style="cursor:pointer;">-</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <label id="pqCnt">1</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <span class="plus_btn" style="cursor:pointer;">+</span>
    </span>
-   <br>
+   <br><br>
+   
    
    <div id="b_btn">
    <input type="button" value="바로구매" id="buyBtn" onclick="buying()" style="cursor:pointer;"><br>
@@ -534,10 +517,10 @@ $(document).on('click', '#rsFinish-btn', function(){
 	
 	if(stock_seq == ""){
 		$("#msg").html("<strong>사이즈를 선택해주세요.</strong>");
-	      	 $(".wModal").fadeIn();
-	     	 setTimeout(function() {
-	         	$(".wModal").fadeOut();
-	         },800);
+      	 $(".wModal").fadeIn();
+     	 setTimeout(function() {
+         	$(".wModal").fadeOut();
+         },800);
     }else{
 		if(phone.length == 11){
 			 
@@ -889,17 +872,6 @@ $(document).on('click', '._bDeleteBtn', function(){
 /* 구매버튼 클릭 */
 function buying(){
    
-   if(id==""){
-      $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
-      $(".wModal").fadeIn();
-      setTimeout(function() {
-         $(".wModal").fadeOut();
-      },1500);
-      
-      location.href="/member/login";
-      
-   }else{
-   
    	  var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
    	  //alert(stock_seq);
    
@@ -919,7 +891,7 @@ function buying(){
              success:function( data ){
              	// 변경될 수량이 재고수량보다 많을 때
              	if(cnt>data){
-             		$("#msg").html("<b>구매수량이 재고수량보다 많습니다.<br>해당 상품의 재고수량은 "+data+"입니다.</b>");
+             		$("#msg").html("<b>구매수량이 재고수량보다 많습니다.</b>");
                  	$(".wModal").fadeIn();
                  	setTimeout(function() {
                  		$(".wModal").fadeOut();
@@ -938,11 +910,9 @@ function buying(){
              }
      		
      	}); 
-         
          //alert(typeof $("#p_quantity").val());
          //alert(typeof $("#stock_seq").val());
       }
-   }
    
 }
 

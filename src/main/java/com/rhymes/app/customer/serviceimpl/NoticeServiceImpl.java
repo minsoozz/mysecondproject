@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rhymes.app.customer.dao.NoticeDao;
+import com.rhymes.app.admin.customer.dao.AdminNoticeDao;
 import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.customer.model.NoticeDto;
 import com.rhymes.app.customer.service.NoticeService;
@@ -14,7 +14,7 @@ import com.rhymes.app.customer.service.NoticeService;
 public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
-	private NoticeDao noticeDao;
+	private AdminNoticeDao noticeDao;
 	
 	
 	//notice list

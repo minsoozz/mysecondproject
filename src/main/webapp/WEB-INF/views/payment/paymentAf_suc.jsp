@@ -108,8 +108,12 @@ ${dtoAf.vbank_date }까지 ${dto.totalprice }원 입금해주세요${dto.receive
 </div>
 <div class="paymentAf_btn">
 <input type="button" onclick="location.href='/main'" value="메인으로">
-<!-- <input type="button" onclick="location.href='/mypage/orderlog'" value="주문내역확인"><br> -->
+<c:if test="${not empty dto.userid }">
+<input type="button" onclick="location.href='/mypage/orderlog'" value="주문내역확인"><br>
+</c:if>
+<c:if test="${empty dto.userid }">
 <input type="button" onclick="location.href='/ordercheck_nomembership_confirm_move'" value="주문내역확인"><br>
+</c:if>
 <a href="${dtoAf.receipt_url }">매출전표 확인하기</a>
 </div>
 </div>

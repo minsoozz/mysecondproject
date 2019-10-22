@@ -18,7 +18,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <!-- <script type="text/javascript" src="https://base/js/jquery.form.min.js"></script> -->
- 
+
 <script src="http://malsup.github.com/jquery.form.js"></script> 	
 <script>
 var token = $("meta[name='_csrf']").attr("content");
@@ -32,6 +32,12 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+<!-- 메시지 MODAL영역 -->
+<div class="msgModal">
+   <div class="msg-content">
+      <span id="msg"></span>
+   </div>
+</div>
 
 <!-- 상품기본정보 수정 MODAL -->
 	<form method="post" action="/admin/company/productupdateAf" id='basicinfo-submit'>
@@ -56,7 +62,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 			</div>
 			<div align='center'>
 			<table border='0' id="basicinfo_udt-table">
-				<colgroup><col width="40%"><col width="60%"></colgroup>
+				<colgroup><col width="30%"><col width="70%"></colgroup>
 				<tr>
 					<th>상품명</th>
 					<td><input type="text" value="${pDto.p_name }" name="p_name" id="_p_name"></td>
@@ -67,13 +73,27 @@ $(document).ajaxSend(function(e, xhr, options) {
 				</tr>
 				<tr>
 					<th>상품 가격</th>
+					<c:if test="${pDto.bfs_price eq 0}">
 					<td>
 						<input type="text" class="upt_price" style="width:70%;" 
 							onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 							onchange="numberWithCommas(this.value)"
 							value="<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" />"
-							<%-- value="<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" /> --%>">&nbsp;원
+							>&nbsp;원
 					</td>
+					</c:if>
+					<c:if test="${pDto.bfs_price ne 0}">
+					<td style="margin-top: 100px;">
+						<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" />&#8361;
+						<c:if test="${pDto.bfs_price ne 0}">
+						<font style="text-decoration: line-through; color:red;">
+						<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.bfs_price}" />&#8361;
+						</font>
+						<img src="https://icon-library.net/images/sale-icon-png/sale-icon-png-14.jpg" style="width:20px;height:20px;">
+						</c:if>
+						<br><strong style="color:red; font-size: 12px;">SALE적용 취소 후 가격 수정이 가능합니다.</strong>
+					<td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>상품 색상</th>
@@ -168,7 +188,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <div class="imgudt_modal">
 	<div class="imgudt_modal-content" align="center">
 		<div align="right">
-		<img src="https://cdn4.iconfinder.com/data/icons/media-controls-4/100/close-512.png" style="width:30px; height:30px; cursor:pointer;" class="modalClose">
+		<img src="https://cdn4.iconfinder.com/data/icons/media-controls-4/100/close-512.png" style="width:30px; height:30px; cursor:pointer;" class="imgudtModalClose">
 		</div>
 		<div align="center" style="border:0px solid green; height:auto; padding:20px">
 				<div class="udtimg-div">
@@ -278,8 +298,18 @@ $(document).ajaxSend(function(e, xhr, options) {
 				</tr>
 				<tr>
 					<th>상품 가격</th>
-					<td><fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" />원</td>
+					<td><fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" />원&nbsp;
+						<c:if test="${pDto.bfs_price ne 0}">
+						<font style="text-decoration: line-through; color:red;">
+						<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.bfs_price}" />원
+						</font>
+						<img src="https://icon-library.net/images/sale-icon-png/sale-icon-png-14.jpg" style="width:20px;height:20px;">
+						</c:if>
+					</td>
 				</tr>
+				
+				
+				
 				<tr>
 					<th>상품 색상</th>
 					<td>${pDto.p_color }</td>
@@ -312,11 +342,13 @@ $(document).ajaxSend(function(e, xhr, options) {
 	<div id="updateDiv">
 		<strong>상품이미지 수정</strong>
 		<div style="margin-top: 40px; margin-bottom: 40px;">
-			<img src="/upload/store/${pDto.photo1_file }"  style="width:150px; height:150px;">
-			<img src="/upload/store/${pDto.photo2_file }"  style="width:150px; height:150px;">
-			<img src="/upload/store/${pDto.photo3_file }"  style="width:150px; height:150px;">
-			<img src="/upload/store/${pDto.photo4_file }"  style="width:150px; height:150px;">
-			<img src="/upload/store/${pDto.photo5_file }"  style="width:150px; height:150px;">
+			<div align="center">
+			<img src="/upload/store/${pDto.photo1_file }"  id="oPhoto1" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo2_file }"  id="oPhoto2" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo3_file }"  id="oPhoto3" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo4_file }"  id="oPhoto4" style="width:150px; height:150px;">
+			<img src="/upload/store/${pDto.photo5_file }"  id="oPhoto5" style="width:150px; height:150px;">
+			</div>
 		</div>
 		<div align="center">
 			<button type="button" class="img_update-btn"><b>수정</b></button>
@@ -346,6 +378,12 @@ $(document).ajaxSend(function(e, xhr, options) {
 <!--------------------------------- SCRIPT ZONE --------------------------------->
 <script>
 var sel_file;
+
+
+
+$(document).on('click', '.imgudtModalClose', function(){
+	$(".imgudt_modal").fadeOut();
+});
 
 $(document).on('click', '.basicinfo_update-btn', function(){
 	$(".basicinfo_modal").fadeIn();
@@ -515,11 +553,16 @@ $(document).on('click', '.imgUdt-finishBtn', function(){
            },
            //timeout: 600000,
            success : function(data){
-        	   alert(data);
 	           $(".imgUdt-finishBtn").remove();
 			   $("#pZone"+photoNumber).after("<button type='button' id='btn-upload"+photoNumber+"' value='"+photoNumber+"'>수정</button>");
-			   setTimeOut(function(){ isAjaxing = false; }, 10000000);
-			 
+			   $("#oPhoto"+photoNumber).attr('src', '/upload/store/'+data);
+			   //메시지 모달
+			     $("#msg").html("<strong>수정이 완료되었습니다.</strong>");
+		      	 $(".msgModal").fadeIn();
+		     	 setTimeout(function() {
+		         	$(".msgModal").fadeOut();
+		         },800);
+			   
            },
            error : function(){
            	   alert("error!!");
@@ -575,7 +618,6 @@ $(document).on('click', '#basicinfoUdt-finishBtn', function(){
 });
 
 function numberWithCommas(x) {
-	
     $(".upt_price").val(x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     $("#udt-pprice").val(x);
     
@@ -668,19 +710,11 @@ function addCate3(arr, arrLen) {
 	str = "";
 	str = "<option class='cate3option' value=''> ~SELECTION~ </option>"; 
 	for (var i = 0; i < arrLen; i++) {
-		
-		/* str += "<div class='c2Div'><label for='check2' style='cursor:pointer' background-color: white;' value='" + arr[i].c2_seq + "' value2='"+ arr[i].c2_name +"' class='c2sel'>";
-		str += arr[i].c2_name;
-		str += "</label><br></div>"; */
-		
-		/* <option class="cate2option" <c:out value="${c2.c2_name == pDto.c2_name ? 'selected':'' }"/>>${c2.c2_name }</option> */
-		
 		str += "<option class='cate3option' value='"+arr[i].c3_name+"'>";
 		str += arr[i].c3_name;
 		str += "</option>";
 	}
 	$("#cate3").append(str);	
-	
 }
 
 function cate3Change(){
@@ -693,7 +727,15 @@ $(document).on('click', '.modalClose', function(){
 	location.href="/admin/company/productupdate?p_seq="+p_seq;
 });
 
-
+/* 상품사진 업데이트 모달 영역 외 클릭시 close */
+$('body').click(function(e){
+	 if($(".imgudt_modal").css("display") == "block") {
+        if(!$('.imgudt_modal, .imgudt_modal').has(e.target).length) { 
+        	//$(".modal").css("display", "none");
+        	$(".imgudt_modal").fadeOut();
+         } 
+ 	 }
+});
 </script>
 
 
