@@ -42,32 +42,4 @@ public class FaqDaoImpl implements FaqDao {
 		return sqlSession.selectOne(ns+"getFaqDetail", seq);
 	}
 
-	//faq upload올리기
-	@Override
-	public boolean FaqUpload(FaqDto dto) {
-		int n = sqlSession.insert(ns+"FaqUpload", dto);
-		return n>0?true:false;
-	}
-
-	//faq 수정
-	@Override
-	public boolean FaqUpdateAf(FaqDto dto) {
-		int n = sqlSession.update(ns+"FaqUpdateAf", dto);
-		
-		return n>0?true:false;
-	}
-
-	//faq 삭제
-	@Override
-	public boolean FaqDelete(int seq) {
-		int n = sqlSession.delete(ns+"FaqDelete", seq);
-		
-		return n>0?true:false;
-	}
-	
-	
-	
-	
-	
-	
 }

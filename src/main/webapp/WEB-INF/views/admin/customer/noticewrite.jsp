@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/admin/customer/customerlist.css">
+
    
 <!DOCTYPE html>
 <html>
@@ -67,12 +70,9 @@
 				</table>
 				
 				<div id="button.wrap">
-					<span class="button blue">
-						<button type="button" id="_btnWrite">저장</button>
-					</span>
-						<span class="button blue">
-						<button type="button" id="_btnBack">목록</button>
-					</span>
+						<button type="button" class="clickBtn" id="_btnWrite">저장</button>
+					
+						<button type="button" class="clickBtn" id="_btnBack">목록</button>
 				</div>
 				
 				</form>

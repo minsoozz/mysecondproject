@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/admin/customer/customerlist.css">
+
 
 <!DOCTYPE html>
 <html>
@@ -62,12 +65,11 @@
 					
 					<div>
 					<!-- 코어태그 추가하기 -->
-						<span class="button blue">
-							<button type="button" class="btn" onclick="NoticeDelete('${noticedto.seq }')">삭제</button>
-						</span>
-						<span class="button blue">
-							<button type="button" class="btn" onclick="NoticeUpdate('${noticedto.seq }')">수정</button>
-						</span>
+						
+							<button type="button" class="clickBtn" onclick="NoticeDelete('${noticedto.seq }')">삭제</button>
+						
+							<button type="button" class="clickBtn" onclick="NoticeUpdate('${noticedto.seq }')">수정</button>
+						
 					
 					</div>
 					<br><br><br>

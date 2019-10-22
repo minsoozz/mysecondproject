@@ -54,55 +54,5 @@ public class FaqController {
 		return "faqlist.tiles";
 	}
 	
-	//글쓰기가기
-	@GetMapping("/faqwrite")
-	public String faqwrite(Model model) {
-		model.addAttribute("doc_title", "자주하는 질문");
-		model.addAttribute("doc_sub", "고객님들께서 가장 자주하시는 질문을 모두 모았습니다.");
-		
-		
-		return "faqwrite.tiles";
-	}
-	
-	//글작성완료
-	@GetMapping("/faqupload")
-	public String faqupload(FaqDto faqdto) {
-		
-		faqService.FaqUpload(faqdto);
-		
-		return "redirect:/customercenter/faqlist";
-	}
-	
-	//글수정가기
-	@GetMapping("/faqupdate")
-	public String faqupdate(int seq, Model model) {
-		model.addAttribute("doc_title", "자주하는 질문");
-		model.addAttribute("doc_sub", "고객님들께서 가장 자주하시는 질문을 모두 모았습니다.");
-		
-		FaqDto faqdto = faqService.getFaqDetail(seq);
-		model.addAttribute("faqdto",faqdto);
-		
-		return "faqupdate.tiles";
-	}
-	
-	//글수정하기
-	@GetMapping("/faqupdateAf")
-	public String faqupdateAf(FaqDto faqdto) {
-		
-		faqService.FaqUpdateAf(faqdto);
-		
-		return "redirect:/customercenter/faqlist";
-	}
-	
-	//삭제하기
-	@GetMapping("/faqdelete")
-	public String faqdelete(int seq) {
-		
-		
-		faqService.FaqDelete(seq);
-		
-		return "redirect:/customercenter/faqlist";
-	}
-	
 	
 }
