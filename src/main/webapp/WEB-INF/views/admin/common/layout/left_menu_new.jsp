@@ -90,7 +90,7 @@
 					<div id="collapseExcel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">CHART</h6>
-							<a class="collapse-item" href="/admin/excel">DB 액셀 다운로드</a>
+							<a class="collapse-item" href="/admin/excel/move">DB 액셀 다운로드</a>
 						</div>
 					</div>
 				</li>
