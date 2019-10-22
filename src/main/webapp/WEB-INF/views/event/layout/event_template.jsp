@@ -9,6 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">        
    <!-- Favicon -->
     <link rel="icon" href="/img/main-img/core-img/favicon.ico">
+     <link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath() %>/css/event/event.css">
+ 
 </head>
 <body>
  
@@ -20,7 +23,7 @@
 	    	<div id="sidebar_wrap"> 
 		      <tiles:insertAttribute name="left_menu"/>
 		    </div>   
-			<div id="content_wrap"> 
+			<div id="content_wrap">
 		      <tiles:insertAttribute name="body"/> <!-- body -->
 	    	</div>  
 	    </div>  

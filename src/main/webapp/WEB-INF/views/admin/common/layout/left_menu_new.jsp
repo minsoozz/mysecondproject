@@ -109,7 +109,7 @@
 		        <h6 class="collapse-header">Events</h6>
 		        <a class="collapse-item" href="/admin/mypage/coupon">쿠폰 관리</a>
 		        <a class="collapse-item" href="/admin/mypage/points">적립금</a>
-		        <a class="collapse-item" href="/admin/events">이벤트</a>
+		        <a class="collapse-item" href="/admin/event/eventlist">이벤트</a>
 		      </div>
 		    </div>
 		  </li>

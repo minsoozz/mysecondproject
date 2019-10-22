@@ -10,11 +10,11 @@
 
 <div class="sidenav">
 
-<font style="font-size: 15px;"><b>Customer Center</b></font>
+<font style="font-size: 15px;"><b>Event Center</b></font>
 <hr width = "85%" color = "#DADCE0">
- <a href="noticelist">공지사항</a>
- <a href="faqlist">자주 하는 질문</a>
- <a href="qnalist">1:1문의</a>
+ <a href="noticelist">전체이벤트</a>
+ <a href="faqlist">진행중인 이벤트</a>
+ <a href="qnalist">지난 이벤트</a>
 </div>
 
 <script>
