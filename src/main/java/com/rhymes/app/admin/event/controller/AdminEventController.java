@@ -1,5 +1,6 @@
 package com.rhymes.app.admin.event.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -23,6 +25,7 @@ import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.customer.model.NoticeDto;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -91,61 +94,79 @@ public class AdminEventController {
 		model.addAttribute("thour", thour);
 		model.addAttribute("tminute", tminute);
 		
+		List<MemberCouponDTO> couponlist = adminEventService.getcoupon();	// 쿠폰리스트 불러오기
+		
+		model.addAttribute("couponlist", couponlist);
 		
 		return"write.tiles";
 	}
 	
 	// event 글 작성
 	@RequestMapping(value = "/eventwrite", method = RequestMethod.POST)
-	public String eventwrite(EventDTO dto, MultipartHttpServletRequest mulreq, HttpServletRequest req)throws Exception{
+	public String eventwrite(EventDTO dto, MultipartHttpServletRequest multi, HttpServletRequest req)throws Exception{
 		System.out.println("1");
 		// 시작시간, 종료시간 합치기
 		dto.sdate(dto.getSyear(), dto.getSmonth(), dto.getSday(), dto.getShour(), dto.getSminute());
 		dto.edate(dto.getEyear(), dto.getEmonth(), dto.getEday(), dto.getEhour(), dto.getEminute());
 		
-		List<MultipartFile> list = mulreq.getFiles("files");
-
-		int size = list.size();
-		
-		Iterator<String> files = mulreq.getFileNames();
-		System.out.println(files);
-		MultipartFile mpf = mulreq.getFile(files.next());
-		
+//		List<MultipartFile> list = multi.getFiles("files");
 		String path = req.getServletContext().getRealPath("/upload/event");
-		System.out.println("path:" + path);
-		String photo_banner = "";
-		String photo_banner_sys = "";
+		String fileName = "";
+		File dir = new File(path);
+	     if(!dir.isDirectory()) {
+	        dir.mkdir();
+	     } 
 		
-		System.out.println("2");
-		if(list != null && size >0) {
-			for (MultipartFile mf : list) {
-				String originFileName = mf.getOriginalFilename();
-	            String systemFileName = System.currentTimeMillis() + originFileName;	            
-   
-	            photo_banner += originFileName + ",";
-	            photo_banner_sys += systemFileName + ",";
-	            
-	            long fileSize = mf.getSize();
-      
-				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
-				
-				System.out.println("-------------path: "+path); // 업로드 경로
-				
-				fs.write(mf.getBytes());
-				fs.close();
-			}
-		}
-		dto.setPhoto_banner(photo_banner);
-		dto.setPhoto_banner_sys(photo_banner_sys);
-		System.out.println("dto toString: "+dto.toString());
-		adminEventService.geteventwrite(dto);
-		
+		Iterator<String> files = multi.getFileNames();
+		int cnt = 0;
+	      while(files.hasNext()) {
+	         String uploadFile = files.next();
+	         
+	         MultipartFile mFile = multi.getFile(uploadFile);
+	         fileName = mFile.getOriginalFilename();
+	         //System.out.println("파일이름 : " + fileName);
+	         String timeFileName = System.currentTimeMillis() + fileName;
+	        //System.out.println("시간파일이름 : " + timeFileName);
+	         cnt++;
+	         
+	         if(cnt == 1) {
+	        	 dto.setPhoto_banner(timeFileName);
+	         }
+	         if(cnt == 2) {
+	        	 dto.setPhoto_content1(timeFileName);
+	          }
+	         if(cnt == 3) {
+	        	 dto.setPhoto_content2(timeFileName);
+	          }
+	         if(cnt == 4) {
+	        	 dto.setPhoto_content3(timeFileName);
+	          }
+	         if(cnt == 5) {
+	        	 dto.setPhoto_content4(timeFileName);
+	          }
+	         if(cnt == 6) {
+	        	 dto.setPhoto_content5(timeFileName);
+	          }
+	        
+	         try {
+	        	 FileOutputStream fs = new FileOutputStream(path + "/" + timeFileName);
+	        	 fs.write(mFile.getBytes());
+	             fs.close();
+	         }catch(Exception e) {
+	            e.printStackTrace();
+	         }
+	      }		
+	      try {
+	          // INSERT
+	          adminEventService.geteventwrite(dto);
+	          
+	       } catch (Exception e) {
+	          e.printStackTrace();
+	       }
+
 		return "redirect:/admin/event/eventlist";
 	}
 		
-	
-	
-	
 	
 	
 	

@@ -91,6 +91,11 @@ public class ProductManageServiceImpl implements ProductManageService {
 	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception {
 		return manage.productSalePriceUpdate(product);
 	}
+//3(4).상품삭제
+	@Override
+	public boolean productDelete(ProductDto product) throws Exception {
+		return manage.productDelete(product);
+	}
 
 	
 	

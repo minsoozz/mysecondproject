@@ -60,6 +60,8 @@
 							<h6 class="collapse-header">member management</h6>
 							<a class="collapse-item" href="/admin/memlist">회원 리스트</a>
 							<a class="collapse-item" href="/admin/mem_c_list">업체 리스트</a>
+							<a class="collapse-item" href="/admin/mem_blacklist">비매너 유저 리스트</a>
+							
 						</div>
 					</div>
 				</li>
@@ -77,6 +79,20 @@
 							<a class="collapse-item" href="/admin/chart/member">회원 통계</a>
 							<a class="collapse-item" href="/admin/chart/category">카테고리별 통계</a>
 							<a class="collapse-item" href="/admin/chart/product">상품 통계</a>
+						</div>
+					</div>
+				</li>
+				
+				<!-- 중고마켓 관리 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsed" aria-expanded="true" aria-controls="collapseUtilities">
+						<i class="fas fa-fw fa-chart-area"></i>
+						<span>중고마켓 관리</span>
+					</a>
+					<div id="collapseUsed" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">CHART</h6>
+							<a class="collapse-item" href="/admin/used/usedlist">중고마켓 관리</a>
 						</div>
 					</div>
 				</li>

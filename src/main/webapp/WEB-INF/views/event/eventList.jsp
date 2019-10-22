@@ -24,7 +24,7 @@
 	<c:forEach var="event" items="${eventlist }" varStatus="vs">
 	<tr>
 		<td>
-			<img alt="x" src="/upload/event/${event.photo_file }"><br>
+			<img alt="x" src="/upload/event/${event.photo_banner }"><br>
 			${event.title }
 		</td>
 	</tr>

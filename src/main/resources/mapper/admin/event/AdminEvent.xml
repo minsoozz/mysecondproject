@@ -61,12 +61,18 @@
 
 <!-- 이벤트 글 작성 -->
 <insert id="geteventwrite" parameterType="com.rhymes.app.event.model.EventDTO">
-	INSERT INTO RHY_EVENT_LIST(TITLE, TYPE, PHOTO_BANNER, PHOTO_BANNER_SYS, PHOTO_FILE, SDATE, EDATE, VISIBLE)
-	VALUES(#{title}, #{type}, #{photo_banner}, #{photo_banner_sys}, #{photo_file}, #{sdate}, #{edate}, 1)
+	INSERT INTO RHY_EVENT_LIST(TITLE, TYPE, PHOTO_BANNER, PHOTO_CONTENT1, PHOTO_CONTENT2, PHOTO_CONTENT3, 
+								PHOTO_CONTENT4, PHOTO_CONTENT5, SDATE, EDATE, VISIBLE)
+	VALUES(#{title}, #{type}, #{photo_banner}, #{photo_content1}, #{photo_content2}, #{photo_content3},
+			#{photo_content4}, #{photo_content5}, #{sdate}, #{edate}, 1)
 	
 </insert>
 	
-
+<!-- 쿠폰리스트 -->
+<select id="getcoupon" resultType="com.rhymes.app.member.model.mypage.MemberCouponDTO">
+	SELECT SEQ, TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, FUNC_TIME_LIMIT, RDATE
+	FROM RHY_MEM_COUPON
+</select>
 
 
 

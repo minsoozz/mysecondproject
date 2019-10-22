@@ -122,7 +122,7 @@ public class MyUsedDaoImpl implements MyUsedDao {
 	}
 
 	@Override
-	public boolean updatedivision(ProductsDto pDto) {
+	public boolean updatedivision(ProductsDto pDto) {	// 판매상태 변경
 		// TODO Auto-generated method stub
 		int n = sqlSession.update(ns + "updatedivision", pDto);
 
@@ -130,7 +130,7 @@ public class MyUsedDaoImpl implements MyUsedDao {
 	}
 
 	@Override
-	public int MyusedCount(MyUsedParam mparam) {
+	public int MyusedCount(MyUsedParam mparam) {		// 페이징을 위한 글 개수 리턴
 		
 		int count = sqlSession.selectOne(ns+"MyusedCount", mparam);
 		
