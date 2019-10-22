@@ -50,13 +50,13 @@
 									<option selected="selected" value="SEQ"
 										<c:out value="${param.sorting == 'SEQ'? 'selected':'' }"/>>상품번호순</option>
 									<option value="PRICEUP"
-										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격↑</option>
+										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격 ↑</option>
 									<option value="PRICEDOWN"
-										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
+										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격 ↓</option>
 									<option value="SALEUP"
-										<c:out value="${param.sorting == 'SALEUP'? 'selected':'' }"/>>할인율↑</option>
+										<c:out value="${param.sorting == 'SALEUP'? 'selected':'' }"/>>할인율 ↑</option>
 									<option value="SALEDOWN"
-										<c:out value="${param.sorting == 'SALEDOWN'? 'selected':'' }"/>>할인율↓</option>
+										<c:out value="${param.sorting == 'SALEDOWN'? 'selected':'' }"/>>할인율 ↓</option>
 								</select>
 									<button type="button" onclick="location.href='/admin/company/saleproductmanage'"
 								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; color:white; background-color: #5587ED;">
@@ -168,7 +168,7 @@
 								</td>
 								<!-- 6 -->
 								<td class="" style="color:red;">
-									<fmt:formatNumber value="${(1-(pro.p_price/pro.bfs_price))*100}"></fmt:formatNumber>%
+									<fmt:formatNumber value="${(1-(pro.p_price/pro.bfs_price))*100}" pattern=".0"></fmt:formatNumber>%
 								</td>
 								<!-- 11 -->
 								
