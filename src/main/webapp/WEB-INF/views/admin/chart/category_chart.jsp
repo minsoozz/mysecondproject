@@ -8,7 +8,7 @@
 </head>
 <body>
 
-category_chart.jsp
+카테고리별 통계
 
 </body>
 </html>

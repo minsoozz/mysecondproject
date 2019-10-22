@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/admin/customer/customerlist.css">
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,10 +29,8 @@
 			<div class="table-responsive">
 
 				<div id="button.wrap">
-	<span class="button blue">
-		<button type="button" id="_btnWrite">자주하는질문쓰기</button>
-	</span>
-</div>
+					<button type="button" class="clickBtn" id="_btnWrite">자주하는질문쓰기</button>
+				</div>
 	<form action="faqlist" name="frmForm1" id="_frmFormSearch" method="POST">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 		
@@ -96,10 +97,10 @@
 			<td>
 			<div>
 			<span class="button blue">
-				<button type="button" class="btn" onclick="FaqUpdate('${faq.seq }')">수정</button>
+				<button type="button" class="clickBtn" onclick="FaqUpdate('${faq.seq }')">수정</button>
 			</span>
 			<span class="button blue">
-				<button type="button" class="btn" onclick="FaqDelete('${faq.seq }')">삭제</button>
+				<button type="button" class="clickBtn" onclick="FaqDelete('${faq.seq }')">삭제</button>
 			</span>
 			</div>
 			</td>

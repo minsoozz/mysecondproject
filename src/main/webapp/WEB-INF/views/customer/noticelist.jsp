@@ -6,7 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 
-<table class="list_table" style="width:85%" >
+<table class="list_table" style="width:100%" >
 <colgroup>
 	<col width="50"><col width="300"><col width="100"><col width="100"><col width="50">
 </colgroup>
@@ -33,7 +33,7 @@
 	</td>
 	<td>${notice.id }</td>
 	<td> 
-		<font size="1">${fn:substring(notice.wdate,0,10)}</font>
+		<font size="2">${fn:substring(notice.wdate,0,10)}</font>
 	</td>
 	<td>${notice.readcount }</td>
 	

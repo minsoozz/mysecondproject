@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.admin.excel.dao.AdminExcelDAO;
-import com.rhymes.app.admin.excel.model.DtestDTO;
+import com.rhymes.app.admin.excel.model.AdminExcelProductDTO;
+import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
 @Repository
@@ -15,19 +17,33 @@ public class AdminExcelDAOImpl implements AdminExcelDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	String e = "excel";
+	String e = "excel.";
 
-	// 데이터 다운로드
+	// 개인 회원 정보 전부 가져오기
 	@Override
-	public List<DtestDTO> listExcelDownload() throws Exception {
-		List<DtestDTO> list = sqlSession.selectList(e + "getExcelDown");
+	public List<P_MemberDTO> getMemberP_ExcelDown() {
+		List<P_MemberDTO> mem_p_list = sqlSession.selectList(e + "getMemberP_ExcelDown");
+		return mem_p_list;
+	}
+
+    // 사업자 회원 정보 전부 가져오기
+	@Override
+	public List<SellerDTO> getMemberC_ExcelDown() {
+		List<SellerDTO> mem_c_list = sqlSession.selectList(e + "getMemberC_ExcelDown");
+		return mem_c_list;
+	}
+
+	// 결제내역 정보 전부 가져오기
+	@Override
+	public List<PaymentDTO> getPaymentExcelDown() {
+		List<PaymentDTO> list = sqlSession.selectList(e + "getPaymentExcelDown");
 		return list;
 	}
 
-	// 결제내역 다운로드
+	// 상품 정보 전부 가져오기
 	@Override
-	public List<PaymentDTO> getPaymentExcelDown() throws Exception {
-		List<PaymentDTO> list = sqlSession.selectList(e + "getPaymentExcelDown");
+	public List<AdminExcelProductDTO> getProductExcelDown() {
+		List<AdminExcelProductDTO> list = sqlSession.selectList(e + "getProductExcelDown");
 		return list;
 	}
 

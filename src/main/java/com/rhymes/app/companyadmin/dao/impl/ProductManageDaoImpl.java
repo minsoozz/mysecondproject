@@ -102,6 +102,12 @@ public class ProductManageDaoImpl implements ProductManageDao{
 		return false;
 	}
 
+	@Override
+	public boolean productDelete(ProductDto product) throws Exception {
+		int n = sqlSession.delete(ns + "cAdminProductDelete", product);
+		return n>0?true:false;
+	}
+
 	
 	
 	

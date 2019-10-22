@@ -38,4 +38,6 @@ public interface ProductManageDao extends Serializable {
 	public boolean productSalePriceUpdate(ProductDto product) throws Exception;
 	// 상품SALE 적용취소
 	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception;
+	// 상품삭제
+	public boolean productDelete(ProductDto product) throws Exception;
 }

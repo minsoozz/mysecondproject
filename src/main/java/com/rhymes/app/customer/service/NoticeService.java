@@ -19,16 +19,5 @@ public interface NoticeService {
 	//notice 디테일
 	public NoticeDto getNoticeDetail(int seq);
 	
-	//notice upload
-	public boolean NoticeUpload(NoticeDto dto);
-	
-	//notice 수정
-	public boolean NoticeUpdateAf(NoticeDto dto);
-
-	//notice 파일명가져오기
-	public String getfilename(int seq);
-	
-	//notice 삭제하기
-	public boolean NoticeDelete(int seq);	
 	
 }

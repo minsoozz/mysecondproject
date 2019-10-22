@@ -16,12 +16,4 @@ public interface FaqService {
 	//faq 디테일
 	public FaqDto getFaqDetail(int seq);
 	
-	//faq upload
-	public boolean FaqUpload(FaqDto dto);
-	
-	//faq 수정
-	public boolean FaqUpdateAf(FaqDto dto);
-		
-	//faq 삭제
-	public boolean FaqDelete(int seq);
 }

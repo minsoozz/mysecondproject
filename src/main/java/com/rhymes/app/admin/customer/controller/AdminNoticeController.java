@@ -35,9 +35,6 @@ public class AdminNoticeController {
 	@RequestMapping(value = "/noticelist", method = {RequestMethod.GET, RequestMethod.POST})
 	public String noticelist(Model model, CustomerParam param){
 		
-		model.addAttribute("doc_title", "공지사항");
-		model.addAttribute("doc_sub", "라임의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.");
-		
 		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
@@ -70,9 +67,6 @@ public class AdminNoticeController {
 	@GetMapping("/noticedetail")
 	public String noticedetail(int seq,Model model) {
 		
-		model.addAttribute("doc_title", "공지사항");
-		model.addAttribute("doc_sub", "라임의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.");
-		
 		
 		noticeService.NoticeUpRead(seq);
 		NoticeDto noticedto = noticeService.getNoticeDetail(seq);
@@ -104,10 +98,7 @@ public class AdminNoticeController {
 	
 	@GetMapping("/noticewrite")
 	public String noticewrite(Model model,Principal pcp) {
-		model.addAttribute("doc_title", "공지사항");
-		model.addAttribute("doc_sub", "라임의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.");
-		
-
+	
 		String id = pcp.getName();
 		model.addAttribute("id",id);
 		return "adminnoticewrite.tiles";
@@ -162,10 +153,7 @@ public class AdminNoticeController {
 	@GetMapping("/noticeupdate")
 	public String noticeupdate(int seq, Model model) {
 		
-		model.addAttribute("doc_title", "공지사항");
-		model.addAttribute("doc_sub", "라임의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.");
-		
-		
+	
 		NoticeDto noticedto = noticeService.getNoticeDetail(seq);
 		
 		model.addAttribute("noticedto", noticedto);
