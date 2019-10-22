@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/admin/customer/customerlist.css">
 
+
 </head>
 
 <!-- Begin Page Content -->
@@ -31,12 +32,9 @@
 
 				<!-- @@@@ 여기서부터 작성 @@@@@ -->
 					<div id="button.wrap">
-						<span class="button blue">
-							<button type="button" id="_btnWrite">공지사항쓰기</button>
-						</span>
+							<button type="button" class="clickBtn" id="_btnWrite">공지사항쓰기</button>
+						
 					</div>
-					
-					
 					
 					<!-- 검색 -->
 					<form action="" name="frmForm1" id="_frmFormSearch" method="POST">
@@ -60,12 +58,9 @@
 								<i class="fas fa-search fa-sm" id="_btnSearch"></i>
 							</button>
 							</span>
-							
-					
+				
 					</div>	
-					
-					
-					
+					<!-- 검색 -->
 					
 					<table style="width:100%;"class="table table-bordered" >
 					<colgroup>
@@ -94,7 +89,7 @@
 						</td>
 						<td>${notice.id }</td>
 						<td> 
-							<font size="1">${fn:substring(notice.wdate,0,10)}</font>
+							<font size="2">${fn:substring(notice.wdate,0,10)}</font>
 						</td>
 						<td>${notice.readcount }</td>
 						
@@ -102,17 +97,6 @@
 					</c:forEach>
 					
 				
-					 
-					 
-					 
-				
-					
-					
-					<!-- hidden 을 통해서 값을 넘겨주기 -->
-					<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
-					<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
-					</form>
-					</div>
 					
 					
 					</tbody> 
@@ -129,6 +113,9 @@
 						</jsp:include>
 					</div>
 					
+					<!-- hidden 을 통해서 값을 넘겨주기 -->
+					<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
+					<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 					</form>
 					<!-- 페이징끝 --> 
 					

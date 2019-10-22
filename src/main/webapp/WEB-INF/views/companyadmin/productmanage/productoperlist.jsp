@@ -38,9 +38,9 @@
 									<option selected="selected" value="SEQ"
 										<c:out value="${param.sorting == 'SEQ'? 'selected':'' }"/>>상품번호순</option>
 									<option value="PRICEUP"
-										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격↑</option>
+										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격 ↑</option>
 									<option value="PRICEDOWN"
-										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
+										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격 ↓</option>
 								</select>
 								<button type="button" onclick="location.href='/admin/company/productoperlist'"
 								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; color:white; background-color: #5587ED;">
@@ -51,7 +51,6 @@
 								<button type="button" onclick="location.href='/admin/company/productoperlist?criterion=c1_search&c1_name=WOMEN'"
 								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
 								WOMEN</button>
-								
 						</div>
 					</div>
 					<!-- 검색 -->
@@ -171,7 +170,7 @@
 									수정</button>
 								</td>
 								<td>
-									<button type="button" 
+									<button type="button" value="${pro.p_seq }" class="eachproduct-delete"
 									style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
 									삭제</button>
 								</td>
@@ -179,7 +178,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<button type="button" onclick="location.href='/admin/company/productlist'"
+				<button type="button" onclick="location.href='/admin/company/productlist'" 
 								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
 								선택삭제</button>
 				<div class="col-sm-12 col-md-7">
@@ -274,6 +273,13 @@
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+//상품 삭제(EACH)
+$('.eachproduct-delete').click(function(){
+	var p_seq = $(this).val();
+	location.href="/admin/company/productDelete?p_seq="+ p_seq;
+});
+
 //SALE 적용 버튼
 $('#saleregister-finishBtn').click(function(){
 	//상품SEQ
@@ -388,12 +394,10 @@ function applysalepercent(percent){
 			(".appliedPrice").html("");
 			
 		}else{
-			$(".appliedPrice").html(numberWithCommas(appliedPrice));
-			$("#applied_hdn_price").val(appliedPrice);
+			$(".appliedPrice").html(numberWithCommas(Math.round(appliedPrice)));
+			$("#applied_hdn_price").val(Math.round(appliedPrice));
 		}	
 	}
-	
-	
 	
 	
 }

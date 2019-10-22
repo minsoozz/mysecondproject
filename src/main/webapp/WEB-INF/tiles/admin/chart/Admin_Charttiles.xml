@@ -15,4 +15,20 @@
 		<put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
    </definition>
    
+   <definition name="salary.tiles" extends="chart.tiles">
+   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/salary_chart.jsp"/>
+   </definition>
+   
+   <definition name="member.tiles" extends="chart.tiles">
+   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/member_chart.jsp"/>
+   </definition>
+   
+   <definition name="category.tiles" extends="chart.tiles">
+   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/category_chart.jsp"/>
+   </definition>
+   
+   <definition name="product.tiles" extends="chart.tiles">
+   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/product_chart.jsp"/>
+   </definition>
+   
 </tiles-definitions>

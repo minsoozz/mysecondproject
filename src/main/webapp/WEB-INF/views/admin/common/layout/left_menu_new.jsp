@@ -13,6 +13,7 @@
 </head>
 
 <!-- Sidebar -->
+
 <ul
 	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 	id="accordionSidebar">
@@ -105,7 +106,7 @@
 					<div id="collapseExcel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">CHART</h6>
-							<a class="collapse-item" href="/admin/excel">DB 액셀 다운로드</a>
+							<a class="collapse-item" href="/admin/excel/move">DB 액셀 다운로드</a>
 						</div>
 					</div>
 				</li>
@@ -120,8 +121,8 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Customer Center</h6>
 							<a class="collapse-item" href="/admin/customercenter/noticelist">공지사항</a>
-							<a class="collapse-item" href="/admin/customercenter/noticelist">자주하는질문</a>
-							<a class="collapse-item" href="/admin/customercenter/noticelist">1:1질문</a>
+							<a class="collapse-item" href="/admin/customercenter/faqlist">자주하는질문</a>
+							<a class="collapse-item" href="/admin/customercenter/qnalist">1:1질문</a>
 						</div>
 					</div>
 				</li>
@@ -143,13 +144,14 @@
 							<h6 class="collapse-header">Events</h6>
 							<a class="collapse-item" href="/admin/mypage/coupon">쿠폰 관리</a>
 							<a class="collapse-item" href="/admin/mypage/points">적립금</a>
-							<a class="collapse-item" href="/admin/events">이벤트</a>
+							<a class="collapse-item" href="/admin/event/eventlist">이벤트</a>
 						</div>
 					</div>
 				</li>
 			</c:if>
 		</c:forEach>
 	</c:if>
+
 
 
 	<!-- Nav Item - Pages Collapse Menu -->

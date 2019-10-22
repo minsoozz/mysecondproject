@@ -19,22 +19,22 @@ public class AdminChartController {
 	
 	@GetMapping(value = "salary")
 	public String salary() {
-		return "/salary.tiles";
+		return "salary.tiles";
 	}
 	
 	@GetMapping(value = "member")
 	public String member() {
-		return "/member.tiles";
+		return "member.tiles";
 	}
 	
 	@GetMapping(value = "category")
 	public String category() {
-		return "/category.tiles";
+		return "category.tiles";
 	}
 	
 	@GetMapping(value = "product")
 	public String product() {
-		return "/product.tiles";
+		return "product.tiles";
 	}
 
 }

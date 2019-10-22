@@ -19,16 +19,4 @@ public interface NoticeDao {
 	//readcount 증가
 	public boolean NoticeUpRead(int seq);
 	
-	//notice 업로드
-	public boolean NoticeUpload(NoticeDto dto);
-	
-	//notice 수정
-	public boolean NoticeUpdateAf(NoticeDto dto);
-
-	//notice 파일이름가져오기
-	public String getfilename(int seq);
-	
-	//notice 삭제
-	public boolean NoticeDelete(int seq);
-	
 }

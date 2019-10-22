@@ -47,4 +47,12 @@ public class AdminPointsDAO {
 	public int updatePointsDetail(PointsDTO pDto) {
 		return sqlSession.update(ns +"updatePointsDetail", pDto);
 	}
+	
+	/**ID가 갖는 모든 권한 리턴
+	 * @param userid
+	 * @return
+	 */
+	public List<String> getAuthoritiesById(String userid){
+		return sqlSession.selectList(ns + "getAuthoritiesById", userid); 
+	}
 }

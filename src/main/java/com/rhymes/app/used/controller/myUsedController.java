@@ -148,7 +148,7 @@ public class myUsedController {
 		
 		List<String> member = MyusedService.getMemberid(map);
 
-	
+
 
 		return member;
 	}
