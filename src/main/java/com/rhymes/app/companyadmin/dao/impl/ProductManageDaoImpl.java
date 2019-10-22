@@ -53,7 +53,6 @@ public class ProductManageDaoImpl implements ProductManageDao{
 
 	@Override
 	public String getSizeunit(int c2_seq) throws Exception {
-		System.out.println("c2_seq : " + c2_seq);
 		return sqlSession.selectOne(ns + "getSizeunit", c2_seq);
 	}
 
@@ -65,8 +64,6 @@ public class ProductManageDaoImpl implements ProductManageDao{
 //2.상품조회	
 	@Override
 	public List<ProductDto> getProductList(ProductManageDto pParam) throws Exception {
-		System.out.println("----------------------------"+pParam.getCriterion());
-		System.out.println("----------------------------"+pParam.getC1_name());
 		return sqlSession.selectList(ns + "getAdminProductList", pParam); 
 	}
 

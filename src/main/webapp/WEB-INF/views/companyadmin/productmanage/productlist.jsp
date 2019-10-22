@@ -50,9 +50,9 @@
 									<option selected="selected" value="SEQ"
 										<c:out value="${param.sorting == 'SEQ'? 'selected':'' }"/>>상품번호순</option>
 									<option value="PRICEUP"
-										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격↑</option>
+										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격 ↑</option>
 									<option value="PRICEDOWN"
-										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
+										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격 ↓</option>
 									<option value="">판매량순</option>																	
 								</select>
 								&nbsp;
