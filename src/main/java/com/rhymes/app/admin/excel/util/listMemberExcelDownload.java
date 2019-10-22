@@ -30,7 +30,7 @@ public class listMemberExcelDownload extends AbstractXlsxView {
 		String sCurTime = null;
         sCurTime = new SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(new Date());
      
-        String excelName = sCurTime + "RHYMESb 결제내역_엑셀다운로드.xlsx";
+        String excelName = sCurTime + "RHYMESb 회원정보_엑셀다운로드.xlsx";
         Sheet worksheet_p = null;
         Sheet worksheet_c = null;
         Row row_p = null;
@@ -79,6 +79,50 @@ public class listMemberExcelDownload extends AbstractXlsxView {
             }
             columnIndex++;
         }
+        
+        columnIndex = 0;
+        while (columnIndex < 20) {
+            if(columnIndex == 0) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 1) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 2) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 3) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 4) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 5) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 6) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 7) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 8) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 9) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 10) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 11) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 12) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 13) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 14) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 15) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 16) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 17) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }else if (columnIndex == 18) {
+            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            }
+            columnIndex++;
+        }
 
 
         // 헤더 설정
@@ -95,9 +139,29 @@ public class listMemberExcelDownload extends AbstractXlsxView {
         row_p.createCell(9).setCellValue("BIRTH");
         row_p.createCell(10).setCellValue("COUNT");
         row_p.createCell(11).setCellValue("subscribe");
-         
-        int rowIndex = 1;
         
+        row_c = worksheet_c.createRow(0);
+        row_c.createCell(0).setCellValue("ID");
+        row_c.createCell(1).setCellValue("C_NAME");
+        row_c.createCell(2).setCellValue("C_NUM");
+        row_c.createCell(3).setCellValue("P_NAME");
+        row_c.createCell(4).setCellValue("C_POSTCODE");
+        row_c.createCell(5).setCellValue("C_ADDRESS");
+        row_c.createCell(6).setCellValue("C_DETAILADDRESS");
+        row_c.createCell(7).setCellValue("C_COND");
+        row_c.createCell(8).setCellValue("C_TYPE");
+        row_c.createCell(9).setCellValue("IC_NAME");
+        row_c.createCell(10).setCellValue("IC_PHONE");
+        row_c.createCell(11).setCellValue("IC_EMAIL");
+        row_c.createCell(12).setCellValue("S_POSTCODE");
+        row_c.createCell(13).setCellValue("S_ADDRESS");
+        row_c.createCell(14).setCellValue("S_DETAILADDRESS");
+        row_c.createCell(15).setCellValue("R_POSTCODE");
+        row_c.createCell(16).setCellValue("R_ADDRESS");
+        row_c.createCell(17).setCellValue("R_DETAILADDRESS");
+        row_c.createCell(18).setCellValue("C_CODE");
+         
+        int rowIndex = 1;        
         // 각 해당하는 셀에 값과 스타일을 넣음
         for(P_MemberDTO mem_p : mem_p_list) {
         	row_p = worksheet_p.createRow(rowIndex);
@@ -116,8 +180,40 @@ public class listMemberExcelDownload extends AbstractXlsxView {
              
             rowIndex++;
         }
+        
+        rowIndex = 1;        
+        // 각 해당하는 셀에 값과 스타일을 넣음
+        for(SellerDTO mem_c : mem_c_list) {
+        	row_c = worksheet_c.createRow(rowIndex);
+        	row_c.createCell(0).setCellValue(mem_c.getId());
+        	row_c.createCell(1).setCellValue(mem_c.getC_name());
+        	row_c.createCell(2).setCellValue(mem_c.getC_num());
+        	row_c.createCell(3).setCellValue(mem_c.getP_name());
+        	row_c.createCell(4).setCellValue(mem_c.getC_postcode());
+        	row_c.createCell(5).setCellValue(mem_c.getC_address());
+        	row_c.createCell(6).setCellValue(mem_c.getC_detailaddress());
+        	row_c.createCell(7).setCellValue(mem_c.getC_cond());
+        	row_c.createCell(8).setCellValue(mem_c.getC_type());
+        	row_c.createCell(9).setCellValue(mem_c.getIc_name());
+        	row_c.createCell(10).setCellValue(mem_c.getIc_phone());
+        	row_c.createCell(11).setCellValue(mem_c.getIc_email());
+        	row_c.createCell(11).setCellValue(mem_c.getS_postcode());
+        	row_c.createCell(11).setCellValue(mem_c.getS_address());
+        	row_c.createCell(11).setCellValue(mem_c.getS_detailaddress());
+        	row_c.createCell(11).setCellValue(mem_c.getR_postcode());
+        	row_c.createCell(11).setCellValue(mem_c.getR_address());
+        	row_c.createCell(11).setCellValue(mem_c.getR_detailaddress());
+        	row_c.createCell(11).setCellValue(mem_c.getC_code());
+             
+            rowIndex++;
+        }
 
 
+        
+        
+        
+        
+        
 
         // 셀 병합 CellRangeAddress(시작 행, 끝 행, 시작 열, 끝 열)
         worksheet_p.addMergedRegion(
@@ -125,7 +221,7 @@ public class listMemberExcelDownload extends AbstractXlsxView {
          
         // 병합 테스트를 위한 설정
         row_p = worksheet_p.createRow(mem_p_list.size() + 1);
-        row_p.createCell(0).setCellValue("셀 병합 테스트");
+        row_p.createCell(0).setCellValue("개인 회원 정보");
         row_p.getCell(0).setCellStyle(style); // 지정한 스타일을 입혀준다.
          
          

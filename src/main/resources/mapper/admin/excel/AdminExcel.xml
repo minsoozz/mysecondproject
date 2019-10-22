@@ -5,7 +5,9 @@
 
 	<!-- 개인 회원 정보 전부 가져오기 -->
     <select id="getMemberP_ExcelDown" resultType="com.rhymes.app.member.model.P_MemberDTO">
-        SELECT * FROM RHY_MEM_P
+        SELECT SEQ, ID as userid, NAME as username, POSTCODE, ADDRESS, DETAILADDRESS,
+        		EMAIL as useremail, PHONE, GENDER as usergender, BIRTH as userbirth, COUNT, SUBSCRIBE
+        FROM RHY_MEM_P
     </select>
 	
 	<!-- 사업자 회원 정보 전부 가져오기 -->
@@ -17,4 +19,12 @@
     <select id="getPaymentExcelDown" resultType="com.rhymes.app.payment.model.PaymentDTO">
         SELECT * FROM RHY_PAYMENT
     </select>
+    
+    <!-- 상품 정보 전부 가져오기 -->
+    <select id="getProductExcelDown" resultType="com.rhymes.app.admin.excel.model.AdminExcelProductDTO">
+    	SELECT *
+    	FROM RHY_STORE_PRODUCT P, RHY_STORE_STOCK S
+    	WHERE P.P_SEQ = S.P_SEQ
+    </select>
+    
 </mapper>

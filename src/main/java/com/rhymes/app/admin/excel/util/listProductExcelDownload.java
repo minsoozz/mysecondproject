@@ -17,9 +17,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
-import com.rhymes.app.payment.model.PaymentDTO;
+import com.rhymes.app.admin.excel.model.AdminExcelProductDTO;
 
-public class listPaymentExcelDownload extends AbstractXlsxView {
+public class listProductExcelDownload extends AbstractXlsxView {
 
 	@Override
 	protected void buildExcelDocument(Map<String, Object> modelMap, Workbook workbook, HttpServletRequest request,
@@ -28,23 +28,25 @@ public class listPaymentExcelDownload extends AbstractXlsxView {
 		String sCurTime = null;
         sCurTime = new SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(new Date());
      
-        String excelName = sCurTime + "RHYMESb 결제내역_엑셀다운로드.xlsx";
+        String excelName = sCurTime + "RHYMESb 상품정보_엑셀다운로드.xlsx";
         Sheet worksheet = null;
         Row row = null;
         CellStyle style = workbook.createCellStyle(); // 셀 스타일을 위한 변수
         style.setAlignment(CellStyle.ALIGN_CENTER); // 글 위치를 중앙으로 설정
          
-        List<PaymentDTO> listExcel = (List<PaymentDTO>)modelMap.get("payment_list");
+        List<AdminExcelProductDTO> product_list = (List<AdminExcelProductDTO>)modelMap.get("product_list");
          
         // 새로운 sheet를 생성한다.
-        worksheet = workbook.createSheet("결제내역");
+        worksheet = workbook.createSheet("상품정보");
          
         // 가장 첫번째 줄에 제목을 만든다.
         row = worksheet.createRow(0);
-         
+        
+        
+        
         // 칼럼 길이 설정
         int columnIndex = 0;
-        while (columnIndex < 20) {
+        while (columnIndex < 15) {
              
             if(columnIndex == 0) {
                 worksheet.setColumnWidth(columnIndex, 5000);
@@ -58,7 +60,7 @@ public class listPaymentExcelDownload extends AbstractXlsxView {
                 worksheet.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 5) {
                 worksheet.setColumnWidth(columnIndex, 5000);
-            }else if (columnIndex == 6) {
+			}else if (columnIndex == 6) {
                 worksheet.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 7) {
                 worksheet.setColumnWidth(columnIndex, 5000);
@@ -78,83 +80,71 @@ public class listPaymentExcelDownload extends AbstractXlsxView {
                 worksheet.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 15) {
                 worksheet.setColumnWidth(columnIndex, 5000);
-            }else if (columnIndex == 16) {
-                worksheet.setColumnWidth(columnIndex, 5000);
-            }else if (columnIndex == 17) {
-                worksheet.setColumnWidth(columnIndex, 5000);
-            }else if (columnIndex == 18) {
-                worksheet.setColumnWidth(columnIndex, 5000);
-            }else if (columnIndex == 19) {
-                worksheet.setColumnWidth(columnIndex, 5000);
             }
             columnIndex++;
         }
 
 
         // 헤더 설정
+        
         row = worksheet.createRow(0);
-        row.createCell(0).setCellValue("SEQ");
-        row.createCell(1).setCellValue("PAYMENT_CODE");
-        row.createCell(2).setCellValue("USERID");
-        row.createCell(3).setCellValue("SEND_NAME");
-        row.createCell(4).setCellValue("SEND_PHONE");
-        row.createCell(5).setCellValue("SEND_EMAIL");
-        row.createCell(6).setCellValue("RECEIVE_NAME");
-        row.createCell(7).setCellValue("RECEIVE_PHONE");
-        row.createCell(8).setCellValue("RECEIVE_POSTNUM");
-        row.createCell(9).setCellValue("RECEIVE_ADDRESS");
-        row.createCell(10).setCellValue("PAYMENT_METHOD");
-        row.createCell(11).setCellValue("PAYMENT_STATUS");
-        row.createCell(12).setCellValue("DISC_COUPON");
-        row.createCell(13).setCellValue("DELIVERY_PRICE");
-        row.createCell(14).setCellValue("COUPON_CODE");
-        row.createCell(15).setCellValue("DISC_POINT");
-        row.createCell(16).setCellValue("DISC_PRODUCT");
-        row.createCell(17).setCellValue("ADD_POINT");
-        row.createCell(18).setCellValue("TOTALPRICE");
-        row.createCell(19).setCellValue("RDATE");
-         
+        row.createCell(0).setCellValue("STOCK_SEQ");
+        row.createCell(1).setCellValue("P_SEQ");
+        row.createCell(2).setCellValue("SIZE");
+        row.createCell(3).setCellValue("QUANTITY");
+        row.createCell(4).setCellValue("C_NAME");
+        row.createCell(5).setCellValue("P_NAME");
+        row.createCell(6).setCellValue("CP_CODE");
+        row.createCell(7).setCellValue("P_PRICE");
+        row.createCell(8).setCellValue("BFS_PRICE");
+        row.createCell(9).setCellValue("P_COLOR");
+        row.createCell(10).setCellValue("C1_NAME");
+        row.createCell(11).setCellValue("C2_NAME");
+        row.createCell(12).setCellValue("C3_NAME");
+        row.createCell(13).setCellValue("NATION");
+        row.createCell(14).setCellValue("MDATE");
+        row.createCell(15).setCellValue("RDATE");
+        
+        
+        
         int rowIndex = 1;
         
         int i = 0;
         // 각 해당하는 셀에 값과 스타일을 넣음
-        for(PaymentDTO excel : listExcel) {
+        for(AdminExcelProductDTO excel : product_list) {
             row = worksheet.createRow(rowIndex);
-            row.createCell(0).setCellValue(excel.getSeq());
-            row.createCell(1).setCellValue(excel.getPayment_code());
-            row.createCell(2).setCellValue(excel.getUserid());
-            row.createCell(3).setCellValue(excel.getSend_name());
-            row.createCell(4).setCellValue(excel.getSend_phone());
-            row.createCell(5).setCellValue(excel.getSend_email());
-            row.createCell(6).setCellValue(excel.getReceive_name());
-            row.createCell(7).setCellValue(excel.getReceive_phone());
-            row.createCell(8).setCellValue(excel.getReceive_postnum());
-            row.createCell(9).setCellValue(excel.getReceive_address());
-            row.createCell(10).setCellValue(excel.getPayment_method());
-            row.createCell(11).setCellValue(excel.getPayment_status());
-            row.createCell(12).setCellValue(excel.getDisc_coupon());
-            row.createCell(13).setCellValue(excel.getDelivery_price());
-            row.createCell(14).setCellValue(excel.getCoupon_code());
-            row.createCell(15).setCellValue(excel.getDisc_point());
-            row.createCell(16).setCellValue(excel.getDisc_product());
-            row.createCell(17).setCellValue(excel.getAdd_point());
-            row.createCell(18).setCellValue(excel.getTotalprice());
-            row.createCell(19).setCellValue(excel.getRdate());
+            row.createCell(0).setCellValue(excel.getStock_seq());
+            row.createCell(1).setCellValue(excel.getP_seq());
+            row.createCell(2).setCellValue(excel.getSize());
+            row.createCell(3).setCellValue(excel.getQuantity());
+            row.createCell(4).setCellValue(excel.getC_name());
+            row.createCell(5).setCellValue(excel.getP_name());
+            row.createCell(6).setCellValue(excel.getCp_code());
+            row.createCell(7).setCellValue(excel.getP_price());
+            row.createCell(8).setCellValue(excel.getBfs_price());
+            row.createCell(9).setCellValue(excel.getP_color());
+            row.createCell(10).setCellValue(excel.getC1_name());
+            row.createCell(11).setCellValue(excel.getC2_name());
+            row.createCell(12).setCellValue(excel.getC3_name());
+            row.createCell(13).setCellValue(excel.getNation());
+            row.createCell(14).setCellValue(excel.getMdate());
+            row.createCell(15).setCellValue(excel.getRdate());
              
             rowIndex++;
         }
-
-
-
+        
+        
+        
         // 셀 병합 CellRangeAddress(시작 행, 끝 행, 시작 열, 끝 열)
         worksheet.addMergedRegion(
-                new CellRangeAddress(listExcel.size() + 1, listExcel.size() + 1, 0, 20));
+                new CellRangeAddress(product_list.size() + 1, product_list.size() + 1, 0, 20));
          
         // 병합 테스트를 위한 설정
-        row = worksheet.createRow(listExcel.size() + 1);
-        row.createCell(0).setCellValue("결제내역");
+        row = worksheet.createRow(product_list.size() + 1);
+        row.createCell(0).setCellValue("상품 정보");
         row.getCell(0).setCellStyle(style); // 지정한 스타일을 입혀준다.
-         
+
+        
          
         try {
             response.setHeader("Content-Disposition", "attachement; filename=\""

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.View;
 
+import com.rhymes.app.admin.excel.model.AdminExcelProductDTO;
 import com.rhymes.app.admin.excel.service.AdminExcelService;
 import com.rhymes.app.admin.excel.util.listMemberExcelDownload;
 import com.rhymes.app.admin.excel.util.listPaymentExcelDownload;
+import com.rhymes.app.admin.excel.util.listProductExcelDownload;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
@@ -52,6 +54,16 @@ public class AdminExcelController {
 	    model.addAttribute("payment_list", payment_list);
 	    
 		return new listPaymentExcelDownload();
+	}
+	
+	// 상품 정보 전부 가져오기
+	@GetMapping("/product")
+	public View product(Model model) throws Exception {
+		
+	    List<AdminExcelProductDTO> product_list = excelService.getProductExcelDown();
+	    model.addAttribute("product_list", product_list);
+		
+		return new listProductExcelDownload();
 	}
 	
 }

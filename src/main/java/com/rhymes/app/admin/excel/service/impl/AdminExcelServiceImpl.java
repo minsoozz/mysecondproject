@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rhymes.app.admin.excel.dao.AdminExcelDAO;
+import com.rhymes.app.admin.excel.model.AdminExcelProductDTO;
 import com.rhymes.app.admin.excel.service.AdminExcelService;
 import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerDTO;
@@ -32,8 +33,14 @@ public class AdminExcelServiceImpl implements AdminExcelService {
 
 	// 결제내역 정보 전부 가져오기
 	@Override
-	public List<PaymentDTO> getPaymentExcelDown() throws Exception {
+	public List<PaymentDTO> getPaymentExcelDown() {
 		return AdminExcelDAO.getPaymentExcelDown();
+	}
+	
+	// 상품 정보 전부 가져오기
+	@Override
+	public List<AdminExcelProductDTO> getProductExcelDown() {
+		return AdminExcelDAO.getProductExcelDown();
 	}
 
 }
