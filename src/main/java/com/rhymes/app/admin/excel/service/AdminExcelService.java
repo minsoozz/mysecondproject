@@ -2,15 +2,23 @@ package com.rhymes.app.admin.excel.service;
 
 import java.util.List;
 
-import com.rhymes.app.admin.excel.model.DtestDTO;
+import com.rhymes.app.admin.excel.model.AdminExcelProductDTO;
+import com.rhymes.app.member.model.P_MemberDTO;
+import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
 public interface AdminExcelService {
+
+	// 개인 회원 정보 전부 가져오기
+	public List<P_MemberDTO> getMemberP_ExcelDown();
+
+    // 사업자 회원 정보 전부 가져오기
+	public List<SellerDTO> getMemberC_ExcelDown();
+
+	// 결제내역 정보 전부 가져오기
+	public List<PaymentDTO> getPaymentExcelDown();
 	
-	// 데이터 다운로드
-	public List<DtestDTO> listExcelDownload() throws Exception;
-	
-	// 결제내역 다운로드
-	public List<PaymentDTO> getPaymentExcelDown() throws Exception;
+	// 상품 정보 전부 가져오기
+	public List<AdminExcelProductDTO> getProductExcelDown();
 
 }

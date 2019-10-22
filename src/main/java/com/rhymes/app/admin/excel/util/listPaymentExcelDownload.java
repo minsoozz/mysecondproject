@@ -17,10 +17,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
-import com.rhymes.app.admin.excel.model.DtestDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
-public class listExcelDownload extends AbstractXlsxView {
+public class listPaymentExcelDownload extends AbstractXlsxView {
 
 	@Override
 	protected void buildExcelDocument(Map<String, Object> modelMap, Workbook workbook, HttpServletRequest request,
@@ -38,7 +37,7 @@ public class listExcelDownload extends AbstractXlsxView {
         List<PaymentDTO> listExcel = (List<PaymentDTO>)modelMap.get("payment_list");
          
         // 새로운 sheet를 생성한다.
-        worksheet = workbook.createSheet("엑셀 목록");
+        worksheet = workbook.createSheet("결제내역");
          
         // 가장 첫번째 줄에 제목을 만든다.
         row = worksheet.createRow(0);
@@ -121,26 +120,26 @@ public class listExcelDownload extends AbstractXlsxView {
         // 각 해당하는 셀에 값과 스타일을 넣음
         for(PaymentDTO excel : listExcel) {
             row = worksheet.createRow(rowIndex);
-            row.createCell(i++).setCellValue(excel.getSeq());
-            row.createCell(i++).setCellValue(excel.getPayment_code());
-            row.createCell(i++).setCellValue(excel.getUserid());
-            row.createCell(i++).setCellValue(excel.getSend_name());
-            row.createCell(i++).setCellValue(excel.getSend_phone());
-            row.createCell(i++).setCellValue(excel.getSend_email());
-            row.createCell(i++).setCellValue(excel.getReceive_name());
-            row.createCell(i++).setCellValue(excel.getReceive_phone());
-            row.createCell(i++).setCellValue(excel.getReceive_postnum());
-            row.createCell(i++).setCellValue(excel.getReceive_address());
-            row.createCell(i++).setCellValue(excel.getPayment_method());
-            row.createCell(i++).setCellValue(excel.getPayment_status());
-            row.createCell(i++).setCellValue(excel.getDisc_coupon());
-            row.createCell(i++).setCellValue(excel.getDelivery_price());
-            row.createCell(i++).setCellValue(excel.getCoupon_code());
-            row.createCell(i++).setCellValue(excel.getDisc_point());
-            row.createCell(i++).setCellValue(excel.getDisc_product());
-            row.createCell(i++).setCellValue(excel.getAdd_point());
-            row.createCell(i++).setCellValue(excel.getTotalprice());
-            row.createCell(i++).setCellValue(excel.getRdate());
+            row.createCell(0).setCellValue(excel.getSeq());
+            row.createCell(1).setCellValue(excel.getPayment_code());
+            row.createCell(2).setCellValue(excel.getUserid());
+            row.createCell(3).setCellValue(excel.getSend_name());
+            row.createCell(4).setCellValue(excel.getSend_phone());
+            row.createCell(5).setCellValue(excel.getSend_email());
+            row.createCell(6).setCellValue(excel.getReceive_name());
+            row.createCell(7).setCellValue(excel.getReceive_phone());
+            row.createCell(8).setCellValue(excel.getReceive_postnum());
+            row.createCell(9).setCellValue(excel.getReceive_address());
+            row.createCell(10).setCellValue(excel.getPayment_method());
+            row.createCell(11).setCellValue(excel.getPayment_status());
+            row.createCell(12).setCellValue(excel.getDisc_coupon());
+            row.createCell(13).setCellValue(excel.getDelivery_price());
+            row.createCell(14).setCellValue(excel.getCoupon_code());
+            row.createCell(15).setCellValue(excel.getDisc_point());
+            row.createCell(16).setCellValue(excel.getDisc_product());
+            row.createCell(17).setCellValue(excel.getAdd_point());
+            row.createCell(18).setCellValue(excel.getTotalprice());
+            row.createCell(19).setCellValue(excel.getRdate());
              
             rowIndex++;
         }
@@ -153,7 +152,7 @@ public class listExcelDownload extends AbstractXlsxView {
          
         // 병합 테스트를 위한 설정
         row = worksheet.createRow(listExcel.size() + 1);
-        row.createCell(0).setCellValue("셀 병합 테스트");
+        row.createCell(0).setCellValue("결제내역");
         row.getCell(0).setCellStyle(style); // 지정한 스타일을 입혀준다.
          
          

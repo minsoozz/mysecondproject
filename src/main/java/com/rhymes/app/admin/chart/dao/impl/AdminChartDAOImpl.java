@@ -11,6 +11,6 @@ public class AdminChartDAOImpl implements AdminChartDAO {
 	
 	@Autowired
 	SqlSession SqlSession;	
-	String c = "adminchart";
+	String c = "adminchart.";
 
 }
