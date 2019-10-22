@@ -16,7 +16,7 @@ $(function(){
 	});
 	
 	$(".page-item .page-num").click(function(){
-		var pageNum = $(this).text().trim();
+		var pageNum = $(this).text().trim();		
 		$("#_currPageNum").val(pageNum);
 		$("#_frm").submit();
 	});

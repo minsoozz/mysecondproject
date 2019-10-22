@@ -8,7 +8,7 @@
 </head>
 <body>
 
-product_chart.jsp
+상품별 통계
 
 </body>
 </html>
