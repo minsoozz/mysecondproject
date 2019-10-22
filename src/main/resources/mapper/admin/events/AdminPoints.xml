@@ -15,7 +15,10 @@
 	<!-- 매개변수로 받은 내용대로 적립금 디테일 수정 -->
 	<update id="updatePointsDetail" parameterType="com.rhymes.app.admin.events.model.PointsDTO">
 		<include refid="updatePointsDetailSql"/></update>
-
+		
+	<!-- ID가 갖는 모든 권한 리턴 -->
+	<select id="getAuthoritiesById" parameterType="java.lang.String" resultType="java.lang.String">
+		<include refid="getAuthoritiesByIdSql"/></select>
 
 	<!-- 쿼리정보 -->
 	<!-- 총 적립금 지급내역 개수 -->
@@ -56,4 +59,9 @@
 		WHERE SEQ=#{seq};
 	</sql>
 	
+	<!-- ID가 갖는 모든 권한 리턴 -->
+	<sql id="getAuthoritiesByIdSql">
+		SELECT AUTHORITY FROM AUTHORITIES WHERE ID=#{id}
+	</sql>
+		
 </mapper>

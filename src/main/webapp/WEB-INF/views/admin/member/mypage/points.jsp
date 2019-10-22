@@ -13,6 +13,12 @@
 
 <link rel="stylesheet" href="<%=ctx%>/css/admin/events/sub/points_detail.css">
 
+<!-- autocomplete 관련 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 <!-- Page Heading -->
@@ -24,7 +30,7 @@
 	<div class="card-header py-3">
 		<h6 class="m-0 font-weight-bold text-primary">적립금 목록</h6>
 		<div class="function-btns-wrap">
-			<a id="_btn_give_points" href="#" class="btn btn-info btn-icon-split">
+			<a id="_btn_give_points" href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#_points_give_modal">
 				<span class="icon text-white-50"><i class="fas fa-info-circle"></i></span><span class="text">적립금 지급</span>
 			</a>
 		</div>
@@ -34,8 +40,7 @@
 			<div class="row">
 				<div class="col-sm-12 col-md-6">
 					<div class="dataTables_length" id="dataTable_length">
-					<form action="<%=ctx %>/admin/mypage/points" id="_frm" method="post">	
-						<input type="hidden" name="pageNum" id="_currPageNum" value="${pDto.pageNum }">				
+					<form action="<%=ctx %>/admin/mypage/points" id="_frm" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						 <select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable" onchange="conditionChanged();"
 							class="custom-select custom-select-sm form-control form-control-sm">
@@ -62,6 +67,8 @@
 						</button>
 					</div>
 				</div>				
+				<%-- <input type="hidden" name="pageNum" id="_currPageNum" value="${pDto.pageNum }"> --%>
+				<input type="hidden" name="pageNum" id="_currPageNum" value="2">
 				</form><!-- /검색 -->				
 			</div>
 			
