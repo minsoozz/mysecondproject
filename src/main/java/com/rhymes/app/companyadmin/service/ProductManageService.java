@@ -37,4 +37,6 @@ public interface ProductManageService extends Serializable {
 	public boolean productSalePriceUpdate(ProductDto product) throws Exception;
 	//3-3.상품 SALE가격 취소
 	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception;
+	//3-4.상품삭제
+	public boolean productDelete(ProductDto product) throws Exception;
 }

@@ -200,4 +200,9 @@
  	SET P_PRICE = #{p_price}, BFS_PRICE = 0
  	WHERE P_SEQ = #{p_seq}
  </update>
+ <!-- 3(4).상품삭제 -->
+ <delete id="cAdminProductDelete" parameterType="com.rhymes.app.store.model.ProductDto">
+ 	DELETE FROM rhy_store_product
+ 	WHERE P_SEQ = #{p_seq}
+ </delete>
 </mapper>
