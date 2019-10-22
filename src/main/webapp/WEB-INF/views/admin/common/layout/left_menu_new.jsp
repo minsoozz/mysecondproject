@@ -105,8 +105,8 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Customer Center</h6>
 							<a class="collapse-item" href="/admin/customercenter/noticelist">공지사항</a>
-							<a class="collapse-item" href="/admin/customercenter/noticelist">자주하는질문</a>
-							<a class="collapse-item" href="/admin/customercenter/noticelist">1:1질문</a>
+							<a class="collapse-item" href="/admin/customercenter/faqlist">자주하는질문</a>
+							<a class="collapse-item" href="/admin/customercenter/qnalist">1:1질문</a>
 						</div>
 					</div>
 				</li>
