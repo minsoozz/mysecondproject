@@ -1,11 +1,37 @@
 package com.rhymes.app.common.util;
 
+import java.util.Date;
 import java.util.Random;
 
 public class MypageUtils {
 
 	
-	/**랜덤 쿠폰번호를 콘솔에 출력하는 메소드
+	/**cnt개수만큼 쿠폰번호 생성
+	 * @param cnt
+	 */
+	public static void printRandCoupsTimestamp(int cnt) {
+		Random rnd =new Random();
+		
+		for(int j = 0 ; j < cnt ; j++ ) {
+			StringBuffer buf =new StringBuffer();
+			String timeStamp = new Date().getTime() + "";
+			buf.append(timeStamp.substring(6, timeStamp.length()) + "-");
+			for(int i = 0 ; i < 6 ; i++){
+				if(i == 3) {
+					buf.append("-");
+				}
+			    if(rnd.nextBoolean()){
+			        buf.append((char)((int)(rnd.nextInt(26))+65));
+			    }else{
+			        buf.append((rnd.nextInt(10)));
+			    }
+			    
+			}
+			System.out.println(buf);
+		}
+	}
+	
+	/**랜덤 쿠폰번호 쿼리를 콘솔에 출력하는 메소드
 	 * 
 	 */
 	public static void printRandCoupsUpdate(int cnt, int scale, int seq) {
