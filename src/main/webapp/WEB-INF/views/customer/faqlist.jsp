@@ -4,14 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-<div id="button.wrap">
-	<span class="button blue">
-		<button type="button" id="_btnWrite">자주하는질문쓰기</button>
-	</span>
-</div>
+
 <form action="faqlist" name="frmForm1" id="_frmFormSearch" method="POST">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
-<table style="width:85%" >
+<table style="width:100%" >
 	<colgroup>
 		<col width="50"><col width="100"><col width="600">
 	</colgroup>
@@ -30,9 +26,9 @@
 	</tr>
 </table>    
     
-<table class="list_table" style="width:85%" >
+<table class="list_table" style="width:100%" >
 <colgroup>
-	<col width="50"><col width="100"><col width="600"><col width="150">
+	<col width="100"><col width="200"><col width="600"><col width="150">
 </colgroup>
 <thead>
 <tr>
@@ -55,22 +51,13 @@
 	</td>
 </tr>
 <tr class="detail" id='detail${faq.seq}'>
-	<td><img alt="" src="../img/customer-img/answer.PNG" height="12px" width="24px;" align="top"> </td>
-	<td colspan="2" align="left">
+	<td><img alt="" src="/img/customer-img/answer.PNG" height="12px" width="24px;" align="top"> </td>
+	<td colspan="3" align="left">
 	<div style="white-space:pre-line;">
 	${faq.content }
 	</div>
 	</td>
-	<td>
-	<div>
-	<span class="button blue">
-		<button type="button" class="btn" onclick="FaqUpdate('${faq.seq }')">수정</button>
-	</span>
-	<span class="button blue">
-		<button type="button" class="btn" onclick="FaqDelete('${faq.seq }')">삭제</button>
-	</span>
-	</div>
-	</td>
+	
 </tr>
 </c:forEach>
 
@@ -102,7 +89,7 @@
 	</td>
 	<td style="padding-left: 0px">
 		<span class="buttonsearch">
-			<img id="_btnSearch" alt="" src="../img/customer-img/searchb.png" style="height: 30px; height: 30px; border: 1px solid #D8D8D8;">
+			<img id="_btnSearch" alt="" src="/img/customer-img/searchb.png" style="height: 30px; height: 30px; border: 1px solid #D8D8D8;">
 		</span>
 	</td>
 </tr>
@@ -136,28 +123,10 @@ function faqdetail(seq){
 	}
 }
 
-
-/* 버튼 */
-function FaqDelete( seq ) {
-	location.href = "faqdelete?seq=" + seq;
-}
-function FaqUpdate( seq ) {
-	location.href = "faqupdate?seq=" + seq;
-}
-
-
-
 function categorychange(  ){
-	
-	document.frmForm1.submit();
-	
+	document.frmForm1.submit();	
 }
 
-
-
-$("#_btnWrite").click(function () { 
-	location.href = "faqwrite";
-});
 
 function goPage( pageNumber ) {
 	

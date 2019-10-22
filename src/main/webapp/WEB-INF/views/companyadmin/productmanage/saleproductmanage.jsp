@@ -168,13 +168,13 @@
 								</td>
 								<!-- 6 -->
 								<td class="" style="color:red;">
-									<fmt:formatNumber value="${(1-(pro.p_price/pro.bfs_price))*100}" pattern=".0"></fmt:formatNumber>%
+									<fmt:formatNumber value="${(1-(pro.p_price/pro.bfs_price))*100}" pattern=""></fmt:formatNumber>%
 								</td>
 								<!-- 11 -->
 								
 								<!-- 13 -->
 								<td>
-									<button type='button' class="salecancel-btn" value="${pro.p_seq }">취소</button>									
+									<button type='button' class="salecancel-btn" value="${pro.p_seq }">적용 취소</button>									
 								</td>
 							</tr>
 						</c:forEach>

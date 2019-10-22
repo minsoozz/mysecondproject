@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/admin/customer/customerlist.css">
 
+
 </head>
 
 <!-- Begin Page Content -->
@@ -31,9 +32,8 @@
 
 				<!-- @@@@ 여기서부터 작성 @@@@@ -->
 					<div id="button.wrap">
-						<span class="button blue">
-							<button type="button" id="_btnWrite">공지사항쓰기</button>
-						</span>
+							<button type="button" class="clickBtn" id="_btnWrite">공지사항쓰기</button>
+						
 					</div>
 					
 					<!-- 검색 -->
@@ -89,7 +89,7 @@
 						</td>
 						<td>${notice.id }</td>
 						<td> 
-							<font size="1">${fn:substring(notice.wdate,0,10)}</font>
+							<font size="2">${fn:substring(notice.wdate,0,10)}</font>
 						</td>
 						<td>${notice.readcount }</td>
 						

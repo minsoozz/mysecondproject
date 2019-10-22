@@ -38,28 +38,4 @@ public class FaqServiceImpl implements FaqService {
 		return faqDao.getFaqDetail(seq);
 	}
 
-	//faq upload
-	@Override
-	public boolean FaqUpload(FaqDto dto) {
-		
-		return faqDao.FaqUpload(dto);
-	}
-
-	//faq 수정
-	@Override
-	public boolean FaqUpdateAf(FaqDto dto) {
-		
-		return faqDao.FaqUpdateAf(dto);
-	}
-
-	//faq 삭제
-	@Override
-	public boolean FaqDelete(int seq) {
-		
-		return faqDao.FaqDelete(seq);
-	}
-	
-	
-	
-	
 }
