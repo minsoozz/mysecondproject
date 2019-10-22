@@ -10,7 +10,7 @@ $(function(){
 	});
 	
 	$(".points_row").click(function(){
-		$("#_points_detail_modal").modal();
+		//$("#_points_detail_modal").modal();
 	});
 });
 
