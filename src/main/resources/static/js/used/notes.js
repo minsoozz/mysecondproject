@@ -18,11 +18,43 @@ $(document).ready(function() {
 		var seq = $(this).val();
 		var send_id =  $("#_loginid").val();
 		var recv_id = $(this).attr('recv_id');
-		location.href="notesdelete?recv_id="+recv_id+"&send_id="+send_id+"&seq="+seq;;
+		location.href="notesdelete?recv_id="+recv_id+"&send_id="+send_id+"&seq="+seq;
 
 	})
+	
+	$("#_rformbtn").click(function() {	// 받은 쪽지함 검색
+		
+		var tapcount = 0;
+	    var keyword = $("#r_keyword").val();
+		var select = $("#r_select").val();
 
+		location.href="/mypage/notes?r_keyword="+keyword+"&r_select="+select+"&tapcount="+tapcount; 
+		
+	});
+	
+	$("#_sformbtn").click(function() { // 보낸 쪽지함 검색
+		
+		var tapcount = 1;
+	    var keyword = $("#s_keyword").val();
+		var select = $("#s_select").val();
+		
+		location.href="/mypage/notes?s_keyword="+keyword+"&s_select="+select+"&tapcount="+tapcount; 
+		
+	});
+	
 })
+
+function rgoPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
+	$("#_rpageNumber").val(pageNumber);
+	
+	$("#_rform").attr("action","/mypage/notes").submit();
+}
+
+function sgoPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
+	$("#_spageNumber").val(pageNumber);
+	
+	$("#_sform").attr("action","notes").submit();
+}
 
 function popupOpen(){
 	var url= "noteswrite";    //팝업창 페이지 URL

@@ -1,6 +1,7 @@
 package com.rhymes.app.used.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -224,7 +225,7 @@ public class myUsedController {
 		return num+"";
 	}
 	
-	@GetMapping(value="/myused")
+	@GetMapping(value="/myused")	// 내 판매목록 보기
 	public String myused(Model model,Principal prc,MyUsedParam mparam) {
 		String id = prc.getName();
 		mparam.setId(id);
@@ -253,7 +254,7 @@ public class myUsedController {
 		return "member/mypage/myused";
 	}
 	
-	@GetMapping(value="/updatedivision")
+	@GetMapping(value="/updatedivision")	// 판매 상태 변경
 	public String updatedivision(Model model,ProductsDto pDto) {
 		
 		boolean b = MyusedService.updatedivision(pDto);
