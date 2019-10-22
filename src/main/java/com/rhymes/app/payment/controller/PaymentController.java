@@ -35,6 +35,7 @@ public class PaymentController {
 	@Autowired
 	private PaymentService PaymentService;
 
+
 	// 단일제품 구매
 	@RequestMapping(value = "/payment", method = { RequestMethod.POST, RequestMethod.GET })
 	public String payment(Model model, String stock_seq, String p_quantity, Principal pcp) throws Exception {
@@ -78,6 +79,7 @@ public class PaymentController {
 
 		return "/payment/payment";
 	}
+
 
 	// 장바구니 리스트 구매
 	@RequestMapping("/payment/basketOrder")
@@ -149,6 +151,7 @@ public class PaymentController {
 		return "/payment/payment";
 	}
 
+
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
@@ -192,7 +195,7 @@ public class PaymentController {
 			boolean b4 = PaymentService.update_isused_coupon(dto);
 		}
 
-		// 배송내역 저장 -- 운송장번호 어떻게?
+		// 배송내역 저장
 		boolean b5 = PaymentService.delivery_save(dto);
 
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
@@ -214,6 +217,7 @@ public class PaymentController {
 
 		return "/payment/paymentAf";
 	}
+
 
 	// 결제 페이지에서 비회원으로 주문할때 본인인증
 	@ResponseBody
@@ -256,6 +260,7 @@ public class PaymentController {
 		return "success";
 	}
 	
+
 	// 결제페이지에서 window.open으로 쿠폰 가져오기
 	@RequestMapping(value = "/payment_coupon", method = RequestMethod.GET)
 	public String payment_coupon(Model model, Principal pcp, String product_price, String delivery_price, String input_disc_point) {
