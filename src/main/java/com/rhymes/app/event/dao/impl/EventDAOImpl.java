@@ -22,4 +22,12 @@ public class EventDAOImpl implements EventDAO {
 	public List<EventDTO> geteventlist() {
 		return sqlSession.selectList(ns+"geteventlist");
 	}
+
+	// 디테일
+	@Override
+	public EventDTO geteventdetail(EventDTO dto) {
+		return sqlSession.selectOne(ns+"geteventdetail", dto);
+	}
+	
+	
 }

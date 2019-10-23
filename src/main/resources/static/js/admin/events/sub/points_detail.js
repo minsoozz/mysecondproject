@@ -3,6 +3,7 @@
  */
 
 $(function(){
+	//페이징 네비게이션 페이지번호 클릭 이벤트
 	$(".page-item .page-num").click(function(){
 		var pageNum = $(this).text().trim();
 		$("#_currPageNum").val(pageNum);

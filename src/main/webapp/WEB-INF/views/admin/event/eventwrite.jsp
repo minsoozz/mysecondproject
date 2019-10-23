@@ -34,20 +34,20 @@
 		<div class="card-body">
 			<div class="table-responsive">
 			<div id="_left">
-			<form action="/admin/event/eventwrite" method="POST" enctype="multipart/form-data" name="inputtxt" onsubmit="return checkIt()">
+			<form action="/admin/event/eventwrite" id="_frm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<table border="1">
 				<tr>
 					<th>제목</th>
 					<td colspan="5">
-						<input type="text" name="title" required class="inputtext">
+						<input type="text" name="title" required class="inputtext" style="width: 800px">
 					</td>
 				</tr>
 				<tr>
 					<th>종류</th>
 					<td colspan="5">
 						<select name="type" class="inputtext">
-							<option value="">선택</option>
+							<option value="기타">기타</option>
 							<option value="할인이벤트">할인이벤트</option>
 							<option value="적립이벤트">적립이벤트</option>
 						</select>
@@ -57,7 +57,8 @@
 					<th>쿠폰</th>
 					<td colspan="5">
 						<span id="input_coupon"></span>
-						<button type="button" id="_coupon" class="eventBtn">쿠폰추가</button>
+						<button type="button" id="_coupon" class="eventBtn" 
+							onclick='answer_comment(this)'>쿠폰추가</button>
 					</td>
 				</tr>
 				<tr>
@@ -67,30 +68,30 @@
 						<c:forEach begin="${tyear }" end="${tyear+6 }" var="yyyy">
 							<option <c:out value="${tyear == yyyy? 'selected=selected':'' }"/> value="${yyyy }">${yyyy }</option>
 							</c:forEach>
-						</select>년
+						</select>&nbsp;년&nbsp;&nbsp;
 						
 						<select name="smonth" class="inputselect">
 						<c:forEach begin="1" end="12" var="mm">
 							<option <c:out value="${tmonth == mm? 'selected=selected':'' }"/> value="${mm }" >${mm }</option>
 						</c:forEach>
-						</select>월
+						</select>&nbsp;월&nbsp;&nbsp;
 						
 						<select name="sday" class="inputselect">
 						<c:forEach begin="1" end="${monthMax }" var="dd">
 							<option <c:out value="${tday == dd? 'selected=selected':'' }"/> value="${dd }">${dd }</option>
 						</c:forEach>
-						</select>일&nbsp;&nbsp;&nbsp;&nbsp;
+						</select>&nbsp;일
 						
-						<select name="shour" class="inputselect">
+						<%-- <select name="shour" class="inputselect">
 						<c:forEach begin="1" end="24" var="th">
 							<option <c:out value="${thour == th? 'selected=selected':'' }"/> value="${th }">${th }</option>
 						</c:forEach>
-						</select>:
+						</select>&nbsp;&nbsp;:&nbsp;&nbsp;
 						<select name="sminute" class="inputselect">
 						<c:forEach begin="0" end="59" var="tm">
 							<option <c:out value="${tminute == tm? 'selected=selected':'' }"/> value="${tm }">${tm }</option>
 						</c:forEach>
-						</select>
+						</select> --%>
 						</td>
 					</tr>
 					<tr>
@@ -100,29 +101,30 @@
 						<c:forEach begin="${tyear }" end="${tyear+6 }" var="yyyy">
 							<option <c:out value="${tyear == yyyy? 'selected=selected':'' }"/> value="${yyyy }">${yyyy }</option>
 							</c:forEach>
-						</select>년
+						</select>&nbsp;년&nbsp;&nbsp;
 						
 						<select name="emonth" class="inputselect">
 						<c:forEach begin="1" end="12" var="mm">
 							<option <c:out value="${tmonth == mm? 'selected=selected':'' }"/> value="${mm }" >${mm }</option>
 						</c:forEach>
-						</select>월
+						</select>&nbsp;월&nbsp;&nbsp;
 						
 						<select name="eday" class="inputselect">
 						<c:forEach begin="1" end="${monthMax }" var="dd">
 							<option <c:out value="${tday == dd? 'selected=selected':'' }"/> value="${dd }">${dd }</option>
 						</c:forEach>
-						</select>일&nbsp;&nbsp;&nbsp;&nbsp;
-						<select name="ehour" class="inputselect">
+						</select>&nbsp;일
+						
+						<%-- <select name="ehour" class="inputselect">
 						<c:forEach begin="1" end="24" var="th">
 							<option <c:out value="${thour == th? 'selected=selected':'' }"/> value="${th }">${th }</option>
 						</c:forEach>
-						</select>:
+						</select>&nbsp;&nbsp;&nbsp;:&nbsp;
 						<select name="eminute" class="inputselect">
 						<c:forEach begin="0" end="59" var="tm">
 							<option <c:out value="${tminute == tm? 'selected=selected':'' }"/> value="${tm }">${tm }</option>
 						</c:forEach>
-						</select>
+						</select> --%>
 					</td>
 				</tr>
 				
@@ -131,7 +133,7 @@
 						내용
 					</th>
 					<td colspan="5">
-						<textarea rows="10" cols="40" required></textarea>
+						<textarea rows="10" cols="90" required></textarea>
 					</td>
 				</tr>
 				
@@ -139,52 +141,27 @@
 					<th>배너이미지</th>					
 					<td colspan="5">
 						<div id="pZone1">
-							<font size='2px'>이미지를 등록해주세요.</font><br>
-							<input type="file" name="banner_file" id="fileUpload1">
+							<font size='2px' id="pZone1_font">이미지를 등록해주세요.</font><br>
+							<input type="file" name="bannerfile" id="fileUpload1">
 						</div>
 					</td>
 			   </tr>
-			   
-			   <tr height="200px" style="width:100%;">
+			   <tr>
 					<th>상세이미지</th>					
 					<td>
 						<div id="cZone1">
-							<font size='2px'>이미지를 등록해주세요.</font><br>
-							<input type="file" name="content_file" id="fileUpload2">
+							<input type="file" name="contentfile1" id="fileUpload2" style="width: 100%">
 						</div>
 					</td>
-					<td>
-						<div id="cZone2">
-							<font size='2px'>이미지를 등록해주세요.</font><br>
-							<input type="file" name="content_file" id="fileUpload3">						
-						</div>
-					</td>
-					<td>
-						<div id="cZone3">
-							<font size='2px'>이미지를 등록해주세요.</font><br>
-							<input type="file" name="content_file" id="fileUpload4">
-						</div>
-					</td>
-					<td>
-						<div id="cZone4">
-							<font size='2px'>이미지를 등록해주세요.</font><br>
-							<input type="file" name="content_file" id="fileUpload5">
-						</div>
-					</td>
-					<td>
-						<div id="cZone5">
-							<font size='2px' id="cZone5_font">이미지를 등록해주세요.</font><br>
-							<input type="file" name="content_file" id="fileUpload6">
-						</div>
-					</td>
-			   </tr>
+				</tr>
+			
 			   
 			</tbody>
 			</table>
 			
 			<br><br>
-			<input type="submit" value="올리기" class="eventBtn">
-			<input type="button" value="취소" class="eventBtn">
+			<input type="submit" value="올리기" class="closeBtn" id="submitBtn">
+			<input type="button" value="취소" class="closeBtn">
 		
 	
 			</form>
@@ -193,18 +170,18 @@
 			<!-- 쿠폰정보 모달 영역-->
 			<div class="restockModal">
 				<div class="restockModal-content">
-					<table>
+					<table class="modaltable" border="1">
 					<c:if test="${empty couponlist }">
 						<tr>
 							<td align="center" colspan="3">쿠폰리스트가 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="cou" items="${couponlist }" varStatus="vs">
-						<tr>
-						<th>${cou.title }</th>
-						<td>${cou.sub_title }</td>
-						<td>${cou.func_time_limit }</td>
-						<td>
+						<tr style="padding: 10px;" align="center">
+						<th style="padding: 0px 10px 0 10px;" align="center">${cou.title }</th>
+						<td align="center">${cou.sub_title }</td>
+						<td align="center">${cou.func_time_limit }</td>
+						<td align="center">
 							<button type="button" value="${cou.title }" class="eventBtn couBtn">선택</button>
 							<input type="hidden" value="${cou.seq }" name="seq">
 						</td>
@@ -213,7 +190,7 @@
 					
 					</table>
 					
-					<input type="button" class="closeBtn" value="닫기">
+					<input type="button" class="closeBtn modalBtn" value="닫기">
 					
 				</div>
 			</div>
@@ -245,7 +222,7 @@ $(document).ready(function(){
 });
 
 // 모달 닫기
-$(".closeBtn").click(function(){
+$(".modalBtn").click(function(){
 	$(".restockModal").fadeOut();
 });
 $(document).on('click', '#_coupon', function(){
@@ -254,22 +231,28 @@ $(document).on('click', '#_coupon', function(){
 
 $(document).on('click', ".couBtn", function(){
 	var coupon_title = $(this).val();
-	$("#input_coupon").text(coupon_title);
+	
+	var inputcoupon = $("#input_coupon").text();
+	
+	// 선택한 쿠폰이 없다면
+	if(inputcoupon == null || inputcoupon == ''){		
+		$("#input_coupon").text(coupon_title);
+	}
+	else{
+		var cp_html = "<span id='input_coupon2'></span>";
+		$("#input_coupon2").after(cp_html);
+		$("#input_coupon2").text(coupon_title);
+	}
+		
 	$(".restockModal").fadeOut();
 	$("#input_coupon").show();
+	
 });
+
+
 </script>
 
 
-<script type="text/javascript">
-function checkIt() {
-	var inputtxt = eval("document.inputtxt");
-	if(inputtxt.type.value == "") {
-		alert("종류를 선택하세요");
-		return false;
-	}
-}
-</script>
 
 
 <script type="text/javascript">
@@ -370,19 +353,33 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 
 														<!-- file --> 
- <!-- 이미지 미리보기/ 삭제 -->
- <script type="text/javascript">
+
+
+
+
+
+<!-- 배너  이미지 미리보기 -->
+<script>
+//ajax 통신을 위한 csrf 설정
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(document).ajaxSend(function(e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+});
+
 var sel_file;
  
-<!-- 배너  이미지 미리보기 -->
 $(document).ready(function() {
-	$("#fileUpload1").on("change", handleImgsFilesSelect1);
+	$("#fileUpload1").on("change", handleImgsFilesSelect);
 });
 
-function handleImgsFilesSelect1(e) {
+function handleImgsFilesSelect(e) {
 	var files = e.target.files;
 	var filesArr = Array.prototype.slice.call(files);
-
+	
+	var form = $('#_frm')[0];
+    var data = new FormData(form);
+    
 	filesArr.forEach(function(f) {
 		if (!f.type.match("image.*")) {
 			alert("확장자는 이미지 확장자만 가능합니다.");
@@ -392,157 +389,42 @@ function handleImgsFilesSelect1(e) {
 		sel_file = f;
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:600px;height:100px;'>";
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:600px;height:100px;' id='img1'>";
 			$("#pZone1").html("");
 			$("#pZone1").append(img_html);
-			$("#pZone1").after("<button type='button' class='del'>삭제</button>");
+ 			$("#pZone1").after("<button type='button' id='pZone1_del'>삭제</button>");	
+			$.ajax({
+			    type : "POST",
+			    enctype: 'multipart/form-data',
+			    url : "/admin/event/eventwriteFile",
+			    data : data,
+			    cache: false,
+			    processData: false,
+			    contentType: false,
+			    success : function(data) {
+// 			        alert(data);
+			        
+			    },
+			    err : function(err) {
+			        alert(err.status);
+			    }
+			}); 
+
+
 		}
 		reader.readAsDataURL(f);
 	});
 }
-
-<!-- 상세1 이미지 미리보기 -->
-$(document).ready(function() {
-	$("#fileUpload2").on("change", handleImgsFilesSelect2);
-});
-
-function handleImgsFilesSelect2(e) {
-	var files = e.target.files;
-	var filesArr = Array.prototype.slice.call(files);
-
-	filesArr.forEach(function(f) {
-		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			$("input_imgs").val("");
-			return;
-		}
-		sel_file = f;
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;'>";
-			$("#cZone1").html("");
-			$("#cZone1").append(img_html);
-			$("#cZone1").after("<button type='button' class='del'>삭제</button>");
-		}
-		reader.readAsDataURL(f);
-	});
-}
-
-<!-- 상세2 이미지 미리보기 -->
-$(document).ready(function() {
-	$("#fileUpload3").on("change", handleImgsFilesSelect3);
-});
-
-function handleImgsFilesSelect3(e) {
-	var files = e.target.files;
-	var filesArr = Array.prototype.slice.call(files);
-
-	filesArr.forEach(function(f) {
-		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			$("input_imgs").val("");
-			return;
-		}
-		sel_file = f;
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;'>";
-			$("#cZone2").html("");
-			$("#cZone2").append(img_html);
-			$("#cZone2").after("<button type='button' class='del'>삭제</button>");
-		}
-		reader.readAsDataURL(f);
-	});
-}
-
-<!-- 상세3 이미지 미리보기 -->
-$(document).ready(function() {
-	$("#fileUpload4").on("change", handleImgsFilesSelect4);
-});
-
-function handleImgsFilesSelect4(e) {
-	var files = e.target.files;
-	var filesArr = Array.prototype.slice.call(files);
-
-	filesArr.forEach(function(f) {
-		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			$("input_imgs").val("");
-			return;
-		}
-		sel_file = f;
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;'>";
-			$("#cZone3").html("");
-			$("#cZone3").append(img_html);
-			$("#cZone3").after("<button type='button' class='del'>삭제</button>");
-		}
-		reader.readAsDataURL(f);
-	});
-}
-
-<!-- 상세4 이미지 미리보기 -->
-$(document).ready(function() {
-	$("#fileUpload5").on("change", handleImgsFilesSelect5);
-});
-
-function handleImgsFilesSelect5(e) {
-	var files = e.target.files;
-	var filesArr = Array.prototype.slice.call(files);
-
-	filesArr.forEach(function(f) {
-		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			$("input_imgs").val("");
-			return;
-		}
-		sel_file = f;
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;'>";
-			$("#cZone4").html("");
-			$("#cZone4").append(img_html);
-			$("#cZone4").after("<button type='button' class='del'>삭제</button>");
-		}
-		reader.readAsDataURL(f);
-	});
-}
-
-<!-- 상세5 이미지 미리보기 -->
-$(document).ready(function() {
-	$("#fileUpload6").on("change", handleImgsFilesSelect6);
-});
-
-function handleImgsFilesSelect6(e) {
-	var files = e.target.files;
-	var filesArr = Array.prototype.slice.call(files);
-
-	filesArr.forEach(function(f) {
-		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			$("input_imgs").val("");
-			return;
-		}
-		sel_file = f;
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:155px;height:200px;' id='img5'>";
-			$("#cZone5").html("");
-			$("#cZone5").append(img_html);
-			$("#cZone5").after("<button type='button' id='cZone5_del'>삭제</button>");
-		}
-		reader.readAsDataURL(f);
-	});
-}
-// 이미지 삭제
-$(document).on("click","#cZone5_del", function() {
-	$("#img5").remove();
-	$("#cZone5_del").remove();
-	$("#cZone5").after("<input type='file' name='content_file' id='fileUpload6'>");
-	$("#cZone5_font").text("이미지를 등록해주세요.");
-});
-
-
 </script>
+<script type="text/javascript">
+// 이미지 삭제
+$(document).on("click","#pZone1_del", function() {
+	$("#img1").remove();
+	$("#pZone1_del").remove();
+	$("#pZone1").after("<input type='file' name='content_file' id='fileUpload1'>");
+	$("#pZone1_font").text("이미지를 등록해주세요.");
+});  
+</script>
+
+
 </html>
