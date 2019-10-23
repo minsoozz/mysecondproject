@@ -10,6 +10,7 @@
 
 <link rel="stylesheet" href="<%=ctx%>/css/admin/events/sub/points_detail.css">
 
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 <!-- Page Heading -->
@@ -19,7 +20,9 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary"><a href="<%=ctx%>/admin/mypage/coupon">쿠폰 목록</a></h6>
+		<h6 class="m-0 font-weight-bold text-primary">
+			<a href="<%=ctx%>/admin/mypage/coupon">쿠폰 목록</a>
+		</h6>
 		<div class="function-btns-wrap">
 			<a id="_btn_give_points" href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#_points_give_modal">
 				<span class="icon text-white-50"><i class="fas fa-info-circle"></i></span><span class="text">새 쿠폰 발행</span>
@@ -31,7 +34,7 @@
 			<div class="row">
 				<div class="col-sm-12 col-md-6">
 					<div class="dataTables_length" id="dataTable_length">
-					<form action="<%=ctx %>/admin/mypage/points" id="_frm" method="post">
+					<form action="<%=ctx %>/admin/mypage/coupon" id="_frm" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						 <select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable" onchange="conditionChanged();"
 							class="custom-select custom-select-sm form-control form-control-sm">
@@ -58,8 +61,7 @@
 						</button>
 					</div>
 				</div>				
-				<%-- <input type="hidden" name="pageNum" id="_currPageNum" value="${pDto.pageNum }"> --%>
-				<input type="hidden" name="pageNum" id="_currPageNum" value="2">
+				<input type="hidden" name="pageNum" id="_currPageNum" value="${pDto.pageNum }">				
 				</form><!-- /검색 -->				
 			</div>
 			
@@ -79,18 +81,16 @@
 				</thead>
 
 				<tbody>
-					<c:if test="${empty pointsList }">
+					<c:if test="${empty couponList }">
 						<tr align="center">
 							<td colspan="9" align="center">검색결과가 없습니다.</td>
 						</tr>
 					</c:if>
-					<c:forEach var="c" items="${pointsList }" varStatus="vs">
-						<tr align="center" class="points_row" data-toggle="modal" data-target="#_points_detail_modal">
-							<td class="list_checkbox"><input type="checkbox"
-								name='allck' value="${c.seq }"></td>
-							<td>${c.seq }</td> <td class="list_id">${c.id }</td>
-							<td>${c.comment }</td> <td>${c.amount }</td> <td>${c.used_amount }</td>
-							<td>${c.totalAmount}</td> <td>${c.expdate }</td> <td>${c.coup_code }</td>
+					<c:forEach var="c" items="${couponList }" varStatus="vs">
+						<tr align="center" class="coupon_row" onclick="location.href='<%=ctx%>/admin/mypage/coupon/detail?seq=${c.seq }'">
+							<td class="list_checkbox"><input type="checkbox" name='allck' value="${c.seq }"></td>
+							<td>${c.seq }</td> <td>${c.title }</td> <td class="list_id">${c.sub_title }</td>
+							<td>${c.app_cate }</td> <td>${c.function }</td> <td>${c.func_time_limit }</td> <td>${c.rdate }</td>
 						</tr>
 					</c:forEach>
 
@@ -133,10 +133,6 @@
 </div><!-- /.container-fluid -->
 
 <!-- modal 영역 -->
-<!-- 적립금 디테일 모달 -->
-<div class="points_detail_modal modal fade" id="_points_detail_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<jsp:include page="./sub/points_detail.jsp"></jsp:include>
-</div>
 <!-- 적립금 지급 모달 -->
 <div class="points_give_modal modal fade" id="_points_give_modal" tabindex="-1" role="dialog" aria-labelledby="pointsGiveModalLabel" aria-hidden="true">
 	<jsp:include page="./sub/points_give.jsp"></jsp:include>

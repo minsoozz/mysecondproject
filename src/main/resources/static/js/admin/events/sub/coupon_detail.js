@@ -13,8 +13,14 @@ $(function(){
 	$(".points_row").click(function(){
 		//$("#_points_detail_modal").modal();
 	});
+	
+	//쿠폰 추가 팝오버 이벤트
+	$("#_btn_gen_coup_code").popover({ 
+		trigger: "hover" 
+	});
 });
 
+//검색조건 변경시 반영 함수
 function conditionChanged(){
 	$("#_currPageNum").val(1);
 	$("#_frm").submit();
