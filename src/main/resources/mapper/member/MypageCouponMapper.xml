@@ -57,8 +57,7 @@
  	</sql>
  	
  	<!-- 검색조건에 맞는 쿠폰 디테일 정보 리턴 -->
- 	<sql id="getDetailsOnConditionsSql">
- 		
+ 	<sql id="getDetailsOnConditionsSql"> 		
  		SELECT * 
 		FROM (
 			<![CDATA[
