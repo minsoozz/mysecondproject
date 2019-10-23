@@ -1,5 +1,7 @@
 package com.rhymes.mypage;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +32,7 @@ public class MypagePersonalTest {
 		userid = "mintestp";
 		result = mps.updateOneMemberToDisabled(userid);
 		System.out.println("result:" + result);
+		
+		System.out.println(new Date().getTime());
 	}
 }

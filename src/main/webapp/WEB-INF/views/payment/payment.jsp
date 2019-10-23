@@ -50,7 +50,7 @@
 
 				<c:forEach begin="0" end="${fn:length(basketList) -1 }" varStatus="i">
 					<tr>
-						<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }"></td>
+						<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }" width="150" height="150"></td>
 						<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].c_name }</td>
 						<td rowspan="2" width="10%" align="center" id="one_total_price${i.index }">
 						<fmt:formatNumber value="${basketList[i.index].p_price * basketList[i.index].quantity }" />원
@@ -76,7 +76,7 @@
 			<table class="payment_tb">
 			<c:if test="${ empty p_mem }">
 				<tr>
-					<th>휴대폰 번호</th>
+					<td>휴대폰 번호</td>
 					<td><input type="text" id="to" placeholder="전화번호 입력">
 						<!-- 인증번호 받을사람 휴대폰 번호 -->
 						<input type="button" id="oneselfConfirmBtn" value="본인인증">&nbsp;비회원으로 구매를 원하시면, 본인인증이 필요합니다.<br>
@@ -88,18 +88,18 @@
 						<input type="text" id="text_confirm"></td>
 				</tr>
 				<tr>
-					<th>보내는 분 *</th>
+					<td>보내는 분 *</td>
 					<td><input type="text" size="26" id="send_name" name="send_name"></td>
 				</tr>
 				<tr>
-					<th>휴대폰 *</th>
+					<td>휴대폰 *</td>
 					<td><input type="text" size="5" id="send_phone1">&nbsp;&nbsp;
 						<input type="text" size="5" id="send_phone2">&nbsp;&nbsp;
 						<input type="text" size="5" id="send_phone3">
 						<input type="hidden" name="send_phone" id="send_phone"></td>
 				</tr>
 				<tr>
-					<th>이메일 *</th>
+					<td>이메일 *</td>
 					<td><input type="text" id="send_email" name="send_email" size="26"></td>
 				</tr>
 				<tr>
@@ -110,18 +110,18 @@
 			</c:if>
 			<c:if test="${ not empty p_mem }">
 				<tr>
-					<th>보내는 분 *</th>
+					<td>보내는 분 *</td>
 					<td><input type="text" size="26" id="send_name" name="send_name" readonly="readonly" value="${p_mem.username }"></td>
 				</tr>
 				<tr>
-					<th>휴대폰 *</th>
+					<td>휴대폰 *</td>
 					<td><input type="text" size="5" id="send_phone1" readonly="readonly" value="${fn:substring(p_mem.phone,0,3) }">&nbsp;&nbsp;
 						<input type="text" size="5" id="send_phone2" readonly="readonly" value="${fn:substring(p_mem.phone,3,7) }">&nbsp;&nbsp;
 						<input type="text" size="5" id="send_phone3" readonly="readonly" value="${fn:substring(p_mem.phone,7,11) }">
 						<input type="hidden" name="send_phone" id="send_phone"></td>
 				</tr>
 				<tr>
-					<th>이메일 *</th>
+					<td>이메일 *</td>
 					<td><input type="text" id="send_email" name="send_email" size="26" readonly="readonly" value="${p_mem.useremail }"></td>
 				</tr>
 				<tr>
@@ -140,72 +140,84 @@
 			<h4>배송 정보</h4>
 			<table class="payment_tb">
 				<tr>
-					<th>주소 *</th>
+					<td>주소 *</td>
 					<td>위(주문자) 정보와 같음 <input type="checkbox" id="oldaddress"></td>
 				</tr>
 				<tr>
-					<th></th>
-					<td><input type="text" size="20" id="sample6_postcode" name="receive_postnum" placeholder="우편번호">
+					<td></td>
+					<td><input type="text" size="20" id="sample6_postcode" name="receive_postnum" placeholder="우편번호" readonly="readonly">
 						<input type="button" id="postcode_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" size="67" id="sample6_address" placeholder="지번주소"><br>
+						<input type="text" size="67" id="sample6_address" placeholder="지번주소" readonly="readonly"><br>
 						<input type="text" size="30" id="sample6_detailAddress" placeholder="상세주소">
-						<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목">
+						<input type="text" size="30" id="sample6_extraAddress" placeholder="참고항목" readonly="readonly">
 						<input type="hidden" name="receive_address" id="receive_address"></td>
 				</tr>
 				<tr>
-					<th>수령인 이름 *</th>
+					<td>수령인 이름 *</td>
 					<td><input type="text" size="26" id="receive_name" name="receive_name"></td>
 				</tr>
 				<tr>
-					<th>휴대폰 *</th>
+					<td>휴대폰 *</td>
 					<td><input type="text" size="5" id="receive_phone1">&nbsp;&nbsp;
 						<input type="text" size="5" id="receive_phone2">&nbsp;&nbsp;
 						<input type="text" size="5" id="receive_phone3">
 						<input type="hidden" name="receive_phone" id="receive_phone"></td>
 				</tr>
 				<tr>
-					<th>배송 요청사항</th>
+					<td>배송 요청사항</td>
 					<td><textarea id="receive_address_request" name="receive_address_request" rows="3" cols="70"></textarea>0지/50자</td>
 				</tr>
 			</table>
 		</div>
 		<br><br><br><br><br><br>
-
-
+		
+<input type="hidden" id="disc_coupon" name="disc_coupon" value="0" size="2">
+<input type="hidden" name="disc_point" id="disc_point" value="0" size="2">
+<input type="hidden" id="totalprice" name="totalprice" value="0" size="2">
 
 		<!-- 로그인 했을때만 보이기 -->
 		<div class="divback">
 			<h4>쿠폰 적립금</h4>
-			<table class="payment_tb" border="1">
+			<table class="payment_tb">
+				<col width="10"><col width="10"><col width="50"><col width="10"><col width="10">
+				<col width="10"><col width="10"><col width="20"><col width="10">
 				<tr>
-					<th>상품금액</th>
-					<th></th>
-					<th>배송비</th>
-					<th></th>
-					<th>사용 포인트</th>
-					<th></th>
-					<th>쿠폰 할인액</th>
-					<th></th>
-					<th>결제 예정금액</th>
+					<td>상품금액</td>
+					<td></td>
+					<td>배송비</td>
+					<td></td>
+					<td>쿠폰 할인액</td>
+					<td></td>
+					<td>사용 포인트</td>
+					<td></td>
+					<td>결제 예정금액</td>
 				</tr>
 				<!-- result_price = 상품금액 + 배송비 - 사용 포인트 - 쿠폰 할인액  -->
 				<tr>
-					<td id="product_price">${payment_param.product_price }</td>
-					<td>+</td>
-					<td id="delivery_price">${payment_param.delivery_price }</td>
-					<td>-</td>
-					<!-- submit으로 controller에 보내는 사용 포인트  -->
-					<td><input type="text" name="disc_point" id="disc_point" value="0"></td>
-					<td>-</td>
+					<td id="product_price" style="font-size: 30px;">${payment_param.product_price }</td>
+					<td>
+					<img alt="이미지없음" src="<%=request.getContextPath()%>/upload/payment/plus.png" width="40" height="40">
+					</td>
+					<td id="delivery_price" style="font-size: 30px;">${payment_param.delivery_price }</td>
+					<td>
+					<img alt="이미지없음" src="<%=request.getContextPath()%>/upload/payment/minus.png" width="40" height="40">
+					</td>
 					<!-- submit으로 controller에 보내는 쿠폰 할인액  -->
-					<td><input type="text" name="disc_coupon" id="disc_coupon" value="0"></td>
-					<td>=</td>
-					<td><input type="text" name="totalprice" id="totalprice" value="0"></td>
+					<td id="_disc_coupon" style="font-size: 30px;">0</td>
+					<td width="50">
+					<img alt="이미지없음" src="<%=request.getContextPath()%>/upload/payment/minus.png" width="40" height="40">
+					</td>
+					<!-- submit으로 controller에 보내는 사용 포인트  -->
+					<td id="_disc_point" style="font-size: 30px;">0</td>
+					<td>
+					<img alt="이미지없음" src="<%=request.getContextPath()%>/upload/payment/equals.png" width="40" height="40">
+					</td>
+					<td id="_totalprice" style="font-size: 30px;">0</td>
 				</tr>
 
 				<c:if test="${payment_param.coupon_count eq 0 }">
 					<tr>
-						<th rowspan="2">쿠폰 적용</th>
+						<td rowspan="2">쿠폰 적용</td>
 						<td></td>
 					</tr>
 					<tr>
@@ -215,11 +227,11 @@
 
 				<c:if test="${payment_param.coupon_count ne 0 }">
 					<tr>
-						<th rowspan="2">쿠폰 적용</th>
+						<td rowspan="2">쿠폰 적용</td>
 						<td colspan="8">쿠폰 사용&nbsp;&nbsp;
-							<input type="text" name="coupon_code" id="coupon_code" size="50" value="">&nbsp;&nbsp;
-							<input type="button" id="coupon_btn" value="쿠폰선택">
-							<input type="text" id="coupon_func" size="20">
+							<input type="text" name="coupon_code" id="coupon_code" size="30" value="" readonly="readonly">&nbsp;&nbsp;
+							<input type="button" id="coupon_btn" value="쿠폰선택">&nbsp;&nbsp;
+							<span id="coupon_func"></span>
 						</td>
 					</tr>
 					<tr>
@@ -229,13 +241,13 @@
 					</tr>
 				</c:if>
 				<tr>
-					<th>적립금 적용</th>
+					<td>적립금 적용</td>
 					<c:if test="${payment_param.point_amount eq 0 }">
 						<td colspan="8">사용 가능한 적립금이 없습니다</td>
 					</c:if>
 					<c:if test="${payment_param.point_amount ne 0 }">
 						<td colspan="8">
-							<input type="text" id="input_disc_point" onchange="price_change()" value="0">원 &nbsp;&nbsp;사용가능
+							<input type="text" id="input_disc_point" onchange="price_change()" value="0" size="5">원 &nbsp;&nbsp;사용가능
 							적립금 : <fmt:formatNumber value="${payment_param.point_amount }" />원
 							&nbsp;&nbsp;(1,000원부터 사용가능합니다)</td>
 					</c:if>
@@ -250,7 +262,7 @@
 			<h4>결제 수단</h4>
 			<table class="payment_tb">
 				<tr style="background-color: #fafafa">
-					<th>결제 수단 선택</th>
+					<td>결제 수단 선택</td>
 					<td>신용카드 <input type="radio" name="payment_method" value="card">&nbsp;&nbsp;&nbsp;&nbsp;
 						무통장입금 <input type="radio" name="payment_method" value="vbank">&nbsp;&nbsp;&nbsp;&nbsp;
 						카카오페이 <input type="radio" name="payment_method" value="kakaopay">&nbsp;&nbsp;&nbsp;&nbsp;

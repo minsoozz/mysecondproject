@@ -18,13 +18,15 @@ public class PaymentEmail {
 	
     static final String FROM = "ysujin17@naver.com";
     static final String FROMNAME = "Rhymes";
-    static final String TO = "onep577@naver.com";
+    static String TO = "";
  
     static final String SMTP_USERNAME = "ysujin17@naver.com";
     static final String SMTP_PASSWORD = "rhymes127";
+    //static final String SMTP_USERNAME = "ogbgt5@naver.com";
+    //static final String SMTP_PASSWORD = "nahdl^*^zrb15";
     
     static final String HOST = "smtp.naver.com";
-    static final int PORT = 465;
+    static final int PORT = 25;
     
     static final String SUBJECT = "메일 제목";
     
@@ -37,35 +39,39 @@ public class PaymentEmail {
     private static String receive_postnum;
     private static String receive_address;
     private static String receive_address_request;
+    private static String send_email;
 
     public static String email_send() {
     	String body =
     			
+    	"<!DOCTYPE html>\r\n" + 
+		"<html>\r\n" + 
+		"<head>\r\n" + 
+		"<meta charset=\"UTF-8\">\r\n" + 
+		"<title>RHYMES</title>\r\n" + 
+		"<link rel=\"stylesheet\" href=\"./mailForm.css\">\r\n" + 
+		"</head>\r\n" + 
+		"<body>\r\n" + 
         "<div style='text-align: left; padding-top: 10px; padding-bottom: 50px; width: 50%;'>"+
         "<div style='margin-bottom: 50px;'>"+
         "<h1>RHYMESb 쇼핑몰 결제내역입니다. 총 주문금액 : "+totalprice+"원</h1>"+
-//    	        
-//    	        "<div style='padding-bottom: 50px;'>"+
-//    	        "<b style='font-family: sans-serif; font-size: 20px; text-align: left;'>결제금액 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>"+
-//    	        "<b style='font-family: sans-serif; font-size: 30px; text-align: right; color: red;'>"+totalprice+"원</b>"+
-//    	        "</div>"+
 		"<div>"+
-        "<div>"+
+        "<div style='margin-top: 50px;'>"+
         "<b style='font-family: sans-serif; font-size: 15px;'>결제방법</b>"+
         "</div>"+
         "<div>"+
-        "<table class='paymentAf_tb' border='1' style='width: 100%; margin: 10px 10px 10px 10px;'>"+
+        "<table class='paymentAf_tb' style='width: 100%; margin: 10px 10px 10px 10px; border-top: 1px solid gray; border-collapse: collapse; border: 1px solid #dbdbdb;'>"+
         "<tr>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>결제금액</th>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>결제고유번호</th>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>결제상태</th>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>결제수단</th>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>결제금액</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>주문번호</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>결제상태</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>결제수단</td>"+
         "</tr>"+
         "<tr>"+
-        	"<td style='padding: 10px 10px 10px 10px;'>"+totalprice+"원</td>"+
-        	"<td style='padding: 10px 10px 10px 10px;'>"+payment_code+"</td>"+
-        	"<td style='padding: 10px 10px 10px 10px;'>"+payment_status+"</td>"+
-        	"<td style='padding: 10px 10px 10px 10px;'>"+payment_method+"</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+totalprice+"원</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+payment_code+"</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+payment_status+"</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+payment_method+"</td>"+
 
         "</tr>"+
         "</table>"+
@@ -76,26 +82,28 @@ public class PaymentEmail {
         "<b style='font-family: sans-serif; font-size: 15px;'>배송지 정보</b>"+
         "</div>"+
         "<div>"+
-        "<table class='paymentAf_tb' border='1' style='width: 100%; margin: 10px 10px 10px 10px;'>"+
+        "<table class='paymentAf_tb' style='width: 100%; margin: 10px 10px 10px 10px; border-top: 1px solid gray; border-collapse: collapse; border: 1px solid #dbdbdb;'>"+
         "<tr>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>이름</th>"+
-        	"<td style='padding: 10px 10px 10px 10px;'>"+receive_name+"</td>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>연락처</th>"+
-        	"<td style='padding: 10px 10px 10px 10px;'>"+receive_phone+"</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>이름</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+receive_name+"</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>연락처</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+receive_phone+"</td>"+
         "</tr>"+
         "<tr>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>우편번호</th>"+
-        	"<td style='padding: 10px 10px 10px 10px;'>"+receive_postnum+"</td>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>주소</th>"+
-        	"<td style='padding: 10px 10px 10px 10px;'>"+receive_address+"</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>우편번호</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+receive_postnum+"</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>주소</td>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+receive_address+"</td>"+
         "</tr>"+
         "<tr>"+
-        	"<th style='padding: 10px 10px 10px 10px;'>주문시 요청사항</th>"+
+        	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>주문시 요청사항</td>"+
         	"<td colspan='3' style='padding: 10px 10px 10px 10px;'>"+receive_address_request+"</td>"+
         "</tr>"+
         "</table>"+
         "</div>"+
-        "</div>";
+        "</div>"+
+		"</body>\r\n" +
+		"</html>";
 
     	return body;
     }
@@ -103,15 +111,38 @@ public class PaymentEmail {
     public static void PaymentEmailSend(PaymentDTO dto) throws Exception {
     	totalprice = dto.getTotalprice();
     	payment_code = dto.getPayment_code();
-    	payment_status = dto.getPayment_status();
-    	payment_method = dto.getPayment_method();
+    	if(dto.getPayment_status().equals("ready") ) {
+    		payment_status = "미결제";
+    	}else if(dto.getPayment_status().equals("paid")) {
+    		payment_status = "결제완료";
+    	}else if(dto.getPayment_status().equals("cancelled")) {
+    		payment_status = "결제취소";
+    	}
+    	if(dto.getPayment_method().equals("vbank") ) {
+    		payment_method = "무통장입금";
+    	}else if(dto.getPayment_method().equals("card")) {
+    		payment_method = "신용카드";
+    	}else if(dto.getPayment_method().equals("trans")) {
+    		payment_method = "실시간계좌이체";
+    	}else if(dto.getPayment_method().equals("vbank")) {
+    		payment_method = "무통장입금";
+    	}else if(dto.getPayment_method().equals("phone")) {
+    		payment_method = "휴대폰소액결제";
+    	}else if(dto.getPayment_method().equals("point")) {
+    		payment_method = "카카오페이";
+    	}
     	receive_name = dto.getReceive_name();
     	receive_phone = dto.getReceive_phone();
     	receive_postnum = dto.getReceive_postnum();
     	receive_address = dto.getReceive_address();
     	receive_address_request = dto.getReceive_address_request();
+    	send_email = dto.getSend_email();
+    	
+    	TO = send_email;
+		log.warn("보낼 메일 : "+TO);
     	
     	String body = email_send();
+		//String body = "123456";
     	
         Properties props = System.getProperties();
         props.put("mail.transport.protocol", "smtp");
@@ -125,7 +156,6 @@ public class PaymentEmail {
         msg.setFrom(new InternetAddress(FROM, FROMNAME));
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress(TO));
         msg.setSubject(SUBJECT);
-        //msg.setContent(BODY, "text/html;charset=euc-kr");
         msg.setContent(body, "text/html;charset=euc-kr");
         
         Transport transport = session.getTransport();

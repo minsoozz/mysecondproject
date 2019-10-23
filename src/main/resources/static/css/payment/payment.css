@@ -41,9 +41,9 @@ h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 
 
 /* 쿠폰 팝업 페이지 */
-.payment_coupon_tb{ padding: 15px 15px 15px 15px; border-top: 1px solid #444444; border-collapse: collapse; }
-.payment_coupon_tb td{ padding: 15px 15px 15px 15px; border-bottom: 1px solid #444444; }
-.payment_coupon_tb th{ padding: 15px 15px 15px 15px; border-bottom: 1px solid #444444; background-color: #d7fd75; }
+.payment_coupon_tb{ padding: 7px 7px 7px 7px; border-top: 1px solid #444444; border-collapse: collapse; }
+.payment_coupon_tb td{ padding: 7px 7px 7px 7px; border-bottom: 1px solid #444444; }
+.payment_coupon_tb th{ padding: 7px 7px 7px 7px; border-bottom: 1px solid #444444; background-color: #d7fd75; }
 
 
 
