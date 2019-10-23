@@ -16,6 +16,15 @@
 	
 
 
+/* body */
+.bannerimg{
+	max-width: 1050px;
+	max-height: 200px;
+	min-width: 1050px;
+	min-height: 200px;
+}
+
+
 
 
 /* 좌측 메뉴 */
@@ -66,12 +75,12 @@
 
 
 /* 리스트테이블 */
-.list_table { width:98%;}
+/* .list_table { width:98%;}
 .list_table th { text-align:center; padding:20px 0px;  border-top: 3px solid #E0FF8B;}
 .list_table td { padding:20px 0px 20px 10px;  border-top:1px solid #EFEFEF;}
 .list_table td,.list_table th { font-size: 12px;}
  
- /* 디테일 */
+ 디테일
 .detail_table { width:98%; border-top: 3px solid #E0FF8B;border-bottom: 3px solid #E0FF8B;}
 .detail_table th { text-align:center; background-color: #F6FFCC;}
 .detail_table td { padding:20px 0px 20px 10px; text-align: left;}
@@ -81,3 +90,4 @@
 .before_table th { text-align:center; padding:20px 0px; }
 .before_table td { border-top:1px solid #EFEFEF; text-align: left; padding:5px 0px 5px 10px;}
 .before_table td,.list_table th { font-size: 12px;}
+ */

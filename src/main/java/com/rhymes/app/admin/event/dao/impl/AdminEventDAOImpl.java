@@ -42,4 +42,10 @@ public class AdminEventDAOImpl implements AdminEventDAO {
 	public List<MemberCouponDTO> getcoupon() {
 		return sqlSession.selectList(ns+"getcoupon");
 	}
+
+	@Override
+	public boolean getFileUpload(EventDTO dto) {
+		int count = sqlSession.insert(ns+"getFileUpload", dto);
+		return count>0?true:false;
+	}
 }

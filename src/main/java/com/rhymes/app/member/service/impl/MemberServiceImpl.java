@@ -39,8 +39,6 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO mem = new MemberDTO( 
 										bean.getUserid().trim(), 
 										passwordEncoder.encode(bean.getUserpw()));
-										
-		System.out.println("MemberDTO: " + mem.toString());
 		
 		boolean b = memberdao.getAddmem(mem);
 		
@@ -92,12 +90,10 @@ public class MemberServiceImpl implements MemberService {
 	// 사업자 회원가입
 	@Override
 	public void getAddSeller(SellerBean sellerbean, MemberDTO memdto) {
-		System.out.println("getAddSeller Service도착");
 
 		// 공통
 		MemberDTO mem = new MemberDTO(memdto.getUserid(), 
 										passwordEncoder.encode(memdto.getUserpw()));
-		System.out.println("getAddSeller mem: " + mem.toString());
 		
 		// 사업자 추가정보
 		
@@ -126,11 +122,9 @@ public class MemberServiceImpl implements MemberService {
 										sellerbean.getR_address(),
 										sellerbean.getR_detailAddress(),
 										sellerbean.getC_code());
-		System.out.println("getAddSeller sel: " + sel.toString());
 		
 		// 권한
 		AuthoritiesDTO amem = new AuthoritiesDTO(memdto.getUserid(), sellerbean.getAuthority());
-		System.out.println("getAddSeller amem: " + amem.toString());
 		
 		boolean b = memberdao.getAddmem(mem);
 		
@@ -149,11 +143,8 @@ public class MemberServiceImpl implements MemberService {
 		
 		String eID = memberdao.getFindID_E(mbean);		// email를 넣어서 id를 뽑아냄
 		MemberDTO mem = new MemberDTO(eID, null);
-		System.out.println("memberservice 아이디찾기 mem:  " + mem.toString());
 		
 		String getuserpw = memberdao.getFindID_P(mem);	// db에 저장되어있는 pw를 뽑아냄
-		
-		System.out.println("memberservice 아이디찾기 getuserpw:  " + getuserpw);
 		
 		boolean b = passwordEncoder.matches(mbean.getUserpw(), getuserpw);
 		if(b) {

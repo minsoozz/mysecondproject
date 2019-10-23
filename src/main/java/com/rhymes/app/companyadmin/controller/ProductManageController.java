@@ -298,7 +298,7 @@ public class ProductManageController {
       
 	 product.setC_name(c_name);
 	 */
-      
+     
      int p_seq = manage.getPseq();
            
      String path = req.getServletContext().getRealPath("/upload/store");
