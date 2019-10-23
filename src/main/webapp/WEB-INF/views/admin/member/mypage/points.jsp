@@ -94,7 +94,7 @@
 						</tr>
 					</c:if>
 					<c:forEach var="c" items="${pointsList }" varStatus="vs">
-						<tr align="center" class="points_row">
+						<tr align="center" class="points_row" data-toggle="modal" data-target="#_points_detail_modal">
 							<td class="list_checkbox"><input type="checkbox"
 								name='allck' value="${c.seq }"></td>
 							<td>${c.seq }</td> <td class="list_id">${c.id }</td>

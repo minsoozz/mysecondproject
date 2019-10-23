@@ -68,10 +68,11 @@
 				</tr>
 				</c:forEach>
 				
-				<tr>
-				<th colspan="5">
+				
+				</tbody>
+				</table>
 				<!-- 페이징 -->
-				<div id="paging_wrap"> 
+				<div id="paging_wraps" align="center"> 
 					<jsp:include page="/WEB-INF/views/admin/customer/paging.jsp" flush="false">
 						<jsp:param name="pageNumber" value="${pageNumber }"/>
 						<jsp:param name="totalRecordCount" value="${totalRecordCount }"/>
@@ -84,12 +85,6 @@
 				<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
 				</div>
 				<!-- 페이징끝 --> 
-				</th>
-				</tr>
-				
-				</tbody>
-				</table>
-				
 				</form>	
 				
 				

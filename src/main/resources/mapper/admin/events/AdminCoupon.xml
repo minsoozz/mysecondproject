@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adcoupon">
+	
+	<!-- 검색조건에 맞는 총 쿠폰 개수 -->
+	<select id="getTotalCountOfCoupons" parameterType="com.rhymes.app.admin.events.model.AdminPointsPagingDTO" resultType="java.lang.Integer">
+		<include refid="getTotalCountOfCouponsSql"/></select>
+	
+	<!-- 페이징, 검색 조건에 맞는 쿠폰 리턴 -->
+	<select id="getCouponsByConditions" parameterType="com.rhymes.app.admin.events.model.AdminPointsPagingDTO"
+		resultType="com.rhymes.app.admin.events.model.CouponDTO">
+		<include refid="getCouponsByConditionsSql"/></select>
+		
+
+
+	<!-- 쿼리정보 -->
+	<!-- 검색조건에 맞는 총 쿠폰 개수 -->
+	<sql id="getTotalCountOfCouponsSql">
+		SELECT COUNT(*) FROM RHY_MEM_COUPON
+		<include refid="searchConditions"/>
+	</sql>
+	
+	<!-- 페이징, 검색 조건에 맞는 쿠폰 리턴 -->	
+	<sql id="getCouponsByConditionsSql">
+		SELECT * 
+		FROM (
+			SELECT 
+				@ROWNUM := @ROWNUM +1 AS RNUM, A.SEQ AS SEQ, TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, FUNC_TIME_LIMIT, RDATE
+			FROM RHY_MEM_COUPON A, (SELECT @ROWNUM :=0) B
+			<include refid="searchConditions"/>
+			ORDER BY RDATE DESC
+			) RESULT
+		LIMIT #{startSeq}, #{recordCountPerPage};
+	</sql>
+	
+	<sql id="searchConditions">
+		<where>			
+			<if test="cond == 1">TITLE LIKE '%' #{keyword} '%'</if>
+			<if test="cond == 2">APP_CATE LIKE '%' #{keyword} '%'</if>
+			<if test="cond == 3">FUNC LIKE '%' #{keyword} '%'</if>
+		</where>
+	</sql>
+		
+</mapper>

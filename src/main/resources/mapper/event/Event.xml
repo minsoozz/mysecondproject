@@ -4,7 +4,8 @@
 <mapper namespace="event">
 	
 <select id="geteventlist" resultType="com.rhymes.app.event.model.EventDTO">
-	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, PHOTO_FILE, RDATE, SDATE, EDATE
+	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, PHOTO_CONTENT1, PHOTO_CONTENT2, PHOTO_CONTENT3, 
+				PHOTO_CONTENT4, PHOTO_CONTENT5, RDATE, SDATE, EDATE
 	FROM RHY_EVENT_LIST
 </select>
 

@@ -21,7 +21,7 @@
 		<jsp:useBean id="uqna" class="com.rhymes.app.customer.util.PqnaArrow" scope="page"/>    
 		 
 		    
-		<table class="list_table" style="width:85%" >
+		<table class="list_table" style="width:100%" >
 		<colgroup>
 			<col width="50"><col width="600"><col width="100"><col width="150">
 		</colgroup>

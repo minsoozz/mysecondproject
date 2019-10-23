@@ -45,7 +45,7 @@
 				</if>
 				<if test="criterion != null and criterion != '' and (keyword == null or keyword == '')">
 					<if test="criterion == 'c1_search'">
-						AND a.C1_NAME = #{c1_name}
+							AND a.C1_NAME = #{c1_name}
 					</if>
 				</if>
 				<if test="key == 'sale'">

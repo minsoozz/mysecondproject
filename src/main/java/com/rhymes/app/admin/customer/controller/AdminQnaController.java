@@ -189,16 +189,16 @@ public class AdminQnaController {
 	
 	//삭제하기
 	@GetMapping("/qnadelete")
-	public String qnadelete(int seq, HttpServletRequest req) {
-		
+	public String qnadelete(int seq,int step,int ref, HttpServletRequest req) {
+	
 		String filename = qnaService.getfilename(seq);
 		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		FileDelete.main(fupload + "/" + filename);
-		 
 		
-		boolean b = qnaService.QnaDelete(seq);
-		if(b) {
-			return "redirect:/admin/customercenter/qnalist";
+		if(step==0) {
+			qnaService.QnaParentDelete(ref);
+		}else {
+			qnaService.QnaDelete(seq);
 		}
 		
 		return "redirect:/admin/customercenter/qnalist";
