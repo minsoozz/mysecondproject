@@ -18,6 +18,10 @@
 	    <put-attribute name="content_main" value="/WEB-INF/views/admin/member/mypage/{1}.jsp" />	    
 	</definition>
 
+	<!-- mypage admin sub  -->
+	<definition name="admin/member/mypage/sub/*" extends="admin/member/mypage">
+	    <put-attribute name="content_main" value="/WEB-INF/views/admin/member/mypage/sub/{1}.jsp" />	    
+	</definition>
 
 </tiles-definitions>
 

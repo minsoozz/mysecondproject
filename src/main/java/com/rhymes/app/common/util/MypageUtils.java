@@ -1,10 +1,39 @@
 package com.rhymes.app.common.util;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class MypageUtils {
 
+	/**cnt개수만큼 쿠폰번호 리스트 리턴
+	 * @param cnt
+	 */
+	public static List<String> getRandCoupsTimestampList(int cnt) {
+		Random rnd =new Random();
+		List<String> codeList = new ArrayList();
+		
+		for(int j = 0 ; j < cnt ; j++ ) {
+			StringBuffer buf =new StringBuffer();
+			String timeStamp = new Date().getTime() + "";
+			buf.append(timeStamp.substring(6, timeStamp.length()) + "-");
+			for(int i = 0 ; i < 8 ; i++){
+				if(i == 4) {
+					buf.append("-");
+				}
+			    if(rnd.nextBoolean()){
+			        buf.append((char)((int)(rnd.nextInt(26))+65));
+			    }else{
+			        buf.append((rnd.nextInt(10)));
+			    }
+			    
+			}
+			codeList.add(buf.toString());
+		}
+		
+		return codeList;
+	}
 	
 	/**cnt개수만큼 쿠폰번호 생성
 	 * @param cnt
@@ -16,8 +45,8 @@ public class MypageUtils {
 			StringBuffer buf =new StringBuffer();
 			String timeStamp = new Date().getTime() + "";
 			buf.append(timeStamp.substring(6, timeStamp.length()) + "-");
-			for(int i = 0 ; i < 6 ; i++){
-				if(i == 3) {
+			for(int i = 0 ; i < 8 ; i++){
+				if(i == 4) {
 					buf.append("-");
 				}
 			    if(rnd.nextBoolean()){
