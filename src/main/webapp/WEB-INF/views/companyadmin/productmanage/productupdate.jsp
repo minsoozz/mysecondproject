@@ -395,6 +395,7 @@ $(document).on('click', '.detailinfo_update-btn', function(){
 $(document).on('click', '.img_update-btn', function(){
 	$(".imgudt_modal").fadeIn();
 });
+
 /* 이미지 수정버튼 동작 후 미리보기 */
  <!-- 이미지1미리보기 -->
 $(document).ready(function() {
@@ -534,9 +535,7 @@ function handleImgsFilesSelect5(e) {
 
 
 /* 이미지 수정등록 버튼 */ 
-// 이미지1
 $(document).on('click', '.imgUdt-finishBtn', function(){
-//$('.imgUdt-finishBtn').click(function(){	
 	var photoNumber = $(this).val();
 	
      $("#imgUdt-frm" + photoNumber).ajaxForm({
