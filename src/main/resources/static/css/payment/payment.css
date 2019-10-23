@@ -1,19 +1,6 @@
 @charset "UTF-8";
 
 
-
-#body_wrap { width:1600px; margin-left:auto; margin-right:auto; padding:0px;}
-#middle_wrap { display:inline-block; width:100%; padding:0px; margin:0px; text-align:center; border:solid 1px #EFEFEF;}
-#footer_wrap { width:100%; border:solid 0px navy; clear:both;}	
-
-#sidebar_wrap { float:left; width:250px; margin:0px; padding:3px;}
-#content_wrap { float:left; width:1250px;  border-left:solid 1px #EFEFEF; padding: 5px; }
-
-#content_title_wrap { height:90px; width:100%;  text-align:left; font-weight:normal; line-height:2.5em; _line-height:2.7em; margin-bottom:10px; }
-#content_title_wrap div.title { padding-left:25px; background-repeat:no-repeat; background-position:10px 9px; font-weight:bold; }
-
-
-
 /* 버튼 */
 /* #paymentBtn{ border-radius: 10px; margin-top:13px; margin-bottom:10px; width:270px; height:55px; background: #CFEC40; font: Open Sans 30px; color: black; outline: 0; border: 0px solid gray; } */
 #paymentBtn{ border-radius: 10px; margin-top:13px; margin-bottom:10px; width:400px; height:100px; background: #CFEC40; font: Open Sans 30px; color: black; outline: 0; border: 0px solid gray; }
@@ -37,20 +24,5 @@ h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 .divback{ border-bottom: 1px solid #dbdbdb; padding-top: 10px; width: 100%; }
 .divfirst{ width: 90%; margin: auto; }
 /* #paymentBtn{ background-color: #d7fd75; border: 1px solid #d7fd75; width: 400px; height: 100px; font-family: sans-serif; font-size: 30px; margin-top: 70px; } */
-
-
-
-/* 쿠폰 팝업 페이지 */
-.payment_coupon_tb{ padding: 7px 7px 7px 7px; border-top: 1px solid #444444; border-collapse: collapse; }
-.payment_coupon_tb td{ padding: 7px 7px 7px 7px; border-bottom: 1px solid #444444; }
-.payment_coupon_tb th{ padding: 7px 7px 7px 7px; border-bottom: 1px solid #444444; background-color: #d7fd75; }
-
-
-
-/* 결제완료 페이지 */
-.paymentAf_tb th{ padding: 10px 10px 10px 10px; background-color: #d7fd75; }
-.paymentAf_tb td{ padding: 10px 10px 10px 10px; }
-.paymentAf_result{ border: 1px solid #dbdbdb; width: 100%; }
-.paymentAf_wrap{ padding-top: 10px; width: 100%; }
 
 

@@ -12,9 +12,8 @@
 <!-- 장바구니에서 결제페이지로 갈 때 -->
 
 <!-- 장바구니에서 결제페이지로 주문한 상품정보 가져오기 -->
-<select id="getOrder" parameterType="com.rhymes.app.payment.model.OrderDTO"
-resultType="com.rhymes.app.payment.model.OrderDTO">
-SELECT P.C_NAME, P.P_NAME, P.P_PRICE, P.PHOTO1_FILE, S.STOCK_SEQ
+<select id="getOrder" parameterType="com.rhymes.app.payment.model.OrderDTO" resultType="com.rhymes.app.payment.model.OrderDTO">
+SELECT P.C_NAME, P.P_NAME, P.P_PRICE, P.PHOTO1_FILE, S.STOCK_SEQ, S.SIZE, P.P_COLOR
 FROM RHY_STORE_PRODUCT P, RHY_STORE_STOCK S
 WHERE P.P_SEQ = S.P_SEQ
 AND STOCK_SEQ=#{stock_seq}
@@ -152,36 +151,6 @@ WHERE ID=#{id}
 
 
 
-
-
-
-
-<!-- 비회원으로 주문내역 있는지 확인 -->
-<select id="no_member_confirm" parameterType="com.rhymes.app.payment.model.PaymentDTO"
-resultType="java.lang.String">
-SELECT SEND_NAME
-FROM RHY_PAYMENT
-WHERE SEND_NAME=#{send_name } AND PAYMENT_CODE=#{payment_code }
-</select>
-
-<!-- 주문내역 조회 -->
-<select id="getOrdercheck" resultType="com.rhymes.app.payment.model.PaymentDTO">
-SELECT * FROM RHY_PAYMENT
-ORDER BY RDATE DESC
-</select>
-
-<!-- 주문상세내역 조회 -->
-<select id="getOrdercheckDetail" parameterType="java.lang.String" resultType="com.rhymes.app.payment.model.PaymentDTO">
-SELECT * FROM RHY_PAYMENT
-WHERE PAYMENT_CODE=#{payment_code}
-ORDER BY RDATE DESC
-</select>
-
-<!-- 배송현황 조회 -->
-<select id="getOrdercheckDelivery" parameterType="java.lang.String" resultType="com.rhymes.app.payment.model.DeliveryDTO">
-SELECT * FROM RHY_DELIVERY
-WHERE payment_code=#{payment_code}
-</select>
 
 
 </mapper>

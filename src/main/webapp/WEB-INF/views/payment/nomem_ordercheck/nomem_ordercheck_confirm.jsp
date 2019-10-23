@@ -8,8 +8,8 @@
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<!-- ordercheck.js -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/ordercheck/ordercheck.js"></script>
+<!-- nomem_ordercheck.js -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/payment/nomem_ordercheck/nomem_ordercheck.js"></script>
 
 </head>
 <body>

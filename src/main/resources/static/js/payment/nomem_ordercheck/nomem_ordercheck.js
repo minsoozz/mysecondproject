@@ -9,7 +9,7 @@ $(function () {
 			return;
 		}
 
-		alert("code : " + code + ", name : " + name);
+		//alert("code : " + code + ", name : " + name);
 		
 		$.ajax({
 			url:"/ordercheck_nomembership_confirm",
@@ -25,10 +25,6 @@ $(function () {
 		
 	});
 	
-	$("#ordercheck_detail_print").click(function () {
-		alert("내역 확인");
-	});
-	
 });
 
 
@@ -42,7 +38,7 @@ function ordercheck_detail( payment_code ){
 
 
 function ordercheck_delivery( payment_code ){
-	alert("배송현황보기" + payment_code);
+	alert("배송조회");
 	window.open("/ordercheck_delivery_popup?payment_code="+payment_code, "window팝업", "width=600, height=750, menubar=no, status=no, toolbar=no");
 }
 

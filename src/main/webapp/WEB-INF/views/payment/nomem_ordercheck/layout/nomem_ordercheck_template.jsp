@@ -10,7 +10,8 @@
 <title>RHYMESb</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- ordercheck.css -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/ordercheck/ordercheck.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/payment/nomem_ordercheck/nomem_ordercheck.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/payment/nomem_ordercheck/nomem_ordercheck_detail.css">
 
 </head>
 <body>

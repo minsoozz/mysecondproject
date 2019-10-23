@@ -23,4 +23,6 @@ public class OrderDTO implements Serializable {
 	private String p_name;			// 상품명
 	private int quantity; 			// 주문한 수량
 	private int p_price;			// 단가
+	private String size;			// 사이즈
+	private String p_color;			// 색상
 }
