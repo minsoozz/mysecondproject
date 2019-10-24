@@ -109,7 +109,7 @@ ${order_detail_list[0].send_name }님께서 ${fn:substring(order_detail_list[0].
 	<c:if test="${order_detail_list[0].payment_method == 'card' }">신용카드</c:if>
 	<c:if test="${order_detail_list[0].payment_method == 'trans' }">실시간계좌이체</c:if>
 	<c:if test="${order_detail_list[0].payment_method == 'phone' }">휴대폰소액결제</c:if>
-	<c:if test="${order_detail_list[0].payment_method == 'point' }">카카오페이</c:if>
+	<c:if test="${order_detail_list[0].payment_method == 'kakaopay' }">카카오페이</c:if>
 	</td>
 	<td><fmt:formatNumber value="${order_detail_list[0].totalprice }"/>원</td>
 	<td>

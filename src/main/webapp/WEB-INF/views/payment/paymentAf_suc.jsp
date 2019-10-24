@@ -38,7 +38,7 @@
 						<c:if test="${dto.payment_method == 'card' }">신용카드</c:if>
 						<c:if test="${dto.payment_method == 'trans' }">실시간계좌이체</c:if>
 						<c:if test="${dto.payment_method == 'phone' }">휴대폰소액결제</c:if>
-						<c:if test="${dto.payment_method == 'point' }">카카오페이</c:if>
+						<c:if test="${dto.payment_method == 'kakaopay' }">카카오페이</c:if>
 					</td>
 				</tr>
 			</table>

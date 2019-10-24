@@ -128,7 +128,7 @@ public class PaymentEmail {
     		payment_method = "무통장입금";
     	}else if(dto.getPayment_method().equals("phone")) {
     		payment_method = "휴대폰소액결제";
-    	}else if(dto.getPayment_method().equals("point")) {
+    	}else if(dto.getPayment_method().equals("kakaopay")) {
     		payment_method = "카카오페이";
     	}
     	receive_name = dto.getReceive_name();
