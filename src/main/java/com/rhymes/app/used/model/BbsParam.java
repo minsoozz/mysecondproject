@@ -23,7 +23,7 @@ public class BbsParam implements Serializable {
 
 	// paging
 	private int pageNumber = 0; // 현재 페이지
-	private int recordCountPerPage = 10; // 표현하려는 한 페이지의 글 수
+	private int recordCountPerPage = 12; // 표현하려는 한 페이지의 글 수
 
 	// [1] -> 1 ~ 10
 	// [2] -> 11 ~ 20

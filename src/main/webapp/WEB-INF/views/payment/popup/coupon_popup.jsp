@@ -78,10 +78,10 @@
 			<tr>
 				<td colspan="4">
 					<!-- 할인할 때 계산을 위해 부모창에서 가져온 데이터 -->
-					<input type="text" id="product_price" value="${product_price }">
-					<input type="text" id="disc_point" value="${input_disc_point }">
-					<input type="button" id="coupon_popup_btn" value="확인">
-					<input type="button" value="취소" onclick="self.close();">
+					<input type="hidden" id="product_price" value="${product_price }">
+					<input type="hidden" id="disc_point" value="${input_disc_point }">
+					<input type="button" id="coupon_popup_e_btn" value="확인">
+					<input type="button" value="취소" id="coupon_popup_c_btn" onclick="self.close();">
 				</td>
 			</tr>
 		</table>

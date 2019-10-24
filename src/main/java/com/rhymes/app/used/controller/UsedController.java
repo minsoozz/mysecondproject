@@ -52,7 +52,8 @@ public class UsedController {
 	
 	@GetMapping("usedlist")	// 중고장터 판매목록을 불러온다
 	public String usedlist(Model model,BbsParam param,Principal prc, HttpServletRequest req) {
-	
+		
+		
 		
 		if(prc != null) {
 			P_MemberDTO Pdto = usedService.getMemberDto(prc.getName());

@@ -19,4 +19,7 @@ public interface AdminEventDAO {
 	
 	// 쿠폰리스트
 	public List<MemberCouponDTO> getcoupon();
+	
+	// 파일저장
+	public boolean getFileUpload(EventDTO dto);
 }

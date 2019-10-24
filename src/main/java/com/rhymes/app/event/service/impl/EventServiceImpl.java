@@ -20,5 +20,11 @@ public class EventServiceImpl implements EventService {
 	public List<EventDTO> geteventlist() {
 		return eventDAO.geteventlist();
 	}
+
+	// 디테일
+	@Override
+	public EventDTO geteventdetail(EventDTO dto) {
+		return eventDAO.geteventdetail(dto);
+	}
 	
 }

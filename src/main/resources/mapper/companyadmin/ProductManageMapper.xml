@@ -45,7 +45,7 @@
 				</if>
 				<if test="criterion != null and criterion != '' and (keyword == null or keyword == '')">
 					<if test="criterion == 'c1_search'">
-						AND a.C1_NAME = #{c1_name}
+							AND a.C1_NAME = #{c1_name}
 					</if>
 				</if>
 				<if test="key == 'sale'">
@@ -104,9 +104,11 @@
  
  <!-- 1(3).상품 상세조회(PRODUCTDETAILLIST) -->
 <select id="getAdminStockList" parameterType="com.rhymes.app.store.model.StockDto" resultType="com.rhymes.app.store.model.StockDto">
-	SELECT STOCK_SEQ, SIZE, QUANTITY 
-	FROM rhy_store_stock
-	WHERE P_SEQ = #{p_seq}
+	SELECT a.STOCK_SEQ, a.P_SEQ, a.SIZE, a.QUANTITY, IFNULL(SALES, 0) AS SALESVOLUME
+	FROM(SELECT a.STOCK_SEQ, a.P_SEQ, a.SIZE, a.QUANTITY,
+		 (SELECT SUM(b.EA) AS SALES FROM rhy_payment_details b WHERE a.STOCK_SEQ = b.S_SEQ GROUP BY b.S_SEQ) AS SALES
+		  FROM rhy_store_stock a)A	
+	WHERE a.P_SEQ = #{p_seq}					
 </select>
  
 <!-- 2.상품등록 -->

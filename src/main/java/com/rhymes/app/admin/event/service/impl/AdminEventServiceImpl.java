@@ -38,5 +38,10 @@ public class AdminEventServiceImpl implements AdminEventService {
 	public List<MemberCouponDTO> getcoupon() {
 		return adminEventDAO.getcoupon();
 	}
+
+	@Override
+	public boolean getFileUpload(EventDTO dto) {
+		return adminEventDAO.getFileUpload(dto);
+	}
 	
 }

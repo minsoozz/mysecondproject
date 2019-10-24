@@ -11,7 +11,7 @@ $(document).ready(function () {
 		var delivery_price = $("#delivery_price").text();
 		var input_disc_point = $("#input_disc_point").val();
 
-		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&input_disc_point="+input_disc_point, "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
+		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&input_disc_point="+input_disc_point, "window팝업", "width=800, height=600, menubar=no, status=no, toolbar=no");
 	});
 
 	
@@ -25,13 +25,15 @@ function price_change() {
 	//alert("적립금");
 	
 	var point_amount = $("#point_amount").val();
-	var disc_coupon = $("#disc_coupon").val();
+	var disc_coupon = $("#_disc_coupon").text();
 	var input_disc_point = $("#input_disc_point").val();
-	var totalprice = $("#totalprice").val();
+	var totalprice = $("#_totalprice").text();
+	//alert(input_disc_point);
 
 	// text에 값이 아예 없을 경우
 	if( input_disc_point.trim() == "" ) {
 		$("#input_disc_point").val( "0" );
+		$("#_disc_point").text( "0" );
 		$("#disc_point").val( "0" );
 		result_price();
 		return;
@@ -41,6 +43,7 @@ function price_change() {
 	if(input_disc_point.length < 4) {
 		alert("1000원부터 사용 가능합니다");
 		$("#input_disc_point").val( "0" );
+		$("#_disc_point").text( "0" );
 		$("#disc_point").val( "0" );
 		result_price();
 		return;
@@ -50,6 +53,7 @@ function price_change() {
 	if( parseInt(point_amount) < parseInt(input_disc_point) ) {
 		alert( $("#point_amount").val() + "원까지 사용가능합니다" );
 		$("#input_disc_point").val("0");
+		$("#_disc_point").text( "0" );
 		$("#disc_point").val( "0" );
 		result_price();
 		return;
@@ -58,20 +62,23 @@ function price_change() {
 	// 0은 입력 가능하지만 00은 못하게 한다
 	if(input_disc_point.trim().length >= 2 && input_disc_point.substring(0,2) == "00") {
 		$("#input_disc_point").val( "0" );
+		$("#_disc_point").text( "0" );
 		$("#disc_point").val( "0" );
 		result_price();
 		return;
 	}
 	
 	// 결제예상금액보다 text가 클 경우
-	if(parseInt(input_disc_point.trim()) - parseInt($("#disc_point").val()) > parseInt(totalprice)){
+	if(parseInt(input_disc_point.trim()) - parseInt($("#disc_point").text()) > parseInt(totalprice)){
 		alert(parseInt(input_disc_point.trim()) + ", " + totalprice + " 사용범위를 초과하였습니다");
 		$("#input_disc_point").val( "0" );
+		$("#_disc_point").text( "0" );
 		$("#disc_point").val( "0" );
 		result_price();
 		return;
 	}
 	
+	$("#_disc_point").text( parseInt(input_disc_point) );
 	$("#disc_point").val( parseInt(input_disc_point) );
 
 	result_price();
@@ -84,12 +91,13 @@ function price_change() {
 function result_price() {
 	var product_price = $("#product_price").text();
 	var delivery_price = $("#delivery_price").text();
-	var disc_point = $("#disc_point").val();
-	var disc_coupon = $("#disc_coupon").val();
-	var totalprice = $("#totalprice").val();
+	var disc_point = $("#_disc_point").text();
+	var disc_coupon = $("#_disc_coupon").text();
+	var totalprice = $("#_totalprice").text();
 	
 	//alert(product_price + ", " + delivery_price + ", " + disc_point + ", " + disc_coupon + ", " + totalprice);
 
+	$("#_totalprice").text( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_point) - parseInt(disc_coupon) );
 	$("#totalprice").val( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_point) - parseInt(disc_coupon) );
 }
 

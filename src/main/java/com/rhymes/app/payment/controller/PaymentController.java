@@ -154,7 +154,9 @@ public class PaymentController {
 
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
-	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
+	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {		
+		log.warn("dto : " + dto.toString());
+		log.warn("dtoAf : " + dtoAf.toString());
 
 		String userid = "";
 		if(pcp != null) {
@@ -175,8 +177,10 @@ public class PaymentController {
 			// 상품의 가격
 			int price = PaymentService.getPrice(Integer.parseInt(stock_seq[i]));
 			
+			int int_stock_seq = Integer.parseInt(stock_seq[i]);
+			int int_quantity = Integer.parseInt(quantity[i]);
 			// db에 결제 디테일을 저장한다(후기 여부는 false)
-			PaymentDetailsDTO dtoDt = new PaymentDetailsDTO(Integer.parseInt(stock_seq[i]), Integer.parseInt(quantity[i]), price, dto.getPayment_code());
+			PaymentDetailsDTO dtoDt = new PaymentDetailsDTO(int_stock_seq, int_quantity, price, dto.getPayment_code());
 			
 			boolean b3 = PaymentService.payment_detail_save(dtoDt);
 		}
@@ -187,10 +191,10 @@ public class PaymentController {
 		// rhy_payment_after db에 결제내역을 저장한다
 		boolean b3 = PaymentService.payment_after(dtoAf);
 		
-		if(pcp != null) {
+		if(pcp != null && dto.getDisc_point() > 0) {
 			// 적립금 차감한다
 			boolean b = PaymentService.disc_point(dto);
-
+		}else if(pcp != null && dto.getDisc_coupon() > 0) {
 			// 사용한 쿠폰을 사용으로 변환
 			boolean b4 = PaymentService.update_isused_coupon(dto);
 		}
@@ -205,12 +209,11 @@ public class PaymentController {
 		}
 
 		// 이메일로 결제내역을 보낸다
-		PaymentEmail mail = new PaymentEmail();
 		try {
-			//mail.PaymentEmailSend(dto);
+			PaymentEmail.PaymentEmailSend(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("dtoAf", dtoAf);

@@ -11,7 +11,11 @@
        <put-attribute name="left_menu" value="/WEB-INF/views/event/left_event.jsp" />
        <put-attribute name="body" value="/WEB-INF/views/event/eventList.jsp" />
        <put-attribute name="footer" value="/WEB-INF/views/common/layout/footer.jsp" />
-   </definition>  
+   </definition> 
+   
+   <definition name="eventdetail.tiles" extends="eventList.tiles">
+   		<put-attribute name="body" value="/WEB-INF/views/event/eventdetail.jsp" />
+   </definition>
 
    
 </tiles-definitions>

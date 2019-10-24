@@ -16,6 +16,7 @@ import com.rhymes.app.used.model.ProductsDto;
 
 @Repository
 public class MyUsedDaoImpl implements MyUsedDao {
+	
 	@Autowired
 	SqlSession sqlSession;
 
