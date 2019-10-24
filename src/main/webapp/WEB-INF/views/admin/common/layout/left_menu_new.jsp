@@ -77,7 +77,7 @@
 							<h6 class="collapse-header">CHART</h6>
 							<a class="collapse-item" href="/admin/chart/salary">매출 통계</a>
 							<a class="collapse-item" href="/admin/chart/member">회원 통계</a>
-							<a class="collapse-item" href="/admin/chart/category">카테고리별 통계</a>
+							<a class="collapse-item" href="/admin/chart/company">업체별 통계</a>
 							<a class="collapse-item" href="/admin/chart/product">상품 통계</a>
 						</div>
 					</div>
@@ -203,11 +203,11 @@
 					<div id="admin_payment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
+							<a class="collapse-item" href="/admin/payment/success">주문조회</a>
 							<a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
-							<a class="collapse-item" href="/admin/payment/refund">환불관리</a>
-							<a class="collapse-item" href="/admin/payment/cancel">결제취소</a>
-							<a class="collapse-item" href="/admin/payment/success">결제성공</a>
-							<a class="collapse-item" href="/admin/payment/finish">결제완료</a>
+							<a class="collapse-item" href="/admin/payment/cancel">취소/환불관리</a>
+							<!-- <a class="collapse-item" href="/admin/payment/refund"></a> -->
+							<!-- <a class="collapse-item" href="/admin/payment/finish">결제완료</a> -->
 						</div>
 					</div>
 				</li>

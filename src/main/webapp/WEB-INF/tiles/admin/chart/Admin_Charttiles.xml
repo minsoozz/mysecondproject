@@ -23,8 +23,8 @@
    		<put-attribute name="body" value="/WEB-INF/views/admin/chart/member_chart.jsp"/>
    </definition>
    
-   <definition name="category.tiles" extends="chart.tiles">
-   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/category_chart.jsp"/>
+   <definition name="company.tiles" extends="chart.tiles">
+   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/company_chart.jsp"/>
    </definition>
    
    <definition name="product.tiles" extends="chart.tiles">

@@ -28,8 +28,9 @@
 		</div>
 		<table class="payment_coupon_tb">
 			<tr>
-				<th>쿠폰번호${product_price }</th>
+				<th>쿠폰번호</th>
 				<th>쿠폰이름</th>
+				<th>쿠폰내용</th>
 				<th>할인액(률)&nbsp;적립액(률)</th>
 				<th>사용기간</th>
 			</tr>
@@ -37,6 +38,7 @@
 				<tr>
 					<td>${c.coup_code }</td>
 					<td>${c.title }</td>
+					<td>${c.sub_title }</td>
 					<td><c:choose>
 							<c:when test="${c.func_measure == '원' }">
 								<fmt:formatNumber value="${c.func_num}" type="number" />${c.func_measure }
@@ -46,7 +48,7 @@
 							</c:otherwise>
 						</c:choose>
 					</td>
-					<td>${fn:substring(c.gdate,2,11) }~${fn:substring(c.expdate,2,11) }</td>
+					<td>${fn:substring(c.gdate,2,11) }~ ${fn:substring(c.expdate,2,11) }</td>
 				</tr>
 			</c:forEach>
 		</table>
