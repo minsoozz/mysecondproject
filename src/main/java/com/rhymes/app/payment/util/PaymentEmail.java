@@ -52,7 +52,7 @@ public class PaymentEmail {
 		"<link rel=\"stylesheet\" href=\"./mailForm.css\">\r\n" + 
 		"</head>\r\n" + 
 		"<body>\r\n" + 
-        "<div style='text-align: left; padding-top: 10px; padding-bottom: 50px; width: 50%;'>"+
+        "<div style='text-align: left; padding: 10px 30px 10px 30px; padding-bottom: 50px; width: 50%; border: 1px solid #dbdbdb;'>"+
         "<div style='margin-bottom: 50px;'>"+
         "<h1>RHYMESb 쇼핑몰 결제내역입니다. 총 주문금액 : "+totalprice+"원</h1>"+
 		"<div>"+
@@ -110,7 +110,7 @@ public class PaymentEmail {
     
     public static void PaymentEmailSend(PaymentDTO dto) throws Exception {
     	totalprice = dto.getTotalprice();
-    	payment_code = dto.getPayment_code();
+    	payment_code = dto.getPayment_code().substring(4);
     	if(dto.getPayment_status().equals("ready") ) {
     		payment_status = "미결제";
     	}else if(dto.getPayment_status().equals("paid")) {

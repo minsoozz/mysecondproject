@@ -154,8 +154,7 @@ public class PaymentController {
 
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
-	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
-		
+	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {		
 		log.warn("dto : " + dto.toString());
 		log.warn("dtoAf : " + dtoAf.toString());
 
@@ -192,10 +191,10 @@ public class PaymentController {
 		// rhy_payment_after db에 결제내역을 저장한다
 		boolean b3 = PaymentService.payment_after(dtoAf);
 		
-		if(pcp != null) {
+		if(pcp != null && dto.getDisc_point() > 0) {
 			// 적립금 차감한다
 			boolean b = PaymentService.disc_point(dto);
-
+		}else if(pcp != null && dto.getDisc_coupon() > 0) {
 			// 사용한 쿠폰을 사용으로 변환
 			boolean b4 = PaymentService.update_isused_coupon(dto);
 		}

@@ -193,6 +193,7 @@
 						</div>
 					</div>
 				</li>
+				
 			</c:if>
 		</c:forEach>
 	</c:if>
