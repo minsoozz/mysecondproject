@@ -1,5 +1,8 @@
 package com.rhymes.app.admin.events.model;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +53,27 @@ public class CouponDTO {
 		this.func_num = func_num;
 		this.func_measure = func_measure;
 		this.func_time_limit = func_time_limit;
+	}
+	
+	/**새 쿠폰 생성에 활용되는 생성자 - Map을 받아서 생성
+	 */
+	@Builder
+	public CouponDTO(Map<String, String> map) {
+		
+		Iterator<String> it = map.keySet().iterator();
+		while(it.hasNext()) {
+			String key = it.next();
+			System.out.println("key : " + key + " , value : " + map.get(key));
+		}
+		
+		
+		this.title = map.get("title");
+		this.sub_title = map.get("sub_title");
+		this.app_cate = map.get("app_cate");
+		this.func = map.get("func");
+		this.func_num = Integer.parseInt( map.get("func_num") + "" );
+		this.func_measure = map.get("func_measure");
+		this.func_time_limit = Integer.parseInt( map.get("func_time_limit") + "" );
 	}
 	
 	/**All args
