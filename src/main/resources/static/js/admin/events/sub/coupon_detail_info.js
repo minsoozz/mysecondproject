@@ -9,112 +9,61 @@ $(function(){
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
-	
-/*
-	//쿠폰 등록대상 ID 검색 자동완성기능	
-	$("#_coup_reg_id").typeahead({
-		source: [
-		    {id: "someId1", name: "Display name 1"},
-		    {id: "someId2", name: "Display name 2"}
-		],
-		autoSelect: true
+
+	//쿠폰정보 모달 내부 정보 set
+	$(".coupon_detail_row").click(function(){
+		setCouponDetailModalData( $(this) );
 	});
 	
+	//모달 show 이벤트
+	$(document).on('show.bs.modal','#_coupon_detail_info_modal', function () {		
+		//쿠폰 등록대상 ID 검색 자동완성기능
+		setAutoCompleteEvent();
+		
+		//쿠폰 사용자 등록 이벤트
+		$("#_save_coup_detail_info").click(function(){
+			giveCouponToUser();
+		});
+	});
+	
+	
+});
+
+//쿠폰 등록대상 ID 검색 자동완성기능
+function setAutoCompleteEvent(){
 	var $input = $("#_coup_reg_id");
+	var dataArr = new Array();
+	setDataArr(dataArr);
+	
 	$input.typeahead({
-	  source: [
-	    {id: "someId1", name: "Display name 1"},
-	    {id: "someId2", name: "Display name 2"}
-	  ],
+	  source: dataArr,
 	  autoSelect: true
 	});
-	$input.change(function() {
-		console.log(123123);
-	  var current = $input.typeahead("getActive");
-	  if (current) {
-	    // Some item from your model is active!
-	    if (current.name == $input.val()) {
-	      // This means the exact match is found. Use toLowerCase() if you want case insensitive match.
-	    } else {
-	      // This means it is only a partial match, you can either add a new item
-	      // or take the active if you don't want new items
-	    }
-	  } else {
-	    // Nothing is active so it is a new value (or maybe empty value)
-	  }
-	});
-*/
-	
-//	$("#_coup_reg_id").autocomplete({ 
-//		source : function(request, response) {
-//			getMemberIds(request, response);
-//		},
-//		minLength: 2, 
-//		select : function(event, ui) {
-//			//선택된 회원 ID에 맞는 정보를 테이블에 추가
-//			addMemberOnTable(ui.item.value);
-//		}
-//	});
-});
-
-$(document).on('show.bs.modal','#_coupon_detail_info_modal', function () {
-	
-	var dataArr = [
-	    {id: "someId1", name: "Display name 1"},
-	    {id: "someId2", name: "Display name 2"}
-	];
-	
-	$('#_coup_reg_id').typeahead({
-		  minLength: 3,
-		  highlight: true
-		},
-		{
-		  name: 'my-dataset',
-		  source: dataArr
-	});
-});
-
-
-/*
-$(document).on('show.bs.modal','#_coupon_detail_info_modal', function () {
-	console.log('modal on show!!!!!!!!!!!');
-	var $input = $("#_coup_reg_id");
-	$input.typeahead({
-	  source: getTypeaheadData()
-	});
-	
-	//DB값과 같아야만 저장버튼 활성화
-	$input.on('keyup change',function() {
-		var dataArr = getTypeaheadData();
-		$.each(dataArr, function(i, e){
-			console.log( i + ' , ' + e.name);
-		});
-		$input.typeahead({
-			source: dataArr
-			  //source: getTypeaheadData()
-		});
+	$input.change(function() {			
 		var current = $input.typeahead("getActive");
-		console.log('load ok');
 		if (current) {
-			console.log('curr');
+			// Some item from your model is active!
 			if (current.name == $input.val()) {
-				console.log('equal');
+				// This means the exact match is found. Use toLowerCase() if you want case insensitive match.
 				$("#_save_coup_detail_info").removeAttr('disabled');
 				return true;
-			}
-		}
+		    } else {
+		    	// This means it is only a partial match, you can either add a new item
+		    	// or take the active if you don't want new items
+		    }
+		} else {
+			// Nothing is active so it is a new value (or maybe empty value)
+		}			
+	});
+	$input.keydown(function(){
 		$("#_save_coup_detail_info").attr('disabled', 'disabled');
 	});
+}
 
-});
-*/
-function getTypeaheadData(){
-	
-	//디폴트값
-	var dataArr = [
-	    {id: "someId1", name: "Display name 1"},
-	    {id: "someId2", name: "Display name 2"}
-	];
+//데이터리스트 세팅
+function setDataArr(dataArr){
+	dataArr.push({id: "someId1", name: "Display name 3"});
+	dataArr.push({id: "someId2", name: "Display name 4"});
 	
 	$.ajax({
 		type : 'get',
@@ -123,41 +72,64 @@ function getTypeaheadData(){
 		data : {
 			value : $("#_coup_reg_id").val()
 		},
-		async: false,
+		async: true,
 		success : function(data) {
 			console.log('load ok ');
-			dataArr = new Array();
 			$.each(data, function(index, item) {
-				dataArr.push( {id: "userid", name: "disp" } );
+				dataArr.push( {id: "userid" + index , name: item } );
 			});
+		},
+		error : function(err) {
+			console.log('connect eror');
 		}
-	});
-	
-	
-//	$.each(dataArr, function(i, e){
-//		console.log(i + ' , ' + e.name);
-//	});
-	
-	return dataArr;
+	});	
 }
 
-//ajax통신을 통해 검색어에 맞는 회원 ID를 리턴하는 함수
-function getMemberIds(request, response){
+//쿠폰정보 모달 set
+function setCouponDetailModalData(row){
+	console.log('row click' + row.children().length);
+	var $modalInput = $("#_coup_detail_info input");
+	
+	for( i = 0 ; i < $modalInput.length ; i++ ){
+		$modalInput.eq(i).val( row.children().eq(i + 2).text() );
+	}
+}
+
+//쿠폰 사용자 등록 이벤트
+function giveCouponToUser(){
+	var c_seq = $("#_this_c_seq").val();
+	var func_time_limit = $("#_this_func_time_limit").val();
+	var coupon_code = $("#_coup_reg_code").val();
+	var userid = $("#_coup_reg_id").val();
+	
+	console.log('save : ' + userid + "  ,  " + coupon_code);
+	console.log('c_seq : ' + c_seq);
+	
+	var viewData = new Map();
+	viewData["c_seq"] = c_seq;
+	viewData["coupon_code"] = coupon_code;
+	viewData["userid"] = userid;
+	viewData["func_time_limit"] = func_time_limit;
+	
 	$.ajax({
-		type : 'get',
-		url : "/admin/mypage/points/getmembers",
-		dataType : "json",
-		data : {
-			value : request.term
+		contentType : 'application/json',
+		dataType : 'json',
+		url : '/admin/mypage/coupon/detail/givecoupon',
+		type : 'post',
+		async : false,
+		data : JSON.stringify(viewData),		
+		success : function(data) {
+			console.log('success : ' + data);
+			if( data === '1' || data === 1){
+				alert('저장 성공.');
+				location.reload();
+				return true;
+			}else{
+				alert('저장 실패.');
+			}
 		},
-		async: false,
-		success : function(data) {					
-			response($.each(data, function(index, item) {
-				return {
-					label : item,
-					value : item
-				}
-			}));
+		error : function(err) {
+			console.log('connect eror');
 		}
 	});
 }

@@ -8,6 +8,7 @@
 <meta name="_csrf" content="${_csrf.token}">
 <meta name="_csrf_header" content="${_csrf.headerName}">
 
+<link rel="stylesheet" href="<%=ctx%>/css/admin/events/sub/coupon_make_new.css">
 <link rel="stylesheet" href="<%=ctx%>/css/admin/events/sub/points_detail.css">
 
 
@@ -24,7 +25,7 @@
 			<a href="<%=ctx%>/admin/mypage/coupon">쿠폰 목록</a>
 		</h6>
 		<div class="function-btns-wrap">
-			<a id="_btn_give_points" href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#_points_give_modal">
+			<a id="_btn_give_points" href="#" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#_coupon_make_new">
 				<span class="icon text-white-50"><i class="fas fa-info-circle"></i></span><span class="text">새 쿠폰 발행</span>
 			</a>
 		</div>
@@ -134,7 +135,7 @@
 
 <!-- modal 영역 -->
 <!-- 적립금 지급 모달 -->
-<div class="points_give_modal modal fade" id="_points_give_modal" tabindex="-1" role="dialog" aria-labelledby="pointsGiveModalLabel" aria-hidden="true">
-	<jsp:include page="./sub/points_give.jsp"></jsp:include>
+<div class="coupon-make-new modal fade" id="_coupon_make_new" tabindex="-1" role="dialog" aria-labelledby="couponMakeNewModaLabel" aria-hidden="true">
+	<jsp:include page="./sub/coupon_make_new.jsp"></jsp:include>
 </div>
 </html>

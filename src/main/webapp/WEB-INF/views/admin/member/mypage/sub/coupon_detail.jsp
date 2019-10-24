@@ -42,6 +42,7 @@
                				data-placement="right" data-content="새로운 쿠폰코드를 현재 쿠폰에 추가합니다.">
 							<span class="icon text-white-50"><i class="fas fa-info-circle"></i></span><span class="text">쿠폰 추가</span>
 							<input type="hidden" value="${cDto.seq}" id="_this_c_seq"><!-- 현재 쿠폰의 CDTO -->
+							<input type="hidden" value="${cDto.func_time_limit}" id="_this_func_time_limit"><!-- 현재 쿠폰의 유효기간 -->
 							<input type="hidden" value="${pDto.totalSize }" id="_this_total_size"><!-- 현재 발행된 쿠폰번호의 총 개수 -->
 						</a>
                		</div>
