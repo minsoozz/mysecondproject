@@ -11,7 +11,7 @@ $(document).ready(function () {
 		var delivery_price = $("#delivery_price").text();
 		var input_disc_point = $("#input_disc_point").val();
 
-		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&input_disc_point="+input_disc_point, "window팝업", "width=700, height=700, menubar=no, status=no, toolbar=no");
+		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&input_disc_point="+input_disc_point, "window팝업", "width=800, height=600, menubar=no, status=no, toolbar=no");
 	});
 
 	
