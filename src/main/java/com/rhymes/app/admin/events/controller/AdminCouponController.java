@@ -19,7 +19,6 @@ import com.rhymes.app.admin.events.model.AdminPointsPagingDTO;
 import com.rhymes.app.admin.events.model.CouponDTO;
 import com.rhymes.app.admin.events.model.CouponDetailDTO;
 import com.rhymes.app.admin.events.model.CouponDetailPagingDTO;
-import com.rhymes.app.admin.events.model.PointsDTO;
 import com.rhymes.app.common.util.MypageUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -113,17 +112,24 @@ public class AdminCouponController {
 	public String couponCodeGenerate(Model model, @RequestBody Map<String, Object> jsMap, Principal pcp) {
 		log.info("couponCodeGenerate()");
 		/* 선언부 */
+		int result = 0;
+		int amount = 0;
+		int c_seq = 0;
+		List<CouponDetailDTO> codeList = null;
 		log.info("c_seq : " + jsMap.get("c_seq"));
 		log.info("amount : " + jsMap.get("amount"));
-		/* 수행부 */
-		//업데이트 완료되면 1리턴, 오류발생하면 0리턴
-		int updateResult = 0;
-		int amount = 0;
+		/* 수행부 */		
 		try {
+			c_seq = Integer.parseInt( jsMap.get("c_seq") + "" );
 			amount = Integer.parseInt( jsMap.get("amount") + "" );
-			MypageUtils.printRandCoupsTimestamp(amount);
+			codeList = MypageUtils.getRandCoupsTimestampList(c_seq, amount);
 			
-			return "1";
+			for(CouponDetailDTO d : codeList) {
+				log.info(d.getSeq() + ", str : " + d.getCoup_code() );
+			}
+			result = ss.insert("adcoupon.insertCouponList", codeList);
+			
+			return (result > 0)?"1":"0";
 		}catch (Exception e) {
 			return "0";
 		}		

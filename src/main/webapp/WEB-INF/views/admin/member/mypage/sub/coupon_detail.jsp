@@ -13,6 +13,10 @@
 <script type="text/javascript" src="<%=ctx %>/js/admin/events/sub/coupon_detail.js"></script>
 <script type="text/javascript" src="<%=ctx %>/js/admin/events/sub/coupon_new_detail.js"></script>
 
+<script type="text/javascript" src="<%=ctx %>/js/bootstrap/bootstrap-3-typeahead.js"></script>
+<script type="text/javascript" src="<%=ctx %>/js/admin/events/sub/coupon_detail_info.js"></script>
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 <!-- Page Heading -->
@@ -131,7 +135,7 @@
 						</tr>
 					</c:if>
 					<c:forEach var="c" items="${couponDetailList }" varStatus="vs">
-						<tr align="center" class="coupon_detail_row">
+						<tr align="center" class="coupon_detail_row" data-toggle="modal" data-target="#_coupon_detail_info_modal">
 							<td class="list_checkbox"><input type="checkbox" name='allck' value="${c.seq }"></td>
 							<td>${c.seq }</td> <td>${c.coup_code }</td> <td>${c.userid }</td> <td>${c.gdate }</td> 
 							<td>${c.expdate }</td> <td>${c.isused }</td> <td>${c.used_id }</td> <td>${c.used_date }</td>
@@ -180,5 +184,9 @@
 <!-- 쿠폰코드 추가 모달 -->
 <div class="coupon_new_details_modal modal fade" id="_coupon_new_details_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<jsp:include page="./coupon_new_detail.jsp"></jsp:include>
+</div>
+<!-- 쿠폰발행정보 모달 -->
+<div class="coupon_details_info_modal modal fade" id="_coupon_detail_info_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<jsp:include page="./coupon_detail_info.jsp"></jsp:include>
 </div>
 </html>
