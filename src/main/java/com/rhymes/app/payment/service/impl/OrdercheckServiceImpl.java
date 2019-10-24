@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rhymes.app.payment.dao.OrdercheckDAO;
 import com.rhymes.app.payment.model.DeliveryDTO;
+import com.rhymes.app.payment.model.NoMemOrderCheckDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.service.OrdercheckService;
 
@@ -30,7 +31,7 @@ public class OrdercheckServiceImpl implements OrdercheckService {
 
 	// 주문상세내역 조회
 	@Override
-	public List<PaymentDTO> getOrdercheckDetail(String payment_code) {
+	public List<NoMemOrderCheckDTO> getOrdercheckDetail(String payment_code) {
 		return OrdercheckDao.getOrdercheckDetail(payment_code);
 	}
 

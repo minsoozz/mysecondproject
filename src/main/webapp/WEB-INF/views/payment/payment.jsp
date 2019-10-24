@@ -60,8 +60,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td align="left">${basketList[i.index].quantity }개/개당
-						<fmt:formatNumber value="${basketList[i.index].p_price }" />원</td>
+						<td align="left">사이즈 : ${basketList[i.index].size } / 색상 : ${basketList[i.index].p_color } / 수량 : ${basketList[i.index].quantity }개 /
+						개당 <fmt:formatNumber value="${basketList[i.index].p_price }" />원</td>
 					</tr>
 				</c:forEach>
 

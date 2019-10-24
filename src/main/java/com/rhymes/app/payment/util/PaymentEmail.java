@@ -60,14 +60,14 @@ public class PaymentEmail {
         "<b style='font-family: sans-serif; font-size: 15px;'>결제방법</b>"+
         "</div>"+
         "<div>"+
-        "<table class='paymentAf_tb' style='width: 100%; margin: 10px 10px 10px 10px; border-top: 1px solid gray; border-collapse: collapse; border: 1px solid #dbdbdb;'>"+
-        "<tr>"+
+        "<table class='paymentAf_tb' style='width: 100%; margin: 10px 10px 10px 10px; border-top: 1px solid gray; border-collapse: collapse;'>"+
+        "<tr style='border-top: 1px solid #d7fd75; border-bottom: 1px solid #d7fd75;'>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>결제금액</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>주문번호</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>결제상태</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>결제수단</td>"+
         "</tr>"+
-        "<tr>"+
+        "<tr style='border-top: 1px solid #d7fd75; border-bottom: 1px solid #d7fd75;'>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+totalprice+"원</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+payment_code+"</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+payment_status+"</td>"+
@@ -82,20 +82,20 @@ public class PaymentEmail {
         "<b style='font-family: sans-serif; font-size: 15px;'>배송지 정보</b>"+
         "</div>"+
         "<div>"+
-        "<table class='paymentAf_tb' style='width: 100%; margin: 10px 10px 10px 10px; border-top: 1px solid gray; border-collapse: collapse; border: 1px solid #dbdbdb;'>"+
-        "<tr>"+
+        "<table class='paymentAf_tb' style='width: 100%; margin: 10px 10px 10px 10px; border-top: 1px solid gray; border-collapse: collapse;'>"+
+        "<tr style='border-top: 1px solid #d7fd75; border-bottom: 1px solid #d7fd75;'>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>이름</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+receive_name+"</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>연락처</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+receive_phone+"</td>"+
         "</tr>"+
-        "<tr>"+
+        "<tr style='border-top: 1px solid #d7fd75; border-bottom: 1px solid #d7fd75;'>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>우편번호</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+receive_postnum+"</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>주소</td>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px;'>"+receive_address+"</td>"+
         "</tr>"+
-        "<tr>"+
+        "<tr style='border-top: 1px solid #d7fd75; border-bottom: 1px solid #d7fd75;'>"+
         	"<td style='padding: 10px 10px 10px 10px; font-size: 15px; background-color: #d7fd75;'>주문시 요청사항</td>"+
         	"<td colspan='3' style='padding: 10px 10px 10px 10px;'>"+receive_address_request+"</td>"+
         "</tr>"+

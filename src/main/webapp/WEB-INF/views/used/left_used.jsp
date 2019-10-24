@@ -54,10 +54,7 @@ function category(th){
 
 	var category = $(th).attr('val');
 	
-    var keyword = $("#_keyword").val();
-	var select = $("#s_select").val();
-	
-	location.href="usedlist?category="+category+"&keyword="+keyword+"&select="+select;
+	location.href="usedlist?category="+category;
 	
 }
 
