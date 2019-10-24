@@ -26,10 +26,20 @@ public class CouponDetailDTO {
 	public CouponDetailDTO () { }
 	
 	/**새 쿠폰 발행을 위한 생성자
-	 * @param coup_code
 	 */
-	public CouponDetailDTO(String coup_code) {
+	public CouponDetailDTO(int seq, String coup_code) {
+		this.seq = seq;
 		this.coup_code = coup_code;
+	}
+	
+	/**새 쿠폰 발행을 위한 생성자
+	 */
+	public CouponDetailDTO(int seq, String userid, String coup_code, String gdate, String expdate) {
+		this.seq = seq;
+		this.userid = userid;
+		this.coup_code = coup_code;
+		this.gdate = gdate;
+		this.expdate = expdate;
 	}
 	
 	/**All Args

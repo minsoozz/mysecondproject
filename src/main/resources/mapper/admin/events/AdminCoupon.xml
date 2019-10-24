@@ -25,6 +25,19 @@
 		resultType="com.rhymes.app.admin.events.model.CouponDetailDTO">
 		<include refid="getCouponDetailsSql"/></select>
 
+	<!-- 쿠폰코드 List DB에 저장 -->
+	<insert id="insertCouponList" parameterType="java.util.List">
+		<include refid="insertCouponListSql"/></insert>
+		
+	<!-- 새 쿠폰 디테일 저장(쿠폰코드를 사용자에게 등록) -->
+	<update id="giveCouponToOneUser" parameterType="com.rhymes.app.admin.events.model.CouponDetailDTO">
+		UPDATE RHY_MEM_COUPON_DETAIL  SET USERID=#{userid}, GDATE=#{gdate}, EXPDATE=#{expdate}  WHERE COUP_CODE = #{coup_code}
+	</update>
+	
+	<!-- 새 쿠폰 생성(rhy_mem_coupon) -->
+	<insert id="insertNewCoupon" parameterType="com.rhymes.app.admin.events.model.CouponDTO">
+		<include refid="insertNewCouponSql"/></insert>
+
 	<!-- 쿼리정보 -->
 	<!-- 검색조건에 맞는 총 쿠폰 개수 -->
 	<sql id="getTotalCountOfCouponsSql">
@@ -54,7 +67,7 @@
 	</sql>
 	
 	
-	<!-- 검색조건에 맞는 총 쿠폰 디테일 개수 -->
+	<!-- 검색조건에 맞는 총 쿠폰 디테일 개수 리턴 -->
 	<sql id="getTotalCountOfCouponDetailSql">
 		SELECT COUNT(*) FROM RHY_MEM_COUPON_DETAIL
 		<include refid="detailSearchConditions"/>
@@ -83,6 +96,19 @@
 		</where>
 	</sql>
 	
-	
+	<!-- 쿠폰코드 List DB에 저장 -->
+	<sql id="insertCouponListSql"> 
+        INSERT INTO RHY_MEM_COUPON_DETAIL (C_SEQ, COUP_CODE)
+        VALUES 
+        <foreach item="item" collection="list" separator=",">
+		        ("${item.seq}", "${item.coup_code}")	        
+        </foreach>
+    </sql>
+    
+    <!-- 새 쿠폰 생성(rhy_mem_coupon) -->
+    <sql id="insertNewCouponSql">
+    	INSERT INTO RHY_MEM_COUPON (TITLE, SUB_TITLE, APP_CATE, FUNC, FUNC_NUM, FUNC_MEASURE, FUNC_TIME_LIMIT )
+    	VALUES ( #{title}, #{sub_title}, #{app_cate}, #{func}, #{func_num}, #{func_measure}, #{func_time_limit} )
+    </sql>
 
 </mapper>
