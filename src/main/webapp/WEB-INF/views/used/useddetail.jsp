@@ -58,13 +58,22 @@
    
   <div id="side_goods">
   
-  <h4>${dto.title }</h4>
+  <font size="5px;">${dto.title }</font>
+  
+  	<c:if test="${userloginid eq dto.s_id}">
+			
+				<button type="button" id="_updatebtn" name="updatebtn" class="rhybtn">수정</button>
+				<button type="button" id="_deletebtn" name="deletebtn" class="rhybtn">삭제</button>
+		</c:if>	
+  
+  
   <p style="color: gray;font-size: 15px">${dto.category }</p>
   <p style="color: gray;font-size: 20px;">&#8361;${dto.price }</p>
-   <br>
+   <font style="color: gray;font-size: 15px">상태 : ${dto.division }</font>
+   <br><br>
    <font style="color: gray;font-size: 15px">조회수 : ${dto.readcount }</font>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <%--  <font style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : <fmt:formatDate value="${dto.rdate }" pattern="yyyy-MM-dd "/></font> --%>
+  <font style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : ${dto.rdate }</font>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    	 <c:if test="${userloginid ne null}">
  		<font style="color: gray;font-size: 15px"><a href="#none" id="mybtn"><img src="/img/used-img/report.png" width="25px;"height="25px"style="margin-bottom: 5px">신고하기</a></font>
@@ -72,49 +81,41 @@
 	 
 	 <br><br>
 	 
-	<p style="color: black;font-size: 15px">거래지역 : ${dto.place }</p>
-
- 	
-
 
   	 <div id="b_btn">
   	 <input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
   	 <button type="button" class="wishBtn" style="cursor:pointer;">
-  	 
+
+	
   	<!-- 좋아요 기능 시작!!! -->
   	<c:choose>
   		<c:when test="${userloginid ne null }">
   			<c:if test="${login.islike == 'true' }">
-	  			<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/likeAf.png" style="width: 15px" height="15px" id="like_img"></a>
+	  			<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/likeAf.png" style="width: 35px" height="35px" id="like_img"></a>
   			</c:if>
 			  		<c:if test="${login.islike == 'false' }">
-  				<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/like.png" style="width: 15px" height="15px" id="like_img"></a>
+  				<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/like.png" style="width: 35px" height="35px" id="like_img"></a>
   			</c:if>
   		</c:when>
   	<c:otherwise>
-  		<a href="#none" class="gologin"><img alt="" src="/img/used-img/like.png" style="width: 15px" height="15px"></a>
+  		<a href="#none" class="gologin"><img alt="" src="/img/used-img/like.png" style="width: 35px" height="35px"></a>
   	</c:otherwise>
   	
   	</c:choose>
   	</button>  	
-
-	<div id="map" style="width:400px;height:300px;">
+	<br><br>	
+	<font style="color: gray;font-size: 15px;margin-bottom: -5px;">거래지역 : ${dto.place }</font>
+	
+	<div id="map" style="width:400px;height:300px; margin-top: 10px">
 	</div>
-  	
-	<c:if test="${login.userid eq dto.s_id}">
-	<div id="div_btn">
-		<button type="button" id="_updatebtn" name="updatebtn">수정</button>
-		<button type="button" id="_deletebtn" name="deletebtn">삭제</button>
-	</div> 
-	</c:if>
-  </div>
-  </div>
 
+
+			
+  </div>
+  </div>
 <br>
-
-
-
- 	<div id="market_info" align="left">
+		
+<div id="market_info" align="left">
   	
  		<h5>상품정보 </h5>
  		<hr color="gray">
@@ -126,24 +127,23 @@
 	<h5>상품문의 </h5>
  	<hr color="gray"> 	
 	
-	<table>
+	<table id="addtable">
 	<tr>
 		<td>
-			<textarea rows="5" cols="80" id="_comments" name="comments" placeholder="댓글을 입력하세요"></textarea>
+			<textarea rows="5" cols="85" id="_comments"placeholder="댓글을 입력하세요 댓글은 최대 80byte를 초과할 수 없습니다."
+			name="contents" onKeyUp="javascript:fnChkByte(this,'80')"></textarea>
 			<br>
 			  <div>
 				<a href="#" onclick="addComment('${dto.seq}')">등록</a>
+			
 			  </div>
 		</td>
 	</tr>
 	</table>
+	<br>
 	<div id="_addcomments"></div>
 	<div id="more_btn_div" align="center"></div>
 	</div>
-
-
-
-
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -215,7 +215,7 @@
 			<!-- 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			 --></div>
 		</div>
-
+	
 	</div>
   </div>
 
@@ -251,9 +251,57 @@ function gologin(){
 	 }
 }
 
+function fnChkByte(obj, maxByte){
+	
+    var str = obj.value;
+    var str_len = str.length;
+
+
+    var rbyte = 0;
+    var rlen = 0;
+    var one_char = "";
+    var str2 = "";
+
+
+    for(var i=0; i<str_len; i++)
+    {
+        one_char = str.charAt(i);
+        if(escape(one_char).length > 4)
+        {
+            rbyte += 2;                                         //한글2Byte
+        }
+        else
+        {
+            rbyte++;                                            //영문 등 나머지 1Byte
+        }
+
+
+        if(rbyte <= maxByte)
+        {
+            rlen = i+1;                                          //return할 문자열 갯수
+        }
+     }
+
+
+     if(rbyte > maxByte)
+     {
+  // alert("한글 "+(maxByte/2)+"자 / 영문 "+maxByte+"자를 초과 입력할 수 없습니다.");
+  alert("메세지는 최대 " + maxByte + "byte를 초과할 수 없습니다.")
+  str2 = str.substr(0,rlen);                                  //문자열 자르기
+  obj.value = str2;
+  fnChkByte(obj, maxByte);
+     }
+     else
+     {
+       // document.getElementById('byteInfo').innerText = rbyte;
+     }
+}
+
 $(document).ready(function(){
-	
-	
+
+	$(".wishBtn").click(function() {
+		like_func();
+	})
 	
 	$(".gologin").click(function() {
 		gologin();
@@ -385,7 +433,7 @@ function like_func(){
 		data:{bno : "${dto.seq}",
 			   mname : "${login.userid}"
 		},
-			success:function(num){
+			success:function(num){ 
 				if(num == 1){
 					$("#likeimg").attr("src","/img/used-img/likeAf.png");
 				} else if (num == 0){
@@ -448,7 +496,7 @@ $(function(){
 				var depth = data[i].depth;
 				
 				
-				var arrow = "<img src='/img/used-img/arrow.png' width='10px' height='10px'/>";
+				var arrow = "<img src='/img/used-img/arrow.png' width='10px' height='10px' style='margin-left: 7px'/>";
 				
 				if(depth > 0){
 					html += "<tr class='ctr'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
@@ -469,29 +517,33 @@ $(function(){
 				
 				
 				
-				html += "<tr><td colspan='4'>"+data[i].comments+"</td></tr>";
+				html += "<tr class='ctr2'><td colspan='4'>"+data[i].comments+"</td></tr>";
 				html += "</div>";
 	
 			} 
-/* 				if(data.length >= 5){
+			
+				if(data.length >= 10){
 					
-					html += "<tr align='center'><td colspan='4'><a href='#none' onclick='append_comment(this)'>더보기</a></td></tr>";
-				} */
+					html2 += "<a href='#none' id='remove_append' onclick='append_comment()'>더보기</a>";
+					
+				}
 				
 				html += "</table>";
-			
+				
+				$("#more_btn_div").html(html2);
+				
 			} else {
-				html += "<div>";
+				html += "<div class='emptycomment'><h3>작성된 댓글이 없습니다.</h3></div>";
+				/* html += "<div>";
 				html += "<table id='dtable'>";
 				html += "<tr><td>등록된 댓글이 없습니다.</td></tr>";
 				html += "</div>";
-				html += "</table>";
+				html += "</table>"; */
 				
 			}
-			html2 += "<a href='#none' onclick='append_comment(this)'>더보기</a>";
-				
+
 			$("#_addcomments").html(html);
-			$("#more_btn_div").html(html2);
+			
 			
 			rpagenumber = 1;
 		},
@@ -501,11 +553,9 @@ $(function(){
 	 });
  };
  
- function append_comment(th){
+ function append_comment(){
 
 	rpagenumber++;
-	
-	var my = th
 	
 	//$(my).parent().parent().remove();
 	
@@ -549,12 +599,11 @@ $(function(){
 					
 					
 					
-					html += "<tr><td colspan='4'>"+data[i].comments+"</td></tr>";
+					html += "<tr class='ctr2'><td colspan='4'>"+data[i].comments+"</td></tr>";
 					html += "</div>";
 				
 				}
 				var tbl = $("#ctable");
-				
 				$(tbl).find('tr:last').after(html);
 			}
 			
@@ -631,7 +680,7 @@ $(function(){
 	 var comment_backup = next.text();	// 댓글 내용 백업
 
 	 
-	 next.html("<td colspan='4'><textarea rows='3' cols='75' id='_ucomments' name='ucomments'>"+comment_backup+"</textarea><a href='#none' onclick='updatecomment(${dto.seq},myseq)'>수정</a></td>");	
+	 next.html("<td colspan='4'><textarea rows='3' cols='75' id='_ucomments' name='ucomments' onKeyUp='javascript:fnChkByte(this,80)' onchange='javascript:fnChkByte(this,80)'>"+comment_backup+"</textarea><a href='#none' onclick='updatecomment(${dto.seq},myseq)'>수정</a></td>");	
 	 mydiv.html("<a href='#none' onclick='cancel(this)' >수정취소</a>");
 	 
  }
@@ -664,7 +713,7 @@ $(function(){
 	next_backup2 = next2.html();	// 댓글 html 백업
 	mydiv_backup2 = mydiv2.html();	// 수정,삭제 html 백업
 	
-	 next2.after("<tr id='_answer'><td colspan='4'><textarea rows='3' cols='75' placeholder='"+wid+"에게 답글 쓰기' id='_ucomments2' name='ucomments2'></textarea><a href='#none' onclick='insert_answer(${dto.seq},myseq2,myref)'>등록</a></td></tr>");	
+	 next2.after("<tr id='_answer' class='ctr2'><td colspan='4'><textarea rows='3' cols='75' placeholder='"+wid+"에게 답글 쓰기' id='_ucomments2' name='ucomments2'></textarea><a href='#none' onclick='insert_answer(${dto.seq},myseq2,myref)'>등록</a></td></tr>");	
 	 mydiv2.html("<a href='#none' onclick='cancel2()' >취소</a>")
 	
  }

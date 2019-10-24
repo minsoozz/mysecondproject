@@ -1,4 +1,9 @@
 @charset "UTF-8";
+
+#content_wrap{
+	height: 1010px;
+}
+
 #_main{
 	width: 1337px;
 	height: 1000px;

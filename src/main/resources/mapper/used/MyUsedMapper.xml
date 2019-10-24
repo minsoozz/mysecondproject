@@ -143,18 +143,16 @@
 <!-- 쪽지 삭제 -->
 <update id="notesdelete" parameterType="com.rhymes.app.used.model.NotesDto">
 	UPDATE rhy_used_notes
-	SET send_del = 'Y'
+	SET recv_del = 'Y'
 	WHERE recv_id=#{recv_id}
-	AND send_id=#{send_id}
 	AND seq=#{seq}
 </update>
 
 <!-- 쪽지 삭제 -->
 <update id="notesdelete2" parameterType="com.rhymes.app.used.model.NotesDto">
 	UPDATE rhy_used_notes
-	SET recv_del = 'Y'
-	WHERE recv_id=#{recv_id}
-	AND send_id=#{send_id}
+	SET send_del = 'Y'
+	WHERE send_id=#{send_id}
 	AND seq=#{seq}
 </update>
 
@@ -165,7 +163,7 @@
 			seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes,readcount,rdate
 		  FROM rhy_used_products
 		  WHERE 1=1
-	
+		  AND s_id=#{id}
 	<if test="select != null and keyword != null">
 		<if test="select == 'title'">
             AND TITLE LIKE CONCAT('%',#{keyword},'%')         
@@ -179,7 +177,7 @@
       </if>
    ) A
 	WHERE RNUM BETWEEN ${start} AND ${end}
-	AND s_id=#{id}
+
 	<!-- AND CATEGORY LIKE CONCAT('%',#{category},'%') -->
 	ORDER BY RDATE DESC
 </select>
