@@ -145,7 +145,7 @@ function checkIt() {
 				<div class="textdiv">
 					<span class="text">가입 시 입력한 아이디, 상호명, 사업자번호로 비밀번호를 찾을 수 있습니다.</span>
 				</div>
-				
+			<div class="textdiv">
 				<div class="">
 					<input type="text" class="inputtext_b_long_seller" name="userid" placeholder="아이디" required><br>
 				</div>	
@@ -161,8 +161,9 @@ function checkIt() {
 				
 				<div class="">
 					<button type="submit" class="regibutton_b_long_seller"><span>확인</span></button><br>
-					<button type="button" class="regibutton_b_long_seller" onclick="javascript:window.location.href='login'"><span>돌아가기</span></button>
-				</div>		
+					<button type="button" class="regibutton_b_long_seller" onclick="javascript:window.location.href='login'" style="margin-bottom: 160px;"><span>돌아가기</span></button>
+				</div>
+			</div>		
 			</form>
 		</div>
 	</div>
@@ -184,7 +185,7 @@ function checkIt() {
 				</div>
 				
 <!-- 				<strong class="txt_title"><input type="radio">휴대폰으로 찾기</strong><br><br> -->
-			<div class="findpwfull">
+			<div class="findpwfull" align="center">
 				<div class="inputtext_id">
 				<input type="text" class="inputtext_b_long_ch" name="userid" id="_userid" size="29" tabindex="5" required="required" placeholder="아이디">
 				<br><input type="button" value="확인" class="regibutton_b" id="_idbtn">
