@@ -53,8 +53,19 @@
 				<tr>
 					<th>작성일</th>
 					<td>${qna.wdate }</td>
+					
+					<c:if test="${0 eq qna.step }">
 					<th>답변상태</th>
-					<td>답변상태</td>
+					<td>
+						<c:if test="${1 eq qna.feedback }">
+						답변완료
+						</c:if>
+						<c:if test="${0 eq qna.feedback }">
+						미답변
+						</c:if>
+					</td>
+					</c:if>
+					 
 				</tr>
 				<tr>
 					<td colspan="4">

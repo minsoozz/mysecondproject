@@ -38,7 +38,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@RequestMapping(value = "/noticelist", method = {RequestMethod.GET, RequestMethod.POST})
+	@GetMapping(value = "/noticelist")
 	public String noticelist(Model model, CustomerParam param){
 		
 		model.addAttribute("doc_title", "공지사항");

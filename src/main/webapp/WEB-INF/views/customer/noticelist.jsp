@@ -5,8 +5,41 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+<form action="/noticelist" name="frmForm1" id="_frmFormSearch" method="GET">
 
-<table class="list_table" style="width:100%" >
+<table style="width: 100%">
+<tr>
+<th>
+<!-- 검색 -->
+<div class="box_border" style="margin-top: 5px; margin-bottom: 10px">
+
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+
+<div align="right">
+		<select id="_s_category" class="noticeselect" name="s_category">
+			<option value="" selected="selected">선택</option>
+		  <option value="title" <c:out value="${s_category == 'title'? 'selected':'' }"/>>제목</option>
+	      <option value="content"<c:out value="${s_category == 'content'? 'selected':'' }"/>>내용</option>
+	      <option value="writer"<c:out value="${s_category == 'writer'? 'selected':'' }"/>>작성자</option>
+		</select>
+	
+		<input type="text" id="_s_keyword" class="faqinput" name="s_keyword" value="${s_keyword }">
+		<span class="buttonsearch">
+			<img id="_btnSearch" alt="" class="searchimg" src="/img/customer-img/searchb.png">
+		</span>
+</div>
+
+<!-- hidden 을 통해서 값을 넘겨주기 -->
+<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
+<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
+</div>
+<!-- 검색끝 -->
+</th>
+</tr>
+</table>
+
+<table class="list_table" style="width:100%">
 <colgroup>
 	<col width="50"><col width="300"><col width="100"><col width="100"><col width="50">
 </colgroup>
@@ -60,48 +93,13 @@
  
 <tr>
 <th colspan="5">
-<!-- 검색 -->
-<div class="box_border" style="margin-top: 5px; margin-bottom: 10px">
-<form action="" name="frmForm1" id="_frmFormSearch" method="POST">
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-
-<table style="margin-left: auto; margin-right: auto; margin-top: 3px; margin-bottom: 3px">
-
-
-
-<tr>
-	<td>검색:</td>
-	<td style="padding-left: 0px">
-		<select id="_s_category" name="s_category">
-			<option value="" selected="selected">선택</option>
-		  <option value="title" <c:out value="${s_category == 'title'? 'selected':'' }"/>>제목</option>
-	      <option value="content"<c:out value="${s_category == 'content'? 'selected':'' }"/>>내용</option>
-	      <option value="writer"<c:out value="${s_category == 'writer'? 'selected':'' }"/>>작성자</option>
-		</select>
-	</td>
-	<td style="padding-left: 0px">
-		<input type="text" id="_s_keyword" name="s_keyword" value="${s_keyword }">
-	</td>
-	<td style="padding-left: 0px">
-		<span class="buttonsearch">
-			<img id="_btnSearch" alt="" src="../img/customer-img/searchb.png" style="height: 30px; height: 30px; border: 1px solid #D8D8D8;">
-		</span>
-	</td>
-</tr>
-</table>
-<!-- hidden 을 통해서 값을 넘겨주기 -->
-<input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
-<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
-</form>
-</div>
-<!-- 검색끝 -->
 </th>
 </tr>
 
 </tbody> 
 </table>
-
+</form>
 
 
 
@@ -117,6 +115,9 @@ function goPage( pageNumber ) {
 $("#_btnSearch").click(function () {
 	//alert("클릭");
 	$("#_frmFormSearch").attr("action", "noticelist").submit(); //
+
+	
+	
 });
 
 </script>

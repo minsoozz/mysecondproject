@@ -3,45 +3,17 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!--모달 -->
- <style>
-        /* The Modal (background) */
-        .modal2 {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0); /* Black w/ opacity */
-        }
-    
-        /* Modal Content/Box */
-        .modal-content2 {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 40px;
-            border: 1px solid #888;
-            width: 40%; /* Could be more or less, depending on screen size */                          
-        }
-
-
- 
-</style>
 
    
 <form id="_frmForm" action="qnaupload" method="post" enctype="multipart/form-data">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>    
 <table class="detail_table">
-<col width="100"><col width="200"><col width="100"><col width="300">
+<col width="150"><col width="200"><col width="100"><col width="300">
 
 <tr>
 	<th rowspan="2">제목</th>
 	<td colspan="3">
-		<select id="category" name="category">
+		<select id="category" class="qnaselect" name="category">
 		  <option value="" selected="selected">선택</option>
 		  <option value="배송문의">배송문의</option>
 	      <option value="취소/교환/반품">취소/교환/반품</option>
@@ -53,25 +25,47 @@
 	</td>
 </tr>
 <tr>
-	<td colspan="3"><input type="text" name="title" id="title" style="width: 95%;"></td>
+	<td colspan="3"><input type="text" name="title" id="title" class="faqinput" style="width: 95%"></td>
 </tr>
 
 <tr>
 	<th>주문번호</th>
-	<td><input type="text" id="_OrderPickNum" name="orderno" readonly><input type="button" id="_OrderNum" value="주문조회"></td>
+	<td colspan="3"><input type="text" id="_OrderPickNum" class="faqinput" name="orderno" readonly>
+	<input type="button" id="_OrderNum" class="orderbtn" value="주문조회">
+	</td>
 </tr>
 
 
 <tr>
 	<th>작성자</th>
 	<td colspan="3">
-	<input type="text" name="id" size="50" value="${id }" readonly>
+	<input type="text" name="id" class="faqinput" value="${id }" readonly>
 	</td>
 </tr>
 
 <tr>
 	<th>내용</th>
 	<td colspan="3">
+<pre style="font-size: 12px;font-family: 'Noto Sans'; color: #4c4c4c" >
+<strong>1:1 문의 작성 전 확인해주세요!</strong>
+
+<strong>반품 / 환불</strong>
+-제품 하자 혹은 이상으로 반품 (환불)이 필요한 경우 사진과 함께 구체적인 내용을 남겨주세요.
+
+<strong>주문취소</strong>
+-배송 단계별로 주문취소 방법이 상이합니다.
+ [입금확인] 단계 : [마이페이지 > 주문내역 상세페이지] 에서 직접 취소 가능
+ [입금확인] 이후 단계 : 고객행복센터로 문의
+
+-생산이 시작된 [상품 준비중] 이후에는 취소가 제한되는 점 고객님의 양해 부탁드립니다.
+-비회원은  웹사이트에서 [마이페이지 > 비회원 주문 조회 페이지] 에서 취소가 가능합니다.
+-일부 예약상품은 배송 3~4일 전에만 취소 가능합니다.
+-주문상품의 부분 취소는 불가능합니다. 전체 주문 취소 후 재구매 해주세요.
+
+<strong>배송</strong>
+-주문 완료 후 배송 방법은 변경이 불가능합니다.
+-배송일 및 배송시간 지정은 불가능합니다. (예약배송 포함)
+</pre>
 		<textarea style="height:268px;width:1025px;" id="content" name="content"></textarea>
 	</td>
 </tr>
@@ -79,7 +73,15 @@
 <tr>
 	<th>이미지</th>
 	<td colspan="3">
-		<input type="file" name="fileload" style="width: 400px">
+
+		<div class="file_input">
+		    <input type="text" readonly="readonly" title="File Route" id="file_route">
+		     <label>
+		    	    파일 업로드
+		        <input type="file" name="fileload" onchange="javascript:document.getElementById('file_route').value=this.value">
+		    </label>
+		</div>
+
 	</td>
 </tr>
 </table>    

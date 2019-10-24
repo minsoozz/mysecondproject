@@ -33,11 +33,10 @@
 				<!-- @@@@ 여기서부터 작성 @@@@@ -->
 					<div id="button.wrap">
 							<button type="button" class="clickBtn" id="_btnWrite">공지사항쓰기</button>
-						
 					</div>
 					
 					<!-- 검색 -->
-					<form action="" name="frmForm1" id="_frmFormSearch" method="POST">
+					<form action="" name="frmForm1" id="_frmFormSearch" method="GET">
 					<div class="box_border" style="float: right;">
 					
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

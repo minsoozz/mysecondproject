@@ -16,15 +16,17 @@ import lombok.ToString;
 public class CustomerParam implements Serializable{
 
 	// search
-	private String s_category; //Á¦¸ñ, ³»¿ë, ÀÛ¼ºÀÚ
-	private String s_keyword;	// °Ë»ö¾î
+	private String s_category; //ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½Û¼ï¿½ï¿½ï¿½
+	private String s_keyword;	// ï¿½Ë»ï¿½ï¿½ï¿½
 	
 	// paging
-	private int pageNumber = 0;	//ÇöÀç ÆäÀÌÁö 0ºÎÅÍ ½ÃÀÛ
-	private int recordCountPerPage = 10;	//Ç¥ÇöÇÒ ÇÑ ÆäÀÌÁöÀÇ ±Û¼ö
+	private int pageNumber = 0;	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private int recordCountPerPage = 10;	//Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½
 	
-	// [1]ÆäÀÌÁö´Â -> 1~10 ÀÇ ±ÛÀ» ºÒ·¯¿Í¾ßÇÔ DB¿ë
+	// [1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> 1~10 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Í¾ï¿½ï¿½ï¿½ DBï¿½ï¿½
 	private int start = 1;
 	private int end = 10;
+	
+	private String id;
 		
 }

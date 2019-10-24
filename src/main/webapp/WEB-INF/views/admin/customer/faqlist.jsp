@@ -35,7 +35,7 @@
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 		
 		<div style="float: left;">
-			<select id="_s_category" name="s_category" class="custome-select border-0 pr-3 searchSelect" onchange="categorychange()">
+			<select id="_s_category" name="s_category" class="custome-select border-0 pr-3 searchSelect" onchange="categorychange()" style="width: 200px;">
 			  <option value="" selected="selected">선택</option>
 			  <option value="01" <c:out value="${s_category == '01'? 'selected':'' }"/>>회원문의</option>
 		      <option value="02"<c:out value="${s_category == '02'? 'selected':'' }"/>>주문/결제</option>
@@ -90,9 +90,7 @@
 		<tr class="detail" id='detail${faq.seq}'>
 			<td><img alt="" src="/img/customer-img/answer.PNG" height="12px" width="24px;" align="top"> </td>
 			<td colspan="2" align="left">
-			<div style="white-space:pre-line;">
-			${faq.content }
-			</div>
+			<div style="white-space:pre-line;">${faq.content }</div>
 			</td>
 			<td>
 			<div>
@@ -160,16 +158,13 @@ function FaqUpdate( seq ) {
 
 
 function categorychange(  ){
-	
 	document.frmForm1.submit();
-	
-}
-
-
+}	
 
 $("#_btnWrite").click(function () { 
 	location.href = "faqwrite";
 });
+
 
 function goPage( pageNumber ) {
 	

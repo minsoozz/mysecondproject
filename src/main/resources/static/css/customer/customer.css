@@ -11,7 +11,7 @@
 #sidebar_wrap { float:left; width:250px; margin:0px; padding:3px;}
 #content_wrap { float:left; width:1250px;  border-left:solid 1px #EFEFEF; padding: 5px; }
 
-#content_title_wrap { height:90px; width:100%;  text-align:left; font-weight:normal; line-height:2.5em; _line-height:2.7em; margin-bottom:10px; }
+#content_title_wrap { height:60px; width:100%;  text-align:left; font-weight:normal; line-height:2.5em; _line-height:2.7em; margin-bottom:10px; }
 #content_title_wrap div.title { padding-left:25px; background-repeat:no-repeat; background-position:10px 9px; font-weight:bold; }
 	
 
@@ -66,23 +66,91 @@
 
 
 /* 리스트테이블 */
-.list_table { width:98%;}
-.list_table th { text-align:center; padding:20px 0px;  border-top: 3px solid #E0FF8B;}
+.list_table { width:98%; }
+.list_table th { text-align:center; padding:20px 0px;  border-top: 3px solid #CFEC40;}
 .list_table td { padding:20px 0px 20px 10px;  border-top:1px solid #EFEFEF;}
-.list_table td,.list_table th { font-size: 12px;}
+.list_table td,.list_table th { font-size: 12px; vertical-align: top;}
  
  /* 디테일 */
-.detail_table { width:98%; border-top: 3px solid #E0FF8B;border-bottom: 3px solid #E0FF8B;}
+.detail_table { width:100%; border-top: 3px solid #CFEC40;border-bottom: 3px solid #CFEC40; margin-bottom: 30px;}
 .detail_table th { text-align:center; background-color: #F6FFCC;}
-.detail_table td { padding:20px 0px 20px 10px; text-align: left;}
+.detail_table td { padding:20px 0px 20px 20px; text-align: left;}
 .detail_table td,.detail_table th { font-size: 12px; border-bottom:1px solid #EFEFEF;}
 
-.before_table { width:98%;}
+.before_table { width:100%; margin-bottom: 10px;}
 .before_table th { text-align:center; padding:20px 0px; }
-.before_table td { border-top:1px solid #EFEFEF; text-align: left; padding:5px 0px 5px 10px;}
+.before_table td { border-top:1px solid #EFEFEF; text-align: left; padding:7px;}
 .before_table td,.list_table th { font-size: 12px;}
 
 
+.contentst{
+	padding-left: 15px;
+}
+
+/* faq-select */
+.faqselect{
+  width: 200px;
+  padding: 5px 5px;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #999;
+  border-radius: 0px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* notice-select */
+.noticeselect{
+  width: 100px;
+  padding: 4px 5px;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #999;
+  border-radius: 0px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* qna-select */
+.qnaselect{
+  width: 160px;
+  padding: 6px 6px;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #999;
+  border-radius: 0px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.faqinput{
+	padding: 5px 5px;
+ 	font-family: inherit;	
+}
+
+
+/* faq-input */
+.faqinput{
+	width: 200px;
+	padding: 3px 3px;
+ 	font-family: inherit;	
+}
+/* 검색 이미지 */
+.searchimg{
+height: 38px; 
+padding:3px;  
+border-radius: 10px; 
+border: 3px solid #CFEC40;	
+cursor: pointer;
+}
 
 /* 버튼 */
 .customer-btn1{
@@ -117,4 +185,67 @@
 }
 .customer-btn2:hover{
    opacity:0.5;
+}
+
+/* 주문조회 버튼 */
+.orderbtn{
+   width:100px;
+   height:30px;
+   background: #CFEC40;
+   color: black; 
+  	font: Open Sans;
+   outline: 0;
+   border: 0px solid #CFEC40; 
+   margin-left: 5px;
+   
+}
+
+/* 모달 */
+/* The Modal (background) */
+.modal2 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content2 {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 40px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */                          
+}
+
+
+
+/* 파일선택 */
+.file_input label {
+    cursor:pointer;
+    width:100px; 
+    height:31px;
+ 	background: #CFEC40;
+    color:black;
+    text-align:center;
+    line-height:30px;
+     margin-left: 5px;
+}
+.file_input label input {
+    position:absolute;
+    width:0;
+    height:0;
+    overflow:hidden;
+}
+.file_input input[type=text] {
+    vertical-align:middle;
+    width:400px;
+    height:30px;
+    border:1px solid #777;
 }
