@@ -32,7 +32,7 @@
 <col width="20%">
 <col width="80%">
 <tbody id="mybody">
-<tr>
+<tr> 
 <td><label>카테고리:</label></td>
 <td><select id="_category" name="category">
 	<option value="">카테고리를 선택해주세요</option>

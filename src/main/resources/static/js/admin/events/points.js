@@ -16,7 +16,7 @@ $(function(){
 	});
 	
 	$(".page-item .page-num").click(function(){
-		var pageNum = $(this).text().trim();
+		var pageNum = $(this).text().trim();		
 		$("#_currPageNum").val(pageNum);
 		$("#_frm").submit();
 	});
@@ -67,7 +67,7 @@ $(function(){
 			if( index === 0 ) return true;	//continue;
 			items.eq(index-1).val( $(this).text() );
 		});		
-		$("#_points_detail_modal").modal();
+		//$("#_points_detail_modal").modal();
 		$("#_frm_btn_save").attr('disabled', 'disabled');
 		
 		//금액계산을 위해 값 저장

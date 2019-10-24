@@ -104,7 +104,7 @@ public class QnaController {
 		
 		
 		// String fupload = "d:\\tmp";
-		System.out.println("_fupload:" + fupload);	
+		//System.out.println("_fupload:" + fupload);	
 		
 		// file
 		String f = qnadto.getFilename();
@@ -164,7 +164,7 @@ public class QnaController {
 			String fupload = req.getServletContext().getRealPath("/upload/customer");
 			
 			
-			System.out.println("_fupload:" + fupload);	//�뾽濡쒕뱶 �쐞移�
+			//System.out.println("_fupload:" + fupload);	//�뾽濡쒕뱶 �쐞移�
 			
 			// file
 			String f = qnadto.getFilename();
@@ -198,16 +198,16 @@ public class QnaController {
 	
 	//삭제하기
 	@GetMapping("/qnadelete")
-	public String qnadelete(int seq, HttpServletRequest req) {
-		
+	public String qnadelete(int seq,int step,int ref, HttpServletRequest req) {
+	
 		String filename = qnaService.getfilename(seq);
 		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		FileDelete.main(fupload + "/" + filename);
-		 
 		
-		boolean b = qnaService.QnaDelete(seq);
-		if(b) {
-			return "redirect:/customercenter/qnalist";
+		if(step==0) {
+			qnaService.QnaParentDelete(ref);
+		}else {
+			qnaService.QnaDelete(seq);
 		}
 		
 		return "redirect:/customercenter/qnalist";
@@ -236,7 +236,7 @@ public class QnaController {
 		
 		
 		// String fupload = "d:\\tmp";
-		System.out.println("_fupload:" + fupload);	
+		//System.out.println("_fupload:" + fupload);	
 		
 		// file
 		String f = dto.getFilename();

@@ -81,3 +81,40 @@
 .before_table th { text-align:center; padding:20px 0px; }
 .before_table td { border-top:1px solid #EFEFEF; text-align: left; padding:5px 0px 5px 10px;}
 .before_table td,.list_table th { font-size: 12px;}
+
+
+
+/* 버튼 */
+.customer-btn1{
+   border-radius: 10px;
+   margin-top:13px;
+   margin-bottom:10px;
+   width:140px;
+   height:55px;
+   background: #CFEC40;   
+   font: Open Sans 25px;
+   color: black; 
+   outline: 0;
+   border: 0px solid gray; 
+
+}
+
+.customer-btn1:hover{
+   opacity: 0.5;
+}
+
+
+.customer-btn2{
+   border-radius: 10px;
+   margin-top:5px;
+   width:135px;
+   height:45px;
+   background: white;
+   font: Open Sans 30px;
+   color: black; 
+   outline: 0;
+   border: 1px solid #cccccc; 
+}
+.customer-btn2:hover{
+   opacity:0.5;
+}

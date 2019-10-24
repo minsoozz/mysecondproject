@@ -1,5 +1,6 @@
 package com.rhymes.app.admin.customer.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,7 @@ public class AdminFaqController {
 	@RequestMapping(value = "/faqlist", method = {RequestMethod.GET, RequestMethod.POST})
 	public String faqlist(Model model, CustomerParam param){
 		
-		model.addAttribute("doc_title", "자주하는 질문");
-		model.addAttribute("doc_sub", "고객님들께서 가장 자주하시는 질문을 모두 모았습니다.");
-		
+	
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
 		int start = sn * param.getRecordCountPerPage() + 1;	// 1 11
@@ -56,11 +55,10 @@ public class AdminFaqController {
 	
 	//글쓰기가기
 	@GetMapping("/faqwrite")
-	public String faqwrite(Model model) {
-		model.addAttribute("doc_title", "자주하는 질문");
-		model.addAttribute("doc_sub", "고객님들께서 가장 자주하시는 질문을 모두 모았습니다.");
+	public String faqwrite(Model model, Principal pcp) {
 		
-		
+		String id = pcp.getName();
+		model.addAttribute("id",id);
 		return "adminfaqwrite.tiles";
 	}
 	
@@ -76,9 +74,7 @@ public class AdminFaqController {
 	//글수정가기
 	@GetMapping("/faqupdate")
 	public String faqupdate(int seq, Model model) {
-		model.addAttribute("doc_title", "자주하는 질문");
-		model.addAttribute("doc_sub", "고객님들께서 가장 자주하시는 질문을 모두 모았습니다.");
-		
+			
 		FaqDto faqdto = faqService.getFaqDetail(seq);
 		model.addAttribute("faqdto",faqdto);
 		

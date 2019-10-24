@@ -28,8 +28,10 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>
+			<span class="m-0 font-weight-bold text-primary">회원 목록</span>
+	    	<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 		</div>
+		
 		<div class="card-body">
 			<div class="table-responsive">
 				<div class="row">
@@ -112,7 +114,7 @@
 					<tbody>
 						<c:if test="${empty memlist }">
 							<tr align="center">
-								<td colspan="8" align="center">검색결과가 없습니다.</td>
+								<td colspan="9" align="center">검색결과가 없습니다.</td>
 							</tr>
 						</c:if>
 						<c:forEach var="mem" items="${memlist }" varStatus="vs">
@@ -140,7 +142,7 @@
 
 					</tbody>
 				</table>
-				</from>
+				</form>
 				<div class="col-sm-12 col-md-7">
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="dataTable_paginate">

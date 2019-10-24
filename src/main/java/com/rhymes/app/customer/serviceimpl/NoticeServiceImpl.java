@@ -32,8 +32,6 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.getNoticeCount(param);
 	}
 
-
-
 	//notice detail
 	@Override
 	public NoticeDto getNoticeDetail(int seq) {
@@ -41,10 +39,6 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.getNoticeDetail(seq);
 	}
 
-	
-	
-	
-	
 	//readcount 증가
 	@Override
 	public boolean NoticeUpRead(int seq) {
@@ -52,41 +46,4 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.NoticeUpRead(seq);
 	}
 
-
-	//notice 글쓰기
-	@Override
-	public boolean NoticeUpload(NoticeDto dto) {
-		
-		
-		return noticeDao.NoticeUpload(dto);
-	}
-
-
-	//notice 수정
-	@Override
-	public boolean NoticeUpdateAf(NoticeDto dto) {
-		
-		return noticeDao.NoticeUpdateAf(dto);
-	}
-
-
-	
-	//파일명 가져오기
-	@Override
-	public String getfilename(int seq) {
-		
-		return noticeDao.getfilename(seq);
-	}
-
-
-	//notice 삭제
-	@Override
-	public boolean NoticeDelete(int seq) {
-	
-		return noticeDao.NoticeDelete(seq);
-	}
-	
-	
-	
-	
 }

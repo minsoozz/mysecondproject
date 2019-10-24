@@ -45,7 +45,7 @@
 </c:if>
 <c:if test="${!empty beforedto}">
 <tr style="border-top: 3px solid #E0FF8B;">
-	<td style="border-right: 1px solid #EFEFEF;">이전글<img alt="" src="../img/customer-img/up.png" height="18px;" width="18px;" align="right" style="padding-right: 5px"> </td>
+	<td style="border-right: 1px solid #EFEFEF;">이전글<img alt="" src="/img/customer-img/up.png" height="18px;" width="18px;" align="right" style="padding-right: 5px"> </td>
 	<td><a href="noticedetail?seq=${beforedto.seq}">${beforedto.title }</a></td>
 </tr>
 </c:if>
@@ -56,7 +56,7 @@
 </c:if>
 <c:if test="${!empty afterdto}">
 <tr style="border-bottom: 3px solid #E0FF8B;">
-	<td style="border-right: 1px solid #EFEFEF;">다음글<img alt="" src="../img/customer-img/down.png" height="18px;" width="18px;" align="right" style="padding-right: 5px"></td>
+	<td style="border-right: 1px solid #EFEFEF;">다음글<img alt="" src="/img/customer-img/down.png" height="18px;" width="18px;" align="right" style="padding-right: 5px"></td>
 	<td><a href="noticedetail?seq=${afterdto.seq}">${afterdto.title }</a></td>
 </tr>
 </c:if>

@@ -88,7 +88,7 @@
 								<td><font style="color:red"><b>픔절</b></font></td>
 								</c:if>
 								<!-- 5 -->
-								<td>~</td>
+								<td>${stock.salesvolume }</td>
 								
 							</tr>
 						</c:forEach>

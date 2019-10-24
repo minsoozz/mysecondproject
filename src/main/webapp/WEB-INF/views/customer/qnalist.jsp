@@ -2,20 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- arrow 생성 -->
 
-<div id="button.wrap">
-	<span class="button blue">
-		<button type="button" id="_btnWrite">1:1문의</button>
-	</span>
+<div align="right">
+		<button type="button" class="customer-btn1" id="_btnWrite">1:1문의</button>
 </div>
 <form action="qnalist" name="frmForm1" id="_frmFormSearch" method="POST">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
  
 <jsp:useBean id="uqna" class="com.rhymes.app.customer.util.QnaArrow" scope="page"/>    
 
-<table class="list_table" style="width:85%" >
+<table class="list_table" style="width:100%" >
 <colgroup>
 	<col width="50"><col width="100"><col width="500"><col width="100"><col width="100">
 </colgroup>
@@ -44,7 +43,7 @@
 		</a>
 	</td>
 	<td>${qna.id }</td>
-	<td>${qna.wdate }</td>
+	<td><font size="2">${fn:substring(qna.wdate,0,10)}</font></td>  
 </tr>
 </c:forEach>
 
@@ -62,8 +61,11 @@
 <!-- hidden 을 통해서 값을 넘겨주기 -->
 <input type="hidden" name="pageNumber" id="_pageNumber" value="0"> 
 <input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
+
 </div>
 <!-- 페이징끝 --> 
+
+
 </th>
 </tr>
 

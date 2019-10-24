@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <mapper namespace="com.mde.app.common.dao"> -->
+
+<mapper namespace="mainresourcemanage">
+
+<select id="getmainresource" resultType="com.rhymes.app.admin.main.model.MainResourceDto">
+	SELECT MAINBANNER_FILE, MAINBANNER_TYPE, PHOTO1_TEXT, PHOTO2_TEXT, VIDEO1_TEXT, VIDEO2_TEXT, PHOTO1_FILE, PHOTO2_FILE, VIDEO1_FILE, VIDEO2_FILE, U_DATE
+	FROM rhy_main_resource
+	WHERE SEQ = 1
+</select>
+
+<update id="updatemainresource" parameterType="com.rhymes.app.admin.main.model.MainResourceDto">
+	UPDATE rhy_main_resource
+	SET
+		<if test="mainbanner_file != '' and mainbanner_file != null">
+			MAINBANNER_FILE = #{mainbanner_file},
+			MAINBANNER_TYPE = #{mainbanner_type}
+		</if>
+		<if test="video1_file != '' and video1_file != null">
+			VIDEO1_FILE = #{video1_file}
+		</if>
+		<if test="video2_file != '' and video2_file != null">
+			VIDEO2_FILE = #{video2_file}
+		</if>
+		<if test="photo1_file != '' and photo1_file != null">
+			PHOTO1_FILE = #{photo1_file}
+		</if>
+		<if test="photo2_file != '' and photo2_file != null">
+			PHOTO2_FILE = #{photo2_file}
+		</if>
+	WHERE SEQ = 1
+</update>
+
+</mapper>

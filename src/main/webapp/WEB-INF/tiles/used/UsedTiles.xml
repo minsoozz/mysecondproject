@@ -20,7 +20,7 @@
    </definition>
 
 	<!-- 상품 등록 -->
-	<definition name="usedwrite.tiles" template="/WEB-INF/views/used/layout/used_template2.jsp">
+	<definition name="usedwrite.tiles" extends="usedlist.tiles">
 	<put-attribute name="header" value="/WEB-INF/views/common/layout/header.jsp"/> 
 	   <put-attribute name="body" value="/WEB-INF/views/used/usedwrite.jsp"/>
 	   <put-attribute name="left_menu" value="/WEB-INF/views/used/left_used.jsp"/> 

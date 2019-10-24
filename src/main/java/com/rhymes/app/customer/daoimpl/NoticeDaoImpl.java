@@ -30,8 +30,6 @@ public class NoticeDaoImpl implements NoticeDao {
 		return list;
 	}
 
-	
-	
 	//getcount
 	@Override
 	public int getNoticeCount(CustomerParam param) {
@@ -39,16 +37,12 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.selectOne(ns+"getNoticeCount", param);
 	}
 
-
-
-
 	//detail
 	@Override
 	public NoticeDto getNoticeDetail(int seq) {
 		
 		return sqlSession.selectOne(ns+"getNoticeDetail", seq);
 	}
-
 	
 	//readcount 증가
 	@Override
@@ -57,44 +51,4 @@ public class NoticeDaoImpl implements NoticeDao {
 		return n>0?true:false;
 	}
 
-
-	//notice 업로드
-	@Override
-	public boolean NoticeUpload(NoticeDto dto) {
-		
-		int n = sqlSession.insert(ns+"NoticeUpload", dto);
-		
-		return n>0?true:false;
-	}
-
-	//notice 수정
-	@Override
-	public boolean NoticeUpdateAf(NoticeDto dto) {
-		
-		int n = sqlSession.update(ns+"NoticeUpdateAf", dto);
-		
-		return n>0?true:false; 
-	}
-
-	
-	//notice 파일명가져오기
-	@Override
-	public String getfilename(int seq) {
-	
-		return sqlSession.selectOne(ns+"NoticeFilename", seq);
-	}
-
-
-	//notice 삭제
-	@Override
-	public boolean NoticeDelete(int seq) {
-		int n = sqlSession.delete(ns+"NoticeDelete", seq);
-		
-		return n>0?true:false;
-	}
-	
-	
-	
-	
-	
 }

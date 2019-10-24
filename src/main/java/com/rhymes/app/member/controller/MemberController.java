@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rhymes.app.admin.event.controller.AdminEventController;
 import com.rhymes.app.member.model.MemBean;
 import com.rhymes.app.member.model.MemberDTO;
 import com.rhymes.app.member.model.P_MemberDTO;
@@ -33,6 +34,8 @@ import com.rhymes.app.member.service.impl.KakaoAPI;
 import com.rhymes.app.member.util.Coolsms;
 import com.rhymes.app.member.util.RhymesMailling;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping(value = "/member/*")
 public class MemberController {
@@ -143,7 +146,7 @@ public class MemberController {
 				result = result + line + "\n";
 			}
 		} catch (Exception e) {
-			System.out.println("@@e.getMessage() : " + e.getMessage());
+			log.warn("실패메시지: "+e.getMessage());
 		}
 
 		if (result == "<OpenAPI_ServiceResponse>" + "<cmmMsgHeader>" + "<errMsg>SERVICE ERROR</errMsg>"
@@ -248,17 +251,11 @@ public class MemberController {
 
 		if ((boolean) result.get("status") == true) {
 			// 메시지 보내기 성공 및 전송결과 출력
-			System.out.println("성공");
-			System.out.println(result.get("group_id")); // 그룹아이디
-			System.out.println(result.get("result_code")); // 결과코드
-			System.out.println(result.get("result_message")); // 결과 메시지
-			System.out.println(result.get("success_count")); // 메시지아이디
-			System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
+			log.warn("msg전송 성공");
+
 		} else {
 			// 메시지 보내기 실패
-			System.out.println("실패");
-			System.out.println(result.get("code")); // REST API 에러코드
-			System.out.println(result.get("message")); // 에러메시지
+			log.warn("msg전송 실패");
 		}
 
 		return "suc";

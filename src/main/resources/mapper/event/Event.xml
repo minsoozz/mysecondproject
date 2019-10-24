@@ -4,10 +4,16 @@
 <mapper namespace="event">
 	
 <select id="geteventlist" resultType="com.rhymes.app.event.model.EventDTO">
-	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, PHOTO_FILE, RDATE, SDATE, EDATE
+	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
 	FROM RHY_EVENT_LIST
 </select>
 
+<!-- detail -->
+<select id="geteventdetail" parameterType="com.rhymes.app.event.model.EventDTO" resultType="com.rhymes.app.event.model.EventDTO">
+	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, PHOTO_CONTENT, RDATE, SDATE, EDATE
+	FROM RHY_EVENT_LIST
+	WHERE SEQ=#{seq}
+</select>
 
 
 

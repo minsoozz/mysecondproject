@@ -10,7 +10,9 @@
 <title>RHYMESb</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- payment.css -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/payment/coupon_popup.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/payment/payment.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/payment/paymentAf.css">
 
 
 </head>

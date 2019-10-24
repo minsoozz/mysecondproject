@@ -8,5 +8,8 @@ public interface EventDAO {
 	
 	// 이벤트 리스트
 	public List<EventDTO> geteventlist();
+	
+	// detail
+	public EventDTO geteventdetail(EventDTO dto);
 
 }

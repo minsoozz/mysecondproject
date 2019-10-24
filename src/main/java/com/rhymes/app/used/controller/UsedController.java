@@ -44,15 +44,16 @@ public class UsedController {
 	@Autowired UsedService usedService;
 	
 	
-	@GetMapping("/hello") 
+	@GetMapping("/hello")  // 테스트
 	public String test(HttpServletRequest req,Principal prc) {
 
 		return "used/test";
 	}
 	
-	@GetMapping("usedlist")
+	@GetMapping("usedlist")	// 중고장터 판매목록을 불러온다
 	public String usedlist(Model model,BbsParam param,Principal prc, HttpServletRequest req) {
-	
+		
+		
 		
 		if(prc != null) {
 			P_MemberDTO Pdto = usedService.getMemberDto(prc.getName());

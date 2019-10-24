@@ -26,8 +26,8 @@
 <div align="right" style="margin-top: 20px">
 	<form id="_frmFormSearch">
 		<select id="s_select">
-			<option value="title" <c:out value="${select == 'title'? 'selected':'' }"/>>제목</option>
-			<option value="content" <c:out value="${select == 'content'? 'selected':'' }"/>>내용</option>
+			<option value="title" <c:out value="${select == 'title'?'selected':'' }"/>>제목</option>
+			<option value="content" <c:out value="${select == 'content'?'selected':'' }"/>>내용</option>
 			<option value="s_id" <c:out value="${select == 'id'? 'selected':'' }"/>>작성자</option>
 		</select>
 		<input type="text" name="keyword" id="_keyword" value="${keyword }">					
@@ -39,9 +39,9 @@
 </form>
 	</div>
 	<c:if test="${empty list }">
-	
-		작성된 글이 없습니다
-
+	<div id="empty">
+	<h1>등록된 상품이 없습니다</h1>
+	</div>
 	</c:if>	
 	
 <c:forEach items="${list }" var="var" varStatus="i">
@@ -53,15 +53,11 @@
 		
 	 	String img = str.substring(0, idx);
 
-%>			
-
-
-		
-		
-		
+%>				
 	<div>
-		<div id="product_main" style="cursor:pointer;" align="center" class="detail" val="${var.seq }">			
-			<div style="margin-top: 18px; margin-bottom: 3px;"><img id="used_list_img" alt="" src="../upload/used/<%=img%>" style="margin:3%;"><br>
+		<div id="product_main" style="cursor:pointer;" align="center" class="detail" val="${var.seq }">
+			<div style="margin-top: 18px; margin-bottom: 3px;"><img id="used_list_img" alt="" src="../upload/used/<%=img%>" style="margin:3%;">
+			<br>
 			</div>
 				<font size="2px" color="gray" style="margin-bottom: 20px;">${var.category }</font><br>	
 				<font size="4px"><b>${var.title }</b></font><br>
@@ -72,7 +68,6 @@
 </c:forEach>
 </div>
 
-
 <!-- 페이징 -->
 <div id="paging_wrap">
 	<jsp:include page="/WEB-INF/views/used/paging.jsp" flush="false"> 	
@@ -81,8 +76,8 @@
 		<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" /> 
 		<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
 	</jsp:include>
-
 </div>
+
 
 <script type="text/javascript">
 function goPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */

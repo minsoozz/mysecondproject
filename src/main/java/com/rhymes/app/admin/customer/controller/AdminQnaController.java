@@ -35,9 +35,6 @@ public class AdminQnaController {
 	@RequestMapping(value = "/qnalist", method = {RequestMethod.GET, RequestMethod.POST})
 	public String qnalist(Model model, CustomerParam param) {
 		
-		model.addAttribute("doc_title", "1:1 문의");
-		
-		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
 		int start = sn * param.getRecordCountPerPage() + 1;	// 1 11
@@ -65,9 +62,7 @@ public class AdminQnaController {
 	//qnadetail
 	@GetMapping("/qnadetail")
 	public String qnadetail(int seq,Model model) {
-		
-		model.addAttribute("doc_title", "1:1 문의");
-		
+			
 		QnaDto qnadto = qnaService.getQnaDetail(seq);
 		
 		model.addAttribute("qna", qnadto);
@@ -78,7 +73,6 @@ public class AdminQnaController {
 	//qnawrite
 	@GetMapping("/qnawrite")
 	public String qnawrite(Model model,Principal pcp) {
-		model.addAttribute("doc_title", "1:1문의");
 	
 		String id = pcp.getName();
 		
@@ -134,10 +128,7 @@ public class AdminQnaController {
 	//글수정가기
 	@GetMapping("/qnaupdate")
 	public String qnaupdate(int seq, Model model) {
-		
-		model.addAttribute("doc_title", "1:1문의");
-		
-		
+	
 		QnaDto qnadto = qnaService.getQnaDetail(seq);
 		
 		model.addAttribute("qna", qnadto);
@@ -198,16 +189,16 @@ public class AdminQnaController {
 	
 	//삭제하기
 	@GetMapping("/qnadelete")
-	public String qnadelete(int seq, HttpServletRequest req) {
-		
+	public String qnadelete(int seq,int step,int ref, HttpServletRequest req) {
+	
 		String filename = qnaService.getfilename(seq);
 		String fupload = req.getServletContext().getRealPath("/upload/customer");
 		FileDelete.main(fupload + "/" + filename);
-		 
 		
-		boolean b = qnaService.QnaDelete(seq);
-		if(b) {
-			return "redirect:/customercenter/qnalist";
+		if(step==0) {
+			qnaService.QnaParentDelete(ref);
+		}else {
+			qnaService.QnaDelete(seq);
 		}
 		
 		return "redirect:/admin/customercenter/qnalist";
@@ -215,9 +206,10 @@ public class AdminQnaController {
 	
 	//답글 가기 
 	@GetMapping(value = "/qnaanswer")
-	public String bbwrite(int seq, Model model) {			
-		model.addAttribute("doc_title", "1:1 문의");
-		
+	public String bbwrite(int seq, Model model, Principal pcp) {			
+	
+		String id = pcp.getName();
+		model.addAttribute("id",id);
 		model.addAttribute("seq", seq);
 		
 		return "adminqnaanswer.tiles";
@@ -261,7 +253,7 @@ public class AdminQnaController {
 			boolean b = qnaService.QnaAnswer(dto);
 			if(b) {
 				
-				return "redirect:/customercenter/qnalist";
+				return "redirect:/admin/customercenter/qnalist";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -1,17 +1,20 @@
 package com.rhymes.app.admin.payment.controller;
 
-import org.apache.ibatis.session.SqlSession;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.rhymes.app.admin.payment.service.AdminPaymentService;
+import com.rhymes.app.payment.model.PaymentDTO;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class AdminPaymentController {
-	
-	@Autowired
-	SqlSession SqlSession;
 	
 	@Autowired
 	private AdminPaymentService adminPaymentService;
@@ -19,7 +22,7 @@ public class AdminPaymentController {
 	// 관리자 페이지 교환관리
 	@RequestMapping("/admin/payment/exchange")
 	public String exchange() {
-		System.out.println("AdminPaymentController exchange()");
+		log.warn("AdminPaymentController exchange()");
 		
 		return "/exchange";
 	}
@@ -27,7 +30,7 @@ public class AdminPaymentController {
 	// 관리자 페이지 환불관리
 	@RequestMapping("/admin/payment/refund")
 	public String refund() {
-		System.out.println("AdminPaymentController refund()");
+		log.warn("AdminPaymentController refund()");
 		
 		return "/refund";
 	}
@@ -40,18 +43,19 @@ public class AdminPaymentController {
 		return "/cancel";
 	}
 	
-	// 관리자 페이지 결제성공관리
+	// 관리자페이지 결제내역조회
 	@RequestMapping("/admin/payment/success")
-	public String success() {
-		System.out.println("AdminPaymentController success()");
-		
+	public String success(Model model) {
+		log.warn("AdminPaymentController success()");
+		List<PaymentDTO> orderSuccess = adminPaymentService.getOrderSuccess();
+		model.addAttribute("orderSuccess",orderSuccess);
 		return "/success";
 	}
 	
 	// 관리자 페이지 결제완료관리
 	@RequestMapping("/admin/payment/finish")
 	public String finish() {
-		System.out.println("AdminPaymentController finish()");
+		log.warn("AdminPaymentController finish()");
 		
 		return "/finish";
 	}

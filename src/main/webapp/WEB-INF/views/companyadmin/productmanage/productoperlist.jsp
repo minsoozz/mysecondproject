@@ -170,7 +170,7 @@
 									수정</button>
 								</td>
 								<td>
-									<button type="button" 
+									<button type="button" value="${pro.p_seq }" class="eachproduct-delete"
 									style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
 									삭제</button>
 								</td>
@@ -178,7 +178,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<button type="button" onclick="location.href='/admin/company/productlist'"
+				<button type="button" onclick="location.href='/admin/company/productlist'" 
 								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
 								선택삭제</button>
 				<div class="col-sm-12 col-md-7">
@@ -273,6 +273,13 @@
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+//상품 삭제(EACH)
+$('.eachproduct-delete').click(function(){
+	var p_seq = $(this).val();
+	location.href="/admin/company/productDelete?p_seq="+ p_seq;
+});
+
 //SALE 적용 버튼
 $('#saleregister-finishBtn').click(function(){
 	//상품SEQ

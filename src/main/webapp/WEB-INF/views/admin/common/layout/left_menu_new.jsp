@@ -21,10 +21,10 @@
 	<!-- Sidebar - Brand -->
 	<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/main">
 		<div class="sidebar-brand-icon rotate-n-15">
-			<i class="fas fa-laugh-wink"></i>
+<!-- 			<i class="fas fa-laugh-wink"></i> -->
 		</div>
 		<div class="sidebar-brand-text mx-3">
-			RHYME<sup>b</sup>
+			RHYMES<sup>b</sup>
 		</div>
 	</a>
 
@@ -60,6 +60,8 @@
 							<h6 class="collapse-header">member management</h6>
 							<a class="collapse-item" href="/admin/memlist">회원 리스트</a>
 							<a class="collapse-item" href="/admin/mem_c_list">업체 리스트</a>
+							<a class="collapse-item" href="/admin/mem_blacklist">비매너 유저 리스트</a>
+							
 						</div>
 					</div>
 				</li>
@@ -81,6 +83,20 @@
 					</div>
 				</li>
 				
+				<!-- 중고마켓 관리 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsed" aria-expanded="true" aria-controls="collapseUtilities">
+						<i class="fas fa-fw fa-chart-area"></i>
+						<span>중고마켓 관리</span>
+					</a>
+					<div id="collapseUsed" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">CHART</h6>
+							<a class="collapse-item" href="/admin/used/usedlist">중고마켓 관리</a>
+						</div>
+					</div>
+				</li>
+				
 				<!-- DB 액셀 다운로드 -->
 				<li class="nav-item">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExcel" aria-expanded="true" aria-controls="collapseUtilities">
@@ -90,7 +106,7 @@
 					<div id="collapseExcel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">CHART</h6>
-							<a class="collapse-item" href="/admin/excel">DB 액셀 다운로드</a>
+							<a class="collapse-item" href="/admin/excel/move">DB 액셀 다운로드</a>
 						</div>
 					</div>
 				</li>
@@ -105,11 +121,27 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Customer Center</h6>
 							<a class="collapse-item" href="/admin/customercenter/noticelist">공지사항</a>
-							<a class="collapse-item" href="/admin/customercenter/noticelist">자주하는질문</a>
-							<a class="collapse-item" href="/admin/customercenter/noticelist">1:1질문</a>
+							<a class="collapse-item" href="/admin/customercenter/faqlist">자주하는질문</a>
+							<a class="collapse-item" href="/admin/customercenter/qnalist">1:1질문</a>
 						</div>
 					</div>
 				</li>
+				
+				<!-- Nav Item - Pages Collapse Menu -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsemain" aria-expanded="true" aria-controls="collapseTwo">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>메인관리</span>
+					</a>
+					<div id="collapsemain" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">Main Resource</h6>
+							<a class="collapse-item" href="/admin/mainresource/update">RESOURCE 수정</a>
+						</div>
+					</div>
+				</li>	
+
+
 
 				<!-- Divider -->
 				<hr class="sidebar-divider" />
@@ -132,6 +164,8 @@
 						</div>
 					</div>
 				</li>
+				
+				
 			</c:if>
 		</c:forEach>
 	</c:if>
@@ -154,7 +188,7 @@
 							<a class="collapse-item" href="/admin/company/register">상품등록</a>
 							<a class="collapse-item" href="/admin/company/productlist">상품조회</a>
 							<a class="collapse-item" href="/admin/company/productoperlist">상품수정/삭제/SALE등록</a>
-							<a class="collapse-item" href="/admin/company/saleproductmanage">SALE상품관리</a>
+							<a class="collapse-item" href="/admin/company/saleproductmanage">SALE관리</a>
 							<a class="collapse-item" href="login.html">재고관리</a>
 						</div>
 					</div>
@@ -177,6 +211,7 @@
 						</div>
 					</div>
 				</li>
+				
 			</c:if>
 		</c:forEach>
 	</c:if>

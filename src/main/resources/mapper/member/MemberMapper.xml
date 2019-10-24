@@ -52,9 +52,9 @@
     </insert>
     
     <!-- 웰컴쿠폰 -->
-    <insert id="getmem_cp" parameterType="java.lang.String">
+    <insert id="getmem_cp" parameterType="com.rhymes.app.member.model.mypage.MemberCouponDetailDTO">
     	INSERT INTO RHY_MEM_COUPON_DETAIL(C_SEQ, USERID, GDATE, EXPDATE, COUP_CODE, VISIBLE)
-	    VALUES(3, #{userid}, NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH), 'testcode1', 1) 
+	    VALUES(3, #{userid}, NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH), #{coup_code}, 1) 
     </insert>
     
     <!-- 사업자번호체크 -->

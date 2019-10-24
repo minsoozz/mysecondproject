@@ -1,10 +1,13 @@
 package com.rhymes.app.member.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.rhymes.app.common.util.MypageUtils;
 import com.rhymes.app.member.dao.MemberDAO;
 import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemBean;
@@ -13,6 +16,7 @@ import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
 import com.rhymes.app.member.model.SellerDTO;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.service.MemberService;
 
 @Service
@@ -39,8 +43,6 @@ public class MemberServiceImpl implements MemberService {
 		MemberDTO mem = new MemberDTO( 
 										bean.getUserid().trim(), 
 										passwordEncoder.encode(bean.getUserpw()));
-										
-		System.out.println("MemberDTO: " + mem.toString());
 		
 		boolean b = memberdao.getAddmem(mem);
 		
@@ -60,11 +62,22 @@ public class MemberServiceImpl implements MemberService {
 		// 권한
 		AuthoritiesDTO amem = new AuthoritiesDTO(bean.getUserid(), bean.getAuthority());
 		
+		
+		
+		List<String> coupon = MypageUtils.getRandCoupsTimestampList(1);
+		MemberCouponDTO coudto = new MemberCouponDTO();
+		
+		for (String cou : coupon) {
+			coudto.setCoup_code(cou);
+		}
+		coudto.setUserid(bean.getUserid());
+		
 		if(b) {
 			memberdao.getPAddmem(pmem);
 			memberdao.getAuthAddmem(amem);
 			
-			memberdao.getmem_cp(pmem.getUserid());	// 웰컴쿠폰
+			// 웰컴쿠폰
+			memberdao.getmem_cp(coudto);	
 		}
 		
 		
@@ -92,12 +105,10 @@ public class MemberServiceImpl implements MemberService {
 	// 사업자 회원가입
 	@Override
 	public void getAddSeller(SellerBean sellerbean, MemberDTO memdto) {
-		System.out.println("getAddSeller Service도착");
 
 		// 공통
 		MemberDTO mem = new MemberDTO(memdto.getUserid(), 
 										passwordEncoder.encode(memdto.getUserpw()));
-		System.out.println("getAddSeller mem: " + mem.toString());
 		
 		// 사업자 추가정보
 		
@@ -126,11 +137,9 @@ public class MemberServiceImpl implements MemberService {
 										sellerbean.getR_address(),
 										sellerbean.getR_detailAddress(),
 										sellerbean.getC_code());
-		System.out.println("getAddSeller sel: " + sel.toString());
 		
 		// 권한
 		AuthoritiesDTO amem = new AuthoritiesDTO(memdto.getUserid(), sellerbean.getAuthority());
-		System.out.println("getAddSeller amem: " + amem.toString());
 		
 		boolean b = memberdao.getAddmem(mem);
 		
@@ -149,11 +158,8 @@ public class MemberServiceImpl implements MemberService {
 		
 		String eID = memberdao.getFindID_E(mbean);		// email를 넣어서 id를 뽑아냄
 		MemberDTO mem = new MemberDTO(eID, null);
-		System.out.println("memberservice 아이디찾기 mem:  " + mem.toString());
 		
 		String getuserpw = memberdao.getFindID_P(mem);	// db에 저장되어있는 pw를 뽑아냄
-		
-		System.out.println("memberservice 아이디찾기 getuserpw:  " + getuserpw);
 		
 		boolean b = passwordEncoder.matches(mbean.getUserpw(), getuserpw);
 		if(b) {

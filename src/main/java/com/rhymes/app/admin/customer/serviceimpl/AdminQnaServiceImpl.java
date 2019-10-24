@@ -72,6 +72,13 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 		
 		return qnaDao.QnaDelete(seq);
 	}
+	
+	//qna 부모글 자식글 삭제
+	@Override
+	public boolean QnaParentDelete(int ref) {
+		
+		return qnaDao.QnaParentDelete(ref);
+	}
 
 	//qna 답글
 	@Override

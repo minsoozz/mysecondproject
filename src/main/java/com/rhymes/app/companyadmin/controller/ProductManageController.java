@@ -162,103 +162,7 @@ public class ProductManageController {
 	
     }
 	
-	//3(2-1). 상품 기본정보 업데이트
-	@RequestMapping(value="/productupdateAf", method = RequestMethod.POST)
-	public String productupdateAf(Model model, ProductDto product, RedirectAttributes redirect)throws Exception {
-		String url = "";
-		
-		product.setMdate(product.getMadeYear() + product.getMadeMonth());
-		
-		try {
-			boolean bool = manage.productBasicInfoUpdate(product);
-			if(bool) {
-				
-				redirect.addAttribute("p_seq", product.getP_seq());
-				log.info("UPDATE O");
-				url = "redirect:/admin/company/productupdate";				
-			}else {
-				log.info("UPDATE X");
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return url;
-	}
 	
-	//3(2-2). 상품 이미지 업데이트
-	@ResponseBody
-	@PostMapping("/productimgupdate")
-	public String productimgupdate(HttpServletRequest req, ProductDto product, int photoNumber,
-		@RequestParam(value="fileload", required = false)MultipartFile fileload)throws Exception{
-		String msg = "안녕하세요";
-		
-		log.info("------------------------------------이미지 번호 : " + photoNumber + "" );
-		String path = req.getServletContext().getRealPath("/upload/store");
-		String fileName = fileload.getOriginalFilename();	// mydata
-		
-		String timeFileName = System.currentTimeMillis() + fileName;
-		File file = new File(path + "/" + timeFileName);
-		
-		if(photoNumber == 1) {
-			product.setPhoto1_file(timeFileName);
-		}
-		if (photoNumber == 2) {
-			product.setPhoto2_file(timeFileName);
-		}
-		if (photoNumber == 3) {
-			product.setPhoto3_file(timeFileName);
-		}
-		if (photoNumber == 4) {
-			product.setPhoto4_file(timeFileName);
-		}
-		if (photoNumber == 5) {
-			product.setPhoto5_file(timeFileName);
-		}
-		
-		try {
-			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-		
-			boolean bool = manage.productImgUpdate(product);
-			if(bool) {
-				log.info("상품이미지 업데이트 성공");
-			}else {
-				log.info("상품이미지 업데이트 실패");
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return timeFileName;
-	}
-	
-	//3(2-3).상품 SALE 적용
-	@ResponseBody
-    @GetMapping("/salepriceupdate")
-    public String salepriceupdate(ProductDto product)throws Exception {
-		String msg = "";
-		boolean bool = manage.productSalePriceUpdate(product);
-		if(bool) {
-			msg = "UPDATE O";
-		}else {
-			msg = "UPDATE X";
-		}
-    	return msg;
-    }
-	//3(2-3).상품 SALE 취소
-	@ResponseBody
-    @GetMapping("/salepriceupdatecancel")
-    public String salepriceupdatecancel(ProductDto product)throws Exception {
-		String msg = "";
-		boolean bool = manage.productSalePriceUpdateCancel(product);
-		if(bool) {
-			log.info("SALE적용 취소");
-			msg = "SUCCESS";
-		}
-    	return msg;
-    }
 	
 	
 	
@@ -394,7 +298,7 @@ public class ProductManageController {
       
 	 product.setC_name(c_name);
 	 */
-      
+     
      int p_seq = manage.getPseq();
            
      String path = req.getServletContext().getRealPath("/upload/store");
@@ -527,6 +431,113 @@ public class ProductManageController {
  	   
     }
 	
+  //3(2-1). 상품 기본정보 업데이트
+  	@RequestMapping(value="/productupdateAf", method = RequestMethod.POST)
+  	public String productupdateAf(Model model, ProductDto product, RedirectAttributes redirect)throws Exception {
+  		String url = "";
+  		
+  		product.setMdate(product.getMadeYear() + product.getMadeMonth());
+  		
+  		try {
+  			boolean bool = manage.productBasicInfoUpdate(product);
+  			if(bool) {
+  				
+  				redirect.addAttribute("p_seq", product.getP_seq());
+  				log.info("UPDATE O");
+  				url = "redirect:/admin/company/productupdate";				
+  			}else {
+  				log.info("UPDATE X");
+  			}
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  		
+  		return url;
+  	}
+  	
+  	//3(2-2). 상품 이미지 업데이트
+  	@ResponseBody
+  	@PostMapping("/productimgupdate")
+  	public String productimgupdate(HttpServletRequest req, ProductDto product, int photoNumber,
+  		@RequestParam(value="fileload", required = false)MultipartFile fileload)throws Exception{
+  		
+  		log.info("------------------------------------이미지 번호 : " + photoNumber + "" );
+  		String path = req.getServletContext().getRealPath("/upload/store");
+  		String fileName = fileload.getOriginalFilename();	// mydata
+  		
+  		String timeFileName = System.currentTimeMillis() + fileName;
+  		File file = new File(path + "/" + timeFileName);
+  		
+  		if(photoNumber == 1) {
+  			product.setPhoto1_file(timeFileName);
+  		}
+  		if (photoNumber == 2) {
+  			product.setPhoto2_file(timeFileName);
+  		}
+  		if (photoNumber == 3) {
+  			product.setPhoto3_file(timeFileName);
+  		}
+  		if (photoNumber == 4) {
+  			product.setPhoto4_file(timeFileName);
+  		}
+  		if (photoNumber == 5) {
+  			product.setPhoto5_file(timeFileName);
+  		}
+  		
+  		try {
+  			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+  		
+  			boolean bool = manage.productImgUpdate(product);
+  			if(bool) {
+  				log.info("상품이미지 업데이트 성공");
+  			}else {
+  				log.info("상품이미지 업데이트 실패");
+  			}
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  		}
+  		
+  		return timeFileName;
+  	}
+  	
+  	//3(2-3).상품 SALE 적용
+  	@ResponseBody
+    @GetMapping("/salepriceupdate")
+    public String salepriceupdate(ProductDto product)throws Exception {
+  		String msg = "";
+  		boolean bool = manage.productSalePriceUpdate(product);
+  		if(bool) {
+  			msg = "UPDATE O";
+  		}else {
+  			msg = "UPDATE X";
+  		}
+      	return msg;
+      }
+  	//3(2-3).상품 SALE 취소
+  	@ResponseBody
+    @GetMapping("/salepriceupdatecancel")
+    public String salepriceupdatecancel(ProductDto product)throws Exception {
+  		String msg = "";
+  		boolean bool = manage.productSalePriceUpdateCancel(product);
+  		if(bool) {
+  			log.info("SALE적용 취소");
+  			msg = "SUCCESS";
+  		}
+      	return msg;
+      }
+  	//3(3).상품 삭제
+    @GetMapping("/productDelete")
+  	public String productDelete(ProductDto product, Model model) throws Exception{
+  		boolean bool = manage.productDelete(product);
+  		if(bool) {
+  			log.info("상품삭제 성공");
+  		}
+  		return "redirect:/admin/company/productoperlist";
+  	}
+  	
+    
     @ResponseBody
     @GetMapping("/getProductDetail")
     public ProductDto getProductDetail(int p_seq)throws Exception {

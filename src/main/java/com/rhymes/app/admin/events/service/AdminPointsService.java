@@ -36,5 +36,20 @@ public class AdminPointsService {
 	 */
 	public int updatePointsDetail(PointsDTO pDto) {
 		return adminPointsDAO.updatePointsDetail(pDto);
+	}	
+	
+	/**ID가 갖는 권한 리턴, 중복되는 경우 MEMBER-SELLER-ADMIN-USEDSELLER 순서로 리턴
+	 * @param userid
+	 * @return
+	 */
+	public String getAuthoritiesById(String userid){
+		List<String> authList = adminPointsDAO.getAuthoritiesById(userid);
+		String[] authorities = {"ROLE_MEMBER", "ROLE_USEDSELLER", "ROLE_ADMIN", "ROLE_SELLER"};
+		
+		for(String auth : authorities) 
+			if( authList.contains(auth) ) 
+				return auth;						
+		
+		return "member";
 	}
 }

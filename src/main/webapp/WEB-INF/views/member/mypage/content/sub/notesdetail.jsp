@@ -10,9 +10,9 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript" src="<%=ctx %>/js/used/notesdetail.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=ctx%>/css/member/mypage/content/sub/notesdetail.css">
 </head>
 <body>
-	
 	<c:if test="${userloginid eq dto.send_id }">	<!-- 보낸 쪽지 디테일 -->
 	<div>
 	<table>
@@ -37,15 +37,13 @@
 	<td colspan="2"><textarea readonly="readonly" cols="65" rows="15">${dto.content }</textarea></td>
 	</tr>
 	<tr>
-	<td><button type="button" id="sdelete" value="${dto.seq }">삭제</button>
-		<button type="button" id="close">닫기</button>
+	<td colspan="2"><button type="button" id="sdelete" value="${dto.seq }" class="rhybtn">삭제</button>
+		<button type="button" id="close" class="rhybtn">닫기</button>
 	</td>
 	</tr>
 	</table>
 	</div>
 	</c:if>
-
-
 	<c:if test="${userloginid ne dto.send_id }">	<!--받은 쪽지 디테일  -->
 	<div>
 	<table>
@@ -61,9 +59,9 @@
 	</tr>
 	<tr>
 	<td colspan="2">
-	<button type="button" id="ranswer">답장</button>
-	<button type="button" id="rdelete" value="${dto.seq }">삭제</button>
-	<button type="button" id="close">닫기</button>
+	<button type="button" id="ranswer" class="rhybtn">답장</button>
+	<button type="button" id="rdelete" value="${dto.seq }" class="rhybtn">삭제</button>
+	<button type="button" id="close" class="rhybtn">닫기</button>
 	</td>
 	</tr>
 	</table>	

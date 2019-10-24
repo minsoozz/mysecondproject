@@ -9,6 +9,7 @@ import com.rhymes.app.admin.event.dao.AdminEventDAO;
 import com.rhymes.app.admin.event.service.AdminEventService;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 
 @Service
 public class AdminEventServiceImpl implements AdminEventService {
@@ -31,6 +32,16 @@ public class AdminEventServiceImpl implements AdminEventService {
 	@Override
 	public void geteventwrite(EventDTO dto) {
 		adminEventDAO.geteventwrite(dto);
+	}
+
+	@Override
+	public List<MemberCouponDTO> getcoupon() {
+		return adminEventDAO.getcoupon();
+	}
+
+	@Override
+	public boolean getFileUpload(EventDTO dto) {
+		return adminEventDAO.getFileUpload(dto);
 	}
 	
 }
