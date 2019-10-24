@@ -1,10 +1,13 @@
 package com.rhymes.app.member.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.rhymes.app.common.util.MypageUtils;
 import com.rhymes.app.member.dao.MemberDAO;
 import com.rhymes.app.member.model.AuthoritiesDTO;
 import com.rhymes.app.member.model.MemBean;
@@ -13,6 +16,7 @@ import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
 import com.rhymes.app.member.model.SellerDTO;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.service.MemberService;
 
 @Service
@@ -58,11 +62,22 @@ public class MemberServiceImpl implements MemberService {
 		// 권한
 		AuthoritiesDTO amem = new AuthoritiesDTO(bean.getUserid(), bean.getAuthority());
 		
+		
+		
+		List<String> coupon = MypageUtils.getRandCoupsTimestampList(1);
+		MemberCouponDTO coudto = new MemberCouponDTO();
+		
+		for (String cou : coupon) {
+			coudto.setCoup_code(cou);
+		}
+		coudto.setUserid(bean.getUserid());
+		
 		if(b) {
 			memberdao.getPAddmem(pmem);
 			memberdao.getAuthAddmem(amem);
 			
-			memberdao.getmem_cp(pmem.getUserid());	// 웰컴쿠폰
+			// 웰컴쿠폰
+			memberdao.getmem_cp(coudto);	
 		}
 		
 		

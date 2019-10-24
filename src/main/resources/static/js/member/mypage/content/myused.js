@@ -24,11 +24,11 @@ function goUsedDetail(th) {
 
 function ChangeDivision(th) {
 	var seq = $(th).attr("seq");
-
 	$("#seq").val(seq);
-
-	$("#selectfrm").attr("action", "/mypage/updatedivision");
-	$("#selectfrm").submit();
+	
+	var division = $(th).val();
+	
+	location.href="/mypage/updatedivision?seq="+seq+"&division="+division;
 }
 
 function goPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */

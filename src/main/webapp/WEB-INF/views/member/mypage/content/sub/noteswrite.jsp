@@ -30,9 +30,9 @@
 		</div>
 		<br>
 		<input type="checkbox" id="_save" name="save">
-		<b><a href="#none" onclick="save()">보낸쪽지함에 저장</a></b>(보낸쪽지함에 저장하면 수신확인/발송취소가 가능합니다.)
+		<font size="2px"><b><a href="#none" onclick="save()">보낸쪽지함에 저장</a></b> (보낸쪽지함에 저장하면 수신확인/발송취소가 가능합니다.)</font>
 		<br>
-		<button type="button" id="_send"><b>보내기</b></button><button type="button" id="_cancel">취소</button>
+		<button type="button" id="_send" class="rhybtn"><b>보내기</b></button><button type="button" id="_cancel" class="rhybtn">취소</button>
 	</form>
 	</div>
 </body>
