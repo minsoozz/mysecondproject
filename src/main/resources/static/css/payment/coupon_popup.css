@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+
+/* 쿠폰 팝업 페이지 */
+.payment_coupon_tb{ padding: 7px 7px 7px 7px; border-top: 1px solid #444444; border-collapse: collapse; }
+.payment_coupon_tb td{ padding: 7px 7px 7px 7px; border-bottom: 1px solid #444444; }
+.payment_coupon_tb th{ padding: 7px 7px 7px 7px; border-bottom: 1px solid #444444; background-color: #d7fd75; }
+
+

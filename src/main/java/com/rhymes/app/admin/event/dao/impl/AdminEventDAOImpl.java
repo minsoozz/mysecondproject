@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.rhymes.app.admin.event.dao.AdminEventDAO;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 
 @Repository
 public class AdminEventDAOImpl implements AdminEventDAO {
@@ -35,5 +36,16 @@ public class AdminEventDAOImpl implements AdminEventDAO {
 	@Override
 	public void geteventwrite(EventDTO dto) {
 		sqlSession.insert(ns+"geteventwrite", dto);
+	}
+
+	@Override
+	public List<MemberCouponDTO> getcoupon() {
+		return sqlSession.selectList(ns+"getcoupon");
+	}
+
+	@Override
+	public boolean getFileUpload(EventDTO dto) {
+		int count = sqlSession.insert(ns+"getFileUpload", dto);
+		return count>0?true:false;
 	}
 }

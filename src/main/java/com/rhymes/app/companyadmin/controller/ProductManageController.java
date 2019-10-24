@@ -298,7 +298,7 @@ public class ProductManageController {
       
 	 product.setC_name(c_name);
 	 */
-      
+     
      int p_seq = manage.getPseq();
            
      String path = req.getServletContext().getRealPath("/upload/store");
@@ -461,7 +461,6 @@ public class ProductManageController {
   	@PostMapping("/productimgupdate")
   	public String productimgupdate(HttpServletRequest req, ProductDto product, int photoNumber,
   		@RequestParam(value="fileload", required = false)MultipartFile fileload)throws Exception{
-  		String msg = "안녕하세요";
   		
   		log.info("------------------------------------이미지 번호 : " + photoNumber + "" );
   		String path = req.getServletContext().getRealPath("/upload/store");

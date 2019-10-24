@@ -27,4 +27,13 @@ public class EventController {
 		
 		return "eventList.tiles";
 	}
+	
+	@GetMapping("/eventdetail")
+	public String eventdetail(EventDTO dto, Model model) {
+		
+		EventDTO event = eventService.geteventdetail(dto);
+		model.addAttribute("event", event);
+		System.out.println(event.getPhoto_content());
+		return "eventdetail.tiles";
+	}
 }

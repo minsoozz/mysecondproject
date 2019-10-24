@@ -86,6 +86,13 @@ public class AdminQnaDaoImpl implements AdminQnaDao {
 		return n>0?true:false;
 	}
 
+	//qna 부모글 자식글 삭제
+	@Override
+	public boolean QnaParentDelete(int ref) {
+		int n = sqlSession.delete(ns+"QnaParentDelete", ref);
+		return n>0?true:false;
+	}
+
 	//답글 작성
 	@Override
 	public boolean QnaAnswer(QnaDto dto) throws Exception {

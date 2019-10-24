@@ -1,5 +1,6 @@
 package com.rhymes.app.admin.event.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,12 +10,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -23,6 +27,7 @@ import com.rhymes.app.customer.model.CustomerParam;
 import com.rhymes.app.customer.model.NoticeDto;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +41,7 @@ public class AdminEventController {
 	@Autowired
 	AdminEventService adminEventService;
 
-	
+
 	@RequestMapping(value = "/eventlist", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adminlist(Model model, EventParam param){
 		
@@ -79,72 +84,145 @@ public class AdminEventController {
 		int tmonth = cal.get(Calendar.MONDAY) +1;	// 0부터 시작하기때문에 +1
 		int tday = cal.get(Calendar.DATE);
 
-		Date date = new Date();			// 현재시간
-		int thour = date.getHours();
-		int tminute = date.getMinutes();
+//		Date date = new Date();			// 현재시간
+//		int thour = date.getHours();
+//		int tminute = date.getMinutes();
 		
 		model.addAttribute("cal", cal);
 		model.addAttribute("monthMax", monthMax);
 		model.addAttribute("tyear", tyear);
 		model.addAttribute("tmonth", tmonth);
 		model.addAttribute("tday", tday);
-		model.addAttribute("thour", thour);
-		model.addAttribute("tminute", tminute);
+//		model.addAttribute("thour", thour);
+//		model.addAttribute("tminute", tminute);
 		
+		List<MemberCouponDTO> couponlist = adminEventService.getcoupon();	// 쿠폰리스트 불러오기
+		
+		model.addAttribute("couponlist", couponlist);
 		
 		return"write.tiles";
 	}
 	
 	// event 글 작성
 	@RequestMapping(value = "/eventwrite", method = RequestMethod.POST)
-	public String eventwrite(EventDTO dto, MultipartHttpServletRequest mulreq, HttpServletRequest req)throws Exception{
-		System.out.println("1");
+	public String eventwrite(EventDTO dto, MultipartHttpServletRequest multi, HttpServletRequest req)throws Exception{
 		// 시작시간, 종료시간 합치기
-		dto.sdate(dto.getSyear(), dto.getSmonth(), dto.getSday(), dto.getShour(), dto.getSminute());
-		dto.edate(dto.getEyear(), dto.getEmonth(), dto.getEday(), dto.getEhour(), dto.getEminute());
+		dto.sdate(dto.getSyear(), dto.getSmonth(), dto.getSday());
+		dto.edate(dto.getEyear(), dto.getEmonth(), dto.getEday());
 		
-		List<MultipartFile> list = mulreq.getFiles("files");
-
-		int size = list.size();
-		
-		Iterator<String> files = mulreq.getFileNames();
-		System.out.println(files);
-		MultipartFile mpf = mulreq.getFile(files.next());
+		String banner = (String)req.getSession().getAttribute("photo_banner");
+		dto.setPhoto_banner(banner);
 		
 		String path = req.getServletContext().getRealPath("/upload/event");
-		System.out.println("path:" + path);
-		String photo_banner = "";
-		String photo_banner_sys = "";
-		
-		System.out.println("2");
-		if(list != null && size >0) {
-			for (MultipartFile mf : list) {
-				String originFileName = mf.getOriginalFilename();
-	            String systemFileName = System.currentTimeMillis() + originFileName;	            
-   
-	            photo_banner += originFileName + ",";
-	            photo_banner_sys += systemFileName + ",";
-	            
-	            long fileSize = mf.getSize();
-      
-				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
-				
-				System.out.println("-------------path: "+path); // 업로드 경로
-				
-				fs.write(mf.getBytes());
-				fs.close();
+		String fileName = "";
+
+		File dir = new File(path);
+		if(!dir.isDirectory()) {
+			dir.mkdir();
+		} 
+		System.out.println("dir: " + dir);
+
+		Iterator<String> files = multi.getFileNames();
+		System.out.println("files: " + files);
+
+		int cnt = 0;
+		while(files.hasNext()) {
+			String uploadFile = files.next();
+			System.out.println("uploadFile: " + uploadFile);
+
+			MultipartFile mFile = multi.getFile(uploadFile);
+			fileName = mFile.getOriginalFilename();
+			System.out.println("파일이름 : " + fileName);
+
+			String timeFileName = System.currentTimeMillis() + fileName;
+			System.out.println("시간파일이름 : " + timeFileName);
+
+			cnt++;
+			System.out.println("cnt: " + cnt);
+
+			if(cnt == 1) {
+				dto.setPhoto_content(timeFileName);
+				System.out.println("cnt1 timeFileName: " + timeFileName);
 			}
-		}
-		dto.setPhoto_banner(photo_banner);
-		dto.setPhoto_banner_sys(photo_banner_sys);
-		System.out.println("dto toString: "+dto.toString());
-		adminEventService.geteventwrite(dto);
+
+
+			try {
+				FileOutputStream fs = new FileOutputStream(path + "/" + timeFileName);
+				fs.write(mFile.getBytes());
+				fs.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}		
+		try {
+			adminEventService.geteventwrite(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 		
+		
+	    
 		return "redirect:/admin/event/eventlist";
 	}
+
+	// 파일 저장
+	@ResponseBody
+	@RequestMapping(value = "/eventwriteFile", method = RequestMethod.POST)
+	public String eventwriteFile(EventDTO dto,  HttpServletRequest req, MultipartHttpServletRequest multi, HttpSession session)throws Exception{
+
+		// List<MultipartFile> list = multi.getFiles("files");
+		String path = req.getServletContext().getRealPath("/upload/event");
+		String fileName = "";
+
+		File dir = new File(path);
+		if(!dir.isDirectory()) {
+			dir.mkdir();
+		} 
+		System.out.println("dir: " + dir);
+
+		Iterator<String> files = multi.getFileNames();
+		System.out.println("files: " + files);
+
+		int cnt = 0;
+		while(files.hasNext()) {
+			String uploadFile = files.next();
+			System.out.println("uploadFile: " + uploadFile);
+
+			MultipartFile mFile = multi.getFile(uploadFile);
+			fileName = mFile.getOriginalFilename();
+			System.out.println("파일이름 : " + fileName);
+
+			String timeFileName = System.currentTimeMillis() + fileName;
+			System.out.println("시간파일이름 : " + timeFileName);
+
+			cnt++;
+			System.out.println("cnt: " + cnt);
+
+			if(cnt == 1) {
+				dto.setPhoto_banner(timeFileName);
+				req.getSession().setAttribute("photo_banner", dto.getPhoto_banner() );
+				System.out.println("cnt1 timeFileName: " + timeFileName);
+			}
+
+
+			try {
+				FileOutputStream fs = new FileOutputStream(path + "/" + timeFileName);
+				fs.write(mFile.getBytes());
+				fs.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}		
+		try {
+			//	    	  adminEventService.getFileUpload(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+
+
+		return "ok";
 		
-	
-	
+	}
 	
 	
 	

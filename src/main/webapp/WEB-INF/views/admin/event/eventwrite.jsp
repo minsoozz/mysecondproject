@@ -34,20 +34,20 @@
 		<div class="card-body">
 			<div class="table-responsive">
 			<div id="_left">
-			<form action="/admin/event/eventwrite" method="POST" enctype="multipart/form-data" name="inputtxt" onsubmit="return checkIt()">
+			<form action="/admin/event/eventwrite" id="_frm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<table border="1">
 				<tr>
 					<th>제목</th>
-					<td>
-						<input type="text" name="title" required class="inputtext">
+					<td colspan="5">
+						<input type="text" name="title" required class="inputtext" style="width: 800px">
 					</td>
 				</tr>
 				<tr>
 					<th>종류</th>
-					<td>
+					<td colspan="5">
 						<select name="type" class="inputtext">
-							<option value="">선택</option>
+							<option value="기타">기타</option>
 							<option value="할인이벤트">할인이벤트</option>
 							<option value="적립이벤트">적립이벤트</option>
 						</select>
@@ -55,87 +55,76 @@
 				</tr>
 				<tr>
 					<th>쿠폰</th>
-					<td>
-						<button type="button" id="_coupon" class="eventBtn">쿠폰추가</button>
+					<td colspan="5">
+						<span id="input_coupon"></span>
+						<button type="button" id="_coupon" class="eventBtn" 
+							onclick='answer_comment(this)'>쿠폰추가</button>
 					</td>
 				</tr>
 				<tr>
 					<th>시작일</th>
-					<td>
+					<td colspan="5">
 					<select name="syear" class="inputselect">
 						<c:forEach begin="${tyear }" end="${tyear+6 }" var="yyyy">
 							<option <c:out value="${tyear == yyyy? 'selected=selected':'' }"/> value="${yyyy }">${yyyy }</option>
 							</c:forEach>
-						</select>년
+						</select>&nbsp;년&nbsp;&nbsp;
 						
 						<select name="smonth" class="inputselect">
 						<c:forEach begin="1" end="12" var="mm">
 							<option <c:out value="${tmonth == mm? 'selected=selected':'' }"/> value="${mm }" >${mm }</option>
 						</c:forEach>
-						</select>월
+						</select>&nbsp;월&nbsp;&nbsp;
 						
 						<select name="sday" class="inputselect">
 						<c:forEach begin="1" end="${monthMax }" var="dd">
 							<option <c:out value="${tday == dd? 'selected=selected':'' }"/> value="${dd }">${dd }</option>
 						</c:forEach>
-						</select>일&nbsp;&nbsp;&nbsp;&nbsp;
+						</select>&nbsp;일
 						
-						<select name="shour" class="inputselect">
+						<%-- <select name="shour" class="inputselect">
 						<c:forEach begin="1" end="24" var="th">
 							<option <c:out value="${thour == th? 'selected=selected':'' }"/> value="${th }">${th }</option>
 						</c:forEach>
-						</select>:
+						</select>&nbsp;&nbsp;:&nbsp;&nbsp;
 						<select name="sminute" class="inputselect">
 						<c:forEach begin="0" end="59" var="tm">
 							<option <c:out value="${tminute == tm? 'selected=selected':'' }"/> value="${tm }">${tm }</option>
 						</c:forEach>
-						</select>
+						</select> --%>
 						</td>
 					</tr>
 					<tr>
 					<th>종료일</th>
-					<td>	
+					<td colspan="5">	
 					<select name="eyear" class="inputselect">
 						<c:forEach begin="${tyear }" end="${tyear+6 }" var="yyyy">
 							<option <c:out value="${tyear == yyyy? 'selected=selected':'' }"/> value="${yyyy }">${yyyy }</option>
 							</c:forEach>
-						</select>년
+						</select>&nbsp;년&nbsp;&nbsp;
 						
 						<select name="emonth" class="inputselect">
 						<c:forEach begin="1" end="12" var="mm">
 							<option <c:out value="${tmonth == mm? 'selected=selected':'' }"/> value="${mm }" >${mm }</option>
 						</c:forEach>
-						</select>월
+						</select>&nbsp;월&nbsp;&nbsp;
 						
 						<select name="eday" class="inputselect">
 						<c:forEach begin="1" end="${monthMax }" var="dd">
 							<option <c:out value="${tday == dd? 'selected=selected':'' }"/> value="${dd }">${dd }</option>
 						</c:forEach>
-						</select>일&nbsp;&nbsp;&nbsp;&nbsp;
-						<select name="ehour" class="inputselect">
+						</select>&nbsp;일
+						
+						<%-- <select name="ehour" class="inputselect">
 						<c:forEach begin="1" end="24" var="th">
 							<option <c:out value="${thour == th? 'selected=selected':'' }"/> value="${th }">${th }</option>
 						</c:forEach>
-						</select>:
+						</select>&nbsp;&nbsp;&nbsp;:&nbsp;
 						<select name="eminute" class="inputselect">
 						<c:forEach begin="0" end="59" var="tm">
 							<option <c:out value="${tminute == tm? 'selected=selected':'' }"/> value="${tm }">${tm }</option>
 						</c:forEach>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>배너파일</th>
-					<td colspan="2">
-						<input multiple="multiple" type="file" name="banner_file" id="fileUpload1">
-					</td>
-				</tr>
-				<tr>
-					<th>내용파일</th>	
-					<td>
-						<input type="file" name="content_file" id="_image2" class="image">
-						<button type="button" id="_add2" class="add">사진 추가</button>
-						<div id="_imglist2"></div>
+						</select> --%>
 					</td>
 				</tr>
 				
@@ -143,31 +132,69 @@
 					<th>
 						내용
 					</th>
-					<td>
-						<textarea rows="10" cols="40" required></textarea>
+					<td colspan="5">
+						<textarea rows="10" cols="90" required></textarea>
 					</td>
 				</tr>
-				<tr>
-				<td colspan="2">
-					<input type="submit" value="올리기" class="eventBtn">
-					<input type="button" value="취소" class="eventBtn">
-				</td>
-				</tr>
+				
 				<tr height="100px" style="width:100%;">
-			      <td style="border: 1px solid #DADCE0;" id="pZone1" colspan="2">
-			      	<font size='2px'>이미지를 등록해주세요.</font>
-			      </td>
+					<th>배너이미지</th>					
+					<td colspan="5">
+						<div id="pZone1">
+							<font size='2px' id="pZone1_font">이미지를 등록해주세요.</font><br>
+							<input type="file" name="bannerfile" id="fileUpload1">
+						</div>
+					</td>
 			   </tr>
+			   <tr>
+					<th>상세이미지</th>					
+					<td>
+						<div id="cZone1">
+							<input type="file" name="contentfile1" id="fileUpload2" style="width: 100%">
+						</div>
+					</td>
+				</tr>
+			
+			   
 			</tbody>
 			</table>
 			
-			<table class="contenttable">
-			<tbody id="mybody2" style="border: 1px solid #DADCE0;">	<!-- 내용 -->
-			</table>
+			<br><br>
+			<input type="submit" value="올리기" class="closeBtn" id="submitBtn">
+			<input type="button" value="취소" class="closeBtn">
+		
 	
 			</form>
 			</div>
 			
+			<!-- 쿠폰정보 모달 영역-->
+			<div class="restockModal">
+				<div class="restockModal-content">
+					<table class="modaltable" border="1">
+					<c:if test="${empty couponlist }">
+						<tr>
+							<td align="center" colspan="3">쿠폰리스트가 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:forEach var="cou" items="${couponlist }" varStatus="vs">
+						<tr style="padding: 10px;" align="center">
+						<th style="padding: 0px 10px 0 10px;" align="center">${cou.title }</th>
+						<td align="center">${cou.sub_title }</td>
+						<td align="center">${cou.func_time_limit }</td>
+						<td align="center">
+							<button type="button" value="${cou.title }" class="eventBtn couBtn">선택</button>
+							<input type="hidden" value="${cou.seq }" name="seq">
+						</td>
+						</tr>
+					</c:forEach>
+					
+					</table>
+					
+					<input type="button" class="closeBtn modalBtn" value="닫기">
+					
+				</div>
+			</div>
+			<!-- /수정페이지 모달 영역-->
 
 		</div>
 	</div>
@@ -180,16 +207,52 @@
 
 <!-- End of Main Content -->
 
-
+<!-- 쿠폰정보 modal -->
 <script type="text/javascript">
-function checkIt() {
-	var inputtxt = eval("document.inputtxt");
-	if(inputtxt.type.value == "") {
-		alert("종류를 선택하세요");
-		return false;
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(document).ajaxSend(function(e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+});
+
+
+$(document).ready(function(){
+	$(".restockModal").hide();	// 모달 숨기기
+	$("#input_coupon").hide();	// 쿠폰<span>숨기기
+});
+
+// 모달 닫기
+$(".modalBtn").click(function(){
+	$(".restockModal").fadeOut();
+});
+$(document).on('click', '#_coupon', function(){
+	$(".restockModal").fadeIn();
+});
+
+$(document).on('click', ".couBtn", function(){
+	var coupon_title = $(this).val();
+	
+	var inputcoupon = $("#input_coupon").text();
+	
+	// 선택한 쿠폰이 없다면
+	if(inputcoupon == null || inputcoupon == ''){		
+		$("#input_coupon").text(coupon_title);
 	}
-}
+	else{
+		var cp_html = "<span id='input_coupon2'></span>";
+		$("#input_coupon2").after(cp_html);
+		$("#input_coupon2").text(coupon_title);
+	}
+		
+	$(".restockModal").fadeOut();
+	$("#input_coupon").show();
+	
+});
+
+
 </script>
+
+
 
 
 <script type="text/javascript">
@@ -289,101 +352,34 @@ $(document).ajaxSend(function(e, xhr, options) {
 </script>
 
 
+														<!-- file --> 
 
 
 
-<!-- 내용 file -->
-<script type="text/javascript">
-var sel_files = [];
 
-var count = 0;
 
+<!-- 배너  이미지 미리보기 -->
+<script>
+//ajax 통신을 위한 csrf 설정
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+$(document).ajaxSend(function(e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+});
+
+var sel_file;
+ 
 $(document).ready(function() {
-
-   $(document).on("change", ".image", handleImgsFilesSelect);
-   
-   $("#_add2").click(function() {
-	   
-	   
-	   if(count >= 4){
-		   alert("사진은 최대 5장까지 추가 할 수 있습니다");
-		   return;
-	   } 
-	   else {
-		   var table = document.getElementById("tb");
-		   $('#mybody2').append("<tr><th>내용파일</th><td><input type='file' name='photo_file' id='_image2' class='image'><button type='button' id='_del2' class='del'>삭제</button></td></tr>");	  
-		   count++;
-	   }
-	   
-   });
-
-
-});
-
-$(document).on("mouseover",".img", function(e) {
-	$("#_img2").append("<span id='preview2'><img id='_preview2' src='"+ $(this).attr("src") +"'/></span>");
-});
-
-$(document).on("mouseout",".img", function(e) {
-	$("#preview2").remove();
+	$("#fileUpload1").on("change", handleImgsFilesSelect);
 });
 
 function handleImgsFilesSelect(e) {
-   var files = e.target.files;
-   var filesArr = Array.prototype.slice.call(files);
-
-   var maxSize = 10485760;
-   
-   var fileSize = 0;
-   
-   
-   filesArr.forEach(function(f) {
-      if (!f.type.match("image.*")) {
-         alert("확장자는 이미지 확장자만 가능합니다.");
-         $("#_image2").val("");
-
-         return;
-
-      }
-             
-      sel_files.push(f);
-      
-      var reader = new FileReader();
-      reader.onload = function(e) {
-
-         var img_html = "<img class='img2' src=\"" + e.target.result + "\" />";
-         $("#_imglist2").append(img_html);
-      }
-      reader.readAsDataURL(f);
-   });
-}
-
-function maxLengthCheck(object){
-    if (object.value.length > object.maxLength){
-      object.value = object.value.slice(0, object.maxLength);
-    }    
-  }
-
-$(document).on("click",".del", function() {
-	$(this).parent().remove();
-	count--;
-})
-
-$("#_del2").click(function() {
-	if(count == 0) {
-		alert("사진은 최소 1장 입니다");
-	}
-})
-
-<!-- 배너  이미지 미리보기 -->
-$(document).ready(function() {
-	$("#fileUpload1").on("change", handleImgsFilesSelect1);
-});
-
-function handleImgsFilesSelect1(e) {
 	var files = e.target.files;
 	var filesArr = Array.prototype.slice.call(files);
-
+	
+	var form = $('#_frm')[0];
+    var data = new FormData(form);
+    
 	filesArr.forEach(function(f) {
 		if (!f.type.match("image.*")) {
 			alert("확장자는 이미지 확장자만 가능합니다.");
@@ -393,13 +389,42 @@ function handleImgsFilesSelect1(e) {
 		sel_file = f;
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:300px;height:300px;'>";
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:600px;height:100px;' id='img1'>";
 			$("#pZone1").html("");
 			$("#pZone1").append(img_html);
+ 			$("#pZone1").after("<button type='button' id='pZone1_del'>삭제</button>");	
+			$.ajax({
+			    type : "POST",
+			    enctype: 'multipart/form-data',
+			    url : "/admin/event/eventwriteFile",
+			    data : data,
+			    cache: false,
+			    processData: false,
+			    contentType: false,
+			    success : function(data) {
+// 			        alert(data);
+			        
+			    },
+			    err : function(err) {
+			        alert(err.status);
+			    }
+			}); 
+
+
 		}
 		reader.readAsDataURL(f);
 	});
 }
-
 </script>
+<script type="text/javascript">
+// 이미지 삭제
+$(document).on("click","#pZone1_del", function() {
+	$("#img1").remove();
+	$("#pZone1_del").remove();
+	$("#pZone1").after("<input type='file' name='content_file' id='fileUpload1'>");
+	$("#pZone1_font").text("이미지를 등록해주세요.");
+});  
+</script>
+
+
 </html>

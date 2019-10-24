@@ -63,8 +63,13 @@
 	WHERE SEQ=#{seq}
 	</delete>
 	
-	<!-- qna 답글 -->
+	<!-- qna 부모글 자식글 삭제 -->
+	<delete id="QnaParentDelete" parameterType="java.lang.Integer">
+	DELETE FROM QNA
+	WHERE REF=#{ref}
+	</delete>
 	
+	<!-- qna 답글 -->
 	<update id="QnaAnswer" parameterType="com.rhymes.app.customer.model.QnaDto">
 	UPDATE QNA
 		SET STEP = (STEP+1)     

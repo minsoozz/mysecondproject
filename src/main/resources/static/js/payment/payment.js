@@ -76,7 +76,7 @@ function paymens(){
 	
 	// api로 보낼 데이터
 	var radioVal = $("input[name='payment_method']:checked").val();
-	var totalprice = $("#totalprice").val();	
+	var totalprice = $("#_totalprice").text();
 	var send_name = $("#send_name").val();
 	var send_phone = $("#send_phone1").val() + "-" + $("#send_phone2").val() + "-" + $("#send_phone3").val();	
 	var send_email = $("#send_email").val();
@@ -94,7 +94,9 @@ function paymens(){
 	}
 
 	//alert("결제2");
-	
+	$("#add_point").val( parseInt(totalprice) * 0.02 );
+	$("#disc_coupon").val( parseInt($("#_disc_coupon").text()) );
+	$("#disc_point").val( parseInt($("#_disc_point").text()) );
 	
 	$("#send_phone").val( $("#send_phone1").val() + "-" + $("#send_phone2").val() + "-" + $("#send_phone3").val() );
 	$("#receive_phone").val( $("#receive_phone1").val() + "-" + $("#receive_phone2").val() + "-" + $("#receive_phone3").val() );
@@ -138,6 +140,7 @@ function paymens(){
 	        $("#card_apply_num").val( rsp.apply_num );
 	        $("#payment_status").val( rsp.status );
 	        $("#receive_address").val( rsp.buyer_addr );
+	        $("#totalprice").val( rsp.paid_amount );
 
 	        
 	        
