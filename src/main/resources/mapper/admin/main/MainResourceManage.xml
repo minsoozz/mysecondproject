@@ -5,7 +5,10 @@
 <mapper namespace="mainresourcemanage">
 
 <select id="getmainresource" resultType="com.rhymes.app.admin.main.model.MainResourceDto">
-	SELECT MAINBANNER_FILE, MAINBANNER_TYPE, PHOTO1_TEXT, PHOTO2_TEXT, VIDEO1_TEXT, VIDEO2_TEXT, PHOTO1_FILE, PHOTO2_FILE, VIDEO1_FILE, VIDEO2_FILE, U_DATE
+	SELECT 
+		MAINBANNER_FILE, MAINBANNER_TYPE, PHOTO1_FILE, PHOTO2_FILE, VIDEO1_FILE, VIDEO2_FILE,
+		PHOTO1_TITLE, PHOTO1_CONTENT, PHOTO2_TITLE, PHOTO2_CONTENT,
+		VIDEO1_TITLE, VIDEO1_CONTENT, VIDEO2_TITLE, VIDEO2_CONTENT, U_DATE
 	FROM rhy_main_resource
 	WHERE SEQ = 1
 </select>
@@ -30,6 +33,39 @@
 			PHOTO2_FILE = #{photo2_file}
 		</if>
 	WHERE SEQ = 1
+</update>
+
+<update id="updatemaintext" parameterType="com.rhymes.app.admin.main.model.MainResourceDto">
+	UPDATE rhy_main_resource
+	SET
+		<if test="video1_title != '' and video1_title != null">
+			VIDEO1_TITLE = #{video1_title}
+		</if>
+		<if test="video1_content != '' and video1_content != null">
+			VIDEO1_CONTENT = #{video1_content}
+		</if>
+		<if test="video2_title != '' and video2_title != null">
+			VIDEO2_TITLE = #{video2_title}
+		</if>
+		<if test="video2_content != '' and video2_content != null">
+			VIDEO2_CONTENT = #{video2_content}
+		</if>
+		
+		<if test="photo1_title != '' and photo1_title != null">
+			PHOTO1_TITLE = #{photo1_title}
+		</if>
+		<if test="photo1_content != '' and photo1_content != null">
+			PHOTO1_CONTENT = #{photo1_content}
+		</if>
+		<if test="photo2_title != '' and photo2_title != null">
+			PHOTO2_TITLE = #{photo2_title}
+		</if>
+		<if test="photo2_content != '' and photo2_content != null">
+			PHOTO2_CONTENT = #{photo2_title}
+		</if>
+	
+	WHERE SEQ = 1
+	
 </update>
 
 </mapper>
