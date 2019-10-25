@@ -25,5 +25,11 @@ public class AdminMainResourceDaoImpl implements AdminMainResourceDao{
 		int n = sqlSession.update(ns + "updatemainresource", resource);
 		return n>0?true:false;
 	}
+
+	@Override
+	public boolean updatemaintext(MainResourceDto resource) throws Exception {
+		int n = sqlSession.update(ns + "updatemaintext", resource);
+		return n>0?true:false;
+	}
 	
 }

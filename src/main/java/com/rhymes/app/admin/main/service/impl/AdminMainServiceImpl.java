@@ -22,4 +22,9 @@ public class AdminMainServiceImpl implements AdminMainService {
 		return resourceDao.updatemainresource(resource);
 	}
 
+	@Override
+	public boolean updatemaintext(MainResourceDto resource) throws Exception {
+		return resourceDao.updatemaintext(resource);
+	}
+
 }

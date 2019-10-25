@@ -39,8 +39,51 @@ public class AdminMainResourceController {
 	}
 	
 	@ResponseBody
-	@PostMapping
-	public String updatefinish(HttpServletRequest req, String which, String bannertype,
+	@GetMapping("/textupdate")
+	public String textupdate(String object, String text)throws Exception {
+		System.out.println("OBJECT: " + object);
+		System.out.println("TEXT: " + text);
+		
+		MainResourceDto resource = new MainResourceDto();
+		
+		if(object.equals("video1_title")) {
+			resource.setVideo1_title(text);
+		}
+		else if(object.equals("video1_content")) {
+			resource.setVideo1_content(text);
+		}
+		else if(object.equals("video2_title")) {
+			resource.setVideo2_title(text);
+		}
+		else if(object.equals("video2_content")) {
+			resource.setVideo2_content(text);
+		}
+		else if(object.equals("photo1_title")) {
+			resource.setPhoto1_title(text);
+		}
+		else if(object.equals("photo1_content")) {
+			resource.setPhoto1_content(text);
+		}
+		else if(object.equals("photo2_title")) {
+			resource.setPhoto1_title(text);
+		}
+		else if(object.equals("photo2_content")) {
+			resource.setPhoto1_content(text);
+		}
+		
+		boolean bool = mainService.updatemaintext(resource);
+		if(bool) {
+			log.info("main text 수정성공");
+		}
+		
+		return "ㅎㅇㅎㅇ";
+	}
+	
+	
+	
+	@ResponseBody
+	@PostMapping("/resourceupdate")
+	public String resourceupdate(HttpServletRequest req, String which, String bannertype,
 		@RequestParam(value="fileload", required = false)MultipartFile fileload	
 			)throws Exception {
 		String msg = "";
