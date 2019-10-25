@@ -79,7 +79,7 @@
 				<div>
 						<form action="qnaanswer" method="get">
 								<input type="hidden" name="seq" value="${qna.seq }">
-								<input type="submit" class="clickBtn" value="댓글">
+								<input type="submit" class="clickBtn2" value="댓글">
 							</form>
 				</div>
 				
@@ -87,9 +87,9 @@
 				
 				<div>
 				<!-- 코어태그 추가하기 -->
-						<button type="button" class="clickBtn" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
+						<button type="button" class="clickBtn2" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
 					
-						<button type="button" class="clickBtn" onclick="QnaUpdate('${qna.seq }')">수정</button>
+						<button type="button" class="clickBtn2" onclick="QnaUpdate('${qna.seq }')">수정</button>
 				</div>
 
 			</div>
