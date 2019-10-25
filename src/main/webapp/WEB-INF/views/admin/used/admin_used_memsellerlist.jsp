@@ -18,19 +18,20 @@
 	<div class="container-fluid">
 
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">중고마켓 관리</h1>
+		<h1 class="h3 mb-2 text-gray-800">개인판매 회원 관리</h1>
 		<p class="mb-4">민수마켓</p>
 
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">게시글 목록</h6>
+				<h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
 					<div class="row">
 						<div class="col-sm-12 col-md-6">
-						<button type="button" id="admindel" class="btn btn-primary">선택 삭제</button>	
+						<button type="button" id="admindel" class="btn btn-primary">계정 잠금</button>
+						<button type="button" id="admincancel" class="btn btn-primary">잠금 해제</button>	
 							<div class="dataTables_length" id="dataTable_length">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 							</div>
@@ -41,10 +42,8 @@
 								class="searchPosition dataTables_filter">
 		
 		<form id="_frmFormSearch">
-			<select id="select" name="select" onchange="categorychange()"	class="custome-select border-0 pr-3 searchSelect">
-				<option value="title" <c:out value="${select == 'title'?'selected':'' }"/>>제목</option>
-				<option value="id" <c:out value="${select == 'id'? 'selected':'' }"/>>작성자</option>
-				<option value="category" <c:out value="${select == 'category'? 'selected':'' }"/>>카테고리</option>
+			<select id="select" name="select" class="custome-select border-0 pr-3 searchSelect">
+				<option value="id" <c:out value="${select == 'id'? 'selected':'' }"/>>아이디</option>
 			</select> 
 			<input type="search" id="keyword" name="keyword" value="${keyword }" class="searchText form-control-sm" placeholder=""	aria-controls="dataTable" style="width: 150px">
 			<button class="btn btn-primary" type="button" id="_formbtn">
@@ -61,22 +60,21 @@
 
 					</div>
 					<form id="deleteform">
+					<input type="hidden" id="s_id" name="s_id" value="">
 					<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
-
+					<col width="10"><col width="50"><col width="50"><col width="30"><col width="30"><col width="30"><col width="30">
 						<thead>
 							<tr align="center">
-								<th class="list_checkbox"><input type="checkbox" 
-									id='allCheck'>
+								<th class="list_checkbox" align="center"><input type="checkbox" id='allCheck'>
 								</th>
 								<th>아이디</th>
-								<th>카테고리</th>
-								<th>제목</th>
-								<th>가격</th>
-								<th>수량</th>
-								<th>등록일</th>
-								<th>위치</th>
-								<th>상태</th>
-							</tr>
+								<th>가입일</th>
+								<th>경고 횟수</th>
+								<th>판매글 개수</th>
+								<th>판매완료 글 개수</th>
+								<th>평균 판매율</th>
+								
+								</tr>
 						</thead>
 						<tbody>
 							<c:if test="${empty list }">
@@ -85,16 +83,34 @@
 								</tr>
 							</c:if>
 							<c:forEach items="${list }" var="list">
+								<c:set var="na" value="${list.scount / list.pcount }"/> 
+								
+								
+								<%
+								Double str = (Double)pageContext.getAttribute("na");
+								
+								if(Double.isNaN(str) || Double.isInfinite(str)){
+									str = 0.0;
+								} else {
+								
+								}
+								
+								pageContext.setAttribute("str",str);
+								%>
+								
+								<c:set var="str2" value="${pageScope.str }"/>
+								
 								<tr>
-									<td><input type="checkbox" name="chbox" id="chbox" value="${list.seq }"></td>
+									<td align="center"><input type="checkbox" name="ckbox" id="ckbox" s_id="${list.s_id } "value="${list.seq }">					
+									</td>
 									<td>${list.s_id }</td>
-									<td>${list.category }</td>
-									<td>${list.title }</td>
-									<td>${list.price }</td>
-									<td>${list.quantity }</td>
 									<td>${list.rdate }</td>
-									<td>${list.place }</td>
-									<td>${list.division }</td>
+									<td>${list.blackcount }번</td>
+									<td>${list.scount }개</td>
+									<td>${list.pcount }개</td>
+									<td>
+									${str2 }%
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -105,8 +121,8 @@
 						<div class="dataTables_paginate paging_simple_numbers"
 							id="dataTable_paginate">
 							<!-- 페이징 -->
-							 <div id="paging_wrap">
-								<jsp:include page="/WEB-INF/views/admin/used/paging.jsp"
+	 						 <div id="paging_wrap">
+								<jsp:include page="/WEB-INF/views/admin/used/spaging.jsp"
 									flush="false">
 									<jsp:param name="pageNumber" value="${pageNumber }" />
 									<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
@@ -115,7 +131,7 @@
 									<jsp:param name="recordCountPerPage"
 										value="${recordCountPerPage }" />
 								</jsp:include>
-							</div> 
+							</div>  
 							<!-- 페이징끝 -->
 
 						</div>
@@ -133,29 +149,50 @@
 
 
 <script type="text/javascript">
+	var list = [];
+
 
 $("#admindel").click(function() {
+	
+	$("input:checkbox[name=ckbox]:checked").each(function(i) {
+		list.push($(this).attr('s_id'));
+	})
+	
+	$("#s_id").val(list);
+	
+	
 	
 	var lan  = $("input:checkbox[name=ckbox]:checked").length;
 	
 	if(lan == 0){
-		alert("삭제 할 항목을 선택해주세요");
+		alert("항목을 선택해주세요");
 		return;
 	
-	} else{
-		
-		$("#deleteform").attr("action","/admin/used/useddelete")
+	} else {
+		$("#deleteform").attr("action","/admin/used/userLock")
 		$("#deleteform").submit()
 	}
-	
+});
 
-})
+$("#admincancel").click(function() {
+	
+	var lan  = $("input:checkbox[name=ckbox]:checked").length;
+	
+	if(lan == 0){
+		alert("항목을 선택해주세요");
+		return;
+	
+	} else {
+		$("#deleteform").attr("action","/admin/used/userUnLock")
+		$("#deleteform").submit()
+	}
+});
 
 
 function goPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
 	$("#_pageNumber").val(pageNumber);
 	
-	$("#_frmFormSearch").attr("action","/admin/used/usedlist").submit();
+	$("#_frmFormSearch").attr("action","/admin/memsellerlist").submit();
 }
 
 $("#_btnSearch").click(function() {
@@ -163,17 +200,17 @@ $("#_btnSearch").click(function() {
     var keyword = $("#keyword").val();
 	var select = $("#select").val();
 	
-	location.href="/admin/used/usedlist?keyword="+keyword+"&select="+select; 
+	location.href="/admin/memsellerlist?keyword="+keyword+"&select="+select; 
 });
 
 $("#allCheck").click(function(){ // 만약 전체 선택 체크박스가 체크된상태일경우
 
 	if($("#allCheck").prop("checked")) { // 해당화면에 전체 checkbox들을 체크해준다
-		$("input[name=chbox]").prop("checked",true); // 전체선택 체크박스가
+		$("input[name=ckbox]").prop("checked",true); // 전체선택 체크박스가
 																// 해제된 경우
 		}
 	else { // 해당화면에 모든 checkbox들의 체크를해제시킨다.
-				$("input[name=chbox]").prop("checked",false); 
+				$("input[name=ckbox]").prop("checked",false); 
 		} 
 	}) 
 

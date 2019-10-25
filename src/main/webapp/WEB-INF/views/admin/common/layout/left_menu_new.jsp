@@ -59,9 +59,9 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">member management</h6>
 							<a class="collapse-item" href="/admin/memlist">회원 리스트</a>
+							<a class="collapse-item" href="/admin/memsellerlist">개인판매 회원 리스트</a>
 							<a class="collapse-item" href="/admin/mem_c_list">업체 리스트</a>
-							<a class="collapse-item" href="/admin/mem_blacklist">비매너 유저 리스트</a>
-							
+							<a class="collapse-item" href="/admin/mem_blacklist">비매너 신고 관리</a>
 						</div>
 					</div>
 				</li>
