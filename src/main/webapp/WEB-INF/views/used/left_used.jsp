@@ -34,10 +34,10 @@
  <a href="#none" onclick="category(this)" val="뷰티미용">뷰티 미용</a>
  <a href="#none" onclick="category(this)" val="무료나눔">무료 나눔</a>
  
- <c:if test="${userloginid ne null}">
+ <c:if test="${login.userid ne null}">
  <a href="#none" id="usedwrite">판매 등록</a>
  </c:if>
- <c:if test="${userloginid eq null}">
+ <c:if test="${login.userid eq null}">
  </c:if>
  
 </div>

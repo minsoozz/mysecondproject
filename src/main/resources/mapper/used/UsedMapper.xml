@@ -262,4 +262,11 @@ where seq in ( select seq
 	VALUES(#{b_id},#{seq},#{id},#{str},NOW(),'N')
 </insert>
 
+<!-- 권한추가  -->
+<insert id="insertSeller" parameterType="java.lang.String">
+INSERT INTO authorities(id,AUTHORITY,rdate)
+VALUES(#{id},'ROLE_USEDSELLER',NOW());
+</insert>
+
+
 </mapper>
