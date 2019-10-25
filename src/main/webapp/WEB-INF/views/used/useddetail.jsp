@@ -85,8 +85,6 @@
   	 <div id="b_btn">
   	 <input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
   	 <button type="button" class="wishBtn" style="cursor:pointer;">
-
-	
   	<!-- 좋아요 기능 시작!!! -->
   	<c:choose>
   		<c:when test="${userloginid ne null }">

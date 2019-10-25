@@ -1,5 +1,6 @@
 package com.rhymes.app.admin.used.model;
 
+
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
@@ -13,8 +14,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AdminBbsParam implements Serializable {
-
+public class AdminSParam implements Serializable {
+	
 	// search
 	private String select; // 제목, 내용, 작성자
 	private String keyword; // 검색어
