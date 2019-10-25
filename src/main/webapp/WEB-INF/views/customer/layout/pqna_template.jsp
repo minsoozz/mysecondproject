@@ -19,7 +19,7 @@
 <body>
  <!--  /WEB-INF/views/common/layout/header.jsp -->
 	
-   <div id="body_wrap" style="width: 80%">
+   <div id="body_wrap" style="width: 95%">
 	   
 		      <tiles:insertAttribute name="body"/> <!-- body -->
 	  

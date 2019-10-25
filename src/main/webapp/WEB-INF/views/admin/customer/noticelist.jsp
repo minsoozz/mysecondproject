@@ -31,26 +31,26 @@
 			<div class="table-responsive">
 
 				<!-- @@@@ 여기서부터 작성 @@@@@ -->
-					<div id="button.wrap">
-							<button type="button" class="clickBtn" id="_btnWrite">공지사항쓰기</button>
+					<div>
+							<button type="button" class="clickBtn1" id="_btnWrite">공지사항쓰기</button>
 					</div>
 					
 					<!-- 검색 -->
 					<form action="" name="frmForm1" id="_frmFormSearch" method="GET">
-					<div class="box_border" style="float: right;">
+					<div class="box_border" style="float: right; margin-bottom: 10px" >
 					
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					
 					
-						검색:
-							<select name="s_category" class="custome-select border-0 pr-3 searchSelect">
+						
+							<select name="s_category" class="custome-select border-1 pr-3 searchSelect">
 								<option value="" selected="selected">선택</option>
 							  <option value="title" <c:out value="${s_category == 'title'? 'selected':'' }"/>>제목</option>
 						      <option value="content"<c:out value="${s_category == 'content'? 'selected':'' }"/>>내용</option>
 						      <option value="writer"<c:out value="${s_category == 'writer'? 'selected':'' }"/>>작성자</option>
 							</select>
 						
-							<input type="text"  name="s_keyword" value="${s_keyword }" class="searchText form-control-sm">
+							<input type="text"  name="s_keyword" value="${s_keyword }" class="searchText form-control-sm" >
 						
 							<span class="buttonsearch">
 							<button class="btn btn-primary" type="button">

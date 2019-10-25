@@ -35,9 +35,9 @@
 				
 				<input type="hidden" name="s_category" id="_s_category" value="${s_category}"> 
 				<div id="button.wrap" style="float: right; margin-bottom: 10px;">
-							<button type="button" class="clickBtn" onclick="changebtn('')" <c:if test="${empty s_category}">id="_btnthis"</c:if>>전체보기</button>
-							<button type="button" class="clickBtn" onclick="changebtn('0')" <c:if test="${s_category eq '0'}">id="_btnthis"</c:if>>미답변</button>
-							<button type="button" class="clickBtn" onclick="changebtn('1')" <c:if test="${s_category eq '1'}">id="_btnthis"</c:if>>답변완료</button>
+							<button type="button" class="clickBtn2" onclick="changebtn('')" <c:if test="${empty s_category}">id="_btnthis"</c:if>>전체보기</button>
+							<button type="button" class="clickBtn2" onclick="changebtn('0')" <c:if test="${s_category eq '0'}">id="_btnthis"</c:if>>미답변</button>
+							<button type="button" class="clickBtn2" onclick="changebtn('1')" <c:if test="${s_category eq '1'}">id="_btnthis"</c:if>>답변완료</button>
 				</div>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 				 
@@ -124,7 +124,7 @@ function goPage( pageNumber ) {
 }
 
 
-$("#_btnthis").css("background-color", "#4e73df");
+$("#_btnthis").css("background-color", "#66e0b4");
 $("#_btnthis").css("color", "white");
 
 

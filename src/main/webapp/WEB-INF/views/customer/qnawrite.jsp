@@ -46,8 +46,8 @@
 <tr>
 	<th>내용</th>
 	<td colspan="3">
-<pre style="font-size: 12px;font-family: 'Noto Sans'; color: #4c4c4c" >
-<strong>1:1 문의 작성 전 확인해주세요!</strong>
+<pre style="font-size: 12px;font-family: 'Noto Sans'; line-height:1.8em; color: #4c4c4c">
+<strong>1:1 문의 작성 전 확인해주세요!</strong> 
 
 <strong>반품 / 환불</strong>
 -제품 하자 혹은 이상으로 반품 (환불)이 필요한 경우 사진과 함께 구체적인 내용을 남겨주세요.

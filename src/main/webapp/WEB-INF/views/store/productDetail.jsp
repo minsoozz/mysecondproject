@@ -303,7 +303,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 </ul>
 
 <div class="goods-view-infomation-content" id="goods_review">
-<div id="_product_review_wrap" >
+<div id="_product_review_wrap">
       <div  id="_product_review" >
          <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
       </div>
