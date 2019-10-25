@@ -47,10 +47,10 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public boolean eventcoupon(MemberCouponDetailDTO dto) {
 		
-		List<String> coupon = MypageUtils.getRandCoupsTimestampList(1);
+		List<CouponDetailDTO> coupon = MypageUtils.getRandCoupsTimestampList(0,1);
 		
-		for (String cou : coupon) {
-			dto.setCoup_code(cou);
+		for (CouponDetailDTO cou : coupon) {
+			dto.setCoup_code(cou.getCoup_code());
 		}
 		
 		return eventDAO.eventcoupon(dto);
