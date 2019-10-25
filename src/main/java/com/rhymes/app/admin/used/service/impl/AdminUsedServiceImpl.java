@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.rhymes.app.admin.used.dao.AdminUsedDao;
 import com.rhymes.app.admin.used.model.AdminBbsParam;
 import com.rhymes.app.admin.used.model.AdminBlParam;
+import com.rhymes.app.admin.used.model.AdminSParam;
 import com.rhymes.app.admin.used.service.AdminUsedService;
 import com.rhymes.app.used.model.BlacklistDto;
 import com.rhymes.app.used.model.ProductsDto;
@@ -58,6 +59,18 @@ public class AdminUsedServiceImpl implements AdminUsedService {
 	public boolean AdminUserBanCancel(int n2) {
 		// TODO Auto-generated method stub
 		return adminUsedDao.AdminBanCancel(n2);
+	}
+
+	@Override
+	public int getAdminSellerCount(AdminSParam sparam) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.getAdminSellerCount(sparam);
+	}
+
+	@Override
+	public List<BlacklistDto> getAdminSellerlist(AdminSParam sparam) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.getAdminSellerlist(sparam);
 	}
 	
 	
