@@ -77,7 +77,7 @@ var count = 0;
 				 			  id: $("#_s_id").val()
 				 			  },
 				 	 success:function(data){
-				 		
+				 			alert("해당 번호로 인증번호를 발송하였습니다")
 				 		},
 				 		error(xhr, ajaxOptioins,thrownError){
 				 		alert(xhr + ajaxOptioins + thrownError);

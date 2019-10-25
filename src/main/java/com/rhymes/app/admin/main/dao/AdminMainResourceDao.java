@@ -8,5 +8,5 @@ public interface AdminMainResourceDao extends Serializable{
 
 	public MainResourceDto getmainresource() throws Exception;
 	public boolean updatemainresource(MainResourceDto resource) throws Exception;
-	
+	public boolean updatemaintext(MainResourceDto resource) throws Exception;
 }

@@ -45,7 +45,7 @@
 			<select id="select" name="select" onchange="categorychange()"	class="custome-select border-0 pr-3 searchSelect">
 				<option value="id" <c:out value="${select == 'id'? 'selected':'' }"/>>아이디</option>
 			</select> 
-			<input type="search" id="keyword" name="keyword" class="searchText form-control-sm" placeholder=""	aria-controls="dataTable" style="width: 150px">
+			<input type="search" id="keyword" name="keyword" value="${keyword }" class="searchText form-control-sm" placeholder=""	aria-controls="dataTable" style="width: 150px">
 			<button class="btn btn-primary" type="button" id="_formbtn">
 				<i class="fas fa-search fa-sm" id="_btnSearch"></i>
 			</button>
@@ -100,7 +100,7 @@
 							id="dataTable_paginate">
 							<!-- 페이징 -->
 	 						 <div id="paging_wrap">
-								<jsp:include page="/WEB-INF/views/admin/used/paging.jsp"
+								<jsp:include page="/WEB-INF/views/admin/used/bpaging.jsp"
 									flush="false">
 									<jsp:param name="pageNumber" value="${pageNumber }" />
 									<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
@@ -175,7 +175,7 @@ $("#admincancel").click(function() {
 function goPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
 	$("#_pageNumber").val(pageNumber);
 	
-	$("#_frmFormSearch").attr("action","/admin/used/usedlist").submit();
+	$("#_frmFormSearch").attr("action","/admin/mem_blacklist").submit();
 }
 
 $("#_btnSearch").click(function() {
@@ -183,7 +183,7 @@ $("#_btnSearch").click(function() {
     var keyword = $("#keyword").val();
 	var select = $("#select").val();
 	
-	location.href="/admin/used/usedlist?keyword="+keyword+"&select="+select; 
+	location.href="/admin/mem_blacklist?keyword="+keyword+"&select="+select; 
 });
 
 $("#allCheck").click(function(){ // 만약 전체 선택 체크박스가 체크된상태일경우

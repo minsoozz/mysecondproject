@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rhymes.app.admin.payment.dao.AdminPaymentDAO;
+import com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO;
 import com.rhymes.app.admin.payment.service.AdminPaymentService;
 import com.rhymes.app.payment.model.PaymentDTO;
 
@@ -19,6 +20,12 @@ public class AdminPaymentServiceImpl implements AdminPaymentService {
 	@Override
 	public List<PaymentDTO> getOrderSuccess() {
 		return AdminPaymentDAO.getOrderSuccess();
+	}
+
+	// 관리자페이지 결제상상세내역조회
+	@Override
+	public List<AdminPaymentDetailDTO> getOrderDetail(PaymentDTO dto) {
+		return AdminPaymentDAO.getOrderDetail(dto);
 	}
 
 }

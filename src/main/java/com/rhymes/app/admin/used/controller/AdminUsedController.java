@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rhymes.app.admin.used.model.AdminBbsParam;
 import com.rhymes.app.admin.used.model.AdminBlParam;
+import com.rhymes.app.admin.used.model.AdminSParam;
 import com.rhymes.app.admin.used.service.AdminUsedService;
 import com.rhymes.app.used.Service.UsedService;
 import com.rhymes.app.used.model.BlacklistDto;
 import com.rhymes.app.used.model.ProductsDto;
+import com.rhymes.app.used.model.SellerDto;
 
 @Controller
 @RequestMapping(value = "admin/*")
@@ -24,9 +26,38 @@ public class AdminUsedController {
 	AdminUsedService adminUsedService;
 
 	@Autowired
-
 	UsedService usedService;
 
+	@GetMapping(value="/admin/memsellerlist")
+	public String memsellerlist(Model model,SellerDto sDto, AdminSParam sparam) {
+		
+		System.out.println(sparam.toString());
+		
+		int totalRecordCount = adminUsedService.getAdminSellerCount(sparam);
+		int sn = sparam.getPageNumber(); // 0 , 1, 2
+		int start = sn * sparam.getRecordCountPerPage() + 1; // 0 -> 1 , 1 - > 11 1 11
+		int end = (sn + 1) * sparam.getRecordCountPerPage(); // 0 - > 10, 1 - > 20 10 20
+		
+		sparam.setStart(start);
+		sparam.setEnd(end);
+
+		List<BlacklistDto> list = adminUsedService.getAdminSellerlist(sparam);
+
+		model.addAttribute("select", sparam.getSelect());
+		model.addAttribute("keyword", sparam.getKeyword());
+
+		model.addAttribute("pageNumber", sn); // 현재 페이지 넘버
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", sparam.getRecordCountPerPage());
+		model.addAttribute("totalRecordCount", totalRecordCount);
+
+		model.addAttribute("list", list);
+
+		
+		
+		return "admin/used/admin_used_memsellerlist";
+	}
+	
 	@GetMapping(value = "/mem_blacklist") // 블랙리스트 목록을 얻는다
 	public String getblacklist(Model model, BlacklistDto bDto, AdminBlParam blparam) {
 
@@ -122,5 +153,19 @@ public class AdminUsedController {
 		}
 
 		return "redirect:/admin/mem_blacklist";
+	}
+	
+	@GetMapping(value="/used/userLock")
+	public String AdminUsedLock(@RequestParam(value = "s_id") List<String> s_id) {
+		
+		
+		return "redirect:/admin/memsellerlist";
+	}
+	
+	@GetMapping(value="/used/userUnLock")
+	public String AdminuserUnLock(@RequestParam(value = "s_id") List<String> s_id) {
+		
+		
+		return "redirect:/admin/memsellerlist";
 	}
 }

@@ -57,5 +57,7 @@ public interface UsedDao {
 	boolean setblackList(Map<String, Object> map);
 
 	int getCommentCount(CommentsDto cDto);
+
+	boolean insertSeller(String id);
 	
 }

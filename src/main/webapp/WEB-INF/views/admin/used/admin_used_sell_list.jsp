@@ -46,7 +46,7 @@
 				<option value="id" <c:out value="${select == 'id'? 'selected':'' }"/>>작성자</option>
 				<option value="category" <c:out value="${select == 'category'? 'selected':'' }"/>>카테고리</option>
 			</select> 
-			<input type="search" id="keyword" name="keyword" class="searchText form-control-sm" placeholder=""	aria-controls="dataTable" style="width: 150px">
+			<input type="search" id="keyword" name="keyword" value="${keyword }" class="searchText form-control-sm" placeholder=""	aria-controls="dataTable" style="width: 150px">
 			<button class="btn btn-primary" type="button" id="_formbtn">
 				<i class="fas fa-search fa-sm" id="_btnSearch"></i>
 			</button>

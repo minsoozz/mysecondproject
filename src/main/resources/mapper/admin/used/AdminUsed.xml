@@ -53,14 +53,13 @@ SELECT seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,divi
 		where s.s_id=b.b_id and b.review='N'
 		<if test="select != null and keyword != null">
 			<if test="select == 'id'">
-				AND S_ID LIKE CONCAT('%',#{keyword},'%')
+				AND b_ID LIKE CONCAT('%',#{keyword},'%')
 			</if>
 		</if>
 		
 		) a
 		where rnum between #{start} and #{end}
 		ORDER BY RDATE DESC
-
 	</select>
 <!-- 블랙리스트 리스트 개수 -->
 <select id="getAdminBlCount" parameterType="com.rhymes.app.admin.used.model.AdminBlParam" resultType="java.lang.Integer">
@@ -70,7 +69,7 @@ SELECT seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,divi
 		AND REVIEW='N'
 	<if test="select != null and keyword != null">
 		<if test="select == 'id'">
-			AND S_ID LIKE CONCAT('%',#{keyword},'%')
+			AND b_ID LIKE CONCAT('%',#{keyword},'%')
 		</if>
 	</if>
 </select>
@@ -93,13 +92,52 @@ FROM rhy_used_blacklist
 where seq=#{n2}
 </delete>
 
+<!-- 관리자 셀러 게시판 개수 조회 -->
+<select id="getAdminSellerCount" parameterType="com.rhymes.app.admin.used.model.AdminSParam" resultType="java.lang.Integer">
+	SELECT COUNT(*) AS CNT
+	FROM RHY_USED_SELLER
+	WHERE 1=1
+	<if test="select != null and keyword != null">
+		<if test="select == 'id'">
+			AND s_ID LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</if>
+</select>
 
-	<!-- 회원 정지 -->
-	<update id="getMemLock" parameterType="com.rhymes.app.member.model.MemBean">
-		UPDATE RHY_MEM
-		SET isAccountNonLock='false'
-		WHERE ID=#{userid}
-	</update>
+<!-- 관리자 셀러 리스트 조회 -->
+<select id="getAdminSellerlist" parameterType="com.rhymes.app.admin.used.model.AdminSParam" resultType="com.rhymes.app.used.model.SellerDto">
+SELECT seq,s_id,rdate,blackcount,ENABLED, scount, pcount   
+   FROM (SELECT ROW_NUMBER()OVER(ORDER BY RDATE DESC) AS RNUM, 
+         s.seq,s.s_id,s.rdate,s.blackcount,enabled, scount, IFNULL(pcount, 0) AS pcount
+        FROM rhy_used_seller s, rhy_mem m,
+           (
+            select s.s_id AS s_id, IFNULL(count(p.seq), 0) AS scount
+            from rhy_used_seller s LEFT JOIN rhy_used_products p ON(s.s_id = p.s_id)
+            group by s.s_id
+         ) SSS LEFT JOIN
+              (
+              select s.s_id AS s_id, IFNULL( count(p.division), 0) AS pcount
+            from rhy_used_seller s LEFT JOIN rhy_used_products p ON(s.s_id = p.s_id AND p.division = '판매완료')
+            GROUP by p.s_id
+         ) PPP   ON (SSS.s_id = PPP.s_id)      
+        WHERE s.s_id = m.ID AND s.s_id = SSS.s_id
+	<if test="select != null and keyword != null">
+		<if test="select == 'id'">
+		AND S.S_ID LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</if> 
+	) A
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	ORDER BY RDATE DESC
+</select>
+
+<!-- 회원 정지 -->
+<update id="getMemLock" parameterType="com.rhymes.app.member.model.MemBean">
+	UPDATE RHY_MEM
+	SET isAccountNonLock='false'
+	WHERE ID=#{userid}
+</update>
+	
 	
 	
 </mapper>
