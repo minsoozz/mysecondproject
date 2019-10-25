@@ -51,14 +51,16 @@
 							<option value="할인이벤트">할인이벤트</option>
 							<option value="적립이벤트">적립이벤트</option>
 						</select>
-					</td>
+					</td> 
 				</tr>
 				<tr>
 					<th>쿠폰</th>
 					<td colspan="5">
 						<span id="input_coupon"></span>
+							<input type="hidden" name="coupon_title" id="_coupon_title">
 						<button type="button" id="_coupon" class="eventBtn" 
 							onclick='answer_comment(this)'>쿠폰추가</button>
+							<input type="hidden" name="coupon_seq" id="_seq" value="0">
 					</td>
 				</tr>
 				<tr>
@@ -161,7 +163,7 @@
 			
 			<br><br>
 			<input type="submit" value="올리기" class="closeBtn" id="submitBtn">
-			<input type="button" value="취소" class="closeBtn">
+			<input type="button" value="취소" class="closeBtn" id="golistBtn">
 		
 	
 			</form>
@@ -171,6 +173,9 @@
 			<div class="restockModal">
 				<div class="restockModal-content">
 					<table class="modaltable" border="1">
+					<tr>
+						<th>쿠폰번호</th><th>쿠폰이름</th><th>쿠폰상세</th><th>기한</th><th>선택</th>
+					</tr>
 					<c:if test="${empty couponlist }">
 						<tr>
 							<td align="center" colspan="3">쿠폰리스트가 없습니다.</td>
@@ -178,13 +183,14 @@
 					</c:if>
 					<c:forEach var="cou" items="${couponlist }" varStatus="vs">
 						<tr style="padding: 10px;" align="center">
-						<th style="padding: 0px 10px 0 10px;" align="center">${cou.title }</th>
-						<td align="center">${cou.sub_title }</td>
-						<td align="center">${cou.func_time_limit }</td>
-						<td align="center">
-							<button type="button" value="${cou.title }" class="eventBtn couBtn">선택</button>
-							<input type="hidden" value="${cou.seq }" name="seq">
-						</td>
+							<td>${cou.seq }</td>
+							<td style="padding: 0px 10px 0 10px;" align="center">${cou.title }</td>
+							<td align="center">${cou.sub_title }</td>
+							<td align="center">${cou.func_time_limit }</td>
+							<td align="center">
+								<input type="button" value="선택" class="eventBtn" onclick="couBtn('${cou.title }','${cou.seq }')">
+								<input type="hidden" value="${cou.seq }" id="_modalseq">
+							</td>
 						</tr>
 					</c:forEach>
 					
@@ -206,6 +212,14 @@
 
 
 <!-- End of Main Content -->
+
+<!-- 닫기 -->
+<script type="text/javascript">
+$("#golistBtn").click(function(){
+	location.href="/admin/event/eventlist";
+});
+</script>
+
 
 <!-- 쿠폰정보 modal -->
 <script type="text/javascript">
@@ -229,8 +243,12 @@ $(document).on('click', '#_coupon', function(){
 	$(".restockModal").fadeIn();
 });
 
-$(document).on('click', ".couBtn", function(){
+/* $(document).on('click', ".couBtn", function(){
 	var coupon_title = $(this).val();
+	$("#_coupon_title").val(coupon_title);
+	
+	var coupon_seq = $("#_modalseq").val();	// 해당 쿠폰의 seq번호를 가져옴
+	$("#_seq").val(coupon_seq);				// hidden으로 seq번호 넘기기
 	
 	var inputcoupon = $("#input_coupon").text();
 	
@@ -247,109 +265,34 @@ $(document).on('click', ".couBtn", function(){
 	$(".restockModal").fadeOut();
 	$("#input_coupon").show();
 	
-});
+}); */
 
-
-</script>
-
-
-
-
-<script type="text/javascript">
-	function goPage(pageNumber) {
-
-		$("#_pageNumber").val(pageNumber); // 들어오는 값을 가져옴 
-		$("#_frm").attr("action", "memlist").submit(); //
-
+function couBtn(coupon_title, coupon_seq){
+	$("#_coupon_title").val(coupon_title);
+	
+	$("#_seq").val(coupon_seq);				// hidden으로 seq번호 넘기기
+	
+	var inputcoupon = $("#input_coupon").text();
+	
+	// 선택한 쿠폰이 없다면
+	if(inputcoupon == null || inputcoupon == ''){		
+		$("#input_coupon").text(coupon_title);
 	}
-
-	$("#_btnSearch").click(function() {
-		//alert("클릭");
-		$("#_frm").attr("action", "memlist").submit(); 
-
-	});
-</script>
-
-<script type="text/javascript">
-var token = $("meta[name='_csrf']").attr("content");
-var header = $("meta[name='_csrf_header']").attr("content");
-$(document).ajaxSend(function(e, xhr, options) {
-    xhr.setRequestHeader(header, token);
-});
-
-	function allchecks(e) {
-		// 모두 체크
-		var arr = document.getElementsByName("checkid");
-// 		alert(arr.length);
-		for (i = 0; i < arr.length; i++) {
-			arr[i].checked = e;
-			
-		}
+	else{
+		var cp_html = "<span id='input_coupon2'></span>";
+		$("#input_coupon2").after(cp_html);
+		$("#input_coupon2").text(coupon_title);
+	}
 		
-	}
-	
-	
-	// 회원 정지
-	$("#eventwrite").click(function() {
-	  	$("#_frm").attr("action", "/admin/event/write").submit(); 
+	$(".restockModal").fadeOut();
+	$("#input_coupon").show();
+}
 
-	});
-	
-	// 리스트 갯수 뿌리기
-	function dataTable_length() {
-		$("#_frm").attr("action", "memlist").submit();
-	}
-	
-	// 마우스 커서
-	$(document).ready(function() {
-		$('.list_userid').mouseover(function() {
-			$(this).css("cursor", "pointer");
-		});
-	});
-
-	// sorting
-	$(function() {
-		$(".sorting").click(function() {
-			var thNum = $(this).index();
-
-			if (thNum == 1) {
-				$("#_sorting").val("ID");
-				$("#_frm").attr("action", "memlist").submit();
-			}
-			if (thNum == 2) {
-				$("#_sorting").val("NAME");
-				$("#_frm").attr("action", "memlist").submit();
-			}
-			if (thNum == 3) {
-				$("#_sorting").val("ADDRESS");
-				$("#_frm").attr("action", "memlist").submit();
-			}
-			if (thNum == 4) {
-				$("#_sorting").val("EMAIL");
-				$("#_frm").attr("action", "memlist").submit();
-			}
-			if (thNum == 5) {
-				$("#_sorting").val("PHONE");
-				$("#_frm").attr("action", "memlist").submit();
-			}
-			if (thNum == 6) {
-				$("#_sorting").val("SOCIAL");
-				$("#_frm").attr("action", "memlist").submit();
-			}
-			if (thNum == 7) {
-				$("#_sorting").val("RDATE");
-				$("#_frm").attr("action", "memlist").submit();
-			}
-			if (thNum == 8) {
-				$("#_sorting").val("isAccountNonLocked");
-				$("#_frm").attr("action", "memlist").submit();
-			}
-
-		});
-	});
-	
 
 </script>
+
+
+
 
 
 														<!-- file --> 

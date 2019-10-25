@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>EventList</title>
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/event/eventlist.css">
+	href="<%=request.getContextPath()%>/css/event/eventlistEnd.css">
 </head>
 <body>
 

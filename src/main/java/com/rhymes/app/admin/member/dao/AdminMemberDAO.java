@@ -30,4 +30,7 @@ public interface AdminMemberDAO {
 	// 회원 정지
 	public void getMemLock(MemBean mb);
 	
+	// 회원 정지 해제
+	public void getMemLock_n(MemBean mb);
+	
 }

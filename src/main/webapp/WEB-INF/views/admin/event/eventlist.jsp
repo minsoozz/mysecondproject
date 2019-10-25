@@ -11,7 +11,6 @@
 <title>content_main</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/admin/event/eventlist.css">
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -117,7 +116,7 @@
 								</td>
 								<td>${event.seq }</td>		 					
 								<td>
-								<a href="#">${event.title }</a>
+								<a href="/event/eventdetail?seq=${event.seq }">${event.title }</a>
 								</td>
 								<td>${event.type }</td>
 								<td>${event.sdate}</td>

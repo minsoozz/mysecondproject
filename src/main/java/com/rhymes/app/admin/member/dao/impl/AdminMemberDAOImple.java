@@ -63,6 +63,12 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 		
 	}
 
+	@Override
+	public void getMemLock_n(MemBean mb) {
+		sqlSession.update(ns+"getMemLock_n", mb);
+		
+	}
+
 
 	
 }
