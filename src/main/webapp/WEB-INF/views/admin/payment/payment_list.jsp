@@ -19,7 +19,7 @@
 
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">주문내역</h1>
-	<p class="mb-4">회원, 비회원의 결제 정보</p>
+	<p class="mb-4">주문내역</p>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
@@ -34,7 +34,7 @@
 							<tr>
 								<td>주문번호</td>
 								<td>회원아이디</td>
-								<td>이름</td>
+								<td>주문한사람 이름</td>
 								<td>결제수단</td>
 								<td>결제상태</td>
 								<td>결제금액</td>
@@ -42,7 +42,7 @@
 							</tr>
 							<c:forEach items="${orderSuccess }" var="p">
 								<tr>
-									<td>${fn:substring(p.payment_code,4,16) }</td>
+									<td><a href="/admin/payment/detail?payment_code=${fn:substring(p.payment_code,4,16) }&coupon_code=${p.coupon_code }">${fn:substring(p.payment_code,4,16) }</a></td>
 									<c:if test="${not empty p.userid }">
 										<td>${p.userid }</td>
 									</c:if>
@@ -50,18 +50,8 @@
 										<td>비회원</td>
 									</c:if>
 									<td>${p.send_name }</td> 									
-									<td>
-										<c:if test="${p.payment_method == 'vbank' }">무통장입금</c:if>
-										<c:if test="${p.payment_method == 'card' }">신용카드</c:if>
-										<c:if test="${p.payment_method == 'trans' }">실시간계좌이체</c:if>
-										<c:if test="${p.payment_method == 'phone' }">휴대폰소액결제</c:if>
-										<c:if test="${p.payment_method == 'kakaopay' }">카카오페이</c:if>
-									</td>
-									<td>
-										<c:if test="${p.payment_status =='ready' }">미결제</c:if>
-										<c:if test="${p.payment_status =='paid' }">결제완료</c:if>
-										<c:if test="${p.payment_status =='cancelled' }">결제취소</c:if>
-									</td>
+									<td>${p.payment_method }</td>
+									<td>${p.payment_status }</td>
 									<td><fmt:formatNumber value="${p.totalprice }"/>원</td>
 									<td>${p.rdate }</td>
 								</tr>

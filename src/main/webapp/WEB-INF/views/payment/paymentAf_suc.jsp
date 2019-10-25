@@ -28,18 +28,8 @@
 				<tr>
 					<td><fmt:formatNumber value="${dto.totalprice }" />원</td>
 					<td>${fn:substring(dto.payment_code,4,16) }</td>
-					<td>
-						<c:if test="${dto.payment_status =='ready' }">미결제</c:if>
-						<c:if test="${dto.payment_status =='paid' }">결제완료</c:if>
-						<c:if test="${dto.payment_status =='cancelled' }">결제취소</c:if>
-					</td>
-					<td>
-						<c:if test="${dto.payment_method == 'vbank' }">무통장입금</c:if>
-						<c:if test="${dto.payment_method == 'card' }">신용카드</c:if>
-						<c:if test="${dto.payment_method == 'trans' }">실시간계좌이체</c:if>
-						<c:if test="${dto.payment_method == 'phone' }">휴대폰소액결제</c:if>
-						<c:if test="${dto.payment_method == 'kakaopay' }">카카오페이</c:if>
-					</td>
+					<td>${dto.payment_status }</td>
+					<td>${dto.payment_method }</td>
 				</tr>
 			</table>
 		</div><br><br>
