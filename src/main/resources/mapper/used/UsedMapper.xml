@@ -259,7 +259,7 @@ where seq in ( select seq
 <!--게시글 신고  -->
 <insert id="setblackList" parameterType="hashmap">
 	INSERT INTO rhy_used_blacklist(b_id,b_seq,reporter,content,rdate,review)
-	VALUES(#{b_id},#{seq},#{id},#{str},NOW(),0)
+	VALUES(#{b_id},#{seq},#{id},#{str},NOW(),'N')
 </insert>
 
 </mapper>

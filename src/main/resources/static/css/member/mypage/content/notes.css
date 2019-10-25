@@ -24,7 +24,7 @@ white-space:nowrap : 공백문자가 있는 경우 줄바꿈하지 않고 한줄
  /* 리스트테이블 */
 .list_table { width:98%;}
 .list_table th { text-align:center; padding:20px 0px;  border-top: 3px solid #E0FF8B;}
-.list_table td { padding:15px 0px 15  px 10px;  border-top:1px solid #EFEFEF;}
+.list_table td { padding:15px 0px 15px 10px;  border-top:1px solid #EFEFEF;}
 .list_table td,.list_table th { font-size: 12px;}
 
 #deletebtn{

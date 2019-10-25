@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.rhymes.app.admin.events.model.AdminPointsPagingDTO;
 import com.rhymes.app.admin.events.model.CouponDTO;
 import com.rhymes.app.admin.events.model.CouponDetailDTO;
 import com.rhymes.app.admin.events.model.CouponDetailPagingDTO;
-import com.rhymes.app.admin.events.model.PointsDTO;
 import com.rhymes.app.common.util.MypageUtils;
 
 import lombok.extern.slf4j.Slf4j;

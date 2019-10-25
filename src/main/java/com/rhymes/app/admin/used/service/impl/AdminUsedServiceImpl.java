@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.rhymes.app.admin.used.dao.AdminUsedDao;
 import com.rhymes.app.admin.used.model.AdminBbsParam;
+import com.rhymes.app.admin.used.model.AdminBlParam;
 import com.rhymes.app.admin.used.service.AdminUsedService;
+import com.rhymes.app.used.model.BlacklistDto;
 import com.rhymes.app.used.model.ProductsDto;
 
 @Service
@@ -17,15 +19,45 @@ public class AdminUsedServiceImpl implements AdminUsedService {
 	AdminUsedDao adminUsedDao;
 	
 	@Override
-	public List<ProductsDto> getAdminUsedlist(ProductsDto pDto) {
+	public List<ProductsDto> getAdminUsedlist(AdminBbsParam adparam) {
 		// TODO Auto-generated method stub
-		return adminUsedDao.getAdminUsedlist(pDto);
+		return adminUsedDao.getAdminUsedlist(adparam);
 	}
 
 	@Override
 	public int getAdminBbsCount(AdminBbsParam adparam) {
 		// TODO Auto-generated method stub
 		return adminUsedDao.getAdminBbsCount(adparam);
+	}
+
+	@Override
+	public List<BlacklistDto> getAdminBlacklist(AdminBlParam blparam) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.getAdminBlacklist(blparam);
+	}
+
+	@Override
+	public int getAdminBlCount(AdminBlParam blparam) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.getAdminBlCount(blparam);
+	}
+
+	@Override
+	public boolean AdminBanCount(String string) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.AdminBanCount(string);
+	}
+
+	@Override
+	public boolean AdminBanReview(int n) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.AdminBanReview(n);
+	}
+
+	@Override
+	public boolean AdminUserBanCancel(int n2) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.AdminBanCancel(n2);
 	}
 	
 	

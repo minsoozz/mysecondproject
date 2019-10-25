@@ -163,7 +163,7 @@
 		<input type="hidden" name="s_recordCountPerPage" id="_recordCountPerPage" value="${(empty s_recordCountPerPage ? 0 : s_recordCountPerPage)}">	
 	</form>
 		<br>		
-				
+		<form id="sdeleteform">		
 		<table id="_ntable" class="list_table">
 		
 		<tr>
@@ -180,7 +180,7 @@
 			</c:if>
 		</c:forEach>
 		</table>
-		
+		</form>
 		<c:if test="${empty slist }">
 		<table>
 		<tr><td colspan="4" align="center">
