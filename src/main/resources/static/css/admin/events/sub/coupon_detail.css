@@ -33,3 +33,16 @@
     height: 26px;
 }
 /* 새 쿠폰 발행 모달 끝*/
+
+/* 쿠폰 발행정보 모달 */
+#_coupon_detail_info_modal {
+    left: -5%;
+}
+#_coupon_detail_info_modal div{
+    width: 750px;    
+}
+#_coup_detail_info .coup-detail-row{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+/* 쿠폰 발행정보 모달 끝 */

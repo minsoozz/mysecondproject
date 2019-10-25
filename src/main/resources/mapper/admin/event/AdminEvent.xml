@@ -61,8 +61,8 @@
 
 <!-- 이벤트 글 작성 -->
 <insert id="geteventwrite" parameterType="com.rhymes.app.event.model.EventDTO">
-	INSERT INTO RHY_EVENT_LIST(TITLE, TYPE, PHOTO_BANNER, PHOTO_CONTENT, SDATE, EDATE, VISIBLE)
-	VALUES(#{title}, #{type}, #{photo_banner}, #{photo_content}, #{sdate}, #{edate}, 1)	
+	INSERT INTO RHY_EVENT_LIST(TITLE, TYPE, COUPON_SEQ, COUPON_TITLE, PHOTO_BANNER, PHOTO_CONTENT, SDATE, EDATE, VISIBLE)
+	VALUES(#{title}, #{type}, #{coupon_seq}, #{coupon_title}, #{photo_banner}, #{photo_content}, #{sdate}, #{edate}, 1)	
 </insert>
 	
 <!-- 쿠폰리스트 -->

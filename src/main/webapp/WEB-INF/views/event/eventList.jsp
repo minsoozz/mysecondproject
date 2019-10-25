@@ -28,11 +28,25 @@
 		</td>
 	</tr>
 	<tr>
-		<td>${event.sdate }~ ${event.edate }<br><br></td>
+		<td align="right">${event.sdate }~ ${event.edate }<br><br></td>
 	</tr>
 	</c:forEach>
 	
+	
 	</table>
+	<!-- 페이징 -->
+	<div id="paging_wrap">
+		<jsp:include page="/WEB-INF/views/event/paging.jsp"
+			flush="false">
+			<jsp:param name="pageNumber" value="${pageNumber }" />
+			<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+			<jsp:param name="pageCountPerScreen"
+				value="${pageCountPerScreen }" />
+			<jsp:param name="recordCountPerPage"
+				value="${recordCountPerPage }" />
+		</jsp:include>
+	</div>
+	<!-- 페이징끝 -->
 </div>
 
 </body>

@@ -55,6 +55,7 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		return adminMemberDAO.getmem_c_Count(param);
 	}
 
+	// 회원정지
 	@Override
 	public void getMemLock(MemBean bean) {
 		
@@ -72,6 +73,21 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		
 		
 		
+	}
+
+	// 회원정지 해제
+	@Override
+	public void getMemLock_n(MemBean bean) {
+		for (int i = 0; i < bean.getChecklen(); i++) {
+			if(bean.getCheckid() != null || bean.getCheckid() != "") {
+				String check[] = bean.getCheckid().split(",");
+				MemBean mb = new MemBean();
+				mb.setUserid(check[i]);
+				
+				adminMemberDAO.getMemLock_n(mb);
+			}
+			
+		}
 	}
 
 }

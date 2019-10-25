@@ -34,4 +34,6 @@ public interface AdminMemberService{
 	// 회원 정지
 	public void getMemLock(MemBean bean);
 	
+	// 회원 정지 해제
+	public void getMemLock_n(MemBean bean);
 }

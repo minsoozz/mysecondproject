@@ -134,7 +134,12 @@
 		</div>
 		<div class="form-row">
 			<div class="col-md-3 order_info_comp">주문 처리상태</div><!-- 결제상태 또는 배송상태 -->
-			<div class="col-md-6 order_info_comp">${mPDto.payment_status}${mPDto.delivery_status}</div>
+			<div class="col-md-6 order_info_comp">
+				<c:choose>
+					<c:when test="${mPDto.payment_status == '미결제'}">${mPDto.payment_status}</c:when>
+					<c:otherwise>${mPDto.delivery_status}</c:otherwise>					
+				</c:choose>				
+			</div>
 		</div>
 	</div>
 </div><!-- 주문정보 끝 -->
@@ -167,7 +172,13 @@
 		</div>
 		<div class="form-row">
 			<div class="col-md-3 delivery_info_comp">송장정보</div><!-- 결제상태 또는 배송상태 -->
-			<div class="col-md-6 delivery_info_comp">${mPDto.delivery_company}${mPDto.delivery_post_code}</div>
+			<div class="col-md-6 delivery_info_comp">
+				<c:choose>
+					<c:when test="${mPDto.delivery_post_code == '' or mPDto.delivery_post_code eq null}">${mPDto.payment_status}</c:when>
+					<c:otherwise>${mPDto.delivery_company}${mPDto.delivery_post_code}</c:otherwise>					
+				</c:choose>	
+				
+			</div>
 		</div>
 	</div>
 </div><!-- 배송정보 끝 -->

@@ -2,7 +2,6 @@ package com.rhymes.app.admin.events.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.admin.events.model.AdminPointsPagingDTO;
 import com.rhymes.app.admin.events.model.PointsDTO;
+import com.rhymes.app.admin.events.service.AdminEventsService;
 import com.rhymes.app.admin.events.service.AdminPointsService;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
 import com.rhymes.app.member.service.MypagePointsService;
@@ -33,6 +33,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = "/admin/mypage/*")
 public class AdminPointsController {
 
+	@Autowired
+	private AdminEventsService adminEventsService;
+	
 	@Autowired
 	private AdminPointsService adminPointsService;
 	
@@ -101,14 +104,10 @@ public class AdminPointsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/points/getmembers", method = {RequestMethod.POST, RequestMethod.GET} )
-	public List<String> getMembers(Model model, String value, Principal prc) throws Exception{
+	public List<String> getMembers(String value, Principal prc) throws Exception{
 		log.info("getMembers()" + value);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("value", value);
-		map.put("id", prc.getName());
-		
-		return myUsedService.getMemberid(map);			
+						
+		return adminEventsService.getUserid(value);				
 	}
 	
 	/**Ajax 통신을 통해 권한 리턴(autocomplete)

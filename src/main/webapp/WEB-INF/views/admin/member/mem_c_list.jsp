@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>mem_c_list</title>
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/css/admin/member/memberlist.css">
+	href="<%=request.getContextPath() %>/css/admin/member/memberlist_c.css">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath() %>/css/admin/member/paging.css">
 </head>
@@ -66,7 +66,8 @@
 							<option value="05"
 								<c:out value="${s_category == '05'? 'selected':'' }"/>>담당자번호</option>
 						</select>
-						<input type="search" id="_s_keyword" name="s_keyword" class="searchText form-control-sm" placeholder="" aria-controls="dataTable" style="width: 150px">
+						<input type="search" id="_s_keyword" name="s_keyword" class="searchText form-control-sm" 
+							placeholder="search..." value="${s_keyword }" aria-controls="dataTable" style="width: 150px">
 						<button class="btn btn-primary" type="button">
 							<i class="fas fa-search fa-sm" id="_btnSearch"></i>
 						</button>
@@ -103,7 +104,7 @@
 				<tbody>
 					<c:if test="${empty mem_c_list }">
 						<tr align="center">
-							<td colspan="8" align="center">검색결과가 없습니다.</td>
+							<td colspan="10" align="center">검색결과가 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="c" items="${mem_c_list }" varStatus="vs">

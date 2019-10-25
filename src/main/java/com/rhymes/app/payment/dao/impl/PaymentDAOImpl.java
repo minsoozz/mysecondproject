@@ -122,11 +122,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 			// 적립금 차감
 			// 사용 적립금 1000, 유효 적립금 1400
 			// 가장 최신 적립금이 400원 남았다
-			if(inputDiscPoint < 0) { xmlDTO.setPoint(inputDiscPoint + xmlDTO.getPoint()); result = SqlSession.update(p + "discPointByid", xmlDTO); break; }
+			if(inputDiscPoint < 0) { xmlDTO.setPoint(inputDiscPoint + xmlDTO.getPoint()); result = SqlSession.update(p + "discPointByid", xmlDTO); log.warn("여기로 왔다1"); break; }
 			// 사용 적립금 1000, 유효 적립금 400
 			// 사용 적립금 600,  유효 적립금 1500
 			// 가장 최신 적립금은 400 전부 사용했고 (used_amount = 400), 그 다음 최신 적립금은 900원 남았다
-			else { result = SqlSession.update(p + "discPointByid", xmlDTO); count++; }
+			else { result = SqlSession.update(p + "discPointByid", xmlDTO); count++; log.warn("여기로 왔다2"); }
 		}
 		
 		return result>0?true:false;
@@ -135,6 +135,19 @@ public class PaymentDAOImpl implements PaymentDAO {
 	// 결제 내역 저장
 	@Override
 	public boolean payment_save(PaymentDTO dto) {
+		// 결제상태 한글로 변경
+		if(dto.getPayment_status().equals("ready") ) { dto.setPayment_status("미결제"); }
+		else if(dto.getPayment_status().equals("paid")) { dto.setPayment_status("결제완료"); }
+		else if(dto.getPayment_status().equals("cancelled")) { dto.setPayment_status("결제취소"); }
+		
+		// 결제수단 한글로 변경
+		if(dto.getPayment_method().equals("card")) { dto.setPayment_method("카드"); }
+		else if(dto.getPayment_method().equals("trans")) { dto.setPayment_method("실시간 계좌이체"); }
+		else if(dto.getPayment_method().equals("vbank")) { dto.setPayment_method("무통장입금"); }
+		else if(dto.getPayment_method().equals("phone")) { dto.setPayment_method("휴대전화 소액결제"); }
+		else if(dto.getPayment_method().equals("kakaopay")) { dto.setPayment_method("카카오페이"); }
+		
+		log.warn("payment_save dto : " + dto.toString());
 		int count = SqlSession.insert(p + "payment_save", dto);
 		return count>0?true:false;
 	}
@@ -148,7 +161,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	// 결제시 사용한 쿠폰을 사용으로 변환
 	@Override
-	public boolean update_isused_coupon(PaymentDTO dto) {		
+	public boolean update_isused_coupon(PaymentDTO dto) {
+		log.warn("@@@ : " + dto.getPayment_code().length());
 		int count = SqlSession.delete(p + "update_isused_coupon", dto);
 		return count>0?true:false;
 	}

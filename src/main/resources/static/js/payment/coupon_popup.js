@@ -2,7 +2,7 @@ $(document).ready(function () {
 	//alert("쿠폰 팝업창");
 	
 
-	$("#coupon_popup_btn").click(function() {
+	$("#coupon_popup_e_btn").click(function() {
 		// func : 적립 or 할인, func_num : 적립포인트 or 할인율, func_measure : % or 원, coup_code : 쿠폰 고유 코드
 		var func = $("#coupon_popup_select option:selected").attr("func");
 		var func_num = $("#coupon_popup_select option:selected").attr("func_num");

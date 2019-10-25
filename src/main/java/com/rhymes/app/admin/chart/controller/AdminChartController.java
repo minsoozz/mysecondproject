@@ -27,9 +27,9 @@ public class AdminChartController {
 		return "member.tiles";
 	}
 	
-	@GetMapping(value = "category")
-	public String category() {
-		return "category.tiles";
+	@GetMapping(value = "company")
+	public String company() {
+		return "company.tiles";
 	}
 	
 	@GetMapping(value = "product")

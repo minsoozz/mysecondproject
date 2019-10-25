@@ -56,7 +56,7 @@
 	<!-- << -->
 	<span>
 	<a href="#none" title="처음페이지" onclick="goPage('0')">
-		<img alt="" src="../img/customer-img/arrow_first.gif" style="width: 9px; height: 9px">
+		<img alt="" src="../img/member-img/arrow_L.jpg" style="width: 9px; height: 9px">
 	</a>
 	</span>
 	
@@ -66,7 +66,7 @@
 		%>
 		<span>
 		<a href="#none" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1 %>')">
-			<img alt="" src="../img/customer-img/arrow_back.gif" style="width: 9px; height: 9px">
+			<img alt="" src="../img/member-img/arrow_L.jpg" style="width: 9px; height: 9px">
 		</a>
 		</span>
 		<% 
@@ -101,7 +101,7 @@
 		%>
 		<span>
 		<a href="#none" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>)">
-			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
+			<img alt="" src="../img/member-img/arrow_R.jpg" style="width: 9px; height: 9px;">
 		</a>
 		</span>
 		<%
@@ -114,7 +114,7 @@
 	<!-- >> -->
 	<span>
 	<a href="#none" title="마지막페이지" onclick="goPage(<%=end_page %>)">
-		<img alt="" src="../img/customer-img/arrow_end.gif" style="width: 9px; height: 9px;">
+		<img alt="" src="../img/member-img/arrow_R.jpg" style="width: 9px; height: 9px;">
 	</a>
 	</span>
 	

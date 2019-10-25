@@ -45,11 +45,17 @@ $(function(){
 		$("#_newcoup_btn_save").removeAttr('disabled');
 	});
 	
+	//새 쿠폰 저장 버튼
 	$("#_newcoup_btn_save").click(function(){
 		if( $("#_coup_amount_select").val() === '0' ){
 			$("#_coup_amount_select .custom-num").val( parseInt($("#_coup_amount_num").val()) );
 		}
 		generateNewCouponCodes();
+	});
+	
+	//쿠폰디테일 행 클릭 이벤트(쿠폰발행정보, 사용정보 등)
+	$(".coupon_detail_row").click(function(){
+		
 	});
 });
 

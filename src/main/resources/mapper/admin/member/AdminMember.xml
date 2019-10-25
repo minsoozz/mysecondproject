@@ -148,6 +148,13 @@
 		SET isAccountNonLock='false'
 		WHERE ID=#{userid}
 	</update>
+	
+	<!-- 회원 정지 해제 -->
+	<update id="getMemLock_n" parameterType="com.rhymes.app.member.model.MemBean">
+		UPDATE RHY_MEM
+		SET isAccountNonLock='true'
+		WHERE ID=#{userid}
+	</update>
 
 
 

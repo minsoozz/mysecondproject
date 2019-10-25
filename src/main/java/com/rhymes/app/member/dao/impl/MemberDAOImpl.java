@@ -14,6 +14,7 @@ import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
 import com.rhymes.app.member.model.SellerDTO;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -54,8 +55,8 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		// 웰컴쿠폰
 		@Override
-		public void getmem_cp(String userid) {
-			sqlSession.insert(ns+"getmem_cp", userid);
+		public void getmem_cp(MemberCouponDTO coudto) {
+			sqlSession.insert(ns+"getmem_cp", coudto);
 			
 		}
 

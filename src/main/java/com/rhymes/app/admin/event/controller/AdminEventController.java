@@ -106,6 +106,7 @@ public class AdminEventController {
 	// event 글 작성
 	@RequestMapping(value = "/eventwrite", method = RequestMethod.POST)
 	public String eventwrite(EventDTO dto, MultipartHttpServletRequest multi, HttpServletRequest req)throws Exception{
+		
 		// 시작시간, 종료시간 합치기
 		dto.sdate(dto.getSyear(), dto.getSmonth(), dto.getSday());
 		dto.edate(dto.getEyear(), dto.getEmonth(), dto.getEday());
@@ -223,9 +224,7 @@ public class AdminEventController {
 		return "ok";
 		
 	}
-	
-	
-	
+
 	
 	
 	

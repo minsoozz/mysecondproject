@@ -11,6 +11,7 @@ import com.rhymes.app.member.model.P_MemberDTO;
 import com.rhymes.app.member.model.SellerBean;
 import com.rhymes.app.member.model.SellerCRnumDTO;
 import com.rhymes.app.member.model.SellerDTO;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 
 public interface MemberDAO {
 	
@@ -25,7 +26,7 @@ public interface MemberDAO {
 	public void getPAddmem(P_MemberDTO pmem);		// 추가
 	public void getAuthAddmem(AuthoritiesDTO amem);	// 권한
 	
-	public void getmem_cp(String userid);
+	public void getmem_cp(MemberCouponDTO coudto);
 	
 	// 사업자번호 체크
 	public String getCRCheck(SellerCRnumDTO crdto);
