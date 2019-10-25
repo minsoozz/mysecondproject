@@ -35,9 +35,10 @@ pageNumber : ${pageNumber }<br>
 총 상품갯수 : ${totalRecordCount } --%>
 
 <c:if test="${empty plist }">
-<div align="center" id="emptyProduct">
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT09uR_LfHPdzAfTxt9K3hvmH6atw3ZJRM6lMX9BaaDf9U1EMHfcQ"><br>
-<font>등록된 상품이 없습니다.</font>
+<div align="center" id="emptyProduct" style="margin-top: 300px">
+<!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT09uR_LfHPdzAfTxt9K3hvmH6atw3ZJRM6lMX9BaaDf9U1EMHfcQ"><br> -->
+
+<h3>등록된 상품이 없습니다.</h3>
 </div>
 </c:if>
 
