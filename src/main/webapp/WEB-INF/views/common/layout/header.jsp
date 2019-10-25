@@ -107,6 +107,12 @@
 	                            </div>
                             </c:if>
                             
+                            <c:if test="${prc eq 'anonymousUser' }">
+	                            <div class="order">
+	                                <a href="/ordercheck_nomembership_confirm_move">Order</a>
+	                            </div>	                            
+                             </c:if>
+                             
 	                            <div class="cart">
 	                                <a href="/store/basket">Cart</a>
 	                            </div>
@@ -114,6 +120,9 @@
 	                            <div class="search">
 	                                <a href="#" class="search_btn">Search</a>
 	                            </div>
+	                            
+	                            
+                     
 	             
                         </div>
                     </div>
