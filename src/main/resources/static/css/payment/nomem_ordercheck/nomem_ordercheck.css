@@ -21,9 +21,9 @@
 
 /* 비회원 주문조회 인증 페이지 */
 .ordercheck_confirm_wrap { /* background-color: #d7fd75; */ margin-left: 350px; }
-.ordercheck_confirm_title { /* background-color: red; */ border-bottom: 1px solid #dbdbdb; margin-bottom: 50px; margin-top: 50px; }
+.ordercheck_confirm_title { /* background-color: red; */ margin-bottom: 50px; margin-top: 50px; }
 .ordercheck_confirm_content { /* background-color: blue; */) }
-.ordercheck_confirm_title_font { font-size: 35px; }
+.ordercheck_confirm_title_font { font-size: 30px; }
 #ordercheck_confirm_payment_code{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
 #ordercheck_confirm_send_name{ width: 400px; height: 70px; padding-left: 15px; font-size: 20px; }
 

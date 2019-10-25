@@ -196,15 +196,15 @@
 		
 		<div id="modal_s">
 
-			<input type="radio" name='mwChk' id="mChk" class="_mwChk" style="display:none" value="MEN">
-			<label for="mChk" class="mwRadioL" style="cursor: pointer; background-color: white;">MEN</label>
+			<input type="radio" name='mwChk' id="mChk" class="_mwChk" style="display:none; padding: 10px" value="MEN">
+			<label for="mChk" class="mwRadioL" style="cursor: pointer; background-color: white; padding: 10px">MEN</label>
 			
-			<input type="radio" name='mwChk' id="wChk" class="_mwChk" style="display:none" value="WOMEN">
-			<label for="wChk" class="mwRadioL" style="cursor: pointer; background-color: white;">WOMEN</label>
+			<input type="radio" name='mwChk' id="wChk" class="_mwChk" style="display:none; padding: 10px" value="WOMEN">
+			<label for="wChk" class="mwRadioL" style="cursor: pointer; background-color: white; padding: 10px">WOMEN</label>
 
 			<input type="text" id="searchWord" style="widht:500px;" placeholder="SEARCH" onkeypress="if( event.keyCode==13 ){search();}" autocomplete="searchWord">
 
-			<img src="https://cdn0.iconfinder.com/data/icons/it-hardware/100/search-512.png" style="width:40px; height:40px; cursor:pointer;" onclick="search()">  <!-- id="m_search_btn" -->&nbsp;
+			<img src="/img/store-img/search.png" style="width:40px; height:40px; cursor:pointer;" onclick="search()">  <!-- id="m_search_btn" -->&nbsp;
 		</div>
 	
 	</div>
