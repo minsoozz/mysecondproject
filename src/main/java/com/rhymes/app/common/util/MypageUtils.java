@@ -5,14 +5,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import com.rhymes.app.admin.events.model.CouponDetailDTO;
+
 public class MypageUtils {
 
 	/**cnt개수만큼 쿠폰번호 리스트 리턴
 	 * @param cnt
 	 */
-	public static List<String> getRandCoupsTimestampList(int cnt) {
+	public static List<CouponDetailDTO> getRandCoupsTimestampList(int seq, int cnt) {
 		Random rnd =new Random();
-		List<String> codeList = new ArrayList();
+		List<CouponDetailDTO> codeList = new ArrayList();
 		
 		for(int j = 0 ; j < cnt ; j++ ) {
 			StringBuffer buf =new StringBuffer();
@@ -29,7 +31,7 @@ public class MypageUtils {
 			    }
 			    
 			}
-			codeList.add(buf.toString());
+			codeList.add(new CouponDetailDTO(seq, buf.toString()));
 		}
 		
 		return codeList;

@@ -14,30 +14,30 @@
 	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
 	
-	<!-- 교환관리 -->
-   	<definition name="/exchange" extends="paylist">
-	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_exchange.jsp" />
-	</definition>
-
-	<!-- 환불관리 -->
-   	<definition name="/refund" extends="paylist">
-	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_refund.jsp" />
-	</definition>
-	
-	<!-- 무통장 주문 취소 관리 -->
-   	<definition name="/cancel" extends="paylist">
-	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_cancel.jsp" />
-	</definition>
-	
 	<!-- 결제성공 -->
    	<definition name="/success" extends="paylist">
 	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_success.jsp" />
 	</definition>
 	
-	<!-- 결제완료 -->
-   	<definition name="/finish" extends="paylist">
-	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_finish.jsp" />
+	<!-- 교환관리 -->
+   	<definition name="/exchange" extends="paylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_exchange.jsp" />
 	</definition>
+	
+	<!-- 무통장주문 취소관리, 환불관리 -->
+   	<definition name="/cancel" extends="paylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_cancel.jsp" />
+	</definition>
+
+	<!-- 환불관리 -->
+<!--    	<definition name="/refund" extends="paylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_refund.jsp" />
+	</definition> -->
+	
+	<!-- 결제완료 -->
+<!--    	<definition name="/finish" extends="paylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_finish.jsp" />
+	</definition> -->
 
 
 </tiles-definitions>

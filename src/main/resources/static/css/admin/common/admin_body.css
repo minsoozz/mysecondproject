@@ -10,3 +10,9 @@
   width: 1120px;
   max-width: none !important;
 } */
+
+/* 버튼색 */
+.btn-info, .btn-icon-split{
+	background-color : #66E0B4 !important;
+	border: 0.3px solid #ffffff !important;
+}

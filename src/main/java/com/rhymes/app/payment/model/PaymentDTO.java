@@ -70,7 +70,7 @@ public class PaymentDTO implements Serializable {
 	private int disc_product;				// 상품 차감
 	private int add_point;					// 추가 적립금
 	private int totalprice;					// 결제 총 금액
-	private Date rdate;						// 결제일
+	private String rdate;					// 결제일
 	
 }
 

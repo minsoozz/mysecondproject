@@ -6,8 +6,8 @@ var ctx = window.location.pathname.substring(0, window.location.pathname.indexOf
 
 $(function(){
 	/*좌측 네비게이션 메뉴 색 선택 기능*/
-	var titles = ['주문 내역','타이틀', '찜 목록', '상품후기', '적립금', '쿠폰', '쪽지함', '내 판매목록', '교환/환불', '개인 정보 수정'];
-	var urls = ['orderlog','url', 'wishlist', 'review', 'points', 'coupon', 'notes', 'myused', '#', 'personal'];
+	var titles = ['주문 내역', '찜 목록', '상품후기', '적립금', '쿠폰', '쪽지함', '내 판매목록', '교환/환불', '개인 정보 수정'];
+	var urls = ['orderlog', 'wishlist', 'review', 'points', 'coupon', 'notes', 'myused', '#', 'personal'];
 	
 	var titleMap = new Map();
 	for( i = 0 ; i < titles.length ; i++ ){
