@@ -16,8 +16,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentXmlParamDTO implements Serializable {
-	private String userid;			// 구매회원 id
-	private int count;				// limit의 변수값
-	private int seq;				// getPointLastById에서 받은 seq
-	private int point;				// getPointLastById에서 받은 적립금
+	private String userid;					// 구매회원 id
+	private int count;						// limit의 변수값
+	private int seq;						// getPointLastById에서 받은 seq
+	private int point;						// getPointLastById에서 받은 적립금
 }

@@ -356,11 +356,11 @@ $(document).on('click', '#_btnSearch', function(){
 function sorting(sorting){
 	var criterion = $("#_select").val();
 	var keyword = $("#keyword").val();
-	var sorting = $("#sorting").val();
+	var sorting = $("#sorting").val();	
 	$("#frm_criterion").val(criterion);
 	$("#frm_keyword").val(keyword);
 	$("#form_sorting").val(sorting);
-		
+	
 	$("#plistFrm").submit();	
 }
 // 페이지 이동

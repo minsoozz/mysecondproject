@@ -14,18 +14,23 @@
 	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
 	
-	<!-- 결제성공 -->
-   	<definition name="/success" extends="paylist">
-	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_success.jsp" />
+	<!-- 관리자페이지 결제내역조회 -->
+   	<definition name="success" extends="paylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_list.jsp" />
+	</definition>
+	
+	<!-- 관리자페이지 결제상상세내역조회 -->
+   	<definition name="detail" extends="paylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_detail_list.jsp" />
 	</definition>
 	
 	<!-- 교환관리 -->
-   	<definition name="/exchange" extends="paylist">
+   	<definition name="exchange" extends="paylist">
 	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_exchange.jsp" />
 	</definition>
 	
 	<!-- 무통장주문 취소관리, 환불관리 -->
-   	<definition name="/cancel" extends="paylist">
+   	<definition name="cancel" extends="paylist">
 	    <put-attribute name="content_main" value="/WEB-INF/views/admin/payment/payment_cancel.jsp" />
 	</definition>
 

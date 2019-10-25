@@ -113,17 +113,9 @@
 					<!-- <th>배송조회</th> -->
 				</tr>
 				<tr>
-					<td><c:if test="${order_detail_list[0].payment_method == 'vbank' }">무통장입금</c:if>
-						<c:if test="${order_detail_list[0].payment_method == 'card' }">신용카드</c:if>
-						<c:if test="${order_detail_list[0].payment_method == 'trans' }">실시간계좌이체</c:if>
-						<c:if test="${order_detail_list[0].payment_method == 'phone' }">휴대폰소액결제</c:if>
-						<c:if test="${order_detail_list[0].payment_method == 'kakaopay' }">카카오페이</c:if>
-					</td>
+					<td>${order_detail_list[0].payment_method }</td>
 					<td><fmt:formatNumber value="${order_detail_list[0].totalprice }" />원</td>
-					<td><c:if test="${order_detail_list[0].payment_status =='ready' }">미결제</c:if>
-						<c:if test="${order_detail_list[0].payment_status =='paid' }">결제완료</c:if>
-						<c:if test="${order_detail_list[0].payment_status =='cancelled' }">결제취소</c:if>
-					</td>
+					<td>${order_detail_list[0].payment_status }</td>
 					<%-- <td><input type="button" id="ordercheck_delivery_btn" onclick="ordercheck_delivery(${order_detail_list[0].payment_code })" value="배송조회"></td> --%>
 				</tr>
 			</table>
