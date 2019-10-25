@@ -32,15 +32,18 @@
 .body_wishlist .wishlist_row input{
 	
 }
+
 .chk_wishlist_item input{
 	position:absolute;
 	top: 50%;
 	left: 39%;
 }
 
-.detail_wishlist_item{
+.detail_wishlist_item .form-row{
 	left: 3%;
 	cursor: pointer;
+	min-width: 90% !important;
+	max-width: 90% !important;
 }
 
 .wishlist_body_btns{

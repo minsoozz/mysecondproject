@@ -13,19 +13,22 @@ $(function(){
 	for( i = 0 ; i < titles.length ; i++ ){
 		titleMap.set(titles[i], urls[i]);
 	}
-		
+	
+	//버튼 색 설정
 	var title = $(".mypage_main_content_title h3").text();
-	$.each(titles, function(index, item){
-		if( title === item){
-			$(".btn-group-vertical").children().eq(index).css('background-color', '#D7FD75');
+	var btnGroup = $(".btn-group-vertical").children();
+	for(i = 0 ; i < btnGroup.length ; i++ ){
+		var btnText = btnGroup.eq(i).children().eq(0).text();
+		console.log(i + ' , ' +  btnText);
+		if( title === btnText ){
+			btnGroup.eq(i).css('background-color', '#D7FD75');
 		}
-	});
+	}
 	
 	//onclick url 설정
-	for( i = 0 ; i < $("#_left_title_btns").children().length; i++ ){
+	for( i = 0 ; i <= $("#_left_title_btns").children().length; i++ ){
 		var btnTitle = $("#_left_title_btn_" + i).text();
 		var btnUrl = titleMap.get(btnTitle);
-
 		$("#_left_btn_" + i).attr('onclick', "location.href='/mypage/" + btnUrl + "';");
 	}
 	
