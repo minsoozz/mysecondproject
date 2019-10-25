@@ -55,10 +55,10 @@
 	<div>
 	${review.p_name }
 	${review.content }
-	${review.mylike }
+	
 	</div>
 	<div style="float: right;">
-	<input type="button" id="_btnthis" class="likebtn1" onclick="likebtn(${review.seq})" value="도움돼요👍🏻" >
+	<input type="button" id="_btnthis${review.seq}" class="likebtn1" onclick="likebtn(${review.seq})" value="도움돼요👍🏻" >
 	</div>
 	</td>
 </tr>
@@ -100,6 +100,8 @@ function reviewdetail(seq){
 	}else{
 		$("#detail"+seq).hide();
 	}
+	
+	likebtn(seq);
 }
 
 
@@ -110,7 +112,7 @@ function goPage( pageNumber ) {
 	
 }
 
-
+/* 
 $('.likebtn1').click(function() {
 
 	var color = $(this).css("background-color");
@@ -123,7 +125,7 @@ $('.likebtn1').click(function() {
 	$(this).css("background-color", "rgb(255,255,255)");
 	});
 
-
+ */
 
 function likebtn(seq){
 	
@@ -134,11 +136,11 @@ function likebtn(seq){
 		},
 			success:function(num){ 
 				if(num == 1){
-					$("#likeimg").attr("src","/img/used-img/likeAf.png");
+					$("#_btnthis"+seq).css("background-color", "rgb(207, 236, 64)");
 				} else if (num == 0){
-					$("#likeimg").attr("src","/img/used-img/like.png");
+					$("#_btnthis"+seq).css("background-color", "rgb(255,255,255)");
 				}
-				//likeCount();
+				UpTotalLike(seq);
 			},
 			error:function(e){
 				alert("실패");
@@ -146,5 +148,21 @@ function likebtn(seq){
 	}) 
 };
 
+function UpTotalLike(seq){
+	$.ajax({
+		url:"/productreview/uptotalcount",
+		type:"get",
+		data: {
+			review_seq : seq
+		},
+		success:function(count){
+			$("#_likes").html(count);
+		},
+		error:function(e){
+			alert("error");
+		}
+	})
+};
 
+ 
 </script>

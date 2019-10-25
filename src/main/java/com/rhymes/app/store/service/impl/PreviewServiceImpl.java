@@ -52,5 +52,19 @@ public class PreviewServiceImpl implements PreviewService {
 		return previewDao.deletelikes(map);
 	}
 
+	//총 like 수 올리기
+	@Override
+	public int uptotalcount(DetailParam param) {
+		
+		return previewDao.uptotalcount(param);
+	}
+
+	//총 like 수 내리기
+	@Override
+	public int downtotalcount(DetailParam param) {
+		
+		return previewDao.uptotalcount(param);
+	}
+
 	
 }

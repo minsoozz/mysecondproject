@@ -24,4 +24,9 @@ public interface PreviewService {
 	//like 삭제
 	boolean deletelikes(Map<String, Object> map);
 		
+	//총 like수 올리기
+	public int uptotalcount(DetailParam param);
+	
+	//총 like수 내리기
+	public int downtotalcount(DetailParam param);
 }

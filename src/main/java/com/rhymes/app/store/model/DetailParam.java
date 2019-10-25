@@ -25,7 +25,8 @@ public class DetailParam implements Serializable{
 	private int end = 10;
 	
 	private int p_seq=0;
-	private String id = null;
+	private String id=null;
+	private int seq = 0;
 	
 		
 }

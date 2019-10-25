@@ -31,6 +31,7 @@ public class PreviewController {
 	if (pcp != null) {
 		String id = pcp.getName();
 		param.setId(id);
+		
 		model.addAttribute("id", id);
 	}
 		
@@ -83,6 +84,23 @@ public class PreviewController {
 	}
 	
 	
+	@GetMapping(value="/uptotalcount")	// 좋아요 수 올리기
+	@ResponseBody
+		public int uptotalcount(int seq , DetailParam param ) {
+		
+		param.setSeq(seq);
+		
+		 int num = previewService.uptotalcount(param);
+		
+		return num;
+	}
 	
-	
+	@GetMapping(value="/downtotalcount")	// 좋아요 수 올리기
+	@ResponseBody
+		public int downtotalcount(int seq , DetailParam param ) {
+		param.setSeq(seq);
+		 int num = previewService.downtotalcount(param);
+		
+		return num;
+	}
 }

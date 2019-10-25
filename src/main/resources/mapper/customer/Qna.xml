@@ -35,7 +35,7 @@
     <select id="getQnaDetail" parameterType="java.lang.Integer" resultType="com.rhymes.app.customer.model.QnaDto">
        SELECT * 
        FROM QNA
-       WHERE SEQ = #{seq}
+       WHERE SEQ = #{seq} 
     </select>
     
     <!-- qna 올리기 -->
