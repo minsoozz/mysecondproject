@@ -55,9 +55,10 @@
 	<div>
 	${review.p_name }
 	${review.content }
+	${review.mylike }
 	</div>
 	<div style="float: right;">
-	<input type="button" id="_btnthis" class="likebtn1" value="도움돼요👍🏻" >
+	<input type="button" id="_btnthis" class="likebtn1" onclick="likebtn(${review.seq})" value="도움돼요👍🏻" >
 	</div>
 	</td>
 </tr>
@@ -110,8 +111,8 @@ function goPage( pageNumber ) {
 }
 
 
-
 $('.likebtn1').click(function() {
+
 	var color = $(this).css("background-color");
 	
 	if(color == "rgb(255, 255, 255)")
@@ -121,6 +122,29 @@ $('.likebtn1').click(function() {
 	else
 	$(this).css("background-color", "rgb(255,255,255)");
 	});
+
+
+
+function likebtn(seq){
+	
+ 	$.ajax({		// 좋아요 버튼 클릭시
+		url:"/productreview/addlikes",
+		type:"get",
+		data:{review_seq : seq
+		},
+			success:function(num){ 
+				if(num == 1){
+					$("#likeimg").attr("src","/img/used-img/likeAf.png");
+				} else if (num == 0){
+					$("#likeimg").attr("src","/img/used-img/like.png");
+				}
+				//likeCount();
+			},
+			error:function(e){
+				alert("실패");
+			}
+	}) 
+};
 
 
 </script>

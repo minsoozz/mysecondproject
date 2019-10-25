@@ -106,7 +106,6 @@
 <script type="text/javascript">
 
 function goPage( pageNumber ) {
-	
 	$("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
 	$("#_frmFormSearch").attr("action", "noticelist").submit(); //
 	

@@ -5,17 +5,44 @@
 	<!-- previewlist -->
 	<select id="getPreviewList" parameterType="com.rhymes.app.store.model.DetailParam"  resultType="com.rhymes.app.store.model.PreviewDto">
       SELECT  A.SEQ,A.PD_SEQ,A.USERID,A.TITLE,A.CONTENT,A.LIKES_CNT,A.RDATE,
-				D.P_NAME AS P_NAME
-				FROM RHY_PRODUCT_REVIEW A,RHY_PAYMENT_DETAILS B, RHY_STORE_STOCK C, RHY_STORE_PRODUCT D
-				WHERE B.S_SEQ = C.STOCK_SEQ AND C.P_SEQ = D.P_SEQ  AND A.PD_SEQ = B.SEQ AND C.P_SEQ=#{p_seq}
-		
+				D.P_NAME AS P_NAME 
+				<if test="id != null and id != ''">
+				,E.USERID AS MYLIKE
+				</if>
+				FROM RHY_PRODUCT_REVIEW A,RHY_PAYMENT_DETAILS B, RHY_STORE_STOCK C, RHY_STORE_PRODUCT D 
+				<if test="id != null and id != ''">
+					, RHY_PRODUCT_REVIEW_LIKES E	
+				</if>	
+				WHERE B.S_SEQ = C.STOCK_SEQ AND C.P_SEQ = D.P_SEQ  AND A.PD_SEQ = B.SEQ AND C.P_SEQ=#{p_seq} 
+				<if test="id != null and id != ''">
+				AND A.SEQ=E.REVIEW_SEQ AND E.USERID=#{id}
+				</if>	
     </select>
+    
 	<!--pqna 글의 총 수  -->
 	<select id="getPreviewCount" parameterType="com.rhymes.app.store.model.DetailParam"
 		resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)AS CNT
 		FROM RHY_PRODUCT_REVIEW A,RHY_PAYMENT_DETAILS B, RHY_STORE_STOCK C, RHY_STORE_PRODUCT D
-				WHERE B.S_SEQ = C.STOCK_SEQ AND C.P_SEQ = D.P_SEQ  AND A.PD_SEQ = B.SEQ AND C.P_SEQ=#{p_seq}
-		
+		WHERE B.S_SEQ = C.STOCK_SEQ AND C.P_SEQ = D.P_SEQ  AND A.PD_SEQ = B.SEQ AND C.P_SEQ=#{p_seq}
 	</select>
+	
+	<!--좋아요 여부-->
+	<select id="getlikes" parameterType="hashmap" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM RHY_PRODUCT_REVIEW_LIKES
+		WHERE USERID=#{id} AND REVIEW_SEQ=#{review_seq}
+	</select>
+	
+	<!-- 좋아요 추가 -->
+	<insert id="addlikes" parameterType="hashmap">
+		INSERT INTO RHY_PRODUCT_REVIEW_LIKES(REVIEW_SEQ,USERID)
+		VALUES(#{review_seq},#{id})
+	</insert>
+	
+	<!-- 좋아요 삭제  -->
+	<delete id="deletelikes" parameterType="hashmap">
+		DELETE FROM RHY_PRODUCT_REVIEW_LIKES
+		WHERE REVIEW_SEQ=#{review_seq} AND USERID=#{id}
+	</delete>
 </mapper>
