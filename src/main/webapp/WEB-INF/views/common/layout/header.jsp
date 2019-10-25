@@ -4,20 +4,18 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication property="principal" var="prc"/>
 <% String ctx = request.getContextPath(); %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
 <html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <head> 
 <meta charset="UTF-8">
 
-
-
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
-
 <!-- Core Stylesheet -->
 <link href="/css/main/common/style.css" rel="stylesheet">
+<link href="/css/main/common/header.css" rel="stylesheet">
 
 <!-- Responsive CSS -->
 <link href="/css/main/responsive/responsive.css" rel="stylesheet">
@@ -30,19 +28,23 @@
 <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
 <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
 <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
-</head> 
 
-<body>
+</head>
+
+<body translate="no">
+
+
     <!-- ****** Top Header Area Strt ****** -->
-<!--     <div class="top_header_event_area">
+<!--     <div class="top_header_event_area">                   
     	
     </div> -->
-    <div class="top_header_area">
+   
+    <div class="top_header_area" >
         <div class="container">
             <div class="row">
                 <div class="col-5 col-xs-6"> 
                     <div class="top_social_bar">
-
+                        			
                     
                     <!--  맨위에 sns 아이콘들 -->
                     <div class="top_social_bar">
@@ -104,13 +106,31 @@
 	                                <a href="/member/login">Mypage</a>
 	                            </div>
                             </c:if>
+                            
+                            <c:if test="${prc eq 'anonymousUser' }">
+	                            <div class="order">
+	                                <a href="/ordercheck_nomembership_confirm_move">Order</a>
+	                            </div>	                            
+                             </c:if>
+                             
 	                            <div class="cart">
 	                                <a href="/store/basket">Cart</a>
 	                            </div>
+	                            
+	                            <div class="search">
+	                                <a href="#" class="search_btn">Search</a>
+	                            </div>
+	                            
+	                            
+                     
+	             
                         </div>
                     </div>
+                    
                 </div>
+                
             </div>
+            
         </div>
     </div>
     <!-- ****** Top Header Area End ****** -->    
@@ -169,6 +189,34 @@
             </div>
         </div>
     </header>
+
+<!-- 검색 modal -->
+<div class='modal' id="search_modal">
+	<div class="modal-content2">
+		
+		<div id="modal_s">
+
+			<input type="radio" name='mwChk' id="mChk" class="_mwChk" style="display:none" value="MEN">
+			<label for="mChk" class="mwRadioL" style="cursor: pointer; background-color: white;">MEN</label>
+			
+			<input type="radio" name='mwChk' id="wChk" class="_mwChk" style="display:none" value="WOMEN">
+			<label for="wChk" class="mwRadioL" style="cursor: pointer; background-color: white;">WOMEN</label>
+
+			<input type="text" id="searchWord" style="widht:500px;" placeholder="SEARCH" onkeypress="if( event.keyCode==13 ){search();}" autocomplete="searchWord">
+
+			<img src="https://cdn0.iconfinder.com/data/icons/it-hardware/100/search-512.png" style="width:40px; height:40px; cursor:pointer;" onclick="search()">  <!-- id="m_search_btn" -->&nbsp;
+		</div>
+	
+	</div>
+</div>
+<!-- 검색 -->
+<form action="/store/productList" method="get" id='searchFrm'>
+	<input type='hidden' name="criterion" value="all_search">	
+	<input type="hidden" name="keyword" class="keyword" value="">
+	<input type="hidden" name="c1_name" class="c1_name" value="">
+</form>
+
+
     
 <a id="backToTop" class="scrolltop" href="#">
       <i class="fas fa-chevron-circle-up"></i>
@@ -220,6 +268,61 @@
 			
 		
 	</script>
+	
+	
+	<!-- 검색 search -->
+	<script type="text/javascript">
+	
+	function search(){
+		var c1_name = $("input[name='mwChk']:checked").val();
+		var keyword = $("#searchWord").val();
+		
+		if(keyword != ""){
+			if(keyword.length < 12){
+				$(".c1_name").val(c1_name);
+				$(".keyword").val(keyword);
+				$("#searchFrm").submit();
+			}else{
+				alert("검색어가 너무 길어요");
+			}
+		}
+	}
+
+	// 검색모달 성별 선택
+	$(document).on('click', '.mwRadioL', function(){
+		$(".mwRadioL").attr('style', 'background-color:white');
+		$(this).attr('style', 'background-color:#d7fd75');
+			
+	});
+
+	/* 검색모달 영역 외 클릭시 close */
+	$('body').click(function(e){
+		 if($(".modal").css("display") == "block") {
+	        if(!$('.modal, .modal').has(e.target).length) { 
+	        	//$(".modal").css("display", "none");
+	        	$(".modal").fadeOut();
+	        	/* 검색창 초기화 */
+	        	$("#searchWord").val('');
+	        	$("input:radio[name='mwChk']").prop("checked", false);
+	        	$(".mwRadioL").attr('style', 'background-color:white');
+	         } 
+	 	 }
+	});
+
+	/* 검색(모달)버튼 클릭 */
+	$(document).on('click', '.search_btn', function(){
+		/* $("#search_modal").css("display", "block"); */
+		$("#search_modal").fadeIn();
+	});
+
+	$(document).on('click', '.brandClick', function(){
+		var c_name = $(this).html();
+		$(".keyword").val(c_name);
+		$("#brandClickFrm").submit();
+	});	
+	
+	</script>
+	
 	</body>
 
 </html>

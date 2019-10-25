@@ -20,6 +20,8 @@ public class EventDTO implements Serializable {
 	private int seq;
 	private String title;				// 제목
 	private String type;				// 종류
+	private int coupon_seq;				// 쿠폰번호
+	private String coupon_title;		// 쿠폰이름
 	private String photo_banner;		// 배너 이미지
 	private String photo_content;		// 파일
 	private Date rdate;					// 작성일

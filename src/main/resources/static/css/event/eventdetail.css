@@ -17,13 +17,21 @@
 
 
 /* body */
-.bannerimg{
-	max-width: 1050px;
-	max-height: 200px;
-	min-width: 1050px;
-	min-height: 200px;
+#_couponimg{
+	min-width: 300px;
+	min-height: 100px;
+	max-width: 300px;
+	max-height: 100px;
 }
-
+#_couponBtn{
+	writing-mode: vertical-lr;
+    background: #41d241;
+    border: solid 1px #41d241;
+    color: white;
+    font-size: large;
+    border-radius: 5px;
+    padding: 10px;
+}
 
 
 

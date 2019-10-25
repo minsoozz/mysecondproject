@@ -3,12 +3,30 @@
 
 <mapper namespace="adminUsed">
 
-	<select id="getAdminUsedlist" resultType="com.rhymes.app.used.model.ProductsDto">
-		SELECT *
-		FROM rhy_used_products
-		order by seq desc
+<!-- 판매 리스트 -->
+<select id="getAdminUsedlist" parameterType="com.rhymes.app.admin.used.model.AdminBbsParam" resultType="com.rhymes.app.used.model.ProductsDto">
+SELECT seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes,readcount,rdate
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY RDATE DESC) AS RNUM, 
+			seq,s_id,category,title,content,price,quantity,place,photo,photo_sys,division,likes,readcount,rdate
+		  FROM rhy_used_products
+		  WHERE 1=1
+	<if test="select != null and keyword != null">
+		<if test="select == 'title'">
+			AND TITLE LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="select == 'id'">
+			AND S_ID LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="select == 'category'">
+			AND CATEGORY LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</if> 
+	) A
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	ORDER BY RDATE DESC
 	</select>
 	
+<!-- 판매리스트 갯수 -->
 	<select id="getAdminBbsCount" parameterType="com.rhymes.app.admin.used.model.AdminBbsParam" resultType="java.lang.Integer">
 	SELECT IFNULL(COUNT(*), 0)AS CNT
 	FROM rhy_used_products
@@ -26,12 +44,62 @@
 	</if>
 	</select>
 	
+<!-- 블랙리스트 리스트  -->	
+	<select id="getAdminBlacklist" parameterType="com.rhymes.app.admin.used.model.AdminBlParam" resultType="com.rhymes.app.used.model.BlacklistDto">
+		select seq,b_id,b_seq,reporter,content,rdate,blackcount
+		from(select row_number()over(order by b.rdate desc) as rnum,
+		b.seq,b.b_id,b.b_seq,b.reporter,b.content,b.rdate,s.blackcount
+		from rhy_used_blacklist b, rhy_used_seller s
+		where s.s_id=b.b_id and b.review='N'
+		<if test="select != null and keyword != null">
+			<if test="select == 'id'">
+				AND S_ID LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</if>
+		
+		) a
+		where rnum between #{start} and #{end}
+		ORDER BY RDATE DESC
+
+	</select>
+<!-- 블랙리스트 리스트 개수 -->
+<select id="getAdminBlCount" parameterType="com.rhymes.app.admin.used.model.AdminBlParam" resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*), 0)AS CNT
+	FROM rhy_used_blacklist
+		WHERE 1=1
+		AND REVIEW='N'
+	<if test="select != null and keyword != null">
+		<if test="select == 'id'">
+			AND S_ID LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</if>
+</select>
+<!-- 비매너 카운트 증가  -->
+<update id="AdminBanCount" parameterType="java.lang.String">
+update rhy_used_seller
+set blackcount = blackcount + 1
+where s_id=#{string}
+</update>
+
+<!-- 비매너 확인 처리 -->
+<update id="AdminBanReview" parameterType="java.lang.Integer">
+update rhy_used_blacklist
+set review = 'Y'
+where seq=#{n}
+</update>
+<delete id="AdminBanCancel" parameterType="java.lang.Integer">
+DELETE 
+FROM rhy_used_blacklist
+where seq=#{n2}
+</delete>
+
+
 	<!-- 회원 정지 -->
 	<update id="getMemLock" parameterType="com.rhymes.app.member.model.MemBean">
 		UPDATE RHY_MEM
 		SET isAccountNonLock='false'
 		WHERE ID=#{userid}
 	</update>
-
+	
 	
 </mapper>

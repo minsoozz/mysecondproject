@@ -14,13 +14,10 @@
 @import '../others/pe-icon-7-stroke.css';
 
 
+
 input:focus {
    box-shadow: none;
 }
-
-
-
-
 
 * {
     margin: 0;
@@ -93,6 +90,9 @@ p {
 		margin : 50px;
 		position: relative;
 	}
+
+
+
 
 .section_padding_100 {
     padding-top: 100px;
@@ -307,7 +307,7 @@ li {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 999999;
+    z-index: 888;
 }
 
 
@@ -334,6 +334,14 @@ li {
     }
 }
 
+
+
+
+
+
+
+
+
 /* --------------------
 :: 2.0 Top Header Area CSS
 -------------------- */
@@ -348,6 +356,11 @@ li {
     width: 100%;
     height: 40px;
     border-bottom: 1px solid #ebebeb;
+     display: inline-block;
+  float: right;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
     
 }
 
@@ -387,6 +400,7 @@ li {
     color: #222;
 }
 
+/*중간 줄 넣는 코드*/
 .top_header_area .signup-search-area .login a {
     margin-right: 13px;
     border-right: 2px solid #c2c2c2;
@@ -409,6 +423,12 @@ li {
     padding-right: 13px;
 }
 
+.top_header_area .signup-search-area .order a {
+    margin-right: 13px;
+    border-right: 2px solid #c2c2c2;
+    padding-right: 13px;
+}
+
 .top_header_area .signup-search-area .logout a {
     margin-right: 13px;
     border-right: 2px solid #c2c2c2;
@@ -421,68 +441,14 @@ li {
     border-right: 2px solid #c2c2c2;
     padding-right: 13px;
 }
-.top_header_area .signup-search-area .search_button {
-    margin-left: 54px;
+.top_header_area .signup-search-area .cart a {
+    margin-right: 13px;
+    border-right: 2px solid #c2c2c2;
+    padding-right: 13px;
 }
 
-#searchBtn {
-    position: relative;
-    z-index: 8;
-}
 
-.search-hidden-form {
-    position: absolute;
-    width: 100%;
-    z-index: 4;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    -webkit-transition-duration: 500ms;
-    transition-duration: 500ms;
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    font-size: 12px;
-}
 
-.search-hidden-form.search-form-open {
-    z-index: 18;
-    opacity: 1;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-}
-
-.search-hidden-form #search-anything {
-    width: 100%;
-    height: 30px;
-    border: 1px solid #ddd;
-    top: 5px;
-    position: relative;
-    padding: 5px 10px;
-}
-
-.search-hidden-form span {
-    line-height: 30px;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    display: block;
-    text-align: center;
-    top: 5px;
-    right: 0;
-    border: 1px solid #ddd;
-    color: #888;
-    cursor: pointer;
-    z-index: 5;
-    font-size: 13px;
-    border-left: none;
-    -webkit-transition-duration: 500ms;
-    transition-duration: 500ms;
-}
-
-.search-hidden-form span:hover {
-    color: #000;
-}
 
 /* --------------------
 :: 3.0 Menu Area CSS
@@ -1531,3 +1497,6 @@ li {
 	color: #fff;
 	cursor: pointer;
 }
+
+
+

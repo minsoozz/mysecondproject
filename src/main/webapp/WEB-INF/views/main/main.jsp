@@ -1,10 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <% String ctx = request.getContextPath(); %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head> 
  <meta charset="UTF-8">
+ 
+ 
+ 
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+
 
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,19 +25,31 @@
 
     <!-- Responsive CSS -->
     <link href="/css/main/responsive/responsive.css" rel="stylesheet">
+    
+    
+    
+    <style>
+
+
+
+</style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
 </head> 
 
- 
- 
 <body>
-    <div align="center" id="haribo">
-    <video src="/img/main-img/bg-img/main0vid_2.mp4" width="90%" height="10%" loop="loop" autoplay="autoplay"></video>
-     
-   </div>
-    <!-- main area start -->
-    <!-- 메인 이미지....style.css에서 변경하세용 75번째줄 -->    
-     <!--    <section id="banner"></section> -->
 
+    <div align="center" id="haribo">
+    <video src="/img/main-img/bg-img/main0vid_2.mp4" width="90%" height="10%" loop="loop" autoplay="autoplay"></video>     
+   </div>
 
 <br><br><br><br><br><br>
 
@@ -122,43 +145,6 @@
 
 
 <br><br><br><br><br><br>
-    
-    
-    <!-- ****** Categories Area Start 카테고리 바로가기 부분 ****** -->
-    <section class="categories_area clearfix" id="about">
-    <div style="margin-left: 20px"> 
-        
-            <div class="row" id="category_123">
-               <div>
-                    <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
-                        <a href="store/productList?c1_name=WOMEN&c2_name=BOTTOM&c3_name=PANTS">
-                       <img src="/img/main-img/catagory-img/1.jpg" width="600px" height="600px" style="margin-left: 10px">                        
-                       </a>  
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
-                        <a href="store/productList?c1_name=MEN&c2_name=TOP&c3_name=SHIRT">
-                       <img src="/img/main-img/catagory-img/2.jpg" width="600px" height="600px">                        
-                       </a>                       
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
-                        <a href="women.jsp">
-                       <img src="/img/main-img/catagory-img/3.jpg" width="600px" height="600px">                        
-                       </a>                       
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ****** Categories Area End ****** -->
-  <br><br><br><br>
-
-
 
     <!-- 추천 상품 메인픽  -->
    <div align="center">
@@ -213,157 +199,22 @@
    </div>
 <br><br><br><br>
     <!-- 추천 상품 끝 -->
-    
-    
-       
-    
-<!--  나중에,.,.
-
-    ****** Instagram Area Start ******
-    <br><br><br>
-    <div>
-    <h4 style="margin-left: 60px; color: gray;">INSTAGRAM</h4>
-    <br>
-    </div>
-    <div class="instargram_area owl-carousel section_padding_100_0 clearfix" id="portfolio">
-
-        Instagram Item
-        <div class="instagram_gallery_item">
-        
-            Instagram Thumb
-            <img src="img/instagram-img/insta2.png" alt="">
-            
-            Hover
-            <div class="hover_overlay">
-                <div class="rhymes-table">
-                    <div class="rhymes-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        Instagram Item
-        <div class="instagram_gallery_item">
-        
-            Instagram Thumb
-            <img src="img/instagram-img/insta1.png" alt="">
-            Hover
-            <div class="hover_overlay">
-                <div class="rhymes-table">
-                    <div class="rhymes-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        Instagram Item
-        <div class="instagram_gallery_item">
-            Instagram Thumb
-            <img src="img/instagram-img/insta2.png" alt="">
-            Hover
-            <div class="hover_overlay">
-                <div class="rhymes-table">
-                    <div class="rhymes-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        Instagram Item
-        <div class="instagram_gallery_item">
-            Instagram Thumb
-            <img src="img/instagram-img/insta1.png" alt="">
-            Hover
-            <div class="hover_overlay">
-                <div class="rhymes-table">
-                    <div class="rhymes-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        Instagram Item
-        <div class="instagram_gallery_item">
-            Instagram Thumb
-            <img src="img/instagram-img/insta2.png" alt="">
-            Hover
-            <div class="hover_overlay">
-                <div class="rhymes-table">
-                    <div class="rhymes-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        Instagram Item
-        <div class="instagram_gallery_item">
-            Instagram Thumb
-            <img src="img/instagram-img/insta1.png" alt="">
-            Hover
-            <div class="hover_overlay">
-                <div class="rhymes-table">
-                    <div class="rhymes-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        Instagram Item
-        <div class="instagram_gallery_item">
-            Instagram Thumb
-            <img src="img/instagram-img/insta2.png" alt="">
-            Hover
-            <div class="hover_overlay">
-                <div class="rhymes-table">
-                    <div class="rhymes-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        Instagram Item
-        <div class="instagram_gallery_item">
-            Instagram Thumb
-            <img src="img/instagram-img/insta1.png" alt="">
-            Hover
-            <div class="hover_overlay">
-                <div class="rhymes-table">
-                    <div class="rhymes-table-cell">
-                        <div class="follow-me text-center">
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i> Follow me</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>   -->
 
 
 
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
 
+<script id="rendered-js">
+      $('.header').on('click', '.search-toggle', function (e) {
+  var selector = $(this).data('selector');
+
+  $(selector).toggleClass('show').find('.search-input').focus();
+  $(this).toggleClass('active');
+
+  e.preventDefault();
+});
+
+    </script>
     
     </body>
    

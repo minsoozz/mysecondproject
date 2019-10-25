@@ -19,30 +19,6 @@ public class AdminPaymentController {
 	@Autowired
 	private AdminPaymentService adminPaymentService;
 	
-	// 관리자 페이지 교환관리
-	@RequestMapping("/admin/payment/exchange")
-	public String exchange() {
-		log.warn("AdminPaymentController exchange()");
-		
-		return "/exchange";
-	}
-
-	// 관리자 페이지 환불관리
-	@RequestMapping("/admin/payment/refund")
-	public String refund() {
-		log.warn("AdminPaymentController refund()");
-		
-		return "/refund";
-	}
-	
-	// 관리자 페이지 무통장 주문 취소관리
-	@RequestMapping("/admin/payment/cancel")
-	public String cancel() {
-		System.out.println("AdminPaymentController cancel()");
-		
-		return "/cancel";
-	}
-	
 	// 관리자페이지 결제내역조회
 	@RequestMapping("/admin/payment/success")
 	public String success(Model model) {
@@ -52,12 +28,36 @@ public class AdminPaymentController {
 		return "/success";
 	}
 	
-	// 관리자 페이지 결제완료관리
-	@RequestMapping("/admin/payment/finish")
-	public String finish() {
-		log.warn("AdminPaymentController finish()");
+	// 관리자 페이지 교환관리
+	@RequestMapping("/admin/payment/exchange")
+	public String exchange() {
+		log.warn("AdminPaymentController exchange()");
 		
-		return "/finish";
+		return "/exchange";
 	}
+
+//	// 관리자 페이지 환불관리
+//	@RequestMapping("/admin/payment/refund")
+//	public String refund() {
+//		log.warn("AdminPaymentController refund()");
+//		
+//		return "/refund";
+//	}
+	
+	// 관리자 페이지 무통장 주문 취소관리, 환불관리
+	@RequestMapping("/admin/payment/cancel")
+	public String cancel() {
+		System.out.println("AdminPaymentController cancel()");
+		
+		return "/cancel";
+	}
+	
+//	// 관리자 페이지 결제완료관리
+//	@RequestMapping("/admin/payment/finish")
+//	public String finish() {
+//		log.warn("AdminPaymentController finish()");
+//		
+//		return "/finish";
+//	}
 	
 }

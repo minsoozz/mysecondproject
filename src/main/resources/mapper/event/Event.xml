@@ -2,22 +2,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="event">
-	
-<select id="geteventlist" resultType="com.rhymes.app.event.model.EventDTO">
+
+<!-- 전체 이벤트 리스트 -->
+<select id="geteventlist" parameterType="com.rhymes.app.event.model.EventParam" resultType="com.rhymes.app.event.model.EventDTO">
 	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY SEQ DESC)AS RNUM,
+				SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+		  FROM RHY_EVENT_LIST
+		 )B
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	ORDER BY SEQ DESC
+</select>
+
+<!-- count -->
+<select id="getEventCount" parameterType="com.rhymes.app.event.model.EventParam" resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*), 0) AS CNT
 	FROM RHY_EVENT_LIST
 </select>
 
 <!-- detail -->
 <select id="geteventdetail" parameterType="com.rhymes.app.event.model.EventDTO" resultType="com.rhymes.app.event.model.EventDTO">
-	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, PHOTO_CONTENT, RDATE, SDATE, EDATE
+	SELECT SEQ, TITLE, TYPE, COUPON_SEQ, COUPON_TITLE, PHOTO_BANNER, PHOTO_CONTENT, RDATE, SDATE, EDATE
 	FROM RHY_EVENT_LIST
 	WHERE SEQ=#{seq}
 </select>
 
+<!-- 쿠폰 insert -->
+<insert id="eventcoupon" parameterType="com.rhymes.app.member.model.mypage.MemberCouponDetailDTO">
+	INSERT INTO RHY_MEM_COUPON_DETAIL(C_SEQ, USERID, GDATE, EXPDATE, COUP_CODE, VISIBLE)
+	    VALUES(#{c_seq}, #{userid}, NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH), #{coup_code}, 1) 
+</insert>
 
+<!-- 이미 발급받은 쿠폰인지 확인 -->
+<select id="geteventduplicate" parameterType="com.rhymes.app.member.model.mypage.MemberCouponDetailDTO" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM RHY_MEM_COUPON_DETAIL
+	WHERE USERID=#{userid} AND C_SEQ=#{c_seq}
+</select>
 
+<!-- 종료된 이벤트 리스트 -->
+<select id="geteventEndlist" parameterType="com.rhymes.app.event.model.EventParam" resultType="com.rhymes.app.event.model.EventDTO">
+	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY SEQ DESC)AS RNUM,
+				SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+		  FROM RHY_EVENT_LIST
+		  WHERE EDATE <![CDATA[<]]> NOW()
+		 )B
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	ORDER BY SEQ DESC
+</select>
 
+<!-- 종료된 이벤트 리스트 count -->
+<select id="getEvenEndtCount" parameterType="com.rhymes.app.event.model.EventParam" resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*), 0) AS CNT
+	FROM RHY_EVENT_LIST
+</select>
 
 
 </mapper>

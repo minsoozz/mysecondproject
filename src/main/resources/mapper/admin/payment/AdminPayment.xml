@@ -4,11 +4,16 @@
 <mapper namespace="adminPayment">
 
 <!-- 관리자페이지 결제내역조회 -->
-<select id="getOrderSuccess" resultType="com.rhymes.app.admin.payment.model.AdminPaymentSuccessDTO">
-SELECT P.PAYMENT_CODE, P.USERID, P.SEND_NAME, P.PAYMENT_METHOD, PA.VBANK_NAME, PA.VBANK_NUM, PA.VBANK_HOLDER,
-PA.VBANK_DATE, PA.CARD_APPLY_NUM, P.PAYMENT_STATUS, P.TOTALPRICE, P.RDATE
-FROM RHY_PAYMENT P, RHY_PAYMENT_AFTER PA
-WHERE P.PAYMENT_CODE = PA.PAYMENT_CODE
+<select id="getOrderSuccess" resultType="com.rhymes.app.payment.model.PaymentDTO">
+<!-- SELECT PAYMENT_CODE, USERID, SEND_NAME, PAYMENT_METHOD, PAYMENT_STATUS, TOTALPRICE, RDATE
+FROM RHY_PAYMENT -->
+</select>
+
+<!-- 관리자페이지 결제상세내역조회 -->
+<select id="getOrderSuccessDetail">
+<!-- SELECT *
+FROM RHY_PAYMENT P, RHY_PAYMENT_AFTER PA, RHY_STORE_STOCK SS, RHY_STORE_PRODUCT SR, RHY_DELIVERY D
+P.PAYMENT_CODE = PA.PAYMENT_AFTER AND P -->
 </select>
 
 </mapper>

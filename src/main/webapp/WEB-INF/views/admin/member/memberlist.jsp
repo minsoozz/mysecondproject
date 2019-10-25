@@ -29,7 +29,7 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<span class="m-0 font-weight-bold text-primary">회원 목록</span>
-	    	<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+	    	<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i> 회원정보 다운로드</a>
 		</div>
 		
 		<div class="card-body">
@@ -67,8 +67,8 @@
 								<option value="04"
 									<c:out value="${s_category == '04'? 'selected':'' }"/>>전화번호</option>
 							</select> 
-							<input type="search" id="_s_keyword" name="s_keyword" class="searchText form-control-sm" placeholder=""
-								aria-controls="dataTable" style="width: 150px">
+							<input type="search" id="_s_keyword" name="s_keyword" class="searchText form-control-sm" placeholder="search..."
+								aria-controls="dataTable" style="width: 150px" value="${s_keyword }">
 							<button class="btn btn-primary" type="button">
 								<i class="fas fa-search fa-sm" id="_btnSearch"></i>
 							</button>
@@ -120,22 +120,22 @@
 						<c:forEach var="mem" items="${memlist }" varStatus="vs">
 							<tr align="center">
 								<td class="list_checkbox">
-									<input type="checkbox" name='checkid' id="_checkid" class="cls" value="${mem.userid }">
+									<input type="checkbox" name='checkid' id="_checkid" value="${mem.userid }">
 								</td>
 								<td class="list_id">
-									<input type="text" value="${mem.userid }" id="_userid" class="list_userid" readonly="readonly">
+									<input type="text" value="${mem.userid }" id="_userid" class="list_userid clickbtn" readonly="readonly">
 								</td>		 					
-								<td class="list_name">${mem.username }</td>
-								<td class="list_address">${mem.address }</td>
-								<td class="list_email">${mem.useremail }</td>
-								<td class="list_phone">${mem.phone }</td>
-								<td class="list_social">${mem.social}</td>
-								<td class="list_rdate">${mem.rdate }</td>
+								<td>${mem.username }</td>
+								<td>${mem.address }</td>
+								<td>${mem.useremail }</td>
+								<td>${mem.phone }</td>
+								<td>${mem.social}</td>
+								<td>${mem.rdate }</td>
 								<c:if test="${mem.isAccountNonLocked ne 'true'}">
-									<td class="list_rdate" style="font-weight: bold; color: blue;">${mem.isAccountNonLocked }</td>
+									<td style="font-weight: bold; color: blue;">${mem.isAccountNonLocked }</td>
 								</c:if>
 								<c:if test="${mem.isAccountNonLocked ne 'false'}">
-									<td class="list_rdate">${mem.isAccountNonLocked }</td>
+									<td>${mem.isAccountNonLocked }</td>
 								</c:if>
 							</tr>
 						</c:forEach>
@@ -146,6 +146,7 @@
 				<div class="col-sm-12 col-md-7">
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="dataTable_paginate">
+						
 						<!-- 페이징 -->
 						<div id="paging_wrap">
 							<jsp:include page="/WEB-INF/views/admin/member/paging.jsp"
@@ -159,13 +160,15 @@
 							</jsp:include>
 						</div>
 						<!-- 페이징끝 -->
+						
 
 					</div>
 
 				</div>
 
 				<div>
-					<button type="button" id="memLockBtn" class="searchText">회원정지</button>
+					<button type="button" id="memLockBtn" class="memLockBtn">회원정지</button>
+					<button type="button" id="memLockBtn_n" class="memLockBtn_n">정지해제</button>
 				</div>
 	
 	
@@ -301,6 +304,11 @@ $(document).ajaxSend(function(e, xhr, options) {
 	// 회원 정지
 	$("#memLockBtn").click(function() {
 	  	$("#_frm").attr("action", "/admin/memLock").submit(); 
+
+	});
+	// 정지해제
+	$("#memLockBtn_n").click(function() {
+	  	$("#_frm").attr("action", "/admin/memLock_n").submit(); 
 
 	});
 	

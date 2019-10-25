@@ -28,9 +28,6 @@
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
-
-				<!-- @@@@ 여기서부터 작성 @@@@@ -->
-
  				<div class="payment_success_wrap">
 					<div class="payment_success_contents">
 						<table class="table table-bordered">
@@ -72,10 +69,6 @@
 						</table>
 					</div>
 				</div>
-
-
-				<!-- @@@@@ 여기까지 @@@@@ -->
-
 			</div>
 		</div>
 	</div>

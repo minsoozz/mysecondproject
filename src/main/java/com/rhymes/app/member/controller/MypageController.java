@@ -97,6 +97,9 @@ public class MypageController {
 
 		List<MemberOrderDTO> lst = mypageOrderlogService.getOrderlogsById(mOPDto);
 				
+		log.info("lst size : " + lst.size());
+		log.info("mopdto : " + mOPDto.toString());
+		
 		model.addAttribute("orderlogList", lst);
 		model.addAttribute("pagingDto", mOPDto);
 		

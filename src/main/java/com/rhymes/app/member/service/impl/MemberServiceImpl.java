@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.rhymes.app.admin.events.model.CouponDetailDTO;
 import com.rhymes.app.common.util.MypageUtils;
 import com.rhymes.app.member.dao.MemberDAO;
 import com.rhymes.app.member.model.AuthoritiesDTO;
@@ -64,11 +65,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		
 		
-		List<String> coupon = MypageUtils.getRandCoupsTimestampList(1);
+		List<CouponDetailDTO> coupon = MypageUtils.getRandCoupsTimestampList(0,1);
 		MemberCouponDTO coudto = new MemberCouponDTO();
 		
-		for (String cou : coupon) {
-			coudto.setCoup_code(cou);
+		for (CouponDetailDTO cou : coupon) {
+			coudto.setCoup_code(cou.getCoup_code());
 		}
 		coudto.setUserid(bean.getUserid());
 		
