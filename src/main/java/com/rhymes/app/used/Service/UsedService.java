@@ -59,4 +59,6 @@ public interface UsedService {
 
 	public int getCommentCount(CommentsDto cDto);
 
+	public boolean insertSeller(String string);
+
 }
