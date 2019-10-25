@@ -4,7 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,33 +72,40 @@
    <br><br>
    <font style="color: gray;font-size: 15px">조회수 : ${dto.readcount }</font>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <font style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : ${dto.rdate }</font>
+  <font style="color: gray;font-size: 15px;margin-bottom: -5px;">좋아요 : ${dto.likes }</font>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <font style="color: gray;font-size: 15px;margin-bottom: -5px;">등록일 : ${dto.rdate }</font>
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    	 <c:if test="${userloginid ne null}">
- 		<font style="color: gray;font-size: 15px"><a href="#none" id="mybtn"><img src="/img/used-img/report.png" width="25px;"height="25px"style="margin-bottom: 5px">신고하기</a></font>
+ 		<font style="color: gray;font-size: 15px"><a href="#none" id="mybtn">
+ 		<img src="/img/used-img/report.png" width="25px;"height="25px"style="margin-bottom: 5px">신고하기</a></font>
 	 </c:if>
 	 
 	 <br><br>
 	 
-
   	 <div id="b_btn">
   	 <input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
   	 <button type="button" class="wishBtn" style="cursor:pointer;">
+  	
   	<!-- 좋아요 기능 시작!!! -->
   	<c:choose>
-  		<c:when test="${userloginid ne null }">
-  			<c:if test="${login.islike == 'true' }">
+  		<c:when test="${userloginid ne null }"><!-- 멤버P -->
+  			<c:if test="${login.islike == 'true' }"><!-- 좋아요클릭한상태 -->
 	  			<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/likeAf.png" style="width: 35px" height="35px" id="like_img"></a>
   			</c:if>
-			  		<c:if test="${login.islike == 'false' }">
+			
+			<c:if test="${login.islike == 'false' }"><!-- 좋아요클릭하지않은상태 -->
   				<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/like.png" style="width: 35px" height="35px" id="like_img"></a>
   			</c:if>
+  			<c:if test="${empty login.userid  }"><!-- 멤버p가 아닌 관리자, 판매자, 등등 -->
+  				<a href="#none" class="admin"><img alt="" src="/img/used-img/likeAf.png" style="width: 35px" height="35px"></a>
+  			</c:if>
   		</c:when>
-  	<c:otherwise>
-  		<a href="#none" class="gologin"><img alt="" src="/img/used-img/like.png" style="width: 35px" height="35px"></a>
-  	</c:otherwise>
-  	
+	  	<c:otherwise><!-- 멤버P가 아닌 회원 -->
+	  		<a href="#none" class="gologin"><img alt="" src="/img/used-img/likeAf.png" style="width: 35px" height="35px"></a>
+	  	</c:otherwise>
   	</c:choose>
+  	
   	</button>  	
 	<br><br>	
 	<font style="color: gray;font-size: 15px;margin-bottom: -5px;">거래지역 : ${dto.place }</font>
@@ -218,6 +224,10 @@
   </div>
 
 <script type="text/javascript">
+
+$(".admin").click(function() {
+	alert("개인회원만 좋아요 기능을 사용 할 수 있습니다");
+})
 
 $("#_notesbtn").click(function() {
 	var send_id =  "${dto.s_id}";

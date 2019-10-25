@@ -52,13 +52,9 @@ public class UsedController {
 	
 	@GetMapping("usedlist")	// 중고장터 판매목록을 불러온다
 	public String usedlist(Model model,BbsParam param,Principal prc, HttpServletRequest req) {
-		
-		
-		
 		if(prc != null) {
 			P_MemberDTO Pdto = usedService.getMemberDto(prc.getName());
 			req.getSession().setAttribute("login", Pdto);
-			
 		}
 		
 		int totalRecordCount = usedService.getBbsCount(param);
@@ -312,15 +308,12 @@ public class UsedController {
 	@PostMapping("popupAf")	// 인증 완료 후 도착하는 컨트롤러
 	public void popupAf(String s_id, @RequestParam(required = false, defaultValue="") String postcode,
 			@RequestParam(required = false, defaultValue="") String address, @RequestParam(required = false, defaultValue="") String detailaddress,
-			HttpServletRequest req) {
+			HttpServletRequest req,Principal prc) {
 		
 		if(postcode.equals("") || postcode == null || address.equals("") || address == null || 
 				detailaddress.equals("") || detailaddress == null) {
 			boolean b  = usedService.setSellerMember(s_id);
-			if(b) {
-			} else {
-			}
-		
+			boolean c = usedService.insertSeller(prc.getName());
 		} else {
 			
 			((P_MemberDTO)req.getSession().getAttribute("login")).setPostcode(postcode);
@@ -328,10 +321,7 @@ public class UsedController {
 			((P_MemberDTO)req.getSession().getAttribute("login")).setDetailAddress(detailaddress);		// 세션에 담겨있는 정보를 수정해 줌..(일단 작업하기위해서)
 			
 			boolean b = usedService.setSellerMember((P_MemberDTO)req.getSession().getAttribute("login"));		// 오버라이딩해서 매개변수를 다르게 설정해주었다 (복습)
-			
-			if(b) {
-			} else {
-			}
+			boolean c = usedService.insertSeller(prc.getName());
 		}
 		
 	}
@@ -489,11 +479,7 @@ public class UsedController {
 		
 		
 		boolean b = usedService.UsedUpdate(dto);
-		
-		if(b) {
-		} else {
-		}
-		
+
 		return "redirect:/used/hello";
 	}
 	
@@ -581,9 +567,7 @@ public class UsedController {
 	    System.out.println(set);
 
 	    JSONObject result = coolsms.send(set); // 보내기&전송결과받기
-	    
-	    
-	    
+
 	    if ((boolean)result.get("status") == true) {
 	      // 메시지 보내기 성공 및 전송결과 출력
 	      System.out.println(result.get("group_id")); // 그룹아이디
