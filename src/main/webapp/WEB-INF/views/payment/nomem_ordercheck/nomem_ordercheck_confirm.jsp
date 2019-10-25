@@ -21,6 +21,8 @@
 			<div class="ordercheck_confirm_title" align="center">
 				<b class="ordercheck_confirm_title_font">비회원 주문내역 및 배송조회</b>
 			</div>
+			<hr color="lightgray">
+			<br><br>
 			<div class="ordercheck_confirm_content" align="center">
 				<table>
 					<tr>
@@ -41,6 +43,7 @@
 				<li>구매번호는 발송된 이메일에서 확인하실 수 있습니다.</li>
 				<li>구매번호가 생각나지 않는 경우, 고객센터(1588-4763)로 문의 부탁드립니다.</li>
 			</ul>
+			<br><br>
 
 		</div>
 	</form>

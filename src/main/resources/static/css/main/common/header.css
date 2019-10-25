@@ -65,9 +65,11 @@
 }
 
 .mwRadioL{
+	cursor:pointer;
    border-radius: 10px;
    width:135px;
    height:45px;
+   padding:10px;
    background: white;
    font: Open Sans 30px;
    color: black; 
