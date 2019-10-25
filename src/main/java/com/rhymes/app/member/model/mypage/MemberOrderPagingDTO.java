@@ -28,7 +28,7 @@ public class MemberOrderPagingDTO {
     private int recordCountPerPage = 3;
         
     /** 현재 페이지의 시작 seq     */
-    private int startSeq = 1;
+    private int startSeq = 0;
      
     /** 현재 페이지의 끝 seq */
     private int endSeq = 10;
