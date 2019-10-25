@@ -9,14 +9,6 @@
 <head> 
  <meta charset="UTF-8">
  
- 
- 
-<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
-<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
-
-
- 
-
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -25,23 +17,6 @@
 
     <!-- Responsive CSS -->
     <link href="/css/main/responsive/responsive.css" rel="stylesheet">
-    
-    
-    
-    <style>
-
-
-
-</style>
-<script>
-  window.console = window.console || function(t) {};
-</script>
-<script>
-  if (document.location.search.match(/type=embed/gi)) {
-    window.parent.postMessage("resize", "*");
-  }
-</script>
-
 
 </head> 
 
