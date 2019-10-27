@@ -13,7 +13,7 @@ function func_constraints(){
 		alert("본인인증을 해주세요");
 		$("#to").focus();
 		constraints = false;
-		$("checkbox[name='payment_method']").prop('checked', false); // 전체해제하기
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -21,6 +21,7 @@ function func_constraints(){
 		alert("주문하는 분 이름을 입력해주세요");
 		$("#send_name").focus();
 		constraints = false;
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -28,7 +29,7 @@ function func_constraints(){
 		alert("주문하는 분 번호를 입력해주세요");
 		$("#send_phone1").focus();
 		constraints = false;
-		$("checkbox[name='payment_method']").prop('checked', false); // 전체해제하기
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -97,12 +98,9 @@ function paymens(){
 
 	}
 
-	//alert("결제2");
 	alert("총 : "+parseInt(totalprice));
-	var add_point = parseInt(totalprice) * 0.02;
-	
-	alert(add_point);
-	alert(parseInt(add_point) + 1);
+	// parseInt를 했기때문에 소수점자리는 잘라진다 예) 42.6 -> 42
+	var add_point = parseInt(parseInt(totalprice) * 0.02);
 	
 	$("#add_point").val( add_point );
 	$("#disc_coupon").val( parseInt($("#_disc_coupon").text()) );
@@ -120,7 +118,7 @@ function paymens(){
 	    pg : "html5_inicis",
 	    pay_method : radioVal,
 	    merchant_uid : "merchant_" + new Date().getTime(),
-	    name : "주문명:결제테스트",
+	    name : "RHYMESb 구매",
 	    amount : totalprice,
 	    buyer_name : send_name,
 	    buyer_tel : send_phone,
