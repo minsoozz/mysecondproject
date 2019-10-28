@@ -29,7 +29,7 @@
     </c:if>
 
 	<c:if test = "${dto.mainbanner_type eq 'PHOTO'}" >
-    	<img src="/upload/mainresource/${dto.mainbanner_file}"></img>     
+    	<img src="/upload/mainresource/${dto.mainbanner_file}" style="width: 1850px; height: 800px"></img>     
     </c:if>
    </div>
 
@@ -124,29 +124,27 @@
     </section>
     <!-- ****** Welcome Area End ****** -->
 
-
    <br><br><br><br><br><br>
 
     <!-- 추천 상품 메인픽  -->
    <div align="center">
      <section id="mainpick1">
-     </section>
+		<img src="/upload/mainresource/${dto.photo1_file}" style="width: 1300px; height: 800px;"></img>
+	 </section>		    
      <h3 style="color: black">${dto.photo1_title}</h3>
      <br>
-     <p style="font-size: 15px">${dto.photo1_content}</p>
-     
-     
+     <p style="font-size: 15px">${dto.photo1_content}</p>     
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br><br><br>
+   
    
     <div align="center">
     <video src='/upload/mainresource/${dto.video1_file} width="90%" height="10%" loop="loop" autoplay="autoplay"'></video>
      <br><br>
      <h3 style="color: black">${dto.video1_title}</h3>
      <br> 
-	<p style="font-size: 15px">${dto.video1_content}</p>    
-     <br>
+	<p style="font-size: 15px">${dto.video1_content}</p>
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br><br><br>
@@ -159,7 +157,6 @@
      <h3 style="color: black">${dto.photo2_title}</h3>
      <br> 
 	<p style="font-size: 15px">${dto.photo2_content}</p>    
-     <br>
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br><br><br>
@@ -171,9 +168,7 @@
      <h3 style="color: black">${dto.video2_title}</h3>
      <br> 
 	<p style="font-size: 15px">${dto.video2_content}</p>    
-     <br>
      <a href="#" class="mainbuybtn">구매하기</a>
-     <!-- a href에 #넣고 아이디적으면 글루 이동한다!~ 디테일에서 써먹기 ~! -->
    </div>
    <br><br><br><br><br><br>
     <!-- 추천 상품 끝 -->
