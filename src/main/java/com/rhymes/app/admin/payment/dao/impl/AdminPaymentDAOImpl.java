@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.admin.payment.dao.AdminPaymentDAO;
 import com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO;
+import com.rhymes.app.admin.payment.model.AdminPaymentParam;
 import com.rhymes.app.payment.model.PaymentDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +23,18 @@ public class AdminPaymentDAOImpl implements AdminPaymentDAO {
 
 	// 관리자페이지 결제내역조회
 	@Override
-	public List<PaymentDTO> getOrderSuccess() {
-		List<PaymentDTO> orderSuccess = SqlSession.selectList(ap + "getOrderSuccess");
+	public List<PaymentDTO> getOrderSuccessList(AdminPaymentParam param) {
+		log.warn("AdminPaymentDAOImpl param : " + param.toString());
+		List<PaymentDTO> orderSuccess = SqlSession.selectList(ap + "getOrderSuccessList", param);
 		return orderSuccess;
+	}
+
+	// 관리자페이지 결제내역 총 개수
+	@Override
+	public int getOrderSuccessCount(AdminPaymentParam param) {
+		log.warn("AdminPaymentDAOImpl param : " + param.toString());		
+		int listCount = SqlSession.selectOne(ap + "getOrderSuccessCount", param);
+		return listCount;
 	}
 
 	// 관리자페이지 결제상상세내역조회

@@ -4,15 +4,52 @@
 <mapper namespace="adminPayment">
 
 <!-- 관리자페이지 결제내역조회 -->
-<!-- 검색 : 회원ID, 회원이름, 주문번호, 결제상태, 결제수단 
+<!-- 검색 : 회원ID, 회원이름, 주문번호, 결제상태, 결제수단
 	  정렬 : 총 결제금액, 최신순 -->
-<select id="getOrderSuccess" resultType="com.rhymes.app.payment.model.PaymentDTO">
+<select id="getOrderSuccessList" parameterType="com.rhymes.app.admin.payment.model.AdminPaymentParam" resultType="com.rhymes.app.payment.model.PaymentDTO">
 SELECT PAYMENT_CODE, USERID, SEND_NAME, COUPON_CODE, PAYMENT_METHOD, PAYMENT_STATUS, TOTALPRICE, RDATE
+FROM
+	(SELECT ROW_NUMBER()OVER(ORDER BY RDATE DESC) AS RNUM, PAYMENT_CODE, USERID, SEND_NAME, COUPON_CODE, PAYMENT_METHOD, PAYMENT_STATUS, TOTALPRICE, RDATE
+	FROM RHY_PAYMENT
+	WHERE 1=1
+		<if test="s_category != null and s_category != ''">
+			<if test="s_category == 'id'">
+				AND USERID LIKE '%' #{s_category} '%'
+			</if>
+			<if test="s_category == 'name'">
+				AND SEND_NAME LIKE '%' #{s_category} '%'
+			</if>
+			<if test="s_category == 'payment_method'">
+				AND PAYMENT_METHOD LIKE '%' #{s_category} '%'
+			</if>
+			<if test="s_category == 'payment_status'">
+				AND PAYMENT_STATUS LIKE '%' #{s_category} '%'
+			</if>
+		</if>
+	) B
+WHERE RNUM BETWEEN ${start} AND ${end}
+ORDER BY RDATE DESC
+</select>
+
+<!-- 관리자페이지 결제상내역 총 개수 -->
+<select id="getOrderSuccessCount" parameterType="com.rhymes.app.admin.payment.model.AdminPaymentParam" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*), 0)
 FROM RHY_PAYMENT
 WHERE 1=1
-	<!-- <if test="">
-	</if> -->
-ORDER BY RDATE DESC
+	<if test="s_category != null and s_category != ''">
+		<if test="s_category == 'id'">
+			AND USERID LIKE '%' #{s_category} '%'
+		</if>
+		<if test="s_category == 'name'">
+			AND SEND_NAME LIKE '%' #{s_category} '%'
+		</if>
+		<if test="s_category == 'payment_method'">
+			AND PAYMENT_METHOD LIKE '%' #{s_category} '%'
+		</if>
+		<if test="s_category == 'payment_status'">
+			AND PAYMENT_STATUS LIKE '%' #{s_category} '%'
+		</if>
+	</if>
 </select>
 
 <!-- 관리자페이지 결제상세내역조회 -->
