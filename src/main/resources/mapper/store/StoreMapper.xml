@@ -79,10 +79,13 @@
 				</if>
 			GROUP BY a.P_SEQ	
 			)A
- 	WHERE RNUM BETWEEN ${start} AND #{end}
-
+ 	WHERE 
+		<if test="key != 'newarrival' or key == ''">
+			RNUM BETWEEN ${start} AND #{end}
+		</if>
+		
  		<if test="key == 'newarrival'">
- 			AND (a.RDATE BETWEEN DATE_ADD(NOW(),INTERVAL -1 DAY ) AND NOW())
+ 			RNUM BETWEEN 1 AND 12
  		</if>	
 
  	ORDER BY 

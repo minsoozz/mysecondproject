@@ -30,7 +30,15 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="qnalist" name="frmForm1" id="_frmFormSearch" method="POST">
+
+				<form action="qnalist" name="frmForm1" id="_frmFormSearch" method="GET">
+				
+				<input type="hidden" name="s_category" id="_s_category" value="${s_category}"> 
+				<div id="button.wrap" style="float: right; margin-bottom: 10px;">
+							<button type="button" class="clickBtn2" onclick="changebtn('')" <c:if test="${empty s_category}">id="_btnthis"</c:if>>전체보기</button>
+							<button type="button" class="clickBtn2" onclick="changebtn('0')" <c:if test="${s_category eq '0'}">id="_btnthis"</c:if>>미답변</button>
+							<button type="button" class="clickBtn2" onclick="changebtn('1')" <c:if test="${s_category eq '1'}">id="_btnthis"</c:if>>답변완료</button>
+				</div>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 				 
 				<jsp:useBean id="uqna" class="com.rhymes.app.customer.util.QnaArrow" scope="page"/>    
@@ -55,7 +63,7 @@
 				<tr class="_hover_tr">
 					<td>${vs.count }</td>
 					<td>${qna.category }</td>
-					<td style="text-align: left;">
+					<td style="text-align: left; ">
 					
 					<jsp:setProperty property="depth" name="uqna" value="${qna.depth }"/>
 					<jsp:getProperty property="arrow" name="uqna"/> <!-- getArrow 호출 -->
@@ -111,10 +119,19 @@
 <script type="text/javascript">
 
 function goPage( pageNumber ) {
-	
 	$("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
-	$("#_frmFormSearch").attr("action", "qnalist").submit(); //
-	
+	$("#_frmFormSearch").attr("action", "qnalist").submit(); //	
 }
+
+
+$("#_btnthis").css("background-color", "#66e0b4");
+$("#_btnthis").css("color", "white");
+
+
+function changebtn( s_category ) {
+	$("#_s_category").val(s_category);
+	$("#_frmFormSearch").attr("action", "qnalist").submit(); //
+}
+
 
 </script>

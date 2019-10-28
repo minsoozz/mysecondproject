@@ -66,9 +66,9 @@
 					<div>
 					<!-- 코어태그 추가하기 -->
 						
-							<button type="button" class="clickBtn" onclick="NoticeDelete('${noticedto.seq }')">삭제</button>
+							<button type="button" class="clickBtn2" onclick="NoticeDelete('${noticedto.seq }')">삭제</button>
 						
-							<button type="button" class="clickBtn" onclick="NoticeUpdate('${noticedto.seq }')">수정</button>
+							<button type="button" class="clickBtn2" onclick="NoticeUpdate('${noticedto.seq }')">수정</button>
 						
 					
 					</div>

@@ -26,10 +26,10 @@
 	    	<div id="sidebar_wrap"> 
 		      <tiles:insertAttribute name="left_menu"/>
 		    </div>   
-			<div id="content_wrap"> 
+			<div id="content_wrap" style="margin-top: 30px;"> 
 			  	<div id="content_title_wrap">
 					<div class="title" style="float: left; font-size: 24px">${doc_title }</div>
-					<div class="sub" style="float: left; font-size: 12px">${doc_sub }</div>
+					<div class="sub" style="float: left; font-size: 13px; padding-top: 5px; padding-left: 5px;" >${doc_sub }</div>
 				</div>
 		      <tiles:insertAttribute name="body"/> <!-- body -->
 	    	</div>  

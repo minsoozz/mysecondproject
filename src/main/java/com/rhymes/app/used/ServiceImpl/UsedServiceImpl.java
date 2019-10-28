@@ -155,6 +155,10 @@ public class UsedServiceImpl implements UsedService {
 		// TODO Auto-generated method stub
 		return usedDao.getCommentCount(cDto);
 	}
-	
-	
+
+	@Override
+	public boolean insertSeller(String id) {
+		// TODO Auto-generated method stub
+		return usedDao.insertSeller(id);
+	}
 }

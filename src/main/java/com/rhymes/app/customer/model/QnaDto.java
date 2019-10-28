@@ -24,5 +24,6 @@ public class QnaDto {
 	private String wdate;
 	private String orderno;
 	private String filename;
+	private int feedback;
 	
 }

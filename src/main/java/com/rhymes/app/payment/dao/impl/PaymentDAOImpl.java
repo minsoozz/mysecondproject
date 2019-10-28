@@ -113,6 +113,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 			// 만료 예정인 유효 적립금 하나를 가져온다
 			list = SqlSession.selectList(p + "getPointLastById", xmlDTO);
+			log.warn("만료 예정인 유효 적립금 : " + list.toString());
+			log.warn("list.get(0).getSeq() : " + list.get(0).getSeq());
+			log.warn("list.get(0).getPoint() : " + list.get(0).getPoint());
 			xmlDTO.setSeq(list.get(0).getSeq());
 			xmlDTO.setPoint(list.get(0).getPoint());
 			

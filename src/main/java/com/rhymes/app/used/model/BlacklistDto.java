@@ -17,10 +17,11 @@ import lombok.ToString;
 public class BlacklistDto implements Serializable {
 	private int seq;
 	private String b_id;
+	private int b_seq;
 	private String reporter;
 	private String content;
 	private String rdate;
-	private int review;
+	private String blackcount;
 }
 
 /*

@@ -32,11 +32,14 @@ public class QnaController {
 	private QnaService qnaService;
 	
 	//qna list
-	@RequestMapping(value = "/qnalist", method = {RequestMethod.GET, RequestMethod.POST})
-	public String qnalist(Model model, CustomerParam param) {
+	@RequestMapping(value = "/qnalist")
+	public String qnalist(Model model, CustomerParam param ,Principal pcp) {
 		
 		model.addAttribute("doc_title", "1:1 문의");
 		
+		String id = pcp.getName();
+		
+		param.setId(id);
 		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
