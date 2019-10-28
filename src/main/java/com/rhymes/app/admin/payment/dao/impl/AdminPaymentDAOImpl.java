@@ -26,14 +26,16 @@ public class AdminPaymentDAOImpl implements AdminPaymentDAO {
 	public List<PaymentDTO> getOrderSuccessList(AdminPaymentParam param) {
 		log.warn("AdminPaymentDAOImpl param : " + param.toString());
 		List<PaymentDTO> orderSuccess = SqlSession.selectList(ap + "getOrderSuccessList", param);
+		log.warn("리스트 tostring : " + orderSuccess.toString());
 		return orderSuccess;
 	}
 
 	// 관리자페이지 결제내역 총 개수
 	@Override
 	public int getOrderSuccessCount(AdminPaymentParam param) {
-		log.warn("AdminPaymentDAOImpl param : " + param.toString());		
+		log.warn("AdminPaymentDAOImpl param : " + param.toString());
 		int listCount = SqlSession.selectOne(ap + "getOrderSuccessCount", param);
+		log.warn("리스트 총 글 수 : " + listCount);
 		return listCount;
 	}
 

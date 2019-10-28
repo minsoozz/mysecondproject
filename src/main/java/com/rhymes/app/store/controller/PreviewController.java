@@ -23,7 +23,7 @@ import com.rhymes.app.customer.model.CustomerParam;
 public class PreviewController {
 
 	@Autowired PreviewService previewService;
-	
+	 
 	//리스트가져오기
 	@RequestMapping(value = "/previewlist", method = {RequestMethod.GET, RequestMethod.POST})
 	public String faqlist(Model model, DetailParam param ,Principal pcp){
@@ -58,6 +58,32 @@ public class PreviewController {
 		return "previewlist.tiles";
 	}
 	
+	@GetMapping(value="/getlikes")	//좋아요 여부
+	@ResponseBody
+		public String getlikes(int review_seq ,Principal pcp) {
+		
+		String id = pcp.getName();
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("review_seq", review_seq);
+		map.put("id", id);
+		
+		//System.out.println(review_seq);
+		//System.out.println(id);
+		
+		
+		 boolean b = previewService.getlikes(map);
+		 //System.out.println(b);
+		 int num;	// ajax 리턴 변수
+		 if(b) {	// 회원의 좋아요 여부 확인
+			 num = 1;
+		 } else {
+			 num = 0;
+		 }
+
+		return num+"";
+	}
 	
 	@GetMapping(value="/addlikes")	// 도움돼요, 추가 삭제
 	@ResponseBody
@@ -74,9 +100,11 @@ public class PreviewController {
 		 int num;	// ajax 리턴 변수
 		 if(b) {	// 회원의 좋아요 여부 확인
 			 previewService.deletelikes(map);
+			 
 			 num = 0;
 		 } else {
 			 previewService.addlikes(map);
+			
 			 num = 1;
 		 }
 
@@ -86,21 +114,23 @@ public class PreviewController {
 	
 	@GetMapping(value="/uptotalcount")	// 좋아요 수 올리기
 	@ResponseBody
-		public int uptotalcount(int seq , DetailParam param ) {
+		public int uptotalcount(int review_seq , DetailParam param ) {
 		
-		param.setSeq(seq);
+		param.setSeq(review_seq);
 		
-		 int num = previewService.uptotalcount(param);
+		 previewService.uptotalcount(param);
+		 int num = previewService.liketotalcount(param);
 		
 		return num;
 	}
 	
 	@GetMapping(value="/downtotalcount")	// 좋아요 수 올리기
 	@ResponseBody
-		public int downtotalcount(int seq , DetailParam param ) {
-		param.setSeq(seq);
-		 int num = previewService.downtotalcount(param);
+		public int downtotalcount(int review_seq , DetailParam param ) {
 		
+		param.setSeq(review_seq);
+		 previewService.downtotalcount(param);
+		 int num = previewService.liketotalcount(param);
 		return num;
 	}
 }

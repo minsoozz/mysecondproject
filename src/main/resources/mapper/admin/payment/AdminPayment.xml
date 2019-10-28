@@ -4,8 +4,7 @@
 <mapper namespace="adminPayment">
 
 <!-- 관리자페이지 결제내역조회 -->
-<!-- 검색 : 회원ID, 회원이름, 주문번호, 결제상태, 결제수단
-	  정렬 : 총 결제금액, 최신순 -->
+<!-- 검색 : 회원ID, 회원이름, 주문번호, 결제상태, 결제수단  -->
 <select id="getOrderSuccessList" parameterType="com.rhymes.app.admin.payment.model.AdminPaymentParam" resultType="com.rhymes.app.payment.model.PaymentDTO">
 SELECT PAYMENT_CODE, USERID, SEND_NAME, COUPON_CODE, PAYMENT_METHOD, PAYMENT_STATUS, TOTALPRICE, RDATE
 FROM
