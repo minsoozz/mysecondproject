@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>상품조회</title>
+<style>
+#dataTable{
+	font-size: 12px;
+}
+</style>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/admin/member/memberlist.css">
 <link rel="stylesheet" type="text/css"
@@ -50,10 +55,13 @@
 									<option selected="selected" value="SEQ"
 										<c:out value="${param.sorting == 'SEQ'? 'selected':'' }"/>>상품번호순</option>
 									<option value="PRICEUP"
-										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격 ↑</option>
+										<c:out value="${param.sorting == 'PRICEUP'? 'selected':'' }"/>>가격↑</option>
 									<option value="PRICEDOWN"
-										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격 ↓</option>
-									<option value="">판매량순</option>																	
+										<c:out value="${param.sorting == 'PRICEDOWN'? 'selected':'' }"/>>가격↓</option>
+									<option value="SALESUP"
+										<c:out value="${param.sorting == 'SALESUP'? 'selected':'' }"/>>판매량↑</option>	
+									<option value="SALESDOWN"
+										<c:out value="${param.sorting == 'SALESDOWN'? 'selected':'' }"/>>판매량↓</option>
 								</select>
 								&nbsp;
 								<button type="button" onclick="location.href='/admin/company/productlist'"
@@ -172,7 +180,7 @@
 								<!-- 12 -->
 								<td class="">${pro.sum }</td>
 								<!-- 13 -->
-								<td class="">~</td>
+								<td class="">${pro.salesvolume }</td>
 								<!-- 14 -->
 								<c:if test="${pro.sum ne 0}">
 									<td class="list_rdate"><font style="color:green">판매중</font></td>
