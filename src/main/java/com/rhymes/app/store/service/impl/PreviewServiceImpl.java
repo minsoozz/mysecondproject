@@ -54,17 +54,25 @@ public class PreviewServiceImpl implements PreviewService {
 
 	//총 like 수 올리기
 	@Override
-	public int uptotalcount(DetailParam param) {
+	public boolean uptotalcount(DetailParam param) {
 		
 		return previewDao.uptotalcount(param);
 	}
 
 	//총 like 수 내리기
 	@Override
-	public int downtotalcount(DetailParam param) {
+	public boolean downtotalcount(DetailParam param) {
 		
-		return previewDao.uptotalcount(param);
+		return previewDao.downtotalcount(param);
 	}
 
+	//총 like 수 가져오기
+	@Override
+	public int liketotalcount(DetailParam param) {
+		
+		return previewDao.liketotalcount(param);
+	}
+
+	
 	
 }

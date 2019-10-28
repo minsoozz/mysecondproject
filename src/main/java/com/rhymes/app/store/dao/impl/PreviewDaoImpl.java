@@ -56,20 +56,27 @@ public class PreviewDaoImpl implements PreviewDao {
 
 	//총 like 수 올리기
 	@Override
-	public int uptotalcount(DetailParam param) {
-		sqlSession.update(ns + "uptotalcount", param);
-		int num = sqlSession.selectOne(ns + "liketotalcount",param);
-		return num;
+	public boolean uptotalcount(DetailParam param) {
+		int count = sqlSession.update(ns + "uptotalcount", param);
+		
+		return count > 0 ? true : false;
 	}
 
 	//총 like 수 내리기
 	@Override
-	public int downtotalcount(DetailParam param) {
-		sqlSession.update(ns + "downtotalcount", param);
-		int num = sqlSession.selectOne(ns + "liketotalcount",param);
+	public boolean downtotalcount(DetailParam param) {
+		int count = sqlSession.update(ns + "downtotalcount", param);
+		
+		return count > 0 ? true : false;
+	}
+
+	//총 like 수 가져오기
+	@Override
+	public int liketotalcount(DetailParam param) {
+		int num = sqlSession.selectOne(ns + "liketotalcount", param);
 		return num;
 	}
 
-	
+
 	
 }

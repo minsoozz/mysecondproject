@@ -46,7 +46,7 @@
 		${fn:substring(review.rdate,0,10)}
 	</td>
 	<td>
-		${review.likes_cnt }
+	<span id='cnt${review.seq}'>${review.likes_cnt }</span> 
 	</td>
 	
 </tr>
@@ -100,8 +100,8 @@ function reviewdetail(seq){
 	}else{
 		$("#detail"+seq).hide();
 	}
-	
-	likebtn(seq);
+	getlikes(seq);
+	//likebtn(seq);
 }
 
 
@@ -126,19 +126,47 @@ $('.likebtn1').click(function() {
 	});
 
  */
-
+ 
+//개인 like 여부
+ function getlikes(seq){
+		
+	 	$.ajax({		// 좋아요 버튼 클릭시
+			url:"/productreview/getlikes",
+			type:"get",
+			data:{
+				review_seq : seq
+			},
+				success:function(num){ 
+					if(num == 1){
+						
+						$("#_btnthis"+seq).css("background-color", "rgb(207,236,64)");
+					} else if (num == 0){
+						
+						$("#_btnthis"+seq).css("background-color", "rgb(255,255,255)");
+					}
+				},
+				error:function(e){
+					alert("실패");
+				}
+		}) 
+	};
+ 
+ 
 function likebtn(seq){
 	
  	$.ajax({		// 좋아요 버튼 클릭시
 		url:"/productreview/addlikes",
 		type:"get",
-		data:{review_seq : seq
+		data:{
+			review_seq : seq
 		},
 			success:function(num){ 
 				if(num == 1){
+					
 					UpTotalLike(seq);
-					$("#_btnthis"+seq).css("background-color", "rgb(207, 236, 64)");
+					$("#_btnthis"+seq).css("background-color", "rgb(207,236,64)");
 				} else if (num == 0){
+					
 					DownTotalLike(seq);
 					$("#_btnthis"+seq).css("background-color", "rgb(255,255,255)");
 				}
@@ -149,8 +177,9 @@ function likebtn(seq){
 			}
 	}) 
 };
-
+//전체 like수 증가
 function UpTotalLike(seq){
+	
 	$.ajax({
 		url:"/productreview/uptotalcount",
 		type:"get",
@@ -158,13 +187,15 @@ function UpTotalLike(seq){
 			review_seq : seq
 		},
 		success:function(num){
-		//	$("#_likes").html(count);
+		//	alert("증가 성공");
+			$("#cnt"+seq).html(num);
 		},
 		error:function(e){
 			//alert("error");
 		}
 	})
 };
+//전체 like수 감소
 function DownTotalLike(seq){
 	$.ajax({
 		url:"/productreview/downtotalcount",
@@ -173,7 +204,8 @@ function DownTotalLike(seq){
 			review_seq : seq
 		},
 		success:function(num){
-		//	$("#_likes").html(count);
+			//alert(" 다운 성공");
+			$("#cnt"+seq).html(num);
 		},
 		error:function(e){
 		//	alert("error");
