@@ -72,6 +72,18 @@ public class AdminUsedServiceImpl implements AdminUsedService {
 		// TODO Auto-generated method stub
 		return adminUsedDao.getAdminSellerlist(sparam);
 	}
+
+	@Override
+	public boolean AdminUserLock(String string) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.AdminUserLock(string);
+	}
+
+	@Override
+	public boolean AdminUserUnLock(String string) {
+		// TODO Auto-generated method stub
+		return adminUsedDao.AdminUserUnLock(string);
+	}
 	
 	
 }

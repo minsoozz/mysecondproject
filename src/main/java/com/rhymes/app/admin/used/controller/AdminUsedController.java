@@ -31,7 +31,6 @@ public class AdminUsedController {
 	@GetMapping(value="/admin/memsellerlist")
 	public String memsellerlist(Model model,SellerDto sDto, AdminSParam sparam) {
 		
-		System.out.println(sparam.toString());
 		
 		int totalRecordCount = adminUsedService.getAdminSellerCount(sparam);
 		int sn = sparam.getPageNumber(); // 0 , 1, 2
@@ -158,12 +157,22 @@ public class AdminUsedController {
 	@GetMapping(value="/used/userLock")
 	public String AdminUsedLock(@RequestParam(value = "s_id") List<String> s_id) {
 		
+		for (int i = 0; i < s_id.size(); i++) {
+				
+			boolean b = adminUsedService.AdminUserLock(s_id.get(i));
+		}
+		
 		
 		return "redirect:/admin/memsellerlist";
 	}
 	
 	@GetMapping(value="/used/userUnLock")
 	public String AdminuserUnLock(@RequestParam(value = "s_id") List<String> s_id) {
+		
+		for (int i = 0; i < s_id.size(); i++) {
+			
+			boolean b = adminUsedService.AdminUserUnLock(s_id.get(i));
+		}
 		
 		
 		return "redirect:/admin/memsellerlist";

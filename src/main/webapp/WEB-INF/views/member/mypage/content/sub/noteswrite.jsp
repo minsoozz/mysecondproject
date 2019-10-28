@@ -24,7 +24,7 @@
 		<input type="hidden" value="${userloginid }" name="send_id">
 		받는사람 :&nbsp;<input id="autocomplete" name="recv_id" type="text" onchange="check()" /><span id="idcheck"></span>
 		<hr>
-    	<textarea id="content" name="content" cols="60" rows="14" maxlength="1000"></textarea>
+    	<textarea id="content" name="content" cols="60" rows="14" maxlength="1000" style="resize: none;"></textarea>
 		<div class="wrap">
     	<span id="counter">###</span>
 		</div>

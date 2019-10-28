@@ -48,7 +48,7 @@ public class AdminUsedDaoImpl implements AdminUsedDao {
 	}
 
 	@Override
-	public boolean AdminBanCount(String string) {	// 누적 횟수 증가
+	public boolean AdminBanCount(String string) { // 누적 횟수 증가
 
 		int count = sqlSession.update(ns + "AdminBanCount", string);
 
@@ -56,20 +56,20 @@ public class AdminUsedDaoImpl implements AdminUsedDao {
 	}
 
 	@Override
-	public boolean AdminBanReview(int n) {	// 관리자 확인 처리
+	public boolean AdminBanReview(int n) { // 관리자 확인 처리
 		System.out.println("n " + n);
 		int count = sqlSession.update(ns + "AdminBanReview", n);
 		return count > 0 ? true : false;
 	}
 
 	@Override
-	public boolean AdminBanCancel(int n2) {	// 허위 신고로인한 목록 삭제
+	public boolean AdminBanCancel(int n2) { // 허위 신고로인한 목록 삭제
 		int count = sqlSession.delete(ns + "AdminBanCancel", n2);
 		return count > 0 ? true : false;
 	}
 
 	@Override
-	public int getAdminSellerCount(AdminSParam sparam) {	// 셀러 목록 조회를 위한 개수 
+	public int getAdminSellerCount(AdminSParam sparam) { // 셀러 목록 조회를 위한 개수
 		int count = sqlSession.selectOne(ns + "getAdminSellerCount", sparam);
 
 		return count;
@@ -78,8 +78,23 @@ public class AdminUsedDaoImpl implements AdminUsedDao {
 	@Override
 	public List<BlacklistDto> getAdminSellerlist(AdminSParam sparam) {
 		List<BlacklistDto> list = sqlSession.selectList(ns + "getAdminSellerlist", sparam);
-		
+
 		return list;
+	}
+
+	@Override
+	public boolean AdminUserLock(String string) {
+	
+		int n = sqlSession.update(ns + "AdminUserLock", string);
+
+		return n > 0 ? true : false;
+	}
+
+	@Override
+	public boolean AdminUserUnLock(String string) {
+		int n = sqlSession.update(ns + "AdminUserUnLock", string);
+
+		return n > 0 ? true : false;
 	}
 	
 }

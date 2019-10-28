@@ -32,7 +32,6 @@
  <a href="#none" onclick="category(this)" val="여성의류">여성 의류</a>
  <a href="#none" onclick="category(this)" val="패션잡화">패션 잡화</a>
  <a href="#none" onclick="category(this)" val="뷰티미용">뷰티 미용</a>
- <a href="#none" onclick="category(this)" val="무료나눔">무료 나눔</a>
  
  <c:if test="${login.userid ne null}">
  <a href="#none" id="usedwrite">판매 등록</a>
@@ -97,13 +96,13 @@ $(document).ready(function() {
 
 function popupOpen(){
 	var url= "popup";    //팝업창 페이지 URL
-	var winWidth = 600;
-    var winHeight = 600;
+	var winWidth = 400;
+    var winHeight = 470;
     
-    var popupX = (window.screen.width / 2) - (580 / 2);
+    var popupX = (window.screen.width / 2) - (400 / 2);
  	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
 
- 	var popupY= (window.screen.height / 2) - (700 / 2);
+ 	var popupY= (window.screen.height / 2) - (500 / 2);
  	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
     
     

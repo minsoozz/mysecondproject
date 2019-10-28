@@ -40,7 +40,6 @@
 	<option value="여성의류" >여성의류</option>
 	<option value="패션잡화" >패션잡화</option>
 	<option value="뷰티/미용">뷰티/미용</option>
-	<option value="무료나눔">무료나눔</option>	
 </select>
 </td>
 </tr>
@@ -48,7 +47,7 @@
 <tr>
 <td><label>거래지역:</label></td>
 <td><input type="text" id="sample6_address" name="place" readonly="readonly" style="background: #e5e5e5" size="30">
-&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색"></td>
+&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색" class="rhybtn"></td>
 </tr>
 
 <tr>
@@ -63,9 +62,8 @@
 
 <tr>
 <td><label>설명:</label></td>
-<td><textarea rows="10" cols="50" id="_content" name="content"></textarea></td>
+<td><textarea rows="10" cols="50" id="_content" name="content" style="resize: none;"></textarea></td>
 </tr>
-
 
 <tr>
 <td><label>수량:</label></td>
@@ -76,19 +74,15 @@
 <tr>
 <td><label>사진:</label>
 </td>
-<td><button type="button" id="_add" class="add">사진 추가</button></td>
-</tr>
-
-<tr>
-<td></td>
-<td><input type="file" name="files" id="_image" class="image"><button type="button" id="_del">삭제</button>
+<td><input multiple="multiple" type="file" name="files" id="_image" class="image" onchange="check()">
 </td>
 </tr>
+
 </tbody>
 </table>
 
 	<div id="_bdiv">
-		<button type="button" id="_wbtn" name="wbtn">작성 완료</button>
+		<button type="button" id="_wbtn" name="wbtn" class="rhybtn">작성 완료</button>
 	</div>
 </form>
 </div>
@@ -99,7 +93,27 @@
 <script type="text/javascript">
 var sel_files = [];
 
-var count = 0;
+function check(){
+	
+	var x = document.getElementById("_image");
+	var txt = "";
+	if ('files' in x) {
+	    if (x.files.length > 5) {
+	        alert("파일 개수가 초과되었습니다.");
+	        document.getElementById("_image").value = "";
+	        $(".img").remove();
+	        return;
+	    }
+	}
+	
+	if( $("#_image").val() == "" || $("#_image").val() == null ){
+		$(".img").remove();
+		
+	}
+	
+	$(".img").remove();
+}
+
 
 $(document).ready(function() {
 	$("#_wbtn").click(function() {
@@ -134,10 +148,10 @@ $(document).ready(function() {
 			return;
 		}
 		
-		/*if( $("._image").val() == "" || $("._image").val() == null ){
+		if( $("#_image").val() == "" || $("#_image").val() == null ){
 			alert("사진을 등록해주세요");
 			return;
-		}*/
+		}
 		
 		$("#_wform").submit();
 	});
@@ -145,22 +159,6 @@ $(document).ready(function() {
 	
    $(document).on("change", ".image", handleImgsFilesSelect);
    
-
-   $("#_add").click(function() {
-	   
-	   
-	   if(count >= 4){
-		   alert("사진은 최대 5장까지 추가 할 수 있습니다");
-		   return;
-	   } 
-	   else {
-		   var table = document.getElementById("tb");
-		   $('#mybody').append("<tr><td></td><td><input type='file' name='files' id='_image' class='image'><button type='button' id='_del' class='del'>삭제</button></td></tr>");	  
-		   count++;
-	   }
-	   
-   });
-
 });
 
 $(document).on("mouseover",".img", function(e) {
@@ -209,13 +207,7 @@ function maxLengthCheck(object){
 
 $(document).on("click",".del", function() {
 	$(this).parent().remove();
-	count--;
-})
-
-$("#_del").click(function() {
-	if(count == 0) {
-		alert("사진은 최소 1장 입니다");
-	}
+	
 })
 
 
