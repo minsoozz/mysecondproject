@@ -33,16 +33,16 @@
 		<div class="card-body">
 			<div class="table-responsive">
 				<div class="row">
-					<form id="_payment_frm" name="payment_frm">
+					<!-- <form id="_payment_frm" name="payment_frm"> -->
 						<div class="col-sm-12 col-md-6">		
 							<div class="dataTables_length" id="dataTable_length">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								
 								<select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable" onchange="dataTable_length()" class="custom-select custom-select-sm form-control form-control-sm">
-									<option value="3" <c:out value="${recordCountPerPage == '3'? 'selected':'' }"/>>3</option>
-									<option value="5" <c:out value="${recordCountPerPage == '5'? 'selected':'' }"/>>5</option>
-									<option value="10" <c:out value="${recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
-									<option value="20" <c:out value="${recordCountPerPage == '20'? 'selected':'' }"/>>20</option>
+									<option value="3" <c:out value="${param.recordCountPerPage == '3'? 'selected':'' }"/>>3</option>
+									<option value="5" <c:out value="${param.recordCountPerPage == '5'? 'selected':'' }"/>>5</option>
+									<option value="10" <c:out value="${param.recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
+									<option value="20" <c:out value="${param.recordCountPerPage == '20'? 'selected':'' }"/>>20</option>
 								</select>
 							</div>
 						</div>
@@ -52,23 +52,23 @@
 							<div id="dataTable_filter" class="searchPosition dataTables_filter">
 								<select class="custome-select border-0 pr-3 searchSelect" id="_select" name="s_category">
 									<option selected value="">전체</option>
-									<option value="id" <c:out value="${s_category == 'id'? 'selected':'' }"/>>아이디</option>
-									<option value="name" <c:out value="${s_category == 'name'? 'selected':'' }"/>>이름</option>
-									<option value="payment_method" <c:out value="${s_category == 'payment_method'? 'selected':'' }"/>>결제수단</option>
-									<option value="payment_status" <c:out value="${s_category == 'payment_status'? 'selected':'' }"/>>결제상태</option>
+									<option value="id" <c:out value="${param.s_category == 'id'? 'selected':'' }"/>>아이디</option>
+									<option value="name" <c:out value="${param.s_category == 'name'? 'selected':'' }"/>>이름</option>
+									<option value="payment_method" <c:out value="${param.s_category == 'payment_method'? 'selected':'' }"/>>결제수단</option>
+									<option value="payment_status" <c:out value="${param.s_category == 'payment_status'? 'selected':'' }"/>>결제상태</option>
 								</select>
 								<input type="text" id="_s_keyword" name="s_keyword" class="searchText form-control-sm" placeholder="search..."
-										aria-controls="dataTable" style="width: 150px" value="${s_keyword }">
+										aria-controls="dataTable" style="width: 150px" value="${param.s_keyword }">
 								<button class="btn btn-primary" type="button">
 									<i class="fas fa-search fa-sm" id="_btnSearch"></i>
 								</button>
 								<!-- hidden 을 통해서 값을 넘겨주기 -->
 								<input type="hidden" name="pageNumber" id="_pageNumber" value="0">
-								<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
+								<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty param.recordCountPerPage)?0:param.recordCountPerPage }">
 							</div>
 						</div>
-						<!-- /검색 -->			
-					</form>
+						<!-- /검색 -->
+					<!-- </form> -->
 				</div>
 
 
@@ -112,10 +112,10 @@
 						<!-- 페이징 -->
 						<div id="paging_wrap">
 							<jsp:include page="/WEB-INF/views/admin/payment/paging.jsp" flush="false">
-								<jsp:param name="pageNumber" value="${pageNumber }" />
-								<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
-								<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
-								<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
+								<jsp:param name="pageNumber" value="${param.pageNumber }" />
+								<jsp:param name="totalRecordCount" value="${param.totalRecordCount }" />
+								<jsp:param name="pageCountPerScreen" value="${param.pageCountPerScreen }" />
+								<jsp:param name="recordCountPerPage" value="${param.recordCountPerPage }" />
 							</jsp:include>
 						</div>
 						<!-- 페이징끝 -->

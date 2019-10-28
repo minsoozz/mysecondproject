@@ -1,26 +1,32 @@
+<%@page import="com.rhymes.app.admin.payment.model.AdminPaymentParam"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	AdminPaymentParam param = (AdminPaymentParam)request.getAttribute("param");
 
 	int totalRecordCount;	//전체 글수 23 -> 3페이지
 	int pageNumber;			//현재 페이지 0~9	[1]~[10]
 	int pageCountPerScreen;	// 스크린당 페이지 수 = 10
 	int recordCountPerPage;	// 페이지당 글 수 = 10
 	
-	String st1 = request.getParameter("totalRecordCount");
-	if(st1 == null) totalRecordCount = 0;
+	//String st1 = request.getParameter("totalRecordCount");
+	String st1 = param.getTotalRecordCount() + "";
+	if(st1 == "") totalRecordCount = 0;
 	else			totalRecordCount = Integer.parseInt(st1);
 	
-	String st2 = request.getParameter("pageNumber");
-	if(st2 == null) pageNumber = 0;
+	//String st2 = request.getParameter("pageNumber");	
+	String st2 = param.getPageNumber() + "";
+	if(st2 == "") pageNumber = 0;
 	else			pageNumber = Integer.parseInt(st2);
 	
-	String st3 = request.getParameter("pageCountPerScreen");
-	if(st3 == null) pageCountPerScreen = 0;
+	//String st3 = request.getParameter("pageCountPerScreen");
+	String st3 = param.getPageCountPerScreen() + "";
+	if(st3 == "") pageCountPerScreen = 0;
 	else			pageCountPerScreen = Integer.parseInt(st3);
 	
-	String st4 = request.getParameter("recordCountPerPage");
-	if(st4 == null) recordCountPerPage = 0;
+	//String st4 = request.getParameter("recordCountPerPage");
+	String st4 = param.getRecordCountPerPage() + "";
+	if(st4 == "") recordCountPerPage = 0;
 	else			recordCountPerPage = Integer.parseInt(st4);
 	
 	// 총페이지 수
