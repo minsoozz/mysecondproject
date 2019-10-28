@@ -37,16 +37,15 @@ public class AdminPaymentController {
 		param.setStart(start);
 		param.setEnd(end);
 		
-		// DB
+		// list
 		List<PaymentDTO> orderSuccessList = adminPaymentService.getOrderSuccessList(param);
 		// list 총 개수
 		int totalRecordCount = adminPaymentService.getOrderSuccessCount(param);
 
-		// list 총 개수
+		// list 총 개수와 클릭한 페이지를 set
 		param.setTotalRecordCount(totalRecordCount);
 		param.setPageNumber(sn);
 
-		// list
 		model.addAttribute("orderSuccessList", orderSuccessList);
 		model.addAttribute("param", param);
 		

@@ -16,6 +16,8 @@ import lombok.ToString;
 @AllArgsConstructor
 // 관리자 주문조회에서 검색과 페이징이 될 수 있도록 가져가는 DTO
 public class AdminPaymentParam implements Serializable {
+	private String userid;					// 업체라면 id
+	
 	// 리스트 총 개수
 	private int totalRecordCount;			// 리스트 총 개수
 	
