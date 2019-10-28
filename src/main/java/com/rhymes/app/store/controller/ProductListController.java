@@ -77,6 +77,8 @@ public class ProductListController {
 	         model.addAttribute("cate1list", cate1list);         
 	      }
 	      log.info("KEYWORD : " + param.getKeyword());
+	      log.info("KEY : " + param.getKey());
+	      log.info("SORTING : " + param.getSorting());
 	      
 	      // paging 처리
 	      int sn = param.getPageNumber(); 
@@ -100,7 +102,8 @@ public class ProductListController {
 	      }
 	      	      
 	      
-	      
+	      log.info("상품리스트 사이즈 : " + plist.size());
+	      log.info("상품리스트 상품 총 갯수 : " + totalProduct);
 	      
 	      // OPTIONS
 	      model.addAttribute("key", param.getKey());

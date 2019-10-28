@@ -11,18 +11,19 @@
 	width: 170px;	
 	position: absolute;
 	top:50px;
-	left: 10px;
+	left: 10px;		
 }
-.btn-group-vertical .btn{
-	background-color: #ffffff;
-	margin: 0px;
-	height: 40px;	
+.btn-group-vertical .btn{	
+	background-color: #ffffff;	
+	height: 60px;
 }
 .btn-group-vertical .btn:hover{
 	background-color: #D7FD75;
 	margin: 0px;
-	height: 40px;	
+	height: 60px;	
 }
+
+
 .btn_inner_title{
 	float: left;
 }
