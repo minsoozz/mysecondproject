@@ -13,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rhymes.app.member.dao.WishlistHibernateRepository;
 import com.rhymes.app.member.model.mypage.MemberStockDTO;
 import com.rhymes.app.member.model.mypage.MemberWishlistDTO;
 import com.rhymes.app.member.service.MypageWishlistService;
-import com.rhymes.app.store.model.StockDto;
-import com.rhymes.app.store.service.PurchaseService;
-import com.rhymes.app.store.service.StoreService;
-import com.rhymes.app.store.service.impl.StoreServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +38,9 @@ public class MypageWishlistController {
 	@Autowired	//마이페이지 찜목록 서비스
 	private MypageWishlistService mypageWishlistService;
 	
+	@Autowired	//hibernate repository
+	//private WishlistHibernateRepo hiberRepo;
+	private WishlistHibernateRepository hiberRepo;
 	
 	/**위시리스트 페이지를 보여주는 메소드
 	 * @return
@@ -71,7 +71,7 @@ public class MypageWishlistController {
 		log.info("show WishList AddCart()" + p_seq);
 		
 		//상품정보
-		
+		log.info( hiberRepo.findProduct(p_seq).toString() );
 		
 		//색상, 사이즈 별 재고현황
 		List<MemberStockDTO> sizeList = mypageWishlistService.getSizeListByP_Seq(p_seq);
