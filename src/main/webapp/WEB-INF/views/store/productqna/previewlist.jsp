@@ -136,11 +136,13 @@ function likebtn(seq){
 		},
 			success:function(num){ 
 				if(num == 1){
+					UpTotalLike(seq);
 					$("#_btnthis"+seq).css("background-color", "rgb(207, 236, 64)");
 				} else if (num == 0){
+					DownTotalLike(seq);
 					$("#_btnthis"+seq).css("background-color", "rgb(255,255,255)");
 				}
-				UpTotalLike(seq);
+				
 			},
 			error:function(e){
 				alert("실패");
@@ -155,11 +157,26 @@ function UpTotalLike(seq){
 		data: {
 			review_seq : seq
 		},
-		success:function(count){
-			$("#_likes").html(count);
+		success:function(num){
+		//	$("#_likes").html(count);
 		},
 		error:function(e){
-			alert("error");
+			//alert("error");
+		}
+	})
+};
+function DownTotalLike(seq){
+	$.ajax({
+		url:"/productreview/downtotalcount",
+		type:"get",
+		data: {
+			review_seq : seq
+		},
+		success:function(num){
+		//	$("#_likes").html(count);
+		},
+		error:function(e){
+		//	alert("error");
 		}
 	})
 };

@@ -6,9 +6,7 @@
 	<select id="getPreviewList" parameterType="com.rhymes.app.store.model.DetailParam"  resultType="com.rhymes.app.store.model.PreviewDto">
       SELECT  A.SEQ,A.PD_SEQ,A.USERID,A.TITLE,A.CONTENT,A.LIKES_CNT,A.RDATE,
 				D.P_NAME AS P_NAME 
-				
 				FROM RHY_PRODUCT_REVIEW A,RHY_PAYMENT_DETAILS B, RHY_STORE_STOCK C, RHY_STORE_PRODUCT D 
-					
 				WHERE B.S_SEQ = C.STOCK_SEQ AND C.P_SEQ = D.P_SEQ  AND A.PD_SEQ = B.SEQ AND C.P_SEQ=#{p_seq} 
 			
     </select>
@@ -39,7 +37,7 @@
 		DELETE FROM RHY_PRODUCT_REVIEW_LIKES
 		WHERE REVIEW_SEQ=#{review_seq} AND USERID=#{id}
 	</delete>
-	
+	 
 	<!-- 총 좋아요 수 올리기-->
 	<update id="uptotalcount" parameterType="com.rhymes.app.customer.model.CustomerParam">
 	UPDATE RHY_PRODUCT_REVIEW
@@ -48,7 +46,7 @@
 	</update>
 	
 	<!-- 총 좋아요 수 내리기-->
-	<update id="uptotalcount" parameterType="com.rhymes.app.customer.model.CustomerParam">
+	<update id="downtotalcount" parameterType="com.rhymes.app.customer.model.CustomerParam">
 	UPDATE RHY_PRODUCT_REVIEW
 	SET LIKES_CNT=LIKES_CNT-1
 	WHERE SEQ=#{seq}
