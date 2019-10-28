@@ -5,12 +5,29 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+<table>
+<colgroup>
+			<col width="90%"><col width="10%">
+</colgroup>
+<tr>
+	<td>
+<pre style="font-size: 12px;font-family: 'Noto Sans'; line-height:1.8em; color: #4c4c4c;" >
+<strong>PRODUCT Q&A</strong>
+-상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.
+-배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 rhymes 내 1:1 문의에 남겨주세요.
+</pre>
+	</td>
+	<td>
+	<div style="float: right;">
+	<button type="button" class="pqna-btn1" id="_btnWrite" onclick="PqnaWrite(${pp_seq })">상품문의</button>
+	</div>	
+	</td>
+</tr>
+
+</table>
 
 <div id="button.wrap">
-
-			<span class="button blue">
-				<button type="button" id="_btnWrite" onclick="PqnaWrite(${pp_seq })">상품문의</button>
-			</span>
+					
 		</div>
 		<form action="" name="frmForm1" id="_frmFormSearch" method="get">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
@@ -23,7 +40,7 @@
 		    
 		<table class="list_table" style="width:100%" >
 		<colgroup>
-			<col width="50"><col width="600"><col width="100"><col width="150">
+			<col width="100"><col width="700"><col width="150"><col width="150">
 		</colgroup>
 		<thead>
 		<tr>

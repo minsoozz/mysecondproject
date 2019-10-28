@@ -37,4 +37,5 @@ public interface AdminQnaDao {
 		
 		//qna 답글
 		public boolean QnaAnswer(QnaDto dto)throws Exception;
+
 }

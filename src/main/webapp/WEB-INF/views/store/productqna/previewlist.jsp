@@ -5,6 +5,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+<pre style="font-size: 12px;font-family: 'Noto Sans'; line-height:1.8em; color: #4c4c4c" >
+<strong>PRODUCT REVIEW</strong>
+-상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.
+-배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 rhymes 내 1:1 문의에 남겨주세요.
+</pre>
+
+
 
 <form action="reviewlist" name="frmForm1" id="_frmFormSearch" method="POST">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
@@ -12,11 +19,11 @@
     
 <table class="list_table" style="width:100%" >
 <colgroup>
-	<col width="50"><col width="600"><col width="100"><col width="150"><col width="50">
+	<col width="100"><col width="600"><col width="100"><col width="100"><col width="100">
 </colgroup>
 <thead>
 <tr>
-	<th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>좋아요</th>
+	<th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>도움돼요</th>
 </tr> 
 </thead>
 
@@ -48,6 +55,10 @@
 	<div>
 	${review.p_name }
 	${review.content }
+	
+	</div>
+	<div style="float: right;">
+	<input type="button" id="_btnthis${review.seq}" class="likebtn1" onclick="likebtn(${review.seq})" value="도움돼요👍🏻" >
 	</div>
 	</td>
 </tr>
@@ -89,6 +100,8 @@ function reviewdetail(seq){
 	}else{
 		$("#detail"+seq).hide();
 	}
+	
+	likebtn(seq);
 }
 
 
@@ -99,4 +112,74 @@ function goPage( pageNumber ) {
 	
 }
 
+/* 
+$('.likebtn1').click(function() {
+
+	var color = $(this).css("background-color");
+	
+	if(color == "rgb(255, 255, 255)")
+	$(this).css("background-color", "rgb(207, 236, 64)");
+	
+	
+	else
+	$(this).css("background-color", "rgb(255,255,255)");
+	});
+
+ */
+
+function likebtn(seq){
+	
+ 	$.ajax({		// 좋아요 버튼 클릭시
+		url:"/productreview/addlikes",
+		type:"get",
+		data:{review_seq : seq
+		},
+			success:function(num){ 
+				if(num == 1){
+					UpTotalLike(seq);
+					$("#_btnthis"+seq).css("background-color", "rgb(207, 236, 64)");
+				} else if (num == 0){
+					DownTotalLike(seq);
+					$("#_btnthis"+seq).css("background-color", "rgb(255,255,255)");
+				}
+				
+			},
+			error:function(e){
+				alert("실패");
+			}
+	}) 
+};
+
+function UpTotalLike(seq){
+	$.ajax({
+		url:"/productreview/uptotalcount",
+		type:"get",
+		data: {
+			review_seq : seq
+		},
+		success:function(num){
+		//	$("#_likes").html(count);
+		},
+		error:function(e){
+			//alert("error");
+		}
+	})
+};
+function DownTotalLike(seq){
+	$.ajax({
+		url:"/productreview/downtotalcount",
+		type:"get",
+		data: {
+			review_seq : seq
+		},
+		success:function(num){
+		//	$("#_likes").html(count);
+		},
+		error:function(e){
+		//	alert("error");
+		}
+	})
+};
+
+ 
 </script>

@@ -93,8 +93,8 @@
 			</table>
 			
 			<div id="button.wrap">
-					<button type="button" class="clickBtn" id="_btnUpdate">수정</button>
-					<button type="button" class="clickBtn" id="_btnBack">목록</button>
+					<button type="button" class="clickBtn2" id="_btnUpdate">수정</button>
+					<button type="button" class="clickBtn2" id="_btnBack">목록</button>
 			</div>
 			</form>
 			
