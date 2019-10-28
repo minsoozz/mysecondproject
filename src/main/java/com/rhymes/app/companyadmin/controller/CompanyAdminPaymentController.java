@@ -50,7 +50,5 @@ public class CompanyAdminPaymentController {
 		model.addAttribute("param", param);		
 		
 		return "company/success";
-	}
-	
-	
+	}	
 }
