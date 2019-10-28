@@ -8,11 +8,6 @@ import com.rhymes.app.payment.model.PaymentDTO;
 
 public interface AdminPaymentService {
 
-<<<<<<< HEAD
-	// 관리자페이지 결제내역조회
-=======
-	// 관리자페이지 결제내역조회	 
->>>>>>> BOHAN
 	public List<PaymentDTO> getOrderSuccessList(AdminPaymentParam param);
 
 	// 관리자페이지 결제내역 총 개수

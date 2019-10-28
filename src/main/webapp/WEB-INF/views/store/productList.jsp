@@ -26,7 +26,7 @@ http-equiv="X-UA-Compatible" content="IE=edge">
 <body>
 
 
-c1 : ${c1_name }<br>
+<%-- c1 : ${c1_name }<br>
 c2 : ${c2_name }<br>
 c3 : ${c3_name }<br>
 key : ${key}<br>
@@ -34,7 +34,7 @@ keyword : ${keyword }<br>
 criterion : ${criterion }<br>
 sorting : ${sorting } <br>
 pageNumber : ${pageNumber }<br>
-총 상품갯수 : ${totalRecordCount }
+총 상품갯수 : ${totalRecordCount } --%>
 
 <c:if test="${empty plist }">
 <div align="center" id="emptyProduct" style="margin-top: 300px">
