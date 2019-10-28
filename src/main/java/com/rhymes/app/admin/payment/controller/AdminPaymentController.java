@@ -44,8 +44,8 @@ public class AdminPaymentController {
 		
 		// 클릭한 페이지 수
 		model.addAttribute("pageNumber", sn);
-		// 한 페이지당 데이터 개수
-		model.addAttribute("pageCountPerScreen", 3);
+		// 한 페이지당 페이지 수
+		model.addAttribute("pageCountPerScreen", 5);
 		// 한 페이지당 글 수
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
 		// list 총 개수

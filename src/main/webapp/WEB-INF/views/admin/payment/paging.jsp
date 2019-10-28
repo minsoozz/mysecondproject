@@ -55,7 +55,7 @@
 <div style="float: right; width: 100%; text-align: center;">
 	<!-- << -->
 	<span>
-	<a href="#none" title="처음페이지" onclick="goPage('0')">
+	<a href="#" title="처음페이지" onclick="goPage('0')">
 		<img alt="" src="../img/member-img/arrow_L.jpg" style="width: 9px; height: 9px">
 	</a>
 	</span>

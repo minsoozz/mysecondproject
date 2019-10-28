@@ -22,7 +22,7 @@ public class AdminPaymentParam implements Serializable {
 	
 	// paging
 	private int pageNumber = 0;				// 클릭한 페이지
-	private int recordCountPerPage=5;		// 한 페이지당 글 수
+	private int recordCountPerPage=3;		// 한 페이지당 글 수
 		
 	private int start = 1;
 	private int end = 3;

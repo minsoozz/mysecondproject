@@ -16,3 +16,12 @@ $(document).ready(function () {
 	
 });
 
+
+
+
+function goPage(pageNumber) {
+	$("#_pageNumber").val(pageNumber); // 들어오는 값을 가져옴
+	$("#_payment_frm").attr("action", "/admin/payment/success").submit();
+}
+
+

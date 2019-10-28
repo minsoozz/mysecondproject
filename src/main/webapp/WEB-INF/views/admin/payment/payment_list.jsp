@@ -84,7 +84,7 @@
 								<td>결제금액</td>
 								<td>주문일</td>
 							</tr>
-							<c:forEach items="${orderSuccess }" var="p">
+							<c:forEach items="${orderSuccessList }" var="p">
 								<tr>
 									<td><a
 										href="/admin/payment/detail?payment_code=${fn:substring(p.payment_code,4,16) }&coupon_code=${p.coupon_code }">${fn:substring(p.payment_code,4,16) }</a></td>
