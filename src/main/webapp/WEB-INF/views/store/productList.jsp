@@ -52,7 +52,7 @@ pageNumber : ${pageNumber }<br>
 		</div>
 		<div class="sortingDiv">
 			<label onclick="sortingBy('NEW')" class="sortingBy" style="${sorting == 'NEW'? 'color:black;font-weight:bolder;':'' }">NEW</label>
-			<label class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
+			<label onclick="sortingBy('BEST')" class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
 			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
 			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
 		</div>
@@ -86,6 +86,8 @@ pageNumber : ${pageNumber }<br>
 			<c:if test="${pro.sum eq 0}">
 				<font style="color:red; font-weight: bolder;">SOLD OUT</font>
 			</c:if>
+			<br>
+			<font>${pro.c1_name }</font>
 			
 		</div>	
 		</c:forEach>
@@ -93,7 +95,7 @@ pageNumber : ${pageNumber }<br>
 </div>
 
 <!-- paging zone -->
-<c:if test="${key ne 'newarrival' }">
+<c:if test="${key ne 'newarrival' && key ne 'best'}">
 <div id="paging_wrap" style="border: 0px solid red; width:90%%; height:50px; text-align: center;">
 	<jsp:include page="/WEB-INF/views/store/productPaging.jsp" flush="false">
 		<jsp:param name="pageNumber" value="${pageNumber }"/>

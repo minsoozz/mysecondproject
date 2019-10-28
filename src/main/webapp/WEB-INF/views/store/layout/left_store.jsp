@@ -39,7 +39,7 @@
 </a>
 </c:if>
 <c:if test="${empty keyword}">
-    <a href="#"><b>BEST</b></a>
+    <a href="/store/productList?c1_name=${c1_name}&key=best&sorting=BEST"><strong>BEST</strong></a>
     <a href="/store/productList?c1_name=${c1_name}&key=newarrival">NEW ARRIVAL</a>
     <a href="/store/productList?c1_name=${c1_name}&key=sale" style="color:red">SALE</a>
 </c:if>    
