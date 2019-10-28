@@ -10,7 +10,7 @@ $(document).ready(function () {
 		//alert( _select );
 		
 		//$("#_payment_frm").attr("action","/admin/payment/success").submit();
-		location.href="/admin/payment/success?s_keyword="+_s_keyword+"&select="+_select;		
+		location.href="/admin/payment/success?s_keyword="+_s_keyword+"&select="+_select;
 	});
 	
 	
