@@ -228,6 +228,20 @@
 					</div>
 				</li>
 				
+				<!-- 상품문의 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_company_productqna" aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>상품문의</span>
+					</a>
+					<div id="admin_company_productqna" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">PRODUCT QNA</h6>
+							<a class="collapse-item" href="/admin/company/">상품문의</a>
+						</div>
+					</div>
+				</li>
+				
 			</c:if>
 		</c:forEach>
 	</c:if>
