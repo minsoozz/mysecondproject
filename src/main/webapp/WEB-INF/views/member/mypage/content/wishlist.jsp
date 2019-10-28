@@ -76,7 +76,7 @@
 		
 					<div class="col-md-2 writenew_waiting_item">
 						<div class="wishlist_body_btns" align="center">
-							<input type="button" class="btn btn-default btn_order_body btn_save_basket" value="장바구니 담기"><br>
+							<input type="button" class="btn btn-default btn_order_body btn_save_basket" data="${dto.p_seq }" value="장바구니 담기"><br>
 							<input type="button" class="btn btn-default btn_order_body btn_delete_item" value="삭제">
 						</div>				
 					</div>
@@ -96,5 +96,16 @@
 	</div>
 </div>
 
+<!-- modal 영역 -->
+<!-- 장바구니 담기 모달(상품의 사이즈, 색상, 수량 등 선택) -->
+<div class="wishlist-cart modal fade" id="_wishlist_cart_modal" tabindex="-1" role="dialog" aria-labelledby="_wishlist_add_item_cart" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+    	<div class="modal-content" style="width:700px;">
+    	</div>
+    </div>	
+</div>
+<!-- 선택상품 주문 모달(상품의 사이즈, 색상, 수량 등 선택) -->
+<div class="wishlist-cart modal fade" id="_wishlist_cart_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">	
+</div>
 
 </html>

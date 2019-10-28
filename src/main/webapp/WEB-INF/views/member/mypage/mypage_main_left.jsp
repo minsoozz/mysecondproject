@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="_csrf" content="${_csrf.token}">
+<meta name="_csrf_header" content="${_csrf.headerName}">
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/mypage_main_left.css">
 <script type="text/javascript" src="<%=ctx%>/js/member/mypage/mypage_main_left.js"></script>
 </head>
@@ -49,9 +51,6 @@
 		
 	</c:forEach>	
 </div>
-<form action="/logout" method="post" style="margin-top: 100px;">
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	<input type="submit" value="로그아웃" class="btn btn-rhy-full">
-</form>
+
 </html>
 
