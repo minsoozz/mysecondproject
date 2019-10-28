@@ -108,6 +108,11 @@ public class ProductManageDaoImpl implements ProductManageDao{
 		return n>0?true:false;
 	}
 
+	@Override
+	public int getc2seq(Category2Dto cate2) throws Exception {
+		return sqlSession.selectOne(ns + "getc2seq", cate2);
+	}
+
 	
 	
 	
