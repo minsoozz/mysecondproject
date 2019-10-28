@@ -2,6 +2,7 @@ package com.rhymes.app.member.service;
 
 import java.util.List;
 
+import com.rhymes.app.member.model.mypage.MemberStockDTO;
 import com.rhymes.app.member.model.mypage.MemberWishlistDTO;
 
 public interface MypageWishlistService {
@@ -17,4 +18,10 @@ public interface MypageWishlistService {
 	 * @return
 	 */
 	public int deleteWishItemByIdAndP_Seq(MemberWishlistDTO dto);
+	
+	/**상품번호에 맞는 재고정보 리스트 리턴
+	 * @param p_seq
+	 * @return
+	 */
+	public List<MemberStockDTO> getSizeListByP_Seq(int p_seq);
 }

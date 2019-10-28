@@ -19,7 +19,7 @@ $(function(){
 	var btnGroup = $(".btn-group-vertical").children();
 	for(i = 0 ; i < btnGroup.length ; i++ ){
 		var btnText = btnGroup.eq(i).children().eq(0).text();
-		console.log(i + ' , ' +  btnText);
+		//console.log(i + ' , ' +  btnText);
 		if( title === btnText ){
 			btnGroup.eq(i).css('background-color', '#D7FD75');
 		}

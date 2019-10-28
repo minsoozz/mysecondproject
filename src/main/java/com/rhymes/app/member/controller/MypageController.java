@@ -36,6 +36,8 @@ import com.rhymes.app.member.service.MypageCouponService;
 import com.rhymes.app.member.service.MypageOrderlogService;
 import com.rhymes.app.member.service.MypagePersonalService;
 import com.rhymes.app.member.service.MypagePointsService;
+import com.rhymes.app.store.model.BasketDto;
+import com.rhymes.app.store.service.PurchaseService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -68,6 +70,9 @@ public class MypageController {
 	@Autowired//개인정보 수정 서비스
 	private MypagePersonalService mypagePersonalService;
 	
+	@Autowired//구매 서비스(장바구니 등)
+	private PurchaseService perchaseService;
+	
 	@Autowired//비밀번호 인코더
 	BCryptPasswordEncoder bc;
 	
@@ -96,7 +101,7 @@ public class MypageController {
 		mOPDto.setTotalSize(totalRecordOfOrderlog);
 
 		List<MemberOrderDTO> lst = mypageOrderlogService.getOrderlogsById(mOPDto);
-				
+		
 		model.addAttribute("orderlogList", lst);
 		model.addAttribute("pagingDto", mOPDto);
 		
@@ -116,14 +121,50 @@ public class MypageController {
 		
 		//주문상세정보 리스트
 		model.addAttribute("payDetailList", mypageOrderlogService.getOrderlogDetailsByPaymentCode(payment_code));
-		
 		//주문코드
-		model.addAttribute("payment_code", payment_code);
-		
+		model.addAttribute("payment_code", payment_code);		
 		//결제정보
 		model.addAttribute("mPDto", mypageOrderlogService.getPaymentInfoByPaymentCode(payment_code));
 		
 		return "member/mypage/orderlog/detail";
+	}
+	
+	/**주문 상세정보 페이지에서 Ajax 통신을 통해 장바구니 담기 
+	 * @param model
+	 * @param jsMap
+	 * @param pcp
+	 * @return
+	 * @throws Exception 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/orderlog/detail/addtobasket", method = RequestMethod.POST)
+	public String insertItemsToBasket(Model model, @RequestBody List<BasketDto> jsList, Principal pcp) throws Exception {
+		log.info("insertItemsToBasket()");
+		String result = "0";
+		for(BasketDto s : jsList) {
+			perchaseService.insertBasket(s);
+			result = "1";
+		}				
+		return result;		
+	}
+	
+	/**주문 상세정보 페이지에서 Ajax 통신을 통해 주문취소
+	 * @param model
+	 * @param jsMap
+	 * @param pcp
+	 * @return
+	 * @throws Exception 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/orderlog/detail/cancelorder", method = RequestMethod.POST)
+	public String cancelOrder(@RequestBody String paymentCode) throws Exception {
+		log.info("cancelOrder()");
+		int result = 0;
+		
+		log.info("payment : " + paymentCode);
+		result = mypageOrderlogService.deletePayment(paymentCode);
+		
+		return result > 0 ? "1" : "0";
 	}
 		
 	/**적립금 현황 뷰를 보여주는 메소드
@@ -241,10 +282,7 @@ public class MypageController {
 			mypageCouponService.regiNewCoupon(couponDetailDto);	//	ss.update("coupon.regiNewCoupon", couponDetailDto);
 		}else if( "할인".equals( couponDto.getFunc() )) {	//쿠폰 등록자 정보 insert
 			mypageCouponService.regiNewCoupon(couponDetailDto);	//	ss.update("coupon.regiNewCoupon", couponDetailDto);
-		}else {
-			
 		}		
-		
 		return "1";
 	}
 	

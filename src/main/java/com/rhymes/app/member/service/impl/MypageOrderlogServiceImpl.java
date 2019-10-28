@@ -63,7 +63,16 @@ public class MypageOrderlogServiceImpl implements MypageOrderlogService {
 	public MemberPaymentDTO getPaymentInfoByPaymentCode(String payment_code) {
 		// TODO Auto-generated method stub
 		return mypageOrderlogDAO.getPaymentInfoByPaymentCode(payment_code);
-	}	
-	
+	}
+
+	/**매개변수로 받은 주문번호 삭제(주문취소, 미결제인 경우에만 가능)
+	 * @param payment_code
+	 * @return
+	 */
+	@Override
+	public int deletePayment(String payment_code) {
+		// TODO Auto-generated method stub
+		return mypageOrderlogDAO.deletePayment(payment_code);
+	}
 	
 }

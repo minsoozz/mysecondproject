@@ -17,6 +17,12 @@ $(function(){
 	//현재 유저 아이디 저장
 	userid = $("#_currUserId").val();
 	
+	//개별상품 장바구니 추가
+	$(".btn_save_basket").click(function(){
+		getOneItemInfo( $(this).attr('data') );
+		$("#_wishlist_cart_modal").modal('show');
+	});
+	
 	//체크박스 제어
 	$("#_chk_head").click(function(){
 		if( $("#_chk_head").is(":checked") === true ){
@@ -50,7 +56,22 @@ $(function(){
 		console.log(idString);
 		deleteMultiWishitems(idString);
 	});
+		
+	//단일 아이템 장바구니 담기 모달 쇼 이벤트
+	$("#_wishlist_cart_modal").on('show.bs.modal', function(){
+		console.log(123123);
+		$("#_cart_one_item_btn_close").click(function(){
+			console.log('닫기');
+			$("#_wishlist_cart_modal").modal('hide');
+		});
+	});
 });
+
+//p_seq에 해당하는 아이템의 정보를 모달에 로드하는 함수
+function getOneItemInfo(p_seq){
+	//$("#_wishlist_cart_modal").load('/mypage/wishlist/cart/additem', 'p_seq=' + p_seq);	
+	$("#_wishlist_cart_modal div div").load('/mypage/wishlist/cart/additem', 'p_seq=' + p_seq);
+}
 
 //p_seq에 해당하는 아이템을 삭제하여 완료여부를 리턴하는 함수
 function deleteWishitem(p_seq){
@@ -72,7 +93,7 @@ function deleteWishitem(p_seq){
 				alert('삭제가 완료되었습니다. ');
 				$("#itemrow_" + p_seq).remove();
 			}else{
-				console.log('세상에...0이라니..' + result);
+				alert('삭제 실패. 고객센터로 문의하세요.');
 			}
 		},
 		error : function() {

@@ -78,6 +78,11 @@
 	left: 40% !important;
 }
 
+/* 장바구니 담기 모달위치 */
+#_wishlist_cart_modal .modal-dialog{
+	margin-top: 300px;
+}
+
 /* Switch 1 Specific Styles Start */
 input[type="checkbox"].switch_1{
 	font-size: 30px;
