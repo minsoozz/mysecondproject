@@ -211,8 +211,8 @@ table input{
 	<div>
 		<div>
 				<fieldset>
-					<label> <input class="cb cb1" type="checkbox" value="video"
-						name="bannertype" onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'VIDEO'? 'checked':'' }"/> /> <i></i> 
+					<label> <input class="cb cb1" type="checkbox" name="bannertype" value="video"
+						onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'VIDEO'? 'checked':'' }"/> /> <i></i> 
 						<span>VIDEO</span>
 					</label> 
 					<label> <input class="cb cb2" type="checkbox" name="bannertype" value="photo"
@@ -226,8 +226,8 @@ table input{
 	<div align="center">
 		<!-- banner -->
 		<div id="bannerresource-div">
-			<div id="eachtitle-div">
-				<strong>MAIN BANNER</strong>
+			<div id="eachtitle-div"> 
+				<strong>MAIN BANNER</strong> 
 			</div>
 			<div align="center">
 			<form id="udtfrmbanner" method="POST" enctype="multipart/form-data" onSubmit="return false;">
@@ -263,11 +263,56 @@ table input{
 					<input type="file" name="fileload" id="banner-upload0" style="display:none">	
 				</c:if>
 				<input type="hidden" name="which" value="banner">
-				<input type="hidden" name="bannertype" id="_bannertype">
+				<input type="hidden" name="bannertype" id="_bannertype" value="${resource.mainbanner_type }">
 			</form>
 			</div>
 		</div>
 
+
+	
+	<!-- photo1 -->
+		<div id="eachresource-div">
+			<div id="eachtitle-div">
+				<strong>PHOTO1</strong>
+			</div>
+			<div id="eachcontent-div2">
+			<form id="udtfrmphoto1" method="POST" enctype="multipart/form-data" onSubmit="return false;">
+				<div class="previewphoto1">
+					<img src="/upload/mainresource/${resource.photo1_file }" alt="사진없음" style="width:450px; height:450px;">
+				</div>
+				<button id="btn-photo1_udt">CHANGE</button>
+				<input type="file" name="fileload" id="photo1-upload" style="display:none">
+				<input type="hidden" name="which" value="photo1">
+			</form>				
+				<br>
+			<!-- text -->
+				<div id="text-div">
+					<table border='0' style="margin:2%;">
+						<colgroup><col width="12%"><col width="78%"><col width="10%"></colgroup>
+						<tr>
+							<th>TITLE</th>
+							<td>
+								<input type="text" id="photo1_title" value="${resource.photo1_title }" onkeyup="inputkeyup('photo1_title', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-photo1_title">CHANGE</button>
+							</td>
+						</tr>
+						<tr>
+							<th>CONTENT</th>
+							<td>
+								<input type="text" id="photo1_content" value="${resource.photo1_content }" onkeyup="inputkeyup('photo1_content', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-photo1_content">UPDATE</button>
+							</td>
+						</tr>
+					</table>
+				</div>	
+			</div>
+		</div>
+		
+		
 	<!-- video1 -->		
 		<div id="eachresource-div">
 			<div id="eachtitle-div">
@@ -312,6 +357,48 @@ table input{
 				</div>
 			</div>
 		</div>
+		
+		<!-- photo2 -->				
+		<div id="eachresource-div">
+			<div id="eachtitle-div">
+				<strong>PHOTO2</strong>
+			</div>
+			<div id="eachcontent-div2">
+			<form id="udtfrmphoto2" method="POST" enctype="multipart/form-data" onSubmit="return false;">
+				<div class="previewphoto2">
+					<img src="/upload/mainresource/${resource.photo2_file }" alt="사진없음" style="width:450px; height:450px;">
+				</div>
+				<button id="btn-photo2_udt">CHANGE</button>
+				<input type="file" name="fileload" id="photo2-upload" style="display:none">
+				<input type="hidden" name="which" value="photo2">
+			</form>	
+			<br>
+			<!-- text -->
+				<div id="text-div">
+					<table border='0' style="margin:2%;">
+						<colgroup><col width="12%"><col width="78%"><col width="10%"></colgroup>
+						<tr>
+							<th>TITLE</th>
+							<td>
+								<input type="text" id="photo2_title" value="${resource.photo2_title }" onkeyup="inputkeyup('photo2_title', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-photo2_title">CHANGE</button>
+							</td>
+						</tr>
+						<tr>
+							<th>CONTENT</th>
+							<td>
+								<input type="text" id="photo2_content" value="${resource.photo2_content }" onkeyup="inputkeyup('photo2_content', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-photo2_content">UPDATE</button>
+							</td>
+						</tr>
+					</table>
+				</div>	
+			</div>
+		</div>		
 
 	<!-- video2 -->		
 		<div id="eachresource-div">
@@ -358,89 +445,9 @@ table input{
 			</div>
 		</div>
 	
-	<!-- photo1 -->
-		<div id="eachresource-div">
-			<div id="eachtitle-div">
-				<strong>PHOTO1</strong>
-			</div>
-			<div id="eachcontent-div2">
-			<form id="udtfrmphoto1" method="POST" enctype="multipart/form-data" onSubmit="return false;">
-				<div class="previewphoto1">
-					<img src="/upload/mainresource/${resource.photo1_file }" alt="사진없음" style="width:450px; height:450px;">
-				</div>
-				<button id="btn-photo1_udt">CHANGE</button>
-				<input type="file" name="fileload" id="photo1-upload" style="display:none">
-				<input type="hidden" name="which" value="photo1">
-			</form>				
-				<br>
-			<!-- text -->
-				<div id="text-div">
-					<table border='0' style="margin:2%;">
-						<colgroup><col width="12%"><col width="78%"><col width="10%"></colgroup>
-						<tr>
-							<th>TITLE</th>
-							<td>
-								<input type="text" id="photo1_title" value="${resource.photo1_title }" onkeyup="inputkeyup('photo1_title', this.value)">
-							</td>
-							<td style="padding-bottom: 3%">
-								<button type="button" class="text_update-btn" id="udtbtn-photo1_title">CHANGE</button>
-							</td>
-						</tr>
-						<tr>
-							<th>CONTENT</th>
-							<td>
-								<input type="text" id="photo1_content" value="${resource.photo1_content }" onkeyup="inputkeyup('photo1_content', this.value)">
-							</td>
-							<td style="padding-bottom: 3%">
-								<button type="button" class="text_update-btn" id="udtbtn-photo1_content">UPDATE</button>
-							</td>
-						</tr>
-					</table>
-				</div>	
-			</div>
-		</div>
+	
 
-	<!-- photo2 -->				
-		<div id="eachresource-div">
-			<div id="eachtitle-div">
-				<strong>PHOTO2</strong>
-			</div>
-			<div id="eachcontent-div2">
-			<form id="udtfrmphoto2" method="POST" enctype="multipart/form-data" onSubmit="return false;">
-				<div class="previewphoto2">
-					<img src="/upload/mainresource/${resource.photo2_file }" alt="사진없음" style="width:450px; height:450px;">
-				</div>
-				<button id="btn-photo2_udt">CHANGE</button>
-				<input type="file" name="fileload" id="photo2-upload" style="display:none">
-				<input type="hidden" name="which" value="photo2">
-			</form>	
-			<br>
-			<!-- text -->
-				<div id="text-div">
-					<table border='0' style="margin:2%;">
-						<colgroup><col width="12%"><col width="78%"><col width="10%"></colgroup>
-						<tr>
-							<th>TITLE</th>
-							<td>
-								<input type="text" id="photo2_title" value="${resource.photo2_title }" onkeyup="inputkeyup('photo2_title', this.value)">
-							</td>
-							<td style="padding-bottom: 3%">
-								<button type="button" class="text_update-btn" id="udtbtn-photo2_title">CHANGE</button>
-							</td>
-						</tr>
-						<tr>
-							<th>CONTENT</th>
-							<td>
-								<input type="text" id="photo2_content" value="${resource.photo2_content }" onkeyup="inputkeyup('photo2_content', this.value)">
-							</td>
-							<td style="padding-bottom: 3%">
-								<button type="button" class="text_update-btn" id="udtbtn-photo2_content">UPDATE</button>
-							</td>
-						</tr>
-					</table>
-				</div>	
-			</div>
-		</div>		
+	
 			
 	</div>
 	
@@ -531,8 +538,6 @@ function textupdate(){
 }
 
 function inputkeyup(object, text){
-	
-	
 	
 	//alert(text);
 	//alert(object);
@@ -843,6 +848,7 @@ function cbChange(obj) {
 	  var typ =$("input:checkbox[name='bannertype']:checked").val()
 	 // alert(b);
 	 // alert(bannertype);
+	 alert(typ);
 	 $("#_bannertype").val(typ); 
 	 
 	  if(bannertype === 'PHOTO'){

@@ -41,19 +41,29 @@
 		SELECT IFNULL(COUNT(*), 0) AS CNT
 		FROM FAQ
 		WHERE 1=1
-			<if test="s_category != null and s_category != ''
-							and s_keyword != null and s_keyword != ''">
-						
-				<if test="s_category == 'title'">
-					AND TITLE LIKE '%' #{s_keyword} '%'
-				</if>
-				<if test="s_category == 'content'">
-					AND CONTENT LIKE '%' #{s_keyword} '%'
-				</if>
-				<if test="s_category == 'writer'">
-					AND ID LIKE '%' #{s_keyword} '%'
-				</if>
-			</if>
+			<if test="s_category != null and s_category != ''">
+					<if test="s_category == '01'">
+						AND CATEGORY = '회원문의'
+					</if>
+					<if test="s_category == '02'">
+						AND CATEGORY = '주문/결제'
+					</if>
+					<if test="s_category == '03'">
+						AND CATEGORY = '취소/교환/반품'
+					</if>
+					<if test="s_category == '04'">
+						AND CATEGORY = '배송문의'
+					</if>
+					<if test="s_category == '05'">
+						AND CATEGORY = '쿠폰/적립금'
+					</if>
+					<if test="s_category == '06'">
+						AND CATEGORY = '서비스 이용 및 기타'
+					</if>
+					</if>
+					<if test="s_keyword != null and s_keyword != ''">
+						AND TITLE LIKE '%' #{s_keyword} '%'
+					</if>	
 	</select>
 	
 	<!-- 디테일 -->

@@ -7,7 +7,7 @@
  
  <!-- 1.상품 조회(PRODUCTLIST) -->
 <select id="getAdminProductList" parameterType="com.rhymes.app.store.model.ProductParam" resultType="com.rhymes.app.store.model.ProductDto">
-	SELECT RNUM, a.P_SEQ, a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, SUM, WISH, a.BFS_PRICE, SALEPERCENT
+	SELECT RNUM, a.P_SEQ, a.P_NAME, a.P_PRICE, a.BFS_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, SUM, WISH, SALEPERCENT, SALESVOLUME
 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY
 			<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
 		 		a.P_SEQ DESC
@@ -24,12 +24,31 @@
 			<if test="sorting == 'SALEDOWN'">
 				SALEPERCENT DESC
 			</if>
+			<if test="sorting == 'SALESUP'">
+				 SALESVOLUME DESC
+			</if>
+			<if test="sorting == 'SALESDOWN'">
+				 SALESVOLUME ASC
+			</if>
 		 	
 	     	) AS RNUM,
-			a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE, a.P_SEQ, SUM(b.QUANTITY) AS SUM, a.C_NAME, a.BFS_PRICE, (a.P_PRICE / a.BFS_PRICE) AS SALEPERCENT 
-			,(SELECT COUNT(c.ID) FROM rhy_store_wishlist c WHERE c.P_SEQ = a.P_SEQ) as WISH
+			a.P_SEQ, a.P_NAME, a.P_PRICE, a.C1_NAME, a.C2_NAME, a.C3_NAME, a.P_COLOR, a.CP_CODE, a.RDATE  
+			,SUM(b.QUANTITY) AS SUM, a.C_NAME, a.BFS_PRICE, (a.P_PRICE / a.BFS_PRICE) AS SALEPERCENT
+			,(SELECT COUNT(c.ID) 
+			  FROM rhy_store_wishlist c 
+			  WHERE c.P_SEQ = a.P_SEQ) as WISH		
+			,IFNULL((SELECT SUM(d.EA) 
+			         FROM rhy_payment e 
+			         WHERE e.PAYMENT_STATUS = '결제완료' 
+			         	AND e.PAYMENT_CODE = d.PAYMENT_CODE
+			         ), 0) AS SALESVOLUME
 			
-			FROM rhy_store_product a INNER JOIN rhy_store_stock b ON a.P_SEQ = b.P_SEQ				
+			FROM rhy_store_product a 
+				INNER JOIN rhy_store_stock b 
+				ON a.P_SEQ = b.P_SEQ
+				LEFT OUTER JOIN rhy_payment_details d
+				ON b.STOCK_SEQ = d.S_SEQ
+								
 			WHERE a.C_NAME = #{c_name}
 				<!-- 검색 -->
 				<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">	
@@ -70,6 +89,12 @@
 			<if test="sorting == 'SALEDOWN'">
 			SALEPERCENT DESC
 			</if>
+			<if test="sorting == 'SALESUP'">
+				 SALESVOLUME DESC
+			</if>
+			<if test="sorting == 'SALESDOWN'">
+				 SALESVOLUME ASC
+			</if>
 </select>
  <!-- 1(2).RODUCTLIST 상품 총갯수 -->
 <select id="getAdminProductCnt" parameterType="com.rhymes.app.companyadmin.model.ProductManageDto" resultType="java.lang.Integer">
@@ -104,28 +129,45 @@
  
  <!-- 1(3).상품 상세조회(PRODUCTDETAILLIST) -->
 <select id="getAdminStockList" parameterType="com.rhymes.app.store.model.StockDto" resultType="com.rhymes.app.store.model.StockDto">
-	SELECT a.STOCK_SEQ, a.P_SEQ, a.SIZE, a.QUANTITY, IFNULL(SALES, 0) AS SALESVOLUME
+	SELECT a.STOCK_SEQ, a.P_SEQ, a.SIZE, a.QUANTITY, SALESVOLUME
 	FROM(SELECT a.STOCK_SEQ, a.P_SEQ, a.SIZE, a.QUANTITY,
-		 (SELECT SUM(b.EA) AS SALES FROM rhy_payment_details b WHERE a.STOCK_SEQ = b.S_SEQ GROUP BY b.S_SEQ) AS SALES
-		  FROM rhy_store_stock a)A	
-	WHERE a.P_SEQ = #{p_seq}					
+		 IFNULL((SELECT SUM(b.EA)
+		        FROM rhy_payment c
+		        WHERE c.PAYMENT_STATUS='결제완료'
+		             AND b.PAYMENT_CODE = c.PAYMENT_CODE
+		        GROUP BY b.S_SEQ),0) AS SALESVOLUME	
+		 FROM rhy_store_stock a
+		 	LEFT OUTER JOIN rhy_payment_details b
+		 	ON a.STOCK_SEQ = b.S_SEQ    
+		 GROUP BY a.STOCK_SEQ) A
+	WHERE a.P_SEQ = #{p_seq}		 					  
 </select>
  
 <!-- 2.상품등록 -->
  <select id="getCate2List" parameterType="Integer" resultType="com.rhymes.app.store.model.category.Category2Dto">
-     SELECT C2_SEQ, C2_NAME, C1_SEQ FROM rhy_store_cate2
+     SELECT C2_SEQ, C2_NAME, C1_SEQ 
+     FROM rhy_store_cate2
      WHERE 1=1 
      	<if test="c1_seq != '' and c1_seq != null">
      		AND C1_SEQ = #{c1_seq}
      	</if>
  </select>
+ 
+ <select id="getc2seq" parameterType="com.rhymes.app.store.model.category.Category2Dto" resultType="Integer">
+ 	SELECT C2_SEQ
+ 	FROM rhy_store_cate2
+ 	WHERE C1_SEQ = #{c1_seq} AND C2_NAME = #{c2_name}
+ </select>
+ 
  <select id="getCate3List" parameterType="Integer" resultType="com.rhymes.app.store.model.category.Category3Dto">
-     SELECT C3_SEQ, C3_NAME, C2_SEQ FROM rhy_store_cate3
+     SELECT C3_SEQ, C3_NAME, C2_SEQ 
+     FROM rhy_store_cate3
      WHERE C2_SEQ = #{c2_seq}
  </select>
  
  <select id="getPseq" resultType="Integer">
- 	SELECT nextval('p_seq') FROM DUAL
+ 	SELECT nextval('p_seq') 
+ 	FROM DUAL
  </select>
  
  <insert id="insertProduct" parameterType="com.rhymes.app.store.model.ProductDto">
@@ -150,7 +192,8 @@
  </select>
  
  <select id="getCname" resultType="com.rhymes.app.member.model.SellerDTO" parameterType="com.rhymes.app.member.model.SellerDTO">
- 	SELECT C_NAME FROM rhy_mem_c
+ 	SELECT C_NAME 
+ 	FROM rhy_mem_c
  	WHERE ID = #{ id }  	
  </select>
 <!-- 상품등록 끝 --> 	

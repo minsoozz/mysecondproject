@@ -22,7 +22,7 @@
 <div id="cntProduct_wrap"><label id="_allCnt">${fn:length(blist) }</label>개 상품</div>
 </div>
 
-<hr style='margin-top:-10px; margin-left: 30px' width='100%' color='#DADCE0'>
+<hr style='margin-top:-10px; margin-left: 30px' width='100%' color='lime'>
 
 <div id="mainContainer">
 <c:if test="${blist eq null }">
@@ -226,7 +226,7 @@ $(document).on('click', '.allDeleteBtn', function(){
 	    		$(".product-opt_basket").remove();
 	    		
 	        	var str = "";
-	    		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
+	    		//str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
 	    		//str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
 	    		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
 	    		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
@@ -392,7 +392,7 @@ $(document).on('click', '.delete_btn', function(){
 	            		$(".sub2Container").remove();
 	            		
 	            		var str = "";
-	            		str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
+	            		//str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
 	            		//str += "<img alt='사진없음' class='basketImg' src='http://www.habitatriverside.org/wp-content/uploads/2016/10/shopping-cart-icon.png' style='width:500px; height:500px;'>";            		
 	            		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
 	            		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";

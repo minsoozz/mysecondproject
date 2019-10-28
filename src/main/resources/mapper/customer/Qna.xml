@@ -4,12 +4,12 @@
 <mapper namespace="Qna">
 	<!-- qnalist -->
 	<select id="getQnaList" parameterType="com.rhymes.app.customer.model.CustomerParam"  resultType="com.rhymes.app.customer.model.QnaDto">
-       SELECT SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME
+       SELECT SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME, FEEDBACK
       FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC)AS RNUM,
-					SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME
+					SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME, FEEDBACK
 					FROM QNA
-					WHERE 1=1  
-					)A
+					WHERE REF = ANY(SELECT REF FROM QNA ALIAS_FOR_SUBQUERY WHERE ID = #{id})
+					)A 
 			WHERE RNUM BETWEEN ${start} AND ${end}	
 			ORDER BY REF DESC, STEP ASC
     </select>
@@ -28,19 +28,20 @@
 		resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)AS CNT
 		FROM QNA
+		WHERE ID = #{id} 
 	</select>
 
 	<!-- qna detail -->
     <select id="getQnaDetail" parameterType="java.lang.Integer" resultType="com.rhymes.app.customer.model.QnaDto">
        SELECT * 
        FROM QNA
-       WHERE SEQ = #{seq}
+       WHERE SEQ = #{seq} 
     </select>
     
     <!-- qna 올리기 -->
     <insert id="QnaUpload" parameterType="com.rhymes.app.customer.model.QnaDto">
-	INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME)
-	VALUES(#{id}, #{category},(SELECT IFNULL(MAX(REF), 0)+1 FROM QNA ALIAS_FOR_SUBQUERY),0,0, #{title}, #{content}, NOW(), #{orderno}, #{filename})
+	INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME, FEEDBACK)
+	VALUES(#{id}, #{category},(SELECT IFNULL(MAX(REF), 0)+1 FROM QNA ALIAS_FOR_SUBQUERY),0,0, #{title}, #{content}, NOW(), #{orderno}, #{filename}, 0)
 	</insert>
 	
 	<!-- qna 수정 -->
@@ -78,31 +79,15 @@
 	</update>
 	<insert id="QnaAnswerAf" parameterType="com.rhymes.app.customer.model.QnaDto">
 	     INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,
-	     				TITLE,CONTENT, WDATE, ORDERNO, FILENAME)
+	     				TITLE,CONTENT, WDATE, ORDERNO, FILENAME, FEEDBACK)
 	     VALUES(#{id},#{category}, 
 	     				#{ref},
 	     				#{step}+1, 
 	     				#{depth}+1,
-	     				#{title},#{content},NOW(), #{orderno}, #{filename})
+	     				#{title},#{content},  NOW(), #{orderno}, #{filename}, 1)
 	</insert>
 	
 	
-	<!-- 
-	<update id="QnaAnswer" parameterType="com.rhymes.app.customer.model.QnaDto">
-	UPDATE QNA
-		SET STEP = (STEP+1)     
-			WHERE REF= (SELECT REF FROM QNA WHERE SEQ=#{seq})
-			AND STEP> (SELECT STEP FROM QNA WHERE SEQ=#{seq})
-	</update>
-	<insert id="QnaAnswerAf" parameterType="com.rhymes.app.customer.model.QnaDto">
-	     INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,
-	     				TITLE,CONTENT, WDATE, ORDERNO, FILENAME)
-	     VALUES(#{id},#{category}, 
-	     				(SELECT REF FROM QNA WHERE SEQ=#{seq}),
-	     				(SELECT STEP FROM QNA WHERE SEQ=#{seq})+1, 
-	     				(SELECT DEPTH FROM QNA WHERE SEQ=#{seq})+1
-	     				#{title},#{content},NOW(), #{orderno}, #{filename})
-	</insert>
-	 -->
+	
 	
 </mapper>

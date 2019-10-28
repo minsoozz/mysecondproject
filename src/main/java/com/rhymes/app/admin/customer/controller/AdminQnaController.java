@@ -56,6 +56,8 @@ public class AdminQnaController {
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		
+		model.addAttribute("s_category",param.getS_category());
+		
 		return "adminqnalist.tiles";
 	}
 	
@@ -252,11 +254,11 @@ public class AdminQnaController {
 		try {
 			boolean b = qnaService.QnaAnswer(dto);
 			if(b) {
-				
+
 				return "redirect:/admin/customercenter/qnalist";
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		

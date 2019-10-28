@@ -4,11 +4,19 @@
 <mapper namespace="AdminQna">
 	<!-- qnalist -->
 	<select id="getQnaList" parameterType="com.rhymes.app.customer.model.CustomerParam"  resultType="com.rhymes.app.customer.model.QnaDto">
-       SELECT SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME
+       SELECT SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME, FEEDBACK
       FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC)AS RNUM,
-					SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME
+					SEQ, ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME, FEEDBACK
 					FROM QNA
-					WHERE 1=1  
+					WHERE 1=1
+					<if test="s_category != null and s_category != ''">
+					<if test="s_category == 0">
+						AND FEEDBACK = 0
+					</if>
+					<if test="s_category == 1">
+						AND FEEDBACK = 1
+					</if>
+					</if>
 					)A
 			WHERE RNUM BETWEEN ${start} AND ${end}	
 			ORDER BY REF DESC, STEP ASC
@@ -28,6 +36,15 @@
 		resultType="java.lang.Integer">
 		SELECT IFNULL(COUNT(*), 0)AS CNT
 		FROM QNA
+		WHERE 1=1
+			<if test="s_category != null and s_category != ''">
+				<if test="s_category == 0">
+					AND FEEDBACK = 0
+				</if>
+				<if test="s_category == 1">
+					AND FEEDBACK = 1
+				</if>
+			</if>
 	</select>
 
 	<!-- qna detail -->
@@ -40,7 +57,7 @@
     <!-- qna 올리기 -->
     <insert id="QnaUpload" parameterType="com.rhymes.app.customer.model.QnaDto">
 	INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME)
-	VALUES(#{id}, #{category},(SELECT IFNULL(MAX(REF), 0)+1 FROM QNA ALIAS_FOR_SUBQUERY),0,0, #{title}, #{content}, NOW(), #{orderno}, #{filename})
+	VALUES(#{id}, #{category},(SELECT IFNULL(MAX(REF), 0)+1 FROM QNA ALIAS_FOR_SUBQUERY),0,0, #{title}, #{content}, NOW(), #{orderno}, #{filename}, 0)
 	</insert>
 	
 	<!-- qna 수정 -->
@@ -78,14 +95,18 @@
 	</update>
 	<insert id="QnaAnswerAf" parameterType="com.rhymes.app.customer.model.QnaDto">
 	     INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,
-	     				TITLE,CONTENT, WDATE, ORDERNO, FILENAME)
+	     				TITLE,CONTENT, WDATE, ORDERNO, FILENAME, FEEDBACK)
 	     VALUES(#{id},#{category}, 
 	     				#{ref},
 	     				#{step}+1, 
 	     				#{depth}+1,
-	     				#{title},#{content},NOW(), #{orderno}, #{filename})
+	     				#{title},#{content},NOW(), #{orderno}, #{filename}, 1)
 	</insert>
-	
+	<update id="QnaUpFeedback" parameterType="com.rhymes.app.customer.model.QnaDto">
+	UPDATE QNA
+		SET FEEDBACK = 1     
+			WHERE REF= #{ref}
+	</update>
 	
 	
 </mapper>

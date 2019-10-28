@@ -83,6 +83,22 @@
 					</div>
 				</li>
 				
+				<!-- 주문관리 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_payment" aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>주문관리</span>
+					</a>
+					<div id="admin_payment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">PAYMENT MANAGE</h6>
+							<a class="collapse-item" href="/admin/payment/success">주문조회</a>
+							<a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
+							<a class="collapse-item" href="/admin/payment/cancel">취소/환불관리</a>
+						</div>
+					</div>
+				</li>
+				
 				<!-- 중고마켓 관리 -->
 				<li class="nav-item">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsed" aria-expanded="true" aria-controls="collapseUtilities">
@@ -196,18 +212,32 @@
 
 				<!-- 주문관리 -->
 				<li class="nav-item">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_payment" aria-expanded="true" aria-controls="collapsePages">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_company_payment" aria-expanded="true" aria-controls="collapsePages">
 						<i class="fas fa-fw fa-folder"></i>
 						<span>주문관리</span>
 					</a>
-					<div id="admin_payment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+					<div id="admin_company_payment" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
-							<a class="collapse-item" href="/admin/payment/success">주문조회</a>
-							<a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
-							<a class="collapse-item" href="/admin/payment/cancel">취소/환불관리</a>
+							<a class="collapse-item" href="/admin/company/payment/success">주문조회</a>
+							<a class="collapse-item" href="/admin/company/payment/exchange">교환관리</a>
+							<a class="collapse-item" href="/admin/company/payment/cancel">취소/환불관리</a>
 							<!-- <a class="collapse-item" href="/admin/payment/refund"></a> -->
 							<!-- <a class="collapse-item" href="/admin/payment/finish">결제완료</a> -->
+						</div>
+					</div>
+				</li>
+				
+				<!-- 상품문의 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_company_productqna" aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>상품문의</span>
+					</a>
+					<div id="admin_company_productqna" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">PRODUCT QNA</h6>
+							<a class="collapse-item" href="/admin/company/">상품문의</a>
 						</div>
 					</div>
 				</li>
