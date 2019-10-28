@@ -53,8 +53,19 @@
 				<tr>
 					<th>작성일</th>
 					<td>${qna.wdate }</td>
+					
+					<c:if test="${0 eq qna.step }">
 					<th>답변상태</th>
-					<td>답변상태</td>
+					<td>
+						<c:if test="${1 eq qna.feedback }">
+						답변완료
+						</c:if>
+						<c:if test="${0 eq qna.feedback }">
+						미답변
+						</c:if>
+					</td>
+					</c:if>
+					 
 				</tr>
 				<tr>
 					<td colspan="4">
@@ -68,7 +79,7 @@
 				<div>
 						<form action="qnaanswer" method="get">
 								<input type="hidden" name="seq" value="${qna.seq }">
-								<input type="submit" class="clickBtn" value="댓글">
+								<input type="submit" class="clickBtn2" value="댓글">
 							</form>
 				</div>
 				
@@ -76,9 +87,9 @@
 				
 				<div>
 				<!-- 코어태그 추가하기 -->
-						<button type="button" class="clickBtn" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
+						<button type="button" class="clickBtn2" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
 					
-						<button type="button" class="clickBtn" onclick="QnaUpdate('${qna.seq }')">수정</button>
+						<button type="button" class="clickBtn2" onclick="QnaUpdate('${qna.seq }')">수정</button>
 				</div>
 
 			</div>

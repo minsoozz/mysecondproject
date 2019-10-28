@@ -1,6 +1,7 @@
 package com.rhymes.app.store.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,4 +31,40 @@ public class PreviewServiceImpl implements PreviewService {
 		return previewDao.getPreviewCount(param);
 	}
 
+	//like 여부
+	@Override
+	public boolean getlikes(Map<String, Object> map) {
+		
+		return previewDao.getlikes(map);
+	}
+
+	//like 추가
+	@Override
+	public boolean addlikes(Map<String, Object> map) {
+		
+		return previewDao.addlikes(map);
+	}
+
+	//like 삭제
+	@Override
+	public boolean deletelikes(Map<String, Object> map) {
+		
+		return previewDao.deletelikes(map);
+	}
+
+	//총 like 수 올리기
+	@Override
+	public int uptotalcount(DetailParam param) {
+		
+		return previewDao.uptotalcount(param);
+	}
+
+	//총 like 수 내리기
+	@Override
+	public int downtotalcount(DetailParam param) {
+		
+		return previewDao.uptotalcount(param);
+	}
+
+	
 }

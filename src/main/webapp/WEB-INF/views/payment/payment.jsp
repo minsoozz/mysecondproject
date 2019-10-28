@@ -172,7 +172,7 @@
 		<br><br><br><br><br><br>
 		
 <input type="hidden" id="disc_coupon" name="disc_coupon" value="0" size="2">
-<input type="hidden" name="disc_point" id="disc_point" value="0" size="2">
+<input type="hidden" id="disc_point" name="disc_point" value="0" size="2">
 <input type="hidden" id="totalprice" name="totalprice" value="0" size="2">
 
 		<!-- 로그인 했을때만 보이기 -->

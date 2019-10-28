@@ -29,13 +29,13 @@
 			<div class="table-responsive">
 
 				<div id="button.wrap">
-					<button type="button" class="clickBtn" id="_btnWrite">자주하는질문쓰기</button>
+					<button type="button" class="clickBtn1" id="_btnWrite">자주하는질문쓰기</button>
 				</div>
 	<form action="faqlist" name="frmForm1" id="_frmFormSearch" method="POST">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 		
 		<div style="float: left;">
-			<select id="_s_category" name="s_category" class="custome-select border-0 pr-3 searchSelect" onchange="categorychange()">
+			<select id="_s_category" name="s_category" class="custome-select border-1 pr-3 searchSelect" onchange="categorychange()" style="width: 200px;">
 			  <option value="" selected="selected">선택</option>
 			  <option value="01" <c:out value="${s_category == '01'? 'selected':'' }"/>>회원문의</option>
 		      <option value="02"<c:out value="${s_category == '02'? 'selected':'' }"/>>주문/결제</option>
@@ -48,9 +48,9 @@
 		
 		
 		<!-- 검색 -->
-		<div class="box_border" style="float: right;">
+		<div class="box_border" style="float: right;margin-bottom: 10px;" >
 		
-			검색:
+			
 			<input type="text"  name="s_keyword" value="${s_keyword }" class="searchText form-control-sm">
 			<span class="buttonsearch">
 				<button class="btn btn-primary" type="button">
@@ -90,17 +90,15 @@
 		<tr class="detail" id='detail${faq.seq}'>
 			<td><img alt="" src="/img/customer-img/answer.PNG" height="12px" width="24px;" align="top"> </td>
 			<td colspan="2" align="left">
-			<div style="white-space:pre-line;">
-			${faq.content }
-			</div>
+			<div style="white-space:pre-line;">${faq.content }</div>
 			</td>
 			<td>
 			<div>
 			<span class="button blue">
-				<button type="button" class="clickBtn" onclick="FaqUpdate('${faq.seq }')">수정</button>
+				<button type="button" class="clickBtn2" onclick="FaqUpdate('${faq.seq }')">수정</button>
 			</span>
 			<span class="button blue">
-				<button type="button" class="clickBtn" onclick="FaqDelete('${faq.seq }')">삭제</button>
+				<button type="button" class="clickBtn2" onclick="FaqDelete('${faq.seq }')">삭제</button>
 			</span>
 			</div>
 			</td>
@@ -160,16 +158,13 @@ function FaqUpdate( seq ) {
 
 
 function categorychange(  ){
-	
 	document.frmForm1.submit();
-	
-}
-
-
+}	
 
 $("#_btnWrite").click(function () { 
 	location.href = "faqwrite";
 });
+
 
 function goPage( pageNumber ) {
 	

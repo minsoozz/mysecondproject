@@ -73,17 +73,33 @@
 	
 	<!-- < -->
 	<%
-	if(screenStartPageIndex > 1){
-		%>
-		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-		<a href="#none" title="이전페이지" onclick="goPage('<%=screenStartPageIndex-1 %>')">
-			<img alt="" src="../img/customer-img/arrow_back.gif" style="width: 9px; height: 9px">
+	for(int i = screenStartPageIndex; i<screenEndPageIndex; i++){
+		
+		if(i == pageNumber && i >0){	// 현재페이지
+			
+	%>
+		   
+		<li class="page-item">
+		<a href="#none" class="page-link" title="이전페이지" onclick="goPage(<%=i-1 %>)">
+			<span aria-hidden="true">&lt;</span>
+	        <span class="sr-only">Previous</span>
 		</a>
-		</span>
-		<% 
+	    </li>
+	    
+
+	<%
+	}else if(i == pageNumber && i < 1){
+		%>
+		<li class="page-item">
+		<a href="#none" class="page-link" title="이전페이지" onclick="goPage(<%=i %>)">
+			<span aria-hidden="true">&lt;</span>
+	        <span class="sr-only">Previous</span>
+		</a>
+	    </li>
+	<%
+	}
 	}
 	%>
-	
 	<!--[1] 2 [3] -->
 	
 	<%
@@ -103,17 +119,32 @@
 	
 	<!-- > -->
 	<%
-	if(screenEndPageIndex < totalPageCount){	// [11][12][13] >
+	for(int i = screenStartPageIndex; i<screenEndPageIndex; i++){
+		if(i == pageNumber && i+1 < screenEndPageIndex){	// 현재페이지
 		%>
-		<span style="font-size: 12pt; color: #000000; border:#D8D8D8 1px solid; padding: 5px">
-
-		<a href="#" title="다음페이지" onclick="goPage(<%=screenEndPageIndex %>);return false;">
-
-			<img alt="" src="../img/customer-img/arrow_next.gif" style="width: 9px; height: 9px;">
+		
+		<li class="page-item">
+		<a href="#" class="page-link" title="다음페이지" onclick="goPage(<%=i+1 %>);return false;">
+			<span aria-hidden="true">&gt;</span>
+	        <span class="sr-only">Next</span>
 		</a>
-		</span>
+	    </li>
+		
 		<%
+		}else if(i == pageNumber && i+1 ==screenEndPageIndex){
+			%>
+			<li class="page-item">
+		<a href="#" class="page-link" title="다음페이지" onclick="goPage(<%=i %>);return false;">
+			<span aria-hidden="true">&gt;</span>
+	        <span class="sr-only">Next</span>
+		</a>
+	    </li>
+			<%
+		}
 	}
+	%>
+		
+	<%
 	int end_page = 0;
 	if(totalPageCount > 0){
 		end_page = totalPageCount - 1;
@@ -123,7 +154,6 @@
 	<li class="page-item">
 
 	      <a href="#" class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>)" >
-
 
 	        <span aria-hidden="true">&raquo;</span>
 	        <span class="sr-only">Next</span>
