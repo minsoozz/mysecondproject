@@ -60,19 +60,16 @@ p {
 			
 /* Banner */
 
-	#banner {
-	
-		background-image: url("/img/main-img/bg-img/lime.png");
+	#mainbanner {
 		background-position: center center;
 		background-size: cover;
 		height: 50em;
 		text-align: center;
-
 		position: relative;
 	}
 	
 	#mainpick1 {
-		background-image: url("/img/main-img/bg-img/main.jpg");
+		background-image: url("/upload/mainresource/${dto.photo1_file}");
 		background-position: center center;
 		background-size: cover;
 		height: 40em;
@@ -82,7 +79,7 @@ p {
 	}
 	
 	#mainpick2 {
-		background-image: url("/img/main-img/bg-img/ex.jpg");
+		background-image: url("/upload/mainresource/${dto.photo2_file}");
 		background-position: center center;
 		background-size: cover;
 		height: 40em;

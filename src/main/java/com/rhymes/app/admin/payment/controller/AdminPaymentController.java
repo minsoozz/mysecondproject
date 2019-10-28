@@ -27,7 +27,7 @@ public class AdminPaymentController {
 		List<PaymentDTO> orderSuccess = adminPaymentService.getOrderSuccess();
 		model.addAttribute("orderSuccess",orderSuccess);
 		return "success";
-	}
+	} 
 	
 	// 관리자페이지 결제상상세내역조회
 	@RequestMapping("/detail")
