@@ -124,23 +124,28 @@
     </section>
     <!-- ****** Welcome Area End ****** -->
 
-   <br><br><br><br><br><br>
+   <br><br><br><br><br><br>   <br><br><br><br><br><br>
 
-    <!-- 추천 상품 메인픽  -->
-   <div align="center">
-     <section id="mainpick1">
-		<img src="/upload/mainresource/${dto.photo1_file}" style="width: 1300px; height: 800px;"></img>
-	 </section>		    
-     <h3 style="color: black">${dto.photo1_title}</h3>
+
+   
+   
+   <div class="thumbnail-wrapper"> 
+	   <div class="thumbnail"> 
+		   <div class="centered"> 
+		   	<img src="/upload/mainresource/${dto.photo1_file}"></img> 
+		   </div> 
+	   </div> 
+	   <div id="bannertext" align="center">
+	   <h3 style="color: black">${dto.photo1_title}</h3>
      <br>
      <p style="font-size: 15px">${dto.photo1_content}</p>     
      <a href="#" class="mainbuybtn">구매하기</a>
+     </div>
    </div>
    <br><br><br><br><br><br>
    
-   
     <div align="center">
-    <video src='/upload/mainresource/${dto.video1_file} width="90%" height="10%" loop="loop" autoplay="autoplay"'></video>
+    <video src='/upload/mainresource/${dto.video1_file}' style="width: 90%; height: 10%" loop="loop" autoplay="autoplay"></video>
      <br><br>
      <h3 style="color: black">${dto.video1_title}</h3>
      <br> 
@@ -150,20 +155,24 @@
    <br><br><br><br><br><br>
 
        
-       
-   <div align="center">
-     <section id="mainpick2">
-     </section>
-     <h3 style="color: black">${dto.photo2_title}</h3>
-     <br> 
-	<p style="font-size: 15px">${dto.photo2_content}</p>    
+     <div class="thumbnail-wrapper"> 
+	   <div class="thumbnail"> 
+		   <div class="centered"> 
+		   	<img src="/upload/mainresource/${dto.photo2_file}"></img> 
+		   </div> 
+	   </div> 
+	   <div id="bannertext" align="center">
+	   <h3 style="color: black">${dto.photo2_title}</h3>
+     <br>
+     <p style="font-size: 15px">${dto.photo2_content}</p>     
      <a href="#" class="mainbuybtn">구매하기</a>
+     </div>
    </div>
    <br><br><br><br><br><br>
 
    
   <div align="center">
-    <video src='/upload/mainresource/${dto.video2_file} width="90%" height="10%" loop="loop" autoplay="autoplay"'></video>
+    <video src='/upload/mainresource/${dto.video2_file}' style="width: 80%;height: 10%;" loop="loop" autoplay="autoplay"></video>
      <br><br>
      <h3 style="color: black">${dto.video2_title}</h3>
      <br> 

@@ -58,33 +58,44 @@ p {
 #header_wrap { width:100%; height:90px; margin:0px; position: relative; z-index: 1;}
 #footer_wrap { width:100%;  } 
 			
-/* Banner */
+		
+			
+/* 메인사진 */
+
+.thumbnail-wrappper { width: 25%; }
+.thumbnail { 
+	position: relative;
+	padding-top: 40%; /* 1:1 ratio */ 
+	overflow: hidden; 
+} 
+.thumbnail .centered {
+	position: absolute; 
+	top: 0; left: 0; right: 0; 	bottom: 0; 
+	-webkit-transform: translate(50%,50%);
+	-ms-transform: translate(50%,50%);
+	transform: translate(50%,50%); 
+}	  
+
+.thumbnail .centered img { 
+	position: absolute; top: 0; left: 0; 
+	max-width: 100%; 
+	height: auto; 
+	-webkit-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%); 
+	transform: translate(-50%,-50%); 
+}
+
+/*메인 소개 텍스트*/
+#bannertext{
+	margin-top: 50px;
+}
+
 
 	#mainbanner {
 		background-position: center center;
 		background-size: cover;
 		height: 50em;
 		text-align: center;
-		position: relative;
-	}
-	
-/* 	#mainpick1 {
-	 	background-image: url("/upload/mainresource/${dto.photo1_file}"); 
-		background-position: center center;
-		background-size: cover;
-		height: 40em;
-		text-align: center;
-		margin : 50px;
-		position: relative;
-	}  */
-	
-	#mainpick2 {
-		background-image: url("/upload/mainresource/${dto.photo2_file}");
-		background-position: center center;
-		background-size: cover;
-		height: 40em;
-		text-align: center;
-		margin : 50px;
 		position: relative;
 	}
 
