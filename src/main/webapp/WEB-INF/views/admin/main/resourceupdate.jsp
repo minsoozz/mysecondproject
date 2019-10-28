@@ -211,8 +211,8 @@ table input{
 	<div>
 		<div>
 				<fieldset>
-					<label> <input class="cb cb1" type="checkbox" value="video"
-						name="bannertype" onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'VIDEO'? 'checked':'' }"/> /> <i></i> 
+					<label> <input class="cb cb1" type="checkbox" name="bannertype" value="video"
+						onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'VIDEO'? 'checked':'' }"/> /> <i></i> 
 						<span>VIDEO</span>
 					</label> 
 					<label> <input class="cb cb2" type="checkbox" name="bannertype" value="photo"
@@ -263,7 +263,7 @@ table input{
 					<input type="file" name="fileload" id="banner-upload0" style="display:none">	
 				</c:if>
 				<input type="hidden" name="which" value="banner">
-				<input type="hidden" name="bannertype" id="_bannertype">
+				<input type="hidden" name="bannertype" id="_bannertype" value="${resource.mainbanner_type }">
 			</form>
 			</div>
 		</div>
@@ -531,8 +531,6 @@ function textupdate(){
 }
 
 function inputkeyup(object, text){
-	
-	
 	
 	//alert(text);
 	//alert(object);
@@ -843,6 +841,7 @@ function cbChange(obj) {
 	  var typ =$("input:checkbox[name='bannertype']:checked").val()
 	 // alert(b);
 	 // alert(bannertype);
+	 alert(typ);
 	 $("#_bannertype").val(typ); 
 	 
 	  if(bannertype === 'PHOTO'){

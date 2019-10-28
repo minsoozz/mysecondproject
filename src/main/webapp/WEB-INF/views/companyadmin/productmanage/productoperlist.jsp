@@ -5,6 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+#dataTable{
+	font-size: 12px;
+}
+</style>
 <meta charset="UTF-8">
 <title>상품조회</title>
 <link rel="stylesheet" type="text/css"
@@ -306,6 +311,8 @@ $('#saleregister-finishBtn').click(function(){
 	     	 setTimeout(function() {
 	     		$(".productsale_modal").fadeOut();
 	     		$(".msgModal").fadeOut();
+	     		$("#applypercent").val("");
+	     		$(".appliedPrice").html("");
 	         },800);			
         },
         error:function(){
