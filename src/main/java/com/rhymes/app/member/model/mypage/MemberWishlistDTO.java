@@ -28,6 +28,8 @@ public class MemberWishlistDTO {
 	private int p_price;	//상품 가격
 	private String photo1_file;	//상품썸네일
 	
+	private String p_color;	//상품 색상 
+	
 	/**No Args Constructor
 	 * 
 	 */

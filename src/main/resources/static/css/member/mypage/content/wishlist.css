@@ -32,15 +32,18 @@
 .body_wishlist .wishlist_row input{
 	
 }
+
 .chk_wishlist_item input{
 	position:absolute;
 	top: 50%;
 	left: 39%;
 }
 
-.detail_wishlist_item{
+.detail_wishlist_item .form-row{
 	left: 3%;
 	cursor: pointer;
+	min-width: 90% !important;
+	max-width: 90% !important;
 }
 
 .wishlist_body_btns{
@@ -73,6 +76,11 @@
 }
 .tbl_wishlist_head input{
 	left: 40% !important;
+}
+
+/* 장바구니 담기 모달위치 */
+#_wishlist_cart_modal .modal-dialog{
+	margin-top: 300px;
 }
 
 /* Switch 1 Specific Styles Start */

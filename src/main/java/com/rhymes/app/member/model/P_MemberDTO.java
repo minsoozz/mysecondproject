@@ -11,7 +11,6 @@ public class P_MemberDTO {
    private String userid; // 아이디
    private String username; // 이름
 
-
    private String postcode; // 우편번호
    private String address; // 주소
    private String detailAddress; // 상세주소

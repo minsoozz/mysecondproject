@@ -67,7 +67,7 @@ public class AdminPaymentController {
 		//model.addAttribute("s_keyword",param.getS_keyword());
 		
 		return "success";
-	}
+	} 
 	
 	// 관리자페이지 결제상상세내역조회
 	@GetMapping("/detail")

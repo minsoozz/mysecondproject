@@ -275,8 +275,7 @@ $(document).ajaxSend(function(e, xhr, options) {
          <img src="/upload/store/${productDto.photo3_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
           <img src="/upload/store/${productDto.photo4_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
            <img src="/upload/store/${productDto.photo5_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
-      <br>원산지 : ${productDto.nation}<br>
-      <br>생산일 : ${productDto.mdate}<br><br><br><br>
+      
      </div> 
       
       

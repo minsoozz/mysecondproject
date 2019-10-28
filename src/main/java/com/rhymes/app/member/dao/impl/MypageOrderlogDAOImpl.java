@@ -66,5 +66,17 @@ public class MypageOrderlogDAOImpl implements MypageOrderlogDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(ns + "getPaymentInfoByPaymentCode", payment_code);
 	}
-		
+
+	/**매개변수로 받은 주문번호 삭제(주문취소, 미결제인 경우에만 가능)
+	 * @param payment_code
+	 * @return
+	 */
+	@Override
+	public int deletePayment(String payment_code) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		result = sqlSession.delete(ns + "deletePayment", payment_code);
+		result = sqlSession.delete(ns + "deletePaymentDetail", payment_code);		
+		return result;
+	}	
 }

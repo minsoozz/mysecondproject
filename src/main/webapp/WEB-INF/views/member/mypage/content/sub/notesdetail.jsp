@@ -34,7 +34,7 @@
 	</c:if>
 	</tr>
 	<tr>
-	<td colspan="2"><textarea readonly="readonly" cols="65" rows="15">${dto.content }</textarea></td>
+	<td colspan="2"><textarea readonly="readonly" cols="65" rows="15" style="resize: none;">${dto.content }</textarea></td>
 	</tr>
 	<tr>
 	<td colspan="2"><button type="button" id="sdelete" value="${dto.seq }" class="rhybtn">삭제</button>
@@ -55,7 +55,7 @@
 	<th>보낸날짜</th><td>${dto.data_send}</td>
 	</tr>
 	<tr>
-	<td colspan="2"><textarea readonly="readonly" cols="65" rows="15">${dto.content }</textarea></td>
+	<td colspan="2"><textarea readonly="readonly" cols="65" rows="15" style="resize: none;">${dto.content }</textarea></td>
 	</tr>
 	<tr>
 	<td colspan="2">

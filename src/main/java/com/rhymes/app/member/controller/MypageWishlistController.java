@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rhymes.app.member.dao.WishlistHibernateRepository;
+import com.rhymes.app.member.model.mypage.MemberStockDTO;
 import com.rhymes.app.member.model.mypage.MemberWishlistDTO;
 import com.rhymes.app.member.service.MypageWishlistService;
 
@@ -33,9 +35,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/mypage/*")
 public class MypageWishlistController {
 	
-	@Autowired
+	@Autowired	//마이페이지 찜목록 서비스
 	private MypageWishlistService mypageWishlistService;
 	
+	@Autowired	//hibernate repository
+	//private WishlistHibernateRepo hiberRepo;
+	private WishlistHibernateRepository hiberRepo;
 	
 	/**위시리스트 페이지를 보여주는 메소드
 	 * @return
@@ -50,13 +55,33 @@ public class MypageWishlistController {
 		
 		//Service 통신
 		wishList = mypageWishlistService.getWishlistById(userid);
-		
+		log.info( "wish : " + wishList.toString() );
 		//attr 추가
 		model.addAttribute("wishList", wishList);
 		
 		return "member/mypage/wishlist";
 	}
 	
+	/**위시리스트 페이지에서 장바구니 담기를 클릭했을 때 모달에 들어갈 페이지를 리턴하는 메소드
+	 * @return
+	 * @throws Exception 
+	 */
+	@GetMapping(value = "/wishlist/cart/additem")
+	public String showWishListAddCart(Model model, Principal pcp, int p_seq) throws Exception {
+		log.info("show WishList AddCart()" + p_seq);
+		
+		//상품정보
+		log.info( hiberRepo.findProduct(p_seq).toString() );
+		
+		//색상, 사이즈 별 재고현황
+		List<MemberStockDTO> sizeList = mypageWishlistService.getSizeListByP_Seq(p_seq);
+		
+		log.info(sizeList.toString());
+		
+		model.addAttribute("sizeList", sizeList);
+		
+		return "member/mypage/sub/wishlist_cart";
+	}
 	
 	
 	/* Ajax 통신 */

@@ -94,10 +94,6 @@ public class AdminMainResourceController {
 		String fileName = fileload.getOriginalFilename();
 		String timeFileName = System.currentTimeMillis() + fileName;
 		
-		log.info("-------------------------------bannertype : " + bannertype);
-		log.info("-------------------------------which : " + which);
-		
-		
 		log.info(which);
 		log.info(timeFileName);
 		log.info(path);

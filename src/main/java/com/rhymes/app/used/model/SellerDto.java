@@ -18,7 +18,7 @@ public class SellerDto implements Serializable {
 	private String s_id;	//  아이디
 	private String rdate;	// 가입일
 	private int blackcount; // 신고 누적수
-	
+	private String isAccountNonLock; // 계정 잠금여부
 	private int scount; // 판매글 개수
 	private int pcount; // 판매 완료 개수
 }
