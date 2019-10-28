@@ -95,21 +95,28 @@
   		<c:when test="${userloginid ne null }"><!-- 멤버P -->
   			<c:if test="${login.islike == 'true' }"><!-- 좋아요클릭한상태 -->
 	  			<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/likeAf.png" style="width: 35px" height="35px" id="like_img"></a>
+	  			  	&nbsp;&nbsp;&nbsp;
+  	 				<input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
   			</c:if>
 			
 			<c:if test="${login.islike == 'false' }"><!-- 좋아요클릭하지않은상태 -->
   				<a href='javascript: like_func()'><img id="likeimg" alt="" src="/img/used-img/like.png" style="width: 35px" height="35px" id="like_img"></a>
+  				  	&nbsp;&nbsp;&nbsp;
+  	 				<input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
   			</c:if>
   			<c:if test="${empty login.userid  }"><!-- 멤버p가 아닌 관리자, 판매자, 등등 -->
   				<a href="#none" class="admin"><img alt="" src="/img/used-img/likeAf.png" style="width: 35px" height="35px"></a>
+  				  	&nbsp;&nbsp;&nbsp;
+  	 				<input type="button" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
   			</c:if>
   		</c:when>
 	  	<c:otherwise><!-- 멤버P가 아닌 회원 -->
 	  		<a href="#none" class="gologin"><img alt="" src="/img/used-img/likeAf.png" style="width: 35px" height="35px"></a>
+	  		  	&nbsp;&nbsp;&nbsp;
+  	 			<input type="button" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;" onclick="gologin()">
 	  	</c:otherwise>
   	</c:choose>
-  	&nbsp;&nbsp;&nbsp;
-  	 <input type="button" id="_notesbtn" value="쪽지 보내기" class="basketBtn" style="cursor:pointer;">
+
   	<br><br>
 	<font style="color: gray;font-size: 15px;margin-bottom: -5px;">거래지역 : ${dto.place }</font>
 	

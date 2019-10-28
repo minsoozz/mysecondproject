@@ -14,7 +14,6 @@
 <div id="_main">
 
 <div id="_left">
-<h1>이미지 등록</h1>
 	<div id="_img">
 	
 	</div>
@@ -28,7 +27,7 @@
 <form action="/used/usedwriteAf" id="_wform" enctype="multipart/form-data" method="post">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <input type="hidden" name="s_id" value="${login.userid }">
-<table>
+<table style="margin:20px 20px 20px 20px">
 <col width="20%">
 <col width="80%">
 <tbody id="mybody">

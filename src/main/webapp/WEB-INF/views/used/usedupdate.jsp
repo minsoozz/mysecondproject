@@ -17,7 +17,6 @@
 <div id="_main">
 
 <div id="_left">
-<h1>이미지 등록</h1>
 	<div id="_img">
 	
 	</div>
@@ -34,7 +33,7 @@
 <input type="hidden" name="division" value="${dto.division }">
 <input type="hidden" name="rdate" value="${dto.rdate }">
 
-<table>
+<table style="margin:20px 20px 20px 20px">
 <col width="20%">
 <col width="80%">
 <tbody id="mybody">
@@ -87,6 +86,11 @@
 <input type="file" multiple="multiple" name="files" id="_image" class="image" onchange="check()" onclick="check()" >
 </td>
 </tr>
+<tr>
+<td colspan="2">
+<br>
+기존 사진 수정은 왼쪽의 썸네일을 클릭하면 삭제됩니다.
+</tr>
 <%
 ProductsDto dto = (ProductsDto)request.getAttribute("dto");
 String arr[] = dto.getPhoto_list();
@@ -105,9 +109,8 @@ int arrSize = arr.length;
 </c:forEach>
 </tbody>
 </table>
-
 	<div id="_bdiv">
-		기존 사진은 사진을 클릭하면 삭제 할 수 있습니다&nbsp;<button type="button" id="_wbtn" name="wbtn" class="rhybtn">작성 완료</button>
+	&nbsp;&nbsp;<button type="button" id="_wbtn" name="wbtn" class="rhybtn">작성 완료</button>
 	</div>
 </form>
 </div>
