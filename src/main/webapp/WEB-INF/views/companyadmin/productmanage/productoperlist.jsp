@@ -5,6 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+#dataTable{
+	font-size: 12px;
+}
+</style>
 <meta charset="UTF-8">
 <title>상품조회</title>
 <link rel="stylesheet" type="text/css"
@@ -306,6 +311,8 @@ $('#saleregister-finishBtn').click(function(){
 	     	 setTimeout(function() {
 	     		$(".productsale_modal").fadeOut();
 	     		$(".msgModal").fadeOut();
+	     		$("#applypercent").val("");
+	     		$(".appliedPrice").html("");
 	         },800);			
         },
         error:function(){
@@ -356,11 +363,11 @@ $(document).on('click', '#_btnSearch', function(){
 function sorting(sorting){
 	var criterion = $("#_select").val();
 	var keyword = $("#keyword").val();
-	var sorting = $("#sorting").val();
+	var sorting = $("#sorting").val();	
 	$("#frm_criterion").val(criterion);
 	$("#frm_keyword").val(keyword);
 	$("#form_sorting").val(sorting);
-		
+	
 	$("#plistFrm").submit();	
 }
 // 페이지 이동

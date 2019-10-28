@@ -28,10 +28,10 @@
 		<div class="card-body">
 			<div class="table-responsive" >
 				<div class="row" style="float:left; margin-bottom: 20px;">
-					<div>
+					<div style="margin-left: 10px;">
 						<img src="/upload/store/${pDto.photo1_file }"  style="width:250px; height:250px;">
 					</div>
-					<div style="padding-left: 25px;">
+					<div style="padding-left: 10px; margin-left: 40px; margin-top: 30px; margin-right: 30px;">
 						<label><strong>상품명</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;${pDto.p_name }</label><br>
 						<label><strong>상품 가격</strong>&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;<fmt:formatNumber type="currency" currencySymbol="" value="${pDto.p_price}" /> 원</label><br>
 						<label><strong>상품 색상</strong>&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;${pDto.p_color }</label><br>
@@ -41,7 +41,7 @@
 				</div>
 
 
-				<div style="align:center; width:50%; float:left; margin-left: 90px;" >
+				<div style="align:center; width:40%; float:left; margin-left: 50px;" >
 				<table class="table table-bordered" id="dataTable">
 					<colgroup>
 						

@@ -4,16 +4,64 @@
 <mapper namespace="adminPayment">
 
 <!-- 관리자페이지 결제내역조회 -->
-<select id="getOrderSuccess" resultType="com.rhymes.app.payment.model.PaymentDTO">
-<!-- SELECT PAYMENT_CODE, USERID, SEND_NAME, PAYMENT_METHOD, PAYMENT_STATUS, TOTALPRICE, RDATE
-FROM RHY_PAYMENT -->
+<!-- 검색 : 회원ID, 회원이름, 주문번호, 결제상태, 결제수단  -->
+<select id="getOrderSuccessList" parameterType="com.rhymes.app.admin.payment.model.AdminPaymentParam" resultType="com.rhymes.app.payment.model.PaymentDTO">
+SELECT PAYMENT_CODE, USERID, SEND_NAME, COUPON_CODE, PAYMENT_METHOD, PAYMENT_STATUS, TOTALPRICE, RDATE
+FROM
+	(SELECT ROW_NUMBER()OVER(ORDER BY RDATE DESC) AS RNUM, PAYMENT_CODE, USERID, SEND_NAME, COUPON_CODE, PAYMENT_METHOD, PAYMENT_STATUS, TOTALPRICE, RDATE
+	FROM RHY_PAYMENT
+	WHERE 1=1
+		<if test="s_category != null and s_category != ''">
+			<if test="s_category == 'id'">
+				AND USERID LIKE '%' #{s_category} '%'
+			</if>
+			<if test="s_category == 'name'">
+				AND SEND_NAME LIKE '%' #{s_category} '%'
+			</if>
+			<if test="s_category == 'payment_method'">
+				AND PAYMENT_METHOD LIKE '%' #{s_category} '%'
+			</if>
+			<if test="s_category == 'payment_status'">
+				AND PAYMENT_STATUS LIKE '%' #{s_category} '%'
+			</if>
+		</if>
+	) B
+WHERE RNUM BETWEEN ${start} AND ${end}
+ORDER BY RDATE DESC
+</select>
+
+<!-- 관리자페이지 결제상내역 총 개수 -->
+<select id="getOrderSuccessCount" parameterType="com.rhymes.app.admin.payment.model.AdminPaymentParam" resultType="java.lang.Integer">
+SELECT IFNULL(COUNT(*), 0)
+FROM RHY_PAYMENT
+WHERE 1=1
+	<if test="s_category != null and s_category != ''">
+		<if test="s_category == 'id'">
+			AND USERID LIKE '%' #{s_category} '%'
+		</if>
+		<if test="s_category == 'name'">
+			AND SEND_NAME LIKE '%' #{s_category} '%'
+		</if>
+		<if test="s_category == 'payment_method'">
+			AND PAYMENT_METHOD LIKE '%' #{s_category} '%'
+		</if>
+		<if test="s_category == 'payment_status'">
+			AND PAYMENT_STATUS LIKE '%' #{s_category} '%'
+		</if>
+	</if>
 </select>
 
 <!-- 관리자페이지 결제상세내역조회 -->
-<select id="getOrderSuccessDetail">
-<!-- SELECT *
-FROM RHY_PAYMENT P, RHY_PAYMENT_AFTER PA, RHY_STORE_STOCK SS, RHY_STORE_PRODUCT SR, RHY_DELIVERY D
-P.PAYMENT_CODE = PA.PAYMENT_AFTER AND P -->
+<select id="getOrderDetail" parameterType="com.rhymes.app.payment.model.PaymentDTO" resultType="com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO">
+SELECT *
+FROM RHY_PAYMENT P, RHY_PAYMENT_AFTER PA, RHY_PAYMENT_DETAILS PD, RHY_STORE_STOCK SS, RHY_STORE_PRODUCT SP, RHY_DELIVERY D, RHY_MEM_COUPON MC, RHY_MEM_COUPON_DETAIL MCD
+WHERE P.PAYMENT_CODE = PA.PAYMENT_CODE AND P.PAYMENT_CODE = PD.PAYMENT_CODE AND P.PAYMENT_CODE = D.PAYMENT_CODE
+		AND PD.S_SEQ = SS.STOCK_SEQ AND SS.P_SEQ = SP.P_SEQ
+		<if test="coupon_code != null and coupon_code != ''">
+		AND P.COUPON_CODE = MCD.COUP_CODE AND MCD.C_SEQ = MC.SEQ AND MCD.COUP_CODE=#{coupon_code}
+		</if>
+		AND P.PAYMENT_CODE LIKE CONCAT('%',#{payment_code},'%')
+GROUP BY SS.STOCK_SEQ
 </select>
 
 </mapper>

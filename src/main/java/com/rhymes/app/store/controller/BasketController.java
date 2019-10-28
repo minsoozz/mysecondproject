@@ -341,6 +341,9 @@ public class BasketController{
 	      if(prc != null) {
 	         userId = prc.getName();
 	         blist= purchase.getBasketList(userId);
+	         if(blist.size() == 0) {
+	        	 blist = null;
+	         }
 	      }
 	      //로그인X
 	      else{

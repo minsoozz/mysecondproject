@@ -31,4 +31,6 @@ public class PreviewDto {
 	private String rdate;	//등록일
 	private String p_name;	//상품이름
 	
+	private String mylike;
+	
 }

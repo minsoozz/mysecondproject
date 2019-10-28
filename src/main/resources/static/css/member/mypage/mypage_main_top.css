@@ -16,7 +16,7 @@
 }
 
 .mypage_top {	/* TOP부분 배경화면 */
-	z-index: 2;
+	z-index: 0;
 	position: absolute;
 	margin: 0 0 0 -1500px;
 	
@@ -31,7 +31,7 @@
 }
 
 .mypage_top_user {	/* TOP부분 전체 크기 및 배치. 등급 적립금 등 */
-	z-index: 3;
+	z-index: 0;
 	position: absolute;
 	margin: 0 0 0 -500px;
 	

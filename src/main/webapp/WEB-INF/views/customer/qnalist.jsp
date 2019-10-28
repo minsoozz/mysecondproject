@@ -9,7 +9,7 @@
 <div align="right">
 		<button type="button" class="customer-btn1" id="_btnWrite">1:1문의</button>
 </div>
-<form action="qnalist" name="frmForm1" id="_frmFormSearch" method="POST">
+<form action="qnalist" name="frmForm1" id="_frmFormSearch" method="GET">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
  
 <jsp:useBean id="uqna" class="com.rhymes.app.customer.util.QnaArrow" scope="page"/>    
@@ -65,7 +65,11 @@
 </div>
 <!-- 페이징끝 --> 
 
+</th>
+</tr>
 
+<tr>
+<th colspan="5">
 </th>
 </tr>
 

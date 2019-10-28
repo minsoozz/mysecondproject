@@ -1,8 +1,12 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.If"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     
-<table class="detail_table">
+<table class="detail_table" style="line-height: 1.5em">
 <col width="100"><col width="200"><col width="100"><col width="300">
 
 <tr>
@@ -27,32 +31,37 @@
 <tr>
 	<th>작성일</th>
 	<td>${qna.wdate }</td>
+	
+	<c:if test="${0 eq qna.step }">
 	<th>답변상태</th>
-	<td>답변상태</td>
+	<td>
+		<c:if test="${1 eq qna.feedback }">
+		답변완료
+		</c:if>
+		<c:if test="${0 eq qna.feedback }">
+		미답변
+		</c:if>
+	</td>
+	</c:if>
+	 
 </tr>
 <tr>
 	<td colspan="4">
-	<div style="white-space:pre-line;">
+	<div style="white-space:pre-line;" class="contentst">
 	<img alt="" src="/upload/customer/${qna.filename }" style="height: 30%">
 	${qna.content }
 	</div>
 	</td>
 </tr>
 </table>
-<div>
-		<form action="qnaanswer" method="get">
-				<input type="hidden" name="seq" value="${qna.seq }">
-				<input type="submit" class="customer-btn2" value="댓글">
-			</form>
-</div>
+
 
 <!-- 수정삭제버튼 -->
 
-<div>
+<div style="margin-bottom: 30px;">
 <!-- 코어태그 추가하기 -->
-		<button type="button"  class="customer-btn2" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
-		<button type="button"  class="customer-btn2" onclick="QnaUpdate('${qna.seq }')">수정</button>
-
+	<button type="button"  class="customer-btn2" onclick="QnaUpdate('${qna.seq }')">수정</button>
+	<button type="button"  class="customer-btn2" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
 </div>
 
 
