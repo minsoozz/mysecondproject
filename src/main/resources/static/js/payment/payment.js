@@ -98,7 +98,7 @@ function paymens(){
 
 	}
 
-	alert("총 : "+parseInt(totalprice));
+	//alert("총 : "+parseInt(totalprice));
 	// parseInt를 했기때문에 소수점자리는 잘라진다 예) 42.6 -> 42
 	var add_point = parseInt(parseInt(totalprice) * 0.02);
 	
@@ -158,7 +158,7 @@ function paymens(){
 	        msg += "\n에러내용 : " + rsp.error_msg;
 	    }
 
-	    alert(msg);
+	    //alert(msg);
 	});
 }
 

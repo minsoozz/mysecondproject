@@ -9,8 +9,12 @@
 <meta charset="UTF-8">
 <title>content_main</title>
 <!-- jQuery -->
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/memberlist.css"> --%>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/payment/payment.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/payment/payment.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/paging.css">
 
 </head>
 
@@ -28,7 +32,47 @@
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
- 				<div class="payment_success_wrap">
+				<div class="row">
+					<form id="_payment_frm" name="payment_frm">
+						<div class="col-sm-12 col-md-6">		
+							<div class="dataTables_length" id="dataTable_length">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								
+								<select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable" onchange="dataTable_length()" class="custom-select custom-select-sm form-control form-control-sm">
+									<option value="3" <c:out value="${recordCountPerPage == '3'? 'selected':'' }"/>>3</option>
+									<option value="5" <c:out value="${recordCountPerPage == '5'? 'selected':'' }"/>>5</option>
+									<option value="10" <c:out value="${recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
+									<option value="20" <c:out value="${recordCountPerPage == '20'? 'selected':'' }"/>>20</option>
+								</select>
+							</div>
+						</div>
+	
+						<!-- 검색 -->
+						<div class="col-sm-12 col-md-6">
+							<div id="dataTable_filter" class="searchPosition dataTables_filter">
+								<select class="custome-select border-0 pr-3 searchSelect" id="_select" name="s_category">
+									<option selected value="">전체</option>
+									<option value="id" <c:out value="${s_category == 'id'? 'selected':'' }"/>>아이디</option>
+									<option value="name" <c:out value="${s_category == 'name'? 'selected':'' }"/>>이름</option>
+									<option value="payment_method" <c:out value="${s_category == 'payment_method'? 'selected':'' }"/>>결제수단</option>
+									<option value="payment_status" <c:out value="${s_category == 'payment_status'? 'selected':'' }"/>>결제상태</option>
+								</select>
+								<input type="text" id="_s_keyword" name="s_keyword" class="searchText form-control-sm" placeholder="search..."
+										aria-controls="dataTable" style="width: 150px" value="${s_keyword }">
+								<button class="btn btn-primary" type="button">
+									<i class="fas fa-search fa-sm" id="_btnSearch"></i>
+								</button>
+								<!-- hidden 을 통해서 값을 넘겨주기 -->
+								<input type="hidden" name="pageNumber" id="_pageNumber" value="0">
+								<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?0:recordCountPerPage }">
+							</div>
+						</div>
+						<!-- /검색 -->			
+					</form>
+				</div>
+
+
+				<div class="payment_success_wrap">
 					<div class="payment_success_contents">
 						<table class="table table-bordered">
 							<tr>
@@ -42,23 +86,45 @@
 							</tr>
 							<c:forEach items="${orderSuccess }" var="p">
 								<tr>
-									<td><a href="/admin/payment/detail?payment_code=${fn:substring(p.payment_code,4,16) }&coupon_code=${p.coupon_code }">${fn:substring(p.payment_code,4,16) }</a></td>
+									<td><a
+										href="/admin/payment/detail?payment_code=${fn:substring(p.payment_code,4,16) }&coupon_code=${p.coupon_code }">${fn:substring(p.payment_code,4,16) }</a></td>
 									<c:if test="${not empty p.userid }">
 										<td>${p.userid }</td>
 									</c:if>
 									<c:if test="${empty p.userid }">
 										<td>비회원</td>
 									</c:if>
-									<td>${p.send_name }</td> 									
+									<td>${p.send_name }</td>
 									<td>${p.payment_method }</td>
 									<td>${p.payment_status }</td>
-									<td><fmt:formatNumber value="${p.totalprice }"/>원</td>
+									<td><fmt:formatNumber value="${p.totalprice }" />원</td>
 									<td>${p.rdate }</td>
 								</tr>
 							</c:forEach>
 						</table>
 					</div>
 				</div>
+				
+				
+				<div class="col-sm-12 col-md-7">
+					<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+						
+						<!-- 페이징 -->
+						<div id="paging_wrap">
+							<jsp:include page="/WEB-INF/views/admin/payment/paging.jsp" flush="false">
+								<jsp:param name="pageNumber" value="${pageNumber }" />
+								<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
+								<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
+								<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
+							</jsp:include>
+						</div>
+						<!-- 페이징끝 -->
+						
+					</div>
+				</div>
+
+
+
 			</div>
 		</div>
 	</div>
