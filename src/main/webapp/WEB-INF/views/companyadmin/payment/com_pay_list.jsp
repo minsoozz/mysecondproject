@@ -11,10 +11,10 @@
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/memberlist.css"> --%>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/memberlist.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/paging.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/companyadmin/com_admin_payment.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/companyadmin/com_admin_payment.css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/paging.css">
 
 </head>
 

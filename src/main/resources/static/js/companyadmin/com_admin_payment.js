@@ -10,7 +10,7 @@ $(document).ready(function () {
 		//alert( _s_keyword );
 		//alert( _select );
 		
-		location.href="/admin/company/payment/success?s_keyword="+_s_keyword+"&s_category="+_select+"&recordCountPerPage="+_recordCountPerPage;
+		location.href="/admin/company/payment/success?s_keyword="+_s_keyword+"&s_category="+_select;
 	});
 	
 	
@@ -28,7 +28,7 @@ function goPage(pageNumber) {
 	$("#_pageNumber").val(pageNumber); // 들어오는 값을 가져옴
 	var _pageNumber = $("#_pageNumber").val();
 
-	location.href="/admin/company/payment/success?s_keyword="+_s_keyword+"&s_category="+_select+"&pageNumber="+_pageNumber+"&recordCountPerPage="+_recordCountPerPage;
+	location.href="/admin/company/payment/success?s_keyword="+_s_keyword+"&s_category="+_select+"&pageNumber="+_pageNumber;
 }
 
 
@@ -41,7 +41,7 @@ function dataTable_length() {
 	var _pageNumber = $("#_pageNumber").val();
 	var _recordCountPerPage = $("#_recordCountPerPage").val();
 	
-	alert(_s_keyword + ", " + _select + ", " + _pageNumber + ", " + _recordCountPerPage);
+	//alert(_s_keyword + ", " + _select + ", " + _pageNumber + ", " + _recordCountPerPage);
 
 	location.href="/admin/company/payment/success?s_keyword="+_s_keyword+"&s_category="+_select+"&pageNumber="+_pageNumber+"&recordCountPerPage="+_recordCountPerPage;
 }
