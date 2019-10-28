@@ -30,9 +30,10 @@ public class ProductDto {
 	private String p_price2;		// 콤마 단위로 변환
 	private String bfs_price2;		// 콤마 단위로 변환
 	
-	private int rnum;				// 관리자쪽에서 확인하기 위한 순번
-	private int sum;				// 관리자쪽에서 확인하기 위한 총합 : 해당P_SEQ에 대한 STOCK 총합
-	private int wish;				// 관리자쪽에서 확인하기 위한 찜cnt
+	private int rnum;				// 관리자 : 순번
+	private int sum;				// 관리자 : 해당P_SEQ에 대한 STOCK 총합
+	private int wish;				// 관리자 : 찜cnt
+	private int salesvolume;		// 관리자 + best : 총 판매량
 	
 	private String madeYear;
 	private String madeMonth;
@@ -256,6 +257,15 @@ public class ProductDto {
 	public void setBfs_price2(String bfs_price2) {
 		this.bfs_price2 = bfs_price2;
 	}
+	
+
+	public int getSalesvolume() {
+		return salesvolume;
+	}
+
+	public void setSalesvolume(int salesvolume) {
+		this.salesvolume = salesvolume;
+	}
 
 	@Override
 	public String toString() {
@@ -267,6 +277,7 @@ public class ProductDto {
 				+ ", rdate=" + rdate + ", p_price2=" + p_price2 + ", rnum=" + rnum + ", sum=" + sum + ", wish=" + wish
 				+ ", madeYear=" + madeYear + ", madeMonth=" + madeMonth + "]";
 	}
+	
 	
 	
 	

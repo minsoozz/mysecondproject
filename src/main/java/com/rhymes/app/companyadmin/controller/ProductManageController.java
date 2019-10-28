@@ -129,20 +129,32 @@ public class ProductManageController {
      		// 2차 카테고리 리스트 초기화
     	     List<Category2Dto> cate2list = new ArrayList<Category2Dto>();
     	     List<Category3Dto> cate3list = new ArrayList<Category3Dto>();
+    	     Category2Dto cate2 = new Category2Dto();
     	     
     	     int c2_seq = 0;
      		//*카테고리 리스트 GET
 			//2차 카테고리 리스트	
 			if(product.getC1_name().equals("MEN")) { 
 				  cate2list = manage.getCate2List(1);
-				  c2_seq = cate2list.get(0).getC2_seq();
+				  cate2.setC1_seq(1);
+				  c2_seq = manage.getc2seq(cate2);
 			}else if(product.getC1_name().equals("WOMEN")) { 
 				  cate2list = manage.getCate2List(2);
+				  cate2.setC1_seq(2);
 				  c2_seq = cate2list.get(0).getC2_seq();
 			}
+				
+			// 수정했음 확인해야함
+			
 			
 			//3차 카테고리 리스트
+			cate2.setC2_name(product.getC2_name());
 			cate3list = manage.getCate3List(c2_seq);
+			
+			for (Category3Dto c3 : cate3list) {
+				System.out.println(c3.getC3_name());;
+				System.out.println(c3.getC3_seq());
+			}
 			
 			model.addAttribute("cate2list", cate2list);
 			model.addAttribute("cate3list", cate3list);
