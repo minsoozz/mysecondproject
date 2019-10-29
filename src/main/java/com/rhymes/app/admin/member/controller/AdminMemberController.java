@@ -125,8 +125,6 @@ public class AdminMemberController {
 		
 		return pmem;
 	}
-	
-
 
 	// 회원 정지
 	@RequestMapping(value = "/memLock", method = {RequestMethod.GET, RequestMethod.POST})

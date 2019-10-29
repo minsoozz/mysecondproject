@@ -143,10 +143,9 @@
 					</tbody>
 				</table>
 				</form>
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-12 col-md-7"><!-- 페이징 네비게이션 시작 -->
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="dataTable_paginate">
-						
 						<!-- 페이징 -->
 						<div id="paging_wrap">
 							<jsp:include page="/WEB-INF/views/admin/member/paging.jsp"
@@ -160,12 +159,9 @@
 							</jsp:include>
 						</div>
 						<!-- 페이징끝 -->
-						
-
 					</div>
-
 				</div>
-
+				<!-- 페이징 네비게이션 끝 -->	
 				<div>
 					<button type="button" id="memLockBtn" class="memLockBtn">회원정지</button>
 					<button type="button" id="memLockBtn_n" class="memLockBtn_n">정지해제</button>
