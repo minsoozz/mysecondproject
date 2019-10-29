@@ -21,4 +21,10 @@ public interface AdminExcelService {
 	// 상품 정보 전부 가져오기
 	public List<AdminExcelProductDTO> getProductExcelDown();
 
+	// 업체별 상품정보
+	public List<AdminExcelProductDTO> getComProductExcelDown(String userid);
+
+	// 업체별 결제정보
+	public List<PaymentDTO> getComPaymentExcelDown(String userid);
+	
 }

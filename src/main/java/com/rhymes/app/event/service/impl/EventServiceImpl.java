@@ -66,6 +66,17 @@ public class EventServiceImpl implements EventService {
 	public int getEvenEndtCount(EventParam param) {
 		return eventDAO.getEvenEndtCount(param);
 	}
+	
+	// 진행중인 이벤트
+	@Override
+	public List<EventDTO> geteventInglist(EventParam param) {
+		return eventDAO.geteventInglist(param);
+	}
+
+	@Override
+	public int getEvenIngtCount(EventParam param) {
+		return eventDAO.getEvenIngtCount(param);
+	}
 
 
 

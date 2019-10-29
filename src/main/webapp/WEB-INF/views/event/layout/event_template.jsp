@@ -10,7 +10,7 @@
    <!-- Favicon -->
     <link rel="icon" href="/img/main-img/core-img/favicon.ico">
      <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath() %>/css/event/event.css">
+	href="<%=request.getContextPath() %>/css/event/eventlist.css">
  
 </head>
 <body>
@@ -24,6 +24,10 @@
 		      <tiles:insertAttribute name="left_menu"/>
 		    </div>   
 			<div id="content_wrap">
+				<div id="content_title_wrap">
+					<div class="title" style="float: left; font-size: 24px">${doc_title }</div>
+					<div class="sub" style="float: left; font-size: 12px">${doc_sub }</div>
+				</div>
 		      <tiles:insertAttribute name="body"/> <!-- body -->
 	    	</div>  
 	    </div>  

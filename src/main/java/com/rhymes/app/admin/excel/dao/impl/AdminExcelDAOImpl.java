@@ -22,29 +22,37 @@ public class AdminExcelDAOImpl implements AdminExcelDAO {
 	// 개인 회원 정보 전부 가져오기
 	@Override
 	public List<P_MemberDTO> getMemberP_ExcelDown() {
-		List<P_MemberDTO> mem_p_list = sqlSession.selectList(e + "getMemberP_ExcelDown");
-		return mem_p_list;
+		return sqlSession.selectList(e + "getMemberP_ExcelDown");
 	}
 
     // 사업자 회원 정보 전부 가져오기
 	@Override
 	public List<SellerDTO> getMemberC_ExcelDown() {
-		List<SellerDTO> mem_c_list = sqlSession.selectList(e + "getMemberC_ExcelDown");
-		return mem_c_list;
+		return sqlSession.selectList(e + "getMemberC_ExcelDown");
 	}
 
 	// 결제내역 정보 전부 가져오기
 	@Override
 	public List<PaymentDTO> getPaymentExcelDown() {
-		List<PaymentDTO> list = sqlSession.selectList(e + "getPaymentExcelDown");
-		return list;
+		return sqlSession.selectList(e + "getPaymentExcelDown");
 	}
 
 	// 상품 정보 전부 가져오기
 	@Override
 	public List<AdminExcelProductDTO> getProductExcelDown() {
-		List<AdminExcelProductDTO> list = sqlSession.selectList(e + "getProductExcelDown");
-		return list;
+		return sqlSession.selectList(e + "getProductExcelDown");
+	}
+
+	// 업체별 상품정보
+	@Override
+	public List<AdminExcelProductDTO> getComProductExcelDown(String userid) {
+		return sqlSession.selectList(e + "getComProductExcelDown", userid);
+	}
+
+	// 업체별 결제정보
+	@Override
+	public List<PaymentDTO> getComPaymentExcelDown(String userid) {
+		return sqlSession.selectList(e + "getComPaymentExcelDown", userid);
 	}
 
 }

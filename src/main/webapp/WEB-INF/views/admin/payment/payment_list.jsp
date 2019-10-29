@@ -11,7 +11,7 @@
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/memberlist.css"> --%>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/memberlist.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/payment/payment.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/payment/payment.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/paging.css">
@@ -38,10 +38,10 @@
 							<div class="dataTables_length" id="dataTable_length">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								
-								<select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable" onchange="dataTable_length()" class="custom-select custom-select-sm form-control form-control-sm">
-									<option value="3" <c:out value="${param.recordCountPerPage == '3'? 'selected':'' }"/>>3</option>
+								<select style="width: 100px;" name="recordCountPerPage" id="_recordCountPerPage" aria-controls="dataTable" onchange="dataTable_length()" class="custom-select custom-select-sm form-control form-control-sm">
 									<option value="5" <c:out value="${param.recordCountPerPage == '5'? 'selected':'' }"/>>5</option>
 									<option value="10" <c:out value="${param.recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
+									<option value="15" <c:out value="${param.recordCountPerPage == '15'? 'selected':'' }"/>>15</option>
 									<option value="20" <c:out value="${param.recordCountPerPage == '20'? 'selected':'' }"/>>20</option>
 								</select>
 							</div>

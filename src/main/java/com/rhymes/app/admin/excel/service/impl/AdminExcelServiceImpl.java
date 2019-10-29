@@ -43,4 +43,16 @@ public class AdminExcelServiceImpl implements AdminExcelService {
 		return AdminExcelDAO.getProductExcelDown();
 	}
 
+	// 업체별 상품정보
+	@Override
+	public List<AdminExcelProductDTO> getComProductExcelDown(String userid) {
+		return AdminExcelDAO.getComProductExcelDown(userid);
+	}
+
+	// 업체별 결제정보
+	@Override
+	public List<PaymentDTO> getComPaymentExcelDown(String userid) {
+		return AdminExcelDAO.getComPaymentExcelDown(userid);
+	}
+
 }

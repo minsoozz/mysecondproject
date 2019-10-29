@@ -14,14 +14,19 @@
 	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
 	
-	<!-- 주문내역 -->
+	<!-- 업체별 주문내역 -->
 	<definition name="company/success" extends="companypaylist">
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_list.jsp" />
 	</definition>
 	
-	<!-- 주문상세내역 -->
+	<!-- 업체별 주문상세내역 -->
 	<definition name="company/detail" extends="companypaylist">
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_Detaillist.jsp" />
+	</definition>
+	
+	<!-- 업체별 무통장입금 관리  -->
+	<definition name="company/vbank" extends="companypaylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_vbank.jsp" />
 	</definition>
 
 </tiles-definitions>

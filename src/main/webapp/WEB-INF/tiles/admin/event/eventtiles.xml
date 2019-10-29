@@ -21,7 +21,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/admin/event/eventwrite.jsp" />
 	</definition>
    
-   
+   <!-- 수정 -->
+   <definition name="eventupdate.tiles" extends="admineventlist.tiles">
+   		<put-attribute name="body" value="/WEB-INF/views/admin/event/eventupdate.jsp" />
+   </definition>
    
    
    

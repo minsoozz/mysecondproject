@@ -235,14 +235,17 @@ th{
     left: 175px;
 }
 .regibutton{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #545454;
-    font-weight: bolder;
-    height: 44px;
+	border-radius: 10px;
+    border: 0px solid gray;
+    background-color: #CFEC40;
+    color: black;
+    height: 55px;
     width: 474px;
-    margin-bottom: 10px;
+    margin: 5px 5px 5px 5px;
+    padding: 0px 30px 0px 30px;
+    font: Open Sans 30px;
+    outline: 0;
+    margin-top: 13px;
 }
 .regibutton1{
 	border-radius: 3px;
@@ -305,8 +308,7 @@ td,th{
 	margin-top: 121px;
 }
 .regibutton1:hover, .postBtn:hover, .regibutton:hover{
-	color: #c2fb2d;
-	border-color:#c2fb2d; 
+	opacity: 0.5;
 }
 .backcolor{
 /* 	background-color: #f2f2f28c; */

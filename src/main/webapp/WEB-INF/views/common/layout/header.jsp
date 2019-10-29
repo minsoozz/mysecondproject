@@ -174,7 +174,7 @@
                                     <a class="nav-link" href="/used/usedlist">MARKET</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/event/eventmain">EVENT</a>
+                                    <a class="nav-link" href="/event/eventmain?code=all">EVENT</a>
                                 </li>
                                 <li class="nav-item">
                            			<a class="nav-link" href="/customercenter/noticelist">CUSTOMER CENTER</a>

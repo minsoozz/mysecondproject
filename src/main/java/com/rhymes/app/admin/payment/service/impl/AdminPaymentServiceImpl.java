@@ -25,7 +25,7 @@ public class AdminPaymentServiceImpl implements AdminPaymentService {
 
 	// 관리자페이지 결제내역 총 개수
 	@Override
-	public int getOrderSuccessCount(AdminPaymentParam param) {
+	public List<PaymentDTO> getOrderSuccessCount(AdminPaymentParam param) {
 		return AdminPaymentDAO.getOrderSuccessCount(param);
 	}
 

@@ -20,8 +20,11 @@ public class EventDTO implements Serializable {
 	private int seq;
 	private String title;				// 제목
 	private String type;				// 종류
-	private int coupon_seq;				// 쿠폰번호
-	private String coupon_title;		// 쿠폰이름
+	private String content;				// 내용
+	private int coupon_seq1;				// 쿠폰번호
+	private int coupon_seq2;				// 쿠폰번호
+	private String coupon_title1;		// 쿠폰이름
+	private String coupon_title2;		// 쿠폰이름
 	private String photo_banner;		// 배너 이미지
 	private String photo_content;		// 파일
 	private Date rdate;					// 작성일
@@ -42,6 +45,11 @@ public class EventDTO implements Serializable {
 	private int eday;
 	private int ehour;
 	private int eminute;
+	
+	// 삭제
+	private String checkseq;		// 체크된 회원 아이디
+	private int checklen;		// 체크 수
+	
 	
 	// 1:1 -> 01:01 만들기
 	public String sdate(int syear, int smonth, int sday) {

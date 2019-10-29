@@ -27,4 +27,9 @@ public interface EventDAO {
 	public List<EventDTO> geteventEndlist(EventParam param);
 	// 종료된 이벤트 count
 	public int getEvenEndtCount(EventParam param);
+	
+	// 진행중인 이벤트
+	public List<EventDTO> geteventInglist(EventParam param);
+	// 종료된 이벤트 count
+	public int getEvenIngtCount(EventParam param);
 }

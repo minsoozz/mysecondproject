@@ -46,10 +46,27 @@
 	 		   SUM(SALES) AS SALESVOLUME
 	 		   
  	FROM (SELECT ROW_NUMBER()OVER(ORDER BY 
- 			
- 			 			
- 			<if test="sorting == 'NEW' or key == 'newarrival' or key =='sale'">
-		 		a.P_SEQ DESC
+		 	
+		 	<if test="key == '' or key == null">
+			 	<if test="sorting == '' or sorting == null">
+			 		a.P_SEQ DESC
+			 	</if>
+		 	</if>
+		 	
+		 	<if test="key != '' and key != null">
+		 		<if test="sorting == '' or sorting == null">
+			 		<if test="key == 'newarrival' or key =='sale'">
+			 			a.P_SEQ DESC
+			 		</if>
+			 		<if test="key == 'best'">
+			 			SALES DESC
+			 		</if>
+			 	</if>	
+		 	</if>
+		 	
+		 	<!-- 최신순으로 표시 -->
+		 	<if test="sorting == 'NEW'">
+		 		a.P_SEQ ASC
 		 	</if>
 		 	<!-- 낮은 가격 순으로 표시 -->
 		 	<if test="sorting == 'PRICEDOWN'">
@@ -59,7 +76,7 @@
 		 	<if test="sorting == 'PRICEUP'">
 		 		a.P_PRICE DESC
 		 	</if>
-		 	<if test="sorting == 'BEST' or key == 'best' ">
+		 	<if test="sorting == 'BEST'">
 		 		SALES DESC
 		 	</if>
 			) AS RNUM2, 
@@ -142,19 +159,37 @@
  		</if>	
 
  	ORDER BY 
-		 	<if test="sorting == 'NEW' or key == 'newarrival' or key == 'sale' ">
-		 	F.P_SEQ DESC
+ 			<if test="key == '' or key == null">
+			 	<if test="sorting == '' or sorting == null">
+			 		F.P_SEQ DESC
+			 	</if>
+		 	</if>
+		 	
+		 	<if test="key != '' and key != null">
+		 		<if test="sorting == '' or sorting == null">
+			 		<if test="key == 'newarrival' or key =='sale'">
+			 			F.P_SEQ DESC
+			 		</if>
+			 		<if test="key == 'best'">
+			 			F.SALESVOLUME DESC
+			 		</if>
+			 	</if>	
+		 	</if>
+ 	
+ 			<!-- 최신순으로 표시 -->
+		 	<if test="sorting == 'NEW'">
+		 		F.P_SEQ ASC
 		 	</if>
 		 	<!-- 낮은 가격 순으로 표시 -->
 		 	<if test="sorting == 'PRICEDOWN'">
-		 	F.P_PRICE ASC
+		 		F.P_PRICE ASC
 		 	</if>
 		 	<!-- 높은 가격 순으로 표시 -->
 		 	<if test="sorting == 'PRICEUP'">
-		 	F.P_PRICE DESC
+		 		F.P_PRICE DESC
 		 	</if>
 		 	<if test="sorting == 'BEST'">
-		 	F.SALESVOLUME DESC
+		 		F.SALESVOLUME DESC
 		 	</if>
  </select>
  

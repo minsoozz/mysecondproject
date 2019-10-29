@@ -93,8 +93,8 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
 							<a class="collapse-item" href="/admin/payment/success">주문조회</a>
-							<a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
-							<a class="collapse-item" href="/admin/payment/cancel">취소/환불관리</a>
+							<!-- <a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
+							<a class="collapse-item" href="/admin/payment/cancel">취소/환불관리</a> -->
 						</div>
 					</div>
 				</li>
@@ -220,10 +220,9 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
 							<a class="collapse-item" href="/admin/company/payment/success">주문조회</a>
-							<a class="collapse-item" href="/admin/company/payment/exchange">교환관리</a>
-							<a class="collapse-item" href="/admin/company/payment/cancel">취소/환불관리</a>
-							<!-- <a class="collapse-item" href="/admin/payment/refund"></a> -->
-							<!-- <a class="collapse-item" href="/admin/payment/finish">결제완료</a> -->
+							<a class="collapse-item" href="/admin/company/payment/vbank">무통장입금 관리</a>
+							<!-- <a class="collapse-item" href="/admin/company/payment/exchange">교환관리</a>
+							<a class="collapse-item" href="/admin/company/payment/cancel">취소/환불관리</a> -->
 						</div>
 					</div>
 				</li>
