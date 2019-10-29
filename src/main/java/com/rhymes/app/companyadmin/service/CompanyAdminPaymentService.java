@@ -5,6 +5,7 @@ import java.util.List;
 import com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO;
 import com.rhymes.app.admin.payment.model.AdminPaymentParam;
 import com.rhymes.app.companyadmin.model.AdminPaymentVbankDTO;
+import com.rhymes.app.payment.model.DeliveryDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
 public interface CompanyAdminPaymentService {
@@ -26,5 +27,14 @@ public interface CompanyAdminPaymentService {
 	
 	// 결제완료로 변경
 	public boolean paymentfinish(String seq);
+
+	// 배송관리
+	public List<DeliveryDTO> getDeliveryList(String userid);
+	
+	// 배송준비 중 -> 배송 중
+	public boolean getDeliveryIng(DeliveryDTO dto);
+	
+	// 배송중 -> 배송완료
+	public boolean getDeliveryFinish(DeliveryDTO dto);
 
 }

@@ -221,6 +221,7 @@
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
 							<a class="collapse-item" href="/admin/company/payment/success">주문조회</a>
 							<a class="collapse-item" href="/admin/company/payment/vbank">무통장입금 관리</a>
+							<a class="collapse-item" href="/admin/company/payment/delivery">배송 관리</a>
 							<!-- <a class="collapse-item" href="/admin/company/payment/exchange">교환관리</a>
 							<a class="collapse-item" href="/admin/company/payment/cancel">취소/환불관리</a> -->
 						</div>
