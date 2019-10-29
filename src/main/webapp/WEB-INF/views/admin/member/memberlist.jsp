@@ -92,7 +92,7 @@
 							<th class="list_checkbox"><input type="checkbox"
 								name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 							</th>
-							<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting"></th>
+							<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting" value="${sorting }"></th>
 							<!-- 1 -->
 							<th class="sorting">이름</th>
 							<!-- 2 -->

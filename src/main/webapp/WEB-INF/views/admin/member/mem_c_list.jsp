@@ -89,7 +89,7 @@
 						<th class="list_checkbox"><input type="checkbox"
 							name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 						</th>
-						<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting"></th>	<!-- 1 -->
+						<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting" value="${sorting }"></th>	<!-- 1 -->
 						<th class="sorting">상호</th>											<!-- 2 -->
 						<th class="sorting">사업자등록번호</th>										<!-- 3 -->
 						<th class="sorting">대표자명</th>											<!-- 4 -->
@@ -202,6 +202,7 @@ function dataTable_length(){
 // sorting
 $(function(){
 	$(".sorting").click(function() {
+		
 		var thNum = $(this).index();
 
 		if(thNum == 1){
@@ -209,30 +210,41 @@ $(function(){
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 2){
-			$("#_sorting").val("NAME");
+			$("#_sorting").val("C_NAME");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 3){
-			$("#_sorting").val("ADDRESS");
+			$("#_sorting").val("C_NUM");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 4){
-			$("#_sorting").val("EMAIL");
+			$("#_sorting").val("P_NAME");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 5){
-			$("#_sorting").val("PHONE");
+			$("#_sorting").val("C_ADDRESS");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 6){
-			$("#_sorting").val("SOCIAL");
+			$("#_sorting").val("IC_PHONE");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 7){
+			$("#_sorting").val("IC_MAIL");
+			$("#_frm").attr("action", "mem_c_list").submit();		
+		}
+		if(thNum == 8){
 			$("#_sorting").val("RDATE");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		
+	});
+});
+
+//마우스 커서
+$(document).ready(function() {
+	$('.sorting').mouseover(function() {
+		$(this).css("cursor", "pointer");
 	});
 });
 

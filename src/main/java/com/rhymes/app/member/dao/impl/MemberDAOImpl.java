@@ -141,6 +141,22 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 
 
+		// 사업자 이메일 등록 확인
+		@Override
+		public boolean getEmailCheck_C(String email) {
+			int count = sqlSession.selectOne(ns+"getEmailCheck_C", email);
+			return count>0?true:false;
+		}
+
+
+		// 일반회원 이메일 등록 확인
+		@Override
+		public boolean getEmailCheck_P(String email) {
+			int count = sqlSession.selectOne(ns+"getEmailCheck_P", email);
+			return count>0?true:false;
+		}
+
+
 
 
 

@@ -80,8 +80,6 @@
 
 				</div>
 
-
-
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr align="center">
@@ -90,7 +88,7 @@
 							</th>
 							<th class="sorting">번호</th>
 							<!-- 1 -->
-							<th class="sorting">제목<input type="hidden" name="sorting" id="_sorting"></th>
+							<th class="sorting">제목<input type="hidden" name="sorting" id="_sorting" value="${sorting }"></th>
 							<!-- 2 -->
 							<th class="sorting">종류</th>
 							<!-- 3 -->
