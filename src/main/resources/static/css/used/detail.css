@@ -4,7 +4,8 @@
 	url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 
 #content_wrap {
-	height: 2000px;
+	 height: 2000px; 
+	 overflow: inherit; 
 }
 
 .rhybtn {

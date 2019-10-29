@@ -72,7 +72,7 @@
 		<font style="color: red;font-size: 20px; text-decoration: line-through;" ><b>${dto.division }</b></font>
 	</c:if>
 	<c:if test="${dto.division eq '판매중' }">
-		<font style="color: gray;font-size: 20px">상태 : ${dto.division }</font>
+		<font style="color: gray;font-size: 20px">${dto.division }</font>
 	</c:if>
    <br><br>
    <font style="color: gray;font-size: 15px">조회수 : ${dto.readcount }</font>
@@ -431,6 +431,8 @@ var count = 0;
 
 var rpagenumber = 1;
 
+var heightsize = 2000;
+
 $("#_deletebtn").click(function() {
 	var seq = "${dto.seq}";
 	location.href="/used/deleteProduct?seq="+seq;
@@ -588,6 +590,8 @@ $(function(){
 		success:function(data){
 			
 			if(data.length > 0){
+				$("#content_wrap").css('height',heightsize+560);
+				heightsize+=560;
 				var html = "";
 				
 				for(i=0;i<data.length;i++){
