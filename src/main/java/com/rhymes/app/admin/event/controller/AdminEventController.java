@@ -309,7 +309,7 @@ public class AdminEventController {
 			String timeFileName = System.currentTimeMillis() + fileName;
 
 			cnt++;
-
+			
 			if(cnt == 1) {
 				dto.setPhoto_content(timeFileName);
 			}
