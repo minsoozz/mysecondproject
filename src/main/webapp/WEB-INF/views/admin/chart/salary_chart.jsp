@@ -10,8 +10,5 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/chart/chart.js"></script>
 <body>
 
-매출 통계
-
-
 </body>
 </html>
