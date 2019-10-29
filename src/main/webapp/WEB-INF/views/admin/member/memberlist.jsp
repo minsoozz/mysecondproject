@@ -29,7 +29,7 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<span class="m-0 font-weight-bold text-primary">회원 목록</span>
-	    	<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i> 회원정보 다운로드</a>
+	    	<a href="/admin/excel/member" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i> 회원정보 다운로드</a>
 		</div>
 		
 		<div class="card-body">

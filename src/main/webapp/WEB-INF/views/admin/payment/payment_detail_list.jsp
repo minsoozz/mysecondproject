@@ -17,7 +17,7 @@
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">주문내역</h1>
 	<p class="mb-4">
-		<a href="/admin/payment/success">주문내역</a> > 주문상세내역
+		<a href="/admin/payment/success">주문내역</a> > <a href="#">주문상세내역</a>
 	</p>
 
 	<!-- 상품 -->
