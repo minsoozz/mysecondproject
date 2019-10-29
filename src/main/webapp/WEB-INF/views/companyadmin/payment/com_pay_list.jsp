@@ -11,10 +11,10 @@
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<%-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/memberlist.css"> --%>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/admin/payment/payment.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/payment/payment.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/companyadmin/payment/payment.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/paging.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/companyadmin/com_admin_payment.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/companyadmin/com_admin_payment.css">
 
 </head>
 
@@ -22,13 +22,15 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">주문내역</h1>
+	<h1 class="h3 mb-2 text-gray-800">${market }의 주문내역</h1>
 	<p class="mb-4">주문내역</p>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">주문내역</h6>
+	    	<a href="/admin/excel/company/product" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i>상품정보 다운로드</a>
+	    	<a href="/admin/excel/company/payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i>결제정보 다운로드</a>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -38,10 +40,10 @@
 							<div class="dataTables_length" id="dataTable_length">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								
-								<select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable" onchange="dataTable_length()" class="custom-select custom-select-sm form-control form-control-sm">
-									<option value="3" <c:out value="${param.recordCountPerPage == '3'? 'selected':'' }"/>>3</option>
+								<select style="width: 100px;" id="_recordCountPerPage" name="recordCountPerPage" aria-controls="dataTable" onchange="dataTable_length()" class="custom-select custom-select-sm form-control form-control-sm">
 									<option value="5" <c:out value="${param.recordCountPerPage == '5'? 'selected':'' }"/>>5</option>
 									<option value="10" <c:out value="${param.recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
+									<option value="15" <c:out value="${param.recordCountPerPage == '15'? 'selected':'' }"/>>15</option>
 									<option value="20" <c:out value="${param.recordCountPerPage == '20'? 'selected':'' }"/>>20</option>
 								</select>
 							</div>
@@ -86,8 +88,7 @@
 							</tr>
 							<c:forEach items="${orderSuccessList }" var="p">
 								<tr>
-									<td><a
-										href="/admin/payment/detail?payment_code=${fn:substring(p.payment_code,4,16) }&coupon_code=${p.coupon_code }">${fn:substring(p.payment_code,4,16) }</a></td>
+									<td><a href="/admin/company/payment/detail?payment_code=${fn:substring(p.payment_code,4,16) }&coupon_code=${p.coupon_code }">${fn:substring(p.payment_code,4,16) }</a></td>
 									<c:if test="${not empty p.userid }">
 										<td>${p.userid }</td>
 									</c:if>
@@ -111,7 +112,7 @@
 						
 						<!-- 페이징 -->
 						<div id="paging_wrap">
-							<jsp:include page="/WEB-INF/views/admin/payment/paging.jsp" flush="false">
+							<jsp:include page="/WEB-INF/views/companyadmin/payment/paging.jsp" flush="false">
 								<jsp:param name="pageNumber" value="${param.pageNumber }" />
 								<jsp:param name="totalRecordCount" value="${param.totalRecordCount }" />
 								<jsp:param name="pageCountPerScreen" value="${param.pageCountPerScreen }" />

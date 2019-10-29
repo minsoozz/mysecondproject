@@ -88,20 +88,20 @@ public class listProductExcelDownload extends AbstractXlsxView {
         // 헤더 설정
         
         row = worksheet.createRow(0);
-        row.createCell(0).setCellValue("STOCK_SEQ");
-        row.createCell(1).setCellValue("P_SEQ");
-        row.createCell(2).setCellValue("SIZE");
-        row.createCell(3).setCellValue("QUANTITY");
-        row.createCell(4).setCellValue("C_NAME");
-        row.createCell(5).setCellValue("P_NAME");
+        row.createCell(0).setCellValue("상품 재고번호");
+        row.createCell(1).setCellValue("상품 시퀀스");
+        row.createCell(2).setCellValue("사이즈");
+        row.createCell(3).setCellValue("재고수량");
+        row.createCell(4).setCellValue("업체명");
+        row.createCell(5).setCellValue("상품명");
         row.createCell(6).setCellValue("CP_CODE");
-        row.createCell(7).setCellValue("P_PRICE");
+        row.createCell(7).setCellValue("단일가격");
         row.createCell(8).setCellValue("BFS_PRICE");
-        row.createCell(9).setCellValue("P_COLOR");
+        row.createCell(9).setCellValue("색상");
         row.createCell(10).setCellValue("C1_NAME");
         row.createCell(11).setCellValue("C2_NAME");
         row.createCell(12).setCellValue("C3_NAME");
-        row.createCell(13).setCellValue("NATION");
+        row.createCell(13).setCellValue("원산지");
         row.createCell(14).setCellValue("MDATE");
         row.createCell(15).setCellValue("RDATE");
         

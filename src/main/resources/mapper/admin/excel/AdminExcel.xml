@@ -27,4 +27,18 @@
     	WHERE P.P_SEQ = S.P_SEQ
     </select>
     
+    <!-- 업체별 상품정보 -->
+    <select id="getComProductExcelDown" parameterType="java.lang.String" resultType="com.rhymes.app.admin.excel.model.AdminExcelProductDTO">
+    	SELECT *
+    	FROM RHY_STORE_PRODUCT SP, RHY_STORE_STOCK SS, RHY_MEM_C MC
+    	WHERE SP.P_SEQ = SS.P_SEQ AND SP.C_NAME=MC.C_NAME AND MC.ID=#{userid}
+    </select>
+    
+    <!-- 업체별 결제정보 -->
+    <select id="getComPaymentExcelDown" parameterType="java.lang.String" resultType="com.rhymes.app.payment.model.PaymentDTO">
+    	SELECT *
+    	FROM RHY_PAYMENT P, RHY_PAYMENT_DETAILS PD, RHY_STORE_STOCK SS, RHY_STORE_PRODUCT SP, RHY_MEM_C MC
+    	WHERE P.PAYMENT_CODE = PD.PAYMENT_CODE AND PD.S_SEQ = SS.STOCK_SEQ AND SS.P_SEQ = SP.P_SEQ AND SP.C_NAME = MC.C_NAME AND MC.ID=#{userid}
+    </select>
+    
 </mapper>

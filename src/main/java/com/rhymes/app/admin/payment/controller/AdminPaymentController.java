@@ -21,13 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminPaymentController {
 	
 	@Autowired
-	private AdminPaymentService adminPaymentService;
+	AdminPaymentService adminPaymentService;
 	
 	// 관리자페이지 결제내역조회
 	@GetMapping("/success")
 	public String success(Model model, AdminPaymentParam param) {
-		log.warn("success");
-		
 		//페이징
 		// 클릭한 페이지
 		int sn = param.getPageNumber();	//0 1 2
@@ -40,31 +38,14 @@ public class AdminPaymentController {
 		// list
 		List<PaymentDTO> orderSuccessList = adminPaymentService.getOrderSuccessList(param);
 		// list 총 개수
-		int totalRecordCount = adminPaymentService.getOrderSuccessCount(param);
+		List<PaymentDTO> totalRecordCount = adminPaymentService.getOrderSuccessCount(param);
 
 		// list 총 개수와 클릭한 페이지를 set
-		param.setTotalRecordCount(totalRecordCount);
+		param.setTotalRecordCount(totalRecordCount.size());
 		param.setPageNumber(sn);
 
 		model.addAttribute("orderSuccessList", orderSuccessList);
 		model.addAttribute("param", param);
-		
-		
-		// list 총 개수
-		//model.addAttribute("totalRecordCount", totalRecordCount);
-		
-		// 클릭한 페이지 수
-		//model.addAttribute("pageNumber", sn);
-				
-		// 한 페이지당 페이지 수
-		//model.addAttribute("pageCountPerScreen", 5);
-		// 한 페이지당 글 수
-		//model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
-
-		// 검색한 카테고리
-		//model.addAttribute("s_category",param.getS_category());
-		// 검색한 키워드
-		//model.addAttribute("s_keyword",param.getS_keyword());
 		
 		return "success";
 	} 
@@ -83,29 +64,12 @@ public class AdminPaymentController {
 		log.warn("AdminPaymentController exchange()");
 		return "exchange";
 	}
-
-//	// 관리자 페이지 환불관리
-//	@@GetMapping("/admin/payment/refund")
-//	public String refund() {
-//		log.warn("AdminPaymentController refund()");
-//		
-//		return "/refund";
-//	}
 	
 	// 관리자 페이지 무통장 주문 취소관리, 환불관리
 	@GetMapping("/cancel")
 	public String cancel() {
-		System.out.println("AdminPaymentController cancel()");
-		
+		log.warn("AdminPaymentController cancel()");		
 		return "cancel";
 	}
-	
-//	// 관리자 페이지 결제완료관리
-//	@@GetMapping("/admin/payment/finish")
-//	public String finish() {
-//		log.warn("AdminPaymentController finish()");
-//		
-//		return "/finish";
-//	}
 	
 }

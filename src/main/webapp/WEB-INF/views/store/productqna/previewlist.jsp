@@ -208,7 +208,7 @@ function DownTotalLike(seq){
 			$("#cnt"+seq).html(num);
 		},
 		error:function(e){
-		//	alert("error");
+			//alert("error");
 		}
 	})
 };

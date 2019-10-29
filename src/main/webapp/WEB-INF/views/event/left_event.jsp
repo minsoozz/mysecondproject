@@ -12,9 +12,9 @@
 
 <font style="font-size: 15px;"><b>Event Center</b></font>
 <hr width = "85%" color = "#DADCE0">
- <a href="/event/eventmain">전체이벤트</a>
- <a href="#">진행중인 이벤트</a>
- <a href="/event/eventEnd">지난 이벤트</a>
+ <a href="eventmain?code=all">전체이벤트</a>
+ <a href="eventmain?code=ing">진행중인 이벤트</a>
+ <a href="eventmain?code=end">지난 이벤트</a>
 </div>
 
 <script>
