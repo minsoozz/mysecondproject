@@ -40,40 +40,32 @@
     left: 50px;
 }
 .regibutton{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #525252;
-/*     font-weight: bolder; */
-    height: 33px;
-    padding: 0px 30px 0px 30px;
-    margin: 0px 9px;
+border-radius: 10px;
+   margin-top:5px;
+   width:200px;
+   height:37px;
+   background: white;
+   font: Open Sans 30px;
+   color: black; 
+   outline: 0;
+   border: 1px solid #cccccc; 
 }
 .regiBtn{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #525252;
-/*     font-weight: bolder; */
-    height: 43px;
-    width: 200px;
-    /* padding: 0px 30px 0px 30px; */
-    margin: 3px 9px;
+   border-radius: 10px;
+   margin-top:5px;
+   width:200px;
+   height:45px;
+   background: white;
+   font: Open Sans 30px;
+   color: black; 
+   outline: 0;
+   border: 1px solid #cccccc; 
 }
 .regiBtn:hover{
-	color: #c2fb2d;
-	border-color:#c2fb2d; 
+	opacity:0.5; 
 }
 .regibutton:hover{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 33px;
-    padding: 0px 30px 0px 30px;
-    color: #c2fb2d;
-	border-color:#c2fb2d; 
+	opacity:0.5;  
 }
 .findidtext{
     font-family: sans-serif;

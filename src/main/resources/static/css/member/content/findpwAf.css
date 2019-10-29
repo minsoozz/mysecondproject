@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.inputtext_b_long_ch{
+.inputtext_b{
 	word-break: break-all;
 	box-sizing: border-box;
 	font: inherit;
@@ -8,10 +8,8 @@
 	max-width: 100%;
 	font-family: 'Noto Sans';
 	color: #333;
-	width: 424px;
-/*     position: relative; */
-/*     right: -52px; */
-	height: 54px;
+	width: 200px;
+	height: 34px;
 	padding: 0 19px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -20,9 +18,24 @@
 	line-height: 20px;
 	outline: none;
 }
-.inputtext_id{
-	position: relative;
-    right: -52px;
+.inputtext_long{
+	word-break: break-all;
+	box-sizing: border-box;
+	font: inherit;
+	margin: 5px 5px 5px 5px;
+	letter-spacing: -0.05em;
+	max-width: 100%;
+	font-family: 'Noto Sans';
+	color: #333;
+	width: 300px;
+	height: 34px;
+	padding: 0 19px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	font-size: 14px;
+	line-height: 20px;
+	outline: none;
 }
 .inputtext_s{
 	word-break: break-all;
@@ -34,7 +47,7 @@
 	font-family: 'Noto Sans';
 	color: #333;
 	width: 150px;
-	height: 54px;
+	height: 34px;
 	padding: 0 19px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
@@ -47,49 +60,11 @@
 	word-break: break-all;
 	box-sizing: border-box;
 	font: inherit;
-	margin: 5px 5px 30px 5px;
-	letter-spacing: -0.05em;
-	max-width: 100%;
-	font-family: 'Noto Sans';
-	color: #333;
-	width: 320px;
-	height: 54px;
-	padding: 0 19px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	background-color: #fff;
-	font-size: 14px;
-	line-height: 20px;
-	outline: none;
-}
-.inputtext_b_long_seller{
-	word-break: break-all;
-	box-sizing: border-box;
-	font: inherit;
 	margin: 5px 5px 5px 5px;
 	letter-spacing: -0.05em;
 	max-width: 100%;
 	font-family: 'Noto Sans';
 	color: #333;
-	width: 498px;
-	height: 54px;
-	padding: 0 19px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	background-color: #fff;
-	font-size: 14px;
-	line-height: 20px;
-	outline: none;
-}
-.inputtext_b_long12{
-	word-break: break-all;
-	box-sizing: border-box;
-	font: inherit;
-	margin: 5px 5px 3px 5px;
-	letter-spacing: -0.05em;
-	max-width: 100%;
-	font-family: 'Noto Sans';
-	color: #333;
 	width: 320px;
 	height: 54px;
 	padding: 0 19px;
@@ -100,92 +75,6 @@
 	line-height: 20px;
 	outline: none;
 }
-.regibutton_long{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 54px;
-    padding: 0px 30px 0px 30px;
-    width: 320px;
-    margin: 10px 5px 5px 5px;
-}
-/* button:hover{
-	border: 1px solid #d7fd75;
-} */
-.regibutton_b{
-	border-radius: 0px 3px 3px 0px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #545454;
-    font-weight: bolder;
-    height: 54px;
-    padding: 0px 30px 0px 30px;
-    margin: 5px 5px 30px 5px;
-    position: relative;
-    top: -64px;
-    left: 165px;
-}
-.regibutton_b:hover, .sendbutton_b:hover, .regibutton_b_long:hover, .regibutton_long:hover{
-	opacity: 0.5
-}
-.sendbutton_b{
-    border-radius: 0px 3px 3px 0px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #545454;
-    font-weight: bolder;
-    height: 54px;
-    padding: 0px 30px 0px 30px;
-    margin: 5px 5px 30px 5px;
-    position: relative;
-    top: -89.5px;
-    left: 131.5px;
-}
-.findNum{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-/*     font-weight: bolder; */
-	font-size: 14px;
-    height: 54px;
-    width:184px;
-    padding: 0px 30px 0px 30px;
-    margin: 5px 5px 30px 5px;
-    position: relative;
-    top: -224px;
-    left: -68px;
-}
-.regibutton_b_long{
-	border-radius: 10px;
-   margin-top:13px;
-   margin-bottom:10px;
-   width:424px;
-   height:55px;
-   background: #CFEC40;   
-   font: Open Sans 30px;
-   color: black; 
-   outline: 0;
-   border: 0px solid gray; 
-}
-.regibutton_b_long_seller{
-	border-radius: 10px;
-   margin-top:13px;
-   margin-bottom:10px;
-   width:498px;
-   height:55px;
-   background: #CFEC40;   
-   font: Open Sans 30px;
-   color: black; 
-   outline: 0;
-   border: 0px solid gray; 
-}
-.regibutton_b_long_seller:hover{
-	opacity: 0.5
-}
-
 .selectbox{
 	word-break: break-all;
 	box-sizing: border-box;
@@ -205,36 +94,104 @@
 	line-height: 20px;
 	outline: none;
 }
-.idpwbtn{
+.regibutton{
 	border-radius: 5px;
-    border: solid 3px #e6e6e6;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bolder;
+    height: 33px;
+    padding: 0px 30px 0px 30px;
+}
+.regibutton_login{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bolder;
+    height: 33px;
+    width: 300px;
+    padding: 0px 30px 0px 30px;
+}
+.regibutton_b{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
     background-color: #ffffff;
     color: #545454;
     font-weight: bolder;
     height: 54px;
     padding: 0px 30px 0px 30px;
-    margin: 5px 0px 30px 0px;
-    border-bottom: white;
+    margin: 5px 5px 30px 5px;
 }
-.sendnum{
-	position:relative;
-	top: -100px; 
-	left: 51px;
+.regibutton_long{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bolder;
+    height: 54px;
+    padding: 0px 30px 0px 30px;
+    width: 320px;
+    margin: 5px 5px 5px 5px;
 }
-.findBtn{
-	position: relative;
-	top: -224px;
-	left: 51px
+.txt_title{
+ 	margin: 0px 5px 0px 5px;
+ 	color: #545454;
 }
-.findidbtn{
-	position: relative;
-	top: 20px;
-	
+.txt {
+/*     display: block; */
+    font-size: 12px;
+    color: #666;
+    line-height: 20px;
+    margin-left: 10px;
 }
-input{
-	border: 1px solid #d7fd75;
+.txt_point{
+	margin: 0px 0px 0px 10px;
+	color: #759ffd;
 }
-.findpwtext {
+.regibutton_b_long{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bolder;
+    height: 54px;
+    padding: 0px 30px 0px 30px;
+    width: 424px;
+    margin: 5px 5px 5px 5px;
+}
+.c_name{
+	margin-right: 180px;
+/* 	font-size: 12px; */
+    color: #666;
+}
+.c_num{
+	margin: 10px;
+/* 	font-size: 12px; */
+    color: #666;
+}
+.regi_table{
+/* 	background-color: #eaeaeab3; */
+}
+#_crText{
+	padding: 10px 0px 10px 0px;
+}
+.findNum{
+	border-radius: 5px;
+    border: solid 1px #c5c5c5;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bolder;
+    height: 54px;
+    width:184px;
+    padding: 0px 30px 0px 30px;
+    margin: 5px 5px 30px 5px;
+    
+}
+text:hover {
+	border-color: red;
+}
+.findidtext {
     font-family: sans-serif;
     font-weight: bold;
     font-size: larger;
@@ -242,14 +199,16 @@ input{
     /* margin-bottom: 10px; */
     padding-bottom: 16px;
 }
-.text{
-	color: #b3b3b3;
-	
-}
-.textdiv{
-	margin-bottom: 17px;
-}
-.findpwfull {
-	position: relative;
-	left: -47px;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
