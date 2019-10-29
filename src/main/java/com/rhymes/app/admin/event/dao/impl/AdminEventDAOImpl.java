@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.admin.event.dao.AdminEventDAO;
+import com.rhymes.app.admin.events.model.CouponDTO;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
 import com.rhymes.app.member.model.mypage.MemberCouponDTO;
@@ -31,6 +32,12 @@ public class AdminEventDAOImpl implements AdminEventDAO {
 	public int getEventCount(EventParam param) {
 		return sqlSession.selectOne(ns+"getEventCount", param);
 	}
+	
+	// 쿠폰종류
+	@Override
+	public List<CouponDTO> getcouponlist(CouponDTO dto) {
+		return sqlSession.selectList(ns+"getcouponlist", dto);
+	}
 
 	// 이벤트 글 작성
 	@Override
@@ -48,4 +55,25 @@ public class AdminEventDAOImpl implements AdminEventDAO {
 		int count = sqlSession.insert(ns+"getFileUpload", dto);
 		return count>0?true:false;
 	}
+
+	// 삭제
+	@Override
+	public void geteventdel(EventDTO dto) {
+		sqlSession.update(ns+"geteventdel", dto);
+	}
+
+	// 수정
+	@Override
+	public EventDTO getEventUpdate(EventDTO dto) {
+		return sqlSession.selectOne(ns+"getEventUpdate", dto);
+	}
+
+	// 수정Af
+	@Override
+	public void geteventupdateAf(EventDTO dto) {
+		sqlSession.update(ns+"geteventupdateAf", dto);
+		
+	}
+
+
 }

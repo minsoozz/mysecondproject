@@ -62,9 +62,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 권한
 		AuthoritiesDTO amem = new AuthoritiesDTO(bean.getUserid(), bean.getAuthority());
-		
-		
-		
+
 		List<CouponDetailDTO> coupon = MypageUtils.getRandCoupsTimestampList(0,1);
 		MemberCouponDTO coudto = new MemberCouponDTO();
 		
@@ -80,11 +78,9 @@ public class MemberServiceImpl implements MemberService {
 			// 웰컴쿠폰
 			memberdao.getmem_cp(coudto);	
 		}
-		
-		
+
 		return b;
-		
-		
+
 	}
 
 
