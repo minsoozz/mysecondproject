@@ -31,10 +31,11 @@ $(document).ready(function () {
 				opener.document.getElementById("_disc_point").innerHTML = disc_point;
 				$("#disc_point",opener.document).val( disc_point );
 
-				$("#add_point",opener.document).val( "0" );
 				// 총 금액을 다시 계산
 				opener.document.getElementById("_totalprice").innerHTML = parseInt(product_price) - parseInt(disc_point);
 				$("#totalprice",opener.document).val( parseInt(product_price) - parseInt(disc_point) );
+				
+				$("#add_point",opener.document).val( (parseInt(product_price) - parseInt(disc_point)) * 0.02 );
 				window.close();
 			} else {
 
@@ -63,8 +64,9 @@ $(document).ready(function () {
 				opener.document.getElementById("_disc_coupon").innerHTML = disc_coupon;
 				$("#disc_coupon",opener.document).val( disc_coupon );
 				$("#add_point",opener.document).val( "0" );
-				opener.document.getElementById("_totalprice").innerHTML = parseInt(product_price) - disc_coupon;
-				$("#totalprice",opener.document).val( parseInt(product_price) - disc_coupon );
+				opener.document.getElementById("_totalprice").innerHTML = parseInt(product_price) - parseInt(disc_point);
+				$("#totalprice",opener.document).val( parseInt(product_price) - parseInt(disc_point) );
+				$("#add_point",opener.document).val( (parseInt(product_price) - parseInt(disc_point)) * 0.02 );
 				window.close();
 				return;
 			}
@@ -72,21 +74,20 @@ $(document).ready(function () {
 			// 쿠폰으로 할인 된 금액
 			opener.document.getElementById("_disc_coupon").innerHTML = disc_coupon;
 			$("#disc_coupon",opener.document).val( disc_coupon );
-
-			$("#add_point",opener.document).val( "0" );
 			
-			opener.document.getElementById("_totalprice").innerHTML = parseInt(product_price) - parseInt(disc_point) - disc_coupon;
-			$("#totalprice",opener.document).val( parseInt(product_price) - parseInt(disc_point) - disc_coupon );
+			opener.document.getElementById("_totalprice").innerHTML = parseInt(product_price) - parseInt(disc_point) - parseInt(disc_coupon);
+			$("#totalprice",opener.document).val( parseInt(product_price) - parseInt(disc_point) - parseInt(disc_coupon) );
+			$("#add_point",opener.document).val( (parseInt(product_price) - parseInt(disc_point) - parseInt(disc_coupon)) * 0.02 );
 		} else {
 			// 적립일 때
 			
 			// 쿠폰으로 할인 된 금액 = 0, add_point = 값
 			opener.document.getElementById("_disc_coupon").innerHTML = "0";
 			$("#disc_coupon",opener.document).val( "0" );
-			$("#add_point",opener.document).val( (parseInt(product_price) - parseInt(disc_point)) * 0.02 );
 
 			opener.document.getElementById("_totalprice").innerHTML = parseInt(product_price) - parseInt(disc_point);
 			$("#totalprice",opener.document).val( parseInt(product_price) - parseInt(disc_point) );
+			$("#add_point",opener.document).val( (parseInt(product_price) - parseInt(disc_point)) * 0.02 + parseInt(func_num));
 		}
 
 		window.close();

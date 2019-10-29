@@ -24,7 +24,10 @@
 	min-height: 200px;
 }
 
-
+#etitle{
+	position: relative;
+	top: -10px;	
+}
 
 
 /* 좌측 메뉴 */

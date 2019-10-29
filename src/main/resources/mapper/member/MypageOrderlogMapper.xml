@@ -22,6 +22,15 @@
 	<select id="getPaymentInfoByPaymentCode" parameterType="java.lang.String"
 		resultType="com.rhymes.app.member.model.mypage.MemberPaymentDTO">
 		<include refid="getPaymentInfoByPaymentCodeSql"/></select>
+		
+	<!-- 매개변수로 받은 주문번호 삭제(주문취소, 미결제인 경우에만 가능) -->
+	<delete id="deletePayment" parameterType="java.lang.String">
+		<include refid="deletePaymentSql"/></delete>
+		
+	<!-- 매개변수로 받은 주문번호에 맞는 상세정보 삭제(주문취소, 미결제인 경우에만 가능) -->
+	<delete id="deletePaymentDetail" parameterType="java.lang.String">
+		<include refid="deletePaymentDetailSql"/></delete>
+	
 	
 	<!-- QUERY --> 	
  	<!-- 매개변수로 받은 ID의 주문상세내역을 리턴 -->
@@ -56,7 +65,7 @@
 	
 	<!-- 매개변수로 받은 주문번호에 맞는 세부 주문내역 리턴 -->
 	<sql id="getOrderlogDetailsByPaymentCodeSql">
-		SELECT B.SEQ AS SEQ, D.PHOTO1_FILE AS IMG, D.P_NAME AS P_NAME, D.P_PRICE, B.EA, A.PAYMENT_STATUS AS PAYMENT_STATUS
+		SELECT B.SEQ AS SEQ, B.S_SEQ AS S_SEQ, D.PHOTO1_FILE AS IMG, D.P_NAME AS P_NAME, D.P_PRICE, B.EA, A.PAYMENT_STATUS AS PAYMENT_STATUS
 			, E.DELIVERY_STATUS AS DELIVERY_STATUS, E.DELIVERY_POST_CODE AS DELIVERY_POST_CODE , B.REVIEW_WRITTEN
 			, D.P_SEQ AS P_SEQ, D.C1_NAME AS C1_NAME, D.C2_NAME AS C2_NAME, D.C3_NAME AS C3_NAME
 		FROM RHY_PAYMENT A, RHY_PAYMENT_DETAILS B, RHY_STORE_STOCK C, RHY_STORE_PRODUCT D, RHY_DELIVERY E
@@ -73,6 +82,17 @@
 		WHERE A.PAYMENT_CODE = B.PAYMENT_CODE 
 			AND A.PAYMENT_CODE LIKE CONCAT('%',#{payment_code},'%') 
 	</sql>
+	
+	<!-- 매개변수로 받은 주문번호 주문정보 삭제(주문취소, 미결제인 경우에만 가능) -->
+	<sql id="deletePaymentSql">
+		DELETE FROM RHY_PAYMENT WHERE PAYMENT_CODE LIKE CONCAT('%',#{payment_code},'%')
+	</sql>
+	
+	<!-- 매개변수로 받은 주문번호에 맞는 상세정보 삭제(주문취소, 미결제인 경우에만 가능) -->
+	<sql id="deletePaymentDetailSql">
+		DELETE FROM RHY_PAYMENT_DETAILS WHERE PAYMENT_CODE LIKE CONCAT('%',#{payment_code},'%')
+	</sql>
+		
 </mapper>
 
 

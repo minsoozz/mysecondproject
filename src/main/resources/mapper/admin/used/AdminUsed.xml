@@ -106,9 +106,9 @@ where seq=#{n2}
 
 <!-- 관리자 셀러 리스트 조회 -->
 <select id="getAdminSellerlist" parameterType="com.rhymes.app.admin.used.model.AdminSParam" resultType="com.rhymes.app.used.model.SellerDto">
-SELECT seq,s_id,rdate,blackcount,ENABLED, scount, pcount   
+SELECT seq,s_id,rdate,blackcount,isAccountNonLock, scount, pcount   
    FROM (SELECT ROW_NUMBER()OVER(ORDER BY RDATE DESC) AS RNUM, 
-         s.seq,s.s_id,s.rdate,s.blackcount,enabled, scount, IFNULL(pcount, 0) AS pcount
+         s.seq,s.s_id,s.rdate,s.blackcount,isAccountNonLock, scount, IFNULL(pcount, 0) AS pcount
         FROM rhy_used_seller s, rhy_mem m,
            (
             select s.s_id AS s_id, IFNULL(count(p.seq), 0) AS scount
@@ -132,12 +132,18 @@ SELECT seq,s_id,rdate,blackcount,ENABLED, scount, pcount
 </select>
 
 <!-- 회원 정지 -->
-<update id="getMemLock" parameterType="com.rhymes.app.member.model.MemBean">
+<update id="AdminUserLock" parameterType="java.lang.String">
 	UPDATE RHY_MEM
 	SET isAccountNonLock='false'
-	WHERE ID=#{userid}
+	WHERE ID=#{string}
 </update>
 	
-	
+
+<!-- 회원 정지 해제-->
+<update id="AdminUserUnLock" parameterType="java.lang.String">
+	UPDATE RHY_MEM
+	SET isAccountNonLock='true'
+	WHERE ID=#{string}
+</update>	
 	
 </mapper>

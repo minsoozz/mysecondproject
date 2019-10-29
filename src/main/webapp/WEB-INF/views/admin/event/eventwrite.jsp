@@ -15,6 +15,7 @@
 	href="<%=request.getContextPath()%>/css/admin/event/eventwrite.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/admin/member/paging.css">
 </head>
@@ -55,12 +56,13 @@
 				</tr>
 				<tr>
 					<th>쿠폰</th>
-					<td colspan="5">
-						<span id="input_coupon"></span>
-							<input type="hidden" name="coupon_title" id="_coupon_title">
-						<button type="button" id="_coupon" class="eventBtn" 
-							onclick='answer_comment(this)'>쿠폰추가</button>
-							<input type="hidden" name="coupon_seq" id="_seq" value="0">
+					<td colspan="5" id="coupontag">
+						<button type="button" id="_coupon" class="eventBtn">쿠폰추가</button>
+						<span id="input_coupon" class="input_coupon"></span>
+							<input type="hidden" name="coupon_title1" id="_coupon_title1">
+							<input type="hidden" name="coupon_title2" id="_coupon_title2">
+							<input type="hidden" name="coupon_seq1" id="_seq1" value="0">
+							<input type="hidden" name="coupon_seq2" id="_seq2" value="0">
 					</td>
 				</tr>
 				<tr>
@@ -83,17 +85,6 @@
 							<option <c:out value="${tday == dd? 'selected=selected':'' }"/> value="${dd }">${dd }</option>
 						</c:forEach>
 						</select>&nbsp;일
-						
-						<%-- <select name="shour" class="inputselect">
-						<c:forEach begin="1" end="24" var="th">
-							<option <c:out value="${thour == th? 'selected=selected':'' }"/> value="${th }">${th }</option>
-						</c:forEach>
-						</select>&nbsp;&nbsp;:&nbsp;&nbsp;
-						<select name="sminute" class="inputselect">
-						<c:forEach begin="0" end="59" var="tm">
-							<option <c:out value="${tminute == tm? 'selected=selected':'' }"/> value="${tm }">${tm }</option>
-						</c:forEach>
-						</select> --%>
 						</td>
 					</tr>
 					<tr>
@@ -116,17 +107,6 @@
 							<option <c:out value="${tday == dd? 'selected=selected':'' }"/> value="${dd }">${dd }</option>
 						</c:forEach>
 						</select>&nbsp;일
-						
-						<%-- <select name="ehour" class="inputselect">
-						<c:forEach begin="1" end="24" var="th">
-							<option <c:out value="${thour == th? 'selected=selected':'' }"/> value="${th }">${th }</option>
-						</c:forEach>
-						</select>&nbsp;&nbsp;&nbsp;:&nbsp;
-						<select name="eminute" class="inputselect">
-						<c:forEach begin="0" end="59" var="tm">
-							<option <c:out value="${tminute == tm? 'selected=selected':'' }"/> value="${tm }">${tm }</option>
-						</c:forEach>
-						</select> --%>
 					</td>
 				</tr>
 				
@@ -135,7 +115,7 @@
 						내용
 					</th>
 					<td colspan="5">
-						<textarea rows="10" cols="90" required></textarea>
+						<textarea rows="10" cols="90" name="content"></textarea>
 					</td>
 				</tr>
 				
@@ -172,6 +152,12 @@
 			<!-- 쿠폰정보 모달 영역-->
 			<div class="restockModal">
 				<div class="restockModal-content">
+					<select class="form-control is-valid custom-select" 
+						onchange="coupon_length(this)" name="func" id="_func" style="width: 150px">
+						<option value="전체">전체</option>
+						<option value="할인">할인쿠폰</option>
+						<option value="적립">적립쿠폰</option>
+					</select><br>
 					<table class="modaltable" border="1">
 					<tr>
 						<th>쿠폰번호</th><th>쿠폰이름</th><th>쿠폰상세</th><th>기한</th><th>선택</th>
@@ -183,10 +169,10 @@
 					</c:if>
 					<c:forEach var="cou" items="${couponlist }" varStatus="vs">
 						<tr style="padding: 10px;" align="center">
-							<td>${cou.seq }</td>
-							<td style="padding: 0px 10px 0 10px;" align="center">${cou.title }</td>
-							<td align="center">${cou.sub_title }</td>
-							<td align="center">${cou.func_time_limit }</td>
+							<td id="modal_seq">${cou.seq }</td>
+							<td style="padding: 0px 10px 0 10px;" align="center" id="modal_title">${cou.title }</td>
+							<td align="center" id="modal_subtitle">${cou.sub_title }</td>
+							<td align="center" id="modal_timelimit">${cou.func_time_limit }</td>
 							<td align="center">
 								<input type="button" value="선택" class="eventBtn" onclick="couBtn('${cou.title }','${cou.seq }')">
 								<input type="hidden" value="${cou.seq }" id="_modalseq">
@@ -200,7 +186,24 @@
 					
 				</div>
 			</div>
+			<!-- /쿠폰정보 모달 영역-->
+			
+			<!-- 쿠폰정보 모달 영역(type)-->
+			<div class="restockModal2">
+				<div class="restockModal-content">
+					<select class="form-control is-valid custom-select" 
+						onchange="coupon_length(this)" name="func" id="_func" style="width: 150px">
+						<option value="전체">전체</option>
+						<option value="할인">할인쿠폰</option>
+						<option value="적립">적립쿠폰</option>
+					</select><br>
+					<div id="tablewrap">
+					</div>
+					<input type="button" class="closeBtn modalBtn" value="닫기">
+				</div>
+			</div>
 			<!-- /수정페이지 모달 영역-->
+			
 
 		</div>
 	</div>
@@ -230,65 +233,113 @@ $(document).ajaxSend(function(e, xhr, options) {
 });
 
 
-$(document).ready(function(){
-	$(".restockModal").hide();	// 모달 숨기기
-	$("#input_coupon").hide();	// 쿠폰<span>숨기기
-});
+// 쿠폰 종류
+function coupon_length(e) {
+	
+	$("#boardList").remove();
 
-// 모달 닫기
-$(".modalBtn").click(function(){
-	$(".restockModal").fadeOut();
-});
-$(document).on('click', '#_coupon', function(){
-	$(".restockModal").fadeIn();
-});
+	var boardList = '<table id="boardList" class="modaltable" border="1">'
+					+'<tr><th>쿠폰번호</th><th>쿠폰이름</th><th>쿠폰상세</th><th>기한</th><th>선택</th></tr>'
+					+'</table>'; 
+	$("#tablewrap").append(boardList);
+	
+	var type = $(e).val();
 
-/* $(document).on('click', ".couBtn", function(){
-	var coupon_title = $(this).val();
-	$("#_coupon_title").val(coupon_title);
-	
-	var coupon_seq = $("#_modalseq").val();	// 해당 쿠폰의 seq번호를 가져옴
-	$("#_seq").val(coupon_seq);				// hidden으로 seq번호 넘기기
-	
-	var inputcoupon = $("#input_coupon").text();
-	
-	// 선택한 쿠폰이 없다면
-	if(inputcoupon == null || inputcoupon == ''){		
-		$("#input_coupon").text(coupon_title);
-	}
-	else{
-		var cp_html = "<span id='input_coupon2'></span>";
-		$("#input_coupon2").after(cp_html);
-		$("#input_coupon2").text(coupon_title);
-	}
+	$.ajax({
+		type:"post",
+		data:"func="+type,
+		url:"/admin/event/eventcoupontype",
+		success:function(data){
 		
-	$(".restockModal").fadeOut();
-	$("#input_coupon").show();
-	
-}); */
-
-function couBtn(coupon_title, coupon_seq){
-	$("#_coupon_title").val(coupon_title);
-	
-	$("#_seq").val(coupon_seq);				// hidden으로 seq번호 넘기기
-	
-	var inputcoupon = $("#input_coupon").text();
-	
-	// 선택한 쿠폰이 없다면
-	if(inputcoupon == null || inputcoupon == ''){		
-		$("#input_coupon").text(coupon_title);
-	}
-	else{
-		var cp_html = "<span id='input_coupon2'></span>";
-		$("#input_coupon2").after(cp_html);
-		$("#input_coupon2").text(coupon_title);
-	}
+			$(".restockModal").hide();
+			$(".restockModal2").show();
 		
-	$(".restockModal").fadeOut();
-	$("#input_coupon").show();
+            var results = data.seq;
+            var str = '<TR>';
+	        
+			$.each(data, function(idx, val) {
+				console.log(idx + " " + val.title);
+				
+				str += '<TD align="center">' + val.seq + '</TD><TD align="center">' + val.title + '</TD><TD align="center">' + val.sub_title + '</TD><TD align="center">' 
+						+ val.func_time_limit+'</TD>'
+						+'<TD align="center">'
+						+'<input type="button" value="선택" class="eventBtn" onclick="couBtn2(' +'\''+ val.title +'\'' +','+'\'' + val.seq +'\''+ ')">'
+						+'</TD>';															
+				str += '</TR>';
+	
+			});
+			
+			$("#boardList").append(str);
+
+		},
+		error : function(request, status, error) {
+			alert("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+		}
+	});
+
 }
 
+	$(document).ready(function() {
+		$(".restockModal").hide(); // 모달 숨기기
+		$(".restockModal2").hide(); // 모달 숨기기
+		$("#input_coupon").hide(); // 쿠폰<span>숨기기
+	});
 
+	// 모달 닫기
+	$(".modalBtn").click(function() {
+		$(".restockModal").fadeOut();
+		$(".restockModal2").fadeOut();
+	});
+	$(document).on('click', '#_coupon', function() {
+		$(".restockModal").fadeIn();
+	});
+
+	function couBtn(coupon_title, coupon_seq) {
+
+		var inputcoupon = $("#input_coupon").text();
+
+		// 선택한 쿠폰이 없다면
+		if (inputcoupon == null || inputcoupon == '') {
+			$("#_coupon_title1").val(coupon_title); // hidden으로 title, seq번호 넘기기
+			$("#_seq1").val(coupon_seq); 
+			$("#input_coupon").text(coupon_title);
+		} else {
+			$("#_coupon_title2").val(coupon_title); // hidden으로 title, seq번호 넘기기
+			$("#_seq2").val(coupon_seq); 
+			var cp_html = "<span id='input_coupon2' class='input_coupon'></span>";
+			$("#coupontag").append(cp_html);
+			$("#input_coupon2").text(coupon_title);
+		}
+
+		$(".restockModal").fadeOut();
+		$("#input_coupon").show();
+	}
+	
+	
+	function couBtn2(coupon_title, coupon_seq) {
+
+		var inputcoupon = $("#input_coupon").text();
+
+		// 선택한 쿠폰이 없다면
+		if (inputcoupon == null || inputcoupon == '') {
+			$("#_coupon_title1").val(coupon_title); // hidden으로 title, seq번호 넘기기
+			$("#_seq1").val(coupon_seq);
+			$("#input_coupon").text(coupon_title);
+		} else {
+			$("#_coupon_title2").val(coupon_title); // hidden으로 title, seq번호 넘기기
+			$("#_seq2").val(coupon_seq); 
+			var cp_html = "<span id='input_coupon2' class='input_coupon'></span>";
+			$("#coupontag").append(cp_html);
+			$("#input_coupon2").text(coupon_title);
+		}
+
+		$(".restockModal2").fadeOut();
+		$("#input_coupon").show();
+	}
+	
+	
+	
 </script>
 
 

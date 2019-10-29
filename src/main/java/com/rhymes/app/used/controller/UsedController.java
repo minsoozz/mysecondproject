@@ -353,6 +353,7 @@ public class UsedController {
 
 		int size = list.size();
 		
+		
 		Iterator<String> files = mfreq.getFileNames();
 		
 		MultipartFile mpf = mfreq.getFile(files.next());
@@ -375,7 +376,7 @@ public class UsedController {
       
 				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
 				
-				System.out.println(path); // 업로드 경로
+				// System.out.println(path); // 업로드 경로
 				
 				fs.write(mf.getBytes());
 				fs.close();
@@ -387,100 +388,61 @@ public class UsedController {
 		
 		boolean b = usedService.UsedWrite(dto);
 		
-		if(b) {
-		} else {
-		}
-		
 		return "redirect:/used/usedlist";		
 
 	}
-	
+		
 	@RequestMapping(value="usedupdateAf", method = RequestMethod.POST)	// 중고상품 글쓰기 수정 
 	public String usedupdateAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
-			HttpServletRequest req, String[] originfile) throws Exception {
+			HttpServletRequest req,String[] originfile) throws Exception {
 		
-		ProductsDto dto = new ProductsDto(
-				Pdto.getSeq(),
-				Pdto.getS_id(),
-				Pdto.getCategory(),
-				Pdto.getTitle(),
-				Pdto.getContent(),
-				Pdto.getPrice(),
-				Pdto.getQuantity(),
-				Pdto.getPlace(),
-				Pdto.getPhoto(),
-				Pdto.getPhoto_sys(),
-				Pdto.getDivision(),
-				Pdto.getLikes());
-
-		List<MultipartFile> list = mfreq.getFiles("files");
-
-		int size = list.size();
-		
-		String[] oldfile = new String[5];
-		
-		Arrays.fill(oldfile,"");
-		
-		
+		String photo = "";
+		String photo_sys = "";
+			
 		for (int i = 0; i < originfile.length; i++) {
-			oldfile[i] = originfile[i];
+			photo_sys += originfile[i];
+			photo_sys += ",";
 		}
+		
+		List<MultipartFile> list = mfreq.getFiles("files");
+		
+		int size = list.size();
+
 		Iterator<String> files = mfreq.getFileNames();
 		
 		MultipartFile mpf = mfreq.getFile(files.next());
 		
 		String path = req.getServletContext().getRealPath("/upload/used");
-		
-		String photo = "";
-		String photo_sys = "";
-		int count = 0;         
+    
 		if(list != null && size > 0) {
 			for(MultipartFile mf : list) {
-	
-				String originFileName = mf.getOriginalFilename();
-	
-				if (originFileName == null || originFileName == "" || originFileName.length() == 0) {
-				originFileName = oldfile[size-1];
-				 String systemFileName = System.currentTimeMillis() + originFileName;	            
-		         
-		            photo += originFileName + ",";
-		            photo_sys += systemFileName + ",";
-		            
-		            long fileSize = mf.getSize();
-	      
-					FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
-						
-					System.out.println(path); // 업로드 경로
-					
-					dto.setPhoto(Pdto.getPhoto());
-					dto.setPhoto_sys(Pdto.getPhoto_sys());
-				} 
-				
+				String originFileName = mf.getOriginalFilename().trim();
 	            String systemFileName = System.currentTimeMillis() + originFileName;	            
-	         
+	            
+				if(!mf.getOriginalFilename().equals("")) {
+	            
 	            photo += originFileName + ",";
 	            photo_sys += systemFileName + ",";
-	            
+          
 	            long fileSize = mf.getSize();
       
 				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
-					
-				System.out.println(path); // 업로드 경로
 				
-				fs.write(mf.getBytes());
-				fs.close();
+				// System.out.println(path); // 업로드 경로
 				
-				count ++;
+				 fs.write(mf.getBytes());
+				 fs.close();				 
+	            
+				}
 			}
 		}
-		
-		dto.setPhoto(photo);
-		dto.setPhoto_sys(photo_sys);
-		
-		
-		boolean b = usedService.UsedUpdate(dto);
 
-		return "redirect:/used/hello";
+		 Pdto.setPhoto(photo);
+		 Pdto.setPhoto_sys(photo_sys);
+
+		 boolean b = usedService.UsedUpdate(Pdto);
+
+		return "redirect:/used/usedlist";
 	}
 	
 	@GetMapping(value="/addlikes")	// 좋아요 추가,삭제
@@ -494,6 +456,7 @@ public class UsedController {
 		
 		 boolean b = usedService.getlikes(map);
 		 int num;	// ajax 리턴 변수
+		 
 		 if(b) {	// 회원의 좋아요 여부 확인
 			 usedService.deletelikes(map);
 			 num = 0;
