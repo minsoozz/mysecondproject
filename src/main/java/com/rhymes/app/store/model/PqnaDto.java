@@ -23,5 +23,6 @@ public class PqnaDto {
 	private int depth;
 	private String title;
 	private String content;
+	private int feedback;
 
 }
