@@ -65,10 +65,10 @@ public class AdminMainResourceController {
 			resource.setPhoto1_content(text);
 		}
 		else if(object.equals("photo2_title")) {
-			resource.setPhoto1_title(text);
+			resource.setPhoto2_title(text);
 		}
 		else if(object.equals("photo2_content")) {
-			resource.setPhoto1_content(text);
+			resource.setPhoto2_content(text);
 		}
 		
 		boolean bool = mainService.updatemaintext(resource);

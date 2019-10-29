@@ -30,7 +30,7 @@
 
 	<c:if test = "${dto.mainbanner_type eq 'PHOTO'}" >
     	<img src="/upload/mainresource/${dto.mainbanner_file}" style="width: 1850px; height: 800px"></img>     
-    </c:if>
+    </c:if> 
    </div>
 
    <br><br><br><br><br><br>
