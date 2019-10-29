@@ -5,9 +5,9 @@
 
 <!-- 전체 이벤트 리스트 -->
 <select id="geteventlist" parameterType="com.rhymes.app.event.model.EventParam" resultType="com.rhymes.app.event.model.EventDTO">
-	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+	SELECT SEQ, TITLE, CONTENT, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY SEQ DESC)AS RNUM,
-				SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+				SEQ, TITLE, CONTENT, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
 		  FROM RHY_EVENT_LIST
 		 )B
 	WHERE RNUM BETWEEN ${start} AND ${end}
@@ -22,7 +22,7 @@
 
 <!-- detail -->
 <select id="geteventdetail" parameterType="com.rhymes.app.event.model.EventDTO" resultType="com.rhymes.app.event.model.EventDTO">
-	SELECT SEQ, TITLE, TYPE, COUPON_SEQ, COUPON_TITLE, PHOTO_BANNER, PHOTO_CONTENT, RDATE, SDATE, EDATE
+	SELECT SEQ, TITLE, CONTENT, TYPE, COUPON_SEQ1, COUPON_SEQ2, COUPON_TITLE1, COUPON_TITLE2, PHOTO_BANNER, PHOTO_CONTENT, RDATE, SDATE, EDATE
 	FROM RHY_EVENT_LIST
 	WHERE SEQ=#{seq}
 </select>
@@ -42,11 +42,11 @@
 
 <!-- 종료된 이벤트 리스트 -->
 <select id="geteventEndlist" parameterType="com.rhymes.app.event.model.EventParam" resultType="com.rhymes.app.event.model.EventDTO">
-	SELECT SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+	SELECT SEQ, TITLE, CONTENT, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY SEQ DESC)AS RNUM,
-				SEQ, TITLE, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+				SEQ, TITLE, CONTENT, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
 		  FROM RHY_EVENT_LIST
-		  WHERE EDATE <![CDATA[<]]> NOW()
+		  WHERE EDATE <![CDATA[<]]> #{ndate}
 		 )B
 	WHERE RNUM BETWEEN ${start} AND ${end}
 	ORDER BY SEQ DESC
@@ -56,7 +56,29 @@
 <select id="getEvenEndtCount" parameterType="com.rhymes.app.event.model.EventParam" resultType="java.lang.Integer">
 	SELECT IFNULL(COUNT(*), 0) AS CNT
 	FROM RHY_EVENT_LIST
+	WHERE EDATE <![CDATA[<]]> #{ndate}
 </select>
+
+<!-- 진행중인 이벤트 리스트 -->
+<select id="geteventInglist" parameterType="com.rhymes.app.event.model.EventParam" resultType="com.rhymes.app.event.model.EventDTO">
+	SELECT SEQ, TITLE, CONTENT, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY SEQ DESC)AS RNUM,
+				SEQ, TITLE, CONTENT, TYPE, PHOTO_BANNER, RDATE, SDATE, EDATE
+		  FROM RHY_EVENT_LIST
+		  WHERE EDATE <![CDATA[>]]> #{ndate}
+		 )B
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	ORDER BY SEQ DESC
+</select>
+
+<!-- 진행중인 이벤트 리스트 count -->
+<select id="getEvenIngtCount" parameterType="com.rhymes.app.event.model.EventParam" resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*), 0) AS CNT
+	FROM RHY_EVENT_LIST
+	WHERE EDATE <![CDATA[>]]> #{ndate}
+</select>
+
+
 
 
 </mapper>

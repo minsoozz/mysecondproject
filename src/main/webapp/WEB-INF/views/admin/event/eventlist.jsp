@@ -58,9 +58,11 @@
 								<option value="01"
 									<c:out value="${s_category == '01'? 'selected':'' }"/>>제목</option>
 								<option value="02"
-									<c:out value="${s_category == '02'? 'selected':'' }"/>>날짜</option>
+									<c:out value="${s_category == '02'? 'selected':'' }"/>>종류</option>
 								<option value="03"
-									<c:out value="${s_category == '03'? 'selected':'' }"/>>-</option>
+									<c:out value="${s_category == '03'? 'selected':'' }"/>>시작일</option>
+								<option value="04"
+									<c:out value="${s_category == '03'? 'selected':'' }"/>>종료일</option>
 							</select> 
 							<input type="search" id="_s_keyword" name="s_keyword" class="searchText form-control-sm" placeholder=""
 								aria-controls="dataTable" style="width: 150px">
@@ -81,7 +83,6 @@
 
 
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
 					<thead>
 						<tr align="center">
 							<th class="list_checkbox"><input type="checkbox"
@@ -100,6 +101,7 @@
 							<th class="sorting">작성일</th>
 							<!-- 6 -->
 							
+							<th>수정</th>
 						</tr>
 					</thead>
 
@@ -112,7 +114,7 @@
 						<c:forEach var="event" items="${eventlist }" varStatus="vs">
 							<tr align="center">
 								<td class="list_checkbox">
-									<input type="checkbox" name='checkid' id="_checkid" class="cls" value="${event.seq }">
+									<input type="checkbox" name='checkseq' value="${event.seq }">
 								</td>
 								<td>${event.seq }</td>		 					
 								<td>
@@ -122,37 +124,33 @@
 								<td>${event.sdate}</td>
 								<td>${event.edate}</td>
 								<td>${event.rdate}</td>
+								<td>
+									<input type="button" value="수정" class="updateBtn" onclick="updatebtn(${event.seq})">
+								</td>
 							</tr>
 						</c:forEach>
 
 					</tbody>
 				</table>
-				</from>
+				</form>
 				<div class="col-sm-12 col-md-7">
-					<div class="dataTables_paginate paging_simple_numbers"
-						id="dataTable_paginate">
+					<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
 						<!-- 페이징 -->
 						<div id="paging_wrap">
-							<jsp:include page="/WEB-INF/views/admin/event/paging.jsp"
-								flush="false">
+							<jsp:include page="/WEB-INF/views/admin/event/paging.jsp" flush="false">
 								<jsp:param name="pageNumber" value="${pageNumber }" />
 								<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
-								<jsp:param name="pageCountPerScreen"
-									value="${pageCountPerScreen }" />
-								<jsp:param name="recordCountPerPage"
-									value="${recordCountPerPage }" />
+								<jsp:param name="pageCountPerScreen" value="${pageCountPerScreen }" />
+								<jsp:param name="recordCountPerPage" value="${recordCountPerPage }" />
 							</jsp:include>
 						</div>
 						<!-- 페이징끝 -->
-
 					</div>
-
 				</div>
 
 				<div>
 					<button type="button" id="eventwrite" class="eventBtn">글쓰기</button>
-					<button type="button" id="" class="eventBtn">삭제</button>
-					<button type="button" id="" class="eventBtn">종료</button>
+					<button type="button" id="eventdel" class="eventBtn">삭제</button>
 				</div>
 
 			</div>
@@ -180,8 +178,11 @@
 	}
 
 	$("#_btnSearch").click(function() {
-		//alert("클릭");
 		$("#_frm").attr("action", "/admin/event/eventlist").submit(); 
+
+	});
+	$("#eventdel").click(function() {
+		$("#_frm").attr("action", "/admin/event/eventdel").submit(); 
 
 	});
 </script>
@@ -195,7 +196,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 	function allchecks(e) {
 		// 모두 체크
-		var arr = document.getElementsByName("checkid");
+		var arr = document.getElementsByName("checkseq");
 // 		alert(arr.length);
 		for (i = 0; i < arr.length; i++) {
 			arr[i].checked = e;
@@ -255,6 +256,14 @@ $(document).ajaxSend(function(e, xhr, options) {
 
 		});
 	});
+	
+	
+	// 수정
+	function updatebtn(e) {
+		// seq 넘김
+		location.href="eventupdate?seq="+e;
+		
+	}
 		
 </script>
 

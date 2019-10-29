@@ -22,24 +22,37 @@
 	<table class="list_table">
 	
 	<tr>
-		<th>${event.title }</th>
+		<th colspan="2">${event.title }</th>
 	</tr>
 	<tr>
-		<td>
+		<td colspan="2">
 			<img alt="x" src="/upload/event/${event.photo_content }">
 		</td>
 	</tr>
-	<c:if test="${not empty event.coupon_seq && event.coupon_seq != 0}">
-			<tr>
-				<td>					
-					<img alt="x" src="/img/member-img/welcome_cp2.png" id="_couponimg" class="couponimg">
-					&nbsp;&nbsp;<span id="_couponBtn" class="couponimg">download</span>
-					
-					<input type="hidden" id="cou_seq" value="${event.coupon_seq }">
-					<input type="hidden" id="userid" value="${userloginid }">
-				</td>
-			</tr>	
+	<tr>
+	<c:if test="${nowdate <= enddate }">
+		<c:if test="${not empty event.coupon_seq1 && event.coupon_seq1 != 0}">
+			<td>					
+				<img alt="x" src="/img/member-img/welcome_cp2.png" id="_couponimg" class="couponimg">
+				&nbsp;&nbsp;<span id="_couponBtn" class="couponimg">download</span>
+				
+				<input type="hidden" id="cou_seq1" value="${event.coupon_seq1 }">
+				<input type="hidden" id="userid" value="${userloginid }">
+			</td>
+		</c:if>
+		<c:if test="${not empty event.coupon_seq2 && event.coupon_seq2 != 0}">
+			<td>				
+				<img alt="x" src="/img/member-img/welcome_cp2.png" id="_couponimg" class="couponimg">
+				&nbsp;&nbsp;<span id="_couponBtn" class="couponimg">download</span>
+				
+				<input type="hidden" id="cou_seq1" value="${event.coupon_seq2 }">
+				<input type="hidden" id="userid" value="${userloginid }">
+			</td>
+		</c:if>
 	</c:if>
+	</tr>	
+	
+	
 	
 	</table>
 </div>
@@ -67,7 +80,7 @@ $(document).ready(function(){
 $(".couponimg").click(function(){
 	
 	var userid = $("#userid").val();	// 유저 id
-	var c_seq = $("#cou_seq").val();	// 쿠폰번호
+	var c_seq = $("#cou_seq1").val();	// 쿠폰번호
 
 	if(userid==null||userid==''){	// 로그인이 안되어있다면
 		alert("로그인이 필요합니다.");

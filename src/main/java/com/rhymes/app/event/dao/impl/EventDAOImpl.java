@@ -62,6 +62,15 @@ public class EventDAOImpl implements EventDAO {
 		return sqlSession.selectOne(ns+"getEvenEndtCount", param);
 	}
 
+	// 진행중인 이벤트
+	@Override
+	public List<EventDTO> geteventInglist(EventParam param) {
+		return sqlSession.selectList(ns+"geteventInglist", param);
+	}
+	@Override
+	public int getEvenIngtCount(EventParam param) {
+		return sqlSession.selectOne(ns+"getEvenIngtCount", param);
+	}
 	
 
 	

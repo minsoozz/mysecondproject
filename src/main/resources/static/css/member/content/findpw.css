@@ -128,10 +128,7 @@
     left: 165px;
 }
 .regibutton_b:hover, .sendbutton_b:hover, .regibutton_b_long:hover, .regibutton_long:hover{
-/* 	color: #dfff8c; */
-/* 	border-color:#dfff8c;  */
-	color: #c2fb2d;
-	border-color: #c2fb2d;
+	opacity: 0.5
 }
 .sendbutton_b{
     border-radius: 0px 3px 3px 0px;
@@ -162,26 +159,31 @@
     left: -68px;
 }
 .regibutton_b_long{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 54px;
-    padding: 0px 30px 0px 30px;
-    width: 424px;
-    margin: 5px 5px 5px 5px;
+	border-radius: 10px;
+   margin-top:13px;
+   margin-bottom:10px;
+   width:424px;
+   height:55px;
+   background: #CFEC40;   
+   font: Open Sans 30px;
+   color: black; 
+   outline: 0;
+   border: 0px solid gray; 
 }
 .regibutton_b_long_seller{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 54px;
-    padding: 0px 30px 0px 30px;
-    width: 498px;
-    margin: 5px 5px 5px 5px;
+	border-radius: 10px;
+   margin-top:13px;
+   margin-bottom:10px;
+   width:498px;
+   height:55px;
+   background: #CFEC40;   
+   font: Open Sans 30px;
+   color: black; 
+   outline: 0;
+   border: 0px solid gray; 
+}
+.regibutton_b_long_seller:hover{
+	opacity: 0.5
 }
 
 .selectbox{

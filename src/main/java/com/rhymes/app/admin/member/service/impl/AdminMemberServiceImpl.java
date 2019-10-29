@@ -71,8 +71,6 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 			
 		}
 		
-		
-		
 	}
 
 	// 회원정지 해제
