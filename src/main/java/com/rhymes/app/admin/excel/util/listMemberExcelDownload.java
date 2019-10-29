@@ -53,17 +53,17 @@ public class listMemberExcelDownload extends AbstractXlsxView {
         int columnIndex = 0;
         while (columnIndex < 12) {             
             if(columnIndex == 0) {
-            	worksheet_p.setColumnWidth(columnIndex, 5000);
+            	worksheet_p.setColumnWidth(columnIndex, 7000);
             }else if (columnIndex == 1) {
             	worksheet_p.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 2) {
             	worksheet_p.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 3) {
-            	worksheet_p.setColumnWidth(columnIndex, 5000);
+            	worksheet_p.setColumnWidth(columnIndex, 8000);
             }else if (columnIndex == 4) {
             	worksheet_p.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 5) {
-            	worksheet_p.setColumnWidth(columnIndex, 5000);
+            	worksheet_p.setColumnWidth(columnIndex, 7000);
             }else if (columnIndex == 6) {
             	worksheet_p.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 7) {
@@ -73,8 +73,6 @@ public class listMemberExcelDownload extends AbstractXlsxView {
             }else if (columnIndex == 9) {
             	worksheet_p.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 10) {
-            	worksheet_p.setColumnWidth(columnIndex, 5000);
-            }else if (columnIndex == 11) {
             	worksheet_p.setColumnWidth(columnIndex, 5000);
             }
             columnIndex++;
@@ -93,13 +91,13 @@ public class listMemberExcelDownload extends AbstractXlsxView {
             }else if (columnIndex == 4) {
             	worksheet_c.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 5) {
-            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            	worksheet_c.setColumnWidth(columnIndex, 8000);
             }else if (columnIndex == 6) {
             	worksheet_c.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 7) {
             	worksheet_c.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 8) {
-            	worksheet_c.setColumnWidth(columnIndex, 5000);
+            	worksheet_c.setColumnWidth(columnIndex, 6000);
             }else if (columnIndex == 9) {
             	worksheet_c.setColumnWidth(columnIndex, 5000);
             }else if (columnIndex == 10) {
@@ -127,24 +125,24 @@ public class listMemberExcelDownload extends AbstractXlsxView {
 
         // 헤더 설정
         row_p = worksheet_p.createRow(0);
-        row_p.createCell(0).setCellValue("SEQ");
-        row_p.createCell(1).setCellValue("ID");
-        row_p.createCell(2).setCellValue("NAME");
-        row_p.createCell(3).setCellValue("POSTCODE");
-        row_p.createCell(4).setCellValue("ADDRESS");
-        row_p.createCell(5).setCellValue("DETAILADDRESS");
-        row_p.createCell(6).setCellValue("EMAIL");
-        row_p.createCell(7).setCellValue("PHONE");
-        row_p.createCell(8).setCellValue("GENDER");
-        row_p.createCell(9).setCellValue("BIRTH");
-        row_p.createCell(10).setCellValue("COUNT");
-        row_p.createCell(11).setCellValue("subscribe");
+        //row_p.createCell(0).setCellValue("SEQ");
+        row_p.createCell(0).setCellValue("아이디");
+        row_p.createCell(1).setCellValue("이름");
+        row_p.createCell(2).setCellValue("우편번호");
+        row_p.createCell(3).setCellValue("주소");
+        row_p.createCell(4).setCellValue("상세주소");
+        row_p.createCell(5).setCellValue("이메일");
+        row_p.createCell(6).setCellValue("연락처");
+        row_p.createCell(7).setCellValue("성별");
+        row_p.createCell(8).setCellValue("생년월일");
+        row_p.createCell(9).setCellValue("COUNT");
+        row_p.createCell(10).setCellValue("subscribe");
         
         row_c = worksheet_c.createRow(0);
-        row_c.createCell(0).setCellValue("ID");
-        row_c.createCell(1).setCellValue("C_NAME");
+        row_c.createCell(0).setCellValue("아이디");
+        row_c.createCell(1).setCellValue("업체명");
         row_c.createCell(2).setCellValue("C_NUM");
-        row_c.createCell(3).setCellValue("P_NAME");
+        row_c.createCell(3).setCellValue("상품명");
         row_c.createCell(4).setCellValue("C_POSTCODE");
         row_c.createCell(5).setCellValue("C_ADDRESS");
         row_c.createCell(6).setCellValue("C_DETAILADDRESS");
@@ -165,18 +163,17 @@ public class listMemberExcelDownload extends AbstractXlsxView {
         // 각 해당하는 셀에 값과 스타일을 넣음
         for(P_MemberDTO mem_p : mem_p_list) {
         	row_p = worksheet_p.createRow(rowIndex);
-        	row_p.createCell(0).setCellValue(mem_p.getSeq());
-        	row_p.createCell(1).setCellValue(mem_p.getUserid());
-        	row_p.createCell(2).setCellValue(mem_p.getUsername());
-        	row_p.createCell(3).setCellValue(mem_p.getPostcode());
-        	row_p.createCell(4).setCellValue(mem_p.getAddress());
-        	row_p.createCell(5).setCellValue(mem_p.getDetailAddress());
-        	row_p.createCell(6).setCellValue(mem_p.getUseremail());
-            row_p.createCell(7).setCellValue(mem_p.getPhone());
-            row_p.createCell(8).setCellValue(mem_p.getUsergender());
-            row_p.createCell(9).setCellValue(mem_p.getUserbirth());
-            row_p.createCell(10).setCellValue(mem_p.getCount());
-            row_p.createCell(11).setCellValue(mem_p.getSubscribe());
+        	row_p.createCell(0).setCellValue(mem_p.getUserid());
+        	row_p.createCell(1).setCellValue(mem_p.getUsername());
+        	row_p.createCell(2).setCellValue(mem_p.getPostcode());
+        	row_p.createCell(3).setCellValue(mem_p.getAddress());
+        	row_p.createCell(4).setCellValue(mem_p.getDetailAddress());
+        	row_p.createCell(5).setCellValue(mem_p.getUseremail());
+            row_p.createCell(6).setCellValue(mem_p.getPhone());
+            row_p.createCell(7).setCellValue(mem_p.getUsergender());
+            row_p.createCell(8).setCellValue(mem_p.getUserbirth());
+            row_p.createCell(9).setCellValue(mem_p.getCount());
+            row_p.createCell(10).setCellValue(mem_p.getSubscribe());
              
             rowIndex++;
         }

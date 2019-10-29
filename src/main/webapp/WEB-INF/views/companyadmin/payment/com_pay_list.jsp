@@ -11,7 +11,7 @@
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/memberlist.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/companyadmin/payment/payment.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/admin/member/paging.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/companyadmin/com_admin_payment.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/companyadmin/com_admin_payment.css">
@@ -29,6 +29,8 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">주문내역</h6>
+	    	<a href="/admin/excel/company/product" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i>상품정보 다운로드</a>
+	    	<a href="/admin/excel/company/payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i>결제정보 다운로드</a>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO;
 import com.rhymes.app.admin.payment.model.AdminPaymentParam;
 import com.rhymes.app.companyadmin.dao.CompanyAdminPaymentDAO;
+import com.rhymes.app.companyadmin.model.AdminPaymentVbankDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
 @Repository
@@ -40,6 +41,19 @@ public class CompanyAdminPaymentDAOImpl implements CompanyAdminPaymentDAO {
 	@Override
 	public List<AdminPaymentDetailDTO> getOrderDetail(PaymentDTO dto) {
 		return SqlSession.selectList(ns + "getOrderDetail", dto);
+	}
+
+	// 업체별 무통장입금 관리
+	@Override
+	public List<AdminPaymentVbankDTO> getVbankList(String userid) {
+		return SqlSession.selectList(ns + "getVbankList", userid);
+	}
+
+	// 결제완료로 변경
+	@Override
+	public boolean paymentfinish(String seq) {
+		int b = SqlSession.update(ns + "paymentfinish", seq);
+		return b>0?true:false;
 	}
 
 }

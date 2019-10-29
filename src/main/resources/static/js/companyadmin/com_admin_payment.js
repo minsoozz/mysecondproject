@@ -34,7 +34,7 @@ function goPage(pageNumber) {
 
 
 function dataTable_length() {
-	alert("정렬 개수 바뀜");
+	//alert("정렬 개수 바뀜");
 	
 	var _s_keyword = $("#_s_keyword").val();
 	var _select = $("#_select").val();
@@ -45,5 +45,19 @@ function dataTable_length() {
 
 	location.href="/admin/company/payment/success?s_keyword="+_s_keyword+"&s_category="+_select+"&pageNumber="+_pageNumber+"&recordCountPerPage="+_recordCountPerPage;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

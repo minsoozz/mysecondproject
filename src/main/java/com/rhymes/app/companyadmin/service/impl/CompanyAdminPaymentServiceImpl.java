@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO;
 import com.rhymes.app.admin.payment.model.AdminPaymentParam;
 import com.rhymes.app.companyadmin.dao.CompanyAdminPaymentDAO;
+import com.rhymes.app.companyadmin.model.AdminPaymentVbankDTO;
 import com.rhymes.app.companyadmin.service.CompanyAdminPaymentService;
 import com.rhymes.app.payment.model.PaymentDTO;
 
@@ -39,6 +40,18 @@ public class CompanyAdminPaymentServiceImpl implements CompanyAdminPaymentServic
 	@Override
 	public List<AdminPaymentDetailDTO> getOrderDetail(PaymentDTO dto) {
 		return com_admin_paymentDAO.getOrderDetail(dto);
+	}
+
+	// 업체별 무통장입금 관리
+	@Override
+	public List<AdminPaymentVbankDTO> getVbankList(String userid) {
+		return com_admin_paymentDAO.getVbankList(userid);
+	}
+
+	// 결제완료로 변경
+	@Override
+	public boolean paymentfinish(String seq) {
+		return com_admin_paymentDAO.paymentfinish(seq);
 	}
 
 }

@@ -77,5 +77,23 @@ WHERE P.PAYMENT_CODE = PA.PAYMENT_CODE AND P.PAYMENT_CODE = PD.PAYMENT_CODE AND 
 GROUP BY SS.STOCK_SEQ
 </select>
 
+<!-- 업체별 무통장입금  -->
+<select id="getVbankList" parameterType="java.lang.String" resultType="com.rhymes.app.companyadmin.model.AdminPaymentVbankDTO">
+SELECT P.PAYMENT_CODE, P.USERID, P.SEND_NAME, P.PAYMENT_STATUS, P.TOTALPRICE, P.RDATE, PA.VBANK_NUM, PA.VBANK_DATE, P.SEQ
+FROM RHY_PAYMENT P, RHY_PAYMENT_AFTER PA, RHY_PAYMENT_DETAILS PD, RHY_STORE_STOCK SS, RHY_STORE_PRODUCT SP, RHY_MEM_C MC
+WHERE P.PAYMENT_CODE = PA.PAYMENT_CODE AND PA.PAYMENT_CODE = PD.PAYMENT_CODE AND PD.S_SEQ = SS.STOCK_SEQ
+		AND SS.P_SEQ = SP.P_SEQ AND SP.C_NAME = MC.C_NAME AND MC.ID = #{userid} AND P.PAYMENT_STATUS = '미결제'
+GROUP BY P.PAYMENT_CODE
+</select>
+
+<!-- 무통장 입금 미결제 -> 결제로 변경 -->
+<update id="paymentfinish" parameterType="java.lang.String">
+UPDATE RHY_PAYMENT
+SET PAYMENT_STATUS = '결제완료'
+WHERE SEQ = #{seq}
+</update>
+
+
+
 </mapper>
 

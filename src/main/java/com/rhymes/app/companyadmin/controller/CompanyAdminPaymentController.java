@@ -3,6 +3,8 @@ package com.rhymes.app.companyadmin.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO;
 import com.rhymes.app.admin.payment.model.AdminPaymentParam;
+import com.rhymes.app.companyadmin.model.AdminPaymentVbankDTO;
 import com.rhymes.app.companyadmin.service.CompanyAdminPaymentService;
 import com.rhymes.app.payment.model.PaymentDTO;
+import com.rhymes.app.payment.model.PaymentDetailsDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,9 +28,9 @@ public class CompanyAdminPaymentController {
 	@Autowired
 	CompanyAdminPaymentService com_admin_paymentService;
 	
-	// 내 업체만 주문내역조회
+	// 업체별 주문내역조회
 	@GetMapping("/success")
-	public String success(Model model, AdminPaymentParam param, Principal pcp) {		
+	public String success(Model model, AdminPaymentParam param, Principal pcp) {
 		//페이징
 		// 클릭한 페이지
 		int sn = param.getPageNumber();	//0 1 2
@@ -55,7 +59,7 @@ public class CompanyAdminPaymentController {
 		return "company/success";
 	}
 	
-	// 내 업체만 주문상세내역 조회
+	// 업체별 주문상세내역 조회
 	@GetMapping("/detail")
 	public String detail(Model model, Principal pcp, PaymentDTO dto) {
 		dto.setUserid(pcp.getName());
@@ -65,6 +69,39 @@ public class CompanyAdminPaymentController {
 		model.addAttribute("orderDetail",orderDetail);
 		model.addAttribute("market",market);
 		return "company/detail";
+	}
+	
+	// 업체별 무통장입금 관리
+	@GetMapping("/vbank")
+	public String vbank(Model model, Principal pcp, PaymentDTO dto) {		
+		// 마켓명
+		String market = com_admin_paymentService.getMarketName(pcp.getName());
+		// list
+		List<AdminPaymentVbankDTO> vbanklist = com_admin_paymentService.getVbankList(pcp.getName());
+		
+		model.addAttribute("vbanklist",vbanklist);
+		model.addAttribute("market", market);
+		
+		return "company/vbank";
+	}
+	
+	// 무통장 입금 미결제 -> 결제완료
+	@GetMapping("/vbank/finish")
+	public String vbankfinish(Model model, Principal pcp, HttpServletRequest req) {
+		String[] seq = req.getParameterValues("seq");
+		for (int i = 0; i < seq.length; i++) {
+			// 결제완료로 변경
+			boolean b = com_admin_paymentService.paymentfinish(seq[i]);
+		}
+		// 마켓명
+		String market = com_admin_paymentService.getMarketName(pcp.getName());
+		// list
+		List<AdminPaymentVbankDTO> vbanklist = com_admin_paymentService.getVbankList(pcp.getName());
+
+		model.addAttribute("vbanklist",vbanklist);
+		model.addAttribute("market", market);
+		
+		return "company/vbank";
 	}
 	
 }
