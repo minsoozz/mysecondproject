@@ -13,9 +13,12 @@ public class WishlistHibernateRepository {
 	@PersistenceContext
     EntityManager em;
 
-	// select
-    public MemberProductDTO findProduct(int seq){
-          return em.find(MemberProductDTO.class, seq);
+    /** 상품번호에 맞는 상품정보 리턴
+     * @param p_seq
+     * @return
+     */
+    public MemberProductDTO findProduct(int p_seq){
+          return em.find(MemberProductDTO.class, p_seq);
     }
 
 }

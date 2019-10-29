@@ -35,4 +35,10 @@ public class AdminPaymentServiceImpl implements AdminPaymentService {
 		return AdminPaymentDAO.getOrderDetail(dto);
 	}
 
+	@Override
+	public List<PaymentDTO> getOrderSuccess() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

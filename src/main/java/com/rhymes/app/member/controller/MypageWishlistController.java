@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.formula.ptg.MemErrPtg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rhymes.app.member.dao.WishlistHibernateRepository;
+import com.rhymes.app.member.model.mypage.MemberProductDTO;
 import com.rhymes.app.member.model.mypage.MemberStockDTO;
 import com.rhymes.app.member.model.mypage.MemberWishlistDTO;
 import com.rhymes.app.member.service.MypageWishlistService;
@@ -70,14 +72,15 @@ public class MypageWishlistController {
 	public String showWishListAddCart(Model model, Principal pcp, int p_seq) throws Exception {
 		log.info("show WishList AddCart()" + p_seq);
 		
-		//상품정보
-		log.info( hiberRepo.findProduct(p_seq).toString() );
-		
+		//상품정보 - Hibernate
+		MemberProductDTO pDto = hiberRepo.findProduct(p_seq); 		
+		log.info("pdto:" + pDto.toString());
 		//색상, 사이즈 별 재고현황
 		List<MemberStockDTO> sizeList = mypageWishlistService.getSizeListByP_Seq(p_seq);
 		
 		log.info(sizeList.toString());
 		
+		model.addAttribute("pDto", pDto);
 		model.addAttribute("sizeList", sizeList);
 		
 		return "member/mypage/sub/wishlist_cart";

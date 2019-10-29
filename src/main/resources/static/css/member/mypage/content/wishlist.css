@@ -78,9 +78,16 @@
 	left: 40% !important;
 }
 
-/* 장바구니 담기 모달위치 */
+/* 장바구니 담기 모달 */
+/* 포지션 */
 #_wishlist_cart_modal .modal-dialog{
 	margin-top: 300px;
+}
+/* 내부 요소 */
+.cart_one_item_info .cart_one_item_info_input_wrap{
+	float: left;
+	position: relative;
+	margin-right: 20px;
 }
 
 /* Switch 1 Specific Styles Start */
