@@ -74,11 +74,11 @@ public class MypageWishlistController {
 		
 		//상품정보 - Hibernate
 		MemberProductDTO pDto = hiberRepo.findProduct(p_seq); 		
-		log.info("pdto:" + pDto.toString());
+		//log.info("pdto:" + pDto.toString());
 		//색상, 사이즈 별 재고현황
 		List<MemberStockDTO> sizeList = mypageWishlistService.getSizeListByP_Seq(p_seq);
 		
-		log.info(sizeList.toString());
+		//log.info(sizeList.toString());
 		
 		model.addAttribute("pDto", pDto);
 		model.addAttribute("sizeList", sizeList);
