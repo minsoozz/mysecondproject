@@ -465,6 +465,7 @@ table input{
 <input type="hidden" id="_update-text">
 
 <script>
+
 var bannertype = "${resource.mainbanner_type}";
 
 var sel_file;

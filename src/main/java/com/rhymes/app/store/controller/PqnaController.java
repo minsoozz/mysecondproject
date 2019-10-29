@@ -59,6 +59,7 @@ public class PqnaController {
 		return "pqnalist.tiles";
 	}
 	
+	
 
 	//상품문의 글쓰기가기
 	@GetMapping("/pqnawrite")
