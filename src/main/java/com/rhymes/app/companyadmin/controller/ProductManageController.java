@@ -134,6 +134,7 @@ public class ProductManageController {
     	     int c2_seq = 0;
      		//*카테고리 리스트 GET
 			//2차 카테고리 리스트	
+    	     cate2.setC2_name(product.getC2_name());
 			if(product.getC1_name().equals("MEN")) { 
 				  cate2list = manage.getCate2List(1);
 				  cate2.setC1_seq(1);
@@ -141,14 +142,13 @@ public class ProductManageController {
 			}else if(product.getC1_name().equals("WOMEN")) { 
 				  cate2list = manage.getCate2List(2);
 				  cate2.setC1_seq(2);
-				  c2_seq = cate2list.get(0).getC2_seq();
+				  c2_seq = manage.getc2seq(cate2);
 			}
 				
 			// 수정했음 확인해야함
 			
 			
 			//3차 카테고리 리스트
-			cate2.setC2_name(product.getC2_name());
 			cate3list = manage.getCate3List(c2_seq);
 			
 			for (Category3Dto c3 : cate3list) {

@@ -14,6 +14,7 @@ import lombok.ToString;
 public class MemberOrderDetailDTO {
 
 	private int seq;	//디테일ID(seq)
+	private int s_seq;	//재고ID(Stock_SEQ)
 	private String img;	//대표이미지
 	private String p_name;	//상품이름
 	private int p_price;	//상품가격

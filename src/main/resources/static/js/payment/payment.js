@@ -83,7 +83,7 @@ function paymens(){
 	var radioVal = $("input[name='payment_method']:checked").val();
 	var totalprice = $("#_totalprice").text();
 	var send_name = $("#send_name").val();
-	var send_phone = $("#send_phone1").val() + "-" + $("#send_phone2").val() + "-" + $("#send_phone3").val();	
+	var send_phone = $("#send_phone1").val() + "-" + $("#send_phone2").val() + "-" + $("#send_phone3").val();
 	var send_email = $("#send_email").val();
 	var receive_postnum = $("#sample6_postcode").val();
 	var receive_address = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
@@ -98,11 +98,8 @@ function paymens(){
 
 	}
 
-	//alert("총 : "+parseInt(totalprice));
-	// parseInt를 했기때문에 소수점자리는 잘라진다 예) 42.6 -> 42
-	var add_point = parseInt(parseInt(totalprice) * 0.02);
 	
-	$("#add_point").val( add_point );
+	
 	$("#disc_coupon").val( parseInt($("#_disc_coupon").text()) );
 	$("#disc_point").val( parseInt($("#_disc_point").text()) );
 	

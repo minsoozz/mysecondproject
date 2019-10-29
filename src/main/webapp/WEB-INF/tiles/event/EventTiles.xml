@@ -22,6 +22,7 @@
    <definition name="eventListEnd.tiles" extends="eventList.tiles">
    		<put-attribute name="body" value="/WEB-INF/views/event/eventListEnd.jsp" />
    </definition>
+   
 
    
 </tiles-definitions>

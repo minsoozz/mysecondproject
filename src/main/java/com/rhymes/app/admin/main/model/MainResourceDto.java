@@ -2,7 +2,7 @@ package com.rhymes.app.admin.main.model;
 
 public class MainResourceDto {
 
-	private int seq;
+	private int seq; 
 	
 	private String mainbanner_file;
 	private String mainbanner_type;

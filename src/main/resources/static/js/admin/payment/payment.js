@@ -3,14 +3,14 @@ $(document).ready(function () {
 	
 	$("#_btnSearch").click(function () {
 		alert("검색");
-		
+
+		var _recordCountPerPage = $("#_recordCountPerPage").val();
 		var _s_keyword = $("#_s_keyword").val();
 		var _select = $("#_select").val();
-		alert( _s_keyword );
-		alert( _select );
+		//alert( _s_keyword );
+		//alert( _recordCountPerPage );
 		
-		//$("#_payment_frm").attr("action","/admin/payment/success").submit();
-		location.href="/admin/payment/success?s_keyword="+_s_keyword+"&select="+_select;		
+		location.href="/admin/payment/success?s_keyword="+_s_keyword+"&s_category="+_select+"&recordCountPerPage="+_recordCountPerPage;
 	});
 	
 	
@@ -19,16 +19,31 @@ $(document).ready(function () {
 
 
 function goPage(pageNumber) {
-	alert("페이지 클릭 : " + pageNumber);
+	//alert("페이지 클릭 : " + pageNumber);
 	
 	var _s_keyword = $("#_s_keyword").val();
 	var _select = $("#_select").val();
+	var _recordCountPerPage = $("#_recordCountPerPage").val();
 
 	$("#_pageNumber").val(pageNumber); // 들어오는 값을 가져옴
 	var _pageNumber = $("#_pageNumber").val();
-	//$("#_payment_frm").attr("action", "/admin/payment/success").submit();
 
-	location.href="/admin/payment/success?s_keyword="+_s_keyword+"&select="+_select+"&pageNumber="+_pageNumber;
+	location.href="/admin/payment/success?s_keyword="+_s_keyword+"&s_category="+_select+"&pageNumber="+_pageNumber+"&recordCountPerPage="+_recordCountPerPage;
+}
+
+
+
+function dataTable_length() {
+	//alert("정렬 개수 바뀜");
+	
+	var _s_keyword = $("#_s_keyword").val();
+	var _select = $("#_select").val();
+	var _pageNumber = $("#_pageNumber").val();
+	var _recordCountPerPage = $("#_recordCountPerPage").val();
+	
+	//alert(_s_keyword + ", " + _select + ", " + _pageNumber + ", " + _recordCountPerPage);
+
+	location.href="/admin/payment/success?s_keyword="+_s_keyword+"&s_category="+_select+"&pageNumber="+_pageNumber+"&recordCountPerPage="+_recordCountPerPage;
 }
 
 

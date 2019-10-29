@@ -28,4 +28,8 @@ public interface AdminUsedService {
 
 	List<BlacklistDto> getAdminSellerlist(AdminSParam sparam);
 
+	boolean AdminUserLock(String string);
+
+	boolean AdminUserUnLock(String string);
+
 }

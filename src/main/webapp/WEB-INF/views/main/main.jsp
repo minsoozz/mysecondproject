@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% String ctx = request.getContextPath(); %>
 
 
@@ -22,12 +22,18 @@
 
 <body>
 
-    <div align="center" id="haribo">
-    <video src="/img/main-img/bg-img/main0vid_2.mp4" width="90%" height="10%" loop="loop" autoplay="autoplay"></video>     
+    <div align="center" id="mainbanner">
+    <c:if test ="${dto.mainbanner_type eq 'VIDEO'}" >
+    	<video src='/upload/mainresource/${dto.mainbanner_file}' style="width: 90%;height: 10%" loop="loop" autoplay="autoplay"></video>
+    	<%-- <video src="/upload/mainresource/${dto.mainbanner_file }"width="90%" height="10%" loop="loop" autoplay="autoplay"></video> --%>						
+    </c:if>
+
+	<c:if test = "${dto.mainbanner_type eq 'PHOTO'}" >
+    	<img src="/upload/mainresource/${dto.mainbanner_file}" style="width: 1850px; height: 800px"></img>     
+    </c:if>
    </div>
 
-<br><br><br><br><br><br>
-
+   <br><br><br><br><br><br>
 
 
 <h4 style="margin-left: 60px; color: gray">BEST</h4>
@@ -118,65 +124,62 @@
     </section>
     <!-- ****** Welcome Area End ****** -->
 
+   <br><br><br><br><br><br>   <br><br><br><br><br><br>
 
-<br><br><br><br><br><br>
 
-    <!-- 추천 상품 메인픽  -->
-   <div align="center">
-     <section id="mainpick1">
-     </section>
-     <h1>레인보우 슈즈</h1>
+   
+   
+   <div class="thumbnail-wrapper"> 
+	   <div class="thumbnail"> 
+		   <div class="centered"> 
+		   	<img src="/upload/mainresource/${dto.photo1_file}"></img> 
+		   </div> 
+	   </div> 
+	   <div id="bannertext" align="center">
+	   <h3 style="color: black">${dto.photo1_title}</h3>
      <br>
-     <p>이건 댄싱슈즈</p>
-     <p>You want a dadadadadance get ya dancing shoes</p>
-		<p>짜릿한 기분은 아무도 모를걸 I can dadadadadance I got dancing shoes 거친 내 숨소리가 너를 미치게 해</p>
-		<p>A-oh, 그대와 나
-A-oh, 사랑에 빠져
-A-oh, 미친듯이
-Everybody just get down</p>
-    
+     <p style="font-size: 15px">${dto.photo1_content}</p>     
      <a href="#" class="mainbuybtn">구매하기</a>
+     </div>
    </div>
-<br><br><br><br><br><br>
+   <br><br><br><br><br><br>
    
     <div align="center">
-    <video src="/img/main-img/bg-img/main2vid.mp4" width="90%" height="50%" loop="loop" autoplay="autoplay"></video>
+    <video src='/upload/mainresource/${dto.video1_file}' style="width: 90%; height: 10%" loop="loop" autoplay="autoplay"></video>
      <br><br>
-     <h3 style="color: black">BARCELONA</h3>
+     <h3 style="color: black">${dto.video1_title}</h3>
      <br> 
-	<p style="font-size: 15px">빈티지 무드에서 영감을 받은 정라운드 실루엣, 군더더기 없는 깔끔한 메탈라인이 매력적인 바르셀로나</p>
-    
-     <br> 
+	<p style="font-size: 15px">${dto.video1_content}</p>
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
-<br><br><br><br><br><br>
+   <br><br><br><br><br><br>
 
        
-       
-   <div align="center">
-     <section id="mainpick2">
-     </section>
-     <h1>간지폭발</h1>
+     <div class="thumbnail-wrapper"> 
+	   <div class="thumbnail"> 
+		   <div class="centered"> 
+		   	<img src="/upload/mainresource/${dto.photo2_file}"></img> 
+		   </div> 
+	   </div> 
+	   <div id="bannertext" align="center">
+	   <h3 style="color: black">${dto.photo2_title}</h3>
      <br>
-     <p>그럴듯한 무료이미지 구하기 ㅈㄴ힘듦</p>
-     <p>약간 저작권 의식이 높은편</p>
+     <p style="font-size: 15px">${dto.photo2_content}</p>     
      <a href="#" class="mainbuybtn">구매하기</a>
+     </div>
    </div>
    <br><br><br><br><br><br>
 
    
   <div align="center">
-    <video src="/img/main-img/bg-img/main3vid.mp4" width="90%" height="50%" loop="loop" autoplay="autoplay"></video>
+    <video src='/upload/mainresource/${dto.video2_file}' style="width: 80%;height: 10%;" loop="loop" autoplay="autoplay"></video>
      <br><br>
-     <h3 style="color: black">☆★패딩사세요☆★</h3>
+     <h3 style="color: black">${dto.video2_title}</h3>
      <br> 
-	<p style="font-size: 15px">털달린 패딩입니다 따순 패딩 사세용~~~~~~~ </p>
-  
-  <br>
-     <a href="#haribo" class="mainbuybtn">구매하기</a>
-     <!-- a href에 #넣고 아이디적으면 글루 이동한다!~ 디테일에서 써먹기 ~! -->
+	<p style="font-size: 15px">${dto.video2_content}</p>    
+     <a href="#" class="mainbuybtn">구매하기</a>
    </div>
-<br><br><br><br><br><br>
+   <br><br><br><br><br><br>
     <!-- 추천 상품 끝 -->
 
 

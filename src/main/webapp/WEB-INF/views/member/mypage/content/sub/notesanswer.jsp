@@ -20,7 +20,7 @@
 		<input type="hidden" value="${dto.send_id }" name="recv_id">
 		받는사람 :&nbsp;${dto.send_id }
 		<hr>
-    	<textarea id="content" name="content" cols="60" rows="14" maxlength="1000"></textarea>
+    	<textarea id="content" name="content" cols="60" rows="14" maxlength="1000"  style="resize: none;"></textarea>
 		<div class="wrap">
     	<span id="counter">###</span>
 		</div>

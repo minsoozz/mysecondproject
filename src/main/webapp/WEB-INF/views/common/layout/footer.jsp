@@ -88,9 +88,9 @@
 			</div>
 		</footer>
 	</div>
-
-
 <!-- ****** Footer Menu Area End ****** -->
+
+
 <%String ctx = request.getContextPath(); %>
 <!-- Jquery-2.2.4 js -->
 <script src="<%=ctx %>/js/jquery/jquery-2.2.4.min.js"></script>

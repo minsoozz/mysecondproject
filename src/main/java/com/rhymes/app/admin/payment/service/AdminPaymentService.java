@@ -8,11 +8,10 @@ import com.rhymes.app.payment.model.PaymentDTO;
 
 public interface AdminPaymentService {
 
-	// 관리자페이지 결제내역조회
 	public List<PaymentDTO> getOrderSuccessList(AdminPaymentParam param);
 
 	// 관리자페이지 결제내역 총 개수
-	public int getOrderSuccessCount(AdminPaymentParam param);
+	public List<PaymentDTO> getOrderSuccessCount(AdminPaymentParam param);
 	
 	// 관리자페이지 결제상상세내역조회
 	public List<AdminPaymentDetailDTO> getOrderDetail(PaymentDTO dto);

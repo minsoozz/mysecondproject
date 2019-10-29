@@ -22,10 +22,18 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: mhj
       password: mhj
+  jpa:
+    database: mysql    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    properties:
+      hibernate:
+        show-sql: true
+        format_sql: true
+    generate-ddl: true
+    
   #ehcache config
-  cache:    ehcache:      config: classpath:/config/ehcache.xml
-      
-#jsp
+  cache:    ehcache:      config: classpath:/config/ehcache.xml      
+  #jsp
   mvc:
     view:
       prefix: /WEB-INF/views/
@@ -45,3 +53,11 @@ logging:
        request:
         locale:
          PostfixedApplicationResource: ERROR
+         logging:
+     #JPA Hibernate 로깅
+     hibernate:
+      SQL: DEBUG
+      type:
+       descriptor:
+         sql:
+           BasicBinder: TRACE

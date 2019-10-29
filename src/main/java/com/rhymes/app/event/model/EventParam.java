@@ -15,6 +15,9 @@ import lombok.ToString;
 @NoArgsConstructor
 public class EventParam implements Serializable{
 
+	// 전체페이지, 진행중인페이지, 종료된 페이지
+	private String code;
+	
 	// search
 	private String s_category; //����, ����, �ۼ���
 	private String s_keyword;	// �˻���
@@ -33,8 +36,11 @@ public class EventParam implements Serializable{
 	private String authority;
 	
 	// sorting
-	private String sorting="ID";	
+	private String sorting="seq";	
 	
 	// alarm
 	private String rdate;
+	
+	// 오늘 날짜 (종료된 이벤트 구분위해)
+	private String ndate;
 }

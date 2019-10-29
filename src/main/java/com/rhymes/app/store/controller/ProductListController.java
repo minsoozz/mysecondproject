@@ -42,9 +42,10 @@ public class ProductListController {
 	   public String productList(Model model, ProductParam param) throws Exception{
 		  
 	      // SORTING DEFAULT
-	      if( param.getSorting()==null||("").equals(param.getSorting()) ) {
-	    	param.setSorting("NEW");  
-	      }
+		/*
+		 * if( param.getSorting()==null||("").equals(param.getSorting()) ) {
+		 * param.setSorting("NEW"); }
+		 */
 	      
 	      // 업체 리스트 GET
 	      List<String> clist = store.getCompnayList();   
@@ -77,6 +78,8 @@ public class ProductListController {
 	         model.addAttribute("cate1list", cate1list);         
 	      }
 	      log.info("KEYWORD : " + param.getKeyword());
+	      log.info("KEY : " + param.getKey());
+	      log.info("SORTING : " + param.getSorting());
 	      
 	      // paging 처리
 	      int sn = param.getPageNumber(); 
@@ -100,7 +103,8 @@ public class ProductListController {
 	      }
 	      	      
 	      
-	      
+	      log.info("상품리스트 사이즈 : " + plist.size());
+	      log.info("상품리스트 상품 총 갯수 : " + totalProduct);
 	      
 	      // OPTIONS
 	      model.addAttribute("key", param.getKey());
