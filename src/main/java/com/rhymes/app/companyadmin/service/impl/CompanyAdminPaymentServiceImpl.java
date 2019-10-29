@@ -1,15 +1,19 @@
 package com.rhymes.app.companyadmin.service.impl;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO;
 import com.rhymes.app.admin.payment.model.AdminPaymentParam;
 import com.rhymes.app.companyadmin.dao.CompanyAdminPaymentDAO;
 import com.rhymes.app.companyadmin.model.AdminPaymentVbankDTO;
 import com.rhymes.app.companyadmin.service.CompanyAdminPaymentService;
+import com.rhymes.app.payment.model.DeliveryDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 
 @Service
@@ -53,5 +57,24 @@ public class CompanyAdminPaymentServiceImpl implements CompanyAdminPaymentServic
 	public boolean paymentfinish(String seq) {
 		return com_admin_paymentDAO.paymentfinish(seq);
 	}
+
+	// 배송관리
+	@Override
+	public List<DeliveryDTO> getDeliveryList(String userid) {
+		return com_admin_paymentDAO.getDeliveryList(userid);
+	}
+
+	// 배송준비 중 -> 배송 중
+	@Override
+	public boolean getDeliveryIng(DeliveryDTO dto) {
+		return com_admin_paymentDAO.getDeliveryIng(dto);
+	}
+
+	// 배송중 -> 배송완료
+	@Override
+	public boolean getDeliveryFinish(DeliveryDTO dto) {
+		return com_admin_paymentDAO.getDeliveryFinish(dto);
+	}
+	
 
 }

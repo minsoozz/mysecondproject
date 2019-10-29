@@ -15,6 +15,7 @@ import com.rhymes.app.admin.payment.model.AdminPaymentDetailDTO;
 import com.rhymes.app.admin.payment.model.AdminPaymentParam;
 import com.rhymes.app.companyadmin.model.AdminPaymentVbankDTO;
 import com.rhymes.app.companyadmin.service.CompanyAdminPaymentService;
+import com.rhymes.app.payment.model.DeliveryDTO;
 import com.rhymes.app.payment.model.PaymentDTO;
 import com.rhymes.app.payment.model.PaymentDetailsDTO;
 
@@ -102,6 +103,49 @@ public class CompanyAdminPaymentController {
 		model.addAttribute("market", market);
 		
 		return "company/vbank";
+	}
+	
+	// 배송관리
+	@GetMapping("/delivery")
+	public String delivery(Model model, Principal pcp) {
+		// 마켓명
+		String market = com_admin_paymentService.getMarketName(pcp.getName());
+		// list
+		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryList(pcp.getName());
+
+		model.addAttribute("deliverylist",deliverylist);
+		model.addAttribute("market", market);
+		return "company/delivery";
+	}
+	
+	// 배송준비 중 -> 배송 중
+	@GetMapping("/delivery/ing")
+	public String deliverying(Model model, Principal pcp, DeliveryDTO dto) {
+		// 배송준비 중 -> 배송 중
+		boolean b = com_admin_paymentService.getDeliveryIng(dto);
+		// 마켓명
+		String market = com_admin_paymentService.getMarketName(pcp.getName());
+		// list
+		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryList(pcp.getName());
+		
+		model.addAttribute("deliverylist",deliverylist);
+		model.addAttribute("market", market);
+		return "company/delivery";
+	}
+	
+	// 배송중 -> 배송완료
+	@GetMapping("/delivery/finish")
+	public String deliveryfinish(Model model, Principal pcp, DeliveryDTO dto) {
+		// 배송중 -> 배송완료
+		boolean b = com_admin_paymentService.getDeliveryFinish(dto);
+		// 마켓명
+		String market = com_admin_paymentService.getMarketName(pcp.getName());
+		// list
+		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryList(pcp.getName());
+
+		model.addAttribute("deliverylist",deliverylist);
+		model.addAttribute("market", market);
+		return "company/delivery";
 	}
 	
 }
