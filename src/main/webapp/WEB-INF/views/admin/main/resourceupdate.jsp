@@ -27,7 +27,7 @@ body {
 }
 #main-div {	
 	padding: 30px;
-	height: 4000px;
+	height: 5000px;
 }
 button{
 	border: solid 1px #DADCE0;
@@ -38,10 +38,17 @@ button{
 	font-size: 15px;
 	margin-top: 20px;	 
 }
+#bannerresource-div{
+	border: 2px solid #DADCE0;
+	width: 70%;
+	height: 25% auto;	
+	margin-bottom: 3%;
+	padding: 1%;
+}
 #eachresource-div {
 	border: 2px solid #DADCE0;
 	width: 70%;
-	height: 400px auto;	
+	height: 800px;	
 	margin-bottom: 3%;
 	padding: 2%;
 }
@@ -51,11 +58,13 @@ button{
 	margin-bottom: 20px;
 }
 #text-div{
-	border: 1px solid;	
-	height:30px;
+	border: 1px solid #DADCE0;	
 	margin-left: 100px;
 	margin-right: 100px;
 	margin-top: 15px;
+	margin-bottom:20px;
+	text-align: center;
+	
 }
 #eachcontent-div{
 	margin-left: 3%;
@@ -65,13 +74,23 @@ button{
 	margin-bottom: 3%;
 }
 #eachcontent-div2{
-	margin-left: 15%;
-	margin-right: 15%;
+	margin-left: 10%;
+	margin-right: 10%;	
 }
 #photo-div{
 	border: 2px solid orange;	
 	height: 90%;
 	margin-bottom: 20px;
+}
+.text_update-btn{
+	border: solid 1px #DADCE0;
+	width: 70px;
+	height:25px;
+	border-radius: 5px;
+	background-color: grey;
+	color:black;
+	font-size: 13px;
+			 
 }
 
 /* msg Modal */
@@ -115,7 +134,7 @@ button{
 fieldset {
   display: block;
   position: absolute;
-  top: 14%;
+  top: 11%;
   left: 21%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
@@ -167,7 +186,18 @@ label > input:checked + i:after {
   -webkit-transform: translateX(25px);
           transform: translateX(25px);
 }
-
+table{
+	font-size: 14px;	
+}
+table td{
+	vertical-align: middle;
+}
+table input{
+	width:90%; 
+	text-align: center;
+	border-radius: 5px;
+	
+}
 
 </style>
 </head>
@@ -181,8 +211,8 @@ label > input:checked + i:after {
 	<div>
 		<div>
 				<fieldset>
-					<label> <input class="cb cb1" type="checkbox" value="video"
-						name="bannertype" onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'VIDEO'? 'checked':'' }"/> /> <i></i> 
+					<label> <input class="cb cb1" type="checkbox" name="bannertype" value="video"
+						onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'VIDEO'? 'checked':'' }"/> /> <i></i> 
 						<span>VIDEO</span>
 					</label> 
 					<label> <input class="cb cb2" type="checkbox" name="bannertype" value="photo"
@@ -195,9 +225,9 @@ label > input:checked + i:after {
 
 	<div align="center">
 		<!-- banner -->
-		<div id="eachresource-div">
-			<div id="eachtitle-div">
-				<strong>MAIN BANNER</strong>
+		<div id="bannerresource-div">
+			<div id="eachtitle-div"> 
+				<strong>MAIN BANNER</strong> 
 			</div>
 			<div align="center">
 			<form id="udtfrmbanner" method="POST" enctype="multipart/form-data" onSubmit="return false;">
@@ -233,11 +263,56 @@ label > input:checked + i:after {
 					<input type="file" name="fileload" id="banner-upload0" style="display:none">	
 				</c:if>
 				<input type="hidden" name="which" value="banner">
-				<input type="hidden" name="bannertype" id="_bannertype">
+				<input type="hidden" name="bannertype" id="_bannertype" value="${resource.mainbanner_type }">
 			</form>
 			</div>
 		</div>
 
+
+	
+	<!-- photo1 -->
+		<div id="eachresource-div">
+			<div id="eachtitle-div">
+				<strong>PHOTO1</strong>
+			</div>
+			<div id="eachcontent-div2">
+			<form id="udtfrmphoto1" method="POST" enctype="multipart/form-data" onSubmit="return false;">
+				<div class="previewphoto1">
+					<img src="/upload/mainresource/${resource.photo1_file }" alt="사진없음" style="width:450px; height:450px;">
+				</div>
+				<button id="btn-photo1_udt">CHANGE</button>
+				<input type="file" name="fileload" id="photo1-upload" style="display:none">
+				<input type="hidden" name="which" value="photo1">
+			</form>				
+				<br>
+			<!-- text -->
+				<div id="text-div">
+					<table border='0' style="margin:2%;">
+						<colgroup><col width="12%"><col width="78%"><col width="10%"></colgroup>
+						<tr>
+							<th>TITLE</th>
+							<td>
+								<input type="text" id="photo1_title" value="${resource.photo1_title }" onkeyup="inputkeyup('photo1_title', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-photo1_title">CHANGE</button>
+							</td>
+						</tr>
+						<tr>
+							<th>CONTENT</th>
+							<td>
+								<input type="text" id="photo1_content" value="${resource.photo1_content }" onkeyup="inputkeyup('photo1_content', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-photo1_content">UPDATE</button>
+							</td>
+						</tr>
+					</table>
+				</div>	
+			</div>
+		</div>
+		
+		
 	<!-- video1 -->		
 		<div id="eachresource-div">
 			<div id="eachtitle-div">
@@ -255,14 +330,75 @@ label > input:checked + i:after {
 				<input type="hidden" name="which" value="video1">
 				<br>
 			</form>
-				<!-- text -->
-			<form>			
+			<br>
+			<!-- text -->
 				<div id="text-div">
-					${resource.video1_text }
+					<table border='0' style="margin:2%;">
+						<colgroup><col width="12%"><col width="78%"><col width="10%"></colgroup>
+						<tr>
+							<th>TITLE</th>
+							<td>
+								<input type="text" id="video1_title" value="${resource.video1_title }" onkeyup="inputkeyup('video1_title', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-video1_title">CHANGE</button>
+							</td>
+						</tr>
+						<tr>
+							<th>CONTENT</th>
+							<td>
+								<input type="text" id="video1_content" value="${resource.video1_content }" onkeyup="inputkeyup('video1_content', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-video1_content">UPDATE</button>
+							</td>
+						</tr>
+					</table>
 				</div>
-			</form>	
 			</div>
 		</div>
+		
+		<!-- photo2 -->				
+		<div id="eachresource-div">
+			<div id="eachtitle-div">
+				<strong>PHOTO2</strong>
+			</div>
+			<div id="eachcontent-div2">
+			<form id="udtfrmphoto2" method="POST" enctype="multipart/form-data" onSubmit="return false;">
+				<div class="previewphoto2">
+					<img src="/upload/mainresource/${resource.photo2_file }" alt="사진없음" style="width:450px; height:450px;">
+				</div>
+				<button id="btn-photo2_udt">CHANGE</button>
+				<input type="file" name="fileload" id="photo2-upload" style="display:none">
+				<input type="hidden" name="which" value="photo2">
+			</form>	
+			<br>
+			<!-- text -->
+				<div id="text-div">
+					<table border='0' style="margin:2%;">
+						<colgroup><col width="12%"><col width="78%"><col width="10%"></colgroup>
+						<tr>
+							<th>TITLE</th>
+							<td>
+								<input type="text" id="photo2_title" value="${resource.photo2_title }" onkeyup="inputkeyup('photo2_title', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-photo2_title">CHANGE</button>
+							</td>
+						</tr>
+						<tr>
+							<th>CONTENT</th>
+							<td>
+								<input type="text" id="photo2_content" value="${resource.photo2_content }" onkeyup="inputkeyup('photo2_content', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-photo2_content">UPDATE</button>
+							</td>
+						</tr>
+					</table>
+				</div>	
+			</div>
+		</div>		
 
 	<!-- video2 -->		
 		<div id="eachresource-div">
@@ -281,57 +417,37 @@ label > input:checked + i:after {
 				<input type="hidden" name="which" value="video2">
 				<br>
 			</form>
-				<!-- text -->
-			<form>			
+			<br>
+			<!-- text -->
 				<div id="text-div">
-					${resource.video2_text }
-				</div>
-			</form>	
+					<table border='0' style="margin:2%;">
+						<colgroup><col width="12%"><col width="78%"><col width="10%"></colgroup>
+						<tr>
+							<th>TITLE</th>
+							<td>
+								<input type="text" id="video2_title" value="${resource.video2_title }" onkeyup="inputkeyup('video2_title', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-video2_title">CHANGE</button>
+							</td>
+						</tr>
+						<tr>
+							<th>CONTENT</th>
+							<td>
+								<input type="text" id="video2_content" value="${resource.video2_content }" onkeyup="inputkeyup('video2_content', this.value)">
+							</td>
+							<td style="padding-bottom: 3%">
+								<button type="button" class="text_update-btn" id="udtbtn-video2_content">UPDATE</button>
+							</td>
+						</tr>
+					</table>
+				</div>	
 			</div>
 		</div>
 	
-	<!-- photo1 -->
-		<div id="eachresource-div">
-			<div id="eachtitle-div">
-				<strong>PHOTO1</strong>
-			</div>
-			<div id="eachcontent-div2">
-			<form id="udtfrmphoto1" method="POST" enctype="multipart/form-data" onSubmit="return false;">
-				<div class="previewphoto1">
-					<img src="/upload/mainresource/${resource.photo1_file }" alt="사진없음" style="width:600px; height:600px;">
-				</div>
-				<button id="btn-photo1_udt">CHANGE</button>
-				<input type="file" name="fileload" id="photo1-upload" style="display:none">
-				<input type="hidden" name="which" value="photo1">
-			</form>				
-				<!-- text -->
-				<div id="text-div">
-					${resource.photo1_text }
-				</div>
-			</div>
-		</div>
+	
 
-	<!-- photo2 -->				
-		<div id="eachresource-div">
-			<div id="eachtitle-div">
-				<strong>PHOTO2</strong>
-			</div>
-			<div id="eachcontent-div2">
-			<form id="udtfrmphoto2" method="POST" enctype="multipart/form-data" onSubmit="return false;">
-				<div class="previewphoto2">
-					<img src="/upload/mainresource/${resource.photo2_file }" alt="사진없음" style="width:600px; height:600px;">
-				</div>
-				<button id="btn-photo2_udt">CHANGE</button>
-				<input type="file" name="fileload" id="photo2-upload" style="display:none">
-				<input type="hidden" name="which" value="photo2">
-			</form>	
-			
-				<!-- text -->
-				<div id="text-div">
-					${resource.photo2_text }
-				</div>
-			</div>
-		</div>		
+	
 			
 	</div>
 	
@@ -345,10 +461,134 @@ label > input:checked + i:after {
 </div>
 
 
+<input type="hidden" id="_update-object">
+<input type="hidden" id="_update-text">
+
 <script>
 var bannertype = "${resource.mainbanner_type}";
 
 var sel_file;
+
+var video1title = "${resource.video1_title }";
+var video1content = "${resource.video1_content }";
+var video2title = "${resource.video2_title }";
+var video2content = "${resource.video2_content }";
+var photo1title = "${resource.photo1_title }";
+var photo1content = "${resource.photo1_content }";
+var photo2title = "${resource.photo2_title }";
+var photo2content = "${resource.photo2_content }";
+
+function textupdate(){
+	
+	var object = $("#_update-object").val();
+	var text = $("#_update-text").val();
+	//alert(object);
+	//alert(text);
+	
+	$.ajax({
+        type:"get",
+        data: "object=" + object + "&text=" + text, 
+        url:"/admin/mainresource/textupdate",
+        success:function( data ){
+        	if(object == 'video1_title'){
+        		video1title = text;	
+        	}
+        	if(object == 'video1_content'){
+        		video1content = text;	
+        	}
+        	if(object == 'video2_title'){
+        		video2title = text;	
+        	}
+        	if(object == 'video2_content'){
+        		video2content = text;	
+        	}
+        	if(object == 'photo1_title'){
+        		photo1title = text;	
+        	}
+        	if(object == 'photo1_content'){
+        		photo1content = text;	
+        	}
+        	if(object == 'photo2_title'){
+        		photo2title = text;	
+        	}
+        	if(object == 'photo2_content'){
+        		photo2content = text;	
+        	}
+        	
+        	/* id="udtbtn-video1_title" */ 
+        	$("#udtbtn-" + object).css("background-color", "grey");
+        	$("#udtbtn-" + object).css("color", "black");
+        	$("#udtbtn-" + object).html("CHANGE");
+        	$("#udtbtn-" + object).attr("onclick","");
+        	
+        	//메시지 모달
+		     $("#msg").html("<strong>수정이 완료되었습니다.</strong>");
+	      	 $(".msgModal").fadeIn();
+	     	 setTimeout(function() {
+	     		$(".msgModal").fadeOut();    	
+	         },500);
+        	 
+        	 
+        },
+        error:function(){
+           alert("error!!"); 
+        }
+    })
+	
+}
+
+function inputkeyup(object, text){
+	
+	//alert(text);
+	//alert(object);
+	
+	//alert(text);
+	
+	var bf = $("#_update-object").val();
+	//alert("before:" + bf);
+	//alert("object:" + object);
+	
+	$(".text_update-btn").css("background-color", "grey");
+	$(".text_update-btn").css("color", "black");
+	$(".text_update-btn").html("CHANGE");
+	$(".text_update-btn").attr("onclick","");
+	
+	if(bf != object){
+		if(bf == 'video1_title'){			
+			$("#video1_title").val(video1title);
+		}
+		if(bf == 'video1_content'){
+			$("#video1_content").val(video1content);
+		}
+		if(bf == 'video2_title'){
+			$("#video2_title").val(video2title);
+		}
+		if(bf == 'video2_content'){
+			$("#video2_content").val(video2content);
+		}
+		if(bf == 'photo1_title'){			
+			$("#photo1_title").val(photo1title);
+		}
+		if(bf == 'photo1_content'){
+			$("#photo1_content").val(photo1content);
+		}
+		if(bf == 'photo2_title'){
+			$("#photo2_title").val(photo2title);
+		}
+		if(bf == 'photo2_content'){
+			$("#photo2_content").val(photo2content);
+		}
+	}
+	
+	$("#udtbtn-"+object).css("background-color", "blue");
+	$("#udtbtn-"+object).html("FINISH");
+	$("#udtbtn-"+object).css("color", "white");
+	$("#udtbtn-"+object).attr("onclick","textupdate()");
+	
+	$("#_update-text").val(text);
+	$("#_update-object").val(object);
+		
+}
 
 $(document).on('click', '#btn-banner_udt0', function(e){	
 	e.preventDefault();
@@ -558,7 +798,7 @@ $(document).on('click', '.udt-finishbtn', function(){
 	  $("#udtfrm" + which).ajaxForm({
           type : 'POST',
           enctype : "multipart/form-data",
-          url : "/admin/mainresource/updatefinish",
+          url : "/admin/mainresource/resourceupdate",
           processData : false,
           contentType : false,
           cache : false,
@@ -608,6 +848,7 @@ function cbChange(obj) {
 	  var typ =$("input:checkbox[name='bannertype']:checked").val()
 	 // alert(b);
 	 // alert(bannertype);
+	 alert(typ);
 	 $("#_bannertype").val(typ); 
 	 
 	  if(bannertype === 'PHOTO'){

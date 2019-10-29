@@ -106,8 +106,12 @@ public class AdminQnaDaoImpl implements AdminQnaDao {
 		dto.setDepth(qnadto.getDepth());
 		
 		int n = sqlSession.insert(ns+"QnaAnswerAf", dto);
+		sqlSession.update(ns+ "QnaUpFeedback", dto);
 		
 		return n>0?true:false;
 	}
+
+
+	
 	
 }

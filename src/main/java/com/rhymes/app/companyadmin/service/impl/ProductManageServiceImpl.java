@@ -97,6 +97,11 @@ public class ProductManageServiceImpl implements ProductManageService {
 		return manage.productDelete(product);
 	}
 
+	@Override
+	public int getc2seq(Category2Dto cate2) throws Exception {
+		return manage.getc2seq(cate2);
+	}
+
 	
 	
 }

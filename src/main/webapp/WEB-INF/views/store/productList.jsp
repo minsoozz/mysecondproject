@@ -25,9 +25,11 @@ http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 <body>
 
+
 <%-- c1 : ${c1_name }<br>
 c2 : ${c2_name }<br>
 c3 : ${c3_name }<br>
+key : ${key}<br>
 keyword : ${keyword }<br>
 criterion : ${criterion }<br>
 sorting : ${sorting } <br>
@@ -35,9 +37,9 @@ pageNumber : ${pageNumber }<br>
 총 상품갯수 : ${totalRecordCount } --%>
 
 <c:if test="${empty plist }">
-<div align="center" id="emptyProduct">
+<div align="center" id="emptyProduct" style="margin-top: 300px">
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT09uR_LfHPdzAfTxt9K3hvmH6atw3ZJRM6lMX9BaaDf9U1EMHfcQ"><br>
-<font>등록된 상품이 없습니다.</font>
+<h3>등록된 상품이 없습니다.</h3>
 </div>
 </c:if>
 
@@ -46,12 +48,25 @@ pageNumber : ${pageNumber }<br>
 	<div class="titleDiv">
 		<div class="trackingDiv">
 			<c:if test="${not empty c1_name and not empty c2_name and not empty c3_name }">
-			${c2_name }&nbsp;>&nbsp;<span id="c3fontstyle">${c3_name }</span>
+			${c1_name }&nbsp;>&nbsp;${c2_name }&nbsp;>&nbsp;<span id="c3fontstyle">${c3_name }</span>
 			</c:if>
+			<c:if test="${key eq 'newarrival' }">
+			<%-- ${c1_name }&nbsp;>&nbsp;<span id="c3fontstyle">${fn:toUpperCase(key)}</span> --%>
+			${c1_name }&nbsp;>&nbsp;<span id="c3fontstyle">NEW ARRIVAL</span>
+			</c:if>
+			<c:if test="${key eq 'sale' }">
+			<%-- ${c1_name }&nbsp;>&nbsp;<span id="c3fontstyle">${fn:toUpperCase(key)}</span> --%>
+			${c1_name }&nbsp;>&nbsp;<span id="c3fontstyle">SALE</span>
+			</c:if>
+			<c:if test="${key eq 'best' }">
+			<%-- ${c1_name }&nbsp;>&nbsp;<span id="c3fontstyle">${fn:toUpperCase(key)}</span> --%>
+			${c1_name }&nbsp;>&nbsp;<span id="c3fontstyle">BEST</span>
+			</c:if>
+			
 		</div>
 		<div class="sortingDiv">
-			<label onclick="sortingBy('NEW')" class="sortingBy" style="${sorting == 'NEW'? 'color:black;font-weight:bolder;':'' }">NEW</label>
-			<label class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
+			<label onclick="sortingBy('NEW')" class="sortingBy" style="${sorting == null ? 'color:black;font-weight:bolder;':'' }">NEW</label>
+			<label onclick="sortingBy('BEST')" class="sortingBy" style="${sorting == 'BEST'? 'color:black;font-weight:bolder;':'' }">BEST</label>
 			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
 			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
 		</div>
@@ -85,6 +100,8 @@ pageNumber : ${pageNumber }<br>
 			<c:if test="${pro.sum eq 0}">
 				<font style="color:red; font-weight: bolder;">SOLD OUT</font>
 			</c:if>
+			<br>
+			<font>${pro.c1_name }</font>
 			
 		</div>	
 		</c:forEach>
@@ -92,7 +109,7 @@ pageNumber : ${pageNumber }<br>
 </div>
 
 <!-- paging zone -->
-<c:if test="${key ne 'newarrival' }">
+<c:if test="${key ne 'newarrival' && key ne 'best'}">
 <div id="paging_wrap" style="border: 0px solid red; width:90%%; height:50px; text-align: center;">
 	<jsp:include page="/WEB-INF/views/store/productPaging.jsp" flush="false">
 		<jsp:param name="pageNumber" value="${pageNumber }"/>
@@ -122,6 +139,7 @@ pageNumber : ${pageNumber }<br>
 	<input type="hidden" name="c3_name" value="${c3_name }">
 	<input type="hidden" name="keyword" value="${keyword }">
 	<input type="hidden" name="criterion" value="${criterion }">
+	<input type="hidden" name="key" value="${key }">
 </form>
 
 <!-- 정렬 FORM -->
@@ -132,6 +150,7 @@ pageNumber : ${pageNumber }<br>
 	<input type="hidden" name="c3_name" class="_c3name" value="${c3_name }">
 	<input type="hidden" name="criterion" class="_criterion" value="${criterion }">
 	<input type="hidden" name="keyword" class="_keyword" value="${keyword }">
+	<input type="hidden" name="key" value="${key }">
 </form>
 
 

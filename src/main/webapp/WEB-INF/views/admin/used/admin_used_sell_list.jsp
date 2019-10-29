@@ -30,6 +30,7 @@
 				<div class="table-responsive">
 					<div class="row">
 						<div class="col-sm-12 col-md-6">
+						<button type="button" id="admindel" class="btn btn-primary">선택 삭제</button>	
 							<div class="dataTables_length" id="dataTable_length">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 							</div>
@@ -38,15 +39,14 @@
 						<div class="col-sm-12 col-md-6">
 							<div id="dataTable_filter"
 								class="searchPosition dataTables_filter">
-
+		
 		<form id="_frmFormSearch">
-
 			<select id="select" name="select" onchange="categorychange()"	class="custome-select border-0 pr-3 searchSelect">
 				<option value="title" <c:out value="${select == 'title'?'selected':'' }"/>>제목</option>
 				<option value="id" <c:out value="${select == 'id'? 'selected':'' }"/>>작성자</option>
 				<option value="category" <c:out value="${select == 'category'? 'selected':'' }"/>>카테고리</option>
 			</select> 
-			<input type="search" id="keyword" name="keyword" class="searchText form-control-sm" placeholder=""	aria-controls="dataTable" style="width: 150px">
+			<input type="search" id="keyword" name="keyword" value="${keyword }" class="searchText form-control-sm" placeholder=""	aria-controls="dataTable" style="width: 150px">
 			<button class="btn btn-primary" type="button" id="_formbtn">
 				<i class="fas fa-search fa-sm" id="_btnSearch"></i>
 			</button>
@@ -60,13 +60,13 @@
 						<!-- /검색 -->
 
 					</div>
-
+					<form id="deleteform">
 					<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
 
 						<thead>
 							<tr align="center">
-								<th class="list_checkbox"><input type="checkbox"
-									name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
+								<th class="list_checkbox"><input type="checkbox" 
+									id='allCheck'>
 								</th>
 								<th>아이디</th>
 								<th>카테고리</th>
@@ -86,7 +86,7 @@
 							</c:if>
 							<c:forEach items="${list }" var="list">
 								<tr>
-									<td><input type="checkbox" name="chbox" id="chbox"></td>
+									<td><input type="checkbox" name="chbox" id="chbox" value="${list.seq }"></td>
 									<td>${list.s_id }</td>
 									<td>${list.category }</td>
 									<td>${list.title }</td>
@@ -99,12 +99,14 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					</form>
+					
 					<div class="col-sm-12 col-md-7">
 						<div class="dataTables_paginate paging_simple_numbers"
 							id="dataTable_paginate">
 							<!-- 페이징 -->
-							<%-- <div id="paging_wrap">
-								<jsp:include page="/WEB-INF/views/admin/member/paging.jsp"
+							 <div id="paging_wrap">
+								<jsp:include page="/WEB-INF/views/admin/used/paging.jsp"
 									flush="false">
 									<jsp:param name="pageNumber" value="${pageNumber }" />
 									<jsp:param name="totalRecordCount" value="${totalRecordCount }" />
@@ -113,7 +115,7 @@
 									<jsp:param name="recordCountPerPage"
 										value="${recordCountPerPage }" />
 								</jsp:include>
-							</div> --%>
+							</div> 
 							<!-- 페이징끝 -->
 
 						</div>
@@ -131,7 +133,31 @@
 
 
 <script type="text/javascript">
+
+$("#admindel").click(function() {
 	
+	var lan  = $("input:checkbox[name=ckbox]:checked").length;
+	
+	if(lan == 0){
+		alert("삭제 할 항목을 선택해주세요");
+		return;
+	
+	} else{
+		
+		$("#deleteform").attr("action","/admin/used/useddelete")
+		$("#deleteform").submit()
+	}
+	
+
+})
+
+
+function goPage( pageNumber ) { /* pageNumber는 현재 페이지를 뜻한다 */
+	$("#_pageNumber").val(pageNumber);
+	
+	$("#_frmFormSearch").attr("action","/admin/used/usedlist").submit();
+}
+
 $("#_btnSearch").click(function() {
 
     var keyword = $("#keyword").val();
@@ -139,6 +165,17 @@ $("#_btnSearch").click(function() {
 	
 	location.href="/admin/used/usedlist?keyword="+keyword+"&select="+select; 
 });
+
+$("#allCheck").click(function(){ // 만약 전체 선택 체크박스가 체크된상태일경우
+
+	if($("#allCheck").prop("checked")) { // 해당화면에 전체 checkbox들을 체크해준다
+		$("input[name=chbox]").prop("checked",true); // 전체선택 체크박스가
+																// 해제된 경우
+		}
+	else { // 해당화면에 모든 checkbox들의 체크를해제시킨다.
+				$("input[name=chbox]").prop("checked",false); 
+		} 
+	}) 
 
 
 </script>

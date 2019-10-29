@@ -13,7 +13,7 @@
 <input type="hidden" id="_ctx" value="<%=request.getContextPath()%>">
 <div id="contents" align="center">
 	
-<h1 id="_h1">판매자 회원등록</h1>
+<h2 id="_h1">판매자 회원등록</h2>
 	
 <form action="popupAf" method="post" id="_form">
 	  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -25,7 +25,6 @@
   
   
   <input type="hidden" name="text" id="text">	<!-- 인증번호를 히든으로 저장해서 보낸다 -->
-  	<hr color="gray">
   	
   	<c:if test="${empty login.address }">
 	<input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" readonly="readonly"  style="background: #e5e5e5" size="15">
@@ -77,7 +76,7 @@ var count = 0;
 				 			  id: $("#_s_id").val()
 				 			  },
 				 	 success:function(data){
-				 		
+				 			alert(data);
 				 		},
 				 		error(xhr, ajaxOptioins,thrownError){
 				 		alert(xhr + ajaxOptioins + thrownError);

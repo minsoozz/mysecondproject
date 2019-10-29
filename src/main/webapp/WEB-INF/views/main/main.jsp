@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% String ctx = request.getContextPath(); %>
 
 
@@ -9,14 +9,6 @@
 <head> 
  <meta charset="UTF-8">
  
- 
- 
-<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
-<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
-
-
-
-
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -25,37 +17,26 @@
 
     <!-- Responsive CSS -->
     <link href="/css/main/responsive/responsive.css" rel="stylesheet">
-    
-    
-    
-    <style>
-
-
-
-</style>
-<script>
-  window.console = window.console || function(t) {};
-</script>
-<script>
-  if (document.location.search.match(/type=embed/gi)) {
-    window.parent.postMessage("resize", "*");
-  }
-</script>
-
 
 </head> 
 
 <body>
 
-    <div align="center" id="haribo">
-    <video src="/img/main-img/bg-img/main0vid_2.mp4" width="90%" height="10%" loop="loop" autoplay="autoplay"></video>     
+    <div align="center" id="mainbanner">
+    <c:if test ="${dto.mainbanner_type eq 'VIDEO'}" >
+    	<video src='/upload/mainresource/${dto.mainbanner_file}' style="width: 90%;height: 10%" loop="loop" autoplay="autoplay"></video>
+    	<%-- <video src="/upload/mainresource/${dto.mainbanner_file }"width="90%" height="10%" loop="loop" autoplay="autoplay"></video> --%>						
+    </c:if>
+
+	<c:if test = "${dto.mainbanner_type eq 'PHOTO'}" >
+    	<img src="/upload/mainresource/${dto.mainbanner_file}" style="width: 1850px; height: 800px"></img>     
+    </c:if>
    </div>
 
-<br><br><br><br><br><br>
+   <br><br><br><br><br><br>
 
 
-
-<h4 style="margin-left: 60px; color: gray">NEW ARRIVAL</h4>
+<h4 style="margin-left: 60px; color: gray">BEST</h4>
 <br>
 <!-- ****** Welcome Post Area Start ****** -->
     <section class="welcome-post-sliders owl-carousel">
@@ -143,61 +124,62 @@
     </section>
     <!-- ****** Welcome Area End ****** -->
 
+   <br><br><br><br><br><br>   <br><br><br><br><br><br>
 
-<br><br><br><br><br><br>
 
-    <!-- 추천 상품 메인픽  -->
-   <div align="center">
-     <section id="mainpick1">
-     </section>
-     <h1>둥굴레차</h1>
+   
+   
+   <div class="thumbnail-wrapper"> 
+	   <div class="thumbnail"> 
+		   <div class="centered"> 
+		   	<img src="/upload/mainresource/${dto.photo1_file}"></img> 
+		   </div> 
+	   </div> 
+	   <div id="bannertext" align="center">
+	   <h3 style="color: black">${dto.photo1_title}</h3>
      <br>
-     <p>둥굴레차둥굴레차</p>
-     <p>둥굴레둥굴레,둥굴레둥굴레둥굴레.</p>
-     <p>둥굴레둥굴레둥굴레둥굴레,둥굴레둥굴레둥굴레둥굴레둥굴레둥굴레.</p>
+     <p style="font-size: 15px">${dto.photo1_content}</p>     
      <a href="#" class="mainbuybtn">구매하기</a>
+     </div>
    </div>
-     <br><br><br><br>
+   <br><br><br><br><br><br>
    
     <div align="center">
-    <video src="/img/main-img/bg-img/main2vid.mp4" width="90%" height="50%" loop="loop" autoplay="autoplay"></video>
+    <video src='/upload/mainresource/${dto.video1_file}' style="width: 90%; height: 10%" loop="loop" autoplay="autoplay"></video>
      <br><br>
-     <h3 style="color: black">BARCELONA</h3>
+     <h3 style="color: black">${dto.video1_title}</h3>
      <br> 
-	<p style="font-size: 15px">빈티지 무드에서 영감을 받은 정라운드 실루엣, 군더더기 없는 깔끔한 메탈라인이 매력적인 바르셀로나</p>
-    
-     <br> 
+	<p style="font-size: 15px">${dto.video1_content}</p>
      <a href="#" class="mainbuybtn">구매하기</a>
    </div>
-     <br><br><br><br>
+   <br><br><br><br><br><br>
 
        
-       
-   <div align="center">
-     <section id="mainpick2">
-     </section>
-     <h1>둥굴레차</h1>
+     <div class="thumbnail-wrapper"> 
+	   <div class="thumbnail"> 
+		   <div class="centered"> 
+		   	<img src="/upload/mainresource/${dto.photo2_file}"></img> 
+		   </div> 
+	   </div> 
+	   <div id="bannertext" align="center">
+	   <h3 style="color: black">${dto.photo2_title}</h3>
      <br>
-     <p>둥굴레차둥굴레차</p>
-     <p>둥굴레둥굴레,둥굴레둥굴레둥굴레.</p>
-     <p>둥굴레둥굴레둥굴레둥굴레,둥굴레둥굴레둥굴레둥굴레둥굴레둥굴레.</p>
+     <p style="font-size: 15px">${dto.photo2_content}</p>     
      <a href="#" class="mainbuybtn">구매하기</a>
+     </div>
    </div>
-   <br><br><br><br>
+   <br><br><br><br><br><br>
 
    
   <div align="center">
-    <video src="/img/main-img/bg-img/main3vid.mp4" width="90%" height="50%" loop="loop" autoplay="autoplay"></video>
+    <video src='/upload/mainresource/${dto.video2_file}' style="width: 80%;height: 10%;" loop="loop" autoplay="autoplay"></video>
      <br><br>
-     <h3 style="color: black">☆★패딩사세요☆★</h3>
+     <h3 style="color: black">${dto.video2_title}</h3>
      <br> 
-	<p style="font-size: 15px">털달린 패딩입니다 따순 패딩 사세용~~~~~~~ </p>
-  
-  <br>
-     <a href="#haribo" class="mainbuybtn">구매하기</a>
-     <!-- a href에 #넣고 아이디적으면 글루 이동한다!~ 디테일에서 써먹기 ~! -->
+	<p style="font-size: 15px">${dto.video2_content}</p>    
+     <a href="#" class="mainbuybtn">구매하기</a>
    </div>
-<br><br><br><br>
+   <br><br><br><br><br><br>
     <!-- 추천 상품 끝 -->
 
 

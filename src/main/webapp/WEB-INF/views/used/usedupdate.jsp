@@ -17,7 +17,6 @@
 <div id="_main">
 
 <div id="_left">
-<h1>이미지 등록</h1>
 	<div id="_img">
 	
 	</div>
@@ -30,8 +29,11 @@
 <div id="_right">
 <form action="/used/usedupdateAf" id="_wform" enctype="multipart/form-data" method="post">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-<input type="hidden" name="s_id" value="${login.userid }">
-<table>
+<input type="hidden" name="s_id" value="${dto.s_id }">
+<input type="hidden" name="division" value="${dto.division }">
+<input type="hidden" name="rdate" value="${dto.rdate }">
+
+<table style="margin:20px 20px 20px 20px">
 <col width="20%">
 <col width="80%">
 <tbody id="mybody">
@@ -43,7 +45,6 @@
 	<option value='여성의류' <c:if test="${dto.category eq '여성의류'}">selected="selected"</c:if>>여성의류</option>
 	<option value='패션잡화' <c:if test="${dto.category eq '패션잡화'}">selected="selected"</c:if>>패션잡화</option>
 	<option value='뷰티/미용' <c:if test="${dto.category eq '뷰티/미용'}">selected="selected"</c:if>>뷰티/미용</option>
-	<option value='무료나눔' <c:if test="${dto.category eq '무료나눔'}">selected="selected"</c:if>>무료나눔</option>	
 </select>
 </td>
 </tr>
@@ -51,7 +52,7 @@
 <tr>
 <td><label>거래지역:</label></td>
 <td><input type="text" id="sample6_address" name="place" readonly="readonly" style="background: #e5e5e5" size="30" value="${dto.place }">
-&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색"></td>
+&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색" class="rhybtn"></td>
 </tr>
 <tr>
 <td><label>제목:</label></td>
@@ -68,7 +69,7 @@
 
 <tr>
 <td><label>설명:</label></td>
-<td><textarea rows="10" cols="50" id="_content" name="content">${dto.content }</textarea></td>
+<td><textarea rows="10" cols="50" id="_content" name="content"  style="resize: none;">${dto.content }</textarea></td>
 </tr>
 
 
@@ -81,35 +82,35 @@
 <tr>
 <td><label>사진:</label>
 </td>
-<td><button type="button" id="_add" class="add">사진 추가</button></td>
+<td>
+<input type="file" multiple="multiple" name="files" id="_image" class="image" onchange="check()" onclick="check()" >
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<br>
+기존 사진 수정은 왼쪽의 썸네일을 클릭하면 삭제됩니다.
 </tr>
 <%
 ProductsDto dto = (ProductsDto)request.getAttribute("dto");
 String arr[] = dto.getPhoto_list();
 String arr2[] = dto.getPhoto_originlist();
 
-
-for(int i = 0 ; i < arr.length ; i ++){
-	// System.out.println(arr[i]);
-}
-
-
 int arrSize = arr.length;
 %>
 <c:set var="img" value="<%=arr2 %>"/>
 <c:forEach var="i" items="${img }" varStatus="status">
 <tr>
-<td></td>
-<td>기존파일 : ${i }<br><input type="file" name="files" id="_image" class="image"><button type="button" id="_del" class="del">삭제</button>
-<input type="hidden" name="originfile" value="${i }">
+<td>
+<%-- <input type="hidden" name="originfile" value="${i }" id="originfile"> --%>
+<input type="hidden" name="originfile" value="" id="originfile">
 </td>
 </tr>
 </c:forEach>
 </tbody>
 </table>
-
 	<div id="_bdiv">
-		<button type="button" id="_wbtn" name="wbtn">작성 완료</button>
+	&nbsp;&nbsp;<button type="button" id="_wbtn" name="wbtn" class="rhybtn">작성 완료</button>
 	</div>
 </form>
 </div>
@@ -121,37 +122,58 @@ int arrSize = arr.length;
 
 var sel_files = [];
 
-var count = 0; 	// 사진 추가 카운트
+var list = [];	
 
-var len = <%=arrSize%>;
-
-if(len > 0){
-	count = len;
-}
-
-var originfile = new Array();
+<%-- var len = <%=arrSize%>; --%>
+<%-- var originfile = new Array();
 
 <%for(int i =0; i < arr.length; i++){%>
-	originfile.push('<%=arr[i]%>')
-	
+	originfile.push("<%=arr[i]%>")
 	<%
-}%>
+}
+%>
+ --%>
+function check() {
+	$(".img").remove();
+ 	var ck = $('.ogimg').length;
+	
+	var x = document.getElementById("_image");
+	var txt = "";
+	if ('files' in x) {
+		if (x.files.length + ck > 5) {
+			alert("파일 개수가 초과되었습니다.");
+			document.getElementById("_image").value = "";
+			$(".img").remove();
+			return;
+		}
+	}
+
+	if ($("#_image").val() == "" || $("#_image").val() == null) {
+
+		$(".img").remove();
+	} 
+}
 
 $(document).ready(function() {
+<%for(int i =0; i < arr.length; i++){%>
 	
-	<%for(int i =0; i < arr.length; i++){%>
-	
-    var img_html = "<img class='img' src=/upload/used" + '<%=arr[i]%>' + "\ />";
+    var img_html = "<img class='ogimg' src=/upload/used/" + '<%=arr[i]%>' + "\ />";
     $("#_imglist").append(img_html);
 	
-	
-	
 	<%
-}%>
+}
+%>
+$(document).on("click", "#_wbtn", function(e){
 
+	var aa = $('.ogimg').length;
 	
-	$(document).on("click", "#_wbtn", function(e){
+	 for(i=0;i<aa;i++){
+		var tt = $(".ogimg").eq(i).attr('src');	// 원본 이미지 목록들..
+		var result = tt.substring(tt.lastIndexOf("/")+1);
 		
+		list.push(result);
+	 }
+	
 		if( $("#_category").val() == "" || $("#_category").val() == null ){
 			alert("카테고리를 선택해주세요");
 			return;
@@ -182,35 +204,16 @@ $(document).ready(function() {
 			return;
 		}
 		
-		 /*if( $(".nimage").val() == "" || $(".nimage").val() == null ){
-			alert("기존 파일이 없는 항목은 사진을 추가해야 합니다");
-			return;
-		} */
-		
-		$("#_wform").submit();
+		$("#originfile").val(list);
+		 $("#_wform").submit(); 
 	});
 	
 	
    $(document).on("change", ".image", handleImgsFilesSelect);
 
-   $("#_add").click(function() {
-	   
-	   
-	   if(count >= 5){
-		   alert("사진은 최대 5장까지 추가 할 수 있습니다");
-		   return;
-	   } 
-	   else {
-		   var table = document.getElementById("tb");
-		   $('#mybody').append("<tr><td></td><td><input type='file' name='files' id='_image' class='nimage'><button type='button' id='_del' class='del'>삭제</button></td></tr>");	  
-		   count++;
-	   }
-	   
-   });
-
 });
 
-$(document).on("change", ".image", function(e){
+/* $(document).on("change", ".image", function(e){
 	
 	var check = $(this).val();
 	
@@ -218,11 +221,8 @@ $(document).on("change", ".image", function(e){
 		alert("파일 선택하지 않으면 업로드 되지않습니다.");
 		return;
 	}
-});
+}); */
 	
-
-
-
 $(document).on("mouseover",".img", function(e) {
 	$("#_img").append("<span id='preview'><img id='_preview' src='"+ $(this).attr("src") +"'/></span>");
 });
@@ -231,7 +231,15 @@ $(document).on("mouseout",".img", function(e) {
 	$("#preview").remove();
 });
 
-$(document).on("click",".img", function(e) {
+$(document).on("mouseover",".ogimg", function(e) {
+	$("#_img").append("<span id='preview'><img id='_preview' src='"+ $(this).attr("src") +"'/></span>");
+});
+
+$(document).on("mouseout",".ogimg", function(e) {
+	$("#preview").remove();
+});
+
+$(document).on("click",".ogimg", function(e) {
 	$("#preview").remove();
 	$(this).remove();
 	
@@ -272,25 +280,6 @@ function maxLengthCheck(object){
       object.value = object.value.slice(0, object.maxLength);
     }    
   }
-
-$(document).on("click",".del", function() {
-	
-	if(count == 1 ){
-		alert("사진은 최소 한장입니다");
-		return;
-	} else {
-		
-	$(this).parent().remove();
-		count--;
-	}
-})
-
-$("#_del").click(function() {
-	if(count == 0) {
-		alert("사진은 최소 1장 입니다");
-	}
-})
-
 
 </script>
 

@@ -275,8 +275,7 @@ $(document).ajaxSend(function(e, xhr, options) {
          <img src="/upload/store/${productDto.photo3_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
           <img src="/upload/store/${productDto.photo4_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
            <img src="/upload/store/${productDto.photo5_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
-      <br>원산지 : ${productDto.nation}<br>
-      <br>생산일 : ${productDto.mdate}<br><br><br><br>
+      
      </div> 
       
       
@@ -303,7 +302,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 </ul>
 
 <div class="goods-view-infomation-content" id="goods_review">
-<div id="_product_review_wrap" >
+<div id="_product_review_wrap">
       <div  id="_product_review" >
          <script type="text/javascript">getProductReview(0,${productDto.p_seq });</script>
       </div>
@@ -832,8 +831,8 @@ function showBasketList(arrLen, arr){
       
    }
          
-      str += "<label class='moveBasketBtn'>장바구니 가기</label><br>";
-      str += "<label class='_basketOrderBtn'>바로구매</label>";
+      str += "<label class='moveBasketBtn'>장바구니 바로가기</label><br>";
+      str += "<label class='_basketOrderBtn'>구매하기</label>";
       str += "<br><br><b><label value='"+arr[0].total_price+"' class='_bTotalPrice'>총 상품금액 : " + arr[0].total_price + "</b>원</label><br><br>";
       str += "</div>";
       

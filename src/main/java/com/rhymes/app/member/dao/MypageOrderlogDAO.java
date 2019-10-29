@@ -12,7 +12,6 @@ import com.rhymes.app.member.model.mypage.MemberPaymentDTO;
  *
  */
 public interface MypageOrderlogDAO {
-
 	
 	/**검색조건에 맞는 결제이력을 리턴
 	 * 	- userid
@@ -40,4 +39,10 @@ public interface MypageOrderlogDAO {
 	 * @return
 	 */
 	public MemberPaymentDTO getPaymentInfoByPaymentCode(String payment_code);
+		
+	/**매개변수로 받은 주문번호 삭제(주문취소, 미결제인 경우에만 가능)
+	 * @param payment_code
+	 * @return
+	 */
+	public int deletePayment(String payment_code);
 }

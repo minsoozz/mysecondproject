@@ -8,6 +8,7 @@
 <% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
+<input type="hidden" id="_curr_user_id" value="${user.username }">
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="<%=ctx %>/css/member/mypage/content/sub/orderdetail.css">
 <script type="text/javascript" src="<%=ctx %>/js/member/mypage/content/sub/orderdetail.js"></script>
@@ -17,10 +18,12 @@
 		<h3>주문내역 상세 ${payment_code }</h3>
 	</div><br/>
 	<div class="top_sub_title" align="left">
-		<h6>주문번호 : ${payment_code }</h6>
+		<h6>주문번호 : <a id="_payment_code">${payment_code }</a></h6>
 	</div>	
 	
 </div>
+
+<c:set var="isNonPaid" value="true"/><!-- 결제완료여부 확인 변수 -->
 
 <div class="orderdetail_item_wrap order_sub_content_wrap"><!-- 주문한 상품목록 리스트 시작 -->
 	<c:forEach items="${payDetailList }" var="detail">
@@ -41,31 +44,37 @@
 				<!-- 결제가 완료되었으면 배송상태를 보여주고, 결제가 완료되지 않았으면 배송상태를 보여줌 -->
 					<c:choose>
 						<c:when test="${detail.payment_status == '결제완료' }">
+							<c:set var="isNonPaid" value="false"/>
 							<span>${detail.delivery_status }</span>
 							<span><a href="#">${detail.delivery_post_code }</a></span>
 						</c:when>
 						<c:otherwise>
+							<c:set var="isNonPaid" value="true"/>
 							${detail.payment_status }
 						</c:otherwise>
 					</c:choose>
 					</div>
 				</div>				
 				<div class="col-md-2 detail-item-col">
-					<div class="item_btns_wrap">												
-						<input type="button" class="btn btn-rhy-border" value="후기 쓰기"
+					<div class="item_btns_wrap">
+						<c:if test="${detail.payment_status == '결제완료' }">
+							<input type="button" class="btn btn-rhy-border" value="후기 쓰기"
 							onclick="location.href='<%=ctx %>/mypage/review/writenew?seq=${detail.seq }';">
-						<input type="button" class="btn btn-rhy-border" value="장바구니 담기">
+						</c:if>
+						<input type="button" class="btn btn-rhy-border btn-add-oneitem" value="장바구니 담기"
+						onclick="saveOneItemToBasket('${user.username }',${detail.s_seq});"/>
+						<input type="hidden" id="_detail_s_seq_${detail.seq }" class="s_seq_number" value="${detail.s_seq }">
 					</div>
 				</div>
 			</div>
 		</div>
 	</c:forEach>
 	<div class="orderdetail_additional_wrap form-row" align="center"><div class="col-md-2"></div>			
-		<div class="col-md-4"><input type="button" class="btn btn-rhy-full" value="전체 상품 다시 담기"></div>
-		<div class="col-md-4"><input type="button" class="btn btn-rhy-border" value="전체 상품 주문 취소"></div><div class="col-md-2"></div>
+		<div class="col-md-4"><input type="button" class="btn btn-rhy-full" value="전체 상품 다시 담기" id="_addAllToBasket"></div>
+		<div class="col-md-4"><input type="button" class="btn btn-rhy-border" value="전체 상품 주문 취소" id="_canceOrder" ${isNonPaid == true?'':'disabled' }></div><div class="col-md-2"></div>
 	</div>
 	<div class="orderdetail_additional_wrap form-row" align="center">
-		<span>직접 주문 취소는 '결제대기'상태인 경우에만 가능합니다.</span>
+		<span>직접 주문 취소는 '미결제'상태인 경우에만 가능합니다.</span>
 	</div>
 </div><!-- 주문한 상품목록 리스트 끝 -->
 
@@ -134,7 +143,12 @@
 		</div>
 		<div class="form-row">
 			<div class="col-md-3 order_info_comp">주문 처리상태</div><!-- 결제상태 또는 배송상태 -->
-			<div class="col-md-6 order_info_comp">${mPDto.payment_status}${mPDto.delivery_status}</div>
+			<div class="col-md-6 order_info_comp">
+				<c:choose>
+					<c:when test="${mPDto.payment_status == '미결제'}">${mPDto.payment_status}</c:when>
+					<c:otherwise>${mPDto.delivery_status}</c:otherwise>					
+				</c:choose>				
+			</div>
 		</div>
 	</div>
 </div><!-- 주문정보 끝 -->
@@ -167,7 +181,13 @@
 		</div>
 		<div class="form-row">
 			<div class="col-md-3 delivery_info_comp">송장정보</div><!-- 결제상태 또는 배송상태 -->
-			<div class="col-md-6 delivery_info_comp">${mPDto.delivery_company}${mPDto.delivery_post_code}</div>
+			<div class="col-md-6 delivery_info_comp">
+				<c:choose>
+					<c:when test="${mPDto.delivery_post_code == '' or mPDto.delivery_post_code eq null}">${mPDto.payment_status}</c:when>
+					<c:otherwise>${mPDto.delivery_company}${mPDto.delivery_post_code}</c:otherwise>					
+				</c:choose>	
+				
+			</div>
 		</div>
 	</div>
 </div><!-- 배송정보 끝 -->

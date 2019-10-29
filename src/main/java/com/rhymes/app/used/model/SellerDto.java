@@ -2,8 +2,6 @@ package com.rhymes.app.used.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Generated;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +16,11 @@ import lombok.ToString;
 public class SellerDto implements Serializable {
 	private int seq;		// 시퀀스
 	private String s_id;	//  아이디
-	private String lat;		// 위도
-	private String lng;		// 경도
+	private String rdate;	// 가입일
+	private int blackcount; // 신고 누적수
+	private String isAccountNonLock; // 계정 잠금여부
+	private int scount; // 판매글 개수
+	private int pcount; // 판매 완료 개수
 }
 
 /*

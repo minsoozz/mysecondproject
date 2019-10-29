@@ -160,7 +160,7 @@ background-color: #d7fd75;
 font-weight: bold;
 color: grey;
 width:90%;
-height:40px;
+height:55px;
 display: inline-block;
 text-align: center;
 font-size: 17px;
@@ -174,10 +174,10 @@ cursor:pointer;
 opacity: 0.9;
 }
 .basketImg{
-width:300px;
-height:300px;
+width:100px;
+height:100px;
 position: absolute;
-top: -390px;
+top: -680px;
 bottom: 0;
 left: 0;
 right: 0;

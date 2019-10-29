@@ -9,9 +9,9 @@ $(document).ready(function () {
 	$("#coupon_btn").click(function () {
 		var product_price = $("#product_price").text();
 		var delivery_price = $("#delivery_price").text();
-		var input_disc_point = $("#input_disc_point").val();
+		var disc_point = $("#disc_point").val();
 
-		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&input_disc_point="+input_disc_point, "window팝업", "width=950, height=570, menubar=no, status=no, toolbar=no");
+		window.open("/payment_coupon?product_price="+product_price+"&delivery_price="+delivery_price+"&disc_point="+disc_point, "window팝업", "width=950, height=570, menubar=no, status=no, toolbar=no");
 	});
 
 	
@@ -97,6 +97,7 @@ function result_price() {
 	
 	//alert(product_price + ", " + delivery_price + ", " + disc_point + ", " + disc_coupon + ", " + totalprice);
 
+	$("#add_point").val( parseInt(product_price) * 0.02 );
 	$("#_totalprice").text( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_point) - parseInt(disc_coupon) );
 	$("#totalprice").val( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_point) - parseInt(disc_coupon) );
 }

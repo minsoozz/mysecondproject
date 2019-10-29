@@ -60,6 +60,19 @@
 	font-weight: bold;
 }
 
+
+.rhybtn {
+	border-radius: 10px;
+	margin: 10px 10px 10px 10px;
+	width: 100px;
+	height: 30px;
+	background: white;
+	font: Open Sans 30px;
+	color: black;
+	outline: 0;
+	border: 1px solid #cccccc;
+}
+
 a {
 	text-decoration: none;
 	color: #333333;
@@ -220,3 +233,21 @@ margin:0 auto;
   color:#000000;  
   
 }
+
+.rhybtn {
+	border-radius: 10px;
+	margin-left: 10px;
+	margin-right: 2px;
+	width: 80px;
+	height: 30px;
+	background: white;
+	font: Open Sans 30px;
+	color: black;
+	outline: 0;
+	border: 1px solid #cccccc;
+}
+
+.rhybtn:hover {
+	opacity: 0.5;
+}
+

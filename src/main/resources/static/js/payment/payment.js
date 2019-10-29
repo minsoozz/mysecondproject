@@ -1,13 +1,10 @@
 $(document).ready(function () {
 	//alert("payment.js");
-	
-	
-	
+	var constraints = true;
+		
 });
 
 
-
-var constraints = true;
 
 function func_constraints(){
 	//alert("제약조건");
@@ -16,6 +13,7 @@ function func_constraints(){
 		alert("본인인증을 해주세요");
 		$("#to").focus();
 		constraints = false;
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -23,6 +21,7 @@ function func_constraints(){
 		alert("주문하는 분 이름을 입력해주세요");
 		$("#send_name").focus();
 		constraints = false;
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -30,6 +29,7 @@ function func_constraints(){
 		alert("주문하는 분 번호를 입력해주세요");
 		$("#send_phone1").focus();
 		constraints = false;
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -37,6 +37,7 @@ function func_constraints(){
 		alert("이메일을 입력해주세요");
 		$("#send_email").focus();
 		constraints = false;
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -44,6 +45,7 @@ function func_constraints(){
 		alert("배송지를 입력해주세요");
 		$("#sample6_postcode").focus();
 		constraints = false;
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -51,6 +53,7 @@ function func_constraints(){
 		alert("수취인을 입력해주세요");
 		$("#receive_name").focus();
 		constraints = false;
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 
@@ -58,6 +61,7 @@ function func_constraints(){
 		alert("연락처를 입력해주세요");
 		$("#receive_phone1").focus();
 		constraints = false;
+		$("input[name='payment_method']").removeAttr("checked"); // 전체해제하기
 		return;
 	}
 	
@@ -66,6 +70,7 @@ function func_constraints(){
 		constraints = false;
 		return;
 	}
+	constraints = true;
 }
 
 
@@ -78,7 +83,7 @@ function paymens(){
 	var radioVal = $("input[name='payment_method']:checked").val();
 	var totalprice = $("#_totalprice").text();
 	var send_name = $("#send_name").val();
-	var send_phone = $("#send_phone1").val() + "-" + $("#send_phone2").val() + "-" + $("#send_phone3").val();	
+	var send_phone = $("#send_phone1").val() + "-" + $("#send_phone2").val() + "-" + $("#send_phone3").val();
 	var send_email = $("#send_email").val();
 	var receive_postnum = $("#sample6_postcode").val();
 	var receive_address = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
@@ -93,8 +98,8 @@ function paymens(){
 
 	}
 
-	//alert("결제2");
-	$("#add_point").val( parseInt(totalprice) * 0.02 );
+	
+	
 	$("#disc_coupon").val( parseInt($("#_disc_coupon").text()) );
 	$("#disc_point").val( parseInt($("#_disc_point").text()) );
 	
@@ -110,7 +115,7 @@ function paymens(){
 	    pg : "html5_inicis",
 	    pay_method : radioVal,
 	    merchant_uid : "merchant_" + new Date().getTime(),
-	    name : "주문명:결제테스트",
+	    name : "RHYMESb 구매",
 	    amount : totalprice,
 	    buyer_name : send_name,
 	    buyer_tel : send_phone,
@@ -150,7 +155,7 @@ function paymens(){
 	        msg += "\n에러내용 : " + rsp.error_msg;
 	    }
 
-	    alert(msg);
+	    //alert(msg);
 	});
 }
 

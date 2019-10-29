@@ -52,13 +52,9 @@ public class UsedController {
 	
 	@GetMapping("usedlist")	// 중고장터 판매목록을 불러온다
 	public String usedlist(Model model,BbsParam param,Principal prc, HttpServletRequest req) {
-		
-		
-		
 		if(prc != null) {
 			P_MemberDTO Pdto = usedService.getMemberDto(prc.getName());
 			req.getSession().setAttribute("login", Pdto);
-			
 		}
 		
 		int totalRecordCount = usedService.getBbsCount(param);
@@ -312,15 +308,12 @@ public class UsedController {
 	@PostMapping("popupAf")	// 인증 완료 후 도착하는 컨트롤러
 	public void popupAf(String s_id, @RequestParam(required = false, defaultValue="") String postcode,
 			@RequestParam(required = false, defaultValue="") String address, @RequestParam(required = false, defaultValue="") String detailaddress,
-			HttpServletRequest req) {
+			HttpServletRequest req,Principal prc) {
 		
 		if(postcode.equals("") || postcode == null || address.equals("") || address == null || 
 				detailaddress.equals("") || detailaddress == null) {
 			boolean b  = usedService.setSellerMember(s_id);
-			if(b) {
-			} else {
-			}
-		
+			boolean c = usedService.insertSeller(prc.getName());
 		} else {
 			
 			((P_MemberDTO)req.getSession().getAttribute("login")).setPostcode(postcode);
@@ -328,10 +321,7 @@ public class UsedController {
 			((P_MemberDTO)req.getSession().getAttribute("login")).setDetailAddress(detailaddress);		// 세션에 담겨있는 정보를 수정해 줌..(일단 작업하기위해서)
 			
 			boolean b = usedService.setSellerMember((P_MemberDTO)req.getSession().getAttribute("login"));		// 오버라이딩해서 매개변수를 다르게 설정해주었다 (복습)
-			
-			if(b) {
-			} else {
-			}
+			boolean c = usedService.insertSeller(prc.getName());
 		}
 		
 	}
@@ -363,6 +353,7 @@ public class UsedController {
 
 		int size = list.size();
 		
+		
 		Iterator<String> files = mfreq.getFileNames();
 		
 		MultipartFile mpf = mfreq.getFile(files.next());
@@ -385,7 +376,7 @@ public class UsedController {
       
 				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
 				
-				System.out.println(path); // 업로드 경로
+				// System.out.println(path); // 업로드 경로
 				
 				fs.write(mf.getBytes());
 				fs.close();
@@ -397,104 +388,61 @@ public class UsedController {
 		
 		boolean b = usedService.UsedWrite(dto);
 		
-		if(b) {
-		} else {
-		}
-		
 		return "redirect:/used/usedlist";		
 
 	}
-	
+		
 	@RequestMapping(value="usedupdateAf", method = RequestMethod.POST)	// 중고상품 글쓰기 수정 
 	public String usedupdateAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
-			HttpServletRequest req, String[] originfile) throws Exception {
+			HttpServletRequest req,String[] originfile) throws Exception {
 		
-		ProductsDto dto = new ProductsDto(
-				Pdto.getSeq(),
-				Pdto.getS_id(),
-				Pdto.getCategory(),
-				Pdto.getTitle(),
-				Pdto.getContent(),
-				Pdto.getPrice(),
-				Pdto.getQuantity(),
-				Pdto.getPlace(),
-				Pdto.getPhoto(),
-				Pdto.getPhoto_sys(),
-				Pdto.getDivision(),
-				Pdto.getLikes());
-
-		List<MultipartFile> list = mfreq.getFiles("files");
-
-		int size = list.size();
-		
-		String[] oldfile = new String[5];
-		
-		Arrays.fill(oldfile,"");
-		
-		
+		String photo = "";
+		String photo_sys = "";
+			
 		for (int i = 0; i < originfile.length; i++) {
-			oldfile[i] = originfile[i];
+			photo_sys += originfile[i];
+			photo_sys += ",";
 		}
+		
+		List<MultipartFile> list = mfreq.getFiles("files");
+		
+		int size = list.size();
+
 		Iterator<String> files = mfreq.getFileNames();
 		
 		MultipartFile mpf = mfreq.getFile(files.next());
 		
 		String path = req.getServletContext().getRealPath("/upload/used");
-		
-		String photo = "";
-		String photo_sys = "";
-		int count = 0;         
+    
 		if(list != null && size > 0) {
 			for(MultipartFile mf : list) {
-	
-				String originFileName = mf.getOriginalFilename();
-	
-				if (originFileName == null || originFileName == "" || originFileName.length() == 0) {
-				originFileName = oldfile[size-1];
-				 String systemFileName = System.currentTimeMillis() + originFileName;	            
-		         
-		            photo += originFileName + ",";
-		            photo_sys += systemFileName + ",";
-		            
-		            long fileSize = mf.getSize();
-	      
-					FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
-						
-					System.out.println(path); // 업로드 경로
-					
-					dto.setPhoto(Pdto.getPhoto());
-					dto.setPhoto_sys(Pdto.getPhoto_sys());
-				} 
-				
+				String originFileName = mf.getOriginalFilename().trim();
 	            String systemFileName = System.currentTimeMillis() + originFileName;	            
-	         
+	            
+				if(!mf.getOriginalFilename().equals("")) {
+	            
 	            photo += originFileName + ",";
 	            photo_sys += systemFileName + ",";
-	            
+          
 	            long fileSize = mf.getSize();
       
 				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
-					
-				System.out.println(path); // 업로드 경로
 				
-				fs.write(mf.getBytes());
-				fs.close();
+				// System.out.println(path); // 업로드 경로
 				
-				count ++;
+				 fs.write(mf.getBytes());
+				 fs.close();				 
+	            
+				}
 			}
 		}
-		
-		dto.setPhoto(photo);
-		dto.setPhoto_sys(photo_sys);
-		
-		
-		boolean b = usedService.UsedUpdate(dto);
-		
-		if(b) {
-		} else {
-		}
-		
-		return "redirect:/used/hello";
+
+		 Pdto.setPhoto(photo);
+		 Pdto.setPhoto_sys(photo_sys);
+
+		 boolean b = usedService.UsedUpdate(Pdto);
+
+		return "redirect:/used/usedlist";
 	}
 	
 	@GetMapping(value="/addlikes")	// 좋아요 추가,삭제
@@ -508,6 +456,7 @@ public class UsedController {
 		
 		 boolean b = usedService.getlikes(map);
 		 int num;	// ajax 리턴 변수
+		 
 		 if(b) {	// 회원의 좋아요 여부 확인
 			 usedService.deletelikes(map);
 			 num = 0;
@@ -581,9 +530,7 @@ public class UsedController {
 	    System.out.println(set);
 
 	    JSONObject result = coolsms.send(set); // 보내기&전송결과받기
-	    
-	    
-	    
+
 	    if ((boolean)result.get("status") == true) {
 	      // 메시지 보내기 성공 및 전송결과 출력
 	      System.out.println(result.get("group_id")); // 그룹아이디
