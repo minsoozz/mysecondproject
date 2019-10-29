@@ -246,7 +246,7 @@ public class MemberController {
 		set.put("from", "01068889859"); // 발신번호
 		set.put("text", "비마켓 인증번호 [" + (String) request.getParameter("text") + "]"); // 문자내용
 		set.put("type", "sms"); // 문자 타입
-		System.out.println( (String) request.getParameter("text"));
+		
 		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 
 		if ((boolean) result.get("status") == true) {
