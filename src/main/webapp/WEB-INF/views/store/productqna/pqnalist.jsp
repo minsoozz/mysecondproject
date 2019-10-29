@@ -28,7 +28,7 @@
 
 <div id="button.wrap">
 					
-		</div>
+		
 		<form action="" name="frmForm1" id="_frmFormSearch" method="get">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 		
@@ -57,7 +57,7 @@
 		<c:forEach var="pqna" items="${pqnalist }" varStatus="vs">
 		<tr class="_hover_tr">
 			<td>${vs.count }</td>
-			<td style="text-align: left;" onclick="pqnadetail(${pqna.seq})">
+			<td style="text-align: left;" onclick="pqnadetail(${pqna.seq},${pqna.secret})">
 			
 			<!-- 비밀글 이미지-->
 			<jsp:setProperty property="secret" name="spqna" value="${pqna.secret }"/>
@@ -126,14 +126,17 @@
 /* 클릭시 내용보이기 */
 $(".detail").hide();
 
-function pqnadetail(seq){
-	
+function pqnadetail(seq,secret){
+	if(secret==0){
 	if($("#detail"+seq).css("display")=="none"){
 		$(".detail").hide();
 		$("#detail"+seq).show();
 	
 	}else{
 		$("#detail"+seq).hide();
+	}
+	}else if(secret==1){
+		alert("비밀글 입니다.");
 	}
 }
 /* 버튼 */
@@ -142,7 +145,7 @@ function PqnaAnswer( seq, p_seq ) {
 }
 function PqnaDelete( seq ) {
 	location.href = "/productqna/pqnadelete?seq=" + seq;
-}
+} 
 function PqnaUpdate( seq ) {
 	location.href = "/productqna/pqnaupdate?seq=" + seq;
 }

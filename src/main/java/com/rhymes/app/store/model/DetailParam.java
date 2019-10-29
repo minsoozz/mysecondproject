@@ -15,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class DetailParam implements Serializable{
 
-	
+	private String s_category; //����, ����, �ۼ���
 	// paging
 	private int pageNumber = 0;	//시작
 	private int recordCountPerPage = 10;	//

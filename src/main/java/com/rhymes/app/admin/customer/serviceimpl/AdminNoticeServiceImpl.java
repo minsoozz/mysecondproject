@@ -24,6 +24,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 			return noticeDao.getNoticeList(param);
 		}
 
+		
 		//get count
 		@Override
 		public int getNoticeCount(CustomerParam param) {

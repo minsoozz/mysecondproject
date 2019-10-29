@@ -5,9 +5,9 @@
 	<!-- pqnalist -->
 
 	<select id="getPqnaList" parameterType="com.rhymes.app.store.model.DetailParam"  resultType="com.rhymes.app.store.model.PqnaDto">
-       SELECT SEQ, ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT
+       SELECT SEQ, ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT,FEEDBACK
       FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC)AS RNUM,
-					SEQ, ID, P_SEQ,WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT
+					SEQ, ID, P_SEQ,WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT,FEEDBACK
 					FROM RHY_STORE_PRODUCTQNA
 					WHERE 1=1  
 					)A 
@@ -25,8 +25,8 @@
 	
 	<!-- pqna 올리기 -->
 	<insert id="PqnaUpload" parameterType="com.rhymes.app.store.model.PqnaDto">
-	INSERT INTO RHY_STORE_PRODUCTQNA(ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT)
-	VALUES(#{ id}, #{p_seq}, now(),#{secret},(SELECT IFNULL(MAX(REF), 0)+1 FROM RHY_STORE_PRODUCTQNA ALIAS_FOR_SUBQUERY),0,0,#{title}, #{content})
+	INSERT INTO RHY_STORE_PRODUCTQNA(ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT,FEEDBACK)
+	VALUES(#{ id}, #{p_seq}, now(),#{secret},(SELECT IFNULL(MAX(REF), 0)+1 FROM RHY_STORE_PRODUCTQNA ALIAS_FOR_SUBQUERY),0,0,#{title}, #{content},0)
 	</insert>
 	
 	<!-- pqna디테일 -->
@@ -57,12 +57,12 @@
 			AND STEP> #{step}
 	</update>
 	<insert id="PqnaAnswerAf" parameterType="com.rhymes.app.store.model.PqnaDto">
-	     INSERT INTO RHY_STORE_PRODUCTQNA(ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT)
+	     INSERT INTO RHY_STORE_PRODUCTQNA(ID, P_SEQ, WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT,FEEDBACK)
 	     VALUES(#{id},#{p_seq}, NOW(),#{secret},
 	     				#{ref},
 	     				#{step}+1, 
 	     				#{depth}+1,
-	     				#{title},#{content})
+	     				#{title},#{content},0)
 	</insert>
 
 </mapper>
