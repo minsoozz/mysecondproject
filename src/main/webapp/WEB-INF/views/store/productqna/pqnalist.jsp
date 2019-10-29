@@ -145,7 +145,7 @@ function PqnaAnswer( seq, p_seq ) {
 }
 function PqnaDelete( seq ) {
 	location.href = "/productqna/pqnadelete?seq=" + seq;
-}
+} 
 function PqnaUpdate( seq ) {
 	location.href = "/productqna/pqnaupdate?seq=" + seq;
 }

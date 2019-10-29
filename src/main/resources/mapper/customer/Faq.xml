@@ -6,7 +6,7 @@
 		SELECT SEQ, ID, CATEGORY, TITLE,CONTENT
 	       FROM (SELECT ROW_NUMBER()OVER(ORDER BY SEQ DESC)AS RNUM,
 					SEQ, ID, CATEGORY, TITLE, CONTENT
-					FROM FAQ
+					FROM FAQ 
 					WHERE 1=1 
 					<if test="s_category != null and s_category != ''">
 					<if test="s_category == '01'">
