@@ -241,6 +241,20 @@
 					</div>
 				</li>
 				
+				<!-- 상품후기 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_company_productreview" aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>상품후기관리</span>
+					</a>
+					<div id="admin_company_productreview" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">PRODUCT REWVIEW</h6>
+							<a class="collapse-item" href="/admin/productreview/showlist">상품후기</a>
+						</div>
+					</div>
+				</li>
+				
 			</c:if>
 		</c:forEach>
 	</c:if>
