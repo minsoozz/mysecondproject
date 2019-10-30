@@ -80,8 +80,9 @@
 	background-color: rgba(0,0,0,0.1) !important; 
 }
 #_leave_confirm{
-	top: 30%;
+	top: 0%;
 	left: 0%;
+	padding-top: 150px;
 }
 .leave_modal_info{
 	margin: 20px;
