@@ -222,7 +222,7 @@ $(document).on('click', '.allDeleteBtn', function(){
     		//str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
     		//str += "<img alt='사진없음' class='basketImg' src='/img/store-img/cart.png'>";            		
     		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
-    		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
+    		//str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
     		
     		
     		$("#mainContainer").append(str); 
