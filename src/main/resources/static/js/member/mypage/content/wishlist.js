@@ -19,7 +19,7 @@ $(function(){
 	
 	//개별상품 장바구니 추가
 	$(".btn_save_basket").click(function(){
-		getOneItemInfo( $(this).attr('data') );
+		getOneItemInfo( $(this).attr('pseq') );
 		$("#_wishlist_cart_modal").modal('show');
 	});
 	
@@ -58,12 +58,13 @@ $(function(){
 	});
 		
 	//단일 아이템 장바구니 담기 모달 쇼 이벤트
-	$("#_wishlist_cart_modal").on('show.bs.modal', function(){
-		console.log(123123);
-		$("#_cart_one_item_btn_close").click(function(){
-			console.log('닫기');
-			$("#_wishlist_cart_modal").modal('hide');
+	$("#_wishlist_cart_modal").on('shown.bs.modal', function(){
+		$("input[name='sizeRadio']").change(function(){
+			$("#_cart_one_item_btn_add").removeAttr('disabled');
 		});
+		$("#_cart_one_item_btn_add").click(function(){
+			addOneModalItemToCart();
+		});		
 	});
 });
 
@@ -135,4 +136,10 @@ function deleteMultiWishitems(seqArr){
 			alert('오류 발생. 고객센터로 문의하세요.');
 		}
 	});
+}
+
+function addOneModalItemToCart(){
+	//p_seq와 size에 맞는 stock을 cart에 추가
+	console.log( $("input[name='sizeRadio']:checked").val() );
+	console.log( $("#_pdto_pseq").val() );
 }

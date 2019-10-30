@@ -58,13 +58,13 @@ public class AdminCouponController {
 		int totalSize = 0;
 		List<CouponDTO> couponList = null;
 						
-		log.info(pDto.toString());
+		//log.info(pDto.toString());
 				
 		totalSize = adminCouponService.getTotalCountOfCoupons(pDto);
 		pDto.setTotalSize(totalSize);
 		couponList = adminCouponService.getCouponsByConditions(pDto);
 		
-		log.info(couponList.toString());
+		//log.info(couponList.toString());
 
 		model.addAttribute("cols", cols);
 		model.addAttribute("pDto", pDto);
@@ -93,9 +93,9 @@ public class AdminCouponController {
 		//쿠폰 디테일 추가(쿠폰번호, 발행일, 사용자, 등록자 등)
 		pDto.setTotalSize(adminCouponService.getTotalCountOfCouponDetail(pDto));
 		couponDetailList = adminCouponService.getCouponDetails(pDto);
-		log.info("list : " + couponDetailList.toString());
+		//log.info("list : " + couponDetailList.toString());
 
-		log.info(pDto.toString());	
+		//log.info(pDto.toString());	
 		
 		model.addAttribute("cDto", cDto);	//쿠폰정보
 		model.addAttribute("pDto", pDto);	//쿠폰디테일 페이징정보
@@ -118,7 +118,7 @@ public class AdminCouponController {
 		int result = 0;
 		//String[] dtoCols = {"title", "sub_title", "app_cate", "func", "func_num", "func_measure", "func_time_limit"};
 		CouponDTO cDto = new CouponDTO(jsMap);
-		log.info("cdto : " + cDto);
+		//log.info("cdto : " + cDto);
 
 		/* 수행부 */		
 		try {
@@ -145,17 +145,16 @@ public class AdminCouponController {
 		int amount = 0;
 		int c_seq = 0;
 		List<CouponDetailDTO> codeList = null;
-		log.info("c_seq : " + jsMap.get("c_seq"));
-		log.info("amount : " + jsMap.get("amount"));
+		
 		/* 수행부 */		
 		try {
 			c_seq = Integer.parseInt( jsMap.get("c_seq") + "" );
 			amount = Integer.parseInt( jsMap.get("amount") + "" );
 			codeList = MypageUtils.getRandCoupsTimestampList(c_seq, amount);
 			
-			for(CouponDetailDTO d : codeList) {
-				log.info(d.getSeq() + ", str : " + d.getCoup_code() );
-			}
+//			for(CouponDetailDTO d : codeList) {
+//				log.info(d.getSeq() + ", str : " + d.getCoup_code() );
+//			}
 			result = adminCouponService.insertCouponList(codeList);
 			
 			return (result > 0)?"1":"0";

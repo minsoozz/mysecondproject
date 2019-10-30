@@ -58,3 +58,9 @@ div {
 	background-color: #d7fd75;
 	margin-top : 5px;
 }
+
+/*페이징 네비게이션*/
+.pagination{
+	position: absolute;
+	left: 45%;
+}
