@@ -44,7 +44,7 @@ public class AdminMemberController {
 		param.setEnd(end);
 		
 		List<MemBean> memlist = adminMemberService.getmemlist(param);
-
+		
 		//list 총 수
 		int totalRecordCount = adminMemberService.getmemCount(param);
 		

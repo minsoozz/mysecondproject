@@ -18,6 +18,11 @@
 </head>
 <body>
 
+<div class="mypage_main_content_title" align="left">
+	<h3>내 판매목록</h3>
+	<!-- <hr class="hr-rhy-title"> -->
+</div>
+
 	<form id="_frmFormSearch">
 		<select id="s_select">
 			<option value="title"

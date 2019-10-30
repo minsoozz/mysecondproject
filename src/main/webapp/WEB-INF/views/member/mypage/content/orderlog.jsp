@@ -78,7 +78,7 @@
 									<input type="button" class="btn btn-default btn_show_written_review" value="작성한 후기 보러가기"><br>	
 								</c:when>
 							</c:choose>							
-							<input type="button" class="btn btn-default btn_order_body" value="1:1 문의">
+							<input type="button" class="btn btn-default btn_order_body" onclick="location.href='/productqna/pqnawrite?p_seq=${orderlog.p_seq}'" value="1:1 문의">
 						</div>
 					</div>
 				</div>
