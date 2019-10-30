@@ -13,7 +13,7 @@
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 <body>
 
-	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	<!-- <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div> -->
 
 </body>
 </html>

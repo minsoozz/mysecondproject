@@ -3,16 +3,22 @@
 
 <mapper namespace="adminChart">
 
-
 <!-- 월별 총 매출 -->
-<select id="getSalaryMonth" parameterType="com.rhymes.app.admin.chart.model.AdminChartSalaryParam" resultType="java.util.map">
-<!-- <![CDATA[>=]]> -->
-SELECT TOTALPRICE FROM RHY_PAYMENT
+<select id="getSalaryMonth" parameterType="com.rhymes.app.admin.chart.model.AdminChartSearchDTO" resultType="java.lang.Integer">
+SELECT IFNULL(SUM(TOTALPRICE),0)
+FROM RHY_PAYMENT
+WHERE RDATE LIKE CONCAT ('%',#year_month,'%')
+GROUP BY date_format(rdate, '%Y-%m')
 </select>
 
 <!-- 일별 총 매출 -->
-<select id="getSalaryDay" parameterType="com.rhymes.app.admin.chart.model.AdminChartSalaryParam" resultType="java.util.map">
-SELECT TOTALPRICE FROM RHY_PAYMENT
+<select id="getSalaryDay" parameterType="com.rhymes.app.admin.chart.model.AdminChartSearchDTO" resultType="java.lang.Integer">
+<![CDATA[
+SELECT SUM(TOTALPRICE)
+FROM RHY_PAYMENT
+WHERE RDATE LIKE CONCAT ('%','${search_year}-${search_month}-${search_day}','%')
+GROUP BY date_format(rdate, '%Y-%m')
+]]>
 </select>
 
 </mapper>
