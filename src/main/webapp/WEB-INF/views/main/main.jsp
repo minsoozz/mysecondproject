@@ -22,18 +22,24 @@
 
 <body>
 
-    <div align="center" id="mainbanner">
-    <c:if test ="${dto.mainbanner_type eq 'VIDEO'}" >
-    	<video src='/upload/mainresource/${dto.mainbanner_file}' style="width: 90%;height: 10%" loop="loop" autoplay="autoplay"></video>
-    	<%-- <video src="/upload/mainresource/${dto.mainbanner_file }"width="90%" height="10%" loop="loop" autoplay="autoplay"></video> --%>						
-    </c:if>
+   
+   
+      <div class="mainpick-wrapper"> 
+	   <div class="mainpick"> 
+		   <div class="centered"> 
+		   	<c:if test ="${dto.mainbanner_type eq 'VIDEO'}" >
+		    	<video src='/upload/mainresource/${dto.mainbanner_file}' style="width: 90%;height: 10%" loop="loop" autoplay="autoplay"></video>
+		    	<%-- <video src="/upload/mainresource/${dto.mainbanner_file }"width="90%" height="10%" loop="loop" autoplay="autoplay"></video> --%>						
+		    </c:if>
+		
+			<c:if test = "${dto.mainbanner_type eq 'PHOTO'}" >
+		    	<img src="/upload/mainresource/${dto.mainbanner_file}"></img>     
+		    </c:if> 
+		   </div> 
+	   </div> 	 
+     </div>     
 
-	<c:if test = "${dto.mainbanner_type eq 'PHOTO'}" >
-    	<img src="/upload/mainresource/${dto.mainbanner_file}" style="width: 1850px; height: 800px"></img>     
-    </c:if> 
-   </div>
-
-   <br><br><br><br><br><br>
+   <br><br><br><br><br><br><br><br>
 
 
 <h4 style="margin-left: 60px; color: gray">BEST</h4>
@@ -124,10 +130,10 @@
     </section>
     <!-- ****** Welcome Area End ****** -->
 
-   <br><br><br><br><br><br>   <br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
 
 
-   
+
    
    <div class="thumbnail-wrapper"> 
 	   <div class="thumbnail"> 

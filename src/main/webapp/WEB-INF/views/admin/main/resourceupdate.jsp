@@ -21,185 +21,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 <script src="http://malsup.github.com/jquery.form.js"></script>
 
 <title>Insert title here</title>
-<style>
-body {
-	color: black;
-}
-#main-div {	
-	padding: 30px;
-	height: 5000px;
-}
-button{
-	border: solid 1px #DADCE0;
-	width: 110px;
-	height:40px;
-	border-radius: 5px;
-	background-color: white;
-	font-size: 15px;
-	margin-top: 20px;	 
-}
-#bannerresource-div{
-	border: 2px solid #DADCE0;
-	width: 70%;
-	height: 25% auto;	
-	margin-bottom: 3%;
-	padding: 1%;
-}
-#eachresource-div {
-	border: 2px solid #DADCE0;
-	width: 70%;
-	height: 800px;	
-	margin-bottom: 3%;
-	padding: 2%;
-}
-#video-div{
-	border: 2px solid blue;	
-	height:90%;
-	margin-bottom: 20px;
-}
-#text-div{
-	border: 1px solid #DADCE0;	
-	margin-left: 100px;
-	margin-right: 100px;
-	margin-top: 15px;
-	margin-bottom:20px;
-	text-align: center;
-	
-}
-#eachcontent-div{
-	margin-left: 3%;
-	margin-right: 3%;
-}
-#eachtitle-div{
-	margin-bottom: 3%;
-}
-#eachcontent-div2{
-	margin-left: 10%;
-	margin-right: 10%;	
-}
-#photo-div{
-	border: 2px solid orange;	
-	height: 90%;
-	margin-bottom: 20px;
-}
-.text_update-btn{
-	border: solid 1px #DADCE0;
-	width: 70px;
-	height:25px;
-	border-radius: 5px;
-	background-color: grey;
-	color:black;
-	font-size: 13px;
-			 
-}
-
-/* msg Modal */
-.msgModal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 9999; /* Sit on top */
-	left: 0;
-	margin:auto;
-	top: 300px;
-	width: 100%; /* Full width */
-	height: 50%; /* Full height */
-	overflow: hidden; /* Enable scroll if needed */
-	/* background-color: rgb(0,0,0); Fallback color
-	background-color: rgba(0,0,0,0.4); */ /* Black w/ opacity */
-	/* background-color:green; */
-}
-
-/* Modal Content/Box */
-.msg-content {
-	color:white;
-	font-weight:bold;
-	font-size:30px;
-	position:fixed;
-    background-color: #4375DB;
-    margin:3%;
-    padding: 20px;
-    opacity:0.7;
-    border: 0px solid #888;
-    width: 100%;
-    height: auto;
-    margin: 8% auto;
-    text-align: center;
-}
-
-@import url("https://fonts.googleapis.com/css?family=Montserrat");
-*, *:before, *:after {
-  box-sizing: border-box;
-}
-
-fieldset {
-  display: block;
-  position: absolute;
-  top: 11%;
-  left: 21%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-
-label {
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: block;
-  margin: 1em;
-}
-label > input {
-  display: none;
-}
-label span {
-  color: #6A759B;
-}
-label i {
-  display: inline-block;
-  width: 64px;
-  height: 40px;
-  border-radius: 20px;
-  vertical-align: middle;
-  transition: .25s .09s;
-  position: relative;
-  background: #deeff7;
-}
-label i:after {
-  content: " ";
-  display: block;
-  width: 30px;
-  height: 30px;
-  top: 5px;
-  left: 5px;
-  border-radius: 50%;
-  background: #fff;
-  position: absolute;
-  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.4);
-  transition: .15s;
-}
-label > input:checked + i {
-  background: #1094fb;
-}
-label > input:checked + i + span {
-  color: #29316b;
-}
-label > input:checked + i:after {
-  -webkit-transform: translateX(25px);
-          transform: translateX(25px);
-}
-table{
-	font-size: 14px;	
-}
-table td{
-	vertical-align: middle;
-}
-table input{
-	width:90%; 
-	text-align: center;
-	border-radius: 5px;
-	
-}
-
-</style>
+<link rel="stylesheet" type="text/css"	href="<%=request.getContextPath() %>/css/admin/main/resourceupdate.css">
 </head>
 <body>
 	<div id="main-div" style="width:;">
@@ -248,13 +70,15 @@ table input{
 				
 				<c:if test="${resource.mainbanner_type == 'PHOTO' }">
 					<div class="previewbanner" id="previewbanner-photo">
-						<img src="/upload/mainresource/${resource.mainbanner_file }">
+						<img src="/upload/mainresource/${resource.mainbanner_file }" style="width: 50%;height: 50%;">
 					</div>
 					<div class="previewbanner" id="previewbanner-video" style="display:none; width:auto; height:auto;">
 						<br><br><br><br><br>
 						<strong>배너 영상을 등록해주세요.</strong>
 						<br><br><br><br><br>
 					</div>
+					
+					
 					<!-- photo 2 photo -->
 					<button id="btn-banner_udt">CHANGE</button>
 					<input type="file" name="fileload" id="banner-upload" style="display:none">
@@ -278,7 +102,7 @@ table input{
 			<div id="eachcontent-div2">
 			<form id="udtfrmphoto1" method="POST" enctype="multipart/form-data" onSubmit="return false;">
 				<div class="previewphoto1">
-					<img src="/upload/mainresource/${resource.photo1_file }" alt="사진없음" style="width:450px; height:450px;">
+					<img src="/upload/mainresource/${resource.photo1_file }" alt="사진없음" style="width: 70%;height: 70%;">
 				</div>
 				<button id="btn-photo1_udt">CHANGE</button>
 				<input type="file" name="fileload" id="photo1-upload" style="display:none">
@@ -322,7 +146,7 @@ table input{
 			<form id="udtfrmvideo1" method="POST" enctype="multipart/form-data" onSubmit="return false;">
 				<div class="previewvideo1">
 					<video src="/upload/mainresource/${resource.video1_file }"
-						width="80%" height="10%" loop="loop" autoplay="autoplay" 
+						width="85%" height="10%" loop="loop" autoplay="autoplay" 
 					></video>					
 				</div>
 				<button id="btn-video1_udt">CHANGE</button>
@@ -366,7 +190,7 @@ table input{
 			<div id="eachcontent-div2">
 			<form id="udtfrmphoto2" method="POST" enctype="multipart/form-data" onSubmit="return false;">
 				<div class="previewphoto2">
-					<img src="/upload/mainresource/${resource.photo2_file }" alt="사진없음" style="width:450px; height:450px;">
+					<img src="/upload/mainresource/${resource.photo2_file }" alt="사진없음" style="width: 70%;height: 70%;">
 				</div>
 				<button id="btn-photo2_udt">CHANGE</button>
 				<input type="file" name="fileload" id="photo2-upload" style="display:none">
@@ -409,7 +233,7 @@ table input{
 			<form id="udtfrmvideo2" method="POST" enctype="multipart/form-data" onSubmit="return false;">
 				<div class="previewvideo2">
 					<video src="/upload/mainresource/${resource.video2_file }"
-						width="80%" height="10%" loop="loop" autoplay="autoplay" 
+						width="85%" height="10%" loop="loop" autoplay="autoplay" 
 					></video>					
 				</div>
 				<button id="btn-video2_udt">CHANGE</button>
@@ -517,7 +341,7 @@ function textupdate(){
         	}
         	
         	/* id="udtbtn-video1_title" */ 
-        	$("#udtbtn-" + object).css("background-color", "grey");
+        	$("#udtbtn-" + object).css("background-color", "#BFBFBF");
         	$("#udtbtn-" + object).css("color", "black");
         	$("#udtbtn-" + object).html("CHANGE");
         	$("#udtbtn-" + object).attr("onclick","");
@@ -549,7 +373,7 @@ function inputkeyup(object, text){
 	//alert("before:" + bf);
 	//alert("object:" + object);
 	
-	$(".text_update-btn").css("background-color", "grey");
+	$(".text_update-btn").css("background-color", "white");
 	$(".text_update-btn").css("color", "black");
 	$(".text_update-btn").html("CHANGE");
 	$(".text_update-btn").attr("onclick","");
@@ -581,10 +405,10 @@ function inputkeyup(object, text){
 		}
 	}
 	
-	$("#udtbtn-"+object).css("background-color", "blue");
+	$("#udtbtn-"+object).css("background-color", "#CFEC40");
 	$("#udtbtn-"+object).html("FINISH");
 	$("#udtbtn-"+object).css("color", "white");
-	$("#udtbtn-"+object).attr("onclick","textupdate()");
+	$("#udtbtn-"+object).attr("onclick","textupdate()"); 
 	
 	$("#_update-text").val(text);
 	$("#_update-object").val(object);
@@ -634,11 +458,11 @@ function handleImgsFilesSelect(e) {
 		sel_file = f;
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:600px;height:600px;'>";
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:60%;height:60%;'>";
 			$("#previewbanner-photo").html("");
 			$("#previewbanner-photo").append(img_html);
 			$("#btn-banner_udt").remove();
-			$("#previewbanner-photo").after("<button class='udt-finishbtn' id='banner-photo_fns' value='banner' value2='' value3='photo' style='background-color:blue; color:white; width:150px;'>FINISH</button>");
+			$("#previewbanner-photo").after("<button class='udt-finishbtn' id='banner-photo_fns' value='banner' value2='' value3='photo' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
 		}
 		reader.readAsDataURL(f);
 	});
@@ -666,7 +490,7 @@ function handleImgsFilesSelect1(e) {
 			$("#previewbanner-video").html("");
 			$("#previewbanner-video").append(video_html);
 			$("#btn-banner_udt0").remove();
-			$("#previewbanner-video").after("<button class='udt-finishbtn' id='banner-video_fns' value='banner' value2='0' value3='video' style='background-color:blue; color:white; width:150px;'>FINISH</button>");
+			$("#previewbanner-video").after("<button class='udt-finishbtn' id='banner-video_fns' value='banner' value2='0' value3='video' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
 		}
 		reader.readAsDataURL(f);
 	});
@@ -693,7 +517,7 @@ function handleImgsFilesSelect2(e) {
 			$(".previewvideo1").html("");
 			$(".previewvideo1").append(video_html);
 			$("#btn-video1_udt").remove();
-			$(".previewvideo1").after("<button class='udt-finishbtn' value='video1' style='background-color:blue; color:white; width:150px;'>FINISH</button>");
+			$(".previewvideo1").after("<button class='udt-finishbtn' value='video1' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
 		}
 		reader.readAsDataURL(f);
 	});
@@ -720,7 +544,7 @@ function handleImgsFilesSelect3(e) {
 			$(".previewvideo2").html("");
 			$(".previewvideo2").append(video_html);
 			$("#btn-video2_udt").remove();
-			$(".previewvideo2").after("<button class='udt-finishbtn' value='video2' style='background-color:blue; color:white; width:150px;'>FINISH</button>");
+			$(".previewvideo2").after("<button class='udt-finishbtn' value='video2' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
 		}
 		reader.readAsDataURL(f);
 	});
@@ -744,11 +568,11 @@ function handleImgsFilesSelect4(e) {
 		sel_file = f;
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:600px;height:600px;'>";
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:60%;height:60%;'>";
 			$(".previewphoto1").html("");
 			$(".previewphoto1").append(img_html);
 			$("#btn-photo1_udt").remove();
-			$(".previewphoto1").after("<button class='udt-finishbtn' value='photo1' style='background-color:blue; color:white; width:150px;'>FINISH</button>");
+			$(".previewphoto1").after("<button class='udt-finishbtn' value='photo1' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
 		}
 		reader.readAsDataURL(f);
 	});
@@ -768,15 +592,15 @@ function handleImgsFilesSelect5(e) {
 			alert("확장자는 이미지 확장자만 가능합니다.");
 			$("input_imgs").val("");
 			return;
-		}
+		} 
 		sel_file = f;
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			var img_html = "<img src=\"" + e.target.result + "\" / style='width:600px;height:600px;'>";
+			var img_html = "<img src=\"" + e.target.result + "\" / style='width:60%;height:60%;'>";
 			$(".previewphoto2").html("");
 			$(".previewphoto2").append(img_html);
 			$("#btn-photo2_udt").remove();
-			$(".previewphoto2").after("<button class='udt-finishbtn' value='photo2' style='background-color:blue; color:white; width:150px;'>FINISH</button>");
+			$(".previewphoto2").after("<button class='udt-finishbtn' value='photo2' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
 		}
 		reader.readAsDataURL(f);
 	});

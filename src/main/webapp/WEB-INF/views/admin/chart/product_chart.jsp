@@ -22,9 +22,6 @@
 </style>
 </head>
 <body>
-
-상품별 통계
-
 <div id="container"></div>
 <div id="sliders">
     <table>
