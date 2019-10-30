@@ -30,7 +30,7 @@ public class PaymentEmail {
     
     static final String SUBJECT = "메일 제목";
     
-    private static int totalprice;
+    private static String totalprice;
     private static String payment_code;
     private static String payment_status;
     private static String payment_method;
@@ -40,6 +40,7 @@ public class PaymentEmail {
     private static String receive_address;
     private static String receive_address_request;
     private static String send_email;
+    private static String send_name;
 
     public static String email_send() {
     	String body =
@@ -52,9 +53,9 @@ public class PaymentEmail {
 		"<link rel=\"stylesheet\" href=\"./mailForm.css\">\r\n" + 
 		"</head>\r\n" + 
 		"<body>\r\n" + 
-        "<div style='text-align: left; padding: 10px 30px 10px 30px; padding-bottom: 50px; width: 50%; border: 1px solid #dbdbdb;'>"+
+        "<div style='text-align: left; padding: 10px 30px 10px 30px; padding-bottom: 50px; width: 60%; border: 1px solid #dbdbdb;'>"+
         "<div style='margin-bottom: 50px;'>"+
-        "<h1>RHYMESb 쇼핑몰 결제내역입니다. 총 주문금액 : "+totalprice+"원</h1>"+
+        "<h1>RHYMESb 쇼핑몰 / " + send_name + "님의 결제내역입니다. "+"총 주문금액 : "+totalprice+"원</h1>"+
 		"<div>"+
         "<div style='margin-top: 50px;'>"+
         "<b style='font-family: sans-serif; font-size: 15px;'>결제방법</b>"+
@@ -109,34 +110,18 @@ public class PaymentEmail {
     }
     
     public static void PaymentEmailSend(PaymentDTO dto) throws Exception {
-    	totalprice = dto.getTotalprice();
     	payment_code = dto.getPayment_code().substring(4);
-    	if(dto.getPayment_status().equals("ready") ) {
-    		payment_status = "미결제";
-    	}else if(dto.getPayment_status().equals("paid")) {
-    		payment_status = "결제완료";
-    	}else if(dto.getPayment_status().equals("cancelled")) {
-    		payment_status = "결제취소";
-    	}
-    	if(dto.getPayment_method().equals("vbank") ) {
-    		payment_method = "무통장입금";
-    	}else if(dto.getPayment_method().equals("card")) {
-    		payment_method = "신용카드";
-    	}else if(dto.getPayment_method().equals("trans")) {
-    		payment_method = "실시간계좌이체";
-    	}else if(dto.getPayment_method().equals("vbank")) {
-    		payment_method = "무통장입금";
-    	}else if(dto.getPayment_method().equals("phone")) {
-    		payment_method = "휴대폰소액결제";
-    	}else if(dto.getPayment_method().equals("kakaopay")) {
-    		payment_method = "카카오페이";
-    	}
+    	payment_status = dto.getPayment_status();
+    	payment_method = dto.getPayment_method();
     	receive_name = dto.getReceive_name();
     	receive_phone = dto.getReceive_phone();
     	receive_postnum = dto.getReceive_postnum();
     	receive_address = dto.getReceive_address();
     	receive_address_request = dto.getReceive_address_request();
     	send_email = dto.getSend_email();
+    	send_name = dto.getSend_name();
+    	NumberFormatFilter filter = new NumberFormatFilter();
+    	totalprice = filter.commaFormat(dto.getTotalprice());
     	
     	TO = send_email;
 		log.warn("보낼 메일 : "+TO);

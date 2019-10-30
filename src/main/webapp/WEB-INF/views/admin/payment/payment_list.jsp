@@ -29,7 +29,9 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">주문내역</h6>
-		</div>
+	    	<a href="/admin/excel/payment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i>결제내역 다운로드</a>
+			<a href="/admin/excel/product" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i>상품정보 다운로드</a>
+	    </div>
 		<div class="card-body">
 			<div class="table-responsive">
 				<div class="row">

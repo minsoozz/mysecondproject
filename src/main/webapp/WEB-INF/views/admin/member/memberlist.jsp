@@ -29,7 +29,7 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<span class="m-0 font-weight-bold text-primary">회원 목록</span>
-	    	<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i> 회원정보 다운로드</a>
+	    	<a href="/admin/excel/member" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="float: right;"><i class="fas fa-download fa-sm text-white-50"></i> 회원정보 다운로드</a>
 		</div>
 		
 		<div class="card-body">
@@ -92,7 +92,7 @@
 							<th class="list_checkbox"><input type="checkbox"
 								name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 							</th>
-							<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting"></th>
+							<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting" value="${sorting }"></th>
 							<!-- 1 -->
 							<th class="sorting">이름</th>
 							<!-- 2 -->
@@ -143,10 +143,9 @@
 					</tbody>
 				</table>
 				</form>
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-12 col-md-7"><!-- 페이징 네비게이션 시작 -->
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="dataTable_paginate">
-						
 						<!-- 페이징 -->
 						<div id="paging_wrap">
 							<jsp:include page="/WEB-INF/views/admin/member/paging.jsp"
@@ -160,12 +159,9 @@
 							</jsp:include>
 						</div>
 						<!-- 페이징끝 -->
-						
-
 					</div>
-
 				</div>
-
+				<!-- 페이징 네비게이션 끝 -->	
 				<div>
 					<button type="button" id="memLockBtn" class="memLockBtn">회원정지</button>
 					<button type="button" id="memLockBtn_n" class="memLockBtn_n">정지해제</button>

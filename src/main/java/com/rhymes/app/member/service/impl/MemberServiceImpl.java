@@ -248,6 +248,17 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	// 사업자 이메일 등록확인
+	@Override
+	public boolean getEmailCheck_C(String email) {
+		return memberdao.getEmailCheck_C(email);
+	}
+	// 일반회원 이메일 등록확인
+	@Override
+	public boolean getEmailCheck_P(String email) {
+		return memberdao.getEmailCheck_P(email);
+	}
+
 
 
 

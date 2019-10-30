@@ -28,6 +28,11 @@
 	<definition name="company/vbank" extends="companypaylist">
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_vbank.jsp" />
 	</definition>
+	
+	<!-- 배송관리 -->
+	<definition name="company/delivery" extends="companypaylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_delivery.jsp" />
+	</definition>
 
 </tiles-definitions>
 
