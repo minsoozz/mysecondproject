@@ -42,7 +42,7 @@
    <br><br><br><br><br><br><br><br>
 
 
-<h4 style="margin-left: 60px; color: gray">WOMEN BEST5</h4>
+<h4 style="margin-left: 60px; color: gray">WOMEN BEST7</h4>
 <br>
 <!-- ****** Welcome Post Area Start ****** -->
     <section class="welcome-post-sliders owl-carousel" >
@@ -54,18 +54,19 @@
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
-                    <a href="#">${women.c2_name }</a>
-                    <a href="#">${women.c_name }</a>
+                	<a href="#" style="font-size: 20px">${women.rnum }</a>
+                    <a href="#" style="font-size: 20px">${women.c2_name }</a>
                 </div>
                 <a href="#">
-                    <h5>${women.p_name }</h5>
+                    <h5>${women.c_name }</h5>
+                    <h2 style="color:white">${women.p_name }</h2>
                 </a>
             </div>
         </div>
         </c:forEach>
     </section>
  <br>
- <h4 style="margin-left: 60px; color: gray">MEN BEST5</h4>
+ <h4 style="margin-left: 60px; color: gray">MEN BEST7</h4>
 <br>
 <!-- ****** Welcome Post Area Start ****** -->
     <section class="welcome-post-sliders owl-carousel">
@@ -77,11 +78,12 @@
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
-                    <a href="#">${men.c2_name }</a>
-                    <a href="#">${men.c_name }</a>
+                    <a href="#" style="font-size: 22px">${men.rnum }</a>
+                    <a href="#" style="font-size: 20px">${men.c2_name }</a>
                 </div>
                 <a href="#">
-                    <h5>${men.p_name }</h5>
+                    <h5>${men.c_name }</h5>
+                    <h2 style="color:white">${men.p_name }</h2>
                 </a>
             </div>
         </div>
