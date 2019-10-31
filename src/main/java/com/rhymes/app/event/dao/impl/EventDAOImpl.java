@@ -11,6 +11,7 @@ import com.rhymes.app.event.dao.EventDAO;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
 @Repository
 public class EventDAOImpl implements EventDAO {
@@ -70,6 +71,18 @@ public class EventDAOImpl implements EventDAO {
 	@Override
 	public int getEvenIngtCount(EventParam param) {
 		return sqlSession.selectOne(ns+"getEvenIngtCount", param);
+	}
+	
+	// 출첵 적립금 확인
+	@Override
+	public boolean geteventduplicate_check(MemberPointDTO dto) {
+		int count = sqlSession.selectOne(ns+"geteventduplicate_check", dto);
+		return count>0?true:false;
+	}
+	// 출첵 적립금 등록
+	@Override
+	public void eventcoupon_check(MemberPointDTO dto) {
+		sqlSession.insert(ns+"eventcoupon_check", dto);
 	}
 	
 
