@@ -79,8 +79,8 @@ public class SellerBean implements Serializable {
 
 
 	
-	public SellerBean(int seq, String userid, String userpw, boolean isAccountNonExpired, boolean isAccountNonLock,
-			boolean isCredentialsIsNonExpired, boolean enabled, List<AuthoritiesDTO> authList, Date rdate) {
+	public SellerBean(int seq, String userid, String userpw, String isAccountNonExpired, String isAccountNonLock,
+			String isCredentialsIsNonExpired, String enabled, List<AuthoritiesDTO> authList, Date rdate) {
 		super();
 		this.seq = seq;
 		this.userid = userid;
