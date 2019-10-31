@@ -30,10 +30,13 @@ public class AdminChartController {
 		List<AdminChartDTO> monthNumJson = ChartService.getSalaryNumMonth(dto);
 		// 일별 총 매출
 		List<AdminChartDTO> dayJson = ChartService.getSalaryDay(dto);
+		// 검색된 데이터
+		AdminChartSearchDTO search = new AdminChartSearchDTO(dto.getYear()+"", "0", dto.getMonth()+"", "0");
 		
 		model.addAttribute("monthPriceJson", monthPriceJson);
 		model.addAttribute("monthNumJson", monthNumJson);
 		model.addAttribute("dayJson", dayJson);
+		model.addAttribute("search", search);
 		
 		return "/chart/salary";
 	}

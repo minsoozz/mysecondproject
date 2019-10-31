@@ -27,7 +27,7 @@ public class AdminChartDAOImpl implements AdminChartDAO {
 	@Override
 	public List<PaymentDTO> getSalaryPriceMonth(AdminChartSearchDTO dto) {
 		// 검색된 날짜가 없었을 때 즉, 처음 들어왔을 때
-		if (dto.getYear() == null || dto.getYear().equals("0")) {
+		if (dto.getYear() == null || dto.getYear().equals("")) {
 			Calendar cal = Calendar.getInstance();
 			dto.setYear( cal.get(Calendar.YEAR) + "" );
 		}
@@ -41,7 +41,7 @@ public class AdminChartDAOImpl implements AdminChartDAO {
 	@Override
 	public List<PaymentDetailsDTO> getSalaryNumMonth(AdminChartSearchDTO dto) {
 		// 검색된 날짜가 없었을 때 즉, 처음 들어왔을 때
-		if (dto.getYear() == null || dto.getYear().equals("0")) {
+		if (dto.getYear() == null || dto.getYear().equals("")) {
 			Calendar cal = Calendar.getInstance();
 			dto.setYear( cal.get(Calendar.YEAR) + "" );
 		}
@@ -56,16 +56,15 @@ public class AdminChartDAOImpl implements AdminChartDAO {
 	@Override
 	public List<PaymentDTO> getSalaryDay(AdminChartSearchDTO dto) {
 		// 검색된 날짜가 없었을 때 즉, 처음 들어왔을 때
-		if ((dto.getYear() == null || dto.getYear().equals("0")) && dto.getMonth().equals("0")) {
-			Calendar cal = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
+		if(dto.getYear() == null || dto.getYear().equals("")) {
 			dto.setYear(cal.get(Calendar.YEAR) + "");
+		}
+		if(dto.getMonth() == null || dto.getMonth().equals("")) {
 			dto.setMonth(cal.get(Calendar.MONTH) + 1 + "");
 		}
-		AdminChartplus0 plus = new AdminChartplus0();
 		
-		dto.setYear("2019");
-		dto.set_year("2019");
-		dto.setMonth("07");
+		dto.set_year(Integer.parseInt(dto.getYear())+1+"");
 
 		// 12월일 때
 		if(dto.getMonth().length() == 2 && dto.getMonth().substring(1).equals("2")) {
@@ -73,7 +72,7 @@ public class AdminChartDAOImpl implements AdminChartDAO {
 			dto.set_month("01");
 		}else {
 			String str1 = Integer.parseInt(dto.getMonth())+1+"";
-			String str2 = plus.plus0( str1 );
+			String str2 = new AdminChartplus0().plus0( str1 );
 			dto.set_month( str2 );
 		}
 

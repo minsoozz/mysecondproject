@@ -35,13 +35,12 @@ public class AdminChartJSON {
 	
 	public String jsonchangday(List<AdminChartDTO> list) {
 		//list -> json : 일별 통계
-		String jsonday = "[";
+		String jsonday = "";
 		for(AdminChartDTO a : list){
 			jsonday += a.getY() + ",";
 		}
 		jsonday = jsonday.substring(0, jsonday.lastIndexOf(","));
 		//맨 끝에 ,만 빼고 다 가져와라
-		jsonday += "]";
 		
 		return jsonday;
 	}
