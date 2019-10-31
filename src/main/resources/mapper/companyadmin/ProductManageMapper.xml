@@ -24,7 +24,29 @@
 		   F.SALESVOLUME
 		   
 	FROM(
-		SELECT ROW_NUMBER()OVER(ORDER BY RNUM2 DESC) AS RNUM,
+		SELECT ROW_NUMBER()OVER(ORDER BY 
+				<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
+			 		a.P_SEQ DESC
+			 	</if>
+				<if test="sorting == 'PRICEUP'">
+			 		a.P_PRICE DESC
+			 	</if>
+			 	<if test="sorting == 'PRICEDOWN'">
+			 		a.P_PRICE ASC
+			 	</if>
+			 	<if test="sorting == 'SALEUP'">
+					SALEPERCENT ASC
+				</if>
+				<if test="sorting == 'SALEDOWN'">
+					SALEPERCENT DESC
+				</if>
+				<if test="sorting == 'SALESUP'">
+					 SALESVOLUME DESC
+				</if>
+				<if test="sorting == 'SALESDOWN'">
+					 SALESVOLUME ASC
+				</if>
+			 ) AS RNUM,
 			   a.P_SEQ,
 			   a.P_NAME,
 			   a.P_PRICE,
@@ -111,35 +133,39 @@
 					<if test="key == 'sale'">
 						AND a.BFS_PRICE != 0
 					</if> 	
-				GROUP BY b.STOCK_SEQ ) A
+				GROUP BY b.STOCK_SEQ
+				ORDER BY 
+					<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
+			 		a.P_SEQ DESC
+				 	</if>
+					<if test="sorting == 'PRICEUP'">
+				 		a.P_PRICE DESC
+				 	</if>
+				 	<if test="sorting == 'PRICEDOWN'">
+				 		a.P_PRICE ASC
+				 	</if>
+				 	<if test="sorting == 'SALEUP'">
+						SALEPERCENT ASC
+					</if>
+					<if test="sorting == 'SALEDOWN'">
+						SALEPERCENT DESC
+					</if>
+					<if test="sorting == 'SALESUP'">
+						 SALES DESC
+					</if>
+					<if test="sorting == 'SALESDOWN'">
+						 SALES ASC
+					</if>
+				
+				 ) A
 		GROUP BY a.P_SEQ DESC) F
 		WHERE RNUM BETWEEN #{start} and #{end}
-		ORDER BY 
-			<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
-			 		F.P_SEQ DESC
-			 	</if>
-				<if test="sorting == 'PRICEUP'">
-			 		F.P_PRICE DESC
-			 	</if>
-			 	<if test="sorting == 'PRICEDOWN'">
-			 		F.P_PRICE ASC
-				</if>
-				<if test="sorting == 'SALEUP'">
-					F.SALEPERCENT ASC
-				</if>
-				<if test="sorting == 'SALEDOWN'">
-					F.SALEPERCENT DESC
-				</if>
-				<if test="sorting == 'SALESUP'">
-					F.SALESVOLUME DESC
-				</if>
-				<if test="sorting == 'SALESDOWN'">
-					F.SALESVOLUME ASC
-				</if>
+		ORDER BY F.RNUM DESC
+			
 </select>
 
 
- <!-- 1(2).RODUCTLIST 상품 총갯수 -->
+ <!-- 1(2).PRODUCTLIST 상품 총갯수 -->
 <select id="getAdminProductCnt" parameterType="com.rhymes.app.companyadmin.model.ProductManageDto" resultType="java.lang.Integer">
 	SELECT IFNULL(COUNT(*),0) AS CNT
 	FROM rhy_store_product
@@ -181,7 +207,7 @@
 		        GROUP BY b.S_SEQ),0) AS SALESVOLUME	
 		 FROM rhy_store_stock a
 		 	LEFT OUTER JOIN rhy_payment_details b
-		 	ON a.STOCK_SEQ = b.S_SEQ    
+		 		ON a.STOCK_SEQ = b.S_SEQ    
 		 GROUP BY a.STOCK_SEQ) A
 	WHERE a.P_SEQ = #{p_seq}		 					  
 </select>
@@ -293,4 +319,132 @@
  	DELETE FROM rhy_store_product
  	WHERE P_SEQ = #{p_seq}
  </delete>
+ 
+ <!-- 5.재고관리 -->
+ <select id="cAdminStockManage" parameterType="com.rhymes.app.companyadmin.model.StockManageDto" resultType="com.rhymes.app.store.model.StockDto">
+ 	SELECT F.P_SEQ,
+ 		   F.STOCK_SEQ,
+ 		   F.P_NAME,
+ 		   F.SIZE,
+ 		   F.QUANTITY,
+ 		   F.C1_NAME,
+ 		   F.C2_NAME,
+ 		   F.C3_NAME,
+ 		   F.P_PRICE,
+ 		   F.CP_CODE,
+ 		   F.P_COLOR,
+ 		   F.RNUM
+ 		   
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY 
+							<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
+						 		a.STOCK_SEQ DESC
+						 	</if>
+							<if test="sorting == 'PRICEUP'">
+						 		b.P_PRICE DESC
+						 	</if>
+						 	<if test="sorting == 'PRICEDOWN'">
+						 		b.P_PRICE ASC
+						 	</if>
+									) AS RNUM,
+									a.STOCK_SEQ,
+									b.P_SEQ,
+									b.P_NAME,
+									a.SIZE,
+									a.QUANTITY,
+									b.C1_NAME,
+									b.C2_NAME,
+									b.C3_NAME,
+									b.P_PRICE,
+									b.CP_CODE,
+									b.P_COLOR
+		  FROM rhy_store_stock a 
+			INNER JOIN rhy_store_product b
+				ON a.P_SEQ = b.P_SEQ 
+			WHERE b.C_NAME = #{c_name}
+			<!-- 검색 -->
+			<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">	
+				<if test="criterion == 'all_search'">
+					AND (b.P_NAME LIKE '%' #{keyword} '%' or a.STOCK_SEQ LIKE '%' #{keyword} '%') 
+				</if>
+				<if test="criterion == 'pname_search'">
+					AND b.P_NAME LIKE '%' #{keyword} '%'
+				</if>
+				<if test="criterion == 'stockseq_search'">
+					AND a.STOCK_SEQ = #{keyword}
+				</if>
+			</if>
+			
+			<if test="criterion != null and criterion != '' and (keyword == null or keyword == '')">
+				<if test="criterion == 'c1_search'">
+						AND b.C1_NAME = #{c1_name}
+				</if>
+			</if>
+		  ORDER BY
+		  		<if test="sorting == 'SEQ' or sorting =='' or sorting == null ">
+			 		a.STOCK_SEQ DESC
+			 	</if>
+				<if test="sorting == 'PRICEUP'">
+			 		b.P_PRICE DESC
+			 	</if>
+			 	<if test="sorting == 'PRICEDOWN'">
+			 		b.P_PRICE ASC
+			 	</if>
+		) F
+	WHERE F.RNUM BETWEEN #{start} AND #{end}	
+ </select>
+ 
+ <!-- 5. stock총갯수 -->
+ <select id="cAdminStockCnt" resultType="Integer" parameterType="com.rhymes.app.companyadmin.model.StockManageDto">
+	SELECT IFNULL(COUNT(*),0) AS CNT
+	FROM rhy_store_stock a 
+		INNER JOIN rhy_store_product b
+			ON a.P_SEQ = b.P_SEQ 
+		WHERE b.C_NAME = #{c_name}
+		<!-- 검색 -->
+			<if test="criterion != null and criterion != '' and keyword != null and keyword != ''">	
+				<if test="criterion == 'all_search'">
+					AND (b.P_NAME LIKE '%' #{keyword} '%' or a.STOCK_SEQ LIKE '%' #{keyword} '%') 
+				</if>
+				<if test="criterion == 'pname_search'">
+					AND b.P_NAME LIKE '%' #{keyword} '%'
+				</if>
+				<if test="criterion == 'stockseq_search'">
+					AND a.STOCK_SEQ = #{keyword}
+				</if>
+			</if>
+			
+			<if test="criterion != null and criterion != '' and (keyword == null or keyword == '')">
+				<if test="criterion == 'c1_search'">
+						AND b.C1_NAME = #{c1_name}
+				</if>
+			</if>
+ </select>
+ 
+ <!-- 5.재고수정 -->
+ <update id="cAdminchangestockquantity" parameterType="com.rhymes.app.store.model.StockDto">
+ 	UPDATE rhy_store_stock 
+ 	SET QUANTITY = #{quantity}
+ 	WHERE STOCK_SEQ = #{stock_seq}
+ </update>
+ 
+ <!-- 5.RESTOCK STOCKSEQ CHECK -->
+ <select id="cAdminrestockcheck" parameterType="com.rhymes.app.store.model.StockDto" resultType="Integer">
+ 	SELECT COUNT(*) CNT
+ 	FROM rhy_store_restock_notify
+ 	WHERE STOCK_SEQ = ${stock_seq}
+ </select>
+ 
+ <!-- 5.GETTING PHONENUMBERS THAT REQUEST RESTOCK-NOTICE -->
+ <select id="cAdmingetrestockphonenumbers" parameterType="com.rhymes.app.store.model.StockDto" resultType="com.rhymes.app.store.model.RestockNotifyDto">
+ 	SELECT PHONE
+ 	FROM rhy_store_restock_notify
+ 	WHERE STOCK_SEQ = #{stock_seq}
+ </select>
+ 
+ <!-- 5.DELLETING STOCKSEQ, AFTER SENDING SMS SUCCESSFULLY -->
+ <delete id="cAdmindeleterestock" parameterType="com.rhymes.app.store.model.StockDto">
+ 	DELETE FROM rhy_store_restock_notify
+ 	WHERE STOCK_SEQ = #{stock_seq} 
+ </delete>
+ 
 </mapper>

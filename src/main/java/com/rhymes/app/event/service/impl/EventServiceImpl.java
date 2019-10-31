@@ -12,6 +12,7 @@ import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
 import com.rhymes.app.event.service.EventService;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -76,6 +77,18 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public int getEvenIngtCount(EventParam param) {
 		return eventDAO.getEvenIngtCount(param);
+	}
+
+	// 출첵 적립금 확인
+	@Override
+	public boolean geteventduplicate_check(MemberPointDTO dto) {
+		return eventDAO.geteventduplicate_check(dto);
+	}
+
+	// 출첵 적립금 등록
+	@Override
+	public void eventcoupon_check(MemberPointDTO dto) {
+		eventDAO.eventcoupon_check(dto);
 	}
 
 

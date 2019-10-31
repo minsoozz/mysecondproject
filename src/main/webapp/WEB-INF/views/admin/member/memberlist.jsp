@@ -288,7 +288,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 	function allchecks(e) {
 		// 모두 체크
 		var arr = document.getElementsByName("checkid");
-// 		alert(arr.length);
 		for (i = 0; i < arr.length; i++) {
 			arr[i].checked = e;
 			

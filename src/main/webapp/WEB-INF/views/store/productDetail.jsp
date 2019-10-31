@@ -268,13 +268,17 @@ $(document).ajaxSend(function(e, xhr, options) {
      <%--  p_title(상품 기본정보 입력:부가설명) : ${productDto.p_title}<br> --%>
      <!--  detail(상품 상세정보 입력) : --> 
      
-     <p style="font-size: 15px;">${productDto.detail}</p><br>
+
       
        <img src="/upload/store/${productDto.photo1_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
         <img src="/upload/store/${productDto.photo2_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
          <img src="/upload/store/${productDto.photo3_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
           <img src="/upload/store/${productDto.photo4_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
            <img src="/upload/store/${productDto.photo5_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+           
+           
+           
+                <p style="font-size: 15px;">${productDto.detail}</p><br>
       
      </div> 
       
