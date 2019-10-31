@@ -1,6 +1,6 @@
 package com.rhymes.app.admin.chart.controller;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.rhymes.app.admin.chart.model.AdminChartDTO;
 import com.rhymes.app.admin.chart.model.AdminChartSearchDTO;
 import com.rhymes.app.admin.chart.service.AdminChartService;
 
@@ -19,33 +20,22 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminChartController {
 	
 	@Autowired
-	AdminChartService PaymentService;
+	AdminChartService ChartService;
 	
 	@GetMapping("/salary")
 	public String salary(Model model, AdminChartSearchDTO dto) {
 		// 월별 총 매출
-		Map<Integer, Integer> month_map = PaymentService.getSalaryMonth(dto);
+		List<AdminChartDTO> monthPriceJson = ChartService.getSalaryPriceMonth(dto);
+		// 월별 총 판매 상품 개수
+		List<AdminChartDTO> monthNumJson = ChartService.getSalaryNumMonth(dto);
 		// 일별 총 매출
-		Map<Integer, Integer> day_map = PaymentService.getSalaryDay(dto);
+		List<AdminChartDTO> dayJson = ChartService.getSalaryDay(dto);
 		
-		model.addAttribute("month_map", month_map);
-		model.addAttribute("day_map", day_map);
+		model.addAttribute("monthPriceJson", monthPriceJson);
+		model.addAttribute("monthNumJson", monthNumJson);
+		model.addAttribute("dayJson", dayJson);
+		
 		return "/chart/salary";
-	}
-	
-//	@GetMapping("/member")
-//	public String member() {
-//		return "/chart/member";
-//	}
-//	
-//	@GetMapping("/company")
-//	public String company() {
-//		return "/chart/company";
-//	}
-	
-	@GetMapping("/product")
-	public String product() {
-		return "/chart/product";
 	}
 
 }
