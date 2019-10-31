@@ -76,7 +76,7 @@
 		
 					<div class="col-md-2 writenew_waiting_item">
 						<div class="wishlist_body_btns" align="center">
-							<input type="button" class="btn btn-default btn_order_body btn_save_basket" data="${dto.p_seq }" value="장바구니 담기"><br>
+							<input type="button" class="btn btn-default btn_order_body btn_save_basket" pseq="${dto.p_seq }" value="장바구니 담기"><br>
 							<input type="button" class="btn btn-default btn_order_body btn_delete_item" value="삭제">
 						</div>				
 					</div>

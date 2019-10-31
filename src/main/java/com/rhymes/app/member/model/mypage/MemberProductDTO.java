@@ -9,6 +9,10 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
+/**JPA Hibernate 활용을 위한 Entity Class
+ * @author minhj
+ *
+ */
 @Getter
 @Setter
 @ToString
@@ -29,12 +33,14 @@ public class MemberProductDTO {
 	private int bfsPrice;
 	
 	private String pColor;
-	private String c1Name;
-	private String c2Name;
-	private String c3Name;
+	private String c1_name;
+	private String c2_name;
+	private String c3_name;
 	private String nation;
 	
 	private String mdate;
 	private String detail;
+	
+	private String photo1_file;
 	
 }

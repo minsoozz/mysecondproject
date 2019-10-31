@@ -7,36 +7,20 @@
 	<select id="getmemlist" parameterType="com.rhymes.app.member.model.MemberParam" resultType="com.rhymes.app.member.model.MemBean">
 		SELECT SEQ, ID AS USERID, date_format(RDATE, "%Y-%m-%d") AS RDATE, SOCIAL, NAME AS USERNAME, POSTCODE, ADDRESS, DETAILADDRESS, 
 				EMAIL AS USEREMAIL, PHONE, GENDER, BIRTH, AUTHORITY, isAccountNonLock as isAccountNonLocked
-	       FROM (SELECT ROW_NUMBER()OVER(
-	       								<choose>
-											<when test="sorting == 'ID'">
-												ORDER BY M.ID ASC					
-											</when>
-											<when test="sorting == 'NAME'">
-												ORDER BY P.NAME ASC					
-											</when>
-											<when test="sorting == 'ADDRESS'">
-												ORDER BY P.ADDRESS ASC					
-											</when>
-											<when test="sorting == 'EMAIL'">
-												ORDER BY P.EMAIL ASC					
-											</when>
-											<when test="sorting == 'PHONE'">
-												ORDER BY P.PHONE ASC					
-											</when>
-											<when test="sorting == 'SOCIAL'">
-												ORDER BY M.SOCIAL ASC					
-											</when>
-											<when test="sorting == 'RDATE'">
-												ORDER BY M.RDATE ASC					
-											</when>
-											<when test="sorting == 'isAccountNonLocked'">
-												ORDER BY M.isAccountNonLock ASC					
-											</when>
+	       FROM (SELECT ROW_NUMBER()OVER(<choose>
+											<when test="sorting == 'ID'">ORDER BY M.ID ASC</when>
+											<when test="sorting == 'NAME'">ORDER BY P.NAME ASC</when>
+											<when test="sorting == 'ADDRESS'">ORDER BY P.ADDRESS ASC</when>
+											<when test="sorting == 'EMAIL'">ORDER BY P.EMAIL ASC</when>
+											<when test="sorting == 'PHONE'">ORDER BY P.PHONE ASC</when>
+											<when test="sorting == 'SOCIAL'">ORDER BY M.SOCIAL ASC</when>
+											<when test="sorting == 'RDATE'">ORDER BY M.RDATE ASC</when>
+											<when test="sorting == 'isAccountNonLocked'">ORDER BY M.isAccountNonLock ASC</when>
+											<otherwise>ORDER BY M.RDATE DESC</otherwise>
 										</choose>
-	       								)AS RNUM,
-					M.SEQ, M.ID, M.RDATE, M.SOCIAL, P.NAME, P.POSTCODE, P.ADDRESS, P.DETAILADDRESS, 
-					P.EMAIL, P.PHONE, P.GENDER, P.BIRTH, A.AUTHORITY, M.isAccountNonLock
+										)AS RNUM, 
+						M.SEQ, M.ID, M.RDATE, M.SOCIAL, P.NAME, P.POSTCODE, P.ADDRESS, P.DETAILADDRESS, 
+						P.EMAIL, P.PHONE, P.GENDER, P.BIRTH, A.AUTHORITY, M.isAccountNonLock
 				FROM RHY_MEM M, RHY_MEM_P P, AUTHORITIES A
 				WHERE M.ID = P.ID AND P.ID = A.ID 
 				<if test="s_category != null and s_category != ''">
@@ -61,30 +45,15 @@
 				AND RDATE LIKE '%' #{rdate} '%'
 			</if>
 			<choose>
-				<when test="sorting == 'ID'">
-					ORDER BY ID ASC					
-				</when>
-				<when test="sorting == 'NAME'">
-					ORDER BY NAME ASC					
-				</when>
-				<when test="sorting == 'ADDRESS'">
-					ORDER BY ADDRESS ASC					
-				</when>
-				<when test="sorting == 'EMAIL'">
-					ORDER BY EMAIL ASC					
-				</when>
-				<when test="sorting == 'PHONE'">
-					ORDER BY PHONE ASC					
-				</when>
-				<when test="sorting == 'SOCIAL'">
-					ORDER BY SOCIAL ASC					
-				</when>
-				<when test="sorting == 'RDATE'">
-					ORDER BY RDATE ASC					
-				</when>
-				<when test="sorting == 'isAccountNonLocked'">
-					ORDER BY isAccountNonLock ASC					
-				</when>
+				<when test="sorting == 'ID'">ORDER BY ID ASC</when>
+				<when test="sorting == 'NAME'">ORDER BY NAME ASC</when>
+				<when test="sorting == 'ADDRESS'">ORDER BY ADDRESS ASC</when>
+				<when test="sorting == 'EMAIL'">ORDER BY EMAIL ASC</when>
+				<when test="sorting == 'PHONE'">ORDER BY PHONE ASC</when>
+				<when test="sorting == 'SOCIAL'">ORDER BY SOCIAL ASC</when>
+				<when test="sorting == 'RDATE'">ORDER BY RDATE ASC</when>
+				<when test="sorting == 'isAccountNonLocked'">ORDER BY isAccountNonLock ASC</when>
+				<otherwise>ORDER BY RDATE DESC</otherwise>
 			</choose>
 	</select>
 

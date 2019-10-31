@@ -28,17 +28,14 @@ $(function() {
 	});
 
 	//비밀번호 확인 이벤트(invalid)
-	$("#_userpwConfirm").focusout(function(){
-		var pw1 = $("#_userpw").val();
-		var pw2 = $("#_userpwConfirm").val();
-		if( (pw1 === pw2) === false && (pw2.length > 2) ){
-			$(this).addClass('is-invalid');
-		}		
+	$("#_userpwConfirm").on('keyup focusout',function(){
+		chkPws();
 	});
 	
 	//input에 변화가 생기면 저장버튼 활성화
-	$("input").change(function(){
-		$("#_btn_save_modified_info").removeAttr('disabled');
+	$("input").on('keyup change focusout', function(){
+		//$("#_btn_save_modified_info").removeAttr('disabled');
+		chkValues();
 	}); 
 	
 	//회원탈퇴 관련
@@ -56,6 +53,28 @@ $(function() {
 		  $("#_txt_leave_confirmpw").focus();
 	});
 });
+
+//회원정보수정 폼 데이터 변경시 valid-invalid 검증
+function chkValues(){
+	chkPws();
+	var invalidInputs = $(".confirm_frm_wrap .is-invalid").length;
+	console.log(invalidInputs);
+	if( invalidInputs > 0 ){
+		$("#_btn_save_modified_info").attr('disabled', 'disabled');
+	}else{
+		$("#_btn_save_modified_info").removeAttr('disabled');
+	}
+}
+
+function chkPws(){
+	var pw1 = $("#_userpw").val();
+	var pw2 = $("#_userpwConfirm").val();
+	if( (pw1 === pw2) === false ){
+		$("#_userpwConfirm").addClass('is-invalid');
+	}else{
+		$("_userpwConfirm").removeClass('is-invalid');
+	}
+}
 
 function frm_leave(e){
 	if(e.keyCode==13 && e.srcElement.type != 'textarea'){
