@@ -69,8 +69,7 @@
 			<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">			
 				<thead>
 					<tr align="center">
-						<th class="list_checkbox"><input type="checkbox" name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
-						</th>
+						<!-- <th class="list_checkbox"><input type="checkbox" name='allckeck' onclick='allchecks(this.checked)' id='_allck'></th> -->
 						<!-- String[] cols = {"No", "쿠폰이름", "쿠폰내용", "구분", "기능", "유효기간(월)", "등록일  "}; -->
 						<c:forEach items="${cols }" var="col" varStatus="i">							
 							<c:if test="col == 'No'">
@@ -89,7 +88,7 @@
 					</c:if>
 					<c:forEach var="c" items="${couponList }" varStatus="vs">
 						<tr align="center" class="coupon_row" onclick="location.href='<%=ctx%>/admin/mypage/coupon/detail?seq=${c.seq }'">
-							<td class="list_checkbox"><input type="checkbox" name='allck' value="${c.seq }"></td>
+							<%-- <td class="list_checkbox"><input type="checkbox" name='allck' value="${c.seq }"></td> --%>
 							<td>${c.seq }</td> <td>${c.title }</td> <td class="list_id">${c.sub_title }</td>
 							<td>${c.app_cate }</td> <td>${c.function }</td> <td>${c.func_time_limit }</td> <td>${c.rdate }</td>
 						</tr>

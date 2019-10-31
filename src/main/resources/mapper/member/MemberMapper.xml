@@ -147,9 +147,19 @@
 		WHERE ID=#{userid}
 	</select>
 	
+	<!-- 사업자 이메일 등록 확인 -->
+	<select id="getEmailCheck_C" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM RHY_MEM_C
+		WHERE IC_EMAIL=#{email}
+	</select>
 	
-	
-	
+	<!-- 일반회원 이메일 등록 확인 -->
+	<select id="getEmailCheck_P" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM RHY_MEM_P
+		WHERE EMAIL=#{email}
+	</select>
 	
 	
 	

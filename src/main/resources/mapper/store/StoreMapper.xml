@@ -31,21 +31,54 @@
 		   F.SUM,
 		   F.SALESVOLUME
 		   
-	FROM(SELECT ROW_NUMBER()OVER(ORDER BY RNUM2 DESC) AS RNUM,
-			   a.P_SEQ,
-	 		   a.P_NAME,
-	 		   a.C_NAME,
-	 		   a.C1_NAME,
-	 		   a.P_TITLE,
-	 		   a.P_PRICE,
-	 		   a.BFS_PRICE,
-	 		   a.P_COLOR,
-	 		   a.PHOTO1_FILE,
-	 		   a.RDATE,
-	 		   SUM(A.QUANTITY) AS SUM, 		   	 		   
-	 		   SUM(SALES) AS SALESVOLUME
+	FROM(SELECT ROW_NUMBER()OVER(ORDER BY
+									<if test="key == '' or key == null">
+									 	<if test="sorting == '' or sorting == null">
+									 		a.P_SEQ DESC
+									 	</if>
+								 	</if>
+								 	
+								 	<if test="key != '' and key != null">
+								 		<if test="sorting == '' or sorting == null">
+									 		<if test="key == 'newarrival' or key =='sale'">
+									 			a.P_SEQ DESC
+									 		</if>
+									 		<if test="key == 'best'">
+									 			SALESVOLUME DESC
+									 		</if>
+									 	</if>	
+								 	</if>
+								 	
+								 	<!-- 최신순으로 표시 -->
+								 	<if test="sorting == 'NEW'">
+								 		a.P_SEQ ASC
+								 	</if>
+								 	<!-- 낮은 가격 순으로 표시 -->
+								 	<if test="sorting == 'PRICEDOWN'">
+								 		a.P_PRICE ASC
+								 	</if>
+								 	<!-- 높은 가격 순으로 표시 -->
+								 	<if test="sorting == 'PRICEUP'">
+								 		a.P_PRICE DESC
+								 	</if>
+								 	<if test="sorting == 'BEST'">
+								 		SALESVOLUME DESC
+								 	</if>		
+					 					) AS RNUM,
+										   a.P_SEQ,
+								 		   a.P_NAME,
+								 		   a.C_NAME,
+								 		   a.C1_NAME,
+								 		   a.P_TITLE,
+								 		   a.P_PRICE,
+								 		   a.BFS_PRICE,
+								 		   a.P_COLOR,
+								 		   a.PHOTO1_FILE,
+								 		   a.RDATE,
+								 		   SUM(A.QUANTITY) AS SUM, 		   	 		   
+								 		   SUM(SALES) AS SALESVOLUME
 	 		   
- 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY 
+ 			FROM (SELECT ROW_NUMBER()OVER(ORDER BY 
 		 	
 		 	<if test="key == '' or key == null">
 			 	<if test="sorting == '' or sorting == null">

@@ -13,44 +13,30 @@
 	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
 	<!-- 2.상품조회 -->
-	<definition name="CompanyAdminProductlist" template="/WEB-INF/views/admin/common/layout/admin_template_new.jsp">
-		<put-attribute name="ex_resources" value="/WEB-INF/views/admin/common/layout/admin_ex_resources.jsp" />	    
-	    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu_new.jsp" />
-	    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header_new.jsp" />
+	<definition name="CompanyAdminProductlist" extends="CompanyAdminProductregister">
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/productmanage/productlist.jsp" />
-	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
 	<!-- 2(2).상품 상세조회 -->
-	<definition name="CompanyAdminStocklist" template="/WEB-INF/views/admin/common/layout/admin_template_new.jsp">
-		<put-attribute name="ex_resources" value="/WEB-INF/views/admin/common/layout/admin_ex_resources.jsp" />	    
-	    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu_new.jsp" />
-	    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header_new.jsp" />
+	<definition name="CompanyAdminStocklist" extends="CompanyAdminProductregister">
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/productmanage/productstocklist.jsp" />
-	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
-	<!-- 3.상품 수정/삭제 -->
-	<definition name="CompanyAdminProductOpertlist" template="/WEB-INF/views/admin/common/layout/admin_template_new.jsp">
-		<put-attribute name="ex_resources" value="/WEB-INF/views/admin/common/layout/admin_ex_resources.jsp" />	    
-	    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu_new.jsp" />
-	    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header_new.jsp" />
+	<!-- 3.상품 수정 -->
+	<definition name="CompanyAdminProductOpertlist" extends="CompanyAdminProductregister">
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/productmanage/productoperlist.jsp" />
-	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
 	<!-- 3(1).상품 수정 -->
-	<definition name="CompanyAdminProductupdate" template="/WEB-INF/views/admin/common/layout/admin_template_new.jsp">
-		<put-attribute name="ex_resources" value="/WEB-INF/views/admin/common/layout/admin_ex_resources.jsp" />	    
-	    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu_new.jsp" />
-	    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header_new.jsp" />
+	<definition name="CompanyAdminProductupdate" extends="CompanyAdminProductregister">
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/productmanage/productupdate.jsp" />
-	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
 	<!-- 4.SALE 상품관리 -->
-	<definition name="CompanyAdminSaleProduct" template="/WEB-INF/views/admin/common/layout/admin_template_new.jsp">
-		<put-attribute name="ex_resources" value="/WEB-INF/views/admin/common/layout/admin_ex_resources.jsp" />	    
-	    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu_new.jsp" />
-	    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header_new.jsp" />
+	<definition name="CompanyAdminSaleProduct" extends="CompanyAdminProductregister">
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/productmanage/saleproductmanage.jsp" />
-	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
 	</definition>
+	<!-- 5.재고관리 -->
+	<definition name="CompanyAdminStockManage" extends="CompanyAdminProductregister">
+	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/productmanage/stockmanage.jsp" />
+	</definition>
+	
+	
 </tiles-definitions>
 

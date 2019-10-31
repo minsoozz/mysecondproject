@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.rhymes.app.companyadmin.dao.ProductManageDao;
 import com.rhymes.app.companyadmin.model.ProductManageDto;
+import com.rhymes.app.companyadmin.model.StockManageDto;
 import com.rhymes.app.companyadmin.service.ProductManageService;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.model.ProductDto;
+import com.rhymes.app.store.model.RestockNotifyDto;
 import com.rhymes.app.store.model.StockDto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
@@ -25,7 +27,7 @@ public class ProductManageServiceImpl implements ProductManageService {
 	public List<Category2Dto> getCate2List(int c1_seq) throws Exception {
 		return manage.getCate2List(c1_seq);
 	}
-
+ 
 	@Override
 	public List<Category3Dto> getCate3List(int c2_seq) throws Exception {
 		return manage.getCate3List(c2_seq);
@@ -100,6 +102,31 @@ public class ProductManageServiceImpl implements ProductManageService {
 	@Override
 	public int getc2seq(Category2Dto cate2) throws Exception {
 		return manage.getc2seq(cate2);
+	}
+
+	@Override
+	public List<StockDto> stockmanage(StockManageDto stockmanage) throws Exception {
+		return manage.stockmanage(stockmanage);
+	}
+
+	@Override
+	public int stockcnt(StockManageDto stockmanage) throws Exception {
+		return manage.stockcnt(stockmanage);
+	}
+
+	@Override
+	public boolean changestockquantity(StockDto stock) throws Exception {
+		return manage.changestockquantity(stock);
+	}
+
+	@Override
+	public boolean restockcheck(StockDto stock) throws Exception {
+		return manage.restockcheck(stock);
+	}
+
+	@Override
+	public List<RestockNotifyDto> getrestockphonenumbers(StockDto stock) throws Exception {
+		return manage.getrestockphonenumbers(stock);
 	}
 
 	

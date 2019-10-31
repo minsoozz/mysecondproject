@@ -116,10 +116,12 @@ public class MemberController {
 
 	// 사업자회원가입(사업자 추가정보)
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/addsellerdetail")
-	public String addsellerdetail(HttpServletRequest req, MemberDTO mem, SellerBean sellerbean) {
+	public String addsellerdetail(HttpServletRequest req, MemberDTO mem, SellerBean sellerbean, Model model) {
 
 		memService.getAddSeller(sellerbean, mem); // 사업자 회원가입
-
+		
+		model.addAttribute("auth", mem.getAuthList());
+		model.addAttribute("auth", "ROLE_SELLER");
 		return "rhyregisuc";
 	}
 
@@ -194,23 +196,30 @@ public class MemberController {
 		return msg;
 	}
 
-	// 이메일 체크
+	// 사업자 회원가입 이메일 체크
 	@ResponseBody
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.GET }, path = "/getEmailCheck")
 	public String getEmailCheck(HttpServletRequest req) {
-
+		
 		String e1 = (String) req.getParameter("e1");
 		String e2 = (String) req.getParameter("e2");
 		String userEmail = e1 + "@" + e2;
 
-		String code = "";
-		code = (String) req.getParameter("code");
-
-		RhymesMailling.sendMail(RhymesMailling.getAuthorizationCode(code), userEmail);
-
-		String msg = code;
-
-		return msg;
+		boolean b = memService.getEmailCheck_C(userEmail);
+		boolean c = memService.getEmailCheck_P(userEmail);
+		
+		if(b&&c) {
+			return "no";
+		}else {
+			String code = "";
+			code = (String) req.getParameter("code");
+			
+			RhymesMailling.sendMail(RhymesMailling.getAuthorizationCode(code), userEmail);
+			
+			String msg = code;
+			
+			return msg;
+		}
 	}
 
 	// 이메일 체크
@@ -235,18 +244,18 @@ public class MemberController {
 	@RequestMapping(value = "/sendSms.do", method = RequestMethod.GET)
 	public String sendSms(HttpServletRequest request) throws Exception {
 
-		String api_key = "NCSJIOFN175HJZRU";
-		String api_secret = "G1OPKSUUMY3GWZTTVAFZ5BDXOAGPYRFK";
+		String api_key = "NCS4ZFTWNHGBIKUM";
+		String api_secret = "TPH57XEIXFFDAUXJV3EBNDDS633YNFG2";
 
 		Coolsms coolsms = new Coolsms(api_key, api_secret);
 
 		HashMap<String, String> set = new HashMap<String, String>();
 
 		set.put("to", (String) request.getParameter("to")); // 받는 사람
-		set.put("from", "01068889859"); // 발신번호
+		set.put("from", "01083256825"); // 발신번호
 		set.put("text", "비마켓 인증번호 [" + (String) request.getParameter("text") + "]"); // 문자내용
 		set.put("type", "sms"); // 문자 타입
-		
+		System.out.println( (String) request.getParameter("text"));
 		JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 
 		if ((boolean) result.get("status") == true) {

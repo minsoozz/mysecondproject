@@ -27,7 +27,7 @@ public class RhymesApplicationTests {
 	}
 
 	
-	@Test 
+	//@Test 
 	public void wel() throws Exception {
 		for(int i = 0 ; i < 100000; i++) {
 			if( i%2 == 0) {

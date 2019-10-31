@@ -1,18 +1,13 @@
 package com.rhymes.app.admin.member.controller;
 
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,8 +32,9 @@ public class AdminMemberController {
 
 	// 회원 리스트
 	@RequestMapping(value = "/memlist", method = {RequestMethod.GET, RequestMethod.POST}) 
-	public String memlist(Model model, MemberParam param){
+	public String memlist(Model model, MemberParam param, HttpSession session, HttpServletRequest req){
 		log.info("show admin memlistview");
+		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2
 		int start = sn * param.getRecordCountPerPage() + 1;	// 1 11
@@ -48,7 +44,7 @@ public class AdminMemberController {
 		param.setEnd(end);
 		
 		List<MemBean> memlist = adminMemberService.getmemlist(param);
-
+		
 		//list 총 수
 		int totalRecordCount = adminMemberService.getmemCount(param);
 		
@@ -63,6 +59,9 @@ public class AdminMemberController {
 		model.addAttribute("s_category",param.getS_category());
 		model.addAttribute("s_keyword",param.getS_keyword());
 		model.addAttribute("authority",param.getAuthority());
+		
+		// sorting
+		model.addAttribute("sorting", param.getSorting());
 		 
 		return "memlist"; 
 	}
@@ -98,6 +97,9 @@ public class AdminMemberController {
 		model.addAttribute("s_keyword",param.getS_keyword());
 		model.addAttribute("authority",param.getAuthority());
 		
+		// sorting
+		model.addAttribute("sorting", param.getSorting());
+		
 		return "mem_c_list"; 
 	}
 	
@@ -123,33 +125,50 @@ public class AdminMemberController {
 		
 		return pmem;
 	}
-	
-
 
 	// 회원 정지
 	@RequestMapping(value = "/memLock", method = {RequestMethod.GET, RequestMethod.POST})
 	public String memLock(MemBean bean, HttpServletRequest req) {
 		log.info("show admin memLock");
 
-		String dd[] = req.getParameterValues("checkid");
-		int checklen = dd.length;
-		bean.setChecklen(checklen);
-		
-		adminMemberService.getMemLock(bean);
-		return "redirect:/admin/memlist";
+		if(bean.getAuthority().equals("ROLE_SELLER")) {
+			String dd[] = req.getParameterValues("checkid");
+			int checklen = dd.length;
+			bean.setChecklen(checklen);
+			
+			adminMemberService.getMemLock(bean);
+			return "redirect:/admin/mem_c_list";
+		}
+		else {
+			String dd[] = req.getParameterValues("checkid");
+			int checklen = dd.length;
+			bean.setChecklen(checklen);
+			
+			adminMemberService.getMemLock(bean);
+			return "redirect:/admin/memlist";			
+		}
 	}
 	
 	// 회원 정지 해제
 	@RequestMapping(value = "/memLock_n", method = {RequestMethod.GET, RequestMethod.POST})
 	public String memLock_n(MemBean bean, HttpServletRequest req) {
 		log.info("show admin memLock");
-
-		String dd[] = req.getParameterValues("checkid");
-		int checklen = dd.length;
-		bean.setChecklen(checklen);
 		
-		adminMemberService.getMemLock_n(bean);
-		return "redirect:/admin/memlist";
+		if(bean.getAuthority().equals("ROLE_SELLER")) {	// 업체리스트로 이동
+			String dd[] = req.getParameterValues("checkid");
+			int checklen = dd.length;
+			bean.setChecklen(checklen);
+			
+			adminMemberService.getMemLock_n(bean);
+			return "redirect:/admin/mem_c_list";
+		}else {	// 회원리스트로 이동
+			String dd[] = req.getParameterValues("checkid");
+			int checklen = dd.length;
+			bean.setChecklen(checklen);
+			
+			adminMemberService.getMemLock_n(bean);
+			return "redirect:/admin/memlist";
+		}
 	}
 
 	

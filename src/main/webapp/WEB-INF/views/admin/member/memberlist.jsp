@@ -92,7 +92,7 @@
 							<th class="list_checkbox"><input type="checkbox"
 								name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 							</th>
-							<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting"></th>
+							<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting" value="${sorting }"></th>
 							<!-- 1 -->
 							<th class="sorting">이름</th>
 							<!-- 2 -->
@@ -143,10 +143,9 @@
 					</tbody>
 				</table>
 				</form>
-				<div class="col-sm-12 col-md-7">
+				<div class="col-sm-12 col-md-7"><!-- 페이징 네비게이션 시작 -->
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="dataTable_paginate">
-						
 						<!-- 페이징 -->
 						<div id="paging_wrap">
 							<jsp:include page="/WEB-INF/views/admin/member/paging.jsp"
@@ -160,12 +159,9 @@
 							</jsp:include>
 						</div>
 						<!-- 페이징끝 -->
-						
-
 					</div>
-
 				</div>
-
+				<!-- 페이징 네비게이션 끝 -->	
 				<div>
 					<button type="button" id="memLockBtn" class="memLockBtn">회원정지</button>
 					<button type="button" id="memLockBtn_n" class="memLockBtn_n">정지해제</button>
@@ -292,7 +288,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 	function allchecks(e) {
 		// 모두 체크
 		var arr = document.getElementsByName("checkid");
-// 		alert(arr.length);
 		for (i = 0; i < arr.length; i++) {
 			arr[i].checked = e;
 			

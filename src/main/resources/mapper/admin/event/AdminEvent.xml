@@ -6,7 +6,28 @@
 <!-- 이벤트리스트 -->
 <select id="getEventList" parameterType="com.rhymes.app.event.model.EventParam" resultType="com.rhymes.app.event.model.EventDTO">
 	SELECT SEQ, TITLE, CONTENT, TYPE, date_format(RDATE, "%Y-%m-%d") AS RDATE, SDATE, EDATE, VISIBLE
-       FROM (SELECT ROW_NUMBER()OVER(ORDER BY #{sorting} DESC)AS RNUM,
+       FROM (SELECT ROW_NUMBER()OVER(
+       								<choose>
+										<when test="sorting == 'SEQ'">
+											ORDER BY SEQ DESC
+										</when>
+										<when test="sorting == 'TITLE'">
+											ORDER BY TITLE ASC
+										</when>
+										<when test="sorting == 'TYPE'">
+											ORDER BY TYPE ASC
+										</when>
+										<when test="sorting == 'SDATE'">
+											ORDER BY SDATE ASC
+										</when>
+										<when test="sorting == 'EDATE'">
+											ORDER BY EDATE ASC
+										</when>
+										<when test="sorting == 'RDATE'">
+											ORDER BY RDATE ASC
+										</when>
+									</choose>
+       								)AS RNUM,
 				SEQ, TITLE, CONTENT, TYPE, RDATE, SDATE, EDATE, VISIBLE
 			FROM rhy_event_list
 			WHERE 1=1
@@ -28,7 +49,28 @@
 			</if>
 				)B
 		WHERE RNUM BETWEEN ${start} AND ${end}
-		ORDER BY #{sorting} DESC
+		<choose>
+			<when test="sorting == 'SEQ'">
+				ORDER BY SEQ DESC
+			</when>
+			<when test="sorting == 'TITLE'">
+				ORDER BY TITLE ASC
+			</when>
+			<when test="sorting == 'TYPE'">
+				ORDER BY TYPE ASC
+			</when>
+			<when test="sorting == 'SDATE'">
+				ORDER BY SDATE ASC
+			</when>
+			<when test="sorting == 'EDATE'">
+				ORDER BY EDATE ASC
+			</when>
+			<when test="sorting == 'RDATE'">
+				ORDER BY RDATE ASC
+			</when>
+			<!-- <otherwise></otherwise> -->
+		</choose>
+<!-- 		ORDER BY #{sorting} DESC -->
 </select>
 
 <!-- 이벤트 리스트 count -->

@@ -36,7 +36,7 @@ public class EventParam implements Serializable{
 	private String authority;
 	
 	// sorting
-	private String sorting="seq";	
+	private String sorting="SEQ";	
 	
 	// alarm
 	private String rdate;

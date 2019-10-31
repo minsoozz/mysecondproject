@@ -89,9 +89,6 @@
 					</colgroup>
 					<thead>
 						<tr align="center">
-							<th class="list_checkbox"><input type="checkbox"
-								name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
-							</th>
 							<!-- 1 -->
 							<th>번호</th>
 							<!-- 2 -->
@@ -128,7 +125,6 @@
 						</c:if>
 						<c:forEach var="pro" items="${plist }" varStatus="vs">
 							<tr align="center">
-								<td class="list_checkbox"><input type="checkbox"name='allck' value="${p.seq }"></td>
 								<!-- 1 -->
 								<td>${pro.rnum }</td>
 								<!-- 2 -->
@@ -183,9 +179,6 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<button type="button" onclick="location.href='/admin/company/productlist'" 
-								style="border: solid 1px #DADCE0; width:auto; border-radius: 5px; background-color: white;">
-								선택 판매종료</button>
 				<div class="col-sm-12 col-md-7">
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="dataTable_paginate">

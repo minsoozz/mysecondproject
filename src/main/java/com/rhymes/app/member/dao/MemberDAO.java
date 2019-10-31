@@ -66,4 +66,9 @@ public interface MemberDAO {
 	// 네이버 유저 회원가입
 	public void getNaverRegi(MemBean mbean);
 	
+	// 사업자 이메일 등록 확인
+	public boolean getEmailCheck_C(String email);
+	
+	// 일반회원 이메일 등록 확인
+	public boolean getEmailCheck_P(String email);
 }

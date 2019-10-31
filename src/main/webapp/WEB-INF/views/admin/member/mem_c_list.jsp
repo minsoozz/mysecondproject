@@ -31,6 +31,7 @@
 				<div class="col-sm-12 col-md-6">
 					<div class="dataTables_length" id="dataTable_length">
 					<form action="memlist" id="_frm" method="post">
+						<input type="hidden" value="ROLE_SELLER" name="authority">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						 <select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable"
 						 	onchange="dataTable_length()"
@@ -89,7 +90,7 @@
 						<th class="list_checkbox"><input type="checkbox"
 							name='allckeck' onclick='allchecks(this.checked)' id='_allck'>
 						</th>
-						<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting"></th>	<!-- 1 -->
+						<th class="sorting">아이디<input type="hidden" name="sorting" id="_sorting" value="${sorting }"></th>	<!-- 1 -->
 						<th class="sorting">상호</th>											<!-- 2 -->
 						<th class="sorting">사업자등록번호</th>										<!-- 3 -->
 						<th class="sorting">대표자명</th>											<!-- 4 -->
@@ -97,7 +98,8 @@
 						<th class="sorting">회사주소</th>											<!-- 6 -->
 						<th class="sorting">담당자번호</th>											<!-- 7 -->
 						<th class="sorting">담당자메일</th>											<!-- 7 -->
-						<th class="sorting">가입일</th>											<!-- 7 -->
+						<th class="sorting">가입일</th>
+						<th class="sorting">계정장금</th>											<!-- 7 -->
 					</tr>
 				</thead>
 
@@ -109,17 +111,24 @@
 					</c:if>
 					<c:forEach var="c" items="${mem_c_list }" varStatus="vs">
 						<tr align="center">
-							<td class="list_checkbox"><input type="checkbox"
-								name='allck' value="${c.seq }"></td>
-							<td class="list_id"><a href="mem_update?id=${c.userid }">${c.userid }</a></td>
+							<td class="list_checkbox">
+								<input type="checkbox" value="${c.userid }" name='checkid' value="${c.seq }" id="_checkid">
+							</td>
+							<td class="list_id">${c.userid }</td>
 							<td>${c.c_name }</td>
 							<td>${c.c_num }</td>
 							<td>${c.p_name }</td>
 							<td>${c.ic_name }</td>
 							<td>${c.c_address}</td>
-							<td>${c.to }</td>
+							<td>${c.ic_phone }</td>
 							<td>${c.ic_email }</td>
 							<td>${c.rdate }</td>
+							<c:if test="${c.isAccountNonLock == 'false'}">
+								<td style="color: blue; font-weight: bold;">${c.isAccountNonLock }</td>
+							</c:if>
+							<c:if test="${c.isAccountNonLock == 'true'}">
+								<td>${c.isAccountNonLock }</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 
@@ -142,7 +151,8 @@
 						</jsp:include>
 					</div>
 					<!-- 페이징끝 -->
-					
+					<button type="button" id="memLockBtn" class="memLockBtn">업체정지</button>
+					<button type="button" id="memLockBtn_n" class="memLockBtn_n">정지해제</button>
 				</div>
 			</div>
 		</div>
@@ -168,18 +178,29 @@ function goPage( pageNumber ) {
 }
 
 $("#_btnSearch").click(function () {
-	//alert("클릭");
 	$("#_frm").attr("action", "mem_c_list").submit(); //
 	
 });
 
+
+
+//정지
+$("#memLockBtn").click(function() {
+  	$("#_frm").attr("action", "/admin/memLock").submit(); 
+
+});
+//해제
+$("#memLockBtn_n").click(function() {
+  	$("#_frm").attr("action", "/admin/memLock_n").submit(); 
+
+});
 </script>
 
 <script type="text/javascript">
 
 function allchecks(e) {
 	// 모두 체크
-	var arr = document.getElementsByName("allck");
+	var arr = document.getElementsByName("checkid");
 	
 	for(i=0; i<arr.length; i++){
 		arr[i].checked = e;
@@ -202,6 +223,7 @@ function dataTable_length(){
 // sorting
 $(function(){
 	$(".sorting").click(function() {
+		
 		var thNum = $(this).index();
 
 		if(thNum == 1){
@@ -209,30 +231,45 @@ $(function(){
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 2){
-			$("#_sorting").val("NAME");
+			$("#_sorting").val("C_NAME");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 3){
-			$("#_sorting").val("ADDRESS");
+			$("#_sorting").val("C_NUM");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 4){
-			$("#_sorting").val("EMAIL");
+			$("#_sorting").val("P_NAME");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 5){
-			$("#_sorting").val("PHONE");
+			$("#_sorting").val("C_ADDRESS");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 6){
-			$("#_sorting").val("SOCIAL");
+			$("#_sorting").val("IC_PHONE");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
 		if(thNum == 7){
+			$("#_sorting").val("IC_MAIL");
+			$("#_frm").attr("action", "mem_c_list").submit();		
+		}
+		if(thNum == 8){
 			$("#_sorting").val("RDATE");
 			$("#_frm").attr("action", "mem_c_list").submit();		
 		}
+		if(thNum == 9){
+			$("#_sorting").val("isAccountNonLock");
+			$("#_frm").attr("action", "mem_c_list").submit();		
+		}
 		
+	});
+});
+
+//마우스 커서
+$(document).ready(function() {
+	$('.sorting').mouseover(function() {
+		$(this).css("cursor", "pointer");
 	});
 });
 

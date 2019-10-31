@@ -72,7 +72,9 @@ public class AdminEventController {
 		// 추가
 		model.addAttribute("s_category",param.getS_category());
 		model.addAttribute("s_keyword",param.getS_keyword());
-			
+		
+		// sorting
+		model.addAttribute("sorting", param.getSorting());
 		
 		return "admineventlist.tiles";
 	}
