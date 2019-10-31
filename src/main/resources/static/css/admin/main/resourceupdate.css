@@ -22,6 +22,7 @@ button{
 		 
 }
 
+
 #bannerresource-div{
 	border: 2px solid #DADCE0;
 	width: 70%;
@@ -120,7 +121,7 @@ button{
 fieldset {
   display: block;
   position: absolute;
-  top: 11%;
+  top: 8%;
   left: 21%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
