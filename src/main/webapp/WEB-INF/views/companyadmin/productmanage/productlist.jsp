@@ -36,20 +36,6 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-6">
 						<div class="dataTables_length" id="dataTable_length">
-								<%-- <select style="width: 100px;"
-									name="recordCountPerPage" aria-controls="dataTable"
-									onchange="dataTable_length()"
-									class="custom-select custom-select-sm form-control form-control-sm">
-									<option value="10"
-										<c:out value="${recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
-									<option value="25"
-										<c:out value="${recordCountPerPage == '25'? 'selected':'' }"/>>25</option>
-									<option value="50"
-										<c:out value="${recordCountPerPage == '50'? 'selected':'' }"/>>50</option>
-									<option value="100"
-										<c:out value="${recordCountPerPage == '100'? 'selected':'' }"/>>100</option>
-								</select> --%>
-								
 								<select id="sorting" class="custome-select border-0 pr-3 searchSelect" onchange="sorting(this.value)" 
 									style="width:auto; border-color: black; cursor:pointer; text-align: center;" >
 									<option selected="selected" value="SEQ"

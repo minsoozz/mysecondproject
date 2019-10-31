@@ -203,9 +203,9 @@
 							<h6 class="collapse-header">PRODUCT MANAGE</h6>
 							<a class="collapse-item" href="/admin/company/register">상품등록</a>
 							<a class="collapse-item" href="/admin/company/productlist">상품조회</a>
-							<a class="collapse-item" href="/admin/company/productoperlist">상품수정/삭제/SALE등록</a>
+							<a class="collapse-item" href="/admin/company/productoperlist">상품수정/SALE등록</a>
 							<a class="collapse-item" href="/admin/company/saleproductmanage">SALE관리</a>
-							<a class="collapse-item" href="login.html">재고관리</a>
+							<a class="collapse-item" href="/admin/company/stockmanage">재고관리</a>
 						</div>
 					</div>
 				</li>

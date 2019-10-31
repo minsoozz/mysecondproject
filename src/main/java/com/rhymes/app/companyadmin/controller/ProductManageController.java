@@ -5,12 +5,14 @@ import java.io.FileOutputStream;
 import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +27,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rhymes.app.companyadmin.model.ProductManageDto;
+import com.rhymes.app.companyadmin.model.StockManageDto;
 import com.rhymes.app.companyadmin.service.ProductManageService;
 import com.rhymes.app.member.model.SellerDTO;
+import com.rhymes.app.member.util.Coolsms;
 import com.rhymes.app.store.dao.PurchaseDao;
 import com.rhymes.app.store.model.ProductDto;
+import com.rhymes.app.store.model.RestockNotifyDto;
 import com.rhymes.app.store.model.StockDto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
@@ -47,7 +52,134 @@ public class ProductManageController {
 	@Autowired ProductManageService manage;
 	@Autowired PurchaseDao store_purchase;
 	@Autowired StoreService store;
+	
+	//5(1).재고수정
+	@ResponseBody
+	@GetMapping("changestockquantity")
+	public String changestockquantity(StockDto stock)throws Exception {
+		boolean bool = false;
+		List<RestockNotifyDto> pnList = new ArrayList<RestockNotifyDto>();
 		
+		log.info("---------ISRESTOCK : " + stock.getIsrestock());
+
+		if(stock.getIsrestock().equals("restock")) {
+			boolean restockChk = manage.restockcheck(stock);
+			if(restockChk) {
+				log.info(stock.getStock_seq() + " → IT EXISTS AT RESTOCK-NOTIFY TABLE");
+					
+				pnList = manage.getrestockphonenumbers(stock);
+				
+				for (RestockNotifyDto re : pnList) {
+					log.info(re.getPhone());
+			        
+					// SMS
+					String api_key = "NCSZABJSTQM6UK15";
+					String api_secret = "PGDXXEQ2G6EUVWQWAAS5LGRLXPW7IXAN";
+					Coolsms coolsms = new Coolsms(api_key, api_secret);
+					HashMap<String, String> set = new HashMap<String, String>();
+
+					set.put("type", "sms");
+			        set.put("from", "01096230706"); 
+			        set.put("to", re.getPhone());
+			        set.put("text", "[RHYMES]재입고 신청하신 " + stock.getP_name() + "("+ stock.getSize() +")입고되었습니다.");
+			        
+			        JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+			        if ((boolean)result.get("status") == true) {
+			        	log.info("SMS-MSG SENT SUCCESSFULLY");
+			        	log.info(result.get("group_id") + ""); // 그룹아이디
+			            log.info(result.get("result_code") + ""); // 결과코드
+			            log.info(result.get("result_message") + ""); // 결과 메시지
+			            log.info(result.get("success_count") + "");	// 메시지아이디
+			            log.info(result.get("error_count") + ""); // 여러개 보낼시 오류난 메시지 수
+			            
+			            
+			        } else {
+			            // 메시지 보내기 실패
+			            log.info("FAIL TO SEND SMS-MSG");
+			            log.info("ERROR CODE TO SEND SMS-MSG : " + result.get("code") + "");	// REST API 에러코드
+			            log.info("ERROR MESSAGE TO SEND SMS-MSG : " + result.get("message") + "");	// 에러메시지
+			        }        
+				}
+				
+			}else {
+				log.info(stock.getStock_seq() + " → IT DOESNT EXIST AT RESTOCK-NOTIFY TABLE");
+				
+				bool = manage.changestockquantity(stock);
+				if(bool) {
+					log.info("STOCK UPDATED SUCCESSFULLY");
+				}else {
+					log.info("FAIL TO UPDATE STOCK-QUANTITY");
+				}
+				
+			}
+		}else {
+			bool = manage.changestockquantity(stock);
+			
+			if(bool) {
+				log.info("STOCK UPDATED SUCCESSFULLY");
+			}else {
+				log.info("FAIL TO UPDATE STOCK-QUANTITY");
+			}
+		}
+		
+		return "ㅇㅅㅇ";
+	}
+		
+	//5.재고관리
+	@GetMapping("/stockmanage")
+	public String stockmanage(Model model, StockManageDto stockmanage, Principal prc)throws Exception{
+		
+		  List<StockDto> slist = new ArrayList<StockDto>();
+		  String url = "";
+	      String c_id = "";
+	 	  String c_name = "";
+		   
+	 	  if(prc != null) {
+	     	  c_id = prc.getName();
+	     	  SellerDTO seller = new SellerDTO();
+	     	  seller.setId(c_id); 
+	     	  seller = manage.getCname(seller);
+	     	  c_name = seller.getC_name();
+	     	  log.info("업체이름:" + c_name);
+	     	 stockmanage.setC_name(c_name);
+	     	 
+	     	 if(!c_name.equals("") && c_name!=null) {
+		
+     		 //페이징
+			 int sn = stockmanage.getPageNumber();	//0 1 2
+			 int start = sn * stockmanage.getRecordCountPerPage() + 1;	
+			 int end = (sn + 1) * stockmanage.getRecordCountPerPage(); 
+			 int totalRecordCount = manage.stockcnt(stockmanage);
+			 stockmanage.setStart(start);
+			 stockmanage.setEnd(end);
+			
+			 // 페이징
+	 		 model.addAttribute("pageNumber", sn);
+	 		 model.addAttribute("pageCountPerScreen", 10);
+	 		 model.addAttribute("recordCountPerPage", 10);
+	 		 model.addAttribute("totalRecordCount", totalRecordCount);
+	 		 
+	 		 slist = manage.stockmanage(stockmanage);
+	 		 
+	 		 log.info("페이지넘버 : " + sn);
+	 		 log.info("리스트 사이즈 : " + slist.size());
+			 log.info("재고 총 갯수 : " + totalRecordCount );
+			 
+			 model.addAttribute("param", stockmanage);
+			 model.addAttribute("slist", slist);
+			 model.addAttribute("c_name", c_name);
+			 
+			 url = "CompanyAdminStockManage"; 
+			 
+	     	 }else if(c_name.equals("") || c_name==null) {
+	     		 url = "redirect:/main";
+	     	  }
+	 	 }else{
+	    	  url = "redirect:/main";
+	      }	 
+		return url;
+	}
+	
 	//4.SALE상품관리
 	@GetMapping("/saleproductmanage")
 	public String saleproductmanage(Principal prc, Model model, ProductManageDto pParam)throws Exception{
@@ -65,12 +197,12 @@ public class ProductManageController {
 	     	  seller = manage.getCname(seller);
 	     	  c_name = seller.getC_name();
 	     	  log.info("업체이름:" + c_name);
-	     	 pParam.setC_name(c_name);
-	     	 pParam.setKey("sale");
+	     	  pParam.setC_name(c_name);
+	     	  pParam.setKey("sale");
 	     	 
 	     	  if(!c_name.equals("") && c_name!=null) {
 	   
-	     		  //페이징
+	     		 //페이징
 	     		 int sn = pParam.getPageNumber();	//0 1 2
 	     		 int start = sn * pParam.getRecordCountPerPage() + 1;	
 	     		 int end = (sn + 1) * pParam.getRecordCountPerPage(); 
@@ -85,7 +217,7 @@ public class ProductManageController {
 	     		 model.addAttribute("pageNumber", sn);
 	     		 model.addAttribute("pageCountPerScreen", 10);
 	     		 model.addAttribute("recordCountPerPage", 10);
-	     		 model.addAttribute("totalRecordCount", pParam.getRecordCountPerPage());
+	     		 model.addAttribute("totalRecordCount", totalRecordCount);
 	     		  
 	     		 model.addAttribute("param", pParam);
 	     		 model.addAttribute("c_name", c_name);
@@ -255,7 +387,7 @@ public class ProductManageController {
      		 model.addAttribute("pageNumber", sn);
      		 model.addAttribute("pageCountPerScreen", 10);
      		 model.addAttribute("recordCountPerPage", 10);
-     		 model.addAttribute("totalRecordCount", pParam.getRecordCountPerPage());
+     		 model.addAttribute("totalRecordCount", totalRecordCount);
      		  
      		 model.addAttribute("param", pParam);
      		 model.addAttribute("c_name", c_name);
@@ -425,7 +557,7 @@ public class ProductManageController {
      		 model.addAttribute("pageNumber", sn);
      		 model.addAttribute("pageCountPerScreen", 10);
      		 model.addAttribute("recordCountPerPage", 10);
-     		 model.addAttribute("totalRecordCount", pParam.getRecordCountPerPage());
+     		 model.addAttribute("totalRecordCount", totalRecordCount);
      		  
      		 model.addAttribute("param", pParam);
      		 model.addAttribute("c_name", c_name);
@@ -548,7 +680,6 @@ public class ProductManageController {
   		}
   		return "redirect:/admin/company/productoperlist";
   	}
-  	
     
     @ResponseBody
     @GetMapping("/getProductDetail")
