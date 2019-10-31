@@ -2,10 +2,12 @@ package com.rhymes.app.customer.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +35,29 @@ public class QnaController {
 	
 	//qna list
 	@RequestMapping(value = "/qnalist")
-	public String qnalist(Model model, CustomerParam param ,Principal pcp) {
+	public String qnalist(Model model, CustomerParam param ,Principal pcp, HttpServletResponse resp) {
 		
 		model.addAttribute("doc_title", "1:1 문의");
 		
-		String id = pcp.getName();
+		if(pcp != null) {
+			String id = pcp.getName();
+			param.setId(id);
+		}else {
+		//로그인 후 이용 가능	
+			 resp.setCharacterEncoding("utf-8");
+	         resp.setContentType("text/html; charset=utf-8");
+	         PrintWriter out;
+			try {
+				out = resp.getWriter();
+				out.println("<script type='text/javascript'>alert('로그인 후 이용 가능합니다'); location.href = \"/customercenter/noticelist\";</script>" );
+			         out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	          
+			//return "noticelist.tiles";
+		}
 		
-		param.setId(id);
 		
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2

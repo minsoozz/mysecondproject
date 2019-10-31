@@ -160,7 +160,7 @@ cursor: pointer;
    width:140px;
    height:55px;
    background: #CFEC40;   
-   font: Open Sans 25px;
+  font-size: 15px;
    color: black; 
    outline: 0;
    border: 0px solid gray; 
@@ -171,14 +171,13 @@ cursor: pointer;
    opacity: 0.5;
 }
 
-
 .customer-btn2{
    border-radius: 10px;
    margin-top:5px;
    width:135px;
    height:45px;
    background: white;
-   font: Open Sans 30px;
+   font-size: 15px;
    color: black; 
    outline: 0;
    border: 1px solid #cccccc; 
@@ -193,11 +192,10 @@ cursor: pointer;
    height:30px;
    background: #CFEC40;
    color: black; 
-  	font: Open Sans;
+   font: Open Sans;
    outline: 0;
    border: 0px solid #CFEC40; 
    margin-left: 5px;
-   
 }
 
 /* 모달 */

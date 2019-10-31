@@ -64,8 +64,9 @@
 						<form action="pqnaanswer" method="get">
 						<input type="hidden" name="p_seq" value="${pqna.p_seq }"/> <!-- 주문번호 -->
 								<input type="hidden" name="seq" value="${pqna.seq }">
-								<input type="submit" class="clickBtn2" value="답변">
-						
+								<c:if test="${0 eq pqna.feedback}">
+								<input type="submit" class="clickBtn1" value="답변">
+								</c:if>	
 				
 				<!-- 코어태그 추가하기 -->
 						<button type="button" class="clickBtn2" onclick="PqnaUpdate('${pqna.seq }')">수정</button>
