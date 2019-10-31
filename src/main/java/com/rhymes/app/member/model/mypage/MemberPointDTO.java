@@ -24,6 +24,8 @@ public class MemberPointDTO implements Serializable {
 	
 	private String coup_code;
 	
+	private String tdate;	// 출석체크 적립금 용
+	
 	public String getAmountStr() {
 		String s = "";
 		try {

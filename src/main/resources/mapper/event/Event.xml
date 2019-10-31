@@ -78,6 +78,19 @@
 	WHERE EDATE <![CDATA[>]]> #{ndate}
 </select>
 
+<!-- 출첵 적립금 확인 -->
+<select id="geteventduplicate_check" parameterType="com.rhymes.app.member.model.mypage.MemberPointDTO" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM RHY_MEM_POINT
+	WHERE USERID=#{userid} AND COMMENT=#{comment} AND RDATE LIKE '%'#{tdate}'%'
+	RDATE LIKE '%''2019-10-31''%'
+</select>
+
+<!-- 출첵 적립금 insert -->
+<insert id="eventcoupon_check" parameterType="com.rhymes.app.member.model.mypage.MemberPointDTO">
+	INSERT INTO RHY_MEM_POINT(C_SEQ, USERID, GDATE, EXPDATE, COUP_CODE, VISIBLE)
+	    VALUES(#{c_seq}, #{userid}, NOW(), DATE_ADD(NOW(), INTERVAL 1 MONTH), #{coup_code}, 1) 
+</insert>
 
 
 

@@ -32,23 +32,52 @@
 	<tr>
 	<c:if test="${nowdate <= enddate }">
 		<c:if test="${not empty event.coupon_seq1 && event.coupon_seq1 != 0}">
-			<td>					
-				<img alt="x" src="/img/member-img/welcome_cp2.png" id="_couponimg" class="couponimg">
-				&nbsp;&nbsp;<span id="_couponBtn" class="couponimg">download</span>
-				
-				<input type="hidden" id="cou_seq1" value="${event.coupon_seq1 }">
-				<input type="hidden" id="userid" value="${userloginid }">
-			</td>
+			<c:if test="${event.coupon_title1!='출석체크쿠폰' || event.coupon_title1!='출석체크쿠폰' }">
+				<td>					
+					<img alt="x" src="/img/member-img/welcome_cp2.png" id="_couponimg" class="couponimg">
+					&nbsp;&nbsp;<span id="_couponBtn" class="couponimg">download</span>
+					
+					<input type="hidden" id="cou_seq1" value="${event.coupon_seq1 }">
+					<input type="hidden" id="userid" value="${userloginid }">
+				</td>
+			</c:if>
 		</c:if>
 		<c:if test="${not empty event.coupon_seq2 && event.coupon_seq2 != 0}">
-			<td>				
-				<img alt="x" src="/img/member-img/welcome_cp2.png" id="_couponimg" class="couponimg">
-				&nbsp;&nbsp;<span id="_couponBtn" class="couponimg">download</span>
-				
-				<input type="hidden" id="cou_seq1" value="${event.coupon_seq2 }">
-				<input type="hidden" id="userid" value="${userloginid }">
-			</td>
+			<c:if test="${event.coupon_title1!='출석체크쿠폰' || event.coupon_title1!='출석체크쿠폰' }">
+				<td>				
+					<img alt="x" src="/img/member-img/welcome_cp2.png" id="_couponimg" class="couponimg">
+					&nbsp;&nbsp;<span id="_couponBtn" class="couponimg">download</span>
+					
+					<input type="hidden" id="cou_seq1" value="${event.coupon_seq2 }">
+					<input type="hidden" id="userid" value="${userloginid }">
+				</td>
+			</c:if>
 		</c:if>
+		
+		<!-- 출석체크 쿠폰 -->
+		<c:if test="${not empty event.coupon_seq1 && event.coupon_seq1 != 0}">
+			<c:if test="${event.coupon_title1=='출석체크쿠폰' || event.coupon_title1=='출석체크쿠폰' }">
+				<td>
+					<img alt="x" src="/img/member-img/cc_1.jpg" id="_couponimg" class="coupon_check" 
+						style="position: relative;top: -400px;left: 257px;cursor: pointer;border-radius: 5px;box-shadow: 0px 2px 12px;">
+					
+					<input type="hidden" id="cou_seq1" value="${event.coupon_seq1 }">
+					<input type="hidden" id="userid" value="${userloginid }">
+				</td>	
+			</c:if>
+		</c:if>
+		<c:if test="${not empty event.coupon_seq2 && event.coupon_seq2 != 0}">
+			<c:if test="${event.coupon_title1=='출석체크쿠폰' || event.coupon_title1=='출석체크쿠폰' }">
+				<td>
+					<img alt="x" src="/img/member-img/cc_1.jpg" id="_couponimg" class="coupon_check"
+						style="position: relative;top: -400px;left: 257px;cursor: pointer;border-radius: 5px;box-shadow: 0px 2px 12px;">
+					
+					<input type="hidden" id="cou_seq1" value="${event.coupon_seq2 }">
+					<input type="hidden" id="userid" value="${userloginid }">
+				</td>	
+			</c:if>
+		</c:if>
+		
 	</c:if>
 	</tr>	
 	
@@ -110,6 +139,39 @@ $(".couponimg").click(function(){
 	
 });
 
+// 출석체크 쿠폰 다운로드
+$(".coupon_check").click(function(){
+	
+	var userid = $("#userid").val();	// 유저 id
+	var c_seq = $("#cou_seq1").val();	// 쿠폰번호
+
+	if(userid==null||userid==''){	// 로그인이 안되어있다면
+		alert("로그인이 필요합니다.");
+		location.href="/member/login";
+	}else{
+		
+		 $.ajax({
+			type:"get",
+			url:"/event/eventcoupon_check",
+			data:"c_seq="+c_seq+"&userid="+userid,
+			success:function(data){
+				if(data=="ok"){
+					alert("출석체크 완료!");
+				}
+				else{
+					alert("이미 출석체크를 했습니다.");
+				}
+				
+			},
+			err: function(err){
+				alert(err.status);
+			}
+				
+		}); 
+		
+	}
+	
+});
 
 
 </script>

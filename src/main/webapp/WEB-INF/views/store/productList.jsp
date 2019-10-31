@@ -70,7 +70,6 @@ pageNumber : ${pageNumber }<br>
 			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
 			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
 		</div>
-
 		
 	</div>
 	</c:if>
@@ -79,6 +78,7 @@ pageNumber : ${pageNumber }<br>
 			<input type="hidden" class="hdnC1name" value="${c1name }">
 		<c:forEach items="${plist }" var="pro" varStatus="vs">
 		<div class='eachDiv' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
+			<%-- <div align="left">${pro.rnum }</div> --%>
 			<div style="margin-top: 18px; margin-bottom: 13px;"><img alt="사진없음" src="/upload/store/${pro.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"><br>
 			</div>
 			<c:if test="${pro.sum > 0}">
@@ -101,7 +101,6 @@ pageNumber : ${pageNumber }<br>
 				<font style="color:red; font-weight: bolder;">SOLD OUT</font>
 			</c:if>
 			<br>
-			<font>${pro.c1_name }</font>
 			
 		</div>	
 		</c:forEach>

@@ -40,97 +40,57 @@
    <br><br><br><br><br><br><br><br>
 
 
-<h4 style="margin-left: 60px; color: gray">BEST</h4>
+<h4 style="margin-left: 60px; color: gray">WOMEN BEST7</h4>
+<br>
+<!-- ****** Welcome Post Area Start ****** -->
+    <section class="welcome-post-sliders owl-carousel" >
+		<!-- Single Slide -->
+		<c:forEach items="${womenbest }" var="women" varStatus="vs">
+        <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${women.p_seq}&c1_name=${women.c1_name }'" style="cursor:pointer;">
+            <!-- Post Thumb -->
+            <img src="/upload/store/${women.photo1_file }" alt="ㅋ사진없음ㅋ">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                	<a href="#" style="font-size: 20px">${women.rnum }</a>
+                    <a href="#" style="font-size: 20px">${women.c2_name }</a>
+                </div>
+                <a href="#">
+                    <h5>${women.c_name }</h5>
+                    <h2 style="color:white">${women.p_name }</h2>
+                </a>
+            </div>
+        </div>
+        </c:forEach>
+    </section>
+ <br>
+ <h4 style="margin-left: 60px; color: gray">MEN BEST7</h4>
 <br>
 <!-- ****** Welcome Post Area Start ****** -->
     <section class="welcome-post-sliders owl-carousel">
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
+		<!-- Single Slide -->
+		<c:forEach items="${menbest }" var="men" varStatus="vs">
+        <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${men.p_seq}&c1_name=${men.c1_name }'" style="cursor:pointer;">
             <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
+            <img src="/upload/store/${men.photo1_file }" alt="ㅋ사진없음ㅋ">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
+                    <a href="#" style="font-size: 22px">${men.rnum }</a>
+                    <a href="#" style="font-size: 20px">${men.c2_name }</a>
                 </div>
                 <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                    <h5>${men.c_name }</h5>
+                    <h2 style="color:white">${men.p_name }</h2>
                 </a>
             </div>
         </div>
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title"> 
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
- 
-    </section>
+        </c:forEach>
+    </section>   
+    
     <!-- ****** Welcome Area End ****** -->
 
     <br><br><br><br><br><br><br><br>
-
-
 
    
    <div class="thumbnail-wrapper"> 
