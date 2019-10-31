@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
 import com.rhymes.app.event.service.EventService;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
@@ -162,7 +163,7 @@ public class EventController {
 	@RequestMapping(value = "/eventcoupon_check", method = RequestMethod.GET)
 	public String eventcoupon_check(MemberPointDTO dto, Principal prc, Model model)throws Exception{
 		dto.setUserid(prc.getName());
-		
+		System.out.println("d@@@@@@@@@@@@" + dto.toString());
 		// 오늘 날짜를 얻어옴
 		Calendar cal = Calendar.getInstance();
 		int tyear = cal.get(Calendar.YEAR);
@@ -174,14 +175,18 @@ public class EventController {
 		
 		// 이미 발급받은 쿠폰인지 확인
 		boolean a = eventService.geteventduplicate_check(dto);
-		
+
 		String msg = "";
 		
 		if(a) {
 			msg = "no";
 		}
 		else {
-			eventService.eventcoupon_check(dto);	// 'rhy_mem_coupon_detail' insert
+			// 쿠폰 금액을  뽑기위한
+			MemberCouponDTO coupondto = eventService.getcouponamount(dto);
+			System.out.println("@@@@@@@@@@@@@" + coupondto.toString());
+			dto.setAmount(coupondto.getFunc_num());
+			eventService.eventcoupon_check(dto);	// 'RHY_MEM_POINT' insert
 			msg = "ok";			
 		}
 
