@@ -50,7 +50,7 @@
         <!-- Single Slide -->
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
+            <img src="" alt="XXXXXXXXXXXXXXX">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">

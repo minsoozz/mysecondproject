@@ -8,9 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import com.rhymes.app.companyadmin.dao.ProductManageDao;
 import com.rhymes.app.companyadmin.model.ProductManageDto;
+import com.rhymes.app.companyadmin.model.StockManageDto;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.model.ProductDto;
 import com.rhymes.app.store.model.ProductParam;
+import com.rhymes.app.store.model.RestockNotifyDto;
 import com.rhymes.app.store.model.StockDto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
@@ -111,6 +113,34 @@ public class ProductManageDaoImpl implements ProductManageDao{
 	@Override
 	public int getc2seq(Category2Dto cate2) throws Exception {
 		return sqlSession.selectOne(ns + "getc2seq", cate2);
+	}
+
+	@Override
+	public List<StockDto> stockmanage(StockManageDto stockmanage) throws Exception {
+		return sqlSession.selectList(ns + "cAdminStockManage", stockmanage);
+	}
+
+	@Override
+	public int stockcnt(StockManageDto stockmanage) throws Exception {
+		return sqlSession.selectOne(ns + "cAdminStockCnt", stockmanage); 
+	}
+
+	@Override
+	public boolean changestockquantity(StockDto stock) throws Exception {
+		int n = sqlSession.update(ns + "cAdminchangestockquantity", stock);
+		return n>0?true:false; 
+	}
+
+	@Override
+	public boolean restockcheck(StockDto stock) throws Exception {
+		int n = sqlSession.selectOne(ns + "cAdminrestockcheck", stock);
+		return n>0?true:false;
+	}
+
+	@Override
+	public List<RestockNotifyDto> getrestockphonenumbers(StockDto stock) throws Exception {
+		List<RestockNotifyDto> phonelist = sqlSession.selectList(ns + "cAdmingetrestockphonenumbers", stock);
+		return phonelist;
 	}
 
 	
