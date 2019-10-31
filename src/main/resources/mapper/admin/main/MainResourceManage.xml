@@ -65,7 +65,59 @@
 		</if>
 	
 	WHERE SEQ = 1
-	
 </update>
+
+<select id="getbestitemlist" resultType="com.rhymes.app.store.model.ProductDto" parameterType="com.rhymes.app.store.model.ProductDto">
+	SELECT F.RNUM,
+		   F.P_NAME,
+		   F.P_SEQ,		   
+		   F.C1_NAME,
+		   F.C2_NAME,
+		   F.C3_NAME,
+		   F.C_NAME,
+     	   F.SALESVOLUME,
+     	   F.PHOTO1_FILE
+	FROM(
+		SELECT ROW_NUMBER()OVER(ORDER BY SALESVOLUME DESC) AS RNUM,
+															  a.P_SEQ,
+															  a.P_NAME,
+															  a.C1_NAME,
+															  a.C2_NAME,
+															  a.C3_NAME,
+															  a.C_NAME,
+															  a.PHOTO1_FILE,
+															  SUM(SALES) AS SALESVOLUME
+								   
+		FROM (SELECT ROW_NUMBER()OVER(ORDER BY SALES ASC) AS RNUM2,
+															 a.P_SEQ,
+															 a.P_NAME,
+															 a.C_NAME,
+															 a.C1_NAME,
+															 a.C2_NAME,
+															 a.C3_NAME,
+															 a.PHOTO1_FILE,
+															 IFNULL((SELECT SUM(d.EA) 
+																	FROM rhy_payment e 
+																	WHERE e.PAYMENT_STATUS = '결제완료' 
+																		AND e.PAYMENT_CODE = d.PAYMENT_CODE
+																	GROUP BY d.S_SEQ), 0) AS SALES
+								
+				FROM rhy_store_product a
+					INNER JOIN rhy_store_stock b
+						ON a.P_SEQ = b.P_SEQ
+					LEFT OUTER JOIN rhy_payment_details d
+						ON b.STOCK_SEQ = d.S_SEQ
+				WHERE a.C1_NAME = #{c1_name}
+				GROUP BY b.STOCK_SEQ
+				ORDER BY SALES DESC) A
+		GROUP BY a.P_SEQ DESC) F
+		WHERE F.RNUM BETWEEN 1 AND 7
+		ORDER BY F.RNUM ASC
+		
+</select>
+
+
+
+
 
 </mapper>
