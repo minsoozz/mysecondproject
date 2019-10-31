@@ -54,12 +54,7 @@
        WHERE SEQ = #{seq}
     </select>
     
-    <!-- qna 올리기 -->
-    <insert id="QnaUpload" parameterType="com.rhymes.app.customer.model.QnaDto">
-	INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,TITLE,CONTENT, WDATE, ORDERNO, FILENAME)
-	VALUES(#{id}, #{category},(SELECT IFNULL(MAX(REF), 0)+1 FROM QNA ALIAS_FOR_SUBQUERY),0,0, #{title}, #{content}, NOW(), #{orderno}, #{filename}, 0)
-	</insert>
-	
+
 	<!-- qna 수정 -->
     <update id="QnaUpdateAf" parameterType="com.rhymes.app.customer.model.QnaDto">
 	UPDATE QNA

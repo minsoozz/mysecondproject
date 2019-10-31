@@ -31,6 +31,7 @@ public class PreviewDto {
 	private String rdate;	//등록일
 	private String p_name;	//상품이름
 	
-	private String mylike;
+	private String mylike; //나의 좋아요 유무
+	private String size; //사이즈
 	
 }

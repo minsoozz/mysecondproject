@@ -51,6 +51,18 @@
 					</td>
 				</tr>
 				<tr>
+					<th>상품번호</th>
+					<td> 
+					${pqna.p_seq }
+					<a href="/admin/company/stocklist?p_seq=${pqna.p_seq }"><input type="button" class="clickBtn3" value="상품조회" style="font-size: 14px;"> </a>
+						
+					</td>
+					<th>상품이름</th>
+					<td> 
+						${pqna.p_name }
+					</td>
+				</tr>
+				<tr>
 					<th>내용</th>
 					<td colspan="3">
 					<div style="white-space:pre-line;">

@@ -41,7 +41,13 @@
 				
 				<tr>
 					<th>주문번호</th>
-					<td>${qna.orderno }</td>
+					<td>${qna.orderno }
+					<a href="/admin/payment/detail?payment_code=${qna.orderno }">
+					<c:if test="${'' ne qna.orderno }">
+					<input type="button" class="clickBtn3" value="주문조회">
+					</c:if>
+					</a>
+					</td>
 				</tr>
 				
 				
@@ -81,9 +87,10 @@
 						<input type="hidden" name="seq" value="${qna.seq }">
 						<c:if test="${0 eq qna.feedback}">
 						<input type="submit" class="clickBtn1" value="답변">
-						</c:if>	
-						<button type="button" class="clickBtn2" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
+						</c:if>
 						<button type="button" class="clickBtn2" onclick="QnaUpdate('${qna.seq }')">수정</button>
+						<button type="button" class="clickBtn2" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
+						
 				</form>
 				</div>
 

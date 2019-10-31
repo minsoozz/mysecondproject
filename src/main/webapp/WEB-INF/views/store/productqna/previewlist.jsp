@@ -53,7 +53,7 @@
 <tr class="detail" id='detail${review.seq}'>
 	<td colspan="5" align="left">
 	<div>
-	${review.p_name }
+	${review.p_name } _ ${review.size} size 구매
 	${review.content }
 	
 	</div>
