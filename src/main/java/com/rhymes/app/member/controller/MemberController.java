@@ -121,6 +121,7 @@ public class MemberController {
 		memService.getAddSeller(sellerbean, mem); // 사업자 회원가입
 		
 		model.addAttribute("auth", mem.getAuthList());
+		model.addAttribute("auth", "ROLE_SELLER");
 		return "rhyregisuc";
 	}
 
