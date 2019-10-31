@@ -22,10 +22,10 @@ public class SellerBean implements Serializable {
 	private String userid;
 	private String userpw;
 	
-	private boolean isAccountNonExpired = true;
-	private boolean isAccountNonLock = true;
-	private boolean isCredentialsIsNonExpired = true;	
-	private boolean enabled;
+	private String isAccountNonExpired;
+	private String isAccountNonLock;
+	private String isCredentialsIsNonExpired;	
+	private String enabled;
 	private List<AuthoritiesDTO> authList;
 	private Date rdate;
 	

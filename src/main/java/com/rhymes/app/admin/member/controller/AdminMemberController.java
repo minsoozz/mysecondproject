@@ -131,25 +131,44 @@ public class AdminMemberController {
 	public String memLock(MemBean bean, HttpServletRequest req) {
 		log.info("show admin memLock");
 
-		String dd[] = req.getParameterValues("checkid");
-		int checklen = dd.length;
-		bean.setChecklen(checklen);
-		
-		adminMemberService.getMemLock(bean);
-		return "redirect:/admin/memlist";
+		if(bean.getAuthority().equals("ROLE_SELLER")) {
+			String dd[] = req.getParameterValues("checkid");
+			int checklen = dd.length;
+			bean.setChecklen(checklen);
+			
+			adminMemberService.getMemLock(bean);
+			return "redirect:/admin/mem_c_list";
+		}
+		else {
+			String dd[] = req.getParameterValues("checkid");
+			int checklen = dd.length;
+			bean.setChecklen(checklen);
+			
+			adminMemberService.getMemLock(bean);
+			return "redirect:/admin/memlist";			
+		}
 	}
 	
 	// 회원 정지 해제
 	@RequestMapping(value = "/memLock_n", method = {RequestMethod.GET, RequestMethod.POST})
 	public String memLock_n(MemBean bean, HttpServletRequest req) {
 		log.info("show admin memLock");
-
-		String dd[] = req.getParameterValues("checkid");
-		int checklen = dd.length;
-		bean.setChecklen(checklen);
 		
-		adminMemberService.getMemLock_n(bean);
-		return "redirect:/admin/memlist";
+		if(bean.getAuthority().equals("ROLE_SELLER")) {	// 업체리스트로 이동
+			String dd[] = req.getParameterValues("checkid");
+			int checklen = dd.length;
+			bean.setChecklen(checklen);
+			
+			adminMemberService.getMemLock_n(bean);
+			return "redirect:/admin/mem_c_list";
+		}else {	// 회원리스트로 이동
+			String dd[] = req.getParameterValues("checkid");
+			int checklen = dd.length;
+			bean.setChecklen(checklen);
+			
+			adminMemberService.getMemLock_n(bean);
+			return "redirect:/admin/memlist";
+		}
 	}
 
 	

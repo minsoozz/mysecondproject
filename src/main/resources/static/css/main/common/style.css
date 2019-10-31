@@ -423,6 +423,7 @@ li {
 
 .top_header_area .signup-search-area {
     height: 40px;
+    left:185px;
     position: relative;
     z-index: 3;
 }
