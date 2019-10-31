@@ -143,7 +143,7 @@ function idCheck(focusYN) {
 		success:function(msg){
 
 			if(msg == 'YES'){
-	 			alert("msg == YES");	// id있음	
+// 	 			alert("msg == YES");	// id있음	
 	 		$("#_rgetid").html("사용할 수 없는 아이디입니다.");
 	 		$("#_rgetid").css("color", "#b3130b");
 	 		$("#_id").val("");
