@@ -30,20 +30,9 @@ $(document).ajaxSend(function(e, xhr, options) {
 		<font style="font-size: 12px;"><strong style="margin-right: 17px;">LAST CHANGE</strong><br>
 		${resource.u_date }</font>
 	</div>
-	<div>
-		<div>
-				<fieldset>
-					<label> <input class="cb cb1" type="checkbox" name="bannertype" value="video"
-						onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'VIDEO'? 'checked':'' }"/> /> <i></i> 
-						<span>VIDEO</span>
-					</label> 
-					<label> <input class="cb cb2" type="checkbox" name="bannertype" value="photo"
-						onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'PHOTO'? 'checked':'' }"/> /> <i></i> 
-						<span>PHOTO</span>
-					</label>
-				</fieldset>
-			</div>
-	</div>
+
+
+
 
 	<div align="center">
 		<!-- banner -->
@@ -81,18 +70,32 @@ $(document).ajaxSend(function(e, xhr, options) {
 					
 					<!-- photo 2 photo -->
 					<button id="btn-banner_udt">CHANGE</button>
+					
 					<input type="file" name="fileload" id="banner-upload" style="display:none">
 					<!-- photo 2 video -->
 					<button id="btn-banner_udt0" style="display:none">CHANGE</button>
 					<input type="file" name="fileload" id="banner-upload0" style="display:none">	
 				</c:if>
+				
 				<input type="hidden" name="which" value="banner">
 				<input type="hidden" name="bannertype" id="_bannertype" value="${resource.mainbanner_type }">
 			</form>
 			</div>
+			
 		</div>
-
-
+				
+			<div id="choice_checkbox">
+				<fieldset>
+					<label> <input class="cb cb1" type="checkbox" name="bannertype" value="video"
+						onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'VIDEO'? 'checked':'' }"/> /> <i></i> 
+						<span>VIDEO</span>
+					</label> 
+					<label> <input class="cb cb2" type="checkbox" name="bannertype" value="photo"
+						onclick="cbChange(this)" <c:out value="${resource.mainbanner_type == 'PHOTO'? 'checked':'' }"/> /> <i></i> 
+						<span>PHOTO</span>
+					</label>
+				</fieldset>
+			</div>
 	
 	<!-- photo1 -->
 		<div id="eachresource-div">
@@ -451,7 +454,7 @@ function handleImgsFilesSelect(e) {
 
 	filesArr.forEach(function(f) {
 		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
+			alert("이미지 확장자만 등록이 가능합니다.");
 			$("input_imgs").val("");
 			return;
 		}
@@ -478,11 +481,11 @@ function handleImgsFilesSelect1(e) {
 	var filesArr = Array.prototype.slice.call(files);
 
 	filesArr.forEach(function(f) {
-	/* 	if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			$("input_imgs").val("");
+	 	if (!f.type.match("video.*")) {
+			alert("동영상 확장자만 등록이 가능합니다.");
+			$("input_videos").val("");
 			return;
-		} */
+		} 
 		sel_file = f;
 		var reader = new FileReader();
 		reader.onload = function(e) {
@@ -496,59 +499,6 @@ function handleImgsFilesSelect1(e) {
 	});
 }
 
-//video1 preview
-$(document).ready(function() {
-	$("#video1-upload").on("change", handleImgsFilesSelect2);
-});
-function handleImgsFilesSelect2(e) {
-	var files = e.target.files;
-	var filesArr = Array.prototype.slice.call(files);
-
-	filesArr.forEach(function(f) {
-		/* if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			$("input_imgs").val("");
-			return;
-		} */
-		sel_file = f;
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			var video_html = "<video src='" + e.target.result + "' width='80%' height='10%' loop='loop' autoplay='autoplay'></video>";
-			$(".previewvideo1").html("");
-			$(".previewvideo1").append(video_html);
-			$("#btn-video1_udt").remove();
-			$(".previewvideo1").after("<button class='udt-finishbtn' value='video1' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
-		}
-		reader.readAsDataURL(f);
-	});
-}
-
-//video2 preview
-$(document).ready(function() {
-	$("#video2-upload").on("change", handleImgsFilesSelect3);
-});
-function handleImgsFilesSelect3(e) {
-	var files = e.target.files;
-	var filesArr = Array.prototype.slice.call(files);
-
-	filesArr.forEach(function(f) {
-		/* if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			$("input_imgs").val("");
-			return;
-		} */
-		sel_file = f;
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			var video_html = "<video src='" + e.target.result + "' width='80%' height='10%' loop='loop' autoplay='autoplay'></video>";
-			$(".previewvideo2").html("");
-			$(".previewvideo2").append(video_html);
-			$("#btn-video2_udt").remove();
-			$(".previewvideo2").after("<button class='udt-finishbtn' value='video2' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
-		}
-		reader.readAsDataURL(f);
-	});
-}
 
 //photo1 preview
 $(document).ready(function() {
@@ -561,7 +511,7 @@ function handleImgsFilesSelect4(e) {
 
 	filesArr.forEach(function(f) {
 		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
+			alert("이미지 확장자만 등록이 가능합니다.");
 			$("input_imgs").val("");
 			return;
 		}
@@ -578,6 +528,34 @@ function handleImgsFilesSelect4(e) {
 	});
 }
 
+//video1 preview
+$(document).ready(function() {
+	$("#video1-upload").on("change", handleImgsFilesSelect2);
+});
+function handleImgsFilesSelect2(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+	 	if (!f.type.match("video.*")) {
+			alert("동영상 확장자만 등록이 가능합니다.");
+			$("input_videos").val("");
+			return;
+		} 
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var video_html = "<video src='" + e.target.result + "' width='80%' height='10%' loop='loop' autoplay='autoplay'></video>";
+			$(".previewvideo1").html("");
+			$(".previewvideo1").append(video_html);
+			$("#btn-video1_udt").remove();
+			$(".previewvideo1").after("<button class='udt-finishbtn' value='video1' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+
 //photo2 preview
 $(document).ready(function() {
 	$("#photo2-upload").on("change", handleImgsFilesSelect5);
@@ -589,7 +567,7 @@ function handleImgsFilesSelect5(e) {
 
 	filesArr.forEach(function(f) {
 		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
+			alert("이미지 확장자만 등록이 가능합니다.");
 			$("input_imgs").val("");
 			return;
 		} 
@@ -607,7 +585,32 @@ function handleImgsFilesSelect5(e) {
 }
 
 
+//video2 preview
+$(document).ready(function() {
+	$("#video2-upload").on("change", handleImgsFilesSelect3);
+});
+function handleImgsFilesSelect3(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
 
+	filesArr.forEach(function(f) {
+	 	if (!f.type.match("video.*")) {
+			alert("동영상 확장자만 등록이 가능합니다.");
+			$("input_videos").val("");
+			return;
+		} 
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var video_html = "<video src='" + e.target.result + "' width='80%' height='10%' loop='loop' autoplay='autoplay'></video>";
+			$(".previewvideo2").html("");
+			$(".previewvideo2").append(video_html);
+			$("#btn-video2_udt").remove();
+			$(".previewvideo2").after("<button class='udt-finishbtn' value='video2' style='background-color:#CFEC40; color:white; width:150px;'>FINISH</button>");
+		}
+		reader.readAsDataURL(f);
+	});
+}
 
 
 

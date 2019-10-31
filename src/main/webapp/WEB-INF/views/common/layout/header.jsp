@@ -121,9 +121,6 @@
 	                                <a href="#" class="search_btn">Search</a>
 	                            </div>
 	                            
-	                            
-                     
-	             
                         </div>
                     </div>
                     
