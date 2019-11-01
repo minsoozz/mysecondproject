@@ -202,7 +202,6 @@ var chart = Highcharts.chart('containerDay', {
     },
 
     xAxis: {
-    	min: 1,
         categories: []
     },
 
