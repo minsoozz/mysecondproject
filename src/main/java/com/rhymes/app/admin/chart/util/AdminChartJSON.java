@@ -3,6 +3,7 @@ package com.rhymes.app.admin.chart.util;
 import java.util.List;
 
 import com.rhymes.app.admin.chart.model.AdminChartDTO;
+import com.rhymes.app.admin.chart.model.AdminChartSearchDTO;
 
 public class AdminChartJSON {
 	AdminChartplus0 minus = new AdminChartplus0();
@@ -43,6 +44,21 @@ public class AdminChartJSON {
 		//맨 끝에 ,만 빼고 다 가져와라
 		
 		return jsonday;
+	}
+	
+	public String jsonchangmonthStr(AdminChartSearchDTO dto) {
+		int lastday = new AdminChartLastDay().LastDay( Integer.parseInt(dto.getMonth()) );
+		System.out.println("lastday : " + lastday);
+		
+		// 마지막일까지
+		String jsonmonth = "[";
+		for (int i = 1; i < lastday+1; i++) {
+			jsonmonth += i + ",";
+		}
+		jsonmonth = jsonmonth.substring(0, jsonmonth.lastIndexOf(","));
+		jsonmonth += "]";
+		
+		return jsonmonth;
 	}
 	
 }
