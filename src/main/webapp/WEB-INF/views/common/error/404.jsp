@@ -5,8 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.error_img{
+	width: 100%;
+	height: 100%;
+}
+</style>
 </head>
 <body>
-페이지를 찾을 수 없습니다.
+<img id="_error_img" class="error_img" alt="" src="https://s3.amazonaws.com/woocms.woorank.com/2016/Jun/ifolderlinks_custom_404_page-1466002790909.png">
 </body>
 </html>

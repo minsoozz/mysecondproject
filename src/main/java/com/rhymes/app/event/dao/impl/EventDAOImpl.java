@@ -10,6 +10,7 @@ import com.rhymes.app.admin.events.model.CouponDetailDTO;
 import com.rhymes.app.event.dao.EventDAO;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
@@ -78,6 +79,11 @@ public class EventDAOImpl implements EventDAO {
 	public boolean geteventduplicate_check(MemberPointDTO dto) {
 		int count = sqlSession.selectOne(ns+"geteventduplicate_check", dto);
 		return count>0?true:false;
+	}
+	// 쿠폰금액뽑기
+	@Override
+	public MemberCouponDTO getcouponamount(MemberPointDTO dto) {
+		return sqlSession.selectOne(ns+"getcouponamount", dto);
 	}
 	// 출첵 적립금 등록
 	@Override
