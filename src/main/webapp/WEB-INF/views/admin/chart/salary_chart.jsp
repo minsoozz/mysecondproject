@@ -208,7 +208,20 @@ var chart = Highcharts.chart('containerDay', {
     xAxis: {
         categories: <%=request.getAttribute("monthStr") %>
     },
-
+    yAxis: { // Primary yAxis
+        labels: {
+            format: '{value}원',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: '총 매출',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    },
     series: [{
         type: 'column',
         colorByPoint: true,
