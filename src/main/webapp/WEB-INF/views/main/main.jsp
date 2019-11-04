@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% String ctx = request.getContextPath(); %>
@@ -21,8 +21,6 @@
 </head> 
 
 <body>
-
-   
    
       <div class="mainpick-wrapper"> 
 	   <div class="mainpick"> 
@@ -39,16 +37,21 @@
 	   </div> 	 
      </div>     
 
-   <br><br><br><br><br><br><br><br>
+ <br>
+ 
 
 
+    <br><br><br><br><br><br><br><br>
+   
+    
+    
 <h4 style="margin-left: 60px; color: gray">WOMEN BEST7</h4>
 <br>
 <!-- ****** Welcome Post Area Start ****** -->
     <section class="welcome-post-sliders owl-carousel" >
 		<!-- Single Slide -->
 		<c:forEach items="${womenbest }" var="women" varStatus="vs">
-        <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${women.p_seq}&c1_name=${women.c1_name }'" style="cursor:pointer;">
+        <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${women.p_seq}&c1_name=${women.c1_name }'" style="cursor:pointer; ">
             <!-- Post Thumb -->
             <img src="/upload/store/${women.photo1_file }" alt="ㅋ사진없음ㅋ">
             <!-- Overlay Text -->
@@ -57,43 +60,14 @@
                 	<a href="#" style="font-size: 20px">${women.rnum }</a>
                     <a href="#" style="font-size: 20px">${women.c2_name }</a>
                 </div>
-                <a href="#">
-                    <h5>${women.c_name }</h5>
-                    <h2 style="color:white">${women.p_name }</h2>
-                </a>
+                    <h6 style="color: white;">${women.c_name }</h6>
+                    <h5 style="color:white">${women.p_name }</h5>
             </div>
         </div>
         </c:forEach>
     </section>
- <br>
- <h4 style="margin-left: 60px; color: gray">MEN BEST7</h4>
-<br>
-<!-- ****** Welcome Post Area Start ****** -->
-    <section class="welcome-post-sliders owl-carousel">
-		<!-- Single Slide -->
-		<c:forEach items="${menbest }" var="men" varStatus="vs">
-        <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${men.p_seq}&c1_name=${men.c1_name }'" style="cursor:pointer;">
-            <!-- Post Thumb -->
-            <img src="/upload/store/${men.photo1_file }" alt="ㅋ사진없음ㅋ">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#" style="font-size: 22px">${men.rnum }</a>
-                    <a href="#" style="font-size: 20px">${men.c2_name }</a>
-                </div>
-                <a href="#">
-                    <h5>${men.c_name }</h5>
-                    <h2 style="color:white">${men.p_name }</h2>
-                </a>
-            </div>
-        </div>
-        </c:forEach>
-    </section>   
-    
-    <!-- ****** Welcome Area End ****** -->
-
-    <br><br><br><br><br><br><br><br>
-
+    <br><br><br><br>
+       
    
    <div class="thumbnail-wrapper"> 
 	   <div class="thumbnail"> 
@@ -110,17 +84,37 @@
    </div>
    <br><br><br><br><br><br>
    
-    <div align="center">
-    <video src='/upload/mainresource/${dto.video1_file}' style="width: 90%; height: 10%" loop="loop" autoplay="autoplay"></video>
-     <br><br>
-     <h3 style="color: black">${dto.video1_title}</h3>
-     <br> 
-	<p style="font-size: 15px">${dto.video1_content}</p>
-     <a href="#" class="mainbuybtn">구매하기</a>
-   </div>
-   <br><br><br><br><br><br>
+
 
        
+       
+        <h4 style="margin-left: 60px; color: gray">MEN BEST7</h4>
+	<br>
+<!-- ****** Welcome Post Area Start ****** -->
+    <section class="welcome-post-sliders owl-carousel">
+		<!-- Single Slide -->
+		<c:forEach items="${menbest }" var="men" varStatus="vs">
+        <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${men.p_seq}&c1_name=${men.c1_name }'" style="cursor:pointer;">
+            <!-- Post Thumb -->
+            <img src="/upload/store/${men.photo1_file }" alt="ㅋ사진없음ㅋ">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#" style="font-size: 22px">${men.rnum }</a>
+                    <a href="#" style="font-size: 20px">${men.c2_name }</a>
+                </div>
+                
+		               <h6 style="color: white;">${men.c_name }</h6>
+		               <h5 style="color:white">${men.p_name }</h5>
+            </div>
+        </div>
+        </c:forEach>
+    </section>   
+    
+    <br><br><br><br>
+    <!-- ****** Welcome Area End ****** -->
+    
+    
      <div class="thumbnail-wrapper"> 
 	   <div class="thumbnail"> 
 		   <div class="centered"> 
@@ -136,9 +130,22 @@
    </div>
    <br><br><br><br><br><br>
 
+
+
+
+    <div align="center">
+    <video src='/upload/mainresource/${dto.video1_file}' style="width: 90%; height: 10%" loop="loop" autoplay="autoplay"></video>
+     <br><br>
+     <h3 style="color: black">${dto.video1_title}</h3>
+     <br> 
+	<p style="font-size: 15px">${dto.video1_content}</p>
+     <a href="#" class="mainbuybtn">구매하기</a>
+   </div>
+   <br><br><br><br><br><br>
+   
    
   <div align="center">
-    <video src='/upload/mainresource/${dto.video2_file}' style="width: 80%;height: 10%;" loop="loop" autoplay="autoplay"></video>
+    <video src='/upload/mainresource/${dto.video2_file}' style="width: 90%;height: 10%;" loop="loop" autoplay="autoplay"></video>
      <br><br>
      <h3 style="color: black">${dto.video2_title}</h3>
      <br> 

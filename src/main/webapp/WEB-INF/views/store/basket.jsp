@@ -183,6 +183,7 @@ $(document).on('click', '.orderBtn', function(){
 	if($(".pay_price").html() == "0"){
 		$("#msg").html("<b>장바구니에 주문가능한 상품이 없습니다.</b>")
     	$(".wModal").fadeIn();
+		
     	setTimeout(function() {
     		$(".wModal").fadeOut();
     	},700);
@@ -221,8 +222,8 @@ $(document).on('click', '.allDeleteBtn', function(){
         	var str = "";
     		//str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
     		//str += "<img alt='사진없음' class='basketImg' src='/img/store-img/cart.png'>";            		
-    		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
-    		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
+    		str += "<span>장바구니에 담긴 상품이 없습니다.</span><br>";
+    		//str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
     		
     		
     		$("#mainContainer").append(str); 
@@ -396,8 +397,8 @@ $(document).on('click', '.delete_btn', function(){
 	            		//str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
 	            		//str += "<img alt='사진없음' class='basketImg' src='/img/store-img/cart.png'>";            		
 	            		//str += "<label class='nothingLabel' value='장바구니에 담긴 상품이 없습니다.'></label>";
-	            		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
-	            		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
+	            		str += "<span>장바구니에 담긴 상품이 없습니다.</span><br>";
+
 	            		
 	            		$("#mainContainer").append(str); 
 	            	}

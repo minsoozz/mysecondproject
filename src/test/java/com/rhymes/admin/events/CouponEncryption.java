@@ -17,7 +17,7 @@ public class CouponEncryption {
 	@Autowired
 	BCryptPasswordEncoder bp;
 	
-	@Test
+	//@Test
 	public void genCoup() {
 		log.info("[test] generate coupon codes");
 		

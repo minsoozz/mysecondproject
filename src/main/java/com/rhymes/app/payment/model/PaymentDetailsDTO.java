@@ -22,7 +22,7 @@ public class PaymentDetailsDTO implements Serializable {
 	private int price;						// 상품결제가격
 	private String payment_code;			// 결제코드
 	private String review_written;			// 후기작성여부
-	private Date rdate;						// 결제일
+	private String rdate;					// 결제일
 
 	// 결제 후 rhy_payment_details 디비에 넣을려고 (후기여부는 false이다)
 	public PaymentDetailsDTO(int s_seq, int ea, int price, String payment_code) {
