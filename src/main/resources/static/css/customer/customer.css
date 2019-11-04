@@ -202,11 +202,12 @@ cursor: pointer;
 /* The Modal (background) */
 .modal2 {
     display: none; /* Hidden by default */
-    /* position: fixed; Stay in place */
-    position: relative;
+    position: absolute; /* Stay in place */
     z-index: 1; /* Sit on top */
-     left: 0;
-    top:0; 
+    left: 500px;
+    top: 28.5%; 
+    
+    
     width: 770px; /* Full width */
 	 border: 1px solid #888;
     background-color: #ffffff; /* Fallback color */

@@ -82,7 +82,7 @@
     if ($.fn.scrollUp) {
         $.scrollUp({
             scrollSpeed: 1500,
-            scrollText: '<i class="fa fa-arrow-up" aria-hidden="true"></i>'
+            scrollText: ''
         });
     }
 
