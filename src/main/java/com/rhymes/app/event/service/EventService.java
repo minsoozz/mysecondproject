@@ -5,6 +5,7 @@ import java.util.List;
 import com.rhymes.app.admin.events.model.CouponDetailDTO;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
 import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
@@ -36,7 +37,8 @@ public interface EventService {
 	
 	// 출석체크 적립금 확인
 	public boolean geteventduplicate_check(MemberPointDTO dto);
-	
+	// 쿠폰금액 뽑기
+	public MemberCouponDTO getcouponamount(MemberPointDTO dto); 
 	// 출석체크 적립금 등록
 	public void eventcoupon_check(MemberPointDTO dto);
 }

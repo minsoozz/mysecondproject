@@ -61,7 +61,7 @@
 			PHOTO2_TITLE = #{photo2_title}
 		</if>
 		<if test="photo2_content != '' and photo2_content != null">
-			PHOTO2_CONTENT = #{photo2_title}
+			PHOTO2_CONTENT = #{photo2_content}
 		</if>
 	
 	WHERE SEQ = 1
