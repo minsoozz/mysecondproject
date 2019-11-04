@@ -19,8 +19,8 @@ public class OrderDTO implements Serializable {
 	private String id;						// 주문하는 사람 id
 	private int stock_seq;					// 재고번호
 	private String photo1_file;				// 파일이름
-	private String c_name;					// 회사명
 	private String p_name;					// 상품명
+	private String p_title;					// 상품 타이틀
 	private int quantity; 					// 주문한 수량
 	private int p_price;					// 단가
 	private String size;					// 사이즈

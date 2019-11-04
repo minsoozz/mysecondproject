@@ -76,9 +76,6 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">CHART</h6>
 							<a class="collapse-item" href="/admin/chart/salary">매출 통계</a>
-							<a class="collapse-item" href="/admin/chart/member">회원 통계</a>
-							<a class="collapse-item" href="/admin/chart/company">업체별 통계</a>
-							<a class="collapse-item" href="/admin/chart/product">상품 통계</a>
 						</div>
 					</div>
 				</li>
@@ -93,8 +90,6 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
 							<a class="collapse-item" href="/admin/payment/success">주문조회</a>
-							<!-- <a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
-							<a class="collapse-item" href="/admin/payment/cancel">취소/환불관리</a> -->
 						</div>
 					</div>
 				</li>
@@ -114,7 +109,7 @@
 				</li>
 				
 				<!-- DB 액셀 다운로드 -->
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExcel" aria-expanded="true" aria-controls="collapseUtilities">
 						<i class="fas fa-fw fa-chart-area"></i>
 						<span>DB 다운로드</span>
@@ -125,7 +120,7 @@
 							<a class="collapse-item" href="/admin/excel/move">DB 액셀 다운로드</a>
 						</div>
 					</div>
-				</li>
+				</li> -->
 				
 				<!-- 고객센터 -->
 				<li class="nav-item">
@@ -222,8 +217,6 @@
 							<a class="collapse-item" href="/admin/company/payment/success">주문조회</a>
 							<a class="collapse-item" href="/admin/company/payment/vbank">무통장입금 관리</a>
 							<a class="collapse-item" href="/admin/company/payment/delivery">배송 관리</a>
-							<!-- <a class="collapse-item" href="/admin/company/payment/exchange">교환관리</a>
-							<a class="collapse-item" href="/admin/company/payment/cancel">취소/환불관리</a> -->
 						</div>
 					</div>
 				</li>
