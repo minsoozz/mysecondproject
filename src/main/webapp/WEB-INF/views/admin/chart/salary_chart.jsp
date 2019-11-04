@@ -1,3 +1,4 @@
+<%@page import="com.rhymes.app.admin.chart.model.AdminChartSearchDTO"%>
 <%@page import="com.rhymes.app.admin.chart.util.AdminChartJSON"%>
 <%@page import="com.rhymes.app.admin.chart.model.AdminChartDTO"%>
 <%@page import="com.google.gson.JsonObject"%>
@@ -10,11 +11,9 @@
 
 <%
 List<AdminChartDTO> monthPriceJson = (List<AdminChartDTO>)request.getAttribute("monthPriceJson");
-request.setAttribute("monthPriceJson", monthPriceJson);
 List<AdminChartDTO> monthNumJson = (List<AdminChartDTO>)request.getAttribute("monthNumJson");
-request.setAttribute("monthNumJson", monthNumJson);
 List<AdminChartDTO> dayJson = (List<AdminChartDTO>)request.getAttribute("dayJson");
-request.setAttribute("dayJson", dayJson);
+AdminChartSearchDTO search = (AdminChartSearchDTO)request.getAttribute("search");
 
 
 
@@ -22,18 +21,23 @@ AdminChartJSON json = new AdminChartJSON();
 String monthPriceStr = json.jsonchangmonthPrice(monthPriceJson);
 String monthNumStr = json.jsonchangmonthNum(monthNumJson);
 String dayStr = json.jsonchangday(dayJson);
+String monthStr = json.jsonchangmonthStr(search);
 
 
 
 System.out.println("monthPriceStr : " + monthPriceStr);
 System.out.println("monthNumStr : " + monthNumStr);
 System.out.println("dayStr : " + dayStr);
+System.out.println("monthStr : " + monthStr);
 
 
 
 request.setAttribute("monthPriceStr", monthPriceStr);
 request.setAttribute("monthNumStr", monthNumStr);
 request.setAttribute("dayStr", dayStr);
+request.setAttribute("monthStr", monthStr);
+request.setAttribute("search_year", search.getYear());
+request.setAttribute("search_month", search.getMonth());
 %>
 
 <!DOCTYPE html>
@@ -122,7 +126,7 @@ Highcharts.chart('containerMonth', {
         text: 'RHYMESb 매출'
     },
     subtitle: {
-        text: '2019 년도'
+        text: '<%=request.getAttribute("search_year")%>'+'년도 월별 매출'
     },
     xAxis: [{
         categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
@@ -194,18 +198,30 @@ Highcharts.chart('containerMonth', {
 var chart = Highcharts.chart('containerDay', {
 
     title: {
-        text: 'Chart.update'
+        text: 'RHYMESb 매출'
     },
 
     subtitle: {
-        text: 'Plain'
+        text: '<%=request.getAttribute("search_month")%>'+'월 일별 매출'
     },
 
     xAxis: {
-    	min: 1,
-        categories: []
+        categories: <%=request.getAttribute("monthStr") %>
     },
-
+    yAxis: { // Primary yAxis
+        labels: {
+            format: '{value}원',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        },
+        title: {
+            text: '총 매출',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            }
+        }
+    },
     series: [{
         type: 'column',
         colorByPoint: true,
