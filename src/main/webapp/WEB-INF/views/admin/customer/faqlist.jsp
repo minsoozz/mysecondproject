@@ -63,7 +63,7 @@
 		    
 		<table style="width:100%;"class="table table-hover" >
 		<colgroup>
-			<col width="50"><col width="150"><col width="400"><col width="100">
+			<col width="50"><col width="200"><col width="400"><col width="100">
 		</colgroup>
 		<thead>
 		<tr>
