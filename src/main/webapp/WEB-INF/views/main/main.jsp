@@ -53,7 +53,7 @@
 		<c:forEach items="${womenbest }" var="women" varStatus="vs">
         <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${women.p_seq}&c1_name=${women.c1_name }'" style="cursor:pointer; ">
             <!-- Post Thumb -->
-            <img src="/upload/store/${women.photo1_file }" alt="ㅋ사진없음ㅋ">
+            <img src="/upload/store/${women.photo1_file }" alt="사진없음">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
@@ -79,7 +79,9 @@
 	   <h3 style="color: black">${dto.photo1_title}</h3>
      <br>
      <p style="font-size: 15px">${dto.photo1_content}</p>     
-     <a href="#" class="mainbuybtn">구매하기</a>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1071&c1_name=WOMEN&c2_name=WOMEN&c3_name=WOMEN&keyword=" class="mainbuybtn">구매하기</a>
+     
+    
      </div>
    </div>
    <br><br><br><br><br><br>
@@ -96,7 +98,7 @@
 		<c:forEach items="${menbest }" var="men" varStatus="vs">
         <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${men.p_seq}&c1_name=${men.c1_name }'" style="cursor:pointer;">
             <!-- Post Thumb -->
-            <img src="/upload/store/${men.photo1_file }" alt="ㅋ사진없음ㅋ">
+            <img src="/upload/store/${men.photo1_file }" alt="사진없음">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
@@ -125,7 +127,7 @@
 	   <h3 style="color: black">${dto.photo2_title}</h3>
      <br>
      <p style="font-size: 15px">${dto.photo2_content}</p>     
-     <a href="#" class="mainbuybtn">구매하기</a>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1072&c1_name=MEN&c2_name=MEN&c3_name=MEN&keyword=" class="mainbuybtn">구매하기</a>
      </div>
    </div>
    <br><br><br><br><br><br>
@@ -150,7 +152,7 @@
      <h3 style="color: black">${dto.video2_title}</h3>
      <br> 
 	<p style="font-size: 15px">${dto.video2_content}</p>    
-     <a href="#" class="mainbuybtn">구매하기</a>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1070&c1_name=WOMEN&c2_name=WOMEN&c3_name=WOMEN&keyword=" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br><br><br>
     <!-- 추천 상품 끝 -->
