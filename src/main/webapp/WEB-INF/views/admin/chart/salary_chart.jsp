@@ -25,10 +25,10 @@ String monthStr = json.jsonchangmonthStr(search);
 
 
 
-System.out.println("monthPriceStr : " + monthPriceStr);
+/* System.out.println("monthPriceStr : " + monthPriceStr);
 System.out.println("monthNumStr : " + monthNumStr);
 System.out.println("dayStr : " + dayStr);
-System.out.println("monthStr : " + monthStr);
+System.out.println("monthStr : " + monthStr); */
 
 
 
@@ -71,7 +71,7 @@ request.setAttribute("search_month", search.getMonth());
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
-				<div class="row">	
+				<div class="row" style="width: 95%;">
 						
 						<!-- 검색 -->
 						<div class="col-sm-12 col-md-6">
