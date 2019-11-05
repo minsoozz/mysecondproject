@@ -11,10 +11,10 @@
 
 <!-- 장바구니에서 결제페이지로 주문한 상품정보 가져오기 -->
 <select id="getOrder" parameterType="com.rhymes.app.payment.model.OrderDTO" resultType="com.rhymes.app.payment.model.OrderDTO">
-SELECT P.C_NAME, P.P_NAME, P.P_PRICE, P.PHOTO1_FILE, S.STOCK_SEQ, S.SIZE, P.P_COLOR
-FROM RHY_STORE_PRODUCT P, RHY_STORE_STOCK S
-WHERE P.P_SEQ = S.P_SEQ
-AND STOCK_SEQ=#{stock_seq}
+SELECT SP.C_NAME, SP.P_NAME, SP.P_PRICE, SP.PHOTO1_FILE, SS.STOCK_SEQ, SS.SIZE, SP.P_COLOR, SP.P_TITLE
+FROM RHY_STORE_PRODUCT SP, RHY_STORE_STOCK SS
+WHERE SP.P_SEQ = SS.P_SEQ
+AND SS.STOCK_SEQ=#{stock_seq}
 </select>
 
 <!-- 결제페이지로 적립금 가져오기 매개변수로 받은 ID가 갖는 적립금 중 유효한 적립금 총 합 리턴 -->
