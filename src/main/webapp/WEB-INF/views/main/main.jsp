@@ -127,7 +127,7 @@
 	   <h3 style="color: black">${dto.photo2_title}</h3>
      <br>
      <p style="font-size: 15px">${dto.photo2_content}</p>     
-     <a href="http://localhost:18080/store/productDetail?p_seq=1061&c1_name=MEN" class="mainbuybtn">구매하기</a>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1072&c1_name=MEN&c2_name=MEN&c3_name=MEN&keyword=" class="mainbuybtn">구매하기</a>
      </div>
    </div>
    <br><br><br><br><br><br>
