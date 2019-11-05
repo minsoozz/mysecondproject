@@ -29,6 +29,9 @@ $(function(){
 			cancelOrder();
 		}
 	});
+	
+	//푸터 간격 조절
+	adjustFooterHeight();
 });
 
 //개별 물품 1건 장바구니 저장
@@ -88,4 +91,14 @@ function cancelOrder(){
 			alert('오류 발생. 고객센터로 문의하세요.');
 		}
 	});
+}
+
+//푸터 간격 조절 함수
+function adjustFooterHeight(){
+	//console.log('푸터조절');
+	var lastWrap = $(".orderdetail_delivery_info_wrap");
+	//var contentH = $(".mypage_middle_content_template").css('height');
+	var contentH = lastWrap.offset().top + lastWrap.height();
+	//console.log(contentH + ' ' + (contentH/2));
+	$("#footer_wrap_mypage").css('top', (contentH/1.6) + 'px');
 }
