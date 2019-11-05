@@ -45,7 +45,7 @@
 							<c:forEach begin="0" end="${fn:length(orderDetail) -1 }" step="1" varStatus="i">
 								<tr>
 									<td>${i.index +1 }</td>
-									<td><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${orderDetail[i.index].photo1_file }" width="150" height="150"></td>
+									<td><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${orderDetail[i.index].photo1_file }" width="150" height="150">${orderDetail[i.index].photo1_file }</td>
 									<td>${orderDetail[i.index].stock_seq }</td>
 									<td>${orderDetail[i.index].ea }</td>
 									<td>${orderDetail[i.index].price }</td>

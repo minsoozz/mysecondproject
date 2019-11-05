@@ -25,6 +25,11 @@ $(document).ready(function () {
 	
 	});
 	
+	// 배송요청사항
+	$("#receive_address_request").on("change keyup paste", function() {
+		$("#request_span").text( $(this).val().length );
+	});
+	
 		
 	
 });

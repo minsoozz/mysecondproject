@@ -81,6 +81,21 @@ body{
 	opacity: 0.5;
 }
 
+#soldoutBtn{
+	border-radius: 10px;
+	margin-top:13px;
+	margin-bottom:10px;
+	width:300px;
+	height:55px;
+	background: #CFEC40;	
+	font: Open Sans 30px;
+	font-size:17px;
+	color: black; 
+	outline: 0;
+	border: 0px solid gray; 
+
+}
+
 #b_btn{
 	font-size: 15px;
 	
@@ -348,7 +363,7 @@ opacity: 0.5;
 	position: fixed; /* Stay in place */
 	z-index: 500; /* Sit on top */
 	left: 0;
-	top: -13%;
+	top: -15%;
 	width: 100%; /* Full width */
 	height: 113%; /* Full height */
 	overflow: hidden; /* Enable scroll if needed */
@@ -411,10 +426,15 @@ opacity: 0.5;
 	height:55px;	
 }
 ._putrsSize{
-	margin-left: 180px;
+	margin-left: 190px;
 	padding-left:28px;
 	float:left;
 	width:150px;
 	text-align: center;
 }
-
+#restockLabel{
+	font-size: 15px;	
+}
+#restockseq-hdn{
+	font-size: 20px;
+}

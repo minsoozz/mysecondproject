@@ -163,7 +163,6 @@ public class EventController {
 	@RequestMapping(value = "/eventcoupon_check", method = RequestMethod.GET)
 	public String eventcoupon_check(MemberPointDTO dto, Principal prc, Model model)throws Exception{
 		dto.setUserid(prc.getName());
-		System.out.println("d@@@@@@@@@@@@" + dto.toString());
 		// 오늘 날짜를 얻어옴
 		Calendar cal = Calendar.getInstance();
 		int tyear = cal.get(Calendar.YEAR);
@@ -184,7 +183,6 @@ public class EventController {
 		else {
 			// 쿠폰 금액을  뽑기위한
 			MemberCouponDTO coupondto = eventService.getcouponamount(dto);
-			System.out.println("@@@@@@@@@@@@@" + coupondto.toString());
 			dto.setAmount(coupondto.getFunc_num());
 			eventService.eventcoupon_check(dto);	// 'RHY_MEM_POINT' insert
 			msg = "ok";			

@@ -42,39 +42,6 @@ public class OrdercheckController {
 		model.addAttribute("order_detail_list", order_detail_list);
 		return "/order_detail";
 	}
-	
-	// 회원일때 주문내역 확인 페이지로 이동
-//	@RequestMapping("/ordercheck_move")
-//	public String ordercheck_move(Model model) {
-//
-//		List<PaymentDTO> order_list = new ArrayList<PaymentDTO>();
-//		
-//		// 주문내역 가져오기
-//		order_list = OrdercheckService.getOrdercheck();
-//		model.addAttribute("order_list", order_list);
-//		
-//		return "/order_move";
-//	}
-	
-//	// 주문내역/배송조회 페이지에서 배송현황보기 팝업창
-//	@RequestMapping("/ordercheck_delivery_popup")
-//	public String ordercheck_delivery_popup(Model model, String payment_code) {
-//
-//		List<DeliveryDTO> order_delivery_list = new ArrayList<DeliveryDTO>();
-//		
-//		// 배송현황 가져오기
-//		order_delivery_list = OrdercheckService.getOrdercheckDelivery(payment_code);
-//		model.addAttribute("order_delivery_list", order_delivery_list);
-//		
-//		return "/order_delivery_popup";
-//	}
-
-//	// 주문내역/배송조회 페이지에서 상품후기쓰기로 이동
-//	@RequestMapping("/ordercheck_review_move")
-//	public String ordercheck_review_move(Model model, PaymentDTO dto) {
-//
-//		return "/order_review_move";
-//	}
 
 
 
