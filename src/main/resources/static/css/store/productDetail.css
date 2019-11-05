@@ -363,7 +363,7 @@ opacity: 0.5;
 	position: fixed; /* Stay in place */
 	z-index: 500; /* Sit on top */
 	left: 0;
-	top: -13%;
+	top: -15%;
 	width: 100%; /* Full width */
 	height: 113%; /* Full height */
 	overflow: hidden; /* Enable scroll if needed */

@@ -611,10 +611,20 @@ $('body').click(function(e){
 });
 // restock
 $(document).on('click', '#restockBtn', function(){
+	 
+	if(id==""){
+	      $("#msg").html("<b><font style='font-size:35px'>로그인 후 이용해주세요.</b>")
+	      $(".wModal").fadeIn();
+	      setTimeout(function() {
+	         $(".wModal").fadeOut();
+	      },1500);
+	      
+	}else{
+		$(".restockModal").fadeIn();
+	}
+	//var p_seq = "${productDto.p_seq }";
 	
-	$(".restockModal").fadeIn();
 	
-	var p_seq = "${productDto.p_seq }";
 	
 });
 // sold out
@@ -666,13 +676,11 @@ $(document).on('click', '.sizeLabel', function(){
 $(document).on('click', '.wishBtn', function(){
    
    if(id==""){
-      $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
+      $("#msg").html("<b><font style='font-size:35px'>로그인 후 이용해주세요.</b>")
       $(".wModal").fadeIn();
       setTimeout(function() {
          $(".wModal").fadeOut();
       },1500);
-      
-      location.href="/member/login";
       
    }else{
       var p_seq = $("#hdnPseq").val();
