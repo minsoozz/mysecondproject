@@ -86,13 +86,16 @@ public class CompanyAdminPaymentController {
 		return "company/vbank";
 	}
 	
-	// 무통장 입금 미결제 -> 결제완료
+	// 무통장 입금 미결제 -> 결제완료, 추가 적립금 저장
 	@GetMapping("/vbank/finish")
-	public String vbankfinish(Model model, Principal pcp, HttpServletRequest req) {
+	public String vbankfinish(Model model, Principal pcp, HttpServletRequest req, PaymentDTO dto) {
+		log.warn("dto : " + dto.toString());
 		String[] seq = req.getParameterValues("seq");
 		for (int i = 0; i < seq.length; i++) {
 			// 결제완료로 변경
 			boolean b = com_admin_paymentService.paymentfinish(seq[i]);
+			// 추가 적립금 저장
+			boolean b1 = com_admin_paymentService.add_point(dto);
 		}
 		// 마켓명
 		String market = com_admin_paymentService.getMarketName(pcp.getName());

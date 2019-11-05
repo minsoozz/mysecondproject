@@ -58,6 +58,9 @@
 										<tr>
 											<td>
 											<input type="checkbox" class="checkid" id="checkid" name="seq" value="${v.seq }">
+											<input type="hidden" name="payment_code" value="${v.payment_code }">
+											<input type="hidden" name="userid" value="${v.userid }">
+											<input type="hidden" name="add_point" value="${v.add_point }">
 											</td>
 											<td>${fn:substring(v.payment_code,4,16) }</td>
 											<c:if test="${not empty v.userid }">

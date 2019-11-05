@@ -43,7 +43,7 @@
 		<div class="divback">
 			<h4>상품 정보</h4>
 			<table class="payment_tb">
-				<tr style="border-bottom: 1px solid #dbdbdb;">
+				<tr style="border-bottom: 1px solid #dbdbdb; /* background-color: red; */">
 					<td colspan="2" align="center" width="50%">상품 정보</td>
 					<td width="20%" align="center">상품 금액</td>
 				</tr>
@@ -171,9 +171,9 @@
 		</div>
 		<br><br><br><br><br><br>
 		
-<input type="hidden" id="disc_coupon" name="disc_coupon" value="0" size="2">
-<input type="hidden" id="disc_point" name="disc_point" value="0" size="2">
-<input type="hidden" id="totalprice" name="totalprice" value="0" size="2">
+		<input type="hidden" id="disc_coupon" name="disc_coupon" value="0" size="2">
+		<input type="hidden" id="disc_point" name="disc_point" value="0" size="2">
+		<input type="hidden" id="totalprice" name="totalprice" value="0" size="2">
 
 		<!-- 로그인 했을때만 보이기 -->
 		<div class="divback">

@@ -208,6 +208,10 @@ public class PaymentController {
 			boolean b4 = PaymentService.update_isused_coupon(dto);
 			//log.warn("paymentAf 쿠폰코드 사용으로 변경 : " + b4);
 		}
+		if(pcp != null && !dto.getPayment_method().equals("무통장입금")) {
+			// 회원이면서 무통장입금이 아닐 때
+			boolean b5 = PaymentService.add_point(dto);
+		}
 
 		// 배송내역 저장
 		boolean b5 = PaymentService.delivery_save(dto);
