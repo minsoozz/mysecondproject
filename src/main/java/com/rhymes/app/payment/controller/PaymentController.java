@@ -154,8 +154,8 @@ public class PaymentController {
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
-		log.warn("dto : " + dto.toString());
-		log.warn("dtoAf : " + dtoAf.toString());
+		//log.warn("dto : " + dto.toString());
+		//log.warn("dtoAf : " + dtoAf.toString());
 
 		String userid = "";
 		if(pcp != null) {
@@ -195,7 +195,7 @@ public class PaymentController {
 		boolean b3 = PaymentService.payment_after(dtoAf);
 		//log.warn("paymentAf 결제 내역 애프터 저장 : " + b3);
 		
-		log.warn("쿠폰 : " + dto.getDisc_coupon() + ", 적립금 : " + dto.getDisc_point());
+		//log.warn("쿠폰 : " + dto.getDisc_coupon() + ", 적립금 : " + dto.getDisc_point());
 		
 		if(pcp != null && dto.getDisc_point() > 0) {
 			// 적립금 차감한다
@@ -203,7 +203,7 @@ public class PaymentController {
 			//log.warn("paymentAf 적립금 차감 : " + b);
 		}
 		if(pcp != null && dto.getDisc_coupon() > 0) {
-			log.warn("여기는 쿠폰 차감하는 곳");
+			//log.warn("여기는 쿠폰 차감하는 곳");
 			// 사용한 쿠폰을 사용으로 변환
 			boolean b4 = PaymentService.update_isused_coupon(dto);
 			//log.warn("paymentAf 쿠폰코드 사용으로 변경 : " + b4);
