@@ -380,7 +380,7 @@ public class MemberController {
 		String userid = memService.getusertel(pmem);
 		
 		if (!userid.equals(pmem.getUserid())) {
-			return "rhyfindid";
+			return "rhyfindpw";
 		} else {
 			model.addAttribute("userid", userid);
 			return "rhypwreset";
