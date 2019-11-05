@@ -165,7 +165,7 @@
 				</tr>
 				<tr>
 					<td>배송 요청사항</td>
-					<td><textarea id="receive_address_request" name="receive_address_request" rows="3" cols="70"></textarea>0자/50자</td>
+					<td><textarea id="receive_address_request" name="receive_address_request" rows="3" cols="70"></textarea><span id="request_span"></span>자/50자</td>
 				</tr>
 			</table>
 		</div>
