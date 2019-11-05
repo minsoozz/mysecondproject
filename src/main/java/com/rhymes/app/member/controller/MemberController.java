@@ -208,7 +208,7 @@ public class MemberController {
 		boolean b = memService.getEmailCheck_C(userEmail);
 		boolean c = memService.getEmailCheck_P(userEmail);
 		
-		if(b&&c) {
+		if(b||c) {
 			return "no";
 		}else {
 			String code = "";
@@ -380,7 +380,7 @@ public class MemberController {
 		String userid = memService.getusertel(pmem);
 		
 		if (!userid.equals(pmem.getUserid())) {
-			return "rhyfindid";
+			return "rhyfindpw";
 		} else {
 			model.addAttribute("userid", userid);
 			return "rhypwreset";

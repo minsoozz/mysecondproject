@@ -445,7 +445,7 @@ function checkIt() {
 				<input type="button" id="_emailNumBtn" value="인증번호 확인" class="regibutton"/>
 							<input type="hidden" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
 							<input type="hidden" id="_checkCode" name="checkCode" placeholder="이메일 인증했는지 체크">
-				<p id="emailNumText"></p>
+				<p id="emailNumText" class="txt txt2"></p>
 			</td>
 		</tr>
 		<tr>
@@ -611,24 +611,30 @@ $(document).ready(function(){
 		var emailcode = $("#_hiddenCode").val();	// 이메일로 발송된 인증번호
 		
 		if(usercode=="" || usercode==null){
-			alert("인증번호를 입력해 주세요");
+// 			alert("인증번호를 입력해 주세요");
+			$("#emailNumText").text("인증번호를 입력해 주세요");
+			$("#emailNumText").css("color","#B3130B");
 			$("#_emailText").focus();
 		}
 		if(emailcode=="" || emailcode==null){
-			alert("이메일 인증번호를 발급받으세요");			
+// 			alert("이메일 인증번호를 발급받으세요");		
+			$("#emailNumText").text("이메일 인증번호를 발급받으세요");
+			$("#emailNumText").css("color","#B3130B");
+			$("#_emailText").focus();
 		}
-		
-		if(usercode == emailcode){
-		//	alert("확인되었습니다.");
+		if(emailcode==""){
+			$("#emailNumText").text("이메일을 입력해주세요");
+			$("#emailNumText").css("color","#B3130B");
+		}
+		else if(usercode == emailcode){
 			$("#_emailText").css("background-color","f1f1f1");
 			$("#emailNumText").text("이메일 인증 완료");
-			$("#emailNumText").css("color","green");
+			$("#emailNumText").css("color","#0B0FB3");
 			$("#_checkCode").val(emailcode);
 			
 		}else{
-		//	alert("인증번호가 틀렸습니다. 다시 확인해주세요");
 			$("#emailNumText").text("인증번호가 틀렸습니다. 다시 확인해주세요");
-			$("#emailNumText").css("color","red");
+			$("#emailNumText").css("color","#B3130B");
 			$("#_emailText").focus();
 		}
 
@@ -706,11 +712,11 @@ $(document).ready(function() {
       else{
           
           if(userNum.trim() == sysNum.trim()){
-             alert("성공");
+             alert("확인되었습니다.");
              $("#textresult").val(sysNum);
           }
           else {
-             alert("실패");
+//              alert("실패");
           }          
       }
 
