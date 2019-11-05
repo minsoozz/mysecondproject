@@ -15,7 +15,7 @@
 
 /* 버튼 */
 #ordercheck_confirm_btn{ border-radius: 10px; margin-top:13px; margin-bottom:10px; width:400px; height:70px; background: #CFEC40; font: Open Sans 30px; color: black; outline: 0; border: 0px solid gray; }
-#ordercheck_confirm_btn{ opacity: 0.5; }
+#ordercheck_confirm_btn:hover{ opacity: 0.5; }
 
 
 

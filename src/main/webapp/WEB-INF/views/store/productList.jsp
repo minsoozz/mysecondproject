@@ -98,7 +98,7 @@ pageNumber : ${pageNumber }<br>
 				&#8361;${pro.p_price2 }</font>
 			</c:if>
 			<c:if test="${pro.sum eq 0}">
-				<font style="color:red; font-weight: bolder;">SOLD OUT</font>
+				<font style="color:orange; font-weight: bolder;">SOLD OUT</font>
 			</c:if>
 			<br>
 			

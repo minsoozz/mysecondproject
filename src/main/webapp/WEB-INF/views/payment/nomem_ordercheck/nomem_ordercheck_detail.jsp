@@ -91,8 +91,7 @@
 				<c:forEach begin="0" end="${fn:length(order_detail_list) -1 }" step="1" varStatus="i">
 					<tr>
 						<td>${i.index + 1 }</td>
-						<td><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }" width="150" height="150">
-							${order_detail_list[i.index].photo1_file }</td>
+						<td><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${order_detail_list[i.index].photo1_file }" width="150" height="150"></td>
 						<td>[${order_detail_list[i.index].p_name }]<br>${order_detail_list[i.index].p_title }</td>
 						<td>${order_detail_list[i.index].ea }개</td>
 						<td>${order_detail_list[i.index].size }</td>

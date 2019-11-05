@@ -48,7 +48,6 @@ public class AdminChartJSON {
 	
 	public String jsonchangmonthStr(AdminChartSearchDTO dto) {
 		int lastday = new AdminChartLastDay().LastDay( Integer.parseInt(dto.getMonth()) );
-		System.out.println("lastday : " + lastday);
 		
 		// 마지막일까지
 		String jsonmonth = "[";

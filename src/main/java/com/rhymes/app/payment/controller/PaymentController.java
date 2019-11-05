@@ -69,7 +69,6 @@ public class PaymentController {
 		
 		// 회원이면 주문자 정보에 자동 입력하기 위해서
 		if(userid != null) {
-			log.warn("123");
 			P_MemberDTO p_mem = PaymentService.getMemberInfo(userid);
 			model.addAttribute("p_mem", p_mem);
 		}
