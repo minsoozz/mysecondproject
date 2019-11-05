@@ -191,6 +191,6 @@
 		</div>
 	</div>
 </div><!-- 배송정보 끝 -->
-<input type="button" value="3333" onclick="adjustFooterHeight();"/>
+<!-- <input type="button" value="3333" onclick="adjustFooterHeight();"/> -->
 
 </html>
