@@ -17,16 +17,17 @@
 <body>
 <br><br>
 <div id="cart_wrap" align="center">
-<h2><b>장바구니</b></h2>
 
+<c:if test="${blist ne null }">
+<h2><b>장바구니</b></h2>
 <div id="cntProduct_wrap"><label id="_allCnt">${fn:length(blist) }</label>개 상품</div>
 </div>
-
-<hr style='margin-top:-10px; margin-left: 30px' width='100%' color='#DADCE0'>
+</c:if>
 
 <div id="mainContainer">
 <c:if test="${blist eq null }">
 <div id=sub1Container">
+	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT09uR_LfHPdzAfTxt9K3hvmH6atw3ZJRM6lMX9BaaDf9U1EMHfcQ"><br>
 	<h3 style="color: gray">장바구니에 담긴 상품이 없습니다.</h3>
 </div>
 </c:if>
