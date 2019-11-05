@@ -100,5 +100,5 @@ function adjustFooterHeight(){
 	//var contentH = $(".mypage_middle_content_template").css('height');
 	var contentH = lastWrap.offset().top + lastWrap.height();
 	//console.log(contentH + ' ' + (contentH/2));
-	$("#footer_wrap_mypage").css('top', (contentH/1.6) + 'px');
+	$("#footer_wrap_mypage").css('top', (contentH/1.4) + 'px');
 }
