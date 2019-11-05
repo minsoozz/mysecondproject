@@ -7,7 +7,7 @@ public class HttpSessionConfiguration implements HttpSessionListener {
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
 		// session timeout
-		se.getSession().setMaxInactiveInterval(5);
+		se.getSession().setMaxInactiveInterval(60*15);
 	}
 
 	@Override
