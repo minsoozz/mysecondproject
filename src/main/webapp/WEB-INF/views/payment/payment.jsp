@@ -51,7 +51,7 @@
 				<c:forEach begin="0" end="${fn:length(basketList) -1 }" varStatus="i">
 					<tr>
 						<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }" width="150" height="150"></td>
-						<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].c_name }</td>
+						<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].p_title }</td>
 						<td rowspan="2" width="10%" align="center" id="one_total_price${i.index }">
 						<fmt:formatNumber value="${basketList[i.index].p_price * basketList[i.index].quantity }" />원
 							<input type="hidden" name="stock_seq" value="${basketList[i.index].stock_seq }">
@@ -83,9 +83,9 @@
 						<input type="text" id="userNum" placeholder="인증번호 입력">
 						<!-- 인증번호 입력창 -->
 						<input type="button" id="enterBtn" value="확인">
-						<input type="text" name="text" id="text">
+						<!-- <input type="text" name="text" id="text"> -->
 						<!-- 인증번호를 히든으로 저장해서 보낸다 -->
-						<input type="text" id="text_confirm"></td>
+						<!-- <input type="text" id="text_confirm"></td> -->
 				</tr>
 				<tr>
 					<td>보내는 분 *</td>
@@ -165,7 +165,7 @@
 				</tr>
 				<tr>
 					<td>배송 요청사항</td>
-					<td><textarea id="receive_address_request" name="receive_address_request" rows="3" cols="70"></textarea>0자/50자</td>
+					<td><textarea id="receive_address_request" name="receive_address_request" rows="3" cols="70"></textarea><span id="request_span"></span>자/50자</td>
 				</tr>
 			</table>
 		</div>

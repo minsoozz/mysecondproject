@@ -644,7 +644,7 @@ $(document).on('click', '.udt-finishbtn', function(){
 						$("#previewbanner-video").html("");
 						$("#previewbanner-video").append("<br><br><br><br><br><br><strong>배너 영상을 등록해주세요.</strong><br><br><br><br><br><br>");
 					}
-				}else{        			
+				}else{
 					$(".preview" + which).after("<button id='btn-"+ which + "_udt'>CHANGE</button>");			
 				}
 				$(".udt-finishbtn").remove();
