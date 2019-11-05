@@ -141,7 +141,7 @@
      <h3 style="color: black">${dto.video1_title}</h3>
      <br> 
 	<p style="font-size: 15px">${dto.video1_content}</p>
-     <a href="#" class="mainbuybtn">구매하기</a>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1073&c1_name=WOMEN&c2_name=WOMEN&c3_name=WOMEN&keyword=" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br><br><br>
    
