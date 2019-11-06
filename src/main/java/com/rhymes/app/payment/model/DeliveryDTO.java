@@ -44,4 +44,7 @@ public class DeliveryDTO implements Serializable {
 	private String delivery_post_code;				// 운송장번호
 	private String delivery_request;				// 배송요청사항
 	private String edate;							// 배송완료일
+
+	private String userid;							// 회원id
+	private int add_point;							// 추가 적립금
 }

@@ -70,22 +70,6 @@
 	WHERE REF=#{ref}
 	</delete>
 	
-	<!-- qna 답글 -->
-	<update id="QnaAnswer" parameterType="com.rhymes.app.customer.model.QnaDto">
-	UPDATE QNA
-		SET STEP = (STEP+1)     
-			WHERE REF= #{ref}
-			AND STEP> #{step}
-	</update>
-	<insert id="QnaAnswerAf" parameterType="com.rhymes.app.customer.model.QnaDto">
-	     INSERT INTO QNA(ID, CATEGORY,REF,STEP,DEPTH,
-	     				TITLE,CONTENT, WDATE, ORDERNO, FILENAME, FEEDBACK)
-	     VALUES(#{id},#{category}, 
-	     				#{ref},
-	     				#{step}+1, 
-	     				#{depth}+1,
-	     				#{title},#{content},  NOW(), #{orderno}, #{filename}, 1)
-	</insert>
 	
 	
 	

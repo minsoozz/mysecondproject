@@ -28,9 +28,6 @@ public interface CompanyAdminPaymentService {
 	// 결제완료로 변경
 	public boolean paymentfinish(String seq);
 
-	// 추가 적립금 저장
-	public boolean add_point(PaymentDTO dto);
-
 	// 배송관리
 	public List<DeliveryDTO> getDeliveryList(String userid);
 	
@@ -39,5 +36,8 @@ public interface CompanyAdminPaymentService {
 	
 	// 배송중 -> 배송완료
 	public boolean getDeliveryFinish(DeliveryDTO dto);
+
+	// 추가 적립금 저장
+	public boolean add_point(PaymentDTO dto);
 
 }

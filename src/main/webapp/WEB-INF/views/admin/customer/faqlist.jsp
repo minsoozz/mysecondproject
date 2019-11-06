@@ -50,7 +50,6 @@
 		<!-- 검색 -->
 		<div class="box_border" style="float: right;margin-bottom: 10px;" >
 		
-			
 			<input type="text"  name="s_keyword" value="${s_keyword }" class="searchText form-control-sm">
 			<span class="buttonsearch">
 				<button class="btn btn-primary" type="button">
@@ -58,14 +57,13 @@
 				</button>
 			</span>
 		
-		
 		</div>
 		<!-- 검색끝 -->
 		   
 		    
-		<table style="width:100%;"class="table table-bordered" >
+		<table style="width:100%;"class="table table-hover" >
 		<colgroup>
-			<col width="50"><col width="150"><col width="600"><col width="100">
+			<col width="50"><col width="200"><col width="400"><col width="100">
 		</colgroup>
 		<thead>
 		<tr>
@@ -80,10 +78,10 @@
 			</tr>
 		</c:if>
 		<c:forEach var="faq" items="${faqlist }" varStatus="vs">
-		<tr class="_hover_tr">
+		<tr class="_hover_tr" style="cursor: pointer;" onclick="faqdetail(${faq.seq})"> 
 			<td>${vs.count }</td>
 			<td>${faq.category }</td>
-			<td colspan="2" style="text-align: left;" onclick="faqdetail(${faq.seq})">
+			<td colspan="2" style="text-align: left;">
 					${faq.title }
 			</td>
 		</tr>

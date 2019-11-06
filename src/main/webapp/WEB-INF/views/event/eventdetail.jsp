@@ -59,7 +59,8 @@
 			<c:if test="${event.coupon_title1=='출석체크쿠폰' || event.coupon_title1=='출석체크쿠폰' }">
 				<td>
 					<img alt="x" src="/img/member-img/cc_22.png" class="coupon_check" 
-						style="position: relative;top: -400px;left: 279px;cursor: pointer;">
+						style="position: relative;top: -400px;left: 279px;cursor: pointer;
+								    box-shadow: 1px 1px 13px -4px; border-radius: 38px;">
 					
 					<input type="hidden" id="cou_seq1" value="${event.coupon_seq1 }">
 					<input type="hidden" id="cou_title1" value="${event.coupon_title1 }">
@@ -71,7 +72,8 @@
 			<c:if test="${event.coupon_title1=='출석체크쿠폰' || event.coupon_title1=='출석체크쿠폰' }">
 				<td>
 					<img alt="x" src="/img/member-img/cc_22.png" class="coupon_check"
-						style="position: relative;top: -400px;left: 279px;cursor: pointer;">
+						style="position: relative;top: -400px;left: 279px;cursor: pointer;
+							box-shadow: 1px 1px 13px -4px; border-radius: 38px;">
 					
 					<input type="hidden" id="cou_seq1" value="${event.coupon_seq2 }">
 					<input type="hidden" id="cou_title1" value="${event.coupon_title2 }">

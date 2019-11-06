@@ -41,7 +41,7 @@
 							<button type="button" class="clickBtn2" onclick="changebtn('0')" <c:if test="${s_category eq '0'}">id="_btnthis"</c:if>>미답변</button>
 							<button type="button" class="clickBtn2" onclick="changebtn('1')" <c:if test="${s_category eq '1'}">id="_btnthis"</c:if>>답변완료</button>
 				</div>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				
 				<!--비밀글 -->
 				<jsp:useBean id="spqna" class="com.rhymes.app.customer.util.PqnaSecret" scope="page"/>     
@@ -51,11 +51,11 @@
 				    
 				<table class="table table-bordered" style="width:100%" >
 				<colgroup>
-					<col width="100"><col width="700"><col width="150"><col width="150">
+					<col width="100"><col width="150"><col width="150"><col width="700"><col width="150"><col width="150">
 				</colgroup>
 				<thead>
 				<tr>
-					<th>번호</th><th>제목</th><th>작성자</th><th>작성일</th>
+					<th>번호</th><th>상품번호</th><th>상품명</th><th>제목</th><th>작성자</th><th>작성일</th>
 				</tr>
 				</thead>
 				
@@ -66,19 +66,20 @@
 					</tr>
 				</c:if>
 				<c:forEach var="pqna" items="${pqnalist }" varStatus="vs">
-				<tr class="_hover_tr">
+				<tr class="_hover_tr" onclick="pqnadetail(${pqna.seq})" style="cursor: pointer;">
 					<td>${vs.count }</td>
+					<td>${pqna.p_seq }</td>
+					<td>${pqna.p_name }</td>
 					<td style="text-align: left;">
-					
 					<!-- 비밀글 이미지-->
 					<jsp:setProperty property="secret" name="spqna" value="${pqna.secret }"/>
 					<jsp:getProperty property="arrow" name="spqna"/> <!-- getSecret 호출 -->		
 					<!-- 답변 이비지-->
 					<jsp:setProperty property="depth" name="uqna" value="${pqna.depth }"/>
 					<jsp:getProperty property="arrow" name="uqna"/> <!-- getArrow 호출 -->		
-							<a href="pqnadetail?seq=${pqna.seq}">
-							${pqna.title }
-						</a>
+						
+							${pqna.title }       
+						
 					</td>
 					<td>${pqna.id }</td>
 					<td>${fn:substring(pqna.wdate,0,10)}</td>
@@ -129,6 +130,10 @@
 <!-- 상품문의 -->
 <script type="text/javascript">
 
+function pqnadetail(seq){
+	
+	location.href = "pqnadetail?seq=" + seq;
+}
 
 function goPage(pageNumber) {
 	

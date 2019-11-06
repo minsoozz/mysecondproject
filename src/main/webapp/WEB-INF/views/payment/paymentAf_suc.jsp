@@ -68,14 +68,11 @@
 			</c:if>
 			
 			<c:if test="${not empty dto.userid }">
-				<c:if test="${dto.payment_status != '무통장입금' }">
-				제품 구입에 따른 적립금 <fmt:formatNumber value="${dto.add_point }" />원이 적립되었습니다.<br>
-				</c:if>
+			배송완료 후 제품 구입에 따른 적립금 <fmt:formatNumber value="${dto.add_point }" />원이 적립됩니다.<br>
 				<c:if test="${dto.payment_status == '무통장입금' }">
 					무통장 입금&nbsp;:&nbsp;${dtoAf.vbank_name }&nbsp;&nbsp;${dtoAf.vbank_num }<br>
 					&nbsp;&nbsp;(예금주:${dtoAf.vbank_holder })&nbsp;&nbsp;입금자:${dto.send_name }<br>
 					${dtoAf.vbank_date }까지 ${dto.totalprice }원 입금해주세요<br>
-					<%-- ${dto.receive_address_request }  --%>제품 구입에 따른 적립금 <fmt:formatNumber value="${dto.add_point }" />원은 입금 후 적립됩니다.<br>
 				</c:if>			
 			</c:if>
 			</b>

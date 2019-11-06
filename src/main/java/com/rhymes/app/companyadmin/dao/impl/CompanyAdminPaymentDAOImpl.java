@@ -57,13 +57,6 @@ public class CompanyAdminPaymentDAOImpl implements CompanyAdminPaymentDAO {
 		return b>0?true:false;
 	}
 
-	// 추가 적립금 저장
-	@Override
-	public boolean add_point(PaymentDTO dto) {
-		int b = SqlSession.insert(ns + "add_point", dto);
-		return b>0?true:false;
-	}
-
 	// 배송관리
 	@Override
 	public List<DeliveryDTO> getDeliveryList(String userid) {
@@ -87,6 +80,13 @@ public class CompanyAdminPaymentDAOImpl implements CompanyAdminPaymentDAO {
 			return true;
 		}
 		return false;
+	}
+
+	// 추가 적립금 저장
+	@Override
+	public boolean add_point(PaymentDTO dto) {
+		int b = SqlSession.insert(ns + "add_point", dto);
+		return b>0?true:false;
 	}
 
 }

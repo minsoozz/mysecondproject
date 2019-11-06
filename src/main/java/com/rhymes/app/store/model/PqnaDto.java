@@ -24,5 +24,6 @@ public class PqnaDto {
 	private String title;
 	private String content;
 	private int feedback;
+	private String p_name;
 
 }

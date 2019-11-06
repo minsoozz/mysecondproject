@@ -20,8 +20,6 @@ public interface AdminQnaService {
 	//qna 디테일 가져오기
 	public QnaDto getQnaDetail(int seq);
 	
-	//qna 업로드
-	public boolean QnaUpload(QnaDto dto);
 	
 	//qna 수정
 	public boolean QnaUpdateAf(QnaDto dto);

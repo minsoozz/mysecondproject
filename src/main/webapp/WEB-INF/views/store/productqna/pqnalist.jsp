@@ -19,7 +19,7 @@
 	</td>
 	<td>
 	<div style="float: right;">
-	<button type="button" class="pqna-btn1" id="_btnWrite" onclick="PqnaWrite(${pp_seq })">상품문의</button>
+	<button type="button" class="pqna-btn1" id="_btnWrite" onclick="PqnaWrite(${pp_seq },'${loginid }')">상품문의</button>
 	</div>	
 	</td>
 </tr>
@@ -57,7 +57,7 @@
 		<c:forEach var="pqna" items="${pqnalist }" varStatus="vs">
 		<tr class="_hover_tr">
 			<td>${vs.count }</td>
-			<td style="text-align: left;" onclick="pqnadetail(${pqna.seq},${pqna.secret})">
+			<td style="text-align: left;" onclick="pqnadetail(${pqna.seq},${pqna.secret},'${pqna.id}','${loginid}' )">
 			
 			<!-- 비밀글 이미지-->
 			<jsp:setProperty property="secret" name="spqna" value="${pqna.secret }"/>
@@ -79,17 +79,16 @@
 			</td>
 			<td>
 		
+		<c:if test="${pqna.id eq loginid }">
 			<div>
 			<span class="button blue">
-				<button type="button" class="btn" onclick="PqnaAnswer('${pqna.seq }','${pp_seq }')">답변</button>
+				<button type="button" class="pqna-btn2" onclick="PqnaUpdate('${pqna.seq }')">수정</button>
 			</span>
 			<span class="button blue">
-				<button type="button" class="btn" onclick="PqnaUpdate('${pqna.seq }')">수정</button>
-			</span>
-			<span class="button blue">
-				<button type="button" class="btn" onclick="PqnaDelete('${pqna.seq }')">삭제</button>
+				<button type="button" class="pqna-btn2" onclick="PqnaDelete('${pqna.seq }')">삭제</button>
 			</span>
 			</div>
+		</c:if>
 			</td>
 		</tr>
 		</c:forEach>
@@ -126,7 +125,7 @@
 /* 클릭시 내용보이기 */
 $(".detail").hide();
 
-function pqnadetail(seq,secret){
+function pqnadetail(seq,secret,id,loginid){
 	if(secret==0){
 	if($("#detail"+seq).css("display")=="none"){
 		$(".detail").hide();
@@ -136,7 +135,19 @@ function pqnadetail(seq,secret){
 		$("#detail"+seq).hide();
 	}
 	}else if(secret==1){
-		alert("비밀글 입니다.");
+		
+		if(id == loginid){
+			if($("#detail"+seq).css("display")=="none"){
+				$(".detail").hide();
+				$("#detail"+seq).show();
+			
+			}else{
+				$("#detail"+seq).hide();
+			}
+		}else{
+			alert("비밀글 입니다.");	
+		}
+		
 	}
 }
 /* 버튼 */
@@ -149,8 +160,14 @@ function PqnaDelete( seq ) {
 function PqnaUpdate( seq ) {
 	location.href = "/productqna/pqnaupdate?seq=" + seq;
 }
-function PqnaWrite( p_seq ) {
-	location.href = "/productqna/pqnawrite?p_seq="+p_seq;
+function PqnaWrite( p_seq ,loginid) {
+	if(loginid != ''){
+		location.href = "/productqna/pqnawrite?p_seq="+p_seq;
+	}else{
+		alert('로그인 후 이용 가능합니다');
+	}
+	
+	
 }
 
 /* $("#_btnWrite").click(function () {  
