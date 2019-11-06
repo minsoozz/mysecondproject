@@ -58,12 +58,6 @@ public class CompanyAdminPaymentServiceImpl implements CompanyAdminPaymentServic
 		return com_admin_paymentDAO.paymentfinish(seq);
 	}
 
-	// 추가 적립금 저장
-	@Override
-	public boolean add_point(PaymentDTO dto) {
-		return com_admin_paymentDAO.add_point(dto);
-	}
-
 	// 배송관리
 	@Override
 	public List<DeliveryDTO> getDeliveryList(String userid) {
@@ -80,6 +74,12 @@ public class CompanyAdminPaymentServiceImpl implements CompanyAdminPaymentServic
 	@Override
 	public boolean getDeliveryFinish(DeliveryDTO dto) {
 		return com_admin_paymentDAO.getDeliveryFinish(dto);
+	}
+
+	// 추가 적립금 저장
+	@Override
+	public boolean add_point(PaymentDTO dto) {
+		return com_admin_paymentDAO.add_point(dto);
 	}
 	
 
