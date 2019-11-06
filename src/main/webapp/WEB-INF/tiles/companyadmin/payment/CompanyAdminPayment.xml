@@ -29,9 +29,14 @@
 	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_vbank.jsp" />
 	</definition>
 	
-	<!-- 배송관리 -->
-	<definition name="company/delivery" extends="companypaylist">
-	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_delivery.jsp" />
+	<!-- 배송 준비 중 -->
+	<definition name="company/delivery/ready" extends="companypaylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_delivery_ready.jsp" />
+	</definition>
+	
+	<!-- 배송 중 -->
+	<definition name="company/delivery/ing" extends="companypaylist">
+	    <put-attribute name="content_main" value="/WEB-INF/views/companyadmin/payment/com_pay_delivery_ing.jsp" />
 	</definition>
 
 </tiles-definitions>

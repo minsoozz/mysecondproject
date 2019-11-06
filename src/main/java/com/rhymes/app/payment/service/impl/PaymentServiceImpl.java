@@ -71,6 +71,13 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	
 
+
+	// 결제완료페이지에서 새로고침하면 DB에 두번 들어가는 것 방지
+	@Override
+	public boolean check_Payment_code(PaymentDTO dto) {
+		return PaymentDao.check_Payment_code(dto);
+	}
+	
 	// 결제한 후 결제 디테일에 넣기위한 상품 개당 가격 가져오기
 	@Override
 	public int getPrice(int stock_seq) {

@@ -154,8 +154,28 @@ public class PaymentController {
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
-		//log.warn("dto : " + dto.toString());
-		//log.warn("dtoAf : " + dtoAf.toString());
+		// 결제 완료창에서 두번 
+		boolean get = PaymentService.check_Payment_code(dto);
+		
+		// 결제 완료 창에서 새로고침 클릭 했을 때
+		if( get ) {
+			// 결제상태 한글로 변경
+			if(dto.getPayment_status().equals("ready") ) { dto.setPayment_status("미결제"); }
+			else if(dto.getPayment_status().equals("paid")) { dto.setPayment_status("결제완료"); }
+			else if(dto.getPayment_status().equals("cancelled")) { dto.setPayment_status("결제취소"); }
+			
+			// 결제수단 한글로 변경
+			if(dto.getPayment_method().equals("card")) { dto.setPayment_method("카드"); }
+			else if(dto.getPayment_method().equals("trans")) { dto.setPayment_method("실시간 계좌이체"); }
+			else if(dto.getPayment_method().equals("vbank")) { dto.setPayment_method("무통장입금"); }
+			else if(dto.getPayment_method().equals("phone")) { dto.setPayment_method("휴대전화 소액결제"); }
+			else if(dto.getPayment_method().equals("kakaopay")) { dto.setPayment_method("카카오페이"); }
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("dtoAf", dtoAf);
+			
+			return "/payment/paymentAf";
+		}
 
 		String userid = "";
 		if(pcp != null) {
@@ -163,6 +183,7 @@ public class PaymentController {
 		}
 		
 		dto.setUserid( userid );
+		
 		
 		// 상품 재고번호와 수량을 ,를 기준으로 가져온다
 		String[] stock_seq = dtoAf.getStock_seq().split(",");

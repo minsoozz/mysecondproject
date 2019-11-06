@@ -15,7 +15,7 @@
     border-radius: 8px;
 /*     box-shadow:  */
 }
-.deliveryIngBtn{
+.deliveryIngChangeBtn{
 	color: #fff;
     background-color: #66e0b4;
     border-color: #66e0b4;
@@ -27,7 +27,7 @@
     border-radius: 8px;
 /*     box-shadow:  */
 }
-.deliveryFinishBtn{
+.deliveryFinishChangeBtn{
 	color: #fff;
     background-color: #66e0b4;
     border-color: #66e0b4;
@@ -35,7 +35,7 @@
     font-size: .875rem;
     line-height: 1.5;
     border: solid;
-   \border: solid 1px #66e0b4;
+    border: solid 1px #66e0b4;
     border-radius: 8px;
 /*     box-shadow:  */
 }

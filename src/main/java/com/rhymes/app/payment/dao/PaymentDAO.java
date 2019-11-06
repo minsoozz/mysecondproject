@@ -28,6 +28,9 @@ public interface PaymentDAO {
 
 
 	//////////// 결제페이지 후
+	// 결제완료페이지에서 새로고침하면 DB에 두번 들어가는 것 방지
+	public boolean check_Payment_code(PaymentDTO dto);
+	
 	// 결제한 후 결제 디테일에 넣기위한 상품 개당 가격 가져오기
 	public int getPrice(int stock_seq);
 	

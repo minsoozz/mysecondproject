@@ -8,6 +8,7 @@
 .paymentAf_tb th{ padding: 10px 10px 10px 10px; background-color: #d7fd75; border-top: 1px solid #d7fd75; border-bottom: 1px solid #d7fd75; }
 .paymentAf_tb td{ padding: 10px 10px 10px 10px; border-top: 1px solid #d7fd75; border-bottom: 1px solid #d7fd75; }
 .paymentAf_result{ border: 1px solid #dbdbdb; width: 100%; margin-top: 80px; }
+#paymentAf_result_align{ text-align: center; }
 
 .paymentAf_btn{ margin-top: 50px; /* background-color: red; */ text-align: center; }
 #paymentAf_main_btn{ border-radius: 10px; margin-top:13px; margin-bottom:10px; width:200px; height:60px; background: #CFEC40; font: Open Sans 30px; color: black; outline: 0; border: 0px solid gray; }
