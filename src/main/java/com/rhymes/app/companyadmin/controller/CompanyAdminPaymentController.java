@@ -86,7 +86,7 @@ public class CompanyAdminPaymentController {
 		return "company/vbank";
 	}
 	
-	// 무통장 입금 미결제 -> 결제완료, 추가 적립금 저장
+	// 무통장 입금 미결제 -> 결제완료
 	@GetMapping("/vbank/finish")
 	public String vbankfinish(Model model, Principal pcp, HttpServletRequest req, PaymentDTO dto) {
 		String[] seq = req.getParameterValues("seq");

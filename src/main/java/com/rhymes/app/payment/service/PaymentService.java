@@ -49,9 +49,6 @@ public interface PaymentService {
 	// 결제 애프터 내역 저장
 	public boolean payment_after(PaymentAfDTO dto);
 	
-	// 추가 적립금 저장
-	public boolean add_point(PaymentDTO dto);
-	
 	// 결제시 사용한 쿠폰을 사용으로 변환
 	public boolean update_isused_coupon(PaymentDTO dto);
 	

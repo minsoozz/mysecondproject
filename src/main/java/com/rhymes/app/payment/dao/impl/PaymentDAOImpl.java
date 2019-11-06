@@ -169,13 +169,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return count>0?true:false;
 	}
 
-	// 추가 적립금 저장
-	@Override
-	public boolean add_point(PaymentDTO dto) {
-		int count = SqlSession.insert(p + "add_point", dto);
-		return count>0?true:false;
-	}
-
 	// 결제시 사용한 쿠폰을 사용으로 변환
 	@Override
 	public boolean update_isused_coupon(PaymentDTO dto) {

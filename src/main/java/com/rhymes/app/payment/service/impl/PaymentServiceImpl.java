@@ -113,12 +113,6 @@ public class PaymentServiceImpl implements PaymentService {
 	public boolean payment_after(PaymentAfDTO dto) {
 		return PaymentDao.payment_after(dto);
 	}
-
-	// 추가 적립금 저장
-	@Override
-	public boolean add_point(PaymentDTO dto) {
-		return PaymentDao.add_point(dto);
-	}
 	
 	// 결제시 사용한 쿠폰을 사용으로 변환
 	@Override

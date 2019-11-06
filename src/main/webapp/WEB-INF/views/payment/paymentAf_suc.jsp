@@ -66,7 +66,7 @@
 
 			비회원 주문조회는 주문번호와 이름으로 조회가능합니다&nbsp;&nbsp;주문번호는 꼭!!! 기억해주세요 (입력하신 이메일에서 확인가능)<br>
 
-			회원인 경우 배송완료 후 제품 구입에 따른 적립금 <fmt:formatNumber value="${dto.add_point }" />원이 배송 완료 후 적립됩니다.<br><br>
+			회원인 경우 제품 구입에 따른 적립금 <fmt:formatNumber value="${dto.add_point }" />원이 배송 완료 후 적립됩니다.<br><br>
 			<c:if test="${dto.payment_method == '무통장입금' }">
 				무통장 입금&nbsp;:&nbsp;${dtoAf.vbank_name }&nbsp;&nbsp;${dtoAf.vbank_num }<br>
 				&nbsp;&nbsp;(예금주:${dtoAf.vbank_holder })&nbsp;&nbsp;입금자:${dto.send_name }<br>

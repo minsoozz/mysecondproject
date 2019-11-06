@@ -153,7 +153,7 @@ public class PaymentController {
 
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
-	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
+	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {		
 		// 결제 완료창에서 두번 
 		boolean get = PaymentService.check_Payment_code(dto);
 		
@@ -193,56 +193,41 @@ public class PaymentController {
 
 			// 주문한 상품수량만큼 재고수량에서 차감한다
 			boolean b = PaymentService.disc_stock_quantity(stock_seq[i], quantity[i]);
-			//log.warn("paymentAf 재고수량 차감 : " + b);
 			
 			// 상품의 가격
 			int price = PaymentService.getPrice(Integer.parseInt(stock_seq[i]));
-			//log.warn("paymentAf 단일가격 : " + price);
 			
 			int int_stock_seq = Integer.parseInt(stock_seq[i]);
 			int int_quantity = Integer.parseInt(quantity[i]);
+			
 			// db에 결제 디테일을 저장한다(후기 여부는 false)
 			PaymentDetailsDTO dtoDt = new PaymentDetailsDTO(int_stock_seq, int_quantity, price, dto.getPayment_code());
 			
 			boolean b3 = PaymentService.payment_detail_save(dtoDt);
-			//log.warn("paymentAf 결제 디테일 저장 : " + b3);
 		}
 
 		// rhy_payment db에 결제내역을 저장한다
 		boolean b2 = PaymentService.payment_save(dto);
-		//log.warn("paymentAf 결제 내역 저장 : " + b2);
 		
 		// rhy_payment_after db에 결제내역을 저장한다
 		boolean b3 = PaymentService.payment_after(dtoAf);
-		//log.warn("paymentAf 결제 내역 애프터 저장 : " + b3);
-		
-		//log.warn("쿠폰 : " + dto.getDisc_coupon() + ", 적립금 : " + dto.getDisc_point());
 		
 		if(pcp != null && dto.getDisc_point() > 0) {
 			// 적립금 차감한다
 			boolean b = PaymentService.disc_point(dto);
-			//log.warn("paymentAf 적립금 차감 : " + b);
 		}
-		if(pcp != null && dto.getDisc_coupon() > 0) {
-			//log.warn("여기는 쿠폰 차감하는 곳");
+		if(pcp != null && dto.getCoupon_code().length() > 0) {
 			// 사용한 쿠폰을 사용으로 변환
 			boolean b4 = PaymentService.update_isused_coupon(dto);
-			//log.warn("paymentAf 쿠폰코드 사용으로 변경 : " + b4);
 		}
-//		if(pcp != null && !dto.getPayment_method().equals("무통장입금")) {
-//			// 회원이면서 무통장입금이 아닐 때
-//			boolean b5 = PaymentService.add_point(dto);
-//		}
 
 		// 배송내역 저장
 		boolean b5 = PaymentService.delivery_save(dto);
-		//log.warn("paymentAf 배송내역 저장 : " + b5);
 
 		// 일반 결제말고 미니 장바구니와 장바구니 페이지에서 갈때만 내역 제거
 		// rhy_store_basket 에서 구매한 id를 삭제
 		if(dtoAf.getBasket_del() == 1) {
 			boolean b6 = PaymentService.delete_basket(userid);
-			//log.warn("paymentAf 장바구니 삭제 : " + b6);
 		}
 
 		// 이메일로 결제내역을 보낸다

@@ -58,18 +58,4 @@ public class AdminPaymentController {
 		return "detail";
 	}
 	
-	// 관리자 페이지 교환관리
-	@GetMapping("/exchange")
-	public String exchange() {
-		log.warn("AdminPaymentController exchange()");
-		return "exchange";
-	}
-	
-	// 관리자 페이지 무통장 주문 취소관리, 환불관리
-	@GetMapping("/cancel")
-	public String cancel() {
-		log.warn("AdminPaymentController cancel()");		
-		return "cancel";
-	}
-	
 }
