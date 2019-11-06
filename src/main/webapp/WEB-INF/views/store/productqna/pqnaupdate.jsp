@@ -56,12 +56,11 @@
 </table>
 
 <div id="button.wrap">
-	<span class="button blue">
-		<button type="button" id="_btnUpdate">저장</button>
-	</span>
-		<span class="button blue">
-		<button type="button" id="_btnBack">목록</button>
-	</span>
+	
+		<button type="button" class="customer-btn1" id="_btnUpdate">저장</button>
+	
+		<button type="button" class="customer-btn1" id="_btnBack">목록</button>
+	
 </div>
 
 </form>    

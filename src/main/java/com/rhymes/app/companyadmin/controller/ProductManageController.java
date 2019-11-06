@@ -423,7 +423,7 @@ public class ProductManageController {
        
 	   return "CompanyAdminProductregister";
 	 }
-	
+    
 	//1-2.상품등록 처리
 	@RequestMapping(value="/registerInsert", method = RequestMethod.POST)
     public String registerInsert(Model model, ProductDto product, StockDto stock,

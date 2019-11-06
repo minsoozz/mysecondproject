@@ -72,60 +72,6 @@ public class AdminQnaController {
 		return "adminqnadetail.tiles";
 	}
 	
-	//qnawrite
-	@GetMapping("/qnawrite")
-	public String qnawrite(Model model,Principal pcp) {
-	
-		String id = pcp.getName();
-		
-		List<QnaOrderDto> orderlist = qnaService.getQnaOrderList(id);
-		
-		model.addAttribute("id",id);
-		model.addAttribute("orderlist",orderlist);
-		
-		return "adminqnawrite.tiles";
-	} 
-	
-	//글저장 
-	@RequestMapping(value = "/qnaupload", method = RequestMethod.POST)
-	public String qnaupload(QnaDto qnadto,
-			@RequestParam(value = "fileload", required = false)MultipartFile fileload,
-			HttpServletRequest req) {
-		
-		String filename = fileload.getOriginalFilename();	//mydata
-		qnadto.setFilename(filename);
-		
-		// upload 
-		String fupload = req.getServletContext().getRealPath("/upload/customer");
-		
-		
-		// String fupload = "d:\\tmp";
-		System.out.println("_fupload:" + fupload);	
-		
-		// file
-		String f = qnadto.getFilename();
-		String newfilename = FUpUtil.getNewFileName(f);
-		
-		//	
-		qnadto.setFilename(newfilename);
-		
-		File file = new File(fupload + "/" + newfilename);
-		
-		try {
-			//
-			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
-			
-			// db
-			qnaService.QnaUpload(qnadto);
-			
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		
-		return "redirect:/admin/customercenter/qnalist";
-	}
 	
 	//글수정가기
 	@GetMapping("/qnaupdate")

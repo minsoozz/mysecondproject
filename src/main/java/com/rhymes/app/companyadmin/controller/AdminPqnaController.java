@@ -50,7 +50,7 @@ public class AdminPqnaController {
 			model.addAttribute("pageCountPerScreen", 10);
 			model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
 			model.addAttribute("totalRecordCount", totalRecordCount);
-
+			
 			model.addAttribute("s_category",param.getS_category());
 			
 			return "adminpqnalist.tiles";

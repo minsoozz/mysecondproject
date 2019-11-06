@@ -73,22 +73,4 @@
        WHERE SEQ = #{seq}
     </select>
     
-	<!-- 올리기 -->
-	<insert id="FaqUpload" parameterType="com.rhymes.app.customer.model.FaqDto">
-	INSERT INTO FAQ(ID, CATEGORY, TITLE, CONTENT)
-	VALUES(#{ id}, #{category}, #{title}, #{content})
-	</insert>
-	
-	<!-- 수정 -->
-	<update id="FaqUpdateAf" parameterType="com.rhymes.app.customer.model.FaqDto">
-	UPDATE FAQ
-	SET TITLE=#{title}, CONTENT=#{content}, CATEGORY=#{category}
-	WHERE SEQ=#{seq}
-	</update>
-	
-	<!-- 삭제 -->
-	<delete id="FaqDelete" parameterType="java.lang.Integer">
-	DELETE FROM FAQ
-	WHERE SEQ=#{seq}
-	</delete>
 </mapper>
