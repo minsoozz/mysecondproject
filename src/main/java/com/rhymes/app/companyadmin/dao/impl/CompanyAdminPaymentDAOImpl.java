@@ -82,4 +82,11 @@ public class CompanyAdminPaymentDAOImpl implements CompanyAdminPaymentDAO {
 		return false;
 	}
 
+	// 추가 적립금 저장
+	@Override
+	public boolean add_point(PaymentDTO dto) {
+		int b = SqlSession.insert(ns + "add_point", dto);
+		return b>0?true:false;
+	}
+
 }

@@ -113,9 +113,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 			// 만료 예정인 유효 적립금 하나를 가져온다
 			list = SqlSession.selectList(p + "getPointLastById", xmlDTO);
-			log.warn("만료 예정인 유효 적립금 : " + list.toString());
-			log.warn("list.get(0).getSeq() : " + list.get(0).getSeq());
-			log.warn("list.get(0).getPoint() : " + list.get(0).getPoint());
 			xmlDTO.setSeq(list.get(0).getSeq());
 			xmlDTO.setPoint(list.get(0).getPoint());
 			
@@ -129,7 +126,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 			// 사용 적립금 1000, 유효 적립금 400
 			// 사용 적립금 600,  유효 적립금 1500
 			// 가장 최신 적립금은 400 전부 사용했고 (used_amount = 400), 그 다음 최신 적립금은 900원 남았다
-			else { result = SqlSession.update(p + "discPointByid", xmlDTO); count++; log.warn("여기로 왔다2"); }
+			else { result = SqlSession.update(p + "discPointByid", xmlDTO); count++; }
 		}
 		
 		return result>0?true:false;
@@ -150,7 +147,6 @@ public class PaymentDAOImpl implements PaymentDAO {
 		else if(dto.getPayment_method().equals("phone")) { dto.setPayment_method("휴대전화 소액결제"); }
 		else if(dto.getPayment_method().equals("kakaopay")) { dto.setPayment_method("카카오페이"); }
 		
-		log.warn("payment_save dto : " + dto.toString());
 		int count = SqlSession.insert(p + "payment_save", dto);
 		return count>0?true:false;
 	}
@@ -162,10 +158,16 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return count>0?true:false;
 	}
 
+	// 추가 적립금 저장
+	@Override
+	public boolean add_point(PaymentDTO dto) {
+		int count = SqlSession.insert(p + "add_point", dto);
+		return count>0?true:false;
+	}
+
 	// 결제시 사용한 쿠폰을 사용으로 변환
 	@Override
 	public boolean update_isused_coupon(PaymentDTO dto) {
-		log.warn("@@@ : " + dto.getPayment_code().length());
 		int count = SqlSession.delete(p + "update_isused_coupon", dto);
 		return count>0?true:false;
 	}

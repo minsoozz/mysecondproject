@@ -98,7 +98,7 @@ function paymens(){
 
 	}
 
-	
+	$("#add_point").val( parseInt( $("#add_point").val() ) );
 	
 	$("#disc_coupon").val( parseInt($("#_disc_coupon").text()) );
 	$("#disc_point").val( parseInt($("#_disc_point").text()) );

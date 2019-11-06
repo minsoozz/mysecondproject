@@ -49,7 +49,7 @@
 				</tr>
 
 				<c:forEach begin="0" end="${fn:length(basketList) -1 }" varStatus="i">
-					<tr>
+					<tr style="border-bottom: 1px solid #dbdbdb;">
 						<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }" width="150" height="150"></td>
 						<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].p_title }</td>
 						<td rowspan="2" width="10%" align="center" id="one_total_price${i.index }">
@@ -59,7 +59,7 @@
 							<input type="hidden" name="stock_quantity" value="${fn:length(basketList) }">
 						</td>
 					</tr>
-					<tr>
+					<tr style="border-bottom: 1px solid #dbdbdb;">
 						<td align="left">사이즈 : ${basketList[i.index].size } / 색상 : ${basketList[i.index].p_color } / 수량 : ${basketList[i.index].quantity }개 /
 						개당 <fmt:formatNumber value="${basketList[i.index].p_price }" />원</td>
 					</tr>
@@ -171,9 +171,9 @@
 		</div>
 		<br><br><br><br><br><br>
 		
-<input type="hidden" id="disc_coupon" name="disc_coupon" value="0" size="2">
-<input type="hidden" id="disc_point" name="disc_point" value="0" size="2">
-<input type="hidden" id="totalprice" name="totalprice" value="0" size="2">
+		<input type="hidden" id="disc_coupon" name="disc_coupon" value="0" size="2">
+		<input type="hidden" id="disc_point" name="disc_point" value="0" size="2">
+		<input type="hidden" id="totalprice" name="totalprice" value="0" size="2">
 
 		<!-- 로그인 했을때만 보이기 -->
 		<div class="divback">

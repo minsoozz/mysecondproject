@@ -37,4 +37,7 @@ public interface CompanyAdminPaymentService {
 	// 배송중 -> 배송완료
 	public boolean getDeliveryFinish(DeliveryDTO dto);
 
+	// 추가 적립금 저장
+	public boolean add_point(PaymentDTO dto);
+
 }
