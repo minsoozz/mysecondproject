@@ -97,7 +97,7 @@ $(document).ajaxSend(function(e, xhr, options) {
    <p style="color: gray;font-size: 15px; margin-bottom: 5px;">· MADE IN ${productDto.nation}</p>
    <p style="color: gray;font-size: 15px; margin-bottom: 5px;">· COLOR : ${productDto.p_color}</p>
    <p style="color: gray;font-size: 15px; margin-bottom: 5px;">· SKU : ${productDto.cp_code}</p>
-   <p style="color: gray;font-size: 15px">· MANUFACTURE : ${productDto.madeYear}/${productDto.madeMonth}</p>
+   <p style="color: gray;font-size: 15px">· MANUFACTURED : ${productDto.madeYear}/${productDto.madeMonth}</p>
    
    
    <br>
