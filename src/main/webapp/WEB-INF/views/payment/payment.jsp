@@ -43,13 +43,13 @@
 		<div class="divback">
 			<h4>상품 정보</h4>
 			<table class="payment_tb">
-				<tr style="border-bottom: 1px solid #dbdbdb; /* background-color: red; */">
+				<tr style="border-bottom: 1px solid #dbdbdb;">
 					<td colspan="2" align="center" width="50%">상품 정보</td>
 					<td width="20%" align="center">상품 금액</td>
 				</tr>
 
 				<c:forEach begin="0" end="${fn:length(basketList) -1 }" varStatus="i">
-					<tr>
+					<tr style="border-bottom: 1px solid #dbdbdb;">
 						<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }" width="150" height="150"></td>
 						<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].p_title }</td>
 						<td rowspan="2" width="10%" align="center" id="one_total_price${i.index }">
@@ -59,7 +59,7 @@
 							<input type="hidden" name="stock_quantity" value="${fn:length(basketList) }">
 						</td>
 					</tr>
-					<tr>
+					<tr style="border-bottom: 1px solid #dbdbdb;">
 						<td align="left">사이즈 : ${basketList[i.index].size } / 색상 : ${basketList[i.index].p_color } / 수량 : ${basketList[i.index].quantity }개 /
 						개당 <fmt:formatNumber value="${basketList[i.index].p_price }" />원</td>
 					</tr>
