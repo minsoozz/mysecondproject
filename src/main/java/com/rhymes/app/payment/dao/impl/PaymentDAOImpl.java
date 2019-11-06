@@ -78,6 +78,17 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	
 	
+
+	// 결제완료페이지에서 새로고침하면 DB에 두번 들어가는 것 방지
+	@Override
+	public boolean check_Payment_code(PaymentDTO dto) {
+		String payment_code = SqlSession.selectOne(p + "check_Payment_code", dto);
+		if(payment_code == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
 	
 	// 결제한 후 결제 디테일에 넣기위한 상품 개당 가격 가져오기
 	@Override

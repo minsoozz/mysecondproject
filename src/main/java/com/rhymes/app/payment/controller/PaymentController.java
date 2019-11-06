@@ -154,8 +154,14 @@ public class PaymentController {
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {
-		//log.warn("dto : " + dto.toString());
-		//log.warn("dtoAf : " + dtoAf.toString());
+		// 결제 완료창에서 두번 
+//		boolean get = PaymentService.check_Payment_code(dto);
+//		if( get ) {
+//			model.addAttribute("dto", dto);
+//			model.addAttribute("dtoAf", dtoAf);
+//			
+//			return "/payment/paymentAf";
+//		}
 
 		String userid = "";
 		if(pcp != null) {
@@ -163,6 +169,7 @@ public class PaymentController {
 		}
 		
 		dto.setUserid( userid );
+		
 		
 		// 상품 재고번호와 수량을 ,를 기준으로 가져온다
 		String[] stock_seq = dtoAf.getStock_seq().split(",");

@@ -56,35 +56,48 @@ public class CompanyAdminPaymentDAOImpl implements CompanyAdminPaymentDAO {
 		int b = SqlSession.update(ns + "paymentfinish", seq);
 		return b>0?true:false;
 	}
+	
+	
 
-	// 배송관리
+	// 배송
+	// 배송 준비 중
 	@Override
-	public List<DeliveryDTO> getDeliveryList(String userid) {
-		return SqlSession.selectList(ns + "getDeliveryList", userid);
+	public List<DeliveryDTO> getDeliveryReadyList(String userid) {
+		return SqlSession.selectList(ns + "getDeliveryReadyList", userid);
+	}
+	
+	// 배송 중
+	@Override
+	public List<DeliveryDTO> getDeliveryIngList(String userid) {
+		return SqlSession.selectList(ns + "getDeliveryIngList", userid);
 	}
 
 	// 배송준비 중 -> 배송 중
 	@Override
-	public boolean getDeliveryIng(DeliveryDTO dto) {
-		int b = SqlSession.update(ns + "getDeliveryIng", dto);
+	public boolean getDeliveryIngChange(String payment_code) {
+		int b = SqlSession.update(ns + "getDeliveryIngChange", payment_code);
 		return b>0?true:false;
 	}
 	
 	// 배송중 -> 배송완료
 	@Override
-	public boolean getDeliveryFinish(DeliveryDTO dto) {
-		int b = SqlSession.update(ns + "getDeliveryFinish", dto);
-		int b1 = SqlSession.insert(ns + "getDeliveryFinishEdate", dto);
+	public boolean getDeliveryFinishChange(String payment_code) {
+		int b = SqlSession.update(ns + "getDeliveryFinishChange", payment_code);
+		int b1 = SqlSession.insert(ns + "getDeliveryFinishEdate", payment_code);
 		
 		if(b > 0 && b1 > 0) {
 			return true;
+		}else {
+			return false;
 		}
-		return false;
 	}
 
 	// 추가 적립금 저장
 	@Override
-	public boolean add_point(PaymentDTO dto) {
+	public boolean add_point(String userid, String add_point) {
+		PaymentDTO dto = new PaymentDTO();
+		dto.setUserid(userid);
+		dto.setAdd_point(Integer.parseInt(add_point));
 		int b = SqlSession.insert(ns + "add_point", dto);
 		return b>0?true:false;
 	}
