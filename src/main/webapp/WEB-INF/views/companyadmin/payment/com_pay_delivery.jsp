@@ -52,11 +52,13 @@
 									<tr>
 										<td>
 										<input type="checkbox" class="checkid" id="checkid" name="payment_code" value="${p.payment_code }">
+											<input type="hidden" name="userid" value="${p.userid }">
+											<input type="hidden" name="add_point" value="${p.add_point }">
 										</td>
 										<td>${fn:substring(p.payment_code,4,16) }</td>
 										<td>${p.name }</td>
 										<td>${p.delivery_company }</td>
-										<td>${p.delivery_status }</td>
+										<td id="delivery_status">${p.delivery_status }</td>
 										<td>${p.delivery_post_code }</td>
 										<td>${p.delivery_request }</td>
 										<td>${p.edate }</td>

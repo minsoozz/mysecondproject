@@ -128,6 +128,12 @@ VALUES(#{payment_code}, #{vbank_name}, #{vbank_num}, #{vbank_holder}, #{vbank_da
  #{receipt_url}, #{card_apply_num}, #{basket_del})
 </insert>
 
+<!-- 추가 적립금 저장 -->
+<insert id="add_point" parameterType="com.rhymes.app.payment.model.PaymentDTO">
+INSERT INTO RHY_MEM_POINT(ID, COMMENT, AMOUNT, RDATE)
+VALUES(#{userid}, '결제후 추가 적립금', #{add_point}, now())
+</insert>
+
 <!-- 사용한 쿠폰을 사용으로 변환 -->
 <update id="update_isused_coupon" parameterType="com.rhymes.app.payment.model.PaymentDTO">
 UPDATE RHY_MEM_COUPON_DETAIL

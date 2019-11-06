@@ -18,6 +18,7 @@
 /* 결제 페이지 */
 .payment_tb td{ padding: 10px 10px 10px 10px; }
 .payment_tb th{ padding-left : 10px; width: 25%; }
+#payment_tb_tr{ border-bottom: 1px solid #dbdbdb; }
 h4{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 h1{ border-bottom: 5px solid #d7fd75; padding-bottom: 20px; }
 .payment_tb{ width: 100%; }
