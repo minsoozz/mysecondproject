@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,5 +29,5 @@ public class CacheConfiguration implements CommandLineRunner {
                 + "Using cache manager: " + this.cacheManager.getClass().getName() + "\n"
                 + "=========================================================\n\n");
 	}
-
+	
 }

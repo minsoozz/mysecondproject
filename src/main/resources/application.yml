@@ -1,6 +1,8 @@
 #Project RHYMES
 server:
   port: 18080
+  tomcat:    max-http-post-size: 31457280
+  
 #JSP config
   servlet:
     jsp:
@@ -44,10 +46,10 @@ spring:
       suffix: .jsp
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+      max-file-size: 30MB
+      max-request-size: 30MB
       enabled: true
-      file-size-threshold: 10MB
+      file-size-threshold: 30MB
       
 logging:
   level: 
