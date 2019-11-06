@@ -46,7 +46,7 @@
 					<tr>
 						<th>작성자</th>
 						<td colspan="3">
-							<input type="text" name="id" size="100%" value="${noticedto.id }">
+							<input type="text" name="id" size="100%" value="${noticedto.id }" readonly>
 							<!--readonly value="${login.id }"  -->
 						</td>
 					</tr>
@@ -54,7 +54,7 @@
 					<tr>
 						<th>내용</th>
 						<td colspan="3">
-							<textarea style="height: 268px;width: 1025px;" name="content" id="content">${noticedto.content }</textarea>
+							<textarea style="height: 268px;width: 1400px;" name="content" id="content">${noticedto.content }</textarea>
 						</td>
 					</tr>
 					

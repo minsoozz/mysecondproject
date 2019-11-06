@@ -29,7 +29,20 @@
    opacity: 0.5;
 } 
 
-
+.pqna-btn2{
+   border-radius: 10px;
+   margin-top:5px;
+   width:60px;
+   height:45px;
+   background: white;
+   font: Open Sans 30px;
+   color: black; 
+   outline: 0;
+   border: 1px solid #cccccc; 
+}
+.pqna-btn2:hover{
+   opacity:0.5;
+}
 
 .likebtn1{
    width:120px;

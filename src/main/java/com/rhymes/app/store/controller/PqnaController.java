@@ -32,8 +32,12 @@ public class PqnaController {
 	
 	//상품문의 리스트
 	@RequestMapping(value = "/pqnalist", method = {RequestMethod.GET, RequestMethod.POST})
-	public String faqlist(Model model, DetailParam param){
+	public String faqlist(Model model, DetailParam param, Principal pcp){
 		
+		if(pcp != null) {
+		String loginid = pcp.getName();
+		model.addAttribute("loginid",loginid);
+		}
 		///////////////////상품문의부분////////////////
 		//페이징
 		int sn = param.getPageNumber();	//0 1 2

@@ -117,5 +117,6 @@ hr{
 }
 
 #footer_wrap_mypage{
-	top: 1400px;
+/* 	top: 1400px; */
+	top: 0px;
 }

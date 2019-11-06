@@ -53,7 +53,7 @@
 					<th>내용</th>
 					
 					<td colspan="3">
-						<textarea style="height: 268px;width: 1025px;" name="content" id="contents"></textarea>
+						<textarea style="height: 268px;width: 1425px;" name="content" id="contents"></textarea>
 					</td>
 					
 				</tr>

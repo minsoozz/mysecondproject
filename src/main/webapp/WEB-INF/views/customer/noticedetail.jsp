@@ -26,7 +26,7 @@
 </tr>
 <tr>
 	<td colspan="4">
-	<div style="white-space:pre-line;" class="contentst" ><img alt="" src="../upload/customer/${noticedto.filename }" style="height: 30%">
+	<div style="white-space:pre-line;" class="contentst" ><img alt="" src="/upload/customer/${noticedto.filename }" style="height: 30%">
 	${noticedto.content }
 	</td>
 	</div>

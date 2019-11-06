@@ -99,12 +99,12 @@
     <div id="myModal2" class="modal2">
  
       <!-- Modal content -->
-      <div class="modal-content2">
-                문의하실 주문번호를 선택하세요.
-                <table style="font-size: 7px; border: solid; 1" >
-                <col width="100"><col width="100"><col width="200"><col width="100"><col width="50">
+      <div class="modals-content2">
+             <p>문의하실 주문번호를 선택하세요.</p>
+                <table style="font-size: 7px;" class="order_table">
+                <col width="100"><col width="100"><col width="300"><col width="100"><col width="100">
                 <thead>
-					<tr>
+					<tr >
 						<th>주문번호</th><th>주문일자</th><th>상품명</th><th>주문금액</th><th>선택</th>
 					</tr>
 				</thead>

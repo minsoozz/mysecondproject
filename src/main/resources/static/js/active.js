@@ -78,13 +78,17 @@
         })
     }
 
+<<<<<<< HEAD
     // :: 4.0 ScrollUp Active JS
     if ($.fn.scrollUp) {
         $.scrollUp({
             scrollSpeed: 1500,
-            scrollText: '<i class="fa fa-arrow-up" aria-hidden="true"></i>'
+            scrollText: ''
         });
     }
+=======
+  
+>>>>>>> 3c2a68184faeb61fce410979fd94d46b4c0b1686
 
     // :: 5.0 CounterUp Active JS
     if ($.fn.counterUp) {

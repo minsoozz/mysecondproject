@@ -97,7 +97,7 @@ function result_price() {
 	
 	//alert(product_price + ", " + delivery_price + ", " + disc_point + ", " + disc_coupon + ", " + totalprice);
 
-	$("#add_point").val( parseInt(product_price) * 0.02 );
+	$("#add_point").val( (parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_point) - parseInt(disc_coupon)) * 0.02 );
 	$("#_totalprice").text( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_point) - parseInt(disc_coupon) );
 	$("#totalprice").val( parseInt(product_price) + parseInt(delivery_price) - parseInt(disc_point) - parseInt(disc_coupon) );
 }
