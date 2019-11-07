@@ -90,7 +90,7 @@
 
        
        
-        <h4 style="margin-left: 60px; color: gray">MEN BEST7</h4>
+    <h4 style="margin-left: 60px; color: gray">MEN BEST7</h4>
 	<br>
 <!-- ****** Welcome Post Area Start ****** -->
     <section class="welcome-post-sliders owl-carousel">
