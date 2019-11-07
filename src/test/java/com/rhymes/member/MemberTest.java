@@ -18,6 +18,6 @@ public class MemberTest {
 	
 	@Test
 	public void getEncryptedPw() {
-		System.out.println(bc.encode("ADMIN"));
+		System.out.println(bc.encode("minp"));
 	}
 }
