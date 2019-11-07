@@ -66,7 +66,7 @@ $(document).ready(function () {
 		}else{
 			if(userNum.trim() == sysNum.trim()){
 				alert("성공");
-				$("#_text_confirm").val( sysNum );
+				$("#text_confirm").val( sysNum );
 			}else {
 				alert("실패");
 			}
