@@ -64,6 +64,13 @@ WHERE ID=#{userid}
 
 <!-- 결제페이지에서 결제완료 후 -->
 
+<!-- 결제완료페이지에서 새로고침하면 DB에 두번 들어가는 것 방지 -->
+<select id="check_Payment_code" parameterType="com.rhymes.app.payment.model.PaymentDTO" resultType="java.lang.String">
+SELECT PAYMENT_CODE
+FROM RHY_PAYMENT
+WHERE PAYMENT_CODE = #{payment_code}
+</select>
+
 <!-- 주문한 상품수량만큼 재고수량에서 차감한다 -->
 <update id="disc_stock_quantity" parameterType="com.rhymes.app.payment.model.PaymentAfDTO">
 UPDATE RHY_STORE_STOCK
@@ -126,12 +133,6 @@ VALUES(#{payment_code}, #{userid}, #{send_name}, #{send_phone}, #{send_email}, #
 INSERT INTO RHY_PAYMENT_AFTER
 VALUES(#{payment_code}, #{vbank_name}, #{vbank_num}, #{vbank_holder}, #{vbank_date},
  #{receipt_url}, #{card_apply_num}, #{basket_del})
-</insert>
-
-<!-- 추가 적립금 저장 -->
-<insert id="add_point" parameterType="com.rhymes.app.payment.model.PaymentDTO">
-INSERT INTO RHY_MEM_POINT(ID, COMMENT, AMOUNT, RDATE)
-VALUES(#{userid}, '결제후 추가 적립금', #{add_point}, now())
 </insert>
 
 <!-- 사용한 쿠폰을 사용으로 변환 -->

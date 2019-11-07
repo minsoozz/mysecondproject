@@ -86,16 +86,13 @@ public class CompanyAdminPaymentController {
 		return "company/vbank";
 	}
 	
-	// 무통장 입금 미결제 -> 결제완료, 추가 적립금 저장
+	// 무통장 입금 미결제 -> 결제완료
 	@GetMapping("/vbank/finish")
 	public String vbankfinish(Model model, Principal pcp, HttpServletRequest req, PaymentDTO dto) {
-		log.warn("dto : " + dto.toString());
 		String[] seq = req.getParameterValues("seq");
 		for (int i = 0; i < seq.length; i++) {
 			// 결제완료로 변경
 			boolean b = com_admin_paymentService.paymentfinish(seq[i]);
-			// 추가 적립금 저장
-			//boolean b1 = com_admin_paymentService.add_point(dto);
 		}
 		// 마켓명
 		String market = com_admin_paymentService.getMarketName(pcp.getName());
@@ -108,50 +105,78 @@ public class CompanyAdminPaymentController {
 		return "company/vbank";
 	}
 	
-	// 배송관리
-	@GetMapping("/delivery")
-	public String delivery(Model model, Principal pcp) {
+	// 배송준비중 조회
+	@GetMapping("/delivery/ready")
+	public String delivery_ready(Model model, Principal pcp) {
 		// 마켓명
 		String market = com_admin_paymentService.getMarketName(pcp.getName());
 		// list
-		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryList(pcp.getName());
+		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryReadyList(pcp.getName());
 
 		model.addAttribute("deliverylist",deliverylist);
 		model.addAttribute("market", market);
-		return "company/delivery";
+		return "company/delivery/ready";
+	}
+	
+	// 배송중 조회
+	@GetMapping("/delivery/ing")
+	public String delivery_ing(Model model, Principal pcp) {
+		// 마켓명
+		String market = com_admin_paymentService.getMarketName(pcp.getName());
+		// list
+		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryIngList(pcp.getName());
+
+		model.addAttribute("deliverylist",deliverylist);
+		model.addAttribute("market", market);
+		return "company/delivery/ing";
 	}
 	
 	// 배송준비 중 -> 배송 중
-	@GetMapping("/delivery/ing")
-	public String deliverying(Model model, Principal pcp, DeliveryDTO dto) {
-		// 배송준비 중 -> 배송 중
-		boolean b = com_admin_paymentService.getDeliveryIng(dto);
+	@GetMapping("/delivery/ing/change")
+	public String delivery_ing_change(Model model, Principal pcp, DeliveryDTO dto, HttpServletRequest req) {
 		// 마켓명
 		String market = com_admin_paymentService.getMarketName(pcp.getName());
+		
+		String[] payment_code = req.getParameterValues("payment_code");
+		for (int i = 0; i < payment_code.length; i++) {
+			// 배송준비 중 -> 배송 중
+			boolean b = com_admin_paymentService.getDeliveryIngChange(payment_code[i]);
+		}
 		// list
-		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryList(pcp.getName());
+		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryReadyList(pcp.getName());
 		
 		model.addAttribute("deliverylist",deliverylist);
 		model.addAttribute("market", market);
-		return "company/delivery";
+		return "company/delivery/ready";
 	}
 	
 	// 배송중 -> 배송완료
-	@GetMapping("/delivery/finish")
-	public String deliveryfinish(Model model, Principal pcp, DeliveryDTO dto, PaymentDTO p_dto) {
-		// 배송중 -> 배송완료
-		boolean b = com_admin_paymentService.getDeliveryFinish(dto);
-		// 추가 적립금 저장
-		log.warn("p_dto : " + p_dto.toString());
-		boolean b1 = com_admin_paymentService.add_point(p_dto);
+	@GetMapping("/delivery/finish/change")
+	public String delivery_finish_change(Model model, Principal pcp, DeliveryDTO dto, PaymentDTO p_dto, HttpServletRequest req) {
 		// 마켓명
 		String market = com_admin_paymentService.getMarketName(pcp.getName());
+		
+		String[] payment_code = req.getParameterValues("payment_code");
+		for (int i = 0; i < payment_code.length; i++) {
+			// 배송중 -> 배송완료
+			boolean b = com_admin_paymentService.getDeliveryFinishChange(payment_code[i]);
+		}
+		
+		if(pcp != null) {
+			String[] userid = req.getParameterValues("userid");
+			String[] add_point = req.getParameterValues("add_point");
+			
+			for (int i = 0; i < userid.length; i++) {
+				// 추가 적립금 저장
+				boolean b1 = com_admin_paymentService.add_point(userid[i], add_point[i]);
+			}
+		}
 		// list
-		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryList(pcp.getName());
+		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryIngList(pcp.getName());
 
 		model.addAttribute("deliverylist",deliverylist);
 		model.addAttribute("market", market);
-		return "company/delivery";
+		return "company/delivery/ing";
 	}
 	
 }

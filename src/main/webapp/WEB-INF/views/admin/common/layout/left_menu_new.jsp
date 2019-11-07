@@ -108,20 +108,6 @@
 					</div>
 				</li>
 				
-				<!-- DB 액셀 다운로드 -->
-				<!-- <li class="nav-item">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExcel" aria-expanded="true" aria-controls="collapseUtilities">
-						<i class="fas fa-fw fa-chart-area"></i>
-						<span>DB 다운로드</span>
-					</a>
-					<div id="collapseExcel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<h6 class="collapse-header">CHART</h6>
-							<a class="collapse-item" href="/admin/excel/move">DB 액셀 다운로드</a>
-						</div>
-					</div>
-				</li> -->
-				
 				<!-- 고객센터 -->
 				<li class="nav-item">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer" aria-expanded="true" aria-controls="collapseTwo">
@@ -216,7 +202,21 @@
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
 							<a class="collapse-item" href="/admin/company/payment/success">주문조회</a>
 							<a class="collapse-item" href="/admin/company/payment/vbank">무통장입금 관리</a>
-							<a class="collapse-item" href="/admin/company/payment/delivery">배송 관리</a>
+						</div>
+					</div>
+				</li>
+
+				<!-- 주문관리 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_company_delivery" aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>배송관리</span>
+					</a>
+					<div id="admin_company_delivery" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">DELIVERY MANAGE</h6>
+							<a class="collapse-item" href="/admin/company/payment/delivery/ready">배송 준비중</a>
+							<a class="collapse-item" href="/admin/company/payment/delivery/ing">배송 중</a>
 						</div>
 					</div>
 				</li>

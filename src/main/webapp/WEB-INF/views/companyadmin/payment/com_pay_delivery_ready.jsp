@@ -23,12 +23,12 @@
 
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">${market }의 배송내역</h1>
-	<p class="mb-4">배송내역</p>
+	<p class="mb-4">배송 준비 중인 내역</p>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">배송내역</h6>
+			<h6 class="m-0 font-weight-bold text-primary">배송 준비 중인 내역</h6>
 	    </div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -46,7 +46,6 @@
 									<td>배송상태</td>
 									<td>운송장번호</td>
 									<td>배송시 요청사항</td>
-									<td>완료일</td>
 								</tr>
 								<c:forEach items="${deliverylist }" var="p">
 									<tr>
@@ -58,10 +57,9 @@
 										<td>${fn:substring(p.payment_code,4,16) }</td>
 										<td>${p.name }</td>
 										<td>${p.delivery_company }</td>
-										<td id="delivery_status">${p.delivery_status }</td>
+										<td >${p.delivery_status }</td>
 										<td>${p.delivery_post_code }</td>
 										<td>${p.delivery_request }</td>
-										<td>${p.edate }</td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -70,8 +68,7 @@
 				</div>
 			</div>
 				<div>
-					<button type="button" id="deliveryIngBtn" class="deliveryIngBtn">배송중으로 변경</button>
-					<button type="button" id="deliveryFinishBtn" class="deliveryFinishBtn">배송완료로 변경</button>
+					<button type="button" id="deliveryIngChangeBtn" class="deliveryIngChangeBtn">배송중으로 변경</button>
 				</div>
 		</div>
 	</div>
