@@ -162,15 +162,17 @@ public class CompanyAdminPaymentController {
 			boolean b = com_admin_paymentService.getDeliveryFinishChange(payment_code[i]);
 		}
 		
-		if(pcp != null) {
-			String[] userid = req.getParameterValues("userid");
-			String[] add_point = req.getParameterValues("add_point");
-			
+
+		String[] userid = req.getParameterValues("userid");
+		String[] add_point = req.getParameterValues("add_point");
+		
+		if(!p_dto.getUserid().equals(null) && !p_dto.getUserid().equals("")) {
 			for (int i = 0; i < userid.length; i++) {
 				// 추가 적립금 저장
 				boolean b1 = com_admin_paymentService.add_point(userid[i], add_point[i]);
 			}
 		}
+		
 		// list
 		List<DeliveryDTO> deliverylist = com_admin_paymentService.getDeliveryIngList(pcp.getName());
 

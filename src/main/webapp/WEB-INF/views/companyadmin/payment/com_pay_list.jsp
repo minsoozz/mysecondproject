@@ -41,7 +41,7 @@
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								
 								<select style="width: 100px;" id="_recordCountPerPage" name="recordCountPerPage" aria-controls="dataTable" onchange="dataTable_length()" class="custom-select custom-select-sm form-control form-control-sm">
-									<option value="5" <c:out value="${param.recordCountPerPage == '5'? 'selected':'' }"/>>5</option>
+									<%-- <option value="5" <c:out value="${param.recordCountPerPage == '5'? 'selected':'' }"/>>5</option> --%>
 									<option value="10" <c:out value="${param.recordCountPerPage == '10'? 'selected':'' }"/>>10</option>
 									<option value="15" <c:out value="${param.recordCountPerPage == '15'? 'selected':'' }"/>>15</option>
 									<option value="20" <c:out value="${param.recordCountPerPage == '20'? 'selected':'' }"/>>20</option>
