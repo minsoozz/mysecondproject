@@ -120,7 +120,7 @@
 						내용
 					</th>
 					<td colspan="5">
-						<textarea rows="10" cols="90" required name="content">${edto.content }</textarea>
+						<textarea rows="10" cols="90" name="content">${edto.content }</textarea>
 					</td>
 				</tr>
 				

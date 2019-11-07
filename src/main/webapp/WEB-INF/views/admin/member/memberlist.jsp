@@ -38,6 +38,7 @@
 					<div class="col-sm-12 col-md-6">
 						<div class="dataTables_length" id="dataTable_length">
 							<form action="" id="_frm" method="post">
+							<input type="hidden" value="ROLE_ADMIN" name="authority">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 								<select style="width: 100px;" name="recordCountPerPage" aria-controls="dataTable" onchange="dataTable_length()"
 									class="custom-select custom-select-sm form-control form-control-sm">
