@@ -356,29 +356,17 @@ $(document).ajaxSend(function(e, xhr, options) {
 	</div>
 	<!-- ~~상품이미지 수정 끝 -->
 
-	<!-- 상품 상세내용 수정 -->
-	<div id="updateDiv">
-		<strong>상품상세내용 수정</strong>
-		<div align="center">
-		<button type="button" class="detailinfo_update-btn"><b>수정</b></button>
-		</div>
-	</div>
 
 </div>
 <!-- /.container-fluid -->
 
 <!-- End of Main Content -->
 
-<!-- 상세정보 수정 MODAL -->
-<div class="detailinfo_modal">
-	
-</div>
-<!-- ~~상세정보 수정 MODAL 끝 -->
+
 
 <!--------------------------------- SCRIPT ZONE --------------------------------->
 <script>
 var sel_file;
-
 
 
 $(document).on('click', '.imgudtModalClose', function(){

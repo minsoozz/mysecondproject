@@ -35,7 +35,6 @@ public interface QnaDao {
 	//qna 부모글삭제 자식글 삭제
 	public boolean QnaParentDelete(int ref);
 	
-	//qna 답글
-	public boolean QnaAnswer(QnaDto dto)throws Exception;
+	
 		
 }

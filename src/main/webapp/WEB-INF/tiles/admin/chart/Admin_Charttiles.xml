@@ -6,29 +6,33 @@
 <tiles-definitions>
  
 
-   <!-- Chart -->
-	<definition name="chart.tiles" template="/WEB-INF/views/admin/excel/layout/admin_excel_template.jsp">
-   		<put-attribute name="ex_resources" value="/WEB-INF/views/admin/common/layout/admin_ex_resources.jsp" />	
-		<put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu_new.jsp" />
-		<put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header_new.jsp" />
-     	<put-attribute name="body" value="/WEB-INF/views/admin/customer/noticelist.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
+    <!-- Chart -->
+	<definition name="chart.tiles" template="/WEB-INF/views/admin/common/layout/admin_template_new.jsp">
+		<put-attribute name="ex_resources" value="/WEB-INF/views/admin/common/layout/admin_ex_resources.jsp" />	    
+	    <put-attribute name="left_menu" value="/WEB-INF/views/admin/common/layout/left_menu_new.jsp" />
+	    <put-attribute name="header" value="/WEB-INF/views/admin/common/layout/header_new.jsp" />
+	    <put-attribute name="content_main" value="" />
+	    <put-attribute name="footer" value="/WEB-INF/views/admin/common/layout/footer_new.jsp" />
+	</definition>
+   
+   <!-- 매출별 통계 -->
+   <definition name="/chart/salary" extends="chart.tiles">
+   		<put-attribute name="content_main" value="/WEB-INF/views/admin/chart/salary_chart.jsp"/>
    </definition>
    
-   <definition name="salary.tiles" extends="chart.tiles">
-   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/salary_chart.jsp"/>
+   <!-- 회원별 통계 -->
+   <definition name="/chart/member" extends="chart.tiles">
+   		<put-attribute name="content_main" value="/WEB-INF/views/admin/chart/member_chart.jsp"/>
    </definition>
    
-   <definition name="member.tiles" extends="chart.tiles">
-   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/member_chart.jsp"/>
+   <!-- 업체별 통계 -->
+   <definition name="/chart/company" extends="chart.tiles">
+   		<put-attribute name="content_main" value="/WEB-INF/views/admin/chart/company_chart.jsp"/>
    </definition>
    
-   <definition name="company.tiles" extends="chart.tiles">
-   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/company_chart.jsp"/>
-   </definition>
-   
-   <definition name="product.tiles" extends="chart.tiles">
-   		<put-attribute name="body" value="/WEB-INF/views/admin/chart/product_chart.jsp"/>
+   <!-- 상품별 통계 -->
+   <definition name="/chart/product" extends="chart.tiles">
+   		<put-attribute name="content_main" value="/WEB-INF/views/admin/chart/product_chart.jsp"/>
    </definition>
    
 </tiles-definitions>

@@ -76,9 +76,6 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">CHART</h6>
 							<a class="collapse-item" href="/admin/chart/salary">매출 통계</a>
-							<a class="collapse-item" href="/admin/chart/member">회원 통계</a>
-							<a class="collapse-item" href="/admin/chart/company">업체별 통계</a>
-							<a class="collapse-item" href="/admin/chart/product">상품 통계</a>
 						</div>
 					</div>
 				</li>
@@ -93,8 +90,6 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
 							<a class="collapse-item" href="/admin/payment/success">주문조회</a>
-							<!-- <a class="collapse-item" href="/admin/payment/exchange">교환관리</a>
-							<a class="collapse-item" href="/admin/payment/cancel">취소/환불관리</a> -->
 						</div>
 					</div>
 				</li>
@@ -109,20 +104,6 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">CHART</h6>
 							<a class="collapse-item" href="/admin/used/usedlist">중고마켓 관리</a>
-						</div>
-					</div>
-				</li>
-				
-				<!-- DB 액셀 다운로드 -->
-				<li class="nav-item">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExcel" aria-expanded="true" aria-controls="collapseUtilities">
-						<i class="fas fa-fw fa-chart-area"></i>
-						<span>DB 다운로드</span>
-					</a>
-					<div id="collapseExcel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<h6 class="collapse-header">CHART</h6>
-							<a class="collapse-item" href="/admin/excel/move">DB 액셀 다운로드</a>
 						</div>
 					</div>
 				</li>
@@ -203,9 +184,9 @@
 							<h6 class="collapse-header">PRODUCT MANAGE</h6>
 							<a class="collapse-item" href="/admin/company/register">상품등록</a>
 							<a class="collapse-item" href="/admin/company/productlist">상품조회</a>
-							<a class="collapse-item" href="/admin/company/productoperlist">상품수정/삭제/SALE등록</a>
+							<a class="collapse-item" href="/admin/company/productoperlist">상품수정/SALE등록</a>
 							<a class="collapse-item" href="/admin/company/saleproductmanage">SALE관리</a>
-							<a class="collapse-item" href="login.html">재고관리</a>
+							<a class="collapse-item" href="/admin/company/stockmanage">재고관리</a>
 						</div>
 					</div>
 				</li>
@@ -221,9 +202,21 @@
 							<h6 class="collapse-header">PAYMENT MANAGE</h6>
 							<a class="collapse-item" href="/admin/company/payment/success">주문조회</a>
 							<a class="collapse-item" href="/admin/company/payment/vbank">무통장입금 관리</a>
-							<a class="collapse-item" href="/admin/company/payment/delivery">배송 관리</a>
-							<!-- <a class="collapse-item" href="/admin/company/payment/exchange">교환관리</a>
-							<a class="collapse-item" href="/admin/company/payment/cancel">취소/환불관리</a> -->
+						</div>
+					</div>
+				</li>
+
+				<!-- 주문관리 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_company_delivery" aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>배송관리</span>
+					</a>
+					<div id="admin_company_delivery" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">DELIVERY MANAGE</h6>
+							<a class="collapse-item" href="/admin/company/payment/delivery/ready">배송 준비중</a>
+							<a class="collapse-item" href="/admin/company/payment/delivery/ing">배송 중</a>
 						</div>
 					</div>
 				</li>
@@ -238,6 +231,20 @@
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">PRODUCT QNA</h6>
 							<a class="collapse-item" href="/admin/productqna/pqnalist">상품문의</a>
+						</div>
+					</div>
+				</li>
+				
+				<!-- 상품후기 -->
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin_company_productreview" aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>상품후기관리</span>
+					</a>
+					<div id="admin_company_productreview" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">PRODUCT REWVIEW</h6>
+							<a class="collapse-item" href="/admin/productreview/showlist">상품후기</a>
 						</div>
 					</div>
 				</li>

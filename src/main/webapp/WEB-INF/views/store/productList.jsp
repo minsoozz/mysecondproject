@@ -70,7 +70,6 @@ pageNumber : ${pageNumber }<br>
 			<label onclick="sortingBy('PRICEDOWN')" class="sortingBy" style="${sorting == 'PRICEDOWN'? 'color:black;font-weight:bolder;':'' }">PRICE↓</label>
 			<label onclick="sortingBy('PRICEUP')" class="sortingBy" style="${sorting == 'PRICEUP'? 'color:black;font-weight:bolder;':'' }">PRICE↑</label>
 		</div>
-
 		
 	</div>
 	</c:if>
@@ -79,7 +78,8 @@ pageNumber : ${pageNumber }<br>
 			<input type="hidden" class="hdnC1name" value="${c1name }">
 		<c:forEach items="${plist }" var="pro" varStatus="vs">
 		<div class='eachDiv' style="cursor:pointer;" onclick="detail(${pro.p_seq })"> 
-			<div style="margin-top: 18px; margin-bottom: 13px;"><img alt="사진없음" src="/upload/store/${pro.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"><br>
+			<%-- <div align="left">${pro.rnum }</div> --%>
+			<div style="margin-top: 18px; margin-bottom: 25px;"><img alt="사진없음" src="/upload/store/${pro.photo1_file }" style="width:250px;height:250px;" style="margin:3%;"><br>
 			</div>
 			<c:if test="${pro.sum > 0}">
 			<font size="3px"><b>${pro.p_name }</b></font><br>
@@ -89,7 +89,7 @@ pageNumber : ${pageNumber }<br>
 			</c:if>
 			
 			<font size="2px">${pro.c_name }</font><br>
-			<font size="2px">(${pro.p_color })</font><br>
+			<%-- <font size="2px">(${pro.p_color })</font><br> --%>
 			<c:if test="${pro.sum > 0}">			
 				<font size="2px">
 				<c:if test="${pro.bfs_price ne 0 }">
@@ -98,10 +98,9 @@ pageNumber : ${pageNumber }<br>
 				&#8361;${pro.p_price2 }</font>
 			</c:if>
 			<c:if test="${pro.sum eq 0}">
-				<font style="color:red; font-weight: bolder;">SOLD OUT</font>
+				<font style="color:orange; font-weight: bolder;">SOLD OUT</font>
 			</c:if>
 			<br>
-			<font>${pro.c1_name }</font>
 			
 		</div>	
 		</c:forEach>

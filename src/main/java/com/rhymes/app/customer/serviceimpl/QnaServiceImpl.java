@@ -80,14 +80,5 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.QnaParentDelete(ref);
 	}
 
-	//qna 답글
-	@Override
-	public boolean QnaAnswer(QnaDto dto) throws Exception {
-		
-		return qnaDao.QnaAnswer(dto);
-	}
-	
-	
-	
 	
 }

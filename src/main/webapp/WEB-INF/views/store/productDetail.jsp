@@ -94,9 +94,12 @@ $(document).ajaxSend(function(e, xhr, options) {
    <br><br>
    <p style="color: gray;font-size: 15px">${ productDto.p_title}</p><br>
  	
-   <p style="color: gray;font-size: 15px;margin-bottom: 5px;">· MADE IN ${productDto.nation}</p>
-   <p style="color: gray;font-size: 15px;margin-bottom: 5px;">· Color : ${productDto.p_color}</p>
-   <p style="color: gray;font-size: 15px">· SKU : ${productDto.cp_code}</p>
+   <p style="color: gray;font-size: 15px; margin-bottom: 5px;">· MADE IN ${productDto.nation}</p>
+   <p style="color: gray;font-size: 15px; margin-bottom: 5px;">· COLOR : ${productDto.p_color}</p>
+   <p style="color: gray;font-size: 15px; margin-bottom: 5px;">· SKU : ${productDto.cp_code}</p>
+   <p style="color: gray;font-size: 15px">· MANUFACTURED : ${productDto.madeYear}/${productDto.madeMonth}</p>
+   
+   
    <br>
    <div class='' style="cursor:pointer; width: 450px;" onclick="detail(${pro.p_seq })"> 
       <p style="color: gray;font-size: 15px; margin-bottom: 2px;"><strong>사이즈 선택</strong></p>
@@ -113,46 +116,51 @@ $(document).ajaxSend(function(e, xhr, options) {
    </div>
 
    <div id="fewSizeDiv" style="margin-bottom: 20px;">
-   		<label id="fewSizeNotice" style="display:none;">
-   			어쩌구저쩌구 어저쩌구 저쩌구
-   		</label>
+   		<label id="fewSizeNotice" style="display:none;"></label>
    </div>
-   수량&nbsp;
+   <c:if test="${productDto.sum ne 0 }">
+     수량&nbsp;
    <span class="pqSelect">
       <span class="minus_Btn" style="cursor:pointer;">-</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          <label id="pqCnt">1</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <span class="plus_btn" style="cursor:pointer;">+</span>
    </span>
-   <br><br>
-   
+   </c:if>
+   <br>
    
    <div id="b_btn">
-   <input type="button" value="바로구매" id="buyBtn" onclick="buying()" style="cursor:pointer;"><br>
-   <input type="button" value="장바구니" class="basketBtn" style="cursor:pointer;">
-   <button type="button" class="wishBtn" style="cursor:pointer;">
-      위시리스트
-      <span>
-      <c:if test="${wishChk == false }">
-         <img class="heartImg" src="/img/store-img/unlike.png" style="width:10px; height:10px;">
-      </c:if>
-      <c:if test="${wishChk == true }">
-         <img class="heartImg" src="/img/store-img/like.png" style="width:10px; height:10px;">
-      </c:if>
-      </span>
-   </button>
-
-	<br><br>
-	<span id="restockBtn">
-		<img src="data:image/png;base64,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">
-		NOTIFY ME 입고 알림신청
-	</span>	
-	
-<!-- 미니 장바구니 영역 -->
-    <div class="basket" style="overflow: scroll;">
+   <!-- not sold out -->
+   <c:if test="${productDto.sum ne 0 }">
+	   <input type="button" value="바로구매" id="buyBtn" onclick="buying()" style="cursor:pointer;"><br>
+	   <input type="button" value="장바구니" class="basketBtn" style="cursor:pointer;">
+	   <button type="button" class="wishBtn" style="cursor:pointer;">
+	      위시리스트
+	      <span>
+	      <c:if test="${wishChk == false }">
+	         <img class="heartImg" src="/img/store-img/unlike.png" style="width:10px; height:10px;">
+	      </c:if>
+	      <c:if test="${wishChk == true }">
+	         <img class="heartImg" src="/img/store-img/like.png" style="width:10px; height:10px;">
+	      </c:if>
+	      </span>
+	   </button>
+	<!-- sold out -->
+	</c:if>
+		
+	<c:if test="${productDto.sum eq 0 }">
+		<input type="button" value="SOLD OUT" id="soldoutBtn" style="color:white; cursor: default;">
+	</c:if>
+		<br><br>
+		<span id="restockBtn">
+			<img src="data:image/png;base64,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">
+			NOTIFY ME 입고 알림신청
+		</span>	
+		
+	<!-- 미니 장바구니 영역 -->
+	    <div class="basket" style="overflow: scroll;">
     </div>
 </div>
 </div>
-
 
 <!-- 메시지 영역 -->
 <div class="wModal">
@@ -167,7 +175,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 	<div class="restockModal-content">
 		<div>
 			<strong style="font-size: 17px;">NOTIFY ME 입고 알림 신청</strong><br><br>
-			<label style="color:grey; font-size: 13px;">상품이 입고되는 즉시, 바로 만나보세요!<br>입력하신 휴대폰 번호로 카카오톡 알림 메시지를 보내드립니다.</label>			
+			<label style="color:grey; font-size: 13px;">상품이 입고되는 즉시, 바로 만나보세요!<br>입력하신 휴대폰 번호로 알림 메시지를 보내드립니다.</label>			
 			<hr width = "100%" color = "#DADCE0">
 		</div>
 		
@@ -182,22 +190,18 @@ $(document).ajaxSend(function(e, xhr, options) {
 				<img alt="사진1" src="/upload/store/${productDto.photo1_file }">
 				
 			</div>
-			<br>
-			<hr width = "100%" color = "#DADCE0"><br>
+			<hr width = "100%" color = "#DADCE0">
 			<div id="restock-size" style="margin-top: -10px;">
 				<div>
 					<div style="float:left;">
 						<strong>사이즈</strong>
 					</div>
-					<div class="_putrsSize">
+					<div class="_putrsSize" style="align:right">
 						<label style="color:grey; font-size: 12px;" class="restockLabel">사이즈를 선택하세요.</label> &nbsp;
 						<input type="hidden" id="restockseq-hdn">
 					</div>
-					<div>	
-						<a href="#">변경</a>
-					</div>
 				</div>
-				<div style="margin-top: 30px;">
+				<div style="margin-top: 50px;">
 				<c:forEach items="${sizelist }" var="size" varStatus="vs">
 					<c:if test="${size.quantity eq 0 }">
 						<input type="radio" name='restockRadio' id="chooseSize${vs.count }" class="_chooseSize${index.count }" style="display: none"
@@ -268,13 +272,17 @@ $(document).ajaxSend(function(e, xhr, options) {
      <%--  p_title(상품 기본정보 입력:부가설명) : ${productDto.p_title}<br> --%>
      <!--  detail(상품 상세정보 입력) : --> 
      
-     <p style="font-size: 15px;">${productDto.detail}</p><br>
+
       
        <img src="/upload/store/${productDto.photo1_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
         <img src="/upload/store/${productDto.photo2_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
          <img src="/upload/store/${productDto.photo3_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
           <img src="/upload/store/${productDto.photo4_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
            <img src="/upload/store/${productDto.photo5_file }" style="width: 700px;height: 700px;margin: 50px"><br><br><br><br>
+           
+           
+           
+                <p style="font-size: 15px;">${productDto.detail}</p><br>
       
      </div> 
       
@@ -492,20 +500,13 @@ var totalSlides = $('#slider-wrap ul li').length;
 //get the slide width
 var sliderWidth = $('#slider-wrap').width();
 var id = "${userloginid}";
-
-
-
-
-
 var blist_stockseq = "";
 var blist_pQuantity = "";
-
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 $(document).ajaxSend(function(e, xhr, options) {
     xhr.setRequestHeader(header, token);
 });
-
 // 입고 알림신청(모달) 신청버튼 클릭 : INSERT
 $(document).on('click', '#rsFinish-btn', function(){
 	//★폰번호 자릿수, 체크박스 유효성 체크해야함
@@ -576,8 +577,6 @@ $(document).on('click', '#rsFinish-btn', function(){
 		   }
     	}
 });
-
-
 // 입고 알림모달 안에서 사이즈선택 클릭
 $(document).on('click', '.restock_label', function(){
 	
@@ -595,9 +594,6 @@ $(document).on('click', '.restock_label', function(){
 	$(".restockLabel").html("<strong>"+stock_size+"</strong>");
 	
 });
-
-
-
 /* restock모달 영역 외 클릭시 close */
 $('body').click(function(e){
 	 if($(".restockModal").css("display") == "block") {
@@ -613,37 +609,41 @@ $('body').click(function(e){
          } 
  	 }
 });
-
 // restock
 $(document).on('click', '#restockBtn', function(){
+	 
+	if(id==""){
+	      $("#msg").html("<b><font style='font-size:35px'>로그인 후 이용해주세요.</b>")
+	      $(".wModal").fadeIn();
+	      setTimeout(function() {
+	         $(".wModal").fadeOut();
+	      },1500);
+	      
+	}else{
+		$(".restockModal").fadeIn();
+	}
+	//var p_seq = "${productDto.p_seq }";
 	
-	$(".restockModal").fadeIn();
 	
-	var p_seq = "${productDto.p_seq }";
 	
 });
-
 // sold out
 function soldout(){
-
    $("#msg").html("<b><font style='font-size:35px'>SOLD OUT</font></b>")
    $(".wModal").fadeIn();
    setTimeout(function() {
       $(".wModal").fadeOut();
    },700);
 }
-
 // 미니장바구니 modal 영역 외 클릭시 hide
 $('body').click(function(e){
     if($(".basket").css("display") == "block") {
          if(!$('.basket, .blist').has(e.target).length) { 
-
             $(".basket").hide("slow");
             
           } 
       }
 });
-
 //사이즈 선택시 버튼색상 변경
 $(document).on('click', '.sizeLabel', function(){
    $(".sizeLabel").attr('style', 'background-color:white');
@@ -672,18 +672,15 @@ $(document).on('click', '.sizeLabel', function(){
    
    
 });
-
 /* 위시리스트 클릭 */
 $(document).on('click', '.wishBtn', function(){
    
    if(id==""){
-      $("#msg").html("<b><font style='font-size:20px'>로그인 후 이용해주세요.</b>")
+      $("#msg").html("<b><font style='font-size:35px'>로그인 후 이용해주세요.</b>")
       $(".wModal").fadeIn();
       setTimeout(function() {
          $(".wModal").fadeOut();
       },1500);
-      
-      location.href="/member/login";
       
    }else{
       var p_seq = $("#hdnPseq").val();
@@ -716,8 +713,6 @@ $(document).on('click', '.wishBtn', function(){
       }) 
    }   
 });
-
-
 //장바구니 클릭
 $(document).on('click', '.basketBtn', function(){   
    var stock_seq = Number($("input[name='sizeRadio']:checked").attr("value2"));
@@ -764,7 +759,6 @@ $(document).on('click', '.basketBtn', function(){
       }
       
 });
-
 function insertSessionBasket(stock_seq, cnt){
 	   $.ajax({
            type:"get",
@@ -782,7 +776,6 @@ function insertSessionBasket(stock_seq, cnt){
            }
          })
 } 
-
 function insertBasket(stock_seq, cnt){
 	$.ajax({
         type:"get",
@@ -800,12 +793,8 @@ function insertBasket(stock_seq, cnt){
         }
       })
 }
-
-
-
 /* 미니 장바구니 리스트 */
 function showBasketList(arrLen, arr){
-
    $(".blist").html("");
    $("#baskettitle").remove();
    var str = "";
@@ -842,9 +831,7 @@ function showBasketList(arrLen, arr){
    $(".basket").append(str);
    
    $(".basket").animate({width:'toggle'},350);
-
 }
-
 /* 미니장바구니 전체 구매버튼 클릭 */
 $(document).on('click', '._basketOrderBtn', function(){
    	var stockseq = $("#blist_stockseq").val();
@@ -853,21 +840,17 @@ $(document).on('click', '._basketOrderBtn', function(){
 	//alert(quantity);
 	$("#bOrderFrm").submit();      
 });
-
 /* 장바구니 페이지 이동버튼 클릭 */
 $(document).on('click', '.moveBasketBtn', function(){
 	location.href="/store/basket";	
 });
-
 /* 미니장바구니 삭제버튼 클릭 */
 $(document).on('click', '._bDeleteBtn', function(){
-
    //alert("삭제");
    var stock_seq = $(this).val();
    //alert("재고번호 : " + stock_seq);
    /* ajax로 삭제하고 리스트 다시 뿌려야함 */
 });
-
 /* 구매버튼 클릭 */
 function buying(){
    
@@ -914,7 +897,6 @@ function buying(){
       }
    
 }
-
 /* 구매 수량 */
 $(document).on('click', '.plus_btn', function(){
 var cnt = Number($("#pqCnt").html());
@@ -929,11 +911,9 @@ var cnt = Number($("#pqCnt").html());
 	      $(".wModal").fadeOut();
 	   },900);
 	}
-
 	
 	
 });
-
 $(document).on('click', '.minus_Btn', function(){
 var cnt = Number($("#pqCnt").html());
 if(cnt!=1){
@@ -947,7 +927,6 @@ if(cnt!=1){
 <script type="text/javascript">
 /* 클릭시 내용보이기 */
 $(".detail").hide();
-
 function pqnadetail(seq){
    
    if($("#detail"+seq).css("display")=="none"){
@@ -968,11 +947,9 @@ function PqnaDelete( seq ) {
 function PqnaUpdate( seq ) {
    location.href = "pqnaupdate?seq=" + seq;
 }
-
 $("#_btnWrite").click(function () { 
    location.href = "pqnawrite";
 });
-
 function goPage( pageNumber,p_seq) {
    
    $("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
@@ -980,9 +957,6 @@ function goPage( pageNumber,p_seq) {
    $("#_frmFormSearch").attr("action", "/store/productDetail").submit(); //
    
 }
-
-
-
 $(document).ready(function(){
     /*****************
      BUILD THE SLIDER
@@ -1010,7 +984,6 @@ $(document).ready(function(){
     
     //for each slide 
     $.each($('#slider-wrap ul li'), function() { 
-
        //create a pagination
        var li = document.createElement('li');
        $('#pagination-wrap ul').append(li);    
@@ -1030,11 +1003,8 @@ $(document).ready(function(){
     );
     
     
-
 });//DOCUMENT READY
     
-
-
 /***********
  SLIDE LEFT
 ************/
@@ -1047,8 +1017,6 @@ function slideLeft(){
     countSlides();
     pagination();
 }
-
-
 /************
  SLIDE RIGHT
 *************/
@@ -1061,9 +1029,6 @@ function slideRight(){
     countSlides();
     pagination();
 }
-
-
-
     
 /************************
  //*> OPTIONAL SETTINGS
@@ -1071,15 +1036,10 @@ function slideRight(){
 function countSlides(){
     $('#counter').html(pos+1 + ' / ' + totalSlides);
 }
-
 function pagination(){
     $('#pagination-wrap ul li').removeClass('active');
     $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
 }
-
-
-
-
 </script>  
       
 </body>

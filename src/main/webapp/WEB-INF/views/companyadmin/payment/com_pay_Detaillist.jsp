@@ -17,7 +17,7 @@
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">${market }의 주문상세내역</h1>
 	<p class="mb-4">
-		<a href="/admin/company/payment/success">주문내역</a> > 주문상세내역
+		<a href="/admin/company/payment/success">주문내역</a> > <a href="#">주문상세내역</a>
 	</p>
 
 	<!-- 상품 -->
@@ -45,7 +45,7 @@
 							<c:forEach begin="0" end="${fn:length(orderDetail) -1 }" step="1" varStatus="i">
 								<tr>
 									<td>${i.index +1 }</td>
-									<td><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${orderDetail[i.index].photo1_file }" width="150" height="150"></td>
+									<td><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${orderDetail[i.index].photo1_file }" width="150" height="150">${orderDetail[i.index].photo1_file }</td>
 									<td>${orderDetail[i.index].stock_seq }</td>
 									<td>${orderDetail[i.index].ea }</td>
 									<td>${orderDetail[i.index].price }</td>

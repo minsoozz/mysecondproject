@@ -79,7 +79,7 @@ GROUP BY SS.STOCK_SEQ
 
 <!-- 업체별 무통장입금  -->
 <select id="getVbankList" parameterType="java.lang.String" resultType="com.rhymes.app.companyadmin.model.AdminPaymentVbankDTO">
-SELECT P.PAYMENT_CODE, P.USERID, P.SEND_NAME, P.PAYMENT_STATUS, P.TOTALPRICE, P.RDATE, PA.VBANK_NUM, PA.VBANK_DATE, P.SEQ
+SELECT P.PAYMENT_CODE, P.USERID, P.SEND_NAME, P.PAYMENT_STATUS, P.TOTALPRICE, P.RDATE, PA.VBANK_NUM, PA.VBANK_DATE, P.SEQ, P.ADD_POINT
 FROM RHY_PAYMENT P, RHY_PAYMENT_AFTER PA, RHY_PAYMENT_DETAILS PD, RHY_STORE_STOCK SS, RHY_STORE_PRODUCT SP, RHY_MEM_C MC
 WHERE P.PAYMENT_CODE = PA.PAYMENT_CODE AND PA.PAYMENT_CODE = PD.PAYMENT_CODE AND PD.S_SEQ = SS.STOCK_SEQ
 		AND SS.P_SEQ = SP.P_SEQ AND SP.C_NAME = MC.C_NAME AND MC.ID = #{userid} AND P.PAYMENT_STATUS = '미결제'
@@ -93,33 +93,54 @@ SET PAYMENT_STATUS = '결제완료'
 WHERE SEQ = #{seq}
 </update>
 
-<!-- 배송관리 -->
-<select id="getDeliveryList" parameterType="java.lang.String" resultType="com.rhymes.app.payment.model.DeliveryDTO">
-SELECT D.PAYMENT_CODE, D.NAME, D.DELIVERY_COMPANY, D.DELIVERY_STATUS, D.DELIVERY_POST_CODE, D.DELIVERY_REQUEST, D.EDATE
-FROM RHY_DELIVERY D, RHY_STORE_PRODUCT SP, RHY_STORE_STOCK SS, RHY_PAYMENT_DETAILS PD, RHY_MEM_C MC
-WHERE D.PAYMENT_CODE = PD.PAYMENT_CODE AND PD.S_SEQ = SS.STOCK_SEQ AND SS.P_SEQ = SP.P_SEQ AND SP.C_NAME = MC.C_NAME AND MC.ID=#{userid}
+
+
+
+
+<!-- 배송 -->
+<!-- 배송 준비 중 -->
+<select id="getDeliveryReadyList" parameterType="java.lang.String" resultType="com.rhymes.app.payment.model.DeliveryDTO">
+SELECT D.PAYMENT_CODE, D.NAME, D.DELIVERY_COMPANY, D.DELIVERY_STATUS, D.DELIVERY_POST_CODE, D.DELIVERY_REQUEST, D.EDATE, P.USERID, P.ADD_POINT
+FROM RHY_PAYMENT P, RHY_DELIVERY D, RHY_STORE_PRODUCT SP, RHY_STORE_STOCK SS, RHY_PAYMENT_DETAILS PD, RHY_MEM_C MC
+WHERE P.PAYMENT_CODE = PD.PAYMENT_CODE AND D.PAYMENT_CODE = PD.PAYMENT_CODE AND PD.S_SEQ = SS.STOCK_SEQ AND SS.P_SEQ = SP.P_SEQ AND SP.C_NAME = MC.C_NAME AND MC.ID=#{userid}
+		AND D.DELIVERY_STATUS = '배송 준비중'
+GROUP BY D.PAYMENT_CODE
+</select>
+
+<!-- 배송 중 -->
+<select id="getDeliveryIngList" parameterType="java.lang.String" resultType="com.rhymes.app.payment.model.DeliveryDTO">
+SELECT D.PAYMENT_CODE, D.NAME, D.DELIVERY_COMPANY, D.DELIVERY_STATUS, D.DELIVERY_POST_CODE, D.DELIVERY_REQUEST, D.EDATE, P.USERID, P.ADD_POINT
+FROM RHY_PAYMENT P, RHY_DELIVERY D, RHY_STORE_PRODUCT SP, RHY_STORE_STOCK SS, RHY_PAYMENT_DETAILS PD, RHY_MEM_C MC
+WHERE P.PAYMENT_CODE = PD.PAYMENT_CODE AND D.PAYMENT_CODE = PD.PAYMENT_CODE AND PD.S_SEQ = SS.STOCK_SEQ AND SS.P_SEQ = SP.P_SEQ AND SP.C_NAME = MC.C_NAME AND MC.ID=#{userid}
+		AND D.DELIVERY_STATUS = '배송 중'
 GROUP BY D.PAYMENT_CODE
 </select>
 
 <!-- 배송준비 중 -> 배송 중 -->
-<update id="getDeliveryIng" parameterType="com.rhymes.app.payment.model.DeliveryDTO">
+<update id="getDeliveryIngChange" parameterType="java.lang.String">
 UPDATE RHY_DELIVERY
-SET DELIVERY_STATUS = '배송중'
+SET DELIVERY_STATUS = '배송 중'
 WHERE PAYMENT_CODE LIKE CONCAT('%',#{payment_code},'%')
 </update>
 
 <!-- 배송중 -> 배송완료 -->
-<update id="getDeliveryFinish" parameterType="com.rhymes.app.payment.model.DeliveryDTO">
+<update id="getDeliveryFinishChange" parameterType="java.lang.String">
 UPDATE RHY_DELIVERY
 SET DELIVERY_STATUS = '배송완료'
 WHERE PAYMENT_CODE LIKE CONCAT('%',#{payment_code},'%')
 </update>
 
 <!-- 배송완료 후 edate 변경 -->
-<insert id="getDeliveryFinishEdate" parameterType="com.rhymes.app.payment.model.DeliveryDTO">
+<insert id="getDeliveryFinishEdate" parameterType="java.lang.String">
 UPDATE RHY_DELIVERY
 SET EDATE = NOW()
 WHERE PAYMENT_CODE LIKE CONCAT('%',#{payment_code},'%')
+</insert>
+
+<!-- 추가 적립금 저장 -->
+<insert id="add_point" parameterType="com.rhymes.app.payment.model.PaymentDTO">
+INSERT INTO RHY_MEM_POINT(ID, COMMENT, AMOUNT, RDATE)
+VALUES(#{userid}, '배송완료 후 추가 적립금', #{add_point}, now())
 </insert>
 
 </mapper>

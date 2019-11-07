@@ -52,15 +52,7 @@ public class AdminQnaDaoImpl implements AdminQnaDao {
 		return sqlSession.selectOne(ns+"getQnaDetail", seq);
 	}
 
-	//qna 업로드
-	@Override
-	public boolean QnaUpload(QnaDto dto) {
-		
-		int n = sqlSession.insert(ns+"QnaUpload", dto);
-		
-		return n>0?true:false;
-	}
-
+	
 	//qna 수정
 	@Override
 	public boolean QnaUpdateAf(QnaDto dto) {

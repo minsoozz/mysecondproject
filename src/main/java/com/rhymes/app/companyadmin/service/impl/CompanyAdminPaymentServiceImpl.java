@@ -58,22 +58,37 @@ public class CompanyAdminPaymentServiceImpl implements CompanyAdminPaymentServic
 		return com_admin_paymentDAO.paymentfinish(seq);
 	}
 
-	// 배송관리
+	
+	
+	// 배송
+	// 배송 준비 중
 	@Override
-	public List<DeliveryDTO> getDeliveryList(String userid) {
-		return com_admin_paymentDAO.getDeliveryList(userid);
+	public List<DeliveryDTO> getDeliveryReadyList(String userid) {
+		return com_admin_paymentDAO.getDeliveryReadyList(userid);
 	}
 
-	// 배송준비 중 -> 배송 중
+	// 배송 중
 	@Override
-	public boolean getDeliveryIng(DeliveryDTO dto) {
-		return com_admin_paymentDAO.getDeliveryIng(dto);
+	public List<DeliveryDTO> getDeliveryIngList(String userid) {
+		return com_admin_paymentDAO.getDeliveryIngList(userid);
+	}
+
+	// 배송 준비 중 -> 배송 중
+	@Override
+	public boolean getDeliveryIngChange(String payment_code) {
+		return com_admin_paymentDAO.getDeliveryIngChange(payment_code);
 	}
 
 	// 배송중 -> 배송완료
 	@Override
-	public boolean getDeliveryFinish(DeliveryDTO dto) {
-		return com_admin_paymentDAO.getDeliveryFinish(dto);
+	public boolean getDeliveryFinishChange(String payment_code) {
+		return com_admin_paymentDAO.getDeliveryFinishChange(payment_code);
+	}
+
+	// 추가 적립금 저장
+	@Override
+	public boolean add_point(String userid, String add_point) {
+		return com_admin_paymentDAO.add_point(userid, add_point);
 	}
 	
 

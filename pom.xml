@@ -12,6 +12,7 @@
 	<groupId>com.rhymes</groupId>
 	<artifactId>RHYMES</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- <packaging>jar</packaging> -->
 	<name>RHYMES</name>
 	<description>Online clothes store</description>
 
@@ -35,7 +36,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
-
+ 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
@@ -75,6 +76,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
+			<!-- <scope>compile</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -311,5 +313,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 
 </project>

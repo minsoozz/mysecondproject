@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% String ctx = request.getContextPath(); %>
@@ -21,113 +21,53 @@
 </head> 
 
 <body>
+   
+      <div class="mainpick-wrapper"> 
+	   <div class="mainpick"> 
+		   <div class="centered"> 
+		   	<c:if test ="${dto.mainbanner_type eq 'VIDEO'}" >
+		    	<video src='/upload/mainresource/${dto.mainbanner_file}' style="width: 90%;height: 10%" loop="loop" autoplay="autoplay"></video>
+		    	<%-- <video src="/upload/mainresource/${dto.mainbanner_file }"width="90%" height="10%" loop="loop" autoplay="autoplay"></video> --%>						
+		    </c:if>
+		
+			<c:if test = "${dto.mainbanner_type eq 'PHOTO'}" >
+		    	<img src="/upload/mainresource/${dto.mainbanner_file}"></img>     
+		    </c:if> 
+		   </div> 
+	   </div> 	 
+     </div>     
 
-    <div align="center" id="mainbanner">
-    <c:if test ="${dto.mainbanner_type eq 'VIDEO'}" >
-    	<video src='/upload/mainresource/${dto.mainbanner_file}' style="width: 90%;height: 10%" loop="loop" autoplay="autoplay"></video>
-    	<%-- <video src="/upload/mainresource/${dto.mainbanner_file }"width="90%" height="10%" loop="loop" autoplay="autoplay"></video> --%>						
-    </c:if>
-
-	<c:if test = "${dto.mainbanner_type eq 'PHOTO'}" >
-    	<img src="/upload/mainresource/${dto.mainbanner_file}" style="width: 1850px; height: 800px"></img>     
-    </c:if> 
-   </div>
-
-   <br><br><br><br><br><br>
+ <br>
+ 
 
 
-<h4 style="margin-left: 60px; color: gray">BEST</h4>
+    <br><br><br><br><br><br><br><br>
+   
+    
+    
+<h4 style="margin-left: 60px; color: gray">WOMEN BEST7</h4>
 <br>
 <!-- ****** Welcome Post Area Start ****** -->
-    <section class="welcome-post-sliders owl-carousel">
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
+    <section class="welcome-post-sliders owl-carousel" >
+		<!-- Single Slide -->
+		<c:forEach items="${womenbest }" var="women" varStatus="vs">
+        <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${women.p_seq}&c1_name=${women.c1_name }'" style="cursor:pointer; ">
             <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
+            <img src="/upload/store/${women.photo1_file }" alt="사진없음">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
+                	<a href="#" style="font-size: 20px">${women.rnum }</a>
+                    <a href="#" style="font-size: 20px">${women.c2_name }</a>
                 </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
+                    <h6 style="color: white;">${women.c_name }</h6>
+                    <h5 style="color:white">${women.p_name }</h5>
             </div>
         </div>
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title"> 
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
-
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/img/main-img/slide-img/789.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
- 
+        </c:forEach>
     </section>
-    <!-- ****** Welcome Area End ****** -->
-
-   <br><br><br><br><br><br>   <br><br><br><br><br><br>
-
-
-   
+    <br><br><br><br>
+       
    
    <div class="thumbnail-wrapper"> 
 	   <div class="thumbnail"> 
@@ -139,22 +79,44 @@
 	   <h3 style="color: black">${dto.photo1_title}</h3>
      <br>
      <p style="font-size: 15px">${dto.photo1_content}</p>     
-     <a href="#" class="mainbuybtn">구매하기</a>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1071&c1_name=WOMEN&c2_name=WOMEN&c3_name=WOMEN&keyword=" class="mainbuybtn">구매하기</a>
+     
+    
      </div>
    </div>
    <br><br><br><br><br><br>
    
-    <div align="center">
-    <video src='/upload/mainresource/${dto.video1_file}' style="width: 90%; height: 10%" loop="loop" autoplay="autoplay"></video>
-     <br><br>
-     <h3 style="color: black">${dto.video1_title}</h3>
-     <br> 
-	<p style="font-size: 15px">${dto.video1_content}</p>
-     <a href="#" class="mainbuybtn">구매하기</a>
-   </div>
-   <br><br><br><br><br><br>
+
 
        
+       
+    <h4 style="margin-left: 60px; color: gray">MEN BEST7</h4>
+	<br>
+<!-- ****** Welcome Post Area Start ****** -->
+    <section class="welcome-post-sliders owl-carousel">
+		<!-- Single Slide -->
+		<c:forEach items="${menbest }" var="men" varStatus="vs">
+        <div class="welcome-single-slide" onclick="location.href='/store/productDetail?p_seq=${men.p_seq}&c1_name=${men.c1_name }'" style="cursor:pointer;">
+            <!-- Post Thumb -->
+            <img src="/upload/store/${men.photo1_file }" alt="사진없음">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#" style="font-size: 22px">${men.rnum }</a>
+                    <a href="#" style="font-size: 20px">${men.c2_name }</a>
+                </div>
+                
+		               <h6 style="color: white;">${men.c_name }</h6>
+		               <h5 style="color:white">${men.p_name }</h5>
+            </div>
+        </div>
+        </c:forEach>
+    </section>   
+    
+    <br><br><br><br>
+    <!-- ****** Welcome Area End ****** -->
+    
+    
      <div class="thumbnail-wrapper"> 
 	   <div class="thumbnail"> 
 		   <div class="centered"> 
@@ -165,19 +127,32 @@
 	   <h3 style="color: black">${dto.photo2_title}</h3>
      <br>
      <p style="font-size: 15px">${dto.photo2_content}</p>     
-     <a href="#" class="mainbuybtn">구매하기</a>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1072&c1_name=MEN&c2_name=MEN&c3_name=MEN&keyword=" class="mainbuybtn">구매하기</a>
      </div>
    </div>
    <br><br><br><br><br><br>
 
+
+
+
+    <div align="center">
+    <video src='/upload/mainresource/${dto.video1_file}' style="width: 90%; height: 10%" loop="loop" autoplay="autoplay"></video>
+     <br><br>
+     <h3 style="color: black">${dto.video1_title}</h3>
+     <br> 
+	<p style="font-size: 15px">${dto.video1_content}</p>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1107&c1_name=WOMEN&c2_name=WOMEN&c3_name=WOMEN&keyword=" class="mainbuybtn">구매하기</a>
+   </div>
+   <br><br><br><br><br><br>
+   
    
   <div align="center">
-    <video src='/upload/mainresource/${dto.video2_file}' style="width: 80%;height: 10%;" loop="loop" autoplay="autoplay"></video>
+    <video src='/upload/mainresource/${dto.video2_file}' style="width: 90%;height: 10%;" loop="loop" autoplay="autoplay"></video>
      <br><br>
      <h3 style="color: black">${dto.video2_title}</h3>
      <br> 
 	<p style="font-size: 15px">${dto.video2_content}</p>    
-     <a href="#" class="mainbuybtn">구매하기</a>
+     <a href="http://localhost:18080/store/productDetail?p_seq=1070&c1_name=WOMEN&c2_name=WOMEN&c3_name=WOMEN&keyword=" class="mainbuybtn">구매하기</a>
    </div>
    <br><br><br><br><br><br>
     <!-- 추천 상품 끝 -->

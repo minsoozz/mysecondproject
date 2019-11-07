@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rhymes.app.event.model.EventDTO;
 import com.rhymes.app.event.model.EventParam;
 import com.rhymes.app.event.service.EventService;
+import com.rhymes.app.member.model.mypage.MemberCouponDTO;
 import com.rhymes.app.member.model.mypage.MemberCouponDetailDTO;
+import com.rhymes.app.member.model.mypage.MemberPointDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -156,6 +158,38 @@ public class EventController {
 		return msg;
 	}
 	
-	
+	// 출석체크 쿠폰 insert
+	@ResponseBody
+	@RequestMapping(value = "/eventcoupon_check", method = RequestMethod.GET)
+	public String eventcoupon_check(MemberPointDTO dto, Principal prc, Model model)throws Exception{
+		dto.setUserid(prc.getName());
+		// 오늘 날짜를 얻어옴
+		Calendar cal = Calendar.getInstance();
+		int tyear = cal.get(Calendar.YEAR);
+		int tmonth = cal.get(Calendar.MONDAY) +1;
+		int tday = cal.get(Calendar.DATE);
+		
+		String nowdate = tyear+"-"+tmonth+"-"+tday;
+		dto.setTdate(nowdate);
+		
+		// 이미 발급받은 쿠폰인지 확인
+		boolean a = eventService.geteventduplicate_check(dto);
+
+		String msg = "";
+		
+		if(a) {
+			msg = "no";
+		}
+		else {
+			// 쿠폰 금액을  뽑기위한
+			MemberCouponDTO coupondto = eventService.getcouponamount(dto);
+			dto.setAmount(coupondto.getFunc_num());
+			eventService.eventcoupon_check(dto);	// 'RHY_MEM_POINT' insert
+			msg = "ok";			
+		}
+
+		return msg;
+	}
+		
 
 }

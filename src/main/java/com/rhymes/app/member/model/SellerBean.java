@@ -22,10 +22,10 @@ public class SellerBean implements Serializable {
 	private String userid;
 	private String userpw;
 	
-	private boolean isAccountNonExpired = true;
-	private boolean isAccountNonLock = true;
-	private boolean isCredentialsIsNonExpired = true;	
-	private boolean enabled;
+	private String isAccountNonExpired;
+	private String isAccountNonLock;
+	private String isCredentialsIsNonExpired;	
+	private String enabled;
 	private List<AuthoritiesDTO> authList;
 	private Date rdate;
 	
@@ -79,8 +79,8 @@ public class SellerBean implements Serializable {
 
 
 	
-	public SellerBean(int seq, String userid, String userpw, boolean isAccountNonExpired, boolean isAccountNonLock,
-			boolean isCredentialsIsNonExpired, boolean enabled, List<AuthoritiesDTO> authList, Date rdate) {
+	public SellerBean(int seq, String userid, String userpw, String isAccountNonExpired, String isAccountNonLock,
+			String isCredentialsIsNonExpired, String enabled, List<AuthoritiesDTO> authList, Date rdate) {
 		super();
 		this.seq = seq;
 		this.userid = userid;

@@ -1,6 +1,10 @@
 $(document).ready(function () {
 	//alert("payment.js");
 	var constraints = true;
+	
+	if(event.keyCode == 116){
+		alert("새로고침");
+	}
 		
 });
 
@@ -98,7 +102,7 @@ function paymens(){
 
 	}
 
-	
+	$("#add_point").val( parseInt( $("#add_point").val() ) );
 	
 	$("#disc_coupon").val( parseInt($("#_disc_coupon").text()) );
 	$("#disc_point").val( parseInt($("#_disc_point").text()) );

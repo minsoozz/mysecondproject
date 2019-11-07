@@ -87,7 +87,7 @@ $(document).ready(function () {
 
 			opener.document.getElementById("_totalprice").innerHTML = parseInt(product_price) - parseInt(disc_point);
 			$("#totalprice",opener.document).val( parseInt(product_price) - parseInt(disc_point) );
-			$("#add_point",opener.document).val( (parseInt(product_price) - parseInt(disc_point)) * 0.02 + parseInt(func_num));
+			$("#add_point",opener.document).val( (parseInt(product_price) - parseInt(disc_point) ) * 0.02 + parseInt(func_num));
 		}
 
 		window.close();

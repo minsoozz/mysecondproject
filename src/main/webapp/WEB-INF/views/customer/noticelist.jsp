@@ -41,7 +41,7 @@
 
 <table class="list_table" style="width:100%">
 <colgroup>
-	<col width="50"><col width="300"><col width="100"><col width="100"><col width="50">
+	<col width="80"><col width="500"><col width="80"><col width="80"><col width="80">
 </colgroup>
 
 <thead>

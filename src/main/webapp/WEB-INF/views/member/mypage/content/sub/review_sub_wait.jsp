@@ -22,6 +22,15 @@
 		<div class="written_reviews_wrap">
 	</c:otherwise>
 </c:choose>
+<c:if test="${empty reviewMap}">
+	<div class="order_item">
+		<div class="waiting_item">
+			<div class="form-group">
+				후기를 작성할 수 있는 주문내역이 없습니다.
+			</div>
+		</div>
+	</div>
+</c:if>
 <c:forEach var="list" items="${reviewMap }">
 	<div class="order_item">
 		<div class="order_id" align="left">

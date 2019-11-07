@@ -33,9 +33,9 @@ public class MemberParam implements Serializable{
 	private String authority;
 	
 	// sorting
-	private String sorting="ID";	
+	private String sorting;	
 	
 	// alarm
 	private String rdate;
-		
+	
 }

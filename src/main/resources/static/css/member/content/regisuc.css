@@ -42,15 +42,16 @@
 	color: #b1e627;
 }
 .goBtn{
-	border-radius: 5px;
-    border: solid 1px #c5c5c5;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bolder;
-    height: 54px;
-    padding: 0px 30px 0px 30px;
-    width: 320px;
-    margin: 10px 5px 5px 5px;
+	border-radius: 10px;
+   margin-top:13px;
+   margin-bottom:10px;
+   width:320px;
+   height:55px;
+   background: #CFEC40;   
+   font: Open Sans 30px;
+   color: black; 
+   outline: 0;
+   border: 0px solid gray; 
 }
 .welcp {
 
@@ -64,8 +65,7 @@
 	top: 360px;	
 }
 .goBtn:hover{
-	color: #93c93f;
-    border-color: #93c93f;
+	opacity: 0.5
 }
 
 .cpwrap{
@@ -92,7 +92,7 @@
 }
 #footer_wrap{
 	position: relative;
-	top: 120px;
+	top: 170px;
 }
 .container{
 	position:relative;

@@ -6,10 +6,35 @@
 
  <!-- 상품디테일 -->
  <select id="getProductDetail" parameterType="Integer" resultType="com.rhymes.app.store.model.ProductDto">
- 	SELECT P_SEQ, C_NAME, P_NAME, P_TITLE, P_PRICE, P_COLOR, NATION, MDATE, DETAIL, PHOTO1_FILE, PHOTO2_FILE, PHOTO3_FILE, PHOTO4_FILE, PHOTO5_FILE, CP_CODE, C1_NAME, C2_NAME, C3_NAME, RDATE, BFS_PRICE
- 	FROM rhy_store_product
- 	WHERE P_SEQ = #{p_seq}
+ 	SELECT SUM(b.QUANTITY) AS SUM,
+	    a.P_SEQ,
+		 a.C_NAME,
+		 a.P_NAME,
+		 a.P_TITLE,
+		 a.P_PRICE,
+		 a.P_COLOR,
+		 a.NATION,
+		 a.MDATE,
+		 a.DETAIL,
+		 a.PHOTO1_FILE,
+		 a.PHOTO2_FILE,
+		 a.PHOTO3_FILE,
+		 a.PHOTO4_FILE,
+		 a.PHOTO5_FILE,
+		 a.CP_CODE,
+		 a.C1_NAME,
+		 a.C2_NAME,
+		 a.C3_NAME,
+		 a.RDATE,
+		 a.BFS_PRICE 
+	FROM rhy_store_product a
+		INNER JOIN rhy_store_stock b
+		 ON a.P_SEQ = b.P_SEQ
+	WHERE a.P_SEQ = #{p_seq}
+	GROUP BY a.P_SEQ
  </select>
+ 
+ <!-- 상품디테일에 사이즈 가져오기 -->
  <select id="getSizeList" parameterType="Integer" resultType="com.rhymes.app.store.model.StockDto">
  	SELECT STOCK_SEQ, SIZE, QUANTITY
  	FROM rhy_store_stock

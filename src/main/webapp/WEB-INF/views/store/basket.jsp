@@ -17,16 +17,17 @@
 <body>
 <br><br>
 <div id="cart_wrap" align="center">
-<h2><b>장바구니</b></h2>
 
+<c:if test="${blist ne null }">
+<h2><b>장바구니</b></h2>
 <div id="cntProduct_wrap"><label id="_allCnt">${fn:length(blist) }</label>개 상품</div>
 </div>
-
-<hr style='margin-top:-10px; margin-left: 30px' width='100%' color='#DADCE0'>
+</c:if>
 
 <div id="mainContainer">
 <c:if test="${blist eq null }">
 <div id=sub1Container">
+	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT09uR_LfHPdzAfTxt9K3hvmH6atw3ZJRM6lMX9BaaDf9U1EMHfcQ"><br>
 	<h3 style="color: gray">장바구니에 담긴 상품이 없습니다.</h3>
 </div>
 </c:if>
@@ -183,6 +184,7 @@ $(document).on('click', '.orderBtn', function(){
 	if($(".pay_price").html() == "0"){
 		$("#msg").html("<b>장바구니에 주문가능한 상품이 없습니다.</b>")
     	$(".wModal").fadeIn();
+		
     	setTimeout(function() {
     		$(".wModal").fadeOut();
     	},700);
@@ -221,8 +223,8 @@ $(document).on('click', '.allDeleteBtn', function(){
         	var str = "";
     		//str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
     		//str += "<img alt='사진없음' class='basketImg' src='/img/store-img/cart.png'>";            		
-    		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
-    		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
+    		str += "<span>장바구니에 담긴 상품이 없습니다.</span><br>";
+    		//str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
     		
     		
     		$("#mainContainer").append(str); 
@@ -396,8 +398,8 @@ $(document).on('click', '.delete_btn', function(){
 	            		//str += "<hr style='margin-top:-10px;' width='100%' color='#DADCE0'>";
 	            		//str += "<img alt='사진없음' class='basketImg' src='/img/store-img/cart.png'>";            		
 	            		//str += "<label class='nothingLabel' value='장바구니에 담긴 상품이 없습니다.'></label>";
-	            		str += "<span class='nothingLabel'>장바구니에 담긴 상품이 없습니다.</span><br>";
-	            		str += "<input type='button' class='goShopping' value='계속 쇼핑하기'>";
+	            		str += "<span>장바구니에 담긴 상품이 없습니다.</span><br>";
+
 	            		
 	            		$("#mainContainer").append(str); 
 	            	}

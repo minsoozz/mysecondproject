@@ -45,13 +45,7 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 		return qnaDao.getQnaDetail(seq);
 	}
 
-	//qna 글쓰기
-	@Override
-	public boolean QnaUpload(QnaDto dto) {
-		
-		return qnaDao.QnaUpload(dto);
-	}
-
+	
 	//qna 수정
 	@Override
 	public boolean QnaUpdateAf(QnaDto dto) {

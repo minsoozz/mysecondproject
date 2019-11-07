@@ -154,7 +154,7 @@ function checkIt() {
 					<input type="text" class="inputtext_b_long_seller" name="c_name" placeholder="상호명" required><br>
 				</div>		
 				
-				<input type="text" name="crnum1" class="inputtext_s" id="_c_num1" minlength="3" maxlength="3" required>
+				<input type="text" name="crnum1" class="inputtext_s" id="_c_num1" minlength="3" maxlength="3" required placeholder="사업자번호">
 				- <input type="text" name="crnum2" class="inputtext_s" id="_c_num2" minlength="2" maxlength="2" required>
 				- <input type="text" name="crnum3" class="inputtext_s" id="_c_num3" minlength="5" maxlength="5" required>
 				<br><br>

@@ -36,7 +36,7 @@
 <c:forEach var="review" items="${previewlist }" varStatus="vs">
 <tr class="_hover_tr">
 	<td>${vs.count }</td>
-	<td style="text-align: left;" onclick="reviewdetail(${review.seq})">
+	<td style="text-align: left;" onclick="reviewdetail(${review.seq},'${id}')">
 			${review.title }
 	</td> 
 	<td>
@@ -53,12 +53,12 @@
 <tr class="detail" id='detail${review.seq}'>
 	<td colspan="5" align="left">
 	<div>
-	${review.p_name }
+	${review.p_name } _ ${review.size} size 구매
 	${review.content }
 	
 	</div>
 	<div style="float: right;">
-	<input type="button" id="_btnthis${review.seq}" class="likebtn1" onclick="likebtn(${review.seq})" value="도움돼요👍🏻" >
+	<input type="button" id="_btnthis${review.seq}" class="likebtn1" onclick="likebtn(${review.seq},'${id}')" value="도움돼요👍🏻" >
 	</div>
 	</td>
 </tr>
@@ -91,7 +91,7 @@
 /* 클릭시 내용보이기 */
 $(".detail").hide();
 
-function reviewdetail(seq){
+function reviewdetail(seq,id){
 	
 	if($("#detail"+seq).css("display")=="none"){
 		$(".detail").hide();
@@ -100,7 +100,11 @@ function reviewdetail(seq){
 	}else{
 		$("#detail"+seq).hide();
 	}
-	getlikes(seq);
+	
+	if(id != ''){
+		getlikes(seq);
+	}
+	
 	//likebtn(seq);
 }
 
@@ -152,8 +156,8 @@ $('.likebtn1').click(function() {
 	};
  
  
-function likebtn(seq){
-	
+function likebtn(seq,id){
+	if(id != ''){
  	$.ajax({		// 좋아요 버튼 클릭시
 		url:"/productreview/addlikes",
 		type:"get",
@@ -176,6 +180,9 @@ function likebtn(seq){
 				alert("실패");
 			}
 	}) 
+	}else{
+		alert("로그인 후 이용 가능합니다");
+	}
 };
 //전체 like수 증가
 function UpTotalLike(seq){

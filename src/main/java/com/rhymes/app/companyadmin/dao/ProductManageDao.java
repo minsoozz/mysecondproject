@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.rhymes.app.companyadmin.model.ProductManageDto;
+import com.rhymes.app.companyadmin.model.StockManageDto;
 import com.rhymes.app.member.model.SellerDTO;
 import com.rhymes.app.store.model.ProductDto;
 import com.rhymes.app.store.model.ProductParam;
+import com.rhymes.app.store.model.RestockNotifyDto;
 import com.rhymes.app.store.model.StockDto;
 import com.rhymes.app.store.model.category.Category2Dto;
 import com.rhymes.app.store.model.category.Category3Dto;
@@ -41,4 +43,17 @@ public interface ProductManageDao extends Serializable {
 	public boolean productSalePriceUpdateCancel(ProductDto product) throws Exception;
 	// 상품삭제
 	public boolean productDelete(ProductDto product) throws Exception;
+// 4.재고관리
+	//stock list
+	public List<StockDto> stockmanage(StockManageDto stockmanage)throws Exception;
+	//stock cnt
+	public int stockcnt(StockManageDto stockmanage)throws Exception;
+	//quantity update
+	public boolean changestockquantity(StockDto stock) throws Exception;
+	//stockseq check
+	public boolean restockcheck(StockDto stock) throws Exception;
+	//getting phonenumbers to send msg
+	public List<RestockNotifyDto> getrestockphonenumbers(StockDto stock) throws Exception; 
+	
+
 }

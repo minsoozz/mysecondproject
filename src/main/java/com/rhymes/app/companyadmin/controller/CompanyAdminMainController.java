@@ -36,7 +36,6 @@ public class CompanyAdminMainController implements Serializable {
 	      
 	      if(prc != null) {
 	     	  c_id = prc.getName();
-	     	  System.out.println("업체 아이디 : " + c_id);
 	     	  SellerDTO seller = new SellerDTO();
 	     	  seller.setId(c_id); 
 	     	  seller = manage.getCname(seller);

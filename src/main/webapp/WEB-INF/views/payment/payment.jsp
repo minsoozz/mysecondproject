@@ -42,24 +42,24 @@
 
 		<div class="divback">
 			<h4>상품 정보</h4>
-			<table class="payment_tb">
-				<tr style="border-bottom: 1px solid #dbdbdb;">
+			<table class="payment_tb" id="payment_tb_product">
+				<tr class="bottom_line">
 					<td colspan="2" align="center" width="50%">상품 정보</td>
 					<td width="20%" align="center">상품 금액</td>
 				</tr>
 
 				<c:forEach begin="0" end="${fn:length(basketList) -1 }" varStatus="i">
 					<tr>
-						<td rowspan="2"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }" width="150" height="150"></td>
-						<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].c_name }</td>
-						<td rowspan="2" width="10%" align="center" id="one_total_price${i.index }">
+						<td rowspan="2" class="bottom_line"><img alt="이미지없음" src="<%=request.getContextPath()%>/upload/store/${basketList[i.index].photo1_file }" width="150" height="150"></td>
+						<td width="50%" align="left">[${basketList[i.index].p_name }]${basketList[i.index].p_title }</td>
+						<td rowspan="2" class="bottom_line" width="10%" align="center" id="one_total_price${i.index }">
 						<fmt:formatNumber value="${basketList[i.index].p_price * basketList[i.index].quantity }" />원
 							<input type="hidden" name="stock_seq" value="${basketList[i.index].stock_seq }">
 							<input type="hidden" name="quantity" value="${basketList[i.index].quantity }">
 							<input type="hidden" name="stock_quantity" value="${fn:length(basketList) }">
 						</td>
 					</tr>
-					<tr>
+					<tr class="bottom_line">
 						<td align="left">사이즈 : ${basketList[i.index].size } / 색상 : ${basketList[i.index].p_color } / 수량 : ${basketList[i.index].quantity }개 /
 						개당 <fmt:formatNumber value="${basketList[i.index].p_price }" />원</td>
 					</tr>
@@ -83,9 +83,9 @@
 						<input type="text" id="userNum" placeholder="인증번호 입력">
 						<!-- 인증번호 입력창 -->
 						<input type="button" id="enterBtn" value="확인">
-						<input type="text" name="text" id="text">
+						<input type="hidden" name="text" id="text">
 						<!-- 인증번호를 히든으로 저장해서 보낸다 -->
-						<input type="text" id="text_confirm"></td>
+						<input type="hidden" id="text_confirm"></td>
 				</tr>
 				<tr>
 					<td>보내는 분 *</td>
@@ -165,15 +165,15 @@
 				</tr>
 				<tr>
 					<td>배송 요청사항</td>
-					<td><textarea id="receive_address_request" name="receive_address_request" rows="3" cols="70"></textarea>0지/50자</td>
+					<td><textarea id="receive_address_request" name="receive_address_request" rows="3" cols="70"></textarea><span id="request_span"></span>자/50자</td>
 				</tr>
 			</table>
 		</div>
 		<br><br><br><br><br><br>
 		
-<input type="hidden" id="disc_coupon" name="disc_coupon" value="0" size="2">
-<input type="hidden" id="disc_point" name="disc_point" value="0" size="2">
-<input type="hidden" id="totalprice" name="totalprice" value="0" size="2">
+		<input type="hidden" id="disc_coupon" name="disc_coupon" value="0" size="2">
+		<input type="hidden" id="disc_point" name="disc_point" value="0" size="2">
+		<input type="hidden" id="totalprice" name="totalprice" value="0" size="2">
 
 		<!-- 로그인 했을때만 보이기 -->
 		<div class="divback">
@@ -299,7 +299,6 @@
 
 		</form>
 	</div>
-
 
 
 </body>

@@ -51,7 +51,7 @@ function isPostNum2(obj) {
 	var userinput = eval("document.userinput");
 	var pw = obj.value;
 	if(userinput.userpw.value != pw) {
-// 		alert("cc");
+
 		$(".txt2_1").text("비밀번호가 일치하지 않습니다.");
 	    $(".txt2_1").css("color","red");
 	}else{
@@ -71,7 +71,7 @@ function isCheckKeybord(obj) {
 	var userinput = eval("document.userinput");
 	
 	if(!/^[a-zA-Z0-9]{6,16}$/.test(inputid)) {
-        /* alert("[아이디]는 숫자와 영문자 조합으로 6~16자까지 사용 가능합니다."); */
+        
 		$(".txt1").text("숫자와 영문자 조합으로 6~16자까지 사용 가능합니다.");
 	    $(".txt1").css("color","red");
 	}
@@ -86,7 +86,7 @@ function isCheckKeybordName(obj) {
 	var deny_char = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|\*]+$/;
 	
  	if (!deny_char.test(inputname)) {
-//  		alert("dd");
+
  		$(".txt3").text("영문자 또는 한글 입력을 입력해주세요");
 	    $(".txt3").css("color","red");
  	}
@@ -135,16 +135,15 @@ function idCheck(focusYN) {
     
  //   boolean idcheck = false;
     
-//     alert("ok");
-//     alert($("#_id").val());
+
     $.ajax({
 		url:"/member/getIDCheck",
 		type:"get",
 		data:{id:$("#_id").val()},
 		success:function(msg){
-//  			alert("suc");
+
 			if(msg == 'YES'){
-	 			alert("msg == YES");	// id있음	
+// 	 			alert("msg == YES");	// id있음	
 	 		$("#_rgetid").html("사용할 수 없는 아이디입니다.");
 	 		$("#_rgetid").css("color", "#b3130b");
 	 		$("#_id").val("");
@@ -446,7 +445,7 @@ function checkIt() {
 				<input type="button" id="_emailNumBtn" value="인증번호 확인" class="regibutton"/>
 							<input type="hidden" id="_hiddenCode" name="hiddenCode" placeholder="확인용">
 							<input type="hidden" id="_checkCode" name="checkCode" placeholder="이메일 인증했는지 체크">
-				<p id="emailNumText"></p>
+				<p id="emailNumText" class="txt txt2"></p>
 			</td>
 		</tr>
 		<tr>
@@ -571,12 +570,9 @@ $(document).ready(function() {
           number = number - 10000;
        }
 
-//        $("#_hiddenCode").val(number);      /* hidden으로 인증번호를 넣어놓는다. */
-    
-//	   alert("이메일 인증 클릭"); 
 	   var e1 = $("#_ic_email1").val();
 	   var e2 = $("#_email2").val();
-//		  alert(e1+e2);
+
 			$.ajax({
 			    url:"/member/getEmailCheck",
 			    type:"get",
@@ -585,10 +581,15 @@ $(document).ready(function() {
 			    		code: number		
 			    },
 			  	success:function(code){
+			  		
+			  		if(code=='no'){
+			  			alert("이미 등록되어있는 이메일입니다.");
+			  		}else{
 				  
-					alert("[" + e1+"@"+e2+ "]" + " 이메일로 인증번호를 보냈습니다.");
-//					alert("code: " + code);  
-					$("#_hiddenCode").val(code);
+						alert("[" + e1+"@"+e2+ "]" + " 이메일로 인증번호를 보냈습니다.");
+	
+						$("#_hiddenCode").val(code);
+			  		}
 			  	},
 			    	error(){
 				  		alert("err");
@@ -610,24 +611,30 @@ $(document).ready(function(){
 		var emailcode = $("#_hiddenCode").val();	// 이메일로 발송된 인증번호
 		
 		if(usercode=="" || usercode==null){
-			alert("인증번호를 입력해 주세요");
+// 			alert("인증번호를 입력해 주세요");
+			$("#emailNumText").text("인증번호를 입력해 주세요");
+			$("#emailNumText").css("color","#B3130B");
 			$("#_emailText").focus();
 		}
 		if(emailcode=="" || emailcode==null){
-			alert("이메일 인증번호를 발급받으세요");			
+// 			alert("이메일 인증번호를 발급받으세요");		
+			$("#emailNumText").text("이메일 인증번호를 발급받으세요");
+			$("#emailNumText").css("color","#B3130B");
+			$("#_emailText").focus();
 		}
-		
-		if(usercode == emailcode){
-		//	alert("확인되었습니다.");
+		if(emailcode==""){
+			$("#emailNumText").text("이메일을 입력해주세요");
+			$("#emailNumText").css("color","#B3130B");
+		}
+		else if(usercode == emailcode){
 			$("#_emailText").css("background-color","f1f1f1");
 			$("#emailNumText").text("이메일 인증 완료");
-			$("#emailNumText").css("color","green");
+			$("#emailNumText").css("color","#0B0FB3");
 			$("#_checkCode").val(emailcode);
 			
 		}else{
-		//	alert("인증번호가 틀렸습니다. 다시 확인해주세요");
 			$("#emailNumText").text("인증번호가 틀렸습니다. 다시 확인해주세요");
-			$("#emailNumText").css("color","red");
+			$("#emailNumText").css("color","#B3130B");
 			$("#_emailText").focus();
 		}
 
@@ -693,7 +700,7 @@ $(document).ready(function() {
    })
 
    $("#enterBtn").click(function() {   /* 내가 작성한 번호와 인증번호를 비교한다 */
-      alert($("#text").val());
+      
       var userNum = $("#userNum").val();
       
       var sysNum = $("#text").val();         
@@ -705,11 +712,11 @@ $(document).ready(function() {
       else{
           
           if(userNum.trim() == sysNum.trim()){
-             alert("성공");
+             alert("확인되었습니다.");
              $("#textresult").val(sysNum);
           }
           else {
-             alert("실패");
+//              alert("실패");
           }          
       }
 

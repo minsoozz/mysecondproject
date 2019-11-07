@@ -56,6 +56,15 @@ public class ProductDetailController {
 	      productDto.setP_price2(formatter.format(productDto.getP_price()));
 	      productDto.setBfs_price2(formatter.format(productDto.getBfs_price()));
 	      
+	      log.info("------------" + product.getMdate());
+	      
+	      if(productDto.getMdate() != null || ("").equals(productDto.getMdate())){
+		      String madeYear = productDto.getMdate().substring(0,4);
+	   	      String madeMonth = productDto.getMdate().substring(4);
+	   	      productDto.setMadeYear(madeYear);
+	   	      productDto.setMadeMonth(madeMonth);
+	      }
+	      
 	    // 위시리스트 중복 체크
 	       WishlistDto wish = new WishlistDto();
 	       //접속 ID GET

@@ -19,6 +19,7 @@ clear:both;visibility:hidden;line-height:0;height:0}
 
 .owl-carousel .owl-stage-outer
 {position:relative;overflow:hidden;
+margin-left:30px;
 -webkit-transform:translate3d(0,0,0)}
 
 .owl-carousel .owl-item,.owl-carousel .owl-wrapper

@@ -16,14 +16,14 @@ $(document).ready(function () {
 		}
 	});
 	
-	$("#deliveryIngBtn").click(function () {
-		alert("1");
-		$("#delivery_frm").attr("action","/admin/company/payment/delivery/ing").submit();
+	$("#deliveryIngChangeBtn").click(function () {
+		//alert("1");		
+		$("#delivery_frm").attr("action","/admin/company/payment/delivery/ing/change").submit();
 	});
 	
-	$("#deliveryFinishBtn").click(function () {
-		alert("2");
-		$("#delivery_frm").attr("action","/admin/company/payment/delivery/finish").submit();
+	$("#deliveryFinishChangeBtn").click(function () {
+		//alert("2");
+		$("#delivery_frm").attr("action","/admin/company/payment/delivery/finish/change").submit();
 	});
 	
 	

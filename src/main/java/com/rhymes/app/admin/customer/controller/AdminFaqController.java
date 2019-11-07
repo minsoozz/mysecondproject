@@ -22,7 +22,6 @@ public class AdminFaqController {
 	@Autowired
 	private AdminFaqService faqService;
 	
-	
 	@RequestMapping(value = "/faqlist", method = {RequestMethod.GET, RequestMethod.POST})
 	public String faqlist(Model model, CustomerParam param){
 		

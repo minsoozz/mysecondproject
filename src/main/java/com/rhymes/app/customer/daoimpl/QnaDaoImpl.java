@@ -94,23 +94,5 @@ public class QnaDaoImpl implements QnaDao {
 		return n>0?true:false;
 	}
 
-	//답글 작성
-	@Override
-	public boolean QnaAnswer(QnaDto dto) throws Exception {
-		
-		QnaDto qnadto = sqlSession.selectOne(ns+"getQnaDetail", dto.getSeq());
-		
-		sqlSession.update(ns+"QnaAnswer", qnadto);
-		
-		dto.setRef(qnadto.getRef());
-		dto.setStep(qnadto.getStep());
-		dto.setDepth(qnadto.getDepth());
-		
-		int n = sqlSession.insert(ns+"QnaAnswerAf", dto);
-		
-		return n>0?true:false;
-	}
-	
-	
 	
 }

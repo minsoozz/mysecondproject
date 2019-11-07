@@ -28,13 +28,22 @@ public interface CompanyAdminPaymentService {
 	// 결제완료로 변경
 	public boolean paymentfinish(String seq);
 
-	// 배송관리
-	public List<DeliveryDTO> getDeliveryList(String userid);
+	
+	
+	// 배송
+	// 배송 준비 중
+	public List<DeliveryDTO> getDeliveryReadyList(String userid);
+	
+	// 배송 중
+	public List<DeliveryDTO> getDeliveryIngList(String userid);
 	
 	// 배송준비 중 -> 배송 중
-	public boolean getDeliveryIng(DeliveryDTO dto);
+	public boolean getDeliveryIngChange(String payment_code);
 	
 	// 배송중 -> 배송완료
-	public boolean getDeliveryFinish(DeliveryDTO dto);
+	public boolean getDeliveryFinishChange(String payment_code);
+
+	// 추가 적립금 저장
+	public boolean add_point(String userid, String add_point);
 
 }
