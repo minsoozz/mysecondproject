@@ -30,7 +30,7 @@
 			<tr>
 				<th>쿠폰번호</th>
 				<th>쿠폰이름</th>
-				<th>쿠폰내용</th>
+				<!-- <th>쿠폰내용</th> -->
 				<th>할인액(률)&nbsp;적립액(률)</th>
 				<th>사용기간</th>
 			</tr>
@@ -38,7 +38,7 @@
 				<tr>
 					<td>${c.coup_code }</td>
 					<td>${c.title }</td>
-					<td>${c.sub_title }</td>
+					<%-- <td>${c.sub_title }</td> --%>
 					<td><c:choose>
 							<c:when test="${c.func_measure == '원' }">
 								<fmt:formatNumber value="${c.func_num}" type="number" />${c.func_measure }
@@ -58,7 +58,7 @@
 			<ul>
 				<li style="text-align: left;">사용 쿠폰 선택</li>
 			</ul>
-		</div><br><br>
+		</div>
 
 		<table class="payment_coupon_tb">
 			<tr>

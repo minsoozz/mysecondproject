@@ -94,16 +94,16 @@ public class listProductExcelDownload extends AbstractXlsxView {
         row.createCell(3).setCellValue("재고수량");
         row.createCell(4).setCellValue("업체명");
         row.createCell(5).setCellValue("상품명");
-        row.createCell(6).setCellValue("CP_CODE");
-        row.createCell(7).setCellValue("단일가격");
-        row.createCell(8).setCellValue("BFS_PRICE");
+        row.createCell(6).setCellValue("업체_상품일련번호");
+        row.createCell(7).setCellValue("결제 금액");
+        row.createCell(8).setCellValue("세일 전 금액");
         row.createCell(9).setCellValue("색상");
-        row.createCell(10).setCellValue("C1_NAME");
-        row.createCell(11).setCellValue("C2_NAME");
-        row.createCell(12).setCellValue("C3_NAME");
+        row.createCell(10).setCellValue("대분류");
+        row.createCell(11).setCellValue("중분류");
+        row.createCell(12).setCellValue("소분류");
         row.createCell(13).setCellValue("원산지");
-        row.createCell(14).setCellValue("MDATE");
-        row.createCell(15).setCellValue("RDATE");
+        row.createCell(14).setCellValue("생산일");
+        row.createCell(15).setCellValue("등록일");
         
         
         
