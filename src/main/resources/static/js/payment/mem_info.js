@@ -19,14 +19,14 @@ $(document).ready(function () {
 		var to = $("#to").val();
 		
 		if(to == "" || to == null){
-			alert("빈칸이나 공백을 채워주세요");
+			alert("전화번호를 입력해주세요");
 		}else {
 			var con_test = confirm("해당번호로 인증문자를 발송하시겠습니까?");   /* 문자를 보낼껀지 물어본다 */
 			
 			if(con_test == true){
 				if(count < 3){      /* 추후 데이터베이스에 컬럼 값을 확인하여 count 값을 비교 할 예정 */
 					
-					alert("text : " + text + ", to : " + to);
+					//alert("text : " + text + ", to : " + to);
 					
 					$.ajax({
 						url:"/sendsms",
@@ -38,7 +38,7 @@ $(document).ready(function () {
 					success:function(data){
 						alert("해당 휴대폰으로 인증번호를 발송" + data + " 했습니다");
 						count++;
-						alert(count);
+						//alert(count);
 					},
 					error:function(){
 						alert("발송실패");
@@ -66,7 +66,7 @@ $(document).ready(function () {
 		}else{
 			if(userNum.trim() == sysNum.trim()){
 				alert("성공");
-				$("#_text_confirm").val( sysNum );
+				$("#text_confirm").val( sysNum );
 			}else {
 				alert("실패");
 			}

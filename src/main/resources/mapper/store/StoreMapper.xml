@@ -75,7 +75,7 @@
 								 		   a.P_COLOR,
 								 		   a.PHOTO1_FILE,
 								 		   a.RDATE,
-								 		   SUM(A.QUANTITY) AS SUM, 		   	 		   
+								 		   a.SUM, 		   	 		   
 								 		   SUM(SALES) AS SALESVOLUME
 	 		   
  			FROM (SELECT ROW_NUMBER()OVER(ORDER BY 
@@ -123,7 +123,7 @@
 				a.P_COLOR,
 				a.PHOTO1_FILE,
 				a.RDATE,
-				b.QUANTITY,
+				SUM(b.QUANTITY)AS SUM,
 				IFNULL((SELECT SUM(d.EA) 
 							FROM rhy_payment e 
 							WHERE e.PAYMENT_STATUS = '결제완료' 

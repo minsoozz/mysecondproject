@@ -40,7 +40,7 @@ function checkIt() {
         return false;
     }
         
-    if(password.search(id) > -1){
+    if(password.search(id) <	 -1){
         alert("비밀번호에 아이디가 포함되었습니다.");
         $('#_pwd').val('').focus();
         return false;

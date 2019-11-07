@@ -14,13 +14,10 @@
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/notes.css">
 </head>
-<body>
-
 <div class="mypage_main_content_title" align="left">
-	<h3>쪽지함</h3>
-	<!-- <hr class="hr-rhy-title"> -->
+<h3 id="review_title">쪽지함</h3>
 </div>
-
+<body>
 <div>
 <button type="button" id="_send" name="send" class="rhybtn">쪽지 보내기</button>
 

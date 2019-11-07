@@ -62,7 +62,7 @@
 					<form id="deleteform">
 					<input type="hidden" id="s_id" name="s_id" value="">
 					<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
-					<col width="10"><col width="50"><col width="50"><col width="30"><col width="30"><col width="30"><col width="30"><col width="30">
+					<col width="10"><col width="50"><col width="50"><col width="30"><col width="30"><col width="30"><%-- <col width="30"> --%><col width="30">
 						<thead>
 							<tr align="center">
 								<th class="list_checkbox" align="center"><input type="checkbox" id='allCheck'>
@@ -72,7 +72,7 @@
 								<th>경고 횟수</th>
 								<th>판매등록</th>
 								<th>판매완료</th>
-								<th>평균 판매율</th>
+								<!-- <th>평균 판매율</th> -->
 								<th>계정잠금</th>
 								</tr>
 						</thead>
@@ -83,9 +83,8 @@
 								</tr>
 							</c:if>
 							<c:forEach items="${list }" var="list">
-								<c:set var="na" value="${list.scount / list.pcount }"/> 
-								
-								
+								<c:set var="na" value="${ (list.scount / list.pcount) }"/> 
+
 								<%
 								Double str = (Double)pageContext.getAttribute("na");
 								
@@ -108,7 +107,7 @@
 									<td>${list.blackcount }번</td>
 									<td>${list.scount }개</td>
 									<td>${list.pcount }개</td>
-									<td>${str2 }%</td>
+<%-- 									<td>${str2 }%</td> --%>
 								<c:if test="${list.isAccountNonLock ne 'true'}">
 									<td style="font-weight: bold; color: red;">${list.isAccountNonLock }</td>
 								</c:if>

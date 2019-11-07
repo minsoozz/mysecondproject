@@ -65,8 +65,7 @@
 
 						<thead>
 							<tr align="center">
-								<th class="list_checkbox"><input type="checkbox" 
-									id='allCheck'>
+								<th class="list_checkbox"><input type="checkbox" id='allCheck'>
 								</th>
 								<th>아이디</th>
 								<th>카테고리</th>
@@ -89,7 +88,7 @@
 									<td><input type="checkbox" name="chbox" id="chbox" value="${list.seq }"></td>
 									<td>${list.s_id }</td>
 									<td>${list.category }</td>
-									<td>${list.title }</td>
+									<td><a href="#none" onclick="godetail(${list.seq})">${list.title }</a></td>
 									<td>${list.price }</td>
 									<td>${list.quantity }</td>
 									<td>${list.rdate }</td>
@@ -134,9 +133,14 @@
 
 <script type="text/javascript">
 
+function godetail(seq){
+	
+	location.href='/used/useddetail?seq='+seq;
+}
+
 $("#admindel").click(function() {
 	
-	var lan  = $("input:checkbox[name=ckbox]:checked").length;
+	var lan  = $("input:checkbox[name=chbox]:checked").length;
 	
 	if(lan == 0){
 		alert("삭제 할 항목을 선택해주세요");
