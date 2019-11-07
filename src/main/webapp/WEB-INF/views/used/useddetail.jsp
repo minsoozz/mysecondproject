@@ -519,11 +519,11 @@ $(function(){
 				var arrow = "<img src='/img/used-img/arrow.png' width='10px' height='10px' style='margin-left: 15px'/>";
 				
 				if(depth > 0){
-					html += "<tr class='ctr'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+					html += "<tr class='ctr'><td>"+arrow+"&nbsp;<strong>"+data[i].id+"</strong></td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
 			
 						
 				} else {
-					html += "<tr class='ctr'><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+					html += "<tr class='ctr'><td><strong>"+data[i].id+"</strong></td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
 						
 				}
 				
