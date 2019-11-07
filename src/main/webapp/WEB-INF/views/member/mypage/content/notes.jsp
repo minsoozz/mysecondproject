@@ -14,6 +14,9 @@
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/notes.css">
 </head>
+<div class="mypage_main_content_title" align="left">
+<h3 id="review_title">쪽지함</h3>
+</div>
 <body>
 
 <div class="mypage_main_content_title" align="left">

@@ -10,13 +10,13 @@ $(document).ready(function () {
 		var b = $("input:checkbox[id='oldaddress']").is(":checked");
 		
 		if(b){
-			alert("true");
+			//alert("true");
 			$("#receive_name").val( $("#send_name").val() );
 			$("#receive_phone1").val( $("#send_phone1").val() );
 			$("#receive_phone2").val( $("#send_phone2").val() );
 			$("#receive_phone3").val( $("#send_phone3").val() );
 		}else{
-			alert("false");
+			//alert("false");
 			$("#receive_name").val( "" );
 			$("#receive_phone1").val( "" );
 			$("#receive_phone2").val( "" );

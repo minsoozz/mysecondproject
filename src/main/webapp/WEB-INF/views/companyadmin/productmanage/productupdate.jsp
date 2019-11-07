@@ -272,7 +272,7 @@ $(document).ajaxSend(function(e, xhr, options) {
 	
 	<!-- 상품기본정보 수정 -->
 	<div id="updateDiv">
-		<div style="margin-bottom: 30px;"><strong>상품기본정보수정</strong></div>
+		<div style="margin-bottom: 30px;"><strong>상품기본정보 수정</strong></div>
 		
 		<div style="float:left">
 			<img src="/upload/store/${pDto.photo1_file }"  style="width:200px; height:200px; border-radius: 100%; margin-left: 50px;">
@@ -307,8 +307,6 @@ $(document).ajaxSend(function(e, xhr, options) {
 						</c:if>
 					</td>
 				</tr>
-				
-				
 				
 				<tr>
 					<th>상품 색상</th>
@@ -396,7 +394,15 @@ function handleImgsFilesSelect(e) {
 
 	filesArr.forEach(function(f) {
 		if (!f.type.match("image.*")) {
-			alert("확장자는 이미지 확장자만 가능합니다.");
+			
+			//메시지 모달
+		     $("#msg").html("<strong>이미지파일을 업로드해주세요.</strong>");
+	      	 $(".msgModal").fadeIn();
+	     	 setTimeout(function() {
+	         	$(".msgModal").fadeOut();
+	         },1000);
+			
+			
 			$("input_imgs").val("");
 			return;
 		}
@@ -548,7 +554,7 @@ $(document).on('click', '.imgUdt-finishBtn', function(){
 		      	 $(".msgModal").fadeIn();
 		     	 setTimeout(function() {
 		         	$(".msgModal").fadeOut();
-		         },800);
+		         },1000);
 			   
            },
            error : function(){
