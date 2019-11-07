@@ -4,9 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-	String ctx = request.getContextPath();
-%>
+<% String ctx = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +14,9 @@
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/content_layout.css">
 <link rel="stylesheet" href="<%=ctx%>/css/member/mypage/content/myused.css">
 </head>
+<div class="mypage_main_content_title" align="left">
+<h3 id="review_title">내 판매목록</h3>
+</div>
 <body>
 
 <div class="mypage_main_content_title" align="left">
