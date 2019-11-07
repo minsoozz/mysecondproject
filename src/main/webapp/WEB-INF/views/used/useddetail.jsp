@@ -65,8 +65,8 @@
 				<button type="button" id="_deletebtn" name="deletebtn" class="rhybtn">삭제</button>
 		</c:if>	
   
-  
   <p style="color: gray;font-size: 15px">${dto.category }</p>
+  <p style="color: gray;font-size: 15px">판매자 : ${dto.s_id }</p>
 	  <p style="color: gray;font-size: 20px;"><fmt:formatNumber value="${dto.price }" type="currency"/>원</p>		 
    	<c:if test="${dto.division eq '판매완료' }">
 		<font style="color: red;font-size: 20px; text-decoration: line-through;" ><b>${dto.division }</b></font>
@@ -519,11 +519,11 @@ $(function(){
 				var arrow = "<img src='/img/used-img/arrow.png' width='10px' height='10px' style='margin-left: 15px'/>";
 				
 				if(depth > 0){
-					html += "<tr class='ctr'><td>"+arrow+"&nbsp;"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+					html += "<tr class='ctr'><td>"+arrow+"&nbsp;<strong>"+data[i].id+"</strong></td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
 			
 						
 				} else {
-					html += "<tr class='ctr'><td>"+data[i].id+"</td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
+					html += "<tr class='ctr'><td><strong>"+data[i].id+"</strong></td><td><a href='#none' value='"+data[i].id+"' onclick='answer_comment(this,"+seq+","+ref+")'>답글</a></td><td>"+data[i].rdate+"</td>";
 						
 				}
 				

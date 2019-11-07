@@ -13,7 +13,7 @@
 
 
 
-<form action="reviewlist" name="frmForm1" id="_frmFormSearch" method="POST">
+<form action="" name="frmForm1" id="_frmFormSearch" method="POST">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>        
 
     
@@ -36,7 +36,7 @@
 <c:forEach var="review" items="${previewlist }" varStatus="vs">
 <tr class="_hover_tr">
 	<td>${vs.count }</td>
-	<td style="text-align: left;" onclick="reviewdetail(${review.seq},'${id}')">
+	<td style="text-align: left; cursor: pointer;" onclick="reviewdetail(${review.seq},'${id}')">
 			${review.title }
 	</td> 
 	<td>
@@ -53,7 +53,8 @@
 <tr class="detail" id='detail${review.seq}'>
 	<td colspan="5" align="left">
 	<div>
-	${review.p_name } _ ${review.size} size 구매
+	<h6>${review.p_name } _ ${review.size} size 구매</h6>
+	
 	${review.content }
 	
 	</div>
