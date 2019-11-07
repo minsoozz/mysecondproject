@@ -57,13 +57,13 @@
 
 
 <!-- 수정삭제버튼 -->
-
+<c:if test="${0 eq qna.step }">
 <div style="margin-bottom: 30px;">
 <!-- 코어태그 추가하기 -->
 	<button type="button"  class="customer-btn2" onclick="QnaUpdate('${qna.seq }')">수정</button>
 	<button type="button"  class="customer-btn2" onclick="QnaDelete('${qna.seq }','${qna.step }','${qna.ref }')">삭제</button>
 </div>
-
+</c:if>
 
 <script type="text/javascript">
 

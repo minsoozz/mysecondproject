@@ -17,7 +17,6 @@
 <body>
 
 	<tiles:insertAttribute name="header" />
-	<!--  /WEB-INF/views/common/layout/header.jsp -->
 
 	<div id="body_wrap">
 		<div id="middle_wrap">

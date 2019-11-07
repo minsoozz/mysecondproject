@@ -21,7 +21,7 @@
 
 
 
-	<div class="ordercheck_detail_wrap">
+	<div class="ordercheck_detail_wrap" style="margin-left: 300px;">
 
 		<div class="ordercheck_detail_title">
 			<b>주문내역/배송조회</b>

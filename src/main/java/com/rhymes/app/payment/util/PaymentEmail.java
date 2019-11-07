@@ -28,7 +28,7 @@ public class PaymentEmail {
     static final String HOST = "smtp.naver.com";
     static final int PORT = 25;
     
-    static final String SUBJECT = "메일 제목";
+    static String SUBJECT = "";
     
     private static String totalprice;
     private static String payment_code;
@@ -122,6 +122,7 @@ public class PaymentEmail {
     	send_name = dto.getSend_name();
     	NumberFormatFilter filter = new NumberFormatFilter();
     	totalprice = filter.commaFormat(dto.getTotalprice());
+    	SUBJECT = "[Rhymes 결제확인] " +send_name  + "님, (주)Rhymes에서 결제하신 내역 확인바랍니다.";
     	
     	TO = send_email;
 		log.warn("보낼 메일 : "+TO);

@@ -69,8 +69,8 @@ function price_change() {
 	}
 	
 	// 결제예상금액보다 text가 클 경우
-	if(parseInt(input_disc_point.trim()) - parseInt($("#disc_point").text()) > parseInt(totalprice)){
-		alert(parseInt(input_disc_point.trim()) + ", " + totalprice + " 사용범위를 초과하였습니다");
+	if(parseInt(input_disc_point.trim()) - parseInt($("#_disc_point").text()) > parseInt(totalprice)){
+		alert("사용범위를 초과하였습니다");
 		$("#input_disc_point").val( "0" );
 		$("#_disc_point").text( "0" );
 		$("#disc_point").val( "0" );

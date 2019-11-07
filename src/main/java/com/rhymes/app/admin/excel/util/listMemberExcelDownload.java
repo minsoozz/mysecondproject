@@ -135,8 +135,8 @@ public class listMemberExcelDownload extends AbstractXlsxView {
         row_p.createCell(6).setCellValue("연락처");
         row_p.createCell(7).setCellValue("성별");
         row_p.createCell(8).setCellValue("생년월일");
-        row_p.createCell(9).setCellValue("COUNT");
-        row_p.createCell(10).setCellValue("subscribe");
+        row_p.createCell(9).setCellValue("인증횟수");
+        row_p.createCell(10).setCellValue("???");
         
         row_c = worksheet_c.createRow(0);
         row_c.createCell(0).setCellValue("아이디");

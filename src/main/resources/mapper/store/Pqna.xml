@@ -9,10 +9,10 @@
       FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC)AS RNUM,
 					SEQ, ID, P_SEQ,WDATE,SECRET,REF,STEP,DEPTH,TITLE,CONTENT,FEEDBACK
 					FROM RHY_STORE_PRODUCTQNA
-					WHERE 1=1  
+					WHERE P_SEQ =${p_seq}
 					)A 
-			WHERE RNUM BETWEEN ${start} AND ${end}	
-			AND P_SEQ =${p_seq}
+			WHERE RNUM BETWEEN ${start} AND ${end}
+			
 			ORDER BY REF DESC, STEP ASC
     </select>
 	<!--pqna 글의 총 수  -->
