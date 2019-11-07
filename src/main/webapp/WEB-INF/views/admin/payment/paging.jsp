@@ -114,9 +114,8 @@
 		end_page = totalPageCount - 1;
 	}
 	%>
-	<!-- >> -->
-	<li class="page-item">
-
+		<!-- >> -->
+		<li class="page-item">
 	      <a href="#" class="page-link" title="마지막페이지" onclick="goPage(<%=end_page %>)" >
 
 	        <span aria-hidden="true">&raquo;</span>
