@@ -2,7 +2,7 @@ $(document).ready(function () {
 	//alert("어드민 주문");
 	
 	$("#_btnSearch").click(function () {
-		alert("검색");
+		//alert("검색");
 
 		var _recordCountPerPage = $("#_recordCountPerPage").val();
 		var _s_keyword = $("#_s_keyword").val();

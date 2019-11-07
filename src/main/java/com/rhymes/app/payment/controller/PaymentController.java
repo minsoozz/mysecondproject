@@ -154,7 +154,7 @@ public class PaymentController {
 	// 결제 후 결제완료창으로 이동
 	@RequestMapping("/paymentAf")
 	public String paymentAf(Model model, PaymentDTO dto, PaymentAfDTO dtoAf, Principal pcp) {		
-		// 결제 완료창에서 두번 
+//		// 결제 완료창에서 두번 
 		boolean get = PaymentService.check_Payment_code(dto);
 		
 		// 결제 완료 창에서 새로고침 클릭 했을 때
@@ -216,7 +216,7 @@ public class PaymentController {
 			// 적립금 차감한다
 			boolean b = PaymentService.disc_point(dto);
 		}
-		if(pcp != null && dto.getCoupon_code().length() > 0) {
+		if(pcp != null && (dto.getCoupon_code() != null || dto.getCoupon_code() != "")) {
 			// 사용한 쿠폰을 사용으로 변환
 			boolean b4 = PaymentService.update_isused_coupon(dto);
 		}
