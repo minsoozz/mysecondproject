@@ -31,7 +31,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">상품관리 > <a href="/admin/company/">재고관리</a></h6>
+			<h6 class="m-0 font-weight-bold text-primary">상품관리 > <a href="/admin/company/stockmanage">재고관리</a></h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -308,11 +308,8 @@ $('#changq-finishbtn').click(function(){
 	     	 setTimeout(function() {
 	     		$(".change_q-modal").fadeOut();
 	     		$(".msgModal").fadeOut();
-	     		//$("#applypercent").val("");
-	     		//$(".appliedPrice").html("");
-					     		
 	     		
-	         },900);			
+	         },1000);			
         },
         error:function(){
            alert("error!!"); 

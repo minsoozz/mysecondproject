@@ -31,7 +31,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">상품관리 > <a href="/admin/company/productoperlist">상품 수정/삭제(리스트)</a></h6>
+			<h6 class="m-0 font-weight-bold text-primary">상품관리 > <a href="/admin/company/productoperlist">상품 수정/SALE등록</a></h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -274,6 +274,13 @@ function numberWithCommas(x) {
 
 //상품 삭제(EACH)
 $('.eachproduct-delete').click(function(){
+	
+	
+	$("#msg").html("<strong>상품이 판매종료되었습니다.</strong>");
+ 	 $(".msgModal").fadeIn();
+	 setTimeout(function() {
+    },1000);
+		
 	var p_seq = $(this).val();
 	location.href="/admin/company/productDelete?p_seq="+ p_seq;
 });
@@ -299,14 +306,14 @@ $('#saleregister-finishBtn').click(function(){
         	$("#saleRegi-td" + p_seq).html("<font style='color:red'>SALE</font>");
         	
         	//메시지 모달
-		     $("#msg").html("<strong>상품가격이 수정되었습니다.</strong>");
+		     $("#msg").html("<strong>SALE이 적용되었습니다.</strong>");
 	      	 $(".msgModal").fadeIn();
 	     	 setTimeout(function() {
 	     		$(".productsale_modal").fadeOut();
 	     		$(".msgModal").fadeOut();
 	     		$("#applypercent").val("");
 	     		$(".appliedPrice").html("");
-	         },800);			
+	         },1000);			
         },
         error:function(){
            alert("error!!"); 

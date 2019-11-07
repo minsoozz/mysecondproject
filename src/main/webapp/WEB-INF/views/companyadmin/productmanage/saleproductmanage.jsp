@@ -25,7 +25,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">상품 관리 > SALE상품관리</h6>
+			<h6 class="m-0 font-weight-bold text-primary">상품 관리 > <a href="/admin/company/saleproductmanage">SALE관리</a></h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -245,7 +245,7 @@ $('.salecancel-btn').click(function(){
 	      	 $(".msgModal").fadeIn();
 	     	 setTimeout(function() {
 	     		$(".msgModal").fadeOut();    	
-	         },500);			 
+	         },1000);			 
         },
         error:function(){
            alert("error!!"); 
