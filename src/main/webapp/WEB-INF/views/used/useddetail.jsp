@@ -65,8 +65,8 @@
 				<button type="button" id="_deletebtn" name="deletebtn" class="rhybtn">삭제</button>
 		</c:if>	
   
-  
   <p style="color: gray;font-size: 15px">${dto.category }</p>
+  <p style="color: gray;font-size: 15px">판매자 : ${dto.s_id }</p>
 	  <p style="color: gray;font-size: 20px;"><fmt:formatNumber value="${dto.price }" type="currency"/>원</p>		 
    	<c:if test="${dto.division eq '판매완료' }">
 		<font style="color: red;font-size: 20px; text-decoration: line-through;" ><b>${dto.division }</b></font>
