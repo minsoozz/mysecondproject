@@ -391,7 +391,7 @@ public class UsedController {
 		return "redirect:/used/usedlist";		
 
 	}
-		
+	
 	@RequestMapping(value="usedupdateAf", method = RequestMethod.POST)	// 중고상품 글쓰기 수정 
 	public String usedupdateAf(ProductsDto Pdto, MultipartHttpServletRequest mfreq,
 			HttpServletRequest req,String[] originfile) throws Exception {
@@ -405,44 +405,33 @@ public class UsedController {
 		}
 		
 		List<MultipartFile> list = mfreq.getFiles("files");
-		
 		int size = list.size();
-
 		Iterator<String> files = mfreq.getFileNames();
-		
 		MultipartFile mpf = mfreq.getFile(files.next());
-		
 		String path = req.getServletContext().getRealPath("/upload/used");
-    
+   
 		if(list != null && size > 0) {
 			for(MultipartFile mf : list) {
 				String originFileName = mf.getOriginalFilename().trim();
 	            String systemFileName = System.currentTimeMillis() + originFileName;	            
 	            
 				if(!mf.getOriginalFilename().equals("")) {
-	            
-	            photo += originFileName + ",";
-	            photo_sys += systemFileName + ",";
-          
-	            long fileSize = mf.getSize();
-      
-				FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
-				
-				// System.out.println(path); // 업로드 경로
-				
-				 fs.write(mf.getBytes());
-				 fs.close();				 
-	            
+		            
+		            photo += originFileName + ",";
+		            photo_sys += systemFileName + ",";
+	          
+		            long fileSize = mf.getSize();
+					FileOutputStream fs = new FileOutputStream(path + "/" + systemFileName);
+					 fs.write(mf.getBytes());
+					 fs.close();				     
 				}
 			}
 		}
-
 		 Pdto.setPhoto(photo);
 		 Pdto.setPhoto_sys(photo_sys);
-
 		 boolean b = usedService.UsedUpdate(Pdto);
 
-		return "redirect:/used/usedlist";
+		 return "redirect:/used/usedlist";
 	}
 	
 	@GetMapping(value="/addlikes")	// 좋아요 추가,삭제
