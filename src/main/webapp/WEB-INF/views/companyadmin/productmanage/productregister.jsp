@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,15 +98,28 @@
 	<tr style="height:40px;">
 		<td>제조년월</td>
 		<td>
-			<input type="text" style="width:70px; height:15px; text-align: center;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="_pmdate1">
-			년	&nbsp;&nbsp;
-			<!-- <input type="text" style="width:50px; height:15px; text-align: center;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="_pmdate2"> -->
+			<!-- <input type="text" style="width:70px; height:15px; text-align: center;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="_pmdate1">
+			년	&nbsp;&nbsp; -->
+			
+			<select id="_pmdate1" class='yearSelect' onchange="changeMyear(this.value)">
+								<c:set var="today" value="<%=new java.util.Date()%>" />
+								<fmt:formatDate value="${today}" pattern="yyyy" var="start" />
+								<c:forEach begin="0" end="10" var="idx" step="1">
+									<option value="<c:out value="${start - idx}" />"
+										<c:out value="${pDto.madeYear == (start - idx) ? 'selected':'' }"/>>
+										<c:out value="${start - idx}" />
+									</option>
+								</c:forEach>
+			</select>년&nbsp;&nbsp;
+			
+			
+			
+			
 			<select class='monthSelect' id="_pmdate2">
 			<%for(int i=1; i < 13; i++){ %>
 				<option value=<%=i %>><%=i%></option>월
 			<%} %>	
 			</select>월
-			
 		</td>
 	</tr>
 </table>	
@@ -225,8 +239,6 @@
 
 <!-- 판매등록 버튼 -->
 
-<!-- <button id="finishBtn" class="f_button">판매등록하기</button> -->
- <!-- enctype="multipart/form-data" --> 
 
 <form action="/admin/company/registerInsert" enctype="multipart/form-data" method="post">
 	
@@ -265,6 +277,13 @@
 
 <input type='hidden' id="c2_seq">
 
+<!-- 메시지 MODAL영역 -->
+<div class="msgModal">
+   <div class="msg-content">
+      <span id="msg"></span>
+   </div>
+</div>
+
 <!--------------------------------------------- ★SCRIPT ZONE★ ---------------------------------------------->
 <script>
 var sizeArr = new Array();
@@ -291,16 +310,14 @@ function numberWithCommas(x) {
 
 $(document).on('click', '#finishBtn', function(){
 	
+	alert("상품등록이 완료되었습니다");
 	/* if($("#_pname").val()!="" && $("#_ptitle").val() && ) */
-	
 	
 	//메시지 모달
      $("#msg").html("<strong>상품등록이 완료되었습니다.</strong>");
      	 $(".msgModal").fadeIn();
     	 setTimeout(function() {
-    		$(".change_q-modal").fadeOut();
     		$(".msgModal").fadeOut();
-    		
      },1000);	
 	
 	$("#p_name").val($("#_pname").val());
@@ -320,7 +337,6 @@ $(document).on('click', '#finishBtn', function(){
 	}
 	
 	$("#p_quantity").val(quantities);
-	
 	
 	
 	/* 에디터 value 가져오기 */
