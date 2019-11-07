@@ -216,7 +216,7 @@ public class PaymentController {
 			// 적립금 차감한다
 			boolean b = PaymentService.disc_point(dto);
 		}
-		if(pcp != null && dto.getCoupon_code().length() > 0) {
+		if(pcp != null && (dto.getCoupon_code() != null || dto.getCoupon_code() != "")) {
 			// 사용한 쿠폰을 사용으로 변환
 			boolean b4 = PaymentService.update_isused_coupon(dto);
 		}

@@ -130,7 +130,7 @@ public class AdminMemberController {
 	@RequestMapping(value = "/memLock", method = {RequestMethod.GET, RequestMethod.POST})
 	public String memLock(MemBean bean, HttpServletRequest req) {
 		log.info("show admin memLock");
-
+		
 		if(bean.getAuthority().equals("ROLE_SELLER")) {
 			String dd[] = req.getParameterValues("checkid");
 			int checklen = dd.length;
