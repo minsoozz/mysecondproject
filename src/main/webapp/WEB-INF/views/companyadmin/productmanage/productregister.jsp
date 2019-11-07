@@ -293,7 +293,16 @@ $(document).on('click', '#finishBtn', function(){
 	
 	/* if($("#_pname").val()!="" && $("#_ptitle").val() && ) */
 	
-	alert("등록이 완료되었습니다.");
+	
+	//메시지 모달
+     $("#msg").html("<strong>상품등록이 완료되었습니다.</strong>");
+     	 $(".msgModal").fadeIn();
+    	 setTimeout(function() {
+    		$(".change_q-modal").fadeOut();
+    		$(".msgModal").fadeOut();
+    		
+     },1000);	
+	
 	$("#p_name").val($("#_pname").val());
 	$("#p_title").val($("#_ptitle").val());
 	
