@@ -12,6 +12,8 @@
 <!-- include summernote css/js-->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/admin/customer/customerlist.css">
 
 <!DOCTYPE html>
 <html>
@@ -78,10 +80,10 @@
 				
 				<div id="button.wrap">
 					<span class="button blue">
-						<button type="button" id="_btnUpdate">저장</button>
+						<button type="button" class="clickBtn2" id="_btnUpdate">저장</button>
 					</span>
 						<span class="button blue">
-						<button type="button" id="_btnBack">목록</button>
+						<button type="button" class="clickBtn2" id="_btnBack">목록</button>
 					</span>
 				</div>
 				

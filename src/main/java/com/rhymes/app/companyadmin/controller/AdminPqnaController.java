@@ -54,7 +54,7 @@ public class AdminPqnaController {
 			model.addAttribute("s_category",param.getS_category());
 			
 			return "adminpqnalist.tiles";
-		}
+		}  
 		
 		//pqnadetail
 		@GetMapping("/pqnadetail")

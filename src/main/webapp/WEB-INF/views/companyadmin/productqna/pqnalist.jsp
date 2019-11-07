@@ -51,7 +51,7 @@
 				    
 				<table class="table table-bordered" style="width:100%" >
 				<colgroup>
-					<col width="100"><col width="150"><col width="150"><col width="700"><col width="150"><col width="150">
+					<col width="100"><col width="100"><col width="250"><col width="500"><col width="150"><col width="150">
 				</colgroup>
 				<thead>
 				<tr>

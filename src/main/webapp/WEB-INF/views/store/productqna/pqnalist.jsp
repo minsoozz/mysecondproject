@@ -57,7 +57,7 @@
 		<c:forEach var="pqna" items="${pqnalist }" varStatus="vs">
 		<tr class="_hover_tr">
 			<td>${vs.count }</td>
-			<td style="text-align: left;" onclick="pqnadetail(${pqna.seq},${pqna.secret},'${pqna.id}','${loginid}' )">
+			<td style="text-align: left; cursor: pointer;" onclick="pqnadetail(${pqna.seq},${pqna.secret},'${pqna.id}','${loginid}' )">
 			
 			<!-- 비밀글 이미지-->
 			<jsp:setProperty property="secret" name="spqna" value="${pqna.secret }"/>
@@ -177,7 +177,7 @@ function PqnaWrite( p_seq ,loginid) {
 function goPage(pageNumber) {
 	
 	$("#_pageNumber").val(pageNumber);  // 들어오는 값을 가져옴 
-	$("#_frmFormSearch").attr("action", "/productqna/pqnalist").submit(); //
+	$("#_frmFormSearch").attr("action", "pqnalist").submit(); //
 	
 }
 
