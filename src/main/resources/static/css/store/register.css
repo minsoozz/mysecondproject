@@ -128,6 +128,15 @@ table th{
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     cursor: pointer
 }
+.yearSelect{
+	width: auto;
+	height : 35px;
+	font: 100 13px Open Sans;
+	padding-left:2%;
+	border-radius: 7px;
+	text-align: center;
+	margin-right: 4px;
+}
 .monthSelect{
 	width: 55px;
 	height : 35px;
