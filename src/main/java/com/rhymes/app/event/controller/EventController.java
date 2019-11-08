@@ -190,6 +190,39 @@ public class EventController {
 
 		return msg;
 	}
+
+	
+	
+	/* 기간제 특별 이벤트 관련 */
+	
+	//SMS 연동 이벤트
+	@GetMapping("/eventdetail/sms")
+	public String eventdetailSms(Model model) {
 		
+		EventDTO event = eventService.geteventdetail(new EventDTO(90));
+		
+		// 오늘 날짜를 얻어옴
+		Calendar cal = Calendar.getInstance();
+		int tyear = cal.get(Calendar.YEAR);
+		int tmonth = cal.get(Calendar.MONDAY) +1;
+		int tday = cal.get(Calendar.DATE);
+		
+		int nowdate = Integer.parseInt(tyear+""+tmonth+""+tday);
+		
+		String eedate = event.getEdate();
+		String edate[] = eedate.split("-");
+		String eyear = edate[0];
+		String emonth = edate[1];
+		String eday = edate[2];
+		
+		int enddate = Integer.parseInt(eyear+""+emonth+""+eday);
+		
+		model.addAttribute("nowdate", nowdate);
+		model.addAttribute("enddate", enddate);
+
+		model.addAttribute("event", event);
+
+		return "eventdetail/period/smsspecial";
+	}
 
 }
