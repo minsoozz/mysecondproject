@@ -28,7 +28,12 @@
 	<c:forEach var="event" items="${eventlist }" varStatus="vs">
 	<tr>
 		<td colspan="2">
-			<img alt="x" src="/upload/event/${event.photo_banner }" onclick="godetail(${event.seq})" class="bannerimg">
+			<c:if test="${event.seq == 90 }">
+				<img alt="x" src="/upload/event/${event.photo_banner }" onclick="location.href='/event/eventdetail/sms';" class="bannerimg">
+			</c:if>
+			<c:if test="${event.seq != 90 }">
+				<img alt="x" src="/upload/event/${event.photo_banner }" onclick="godetail(${event.seq});" class="bannerimg">
+			</c:if>	
 		</td>
 	</tr>
 	<tr>

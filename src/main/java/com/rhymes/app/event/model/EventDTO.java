@@ -76,4 +76,8 @@ public class EventDTO implements Serializable {
 		
 	}
 
+	//seq만 갖는 생성자
+	public EventDTO(int seq) {
+		this.seq = seq;
+	}
 }

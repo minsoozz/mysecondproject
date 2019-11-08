@@ -23,6 +23,12 @@
    		<put-attribute name="body" value="/WEB-INF/views/event/eventListEnd.jsp" />
    </definition>
    
+   
+   <!-- 기간제 특별 이벤트 -->
+   <!-- SMS 연동 이벤트 -->
+   <definition name="eventdetail/period/*" extends="eventList.tiles">
+   		<put-attribute name="body" value="/WEB-INF/views/event/period/{1}.jsp" />
+   </definition>
 
    
 </tiles-definitions>
