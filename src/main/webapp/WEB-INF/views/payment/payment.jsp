@@ -83,6 +83,7 @@
 						<input type="text" id="userNum" placeholder="인증번호 입력">
 						<!-- 인증번호 입력창 -->
 						<input type="button" id="enterBtn" value="확인">
+						<b id="b_confirm"></b>
 						<input type="hidden" name="text" id="text">
 						<!-- 인증번호를 히든으로 저장해서 보낸다 -->
 						<input type="hidden" id="text_confirm"></td>

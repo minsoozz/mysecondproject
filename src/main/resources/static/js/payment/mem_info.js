@@ -36,7 +36,7 @@ $(document).ready(function () {
 							text: text
 					},
 					success:function(data){
-						alert("해당 휴대폰으로 인증번호를 발송" + data + " 했습니다");
+						//alert("해당 휴대폰으로 인증번호를 발송" + data + " 했습니다");
 						count++;
 						//alert(count);
 					},
@@ -65,8 +65,9 @@ $(document).ready(function () {
 			alert("휴대폰으로 발송된 인증번호를 입력해주세요");
 		}else{
 			if(userNum.trim() == sysNum.trim()){
-				alert("성공");
+				alert("인증 성공");
 				$("#text_confirm").val( sysNum );
+				$("#b_confirm").text( "인증 성공" );
 			}else {
 				alert("실패");
 			}

@@ -1,10 +1,6 @@
 $(document).ready(function () {
 	//alert("payment.js");
 	var constraints = true;
-	
-	if(event.keyCode == 116){
-		alert("새로고침");
-	}
 		
 });
 
